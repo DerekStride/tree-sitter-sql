@@ -1,11 +1,115 @@
 [
   {
-    "type": "source_file",
+    "type": "from",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_from",
+          "named": true
+        },
+        {
+          "type": "table_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "query",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "select_statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "select",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_select",
+          "named": true
+        },
+        {
+          "type": "select_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "select_expression",
     "named": true,
     "fields": {}
   },
   {
-    "type": "hello",
+    "type": "select_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "from",
+          "named": true
+        },
+        {
+          "type": "select",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "table_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "table_name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "table_name",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "*",
     "named": false
+  },
+  {
+    "type": ";",
+    "named": false
+  },
+  {
+    "type": "keyword_from",
+    "named": true
+  },
+  {
+    "type": "keyword_select",
+    "named": true
   }
 ]

@@ -1,9 +1,108 @@
 {
   "name": "sql",
   "rules": {
-    "source_file": {
-      "type": "STRING",
-      "value": "hello"
+    "query": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "select_statement"
+        }
+      ]
+    },
+    "keyword_select": {
+      "type": "PATTERN",
+      "value": "select|SELECT"
+    },
+    "keyword_from": {
+      "type": "PATTERN",
+      "value": "from|FROM"
+    },
+    "select_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "select"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "from"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": ";"
+        }
+      ]
+    },
+    "select": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_select"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "select_expression"
+        }
+      ]
+    },
+    "select_expression": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "*"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_identifier"
+            }
+          ]
+        }
+      ]
+    },
+    "from": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_from"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "table_expression"
+        }
+      ]
+    },
+    "table_expression": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "table_name"
+        }
+      ]
+    },
+    "table_name": {
+      "type": "SYMBOL",
+      "name": "_identifier"
+    },
+    "_identifier": {
+      "type": "PATTERN",
+      "value": "([a-zA-Z_$][0-9a-zA-Z_]*)|\\d+"
     }
   },
   "extras": [
