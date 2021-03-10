@@ -1,12 +1,12 @@
 {
   "name": "sql",
   "rules": {
-    "query": {
-      "type": "CHOICE",
+    "program": {
+      "type": "SEQ",
       "members": [
         {
           "type": "SYMBOL",
-          "name": "select_statement"
+          "name": "statement"
         }
       ]
     },
@@ -17,6 +17,19 @@
     "keyword_from": {
       "type": "PATTERN",
       "value": "from|FROM"
+    },
+    "comment": {
+      "type": "PATTERN",
+      "value": "--.*\\n"
+    },
+    "statement": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "select_statement"
+        }
+      ]
     },
     "select_statement": {
       "type": "SEQ",
@@ -108,7 +121,15 @@
   "extras": [
     {
       "type": "PATTERN",
+      "value": "\\s\\n"
+    },
+    {
+      "type": "PATTERN",
       "value": "\\s"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "comment"
     }
   ],
   "conflicts": [],

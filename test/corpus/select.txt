@@ -6,11 +6,12 @@ SELECT 1;
 
 ---
 
-(query
- (select_statement
-  (select
-   (keyword_select)
-   (select_expression))))
+(program
+  (statement
+   (select_statement
+    (select
+     (keyword_select)
+     (select_expression)))))
 
 ==================
 Simple select
@@ -20,11 +21,12 @@ SELECT * FROM my_table;
 
 ---
 
-(query
- (select_statement
-  (select
-   (keyword_select)
-   (select_expression))
-  (from
-   (keyword_from)
-   (table_expression (table_name)))))
+(program
+  (statement
+   (select_statement
+    (select
+     (keyword_select)
+     (select_expression))
+    (from
+     (keyword_from)
+     (table_expression (table_name))))))

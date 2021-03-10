@@ -1,0 +1,32 @@
+==================
+Can parse comments
+==================
+
+-- hello
+SELECT 1;
+
+---
+
+(program
+ (comment)
+ (statement
+  (select_statement
+   (select (keyword_select) (select_expression)))))
+
+==================
+Can parse comments anywhere
+==================
+
+-- hello
+SELECT 1; --hi
+--hi
+
+---
+
+(program
+ (comment)
+ (statement
+  (select_statement
+   (select (keyword_select) (select_expression))))
+ (comment)
+ (comment))
