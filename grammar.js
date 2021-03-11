@@ -18,6 +18,8 @@ module.exports = grammar({
     keyword_from: _ => make_keyword("from"),
     keyword_where: _ => make_keyword("where"),
     keyword_order_by: _ => make_keyword("order by"),
+    keyword_group_by: _ => make_keyword("group by"),
+    keyword_having: _ => make_keyword("having"),
     keyword_desc: _ => make_keyword("desc"),
     keyword_asc: _ => make_keyword("asc"),
     keyword_limit: _ => make_keyword("limit"),
@@ -47,8 +49,42 @@ module.exports = grammar({
     ),
 
     select_expression: $ => choice(
-      $.function_call,
       $._field_list,
+    ),
+
+    _field_list: $ => choice(
+      '*',
+      $.literal,
+      seq(
+        choice(
+          $.function_call,
+          $.field,
+        ),
+        repeat(
+          seq(
+            ',',
+            choice(
+              $.function_call,
+              $.field,
+            ),
+          ),
+        ),
+      ),
+    ),
+
+    field: $ => choice(
+      prec(1,
+        seq(
+          optional(
+            seq(
+              field('table_alias', $.identifier),
+              '.',
+            ),
+          ),
+          field('name', $.identifier),
+        ),
+      ),
+      prec(2, $._number),
     ),
 
     function_call: $ => seq(
@@ -71,37 +107,11 @@ module.exports = grammar({
       $.keyword_avg,
     ),
 
-    _field_list: $ => choice(
-      '*',
-      $.literal,
-      seq(
-        $.field,
-        repeat(
-          seq(
-            ',',
-            $.field,
-          ),
-        ),
-      ),
-    ),
-
-    field: $ => choice(
-      seq(
-        optional(
-          seq(
-            field('table_alias', $.identifier),
-            '.',
-          ),
-        ),
-        field('name', $.identifier),
-      ),
-      prec(2, $._number),
-    ),
-
     from: $ => seq(
       $.keyword_from,
       $.table_expression,
       optional($.where),
+      optional($.group_by),
       optional($.order_by),
       optional($.limit),
     ),
@@ -114,6 +124,17 @@ module.exports = grammar({
     where: $ => seq(
       $.keyword_where,
       $.where_expression,
+    ),
+
+    group_by: $ => seq(
+      $.keyword_group_by,
+      $.identifier,
+      optional($._having),
+    ),
+
+    _having: $ => seq(
+      $.keyword_having,
+      $.predicate,
     ),
 
     order_by: $ => seq(

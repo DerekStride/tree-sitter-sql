@@ -53,6 +53,10 @@
       "required": true,
       "types": [
         {
+          "type": "group_by",
+          "named": true
+        },
+        {
           "type": "keyword_from",
           "named": true
         },
@@ -119,6 +123,33 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "group_by",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "keyword_group_by",
+          "named": true
+        },
+        {
+          "type": "keyword_having",
+          "named": true
+        },
+        {
+          "type": "predicate",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -426,6 +457,14 @@
   },
   {
     "type": "keyword_from",
+    "named": true
+  },
+  {
+    "type": "keyword_group_by",
+    "named": true
+  },
+  {
+    "type": "keyword_having",
     "named": true
   },
   {

@@ -258,3 +258,34 @@ FROM my_table;
    (table_expression
     name: (identifier)))))
 
+==================
+Group by
+==================
+
+SELECT other_id, COUNT(name)
+FROM my_table
+GROUP BY other_id
+HAVING other_id > 10;
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (field name: (identifier))
+    (function_call
+      function_name: (keyword_count)
+      parameter: (field name: (identifier)))))
+  (from
+   (keyword_from)
+   (table_expression
+    name: (identifier))
+   (group_by
+    (keyword_group_by)
+    (identifier)
+    (keyword_having)
+    (predicate
+     (field name: (identifier))
+     (operator)
+     (literal))))))
