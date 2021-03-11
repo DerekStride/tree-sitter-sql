@@ -18,6 +18,10 @@
       "type": "PATTERN",
       "value": "from|FROM"
     },
+    "keyword_where": {
+      "type": "PATTERN",
+      "value": "where|WHERE"
+    },
     "comment": {
       "type": "PATTERN",
       "value": "--.*\\n"
@@ -27,11 +31,11 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "select_statement"
+          "name": "_select_statement"
         }
       ]
     },
-    "select_statement": {
+    "_select_statement": {
       "type": "SEQ",
       "members": [
         {
@@ -70,20 +74,91 @@
       ]
     },
     "select_expression": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "*"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_field_list"
+        }
+      ]
+    },
+    "_field_list": {
       "type": "SEQ",
       "members": [
         {
-          "type": "CHOICE",
+          "type": "SYMBOL",
+          "name": "field"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": ","
+              },
+              {
+                "type": "SYMBOL",
+                "name": "field"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "field": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
           "members": [
             {
-              "type": "STRING",
-              "value": "*"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "FIELD",
+                      "name": "table_alias",
+                      "content": {
+                        "type": "SYMBOL",
+                        "name": "identifier"
+                      }
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "."
+                    }
+                  ]
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
             },
             {
-              "type": "SYMBOL",
-              "name": "_identifier"
+              "type": "FIELD",
+              "name": "name",
+              "content": {
+                "type": "SYMBOL",
+                "name": "identifier"
+              }
             }
           ]
+        },
+        {
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "SYMBOL",
+            "name": "_number"
+          }
         }
       ]
     },
@@ -97,6 +172,18 @@
         {
           "type": "SYMBOL",
           "name": "table_expression"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "where"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
@@ -104,18 +191,128 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "table_name"
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "table_alias",
+              "content": {
+                "type": "SYMBOL",
+                "name": "identifier"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
-    "table_name": {
-      "type": "SYMBOL",
-      "name": "_identifier"
+    "where": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_where"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "where_expression"
+        }
+      ]
     },
-    "_identifier": {
+    "where_expression": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "predicate"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "AND"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "predicate"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "predicate": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "field"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "operator"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "literal"
+        }
+      ]
+    },
+    "operator": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "="
+        }
+      ]
+    },
+    "literal": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_number"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_string"
+        }
+      ]
+    },
+    "identifier": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_string"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_number"
+        }
+      ]
+    },
+    "_string": {
       "type": "PATTERN",
-      "value": "([a-zA-Z_$][0-9a-zA-Z_]*)|\\d+"
+      "value": "([a-zA-Z_$][0-9a-zA-Z_]*)"
+    },
+    "_number": {
+      "type": "PATTERN",
+      "value": "\\d+"
     }
   },
   "extras": [

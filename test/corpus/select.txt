@@ -7,11 +7,11 @@ SELECT 1;
 ---
 
 (program
-  (statement
-   (select_statement
-    (select
-     (keyword_select)
-     (select_expression)))))
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (field)))))
 
 ==================
 Simple select
@@ -22,11 +22,84 @@ SELECT * FROM my_table;
 ---
 
 (program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression))
+  (from
+   (keyword_from)
+   (table_expression name: (identifier)))))
+
+==================
+Simple select with fields
+==================
+
+SELECT id, name FROM my_table;
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (field name: (identifier))
+    (field name: (identifier))))
+  (from
+   (keyword_from)
+   (table_expression name: (identifier)))))
+
+==================
+Simple select with fields field table alias
+==================
+
+SELECT m.id, m.name
+FROM my_table m;
+
+---
+
+(program
   (statement
-   (select_statement
     (select
      (keyword_select)
-     (select_expression))
+     (select_expression
+      (field 
+       table_alias: (identifier)
+       name: (identifier))
+      (field 
+       table_alias: (identifier)
+       name: (identifier))))
     (from
      (keyword_from)
-     (table_expression (table_name))))))
+     (table_expression
+      name: (identifier)
+      table_alias: (identifier)))))
+
+==================
+Simple select with where
+==================
+
+SELECT id
+FROM my_table
+WHERE id = 4;
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (field 
+     name: (identifier))))
+  (from
+   (keyword_from)
+   (table_expression
+    name: (identifier))
+   (where
+    (keyword_where)
+    (where_expression
+     (predicate
+      (field name: (identifier))
+      (operator)
+      (literal)))))))

@@ -11,14 +11,15 @@ module.exports = grammar({
 
     keyword_select: _ => make_keyword("select"),
     keyword_from: _ => make_keyword("from"),
+    keyword_where: _ => make_keyword("where"),
 
     comment: $ => /--.*\n/,
 
     statement: $ => choice(
-      $.select_statement,
+      $._select_statement,
     ),
 
-    select_statement: $ => seq(
+    _select_statement: $ => seq(
       $.select,
       optional($.from),
       ';',
@@ -29,25 +30,82 @@ module.exports = grammar({
       $.select_expression,
     ),
 
-    select_expression: $ => seq(
-      choice(
-        '*',
-        $._identifier,
-      )
+    select_expression: $ => choice(
+      '*',
+      $._field_list,
+    ),
+
+    _field_list: $ => seq(
+      $.field,
+      repeat(
+        seq(
+          ',',
+          $.field,
+        ),
+      ),
+    ),
+
+    field: $ => choice(
+      seq(
+        optional(
+          seq(
+            field('table_alias', $.identifier),
+            '.',
+          ),
+        ),
+        field('name', $.identifier),
+      ),
+      prec(2, $._number),
     ),
 
     from: $ => seq(
       $.keyword_from,
       $.table_expression,
+      optional($.where),
     ),
 
     table_expression: $ => seq(
-      $.table_name,
+      field('name', $.identifier),
+      optional(field('table_alias', $.identifier)),
     ),
 
-    table_name: $ => $._identifier,
+    where: $ => seq(
+      $.keyword_where,
+      $.where_expression,
+    ),
 
-    _identifier: _ => /([a-zA-Z_$][0-9a-zA-Z_]*)|\d+/,
+    where_expression: $ => seq(
+      $.predicate,
+      repeat(
+        seq(
+          'AND',
+          $.predicate,
+        ),
+      ),
+    ),
+
+    predicate: $ => seq(
+      $.field,
+      $.operator,
+      $.literal,
+    ),
+
+    operator: $ => choice(
+      '=',
+    ),
+
+    literal: $ => choice(
+      $._number,
+      $._string,
+    ),
+
+    identifier: $ => choice(
+      $._string,
+      $._number,
+    ),
+
+    _string: _ => /([a-zA-Z_$][0-9a-zA-Z_]*)/,
+    _number: _ => /\d+/,
   }
 
 });

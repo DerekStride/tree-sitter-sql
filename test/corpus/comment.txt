@@ -10,8 +10,10 @@ SELECT 1;
 (program
  (comment)
  (statement
-  (select_statement
-   (select (keyword_select) (select_expression)))))
+  (select
+   (keyword_select)
+   (select_expression
+    (field)))))
 
 ==================
 Can parse comments anywhere
@@ -26,7 +28,9 @@ SELECT 1; --hi
 (program
  (comment)
  (statement
-  (select_statement
-   (select (keyword_select) (select_expression))))
+  (select
+   (keyword_select)
+   (select_expression
+    (field))))
  (comment)
  (comment))
