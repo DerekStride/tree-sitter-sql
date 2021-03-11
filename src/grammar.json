@@ -42,9 +42,33 @@
       "type": "PATTERN",
       "value": "offset|OFFSET"
     },
+    "keyword_distinct": {
+      "type": "PATTERN",
+      "value": "distinct|DISTINCT"
+    },
+    "keyword_count": {
+      "type": "PATTERN",
+      "value": "count|COUNT"
+    },
+    "keyword_max": {
+      "type": "PATTERN",
+      "value": "max|MAX"
+    },
+    "keyword_min": {
+      "type": "PATTERN",
+      "value": "min|MIN"
+    },
+    "keyword_avg": {
+      "type": "PATTERN",
+      "value": "avg|AVG"
+    },
     "comment": {
       "type": "PATTERN",
       "value": "--.*\\n"
+    },
+    "marginalia": {
+      "type": "PATTERN",
+      "value": "\\/'*.*\\*\\/"
     },
     "statement": {
       "type": "CHOICE",
@@ -97,8 +121,8 @@
       "type": "CHOICE",
       "members": [
         {
-          "type": "STRING",
-          "value": "*"
+          "type": "SYMBOL",
+          "name": "function_call"
         },
         {
           "type": "SYMBOL",
@@ -106,28 +130,108 @@
         }
       ]
     },
-    "_field_list": {
+    "function_call": {
       "type": "SEQ",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "field"
+          "type": "FIELD",
+          "name": "function_name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_function_name"
+          }
         },
         {
-          "type": "REPEAT",
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "FIELD",
+          "name": "parameter",
           "content": {
-            "type": "SEQ",
+            "type": "CHOICE",
             "members": [
               {
-                "type": "STRING",
-                "value": ","
+                "type": "SYMBOL",
+                "name": "function_call"
               },
               {
-                "type": "SYMBOL",
-                "name": "field"
+                "type": "FIELD",
+                "name": "parameter",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "field"
+                }
               }
             ]
           }
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
+    },
+    "_function_name": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_distinct"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_count"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_max"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_min"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_avg"
+        }
+      ]
+    },
+    "_field_list": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "*"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "literal"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "field"
+            },
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": ","
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "field"
+                  }
+                ]
+              }
+            }
+          ]
         }
       ]
     },
@@ -409,7 +513,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "_string"
+          "name": "_literal_string"
         }
       ]
     },
@@ -425,6 +529,10 @@
           "name": "_number"
         }
       ]
+    },
+    "_literal_string": {
+      "type": "PATTERN",
+      "value": "(['\"])([a-zA-Z_$][0-9a-zA-Z_]*['\"])"
     },
     "_string": {
       "type": "PATTERN",
@@ -447,6 +555,10 @@
     {
       "type": "SYMBOL",
       "name": "comment"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "marginalia"
     }
   ],
   "conflicts": [],

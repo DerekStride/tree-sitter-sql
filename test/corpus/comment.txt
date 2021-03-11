@@ -34,3 +34,32 @@ SELECT 1; --hi
     (field))))
  (comment)
  (comment))
+
+==================
+Simple marginalia
+==================
+
+SELECT id
+FROM my_table
+LIMIT 5
+OFFSET 40;
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (field 
+     name: (identifier))))
+  (from
+   (keyword_from)
+   (table_expression
+    name: (identifier))
+   (limit
+    (keyword_limit)
+    (literal)
+    (offset
+     (keyword_offset)
+     (literal))))))

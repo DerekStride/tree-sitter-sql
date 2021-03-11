@@ -1,7 +1,12 @@
 module.exports = grammar({
   name: 'sql',
 
-  extras: $ => [/\s\n/, /\s/, $.comment],
+  extras: $ => [
+    /\s\n/,
+    /\s/,
+    $.comment,
+    $.marginalia,
+  ],
 
   rules: {
     program: $ => seq(
@@ -17,8 +22,14 @@ module.exports = grammar({
     keyword_asc: _ => make_keyword("asc"),
     keyword_limit: _ => make_keyword("limit"),
     keyword_offset: _ => make_keyword("offset"),
+    keyword_distinct: _ => make_keyword("distinct"),
+    keyword_count: _ => make_keyword("count"),
+    keyword_max: _ => make_keyword("max"),
+    keyword_min: _ => make_keyword("min"),
+    keyword_avg: _ => make_keyword("avg"),
 
-    comment: $ => /--.*\n/,
+    comment: _ => /--.*\n/,
+    marginalia: _ => /\/'*.*\*\//,
 
     statement: $ => choice(
       $._select_statement,
@@ -36,16 +47,40 @@ module.exports = grammar({
     ),
 
     select_expression: $ => choice(
-      '*',
+      $.function_call,
       $._field_list,
     ),
 
-    _field_list: $ => seq(
-      $.field,
-      repeat(
-        seq(
-          ',',
-          $.field,
+    function_call: $ => seq(
+      field('function_name', $._function_name),
+      '(',
+      field('parameter',
+        choice(
+          $.function_call,
+          field('parameter', $.field),
+        )
+      ),
+      ')',
+    ),
+
+    _function_name: $ => choice(
+      $.keyword_distinct,
+      $.keyword_count,
+      $.keyword_max,
+      $.keyword_min,
+      $.keyword_avg,
+    ),
+
+    _field_list: $ => choice(
+      '*',
+      $.literal,
+      seq(
+        $.field,
+        repeat(
+          seq(
+            ',',
+            $.field,
+          ),
         ),
       ),
     ),
@@ -127,7 +162,7 @@ module.exports = grammar({
 
     literal: $ => choice(
       $._number,
-      $._string,
+      $._literal_string,
     ),
 
     identifier: $ => choice(
@@ -135,6 +170,7 @@ module.exports = grammar({
       $._number,
     ),
 
+    _literal_string: _ => /(['"])([a-zA-Z_$][0-9a-zA-Z_]*['"])/,
     _string: _ => /([a-zA-Z_$][0-9a-zA-Z_]*)/,
     _number: _ => /\d+/,
   }

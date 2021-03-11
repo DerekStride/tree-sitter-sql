@@ -76,6 +76,52 @@
     }
   },
   {
+    "type": "function_call",
+    "named": true,
+    "fields": {
+      "function_name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "keyword_avg",
+            "named": true
+          },
+          {
+            "type": "keyword_count",
+            "named": true
+          },
+          {
+            "type": "keyword_distinct",
+            "named": true
+          },
+          {
+            "type": "keyword_max",
+            "named": true
+          },
+          {
+            "type": "keyword_min",
+            "named": true
+          }
+        ]
+      },
+      "parameter": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "field",
+            "named": true
+          },
+          {
+            "type": "function_call",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "identifier",
     "named": true,
     "fields": {}
@@ -223,6 +269,14 @@
         {
           "type": "field",
           "named": true
+        },
+        {
+          "type": "function_call",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
         }
       ]
     }
@@ -307,6 +361,14 @@
     }
   },
   {
+    "type": "(",
+    "named": false
+  },
+  {
+    "type": ")",
+    "named": false
+  },
+  {
     "type": "*",
     "named": false
   },
@@ -347,7 +409,19 @@
     "named": true
   },
   {
+    "type": "keyword_avg",
+    "named": true
+  },
+  {
+    "type": "keyword_count",
+    "named": true
+  },
+  {
     "type": "keyword_desc",
+    "named": true
+  },
+  {
+    "type": "keyword_distinct",
     "named": true
   },
   {
@@ -356,6 +430,14 @@
   },
   {
     "type": "keyword_limit",
+    "named": true
+  },
+  {
+    "type": "keyword_max",
+    "named": true
+  },
+  {
+    "type": "keyword_min",
     "named": true
   },
   {
@@ -372,6 +454,10 @@
   },
   {
     "type": "keyword_where",
+    "named": true
+  },
+  {
+    "type": "marginalia",
     "named": true
   }
 ]

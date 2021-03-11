@@ -191,3 +191,70 @@ OFFSET 40;
     (offset
      (keyword_offset)
      (literal))))))
+
+==================
+Functions
+==================
+
+SELECT DISTINCT(id)
+FROM my_table;
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (function_call
+     function_name: (keyword_distinct)
+     parameter: (field name: (identifier)))))
+  (from
+   (keyword_from)
+   (table_expression
+    name: (identifier)))))
+
+==================
+Functions MAX
+==================
+
+SELECT MAX(id)
+FROM my_table;
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (function_call
+     function_name: (keyword_max)
+     parameter: (field name: (identifier)))))
+  (from
+   (keyword_from)
+   (table_expression
+    name: (identifier)))))
+
+==================
+Functions in functions
+==================
+
+SELECT COUNT(DISTINCT(id))
+FROM my_table;
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (function_call
+     function_name: (keyword_count)
+     parameter: 
+     (function_call
+      function_name: (keyword_distinct)
+      parameter: (field name: (identifier))))))
+  (from
+   (keyword_from)
+   (table_expression
+    name: (identifier)))))
+
