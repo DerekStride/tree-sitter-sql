@@ -12,6 +12,11 @@ module.exports = grammar({
     keyword_select: _ => make_keyword("select"),
     keyword_from: _ => make_keyword("from"),
     keyword_where: _ => make_keyword("where"),
+    keyword_order_by: _ => make_keyword("order by"),
+    keyword_desc: _ => make_keyword("desc"),
+    keyword_asc: _ => make_keyword("asc"),
+    keyword_limit: _ => make_keyword("limit"),
+    keyword_offset: _ => make_keyword("offset"),
 
     comment: $ => /--.*\n/,
 
@@ -62,6 +67,8 @@ module.exports = grammar({
       $.keyword_from,
       $.table_expression,
       optional($.where),
+      optional($.order_by),
+      optional($.limit),
     ),
 
     table_expression: $ => seq(
@@ -72,6 +79,23 @@ module.exports = grammar({
     where: $ => seq(
       $.keyword_where,
       $.where_expression,
+    ),
+
+    order_by: $ => seq(
+      $.keyword_order_by,
+      $.field,
+      $.direction,
+    ),
+
+    limit: $ => seq(
+      $.keyword_limit,
+      $.literal,
+      optional($.offset),
+    ),
+
+    offset: $ => seq(
+      $.keyword_offset,
+      $.literal,
     ),
 
     where_expression: $ => seq(
@@ -92,6 +116,13 @@ module.exports = grammar({
 
     operator: $ => choice(
       '=',
+      '>',
+      '<',
+    ),
+
+    direction: $ => choice(
+      $.keyword_desc,
+      $.keyword_asc,
     ),
 
     literal: $ => choice(

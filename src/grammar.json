@@ -22,6 +22,26 @@
       "type": "PATTERN",
       "value": "where|WHERE"
     },
+    "keyword_order_by": {
+      "type": "PATTERN",
+      "value": "order by|ORDER BY"
+    },
+    "keyword_desc": {
+      "type": "PATTERN",
+      "value": "desc|DESC"
+    },
+    "keyword_asc": {
+      "type": "PATTERN",
+      "value": "asc|ASC"
+    },
+    "keyword_limit": {
+      "type": "PATTERN",
+      "value": "limit|LIMIT"
+    },
+    "keyword_offset": {
+      "type": "PATTERN",
+      "value": "offset|OFFSET"
+    },
     "comment": {
       "type": "PATTERN",
       "value": "--.*\\n"
@@ -184,6 +204,30 @@
               "type": "BLANK"
             }
           ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "order_by"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "limit"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
@@ -226,6 +270,61 @@
         {
           "type": "SYMBOL",
           "name": "where_expression"
+        }
+      ]
+    },
+    "order_by": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_order_by"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "field"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "direction"
+        }
+      ]
+    },
+    "limit": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_limit"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "literal"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "offset"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "offset": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_offset"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "literal"
         }
       ]
     },
@@ -277,6 +376,27 @@
         {
           "type": "STRING",
           "value": "="
+        },
+        {
+          "type": "STRING",
+          "value": ">"
+        },
+        {
+          "type": "STRING",
+          "value": "<"
+        }
+      ]
+    },
+    "direction": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_desc"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_asc"
         }
       ]
     },

@@ -103,3 +103,91 @@ WHERE id = 4;
       (field name: (identifier))
       (operator)
       (literal)))))))
+
+==================
+Simple select with order by
+==================
+
+SELECT id
+FROM my_table
+WHERE id > 4
+ORDER BY id DESC;
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (field 
+     name: (identifier))))
+  (from
+   (keyword_from)
+   (table_expression
+    name: (identifier))
+   (where
+    (keyword_where)
+    (where_expression
+     (predicate
+      (field name: (identifier))
+      (operator)
+      (literal))))
+   (order_by
+    (keyword_order_by)
+    (field name: (identifier))
+    (direction (keyword_desc))))))
+
+==================
+Simple select with limit
+==================
+
+SELECT id
+FROM my_table
+LIMIT 5;
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (field 
+     name: (identifier))))
+  (from
+   (keyword_from)
+   (table_expression
+    name: (identifier))
+   (limit
+    (keyword_limit)
+    (literal)))))
+
+==================
+Simple select with offset
+==================
+
+SELECT id
+FROM my_table
+LIMIT 5
+OFFSET 40;
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (field 
+     name: (identifier))))
+  (from
+   (keyword_from)
+   (table_expression
+    name: (identifier))
+   (limit
+    (keyword_limit)
+    (literal)
+    (offset
+     (keyword_offset)
+     (literal))))))
