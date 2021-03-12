@@ -39,27 +39,22 @@ SELECT 1; --hi
 Simple marginalia
 ==================
 
-SELECT id
-FROM my_table
-LIMIT 5
-OFFSET 40;
+/* application=super-app */
+SELECT id /* MAX_EXECUTION_TIME(500) */
+FROM my_table;
 
 ---
 
 (program
+ (marginalia)
  (statement
   (select
    (keyword_select)
    (select_expression
     (field 
      name: (identifier))))
+  (marginalia)
   (from
    (keyword_from)
    (table_expression
-    name: (identifier))
-   (limit
-    (keyword_limit)
-    (literal)
-    (offset
-     (keyword_offset)
-     (literal))))))
+    name: (identifier)))))
