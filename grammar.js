@@ -47,6 +47,10 @@ module.exports = grammar({
     keyword_in: _ => make_keyword("in"),
     keyword_and: _ => make_keyword("and"),
     keyword_or: _ => make_keyword("or"),
+    keyword_force: _ => make_keyword("force"),
+    keyword_use: _ => make_keyword("use"),
+    keyword_index: _ => make_keyword("index"),
+    keyword_for: _ => make_keyword("for"),
 
     comment: _ => /--.*\n/,
     marginalia: _ => /\/'*.*\*\//,
@@ -125,7 +129,10 @@ module.exports = grammar({
     from: $ => seq(
       $.keyword_from,
       $.table_expression,
-      optional($.join),
+      optional($.index_hint),
+      optional(
+        repeat($.join)
+      ),
       optional($.where),
       optional($.group_by),
       optional($.order_by),
@@ -137,9 +144,27 @@ module.exports = grammar({
       optional(field('table_alias', $.identifier)),
     ),
 
+    index_hint: $ => seq(
+      choice(
+        $.keyword_force,
+        $.keyword_use,
+      ),
+      $.keyword_index,
+      optional(
+        seq(
+          $.keyword_for,
+          $.keyword_join,
+        ),
+      ),
+      '(',
+      field('index_name', $.identifier),
+      ')',
+    ),
+
     join: $ => seq(
       $.keyword_join,
       $.table_expression,
+      optional($.index_hint),
       $.keyword_on,
       $.predicate,
     ),
@@ -162,8 +187,12 @@ module.exports = grammar({
 
     order_by: $ => seq(
       $.keyword_order_by,
-      $.field,
-      $.direction,
+      $.order_expression,
+    ),
+
+    order_expression: $ => seq(
+      $._field_list,
+      optional($.direction),
     ),
 
     limit: $ => seq(
@@ -209,8 +238,21 @@ module.exports = grammar({
 
     _expression: $ => choice(
       $.literal,
+      $.list,
       $.field,
       $.predicate,
+    ),
+
+    list: $ => seq(
+        '(',
+        $.literal,
+        repeat(
+          seq(
+            ',',
+            $.literal,
+          ),
+        ),
+      ')',
     ),
 
     // predicate: $ => seq(

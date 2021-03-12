@@ -104,6 +104,35 @@ WHERE id = 4;
       right: (literal)))))))
 
 ==================
+Simple select with IN
+==================
+
+SELECT id
+FROM my_table
+WHERE id IN(1,2);
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (field 
+     name: (identifier))))
+  (from
+   (keyword_from)
+   (table_expression
+    name: (identifier))
+   (where
+    (keyword_where)
+    (where_expression
+     (predicate
+      left: (field name: (identifier))
+      operator: (keyword_in)
+      right: (list (literal) (literal))))))))
+
+==================
 Simple select with order by
 ==================
 
@@ -133,8 +162,9 @@ ORDER BY id DESC;
       right: (literal))))
    (order_by
     (keyword_order_by)
-    (field name: (identifier))
-    (direction (keyword_desc))))))
+    (order_expression
+     (field name: (identifier))
+     (direction (keyword_desc)))))))
 
 ==================
 Simple select with limit
@@ -338,6 +368,112 @@ WHERE b.c_id = 4;
       right: (literal)))))))
 
 ==================
+Joins with hint
+==================
+
+SELECT a.id, b.id
+FROM my_table a
+JOIN my_other_table b USE INDEX FOR JOIN (idx_a)
+ON a.id = b.a_id;
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (field 
+     table_alias: (identifier)
+     name: (identifier))
+    (field 
+     table_alias: (identifier)
+     name: (identifier))))
+  (from
+   (keyword_from)
+   (table_expression
+    name: (identifier)
+    table_alias: (identifier))
+   (join
+    (keyword_join)
+    (table_expression
+     name: (identifier)
+     table_alias: (identifier))
+    (index_hint
+     (keyword_use)
+     (keyword_index)
+     (keyword_for)
+     (keyword_join)
+     index_name: (identifier))
+    (keyword_on)
+    (predicate
+     left: (field
+      table_alias: (identifier)
+      name: (identifier))
+     right: (field
+      table_alias: (identifier)
+      name: (identifier)))))))
+
+==================
+Multiple joins
+==================
+
+SELECT a.id, b.id, c.id
+FROM my_table a
+JOIN my_other_table b
+ON a.id = b.a_id
+JOIN table_three c
+ON a.id = c.a_id;
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (field 
+     table_alias: (identifier)
+     name: (identifier))
+    (field 
+     table_alias: (identifier)
+     name: (identifier))
+    (field 
+     table_alias: (identifier)
+     name: (identifier))))
+  (from
+   (keyword_from)
+   (table_expression
+    name: (identifier)
+    table_alias: (identifier))
+   (join
+    (keyword_join)
+    (table_expression
+     name: (identifier)
+     table_alias: (identifier))
+    (keyword_on)
+    (predicate
+     left: (field
+      table_alias: (identifier)
+      name: (identifier))
+     right: (field
+      table_alias: (identifier)
+      name: (identifier))))
+   (join
+    (keyword_join)
+    (table_expression
+     name: (identifier)
+     table_alias: (identifier))
+    (keyword_on)
+    (predicate
+     left: (field
+      table_alias: (identifier)
+      name: (identifier))
+     right: (field
+      table_alias: (identifier)
+      name: (identifier)))))))
+
+==================
 Complex Predicates
 ==================
 
@@ -375,3 +511,219 @@ WHERE m.id > 4 AND id < 3;
         (predicate
           left: (field name: (identifier))
           right: (literal))))))))
+
+==================
+Complex Predicates with order by
+==================
+
+SELECT title, id
+FROM my_table m
+WHERE m.id > 4 AND id < 3
+ORDER BY m.title, id ASC;
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (field name: (identifier))
+    (field name: (identifier))))
+  (from
+   (keyword_from)
+   (table_expression
+    name: (identifier)
+    table_alias: (identifier))
+   (where
+    (keyword_where)
+    (where_expression
+     (predicate
+      left: 
+       (predicate
+        left:
+          (field
+           table_alias: (identifier)
+           name: (identifier))
+        right: (literal))
+       operator: (keyword_and)
+       right: 
+        (predicate
+          left: (field name: (identifier))
+          right: (literal)))))
+   (order_by
+    (keyword_order_by)
+    (order_expression
+     (field table_alias: (identifier) name: (identifier))
+     (field name: (identifier))
+     (direction (keyword_asc)))))))
+
+
+
+==================
+Index hints
+==================
+
+SELECT id
+FROM my_table FORCE INDEX (long_index_identifier)
+LIMIT 1;
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (field
+     name: (identifier))))
+  (from
+   (keyword_from)
+   (table_expression
+    name: (identifier))
+   (index_hint
+    (keyword_force)
+    (keyword_index)
+    index_name: (identifier))
+   (limit
+    (keyword_limit)
+    (literal)))))
+
+==================
+Index hints (use)
+==================
+
+SELECT id
+FROM my_table USE INDEX (long_index_identifier)
+LIMIT 1;
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (field
+     name: (identifier))))
+  (from
+   (keyword_from)
+   (table_expression
+    name: (identifier))
+   (index_hint
+    (keyword_use)
+    (keyword_index)
+    index_name: (identifier))
+   (limit
+    (keyword_limit)
+    (literal)))))
+
+
+
+==================
+Altogether now
+==================
+
+SELECT c._id, c.p_id
+  FROM c_table c
+FORCE INDEX (idx_c_on_s_id_and_p_id_and_c_id)
+JOIN cp_table cp
+  ON cp.c_id = c.id
+  AND cp.s_id = c.s_id
+JOIN my_table USE INDEX FOR JOIN (idx_my_table_on_s_id_and_id)
+  ON c.c_id = my_table.id
+  AND c.s_id = my_table.s_id
+WHERE c.s_id = 1239
+  AND c.p_id in (1)
+  AND cp.ch_id = 6
+  AND cp.is_published = TRUE
+ORDER BY my_table.title, my_table.id;
+
+----
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (field table_alias: (identifier) name: (identifier))
+    (field table_alias: (identifier) name: (identifier))))
+  (from
+   (keyword_from)
+   (table_expression
+    name: (identifier)
+    table_alias: (identifier))
+   (index_hint
+    (keyword_force)
+    (keyword_index)
+    index_name: (identifier))
+   (join
+    (keyword_join)
+    (table_expression name: (identifier) table_alias: (identifier))
+    (keyword_on)
+    (predicate
+     left: 
+     (predicate 
+      left: (field table_alias: (identifier) name: (identifier))
+      right: (field table_alias: (identifier) name: (identifier)))
+     operator: (keyword_and)
+     right: 
+     (predicate 
+      left: (field table_alias: (identifier) name: (identifier))
+      right: (field table_alias: (identifier) name: (identifier)))))
+  (join
+   (keyword_join)
+   (table_expression name: (identifier))
+   (index_hint
+    (keyword_use)
+    (keyword_index)
+    (keyword_for)
+    (keyword_join)
+    index_name: (identifier))
+   (keyword_on)
+   (predicate 
+    left: 
+    (predicate
+     left: (field table_alias: (identifier) name: (identifier))
+     right: (field table_alias: (identifier) name: (identifier)))
+    operator: (keyword_and)
+    right: 
+    (predicate 
+     left: (field table_alias: (identifier) name: (identifier))
+     right: (field table_alias: (identifier) name: (identifier)))))
+  (where
+   (keyword_where)
+   (where_expression
+    (predicate
+     left: 
+     (predicate
+      left:
+      (predicate
+       left:
+       (predicate
+        left:
+        (field
+         table_alias: (identifier)
+         name: (identifier))
+        right: (literal))
+       operator: (keyword_and)
+       right: 
+       (predicate
+        left: (field table_alias: (identifier) name: (identifier))
+        operator: (keyword_in)
+        right: (list (literal))))
+      operator: (keyword_and)
+      right: 
+      (predicate
+       left: (field table_alias: (identifier) name: (identifier))
+       right: (literal)))
+     operator: (keyword_and)
+     right: 
+     (predicate
+      left: (field table_alias: (identifier) name: (identifier))
+      right: (field name: (identifier))))))
+  (order_by
+   (keyword_order_by)
+   (order_expression
+    (field table_alias: (identifier) name: (identifier))
+    (field table_alias: (identifier) name: (identifier)))))))
