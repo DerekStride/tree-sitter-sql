@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "description": "Tree-sitter Grammar for SQL",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test": "tree-sitter test"
+  },
   "author": "derek stride",
   "license": "MIT",
   "dependencies": {
