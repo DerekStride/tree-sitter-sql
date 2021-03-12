@@ -63,6 +63,12 @@ module.exports = grammar({
     keyword_auto_increment: _ => make_keyword("auto_increment"),
     keyword_default: _ => make_keyword("default"),
 
+    _not_null: $ => seq($.keyword_not, $.keyword_null),
+    _primary_key: $ => seq($.keyword_primary, $.keyword_key),
+    _if_not_exists: $ => seq($.keyword_if, $.keyword_not, $.keyword_exists),
+    _default_null: $ => seq($.keyword_default, $.keyword_null),
+    direction: $ => choice($.keyword_desc, $.keyword_asc),
+
     // Types
     keyword_bigint: _ => make_keyword("bigint"),
     keyword_null: _ => make_keyword("null"),
@@ -125,65 +131,75 @@ module.exports = grammar({
       optional($._if_not_exists),
       alias($._create_table_expression, $.table_expression),
       $.column_definitions,
+      optional($.table_options),
     ),
 
-    _if_not_exists: $ => seq(
-      $.keyword_if,
-      $.keyword_not,
-      $.keyword_exists,
+    table_options: $ => repeat1($.table_option),
+    table_option: $ => choice(
+      field('name', alias($.keyword_default, $.identifier)),
+      seq(
+        field('name', $.identifier),
+        '=',
+        field('value', $.identifier),
+      ),
     ),
+
 
     column_definitions: $ => seq(
       '(',
       $.column_definition,
-      optional(
-        seq(
-          ',',
-          $.column_definition,
-        ),
+      repeat(
+        seq(',', $.column_definition),
       ),
-      optional($.constraint),
+      optional($.constraints),
       ')',
     ),
 
     column_definition: $ => seq(
       field('name', $.identifier),
       field('type', $._type),
-      optional($._not_null),
-      optional($._default_null),
+      choice(
+        optional($._not_null),
+        optional($._default_null),
+      ),
       optional($.keyword_auto_increment),
       optional($._primary_key),
       optional($.direction),
     ),
 
-    _not_null: $ => seq(
-      $.keyword_not,
-      $.keyword_null,
+    constraints: $ => seq(
+      ',',
+      $.constraint,
+      repeat(
+        seq(',', $.constraint),
+      ),
     ),
 
-    _default_null: $ => seq(
-      $.keyword_default,
-      $.keyword_null,
+    constraint: $ => choice(
+      $._constraint_literal,
+      $._key_constraint,
+      $._primary_key_constraint,
     ),
 
-    constraint: $ => seq(
+    _constraint_literal: $ => seq(
       $.keyword_constraint,
       field('name', $.identifier),
       $._primary_key,
       $.column_list,
     ),
 
-    column_list: $ => seq(
-      '(',
-      $.column,
-      optional(
-        seq(
-          ',',
-          $.column,
-        ),
-      ),
-      ')',
+    _primary_key_constraint: $ => seq(
+      $._primary_key,
+      $.column_list,
     ),
+
+    _key_constraint: $ => seq(
+      $.keyword_key,
+      field('name', $.identifier),
+      $.column_list,
+    ),
+
+    column_list: $ => param_list($.column),
 
     column: $ => seq(
       field('name', $.identifier),
@@ -198,39 +214,9 @@ module.exports = grammar({
       $.varchar,
     ),
 
-    bigint: $ => choice(
-      $.keyword_bigint,
-      seq(
-        $.keyword_bigint,
-        '(',
-        field('size', alias($._number, $.literal)),
-        ')',
-      ),
-    ),
-
-    char: $ => seq(
-      $.keyword_char,
-      '(',
-      field('size', alias($._number, $.literal)),
-      ')',
-    ),
-
-    varchar: $ => seq(
-      $.keyword_varchar,
-      '(',
-      field('size', alias($._number, $.literal)),
-      ')',
-    ),
-
-    _not_null: $ => seq(
-      $.keyword_not,
-      $.keyword_null,
-    ),
-
-    _primary_key: $ => seq(
-      $.keyword_primary,
-      $.keyword_key,
-    ),
+    bigint: $ => sized_type($, $.keyword_bigint),
+    char: $ => sized_type($, $.keyword_char),
+    varchar: $ => sized_type($, $.keyword_varchar),
 
     _create_table_expression: $ => seq(
       optional(
@@ -298,9 +284,7 @@ module.exports = grammar({
       $.keyword_from,
       $.table_expression,
       optional($.index_hint),
-      optional(
-        repeat($.join)
-      ),
+      repeat($.join),
       optional($.where),
       optional($.group_by),
       optional($.order_by),
@@ -411,26 +395,7 @@ module.exports = grammar({
       $.predicate,
     ),
 
-    list: $ => seq(
-        '(',
-        $.literal,
-        repeat(
-          seq(
-            ',',
-            $.literal,
-          ),
-        ),
-      ')',
-    ),
-
-    // predicate: $ => seq(
-    //   $.field,
-    //   $.operator,
-    //   choice(
-    //     prec(2, $.literal),
-    //     prec(1, $.field),
-    //   ),
-    // ),
+    list: $ => param_list($.literal),
 
     operator: $ => choice(
       '=',
@@ -450,11 +415,6 @@ module.exports = grammar({
       $.keyword_in,
     ),
 
-    direction: $ => choice(
-      $.keyword_desc,
-      $.keyword_asc,
-    ),
-
     literal: $ => prec(2,
       choice(
         $._number,
@@ -464,15 +424,40 @@ module.exports = grammar({
 
     identifier: $ => choice(
       $._string,
+      $._escaped_string,
       $._number,
     ),
 
     _literal_string: _ => /(['"])([a-zA-Z_$][0-9a-zA-Z_]*['"])/,
-    _string: _ => /`?([a-zA-Z_$][0-9a-zA-Z_]*)`?/,
+    _string: _ => /([a-zA-Z_$][0-9a-zA-Z_]*)/,
+    _escaped_string: $ => seq('`', $._string, '`'),
     _number: _ => /\d+/,
   }
 
 });
+
+function sized_type($, type) {
+  return choice(
+    type,
+    seq(
+      type,
+      '(',
+      field('size', alias($._number, $.literal)),
+      ')',
+    ),
+  )
+}
+
+function param_list(field) {
+  return seq(
+    '(',
+    field,
+    repeat(
+      seq(',', field)
+    ),
+    ')',
+  )
+}
 
 function make_keyword(word) {
   return new RegExp(word + "|" + word.toUpperCase());
