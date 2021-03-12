@@ -11,7 +11,7 @@ SELECT 1;
   (select
    (keyword_select)
    (select_expression
-    (field)))))
+    (literal)))))
 
 ==================
 Simple select
@@ -100,9 +100,8 @@ WHERE id = 4;
     (keyword_where)
     (where_expression
      (predicate
-      (field name: (identifier))
-      (operator)
-      (literal)))))))
+      left: (field name: (identifier))
+      right: (literal)))))))
 
 ==================
 Simple select with order by
@@ -130,9 +129,8 @@ ORDER BY id DESC;
     (keyword_where)
     (where_expression
      (predicate
-      (field name: (identifier))
-      (operator)
-      (literal))))
+      left: (field name: (identifier))
+      right: (literal))))
    (order_by
     (keyword_order_by)
     (field name: (identifier))
@@ -286,6 +284,94 @@ HAVING other_id > 10;
     (identifier)
     (keyword_having)
     (predicate
-     (field name: (identifier))
-     (operator)
-     (literal))))))
+     left: (field name: (identifier))
+     right: (literal))))))
+
+==================
+Joins
+==================
+
+SELECT a.id, b.id
+FROM my_table a
+JOIN my_other_table b
+ON a.id = b.a_id
+WHERE b.c_id = 4;
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (field 
+     table_alias: (identifier)
+     name: (identifier))
+    (field 
+     table_alias: (identifier)
+     name: (identifier))))
+  (from
+   (keyword_from)
+   (table_expression
+    name: (identifier)
+    table_alias: (identifier))
+   (join
+    (keyword_join)
+    (table_expression
+     name: (identifier)
+     table_alias: (identifier))
+    (keyword_on)
+    (predicate
+     left: (field
+      table_alias: (identifier)
+      name: (identifier))
+     right: (field
+      table_alias: (identifier)
+      name: (identifier))))
+   (where
+    (keyword_where)
+    (where_expression
+     (predicate
+      left: (field
+       table_alias: (identifier)
+       name: (identifier))
+      right: (literal)))))))
+
+==================
+Complex Predicates
+==================
+
+SELECT id
+FROM my_table m
+WHERE m.id > 4 AND id < 3;
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (field
+     name: (identifier))))
+  (from
+   (keyword_from)
+   (table_expression
+    name: (identifier)
+    table_alias: (identifier))
+   (where
+    (keyword_where)
+    (where_expression
+     (predicate
+      left: 
+       (predicate
+        left:
+          (field
+           table_alias: (identifier)
+           name: (identifier))
+        right: (literal))
+       operator: (keyword_and)
+       right: 
+        (predicate
+          left: (field name: (identifier))
+          right: (literal))))))))

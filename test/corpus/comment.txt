@@ -13,7 +13,7 @@ SELECT 1;
   (select
    (keyword_select)
    (select_expression
-    (field)))))
+    (literal)))))
 
 ==================
 Can parse comments anywhere
@@ -31,7 +31,7 @@ SELECT 1; --hi
   (select
    (keyword_select)
    (select_expression
-    (field))))
+    (literal))))
  (comment)
  (comment))
 

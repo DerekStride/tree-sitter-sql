@@ -24,7 +24,7 @@
     "fields": {
       "name": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
             "type": "identifier",
@@ -54,6 +54,10 @@
       "types": [
         {
           "type": "group_by",
+          "named": true
+        },
+        {
+          "type": "join",
           "named": true
         },
         {
@@ -158,6 +162,33 @@
     "fields": {}
   },
   {
+    "type": "join",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_join",
+          "named": true
+        },
+        {
+          "type": "keyword_on",
+          "named": true
+        },
+        {
+          "type": "predicate",
+          "named": true
+        },
+        {
+          "type": "table_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "limit",
     "named": true,
     "fields": {},
@@ -205,11 +236,6 @@
     }
   },
   {
-    "type": "operator",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "order_by",
     "named": true,
     "fields": {},
@@ -235,24 +261,109 @@
   {
     "type": "predicate",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "field",
-          "named": true
-        },
-        {
-          "type": "literal",
-          "named": true
-        },
-        {
-          "type": "operator",
-          "named": true
-        }
-      ]
+    "fields": {
+      "left": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "field",
+            "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "predicate",
+            "named": true
+          }
+        ]
+      },
+      "operator": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "!=",
+            "named": false
+          },
+          {
+            "type": "%",
+            "named": false
+          },
+          {
+            "type": "*",
+            "named": false
+          },
+          {
+            "type": "+",
+            "named": false
+          },
+          {
+            "type": "-",
+            "named": false
+          },
+          {
+            "type": "/",
+            "named": false
+          },
+          {
+            "type": "<",
+            "named": false
+          },
+          {
+            "type": "<=",
+            "named": false
+          },
+          {
+            "type": "=",
+            "named": false
+          },
+          {
+            "type": ">",
+            "named": false
+          },
+          {
+            "type": ">=",
+            "named": false
+          },
+          {
+            "type": "^",
+            "named": false
+          },
+          {
+            "type": "keyword_and",
+            "named": true
+          },
+          {
+            "type": "keyword_in",
+            "named": true
+          },
+          {
+            "type": "keyword_or",
+            "named": true
+          }
+        ]
+      },
+      "right": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "field",
+            "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "predicate",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -381,15 +492,31 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
+        {
+          "type": "field",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
         {
           "type": "predicate",
           "named": true
         }
       ]
     }
+  },
+  {
+    "type": "!=",
+    "named": false
+  },
+  {
+    "type": "%",
+    "named": false
   },
   {
     "type": "(",
@@ -404,11 +531,23 @@
     "named": false
   },
   {
+    "type": "+",
+    "named": false
+  },
+  {
     "type": ",",
     "named": false
   },
   {
+    "type": "-",
+    "named": false
+  },
+  {
     "type": ".",
+    "named": false
+  },
+  {
+    "type": "/",
     "named": false
   },
   {
@@ -420,6 +559,10 @@
     "named": false
   },
   {
+    "type": "<=",
+    "named": false
+  },
+  {
     "type": "=",
     "named": false
   },
@@ -428,11 +571,19 @@
     "named": false
   },
   {
-    "type": "AND",
+    "type": ">=",
+    "named": false
+  },
+  {
+    "type": "^",
     "named": false
   },
   {
     "type": "comment",
+    "named": true
+  },
+  {
+    "type": "keyword_and",
     "named": true
   },
   {
@@ -468,6 +619,14 @@
     "named": true
   },
   {
+    "type": "keyword_in",
+    "named": true
+  },
+  {
+    "type": "keyword_join",
+    "named": true
+  },
+  {
     "type": "keyword_limit",
     "named": true
   },
@@ -481,6 +640,14 @@
   },
   {
     "type": "keyword_offset",
+    "named": true
+  },
+  {
+    "type": "keyword_on",
+    "named": true
+  },
+  {
+    "type": "keyword_or",
     "named": true
   },
   {

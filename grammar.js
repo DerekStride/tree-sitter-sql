@@ -8,6 +8,19 @@ module.exports = grammar({
     $.marginalia,
   ],
 
+  precedences: $ => [
+    [
+      'unary_not',
+      'binary_exp',
+      'binary_times',
+      'binary_plus',
+      'binary_in',
+      'binary_compare',
+      'binary_relation',
+      'clause_connective',
+    ],
+  ],
+
   rules: {
     program: $ => seq(
       $.statement,
@@ -16,6 +29,8 @@ module.exports = grammar({
 
     keyword_select: _ => make_keyword("select"),
     keyword_from: _ => make_keyword("from"),
+    keyword_join: _ => make_keyword("join"),
+    keyword_on: _ => make_keyword("on"),
     keyword_where: _ => make_keyword("where"),
     keyword_order_by: _ => make_keyword("order by"),
     keyword_group_by: _ => make_keyword("group by"),
@@ -29,6 +44,9 @@ module.exports = grammar({
     keyword_max: _ => make_keyword("max"),
     keyword_min: _ => make_keyword("min"),
     keyword_avg: _ => make_keyword("avg"),
+    keyword_in: _ => make_keyword("in"),
+    keyword_and: _ => make_keyword("and"),
+    keyword_or: _ => make_keyword("or"),
 
     comment: _ => /--.*\n/,
     marginalia: _ => /\/'*.*\*\//,
@@ -73,18 +91,15 @@ module.exports = grammar({
     ),
 
     field: $ => choice(
-      prec(1,
-        seq(
-          optional(
-            seq(
-              field('table_alias', $.identifier),
-              '.',
-            ),
+      seq(
+        optional(
+          seq(
+            field('table_alias', $.identifier),
+            '.',
           ),
-          field('name', $.identifier),
         ),
+        field('name', $.identifier),
       ),
-      prec(2, $._number),
     ),
 
     function_call: $ => seq(
@@ -110,6 +125,7 @@ module.exports = grammar({
     from: $ => seq(
       $.keyword_from,
       $.table_expression,
+      optional($.join),
       optional($.where),
       optional($.group_by),
       optional($.order_by),
@@ -119,6 +135,13 @@ module.exports = grammar({
     table_expression: $ => seq(
       field('name', $.identifier),
       optional(field('table_alias', $.identifier)),
+    ),
+
+    join: $ => seq(
+      $.keyword_join,
+      $.table_expression,
+      $.keyword_on,
+      $.predicate,
     ),
 
     where: $ => seq(
@@ -155,25 +178,66 @@ module.exports = grammar({
     ),
 
     where_expression: $ => seq(
-      $.predicate,
-      repeat(
-        seq(
-          'AND',
-          $.predicate,
-        ),
-      ),
+      $._expression,
     ),
 
-    predicate: $ => seq(
-      $.field,
-      $.operator,
-      $.literal,
+    predicate: $ => choice(
+      ...[
+        ['+', 'binary_plus'],
+        ['-', 'binary_plus'],
+        ['*', 'binary_times'],
+        ['/', 'binary_times'],
+        ['%', 'binary_times'],
+        ['^', 'binary_exp'],
+        ['=', 'binary_relation'],
+        ['<', 'binary_relation'],
+        ['<=', 'binary_relation'],
+        ['!=', 'binary_relation'],
+        ['>=', 'binary_relation'],
+        ['>', 'binary_relation'],
+        [$.keyword_and, 'clause_connective'],
+        [$.keyword_or, 'clause_connective'],
+        [$.keyword_in, 'binary_in'],
+      ].map(([operator, precedence]) =>
+        prec.left(precedence, seq(
+          field('left', $._expression),
+          field('operator', operator),
+          field('right', $._expression)
+        ))
+      )
     ),
+
+    _expression: $ => choice(
+      $.literal,
+      $.field,
+      $.predicate,
+    ),
+
+    // predicate: $ => seq(
+    //   $.field,
+    //   $.operator,
+    //   choice(
+    //     prec(2, $.literal),
+    //     prec(1, $.field),
+    //   ),
+    // ),
 
     operator: $ => choice(
       '=',
       '>',
       '<',
+      '+',
+      '-',
+      '*',
+      '/',
+      '%',
+      '^',
+      '<',
+      '<=',
+      '!=',
+      '>=',
+      '>',
+      $.keyword_in,
     ),
 
     direction: $ => choice(
@@ -181,9 +245,11 @@ module.exports = grammar({
       $.keyword_asc,
     ),
 
-    literal: $ => choice(
-      $._number,
-      $._literal_string,
+    literal: $ => prec(2,
+      choice(
+        $._number,
+        $._literal_string,
+      ),
     ),
 
     identifier: $ => choice(
