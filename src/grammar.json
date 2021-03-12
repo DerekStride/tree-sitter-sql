@@ -18,6 +18,10 @@
       "type": "PATTERN",
       "value": "delete|DELETE"
     },
+    "keyword_create": {
+      "type": "PATTERN",
+      "value": "create|CREATE"
+    },
     "keyword_from": {
       "type": "PATTERN",
       "value": "from|FROM"
@@ -62,9 +66,25 @@
       "type": "PATTERN",
       "value": "offset|OFFSET"
     },
+    "keyword_primary": {
+      "type": "PATTERN",
+      "value": "primary|PRIMARY"
+    },
+    "keyword_table": {
+      "type": "PATTERN",
+      "value": "table|TABLE"
+    },
+    "keyword_key": {
+      "type": "PATTERN",
+      "value": "key|KEY"
+    },
     "keyword_distinct": {
       "type": "PATTERN",
       "value": "distinct|DISTINCT"
+    },
+    "keyword_constraint": {
+      "type": "PATTERN",
+      "value": "constraint|CONSTRAINT"
     },
     "keyword_count": {
       "type": "PATTERN",
@@ -94,6 +114,10 @@
       "type": "PATTERN",
       "value": "or|OR"
     },
+    "keyword_not": {
+      "type": "PATTERN",
+      "value": "not|NOT"
+    },
     "keyword_force": {
       "type": "PATTERN",
       "value": "force|FORCE"
@@ -109,6 +133,46 @@
     "keyword_for": {
       "type": "PATTERN",
       "value": "for|FOR"
+    },
+    "keyword_if": {
+      "type": "PATTERN",
+      "value": "if|IF"
+    },
+    "keyword_exists": {
+      "type": "PATTERN",
+      "value": "exists|EXISTS"
+    },
+    "keyword_auto_increment": {
+      "type": "PATTERN",
+      "value": "auto_increment|AUTO_INCREMENT"
+    },
+    "keyword_default": {
+      "type": "PATTERN",
+      "value": "default|DEFAULT"
+    },
+    "keyword_bigint": {
+      "type": "PATTERN",
+      "value": "bigint|BIGINT"
+    },
+    "keyword_null": {
+      "type": "PATTERN",
+      "value": "null|NULL"
+    },
+    "keyword_date": {
+      "type": "PATTERN",
+      "value": "date|DATE"
+    },
+    "keyword_datetime": {
+      "type": "PATTERN",
+      "value": "datetime|DATETIME"
+    },
+    "keyword_char": {
+      "type": "PATTERN",
+      "value": "char|CHAR"
+    },
+    "keyword_varchar": {
+      "type": "PATTERN",
+      "value": "varchar|VARCHAR"
     },
     "comment": {
       "type": "PATTERN",
@@ -128,6 +192,10 @@
         {
           "type": "SYMBOL",
           "name": "_delete_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_create_statement"
         }
       ]
     },
@@ -153,6 +221,28 @@
         {
           "type": "STRING",
           "value": ";"
+        }
+      ]
+    },
+    "select": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_select"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "select_expression"
+        }
+      ]
+    },
+    "select_expression": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_field_list"
         }
       ]
     },
@@ -248,25 +338,491 @@
         }
       ]
     },
-    "select": {
+    "_create_statement": {
       "type": "SEQ",
       "members": [
         {
           "type": "SYMBOL",
-          "name": "keyword_select"
+          "name": "create"
         },
         {
-          "type": "SYMBOL",
-          "name": "select_expression"
+          "type": "STRING",
+          "value": ";"
         }
       ]
     },
-    "select_expression": {
+    "create": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_create"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_table"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_if_not_exists"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_create_table_expression"
+          },
+          "named": true,
+          "value": "table_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "column_definitions"
+        }
+      ]
+    },
+    "_if_not_exists": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_if"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_not"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_exists"
+        }
+      ]
+    },
+    "column_definitions": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "SYMBOL",
+          "name": "column_definition"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": ","
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "column_definition"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "constraint"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
+    },
+    "column_definition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "type",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_type"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_not_null"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_default_null"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "keyword_auto_increment"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_primary_key"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "direction"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "_not_null": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_not"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_null"
+        }
+      ]
+    },
+    "_default_null": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_default"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_null"
+        }
+      ]
+    },
+    "constraint": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_constraint"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_primary_key"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "column_list"
+        }
+      ]
+    },
+    "column_list": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "SYMBOL",
+          "name": "column"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": ","
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "column"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
+    },
+    "column": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "direction"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "_type": {
       "type": "CHOICE",
       "members": [
         {
           "type": "SYMBOL",
-          "name": "_field_list"
+          "name": "bigint"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_date"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_datetime"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "char"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "varchar"
+        }
+      ]
+    },
+    "bigint": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_bigint"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "keyword_bigint"
+            },
+            {
+              "type": "STRING",
+              "value": "("
+            },
+            {
+              "type": "FIELD",
+              "name": "size",
+              "content": {
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_number"
+                },
+                "named": true,
+                "value": "literal"
+              }
+            },
+            {
+              "type": "STRING",
+              "value": ")"
+            }
+          ]
+        }
+      ]
+    },
+    "char": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_char"
+        },
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "FIELD",
+          "name": "size",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_number"
+            },
+            "named": true,
+            "value": "literal"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
+    },
+    "varchar": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_varchar"
+        },
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "FIELD",
+          "name": "size",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_number"
+            },
+            "named": true,
+            "value": "literal"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
+    },
+    "_primary_key": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_primary"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_key"
+        }
+      ]
+    },
+    "_create_table_expression": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "FIELD",
+                  "name": "schema",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "identifier"
+                  }
+                },
+                {
+                  "type": "STRING",
+                  "value": "."
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
         }
       ]
     },
@@ -1445,7 +2001,7 @@
     },
     "_string": {
       "type": "PATTERN",
-      "value": "([a-zA-Z_$][0-9a-zA-Z_]*)"
+      "value": "`?([a-zA-Z_$][0-9a-zA-Z_]*)`?"
     },
     "_number": {
       "type": "PATTERN",

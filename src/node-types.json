@@ -1,5 +1,270 @@
 [
   {
+    "type": "bigint",
+    "named": true,
+    "fields": {
+      "size": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "literal",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_bigint",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "char",
+    "named": true,
+    "fields": {
+      "size": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "literal",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_char",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "column",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "direction",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "column_definition",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "bigint",
+            "named": true
+          },
+          {
+            "type": "char",
+            "named": true
+          },
+          {
+            "type": "keyword_date",
+            "named": true
+          },
+          {
+            "type": "keyword_datetime",
+            "named": true
+          },
+          {
+            "type": "varchar",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "direction",
+          "named": true
+        },
+        {
+          "type": "keyword_auto_increment",
+          "named": true
+        },
+        {
+          "type": "keyword_default",
+          "named": true
+        },
+        {
+          "type": "keyword_key",
+          "named": true
+        },
+        {
+          "type": "keyword_not",
+          "named": true
+        },
+        {
+          "type": "keyword_null",
+          "named": true
+        },
+        {
+          "type": "keyword_primary",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "column_definitions",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "column_definition",
+          "named": true
+        },
+        {
+          "type": "constraint",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "column_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "column",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "constraint",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "column_list",
+          "named": true
+        },
+        {
+          "type": "keyword_constraint",
+          "named": true
+        },
+        {
+          "type": "keyword_key",
+          "named": true
+        },
+        {
+          "type": "keyword_primary",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "create",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "column_definitions",
+          "named": true
+        },
+        {
+          "type": "keyword_create",
+          "named": true
+        },
+        {
+          "type": "keyword_exists",
+          "named": true
+        },
+        {
+          "type": "keyword_if",
+          "named": true
+        },
+        {
+          "type": "keyword_not",
+          "named": true
+        },
+        {
+          "type": "keyword_table",
+          "named": true
+        },
+        {
+          "type": "table_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "delete",
     "named": true,
     "fields": {},
@@ -547,6 +812,10 @@
       "required": true,
       "types": [
         {
+          "type": "create",
+          "named": true
+        },
+        {
           "type": "delete",
           "named": true
         },
@@ -575,6 +844,16 @@
           }
         ]
       },
+      "schema": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
       "table_alias": {
         "multiple": false,
         "required": false,
@@ -585,6 +864,32 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "varchar",
+    "named": true,
+    "fields": {
+      "size": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "literal",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_varchar",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -714,11 +1019,43 @@
     "named": true
   },
   {
+    "type": "keyword_auto_increment",
+    "named": true
+  },
+  {
     "type": "keyword_avg",
     "named": true
   },
   {
+    "type": "keyword_bigint",
+    "named": true
+  },
+  {
+    "type": "keyword_char",
+    "named": true
+  },
+  {
+    "type": "keyword_constraint",
+    "named": true
+  },
+  {
     "type": "keyword_count",
+    "named": true
+  },
+  {
+    "type": "keyword_create",
+    "named": true
+  },
+  {
+    "type": "keyword_date",
+    "named": true
+  },
+  {
+    "type": "keyword_datetime",
+    "named": true
+  },
+  {
+    "type": "keyword_default",
     "named": true
   },
   {
@@ -731,6 +1068,10 @@
   },
   {
     "type": "keyword_distinct",
+    "named": true
+  },
+  {
+    "type": "keyword_exists",
     "named": true
   },
   {
@@ -754,6 +1095,10 @@
     "named": true
   },
   {
+    "type": "keyword_if",
+    "named": true
+  },
+  {
     "type": "keyword_in",
     "named": true
   },
@@ -766,6 +1111,10 @@
     "named": true
   },
   {
+    "type": "keyword_key",
+    "named": true
+  },
+  {
     "type": "keyword_limit",
     "named": true
   },
@@ -775,6 +1124,14 @@
   },
   {
     "type": "keyword_min",
+    "named": true
+  },
+  {
+    "type": "keyword_not",
+    "named": true
+  },
+  {
+    "type": "keyword_null",
     "named": true
   },
   {
@@ -794,11 +1151,23 @@
     "named": true
   },
   {
+    "type": "keyword_primary",
+    "named": true
+  },
+  {
     "type": "keyword_select",
     "named": true
   },
   {
+    "type": "keyword_table",
+    "named": true
+  },
+  {
     "type": "keyword_use",
+    "named": true
+  },
+  {
+    "type": "keyword_varchar",
     "named": true
   },
   {
