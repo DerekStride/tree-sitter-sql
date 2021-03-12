@@ -28,6 +28,7 @@ module.exports = grammar({
     ),
 
     keyword_select: _ => make_keyword("select"),
+    keyword_delete: _ => make_keyword("delete"),
     keyword_from: _ => make_keyword("from"),
     keyword_join: _ => make_keyword("join"),
     keyword_on: _ => make_keyword("on"),
@@ -57,12 +58,32 @@ module.exports = grammar({
 
     statement: $ => choice(
       $._select_statement,
+      $._delete_statement,
     ),
 
     _select_statement: $ => seq(
       $.select,
       optional($.from),
       ';',
+    ),
+
+    _delete_statement: $ => seq(
+      $.delete,
+      alias($._delete_from, $.from),
+      ';',
+    ),
+
+    delete: $ => seq(
+      $.keyword_delete,
+      optional($.index_hint),
+    ),
+
+    _delete_from: $ => seq(
+      $.keyword_from,
+      $.table_expression,
+      optional($.where),
+      optional($.order_by),
+      optional($.limit),
     ),
 
     select: $ => seq(

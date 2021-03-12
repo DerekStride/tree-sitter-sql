@@ -1,5 +1,24 @@
 [
   {
+    "type": "delete",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "index_hint",
+          "named": true
+        },
+        {
+          "type": "keyword_delete",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "direction",
     "named": true,
     "fields": {},
@@ -528,6 +547,10 @@
       "required": true,
       "types": [
         {
+          "type": "delete",
+          "named": true
+        },
+        {
           "type": "from",
           "named": true
         },
@@ -696,6 +719,10 @@
   },
   {
     "type": "keyword_count",
+    "named": true
+  },
+  {
+    "type": "keyword_delete",
     "named": true
   },
   {

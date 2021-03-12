@@ -1,0 +1,89 @@
+==================
+Delete whole table
+==================
+
+DELETE FROM my_table;
+
+---
+
+(program
+ (statement
+  (delete
+   (keyword_delete))
+  (from
+   (keyword_from)
+   (table_expression
+    name: (identifier)))))
+
+==================
+Delete table with limit
+==================
+
+DELETE FROM my_table
+LIMIT 4;
+
+---
+
+(program
+ (statement
+  (delete
+   (keyword_delete))
+  (from
+   (keyword_from)
+   (table_expression
+    name: (identifier))
+   (limit 
+    (keyword_limit)
+    (literal)))))
+
+==================
+Delete table with order by
+==================
+
+DELETE FROM my_table
+ORDER BY id DESC
+LIMIT 4;
+
+---
+
+(program
+ (statement
+  (delete
+   (keyword_delete))
+  (from
+   (keyword_from)
+   (table_expression
+    name: (identifier))
+   (order_by
+    (keyword_order_by)
+    (order_expression
+      (field name: (identifier))
+      (direction
+        (keyword_desc))))
+   (limit 
+    (keyword_limit)
+    (literal)))))
+
+==================
+Delete table with where
+==================
+
+DELETE FROM my_table
+WHERE id = 9;
+
+---
+
+(program
+ (statement
+  (delete
+   (keyword_delete))
+  (from
+   (keyword_from)
+   (table_expression
+    name: (identifier))
+   (where
+    (keyword_where)
+    (where_expression
+     (predicate
+      left: (field name: (identifier))
+      right: (literal)))))))

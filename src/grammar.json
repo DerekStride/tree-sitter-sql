@@ -14,6 +14,10 @@
       "type": "PATTERN",
       "value": "select|SELECT"
     },
+    "keyword_delete": {
+      "type": "PATTERN",
+      "value": "delete|DELETE"
+    },
     "keyword_from": {
       "type": "PATTERN",
       "value": "from|FROM"
@@ -120,6 +124,10 @@
         {
           "type": "SYMBOL",
           "name": "_select_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_delete_statement"
         }
       ]
     },
@@ -145,6 +153,98 @@
         {
           "type": "STRING",
           "value": ";"
+        }
+      ]
+    },
+    "_delete_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "delete"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_delete_from"
+          },
+          "named": true,
+          "value": "from"
+        },
+        {
+          "type": "STRING",
+          "value": ";"
+        }
+      ]
+    },
+    "delete": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_delete"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "index_hint"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "_delete_from": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_from"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "table_expression"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "where"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "order_by"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "limit"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },

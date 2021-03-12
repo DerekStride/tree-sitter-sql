@@ -11,7 +11,7 @@ SQL grammar for [tree-sitter](https://github.com/tree-sitter/tree-sitter).
 - [x] Comments 
 - [x] Marginalia 
 - [ ] UPDATE statements
-- [ ] DELETE statements
+- [x] DELETE statements
 - [ ] CREATE statements
 - [ ] DROP statements
 - [ ] ALTER TABLE statements

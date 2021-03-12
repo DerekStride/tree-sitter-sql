@@ -58,3 +58,22 @@ FROM my_table;
    (keyword_from)
    (table_expression
     name: (identifier)))))
+
+==================
+Can parse delete with marginalia
+==================
+
+DELETE /* MAX_EXECUTION_TIME(500) */
+FROM my_table;
+
+---
+
+(program
+ (statement
+  (delete
+   (keyword_delete))
+  (marginalia)
+  (from
+   (keyword_from)
+   (table_expression
+    name: (identifier)))))
