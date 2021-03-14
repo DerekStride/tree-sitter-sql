@@ -197,7 +197,12 @@ module.exports = grammar({
       $.update_expression,
     ),
 
-    update_expression: $ => seq(
+    update_expression: $ => choice(
+      $._single_table_update,
+      $._multi_table_update,
+    ),
+
+    _single_table_update: $ => seq(
       $.table_reference,
       $.keyword_set,
       $.assignment_list,
@@ -206,9 +211,25 @@ module.exports = grammar({
       optional($.limit),
     ),
 
+    _multi_table_update: $ => seq(
+      $._table_references,
+      $.keyword_set,
+      $.assignment_list,
+      optional($.where),
+    ),
+
+    _table_references: $ => seq(
+      $.table_reference,
+      repeat1(
+        seq(',', $.table_reference),
+      ),
+    ),
+
     assignment_list: $ => seq(
       $.predicate,
-
+      repeat(
+        seq(',', $.predicate),
+      ),
     ),
 
     table_options: $ => repeat1($.table_option),

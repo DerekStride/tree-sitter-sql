@@ -10,7 +10,7 @@ SQL grammar for [tree-sitter](https://github.com/tree-sitter/tree-sitter).
 - [x] Index hints
 - [x] Comments 
 - [x] Marginalia 
-- [ ] UPDATE statements
+- [x] UPDATE statements
 - [x] DELETE statements
 - [x] CREATE statements
 - [x] INSERT/REPLACE statements

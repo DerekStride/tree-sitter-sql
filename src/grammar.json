@@ -828,6 +828,19 @@
       ]
     },
     "update_expression": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_single_table_update"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_multi_table_update"
+        }
+      ]
+    },
+    "_single_table_update": {
       "type": "SEQ",
       "members": [
         {
@@ -880,12 +893,82 @@
         }
       ]
     },
+    "_multi_table_update": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_table_references"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_set"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "assignment_list"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "where"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "_table_references": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "table_reference"
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": ","
+              },
+              {
+                "type": "SYMBOL",
+                "name": "table_reference"
+              }
+            ]
+          }
+        }
+      ]
+    },
     "assignment_list": {
       "type": "SEQ",
       "members": [
         {
           "type": "SYMBOL",
           "name": "predicate"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": ","
+              },
+              {
+                "type": "SYMBOL",
+                "name": "predicate"
+              }
+            ]
+          }
         }
       ]
     },
