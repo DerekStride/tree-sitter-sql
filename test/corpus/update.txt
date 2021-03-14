@@ -1,0 +1,23 @@
+==================
+Simple update
+==================
+
+UPDATE my_table
+SET for = foo + 1;
+
+---
+
+(program
+ (statement
+  (update
+   (keyword_update)
+   (update_expression
+    (table_reference name: (identifier))
+    (keyword_set)
+    (assignment_list
+     (predicate
+      left: (field name: (identifier))
+      right:
+       (predicate
+        left: (field name: (identifier))
+        right: (literal))))))))

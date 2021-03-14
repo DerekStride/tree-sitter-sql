@@ -32,8 +32,10 @@ module.exports = grammar({
     keyword_create: _ => make_keyword("create"),
     keyword_insert: _ => make_keyword("insert"),
     keyword_replace: _ => make_keyword("replace"),
+    keyword_update: _ => make_keyword("update"),
     keyword_into: _ => make_keyword("into"),
     keyword_values: _ => make_keyword("values"),
+    keyword_set: _ => make_keyword("set"),
     keyword_from: _ => make_keyword("from"),
     keyword_join: _ => make_keyword("join"),
     keyword_on: _ => make_keyword("on"),
@@ -101,6 +103,7 @@ module.exports = grammar({
       $._delete_statement,
       $._create_statement,
       $._insert_statement,
+      $._update_statement,
     ),
 
     _select_statement: $ => seq(
@@ -183,6 +186,30 @@ module.exports = grammar({
 
     _column_list_without_order: $ => param_list(alias($._column_without_order, $.column)),
     _column_without_order: $ => field('name', $.identifier),
+
+    _update_statement: $ => seq(
+      $.update,
+      ';',
+    ),
+
+    update: $ => seq(
+      $.keyword_update,
+      $.update_expression,
+    ),
+
+    update_expression: $ => seq(
+      alias($._create_table_expression, $.table_expression),
+      $.keyword_set,
+      $.assignment_list,
+      optional($.where),
+      optional($.order_by),
+      optional($.limit),
+    ),
+
+    assignment_list: $ => seq(
+      $.predicate,
+
+    ),
 
     table_options: $ => repeat1($.table_option),
     table_option: $ => choice(

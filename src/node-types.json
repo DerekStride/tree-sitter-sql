@@ -1,5 +1,20 @@
 [
   {
+    "type": "assignment_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "predicate",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "bigint",
     "named": true,
     "fields": {
@@ -903,6 +918,10 @@
         {
           "type": "select",
           "named": true
+        },
+        {
+          "type": "update",
+          "named": true
         }
       ]
     }
@@ -979,6 +998,60 @@
       "types": [
         {
           "type": "table_option",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "update",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_update",
+          "named": true
+        },
+        {
+          "type": "update_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "update_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "assignment_list",
+          "named": true
+        },
+        {
+          "type": "keyword_set",
+          "named": true
+        },
+        {
+          "type": "limit",
+          "named": true
+        },
+        {
+          "type": "order_by",
+          "named": true
+        },
+        {
+          "type": "table_expression",
+          "named": true
+        },
+        {
+          "type": "where",
           "named": true
         }
       ]
@@ -1301,7 +1374,15 @@
     "named": true
   },
   {
+    "type": "keyword_set",
+    "named": true
+  },
+  {
     "type": "keyword_table",
+    "named": true
+  },
+  {
+    "type": "keyword_update",
     "named": true
   },
   {
