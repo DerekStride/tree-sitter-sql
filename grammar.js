@@ -30,6 +30,10 @@ module.exports = grammar({
     keyword_select: _ => make_keyword("select"),
     keyword_delete: _ => make_keyword("delete"),
     keyword_create: _ => make_keyword("create"),
+    keyword_insert: _ => make_keyword("insert"),
+    keyword_replace: _ => make_keyword("replace"),
+    keyword_into: _ => make_keyword("into"),
+    keyword_values: _ => make_keyword("values"),
     keyword_from: _ => make_keyword("from"),
     keyword_join: _ => make_keyword("join"),
     keyword_on: _ => make_keyword("on"),
@@ -84,7 +88,29 @@ module.exports = grammar({
       $._select_statement,
       $._delete_statement,
       $._create_statement,
+      $._insert_statement,
     ),
+
+    _insert_statement: $ => seq(
+      $.insert,
+      ';',
+    ),
+
+    insert: $ => seq(
+      choice($.keyword_insert, $.keyword_replace),
+      $.keyword_into,
+      $.insert_expression,
+    ),
+
+    insert_expression: $ => seq(
+      alias($._create_table_expression, $.table_expression),
+      optional(alias($._column_list_without_order, $.column_list)),
+      $.keyword_values,
+      $.list,
+    ),
+
+    _column_list_without_order: $ => param_list(alias($._column_without_order, $.column)),
+    _column_without_order: $ => field('name', $.identifier),
 
     _select_statement: $ => seq(
       $.select,
@@ -421,17 +447,17 @@ module.exports = grammar({
         $._literal_string,
       ),
     ),
+    _literal_string: _ => choice(
+      seq("'", /[^']*/, "'"),
+      seq('"', /[^']*/, '"'),
+    ),
+    _number: _ => /\d+/,
 
     identifier: $ => choice(
-      $._string,
-      $._escaped_string,
-      $._number,
+      $._identifier,
+      seq('`', $._identifier, '`'),
     ),
-
-    _literal_string: _ => /(['"])([a-zA-Z_$][0-9a-zA-Z_]*['"])/,
-    _string: _ => /([a-zA-Z_$][0-9a-zA-Z_]*)/,
-    _escaped_string: $ => seq('`', $._string, '`'),
-    _number: _ => /\d+/,
+    _identifier: _ => /([a-zA-Z_$][0-9a-zA-Z_]*)/,
   }
 
 });

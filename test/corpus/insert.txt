@@ -1,0 +1,47 @@
+==================
+Simple insert
+==================
+
+INSERT INTO my_table
+VALUES('foo','bar', 3);
+
+---
+
+(program
+ (statement
+  (insert
+   (keyword_insert)
+   (keyword_into)
+   (insert_expression
+    (table_expression name: (identifier))
+    (keyword_values)
+    (list
+     (literal)
+     (literal)
+     (literal))))))
+
+==================
+Simple insert with column ordering
+==================
+
+REPLACE INTO my_table (name, id, year)
+VALUES ('foo', 123, '2020');
+
+---
+
+(program
+ (statement
+  (insert
+   (keyword_replace)
+   (keyword_into)
+   (insert_expression
+    (table_expression name: (identifier))
+    (column_list
+     (column name: (identifier))
+     (column name: (identifier))
+     (column name: (identifier)))
+    (keyword_values)
+    (list
+     (literal)
+     (literal)
+     (literal))))))

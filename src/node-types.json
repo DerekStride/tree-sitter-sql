@@ -511,6 +511,60 @@
     }
   },
   {
+    "type": "insert",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "insert_expression",
+          "named": true
+        },
+        {
+          "type": "keyword_insert",
+          "named": true
+        },
+        {
+          "type": "keyword_into",
+          "named": true
+        },
+        {
+          "type": "keyword_replace",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "insert_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "column_list",
+          "named": true
+        },
+        {
+          "type": "keyword_values",
+          "named": true
+        },
+        {
+          "type": "list",
+          "named": true
+        },
+        {
+          "type": "table_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "join",
     "named": true,
     "fields": {},
@@ -843,6 +897,10 @@
           "named": true
         },
         {
+          "type": "insert",
+          "named": true
+        },
+        {
           "type": "select",
           "named": true
         }
@@ -1003,7 +1061,15 @@
     "named": false
   },
   {
+    "type": "\"",
+    "named": false
+  },
+  {
     "type": "%",
+    "named": false
+  },
+  {
+    "type": "'",
     "named": false
   },
   {
@@ -1171,6 +1237,14 @@
     "named": true
   },
   {
+    "type": "keyword_insert",
+    "named": true
+  },
+  {
+    "type": "keyword_into",
+    "named": true
+  },
+  {
     "type": "keyword_join",
     "named": true
   },
@@ -1219,6 +1293,10 @@
     "named": true
   },
   {
+    "type": "keyword_replace",
+    "named": true
+  },
+  {
     "type": "keyword_select",
     "named": true
   },
@@ -1228,6 +1306,10 @@
   },
   {
     "type": "keyword_use",
+    "named": true
+  },
+  {
+    "type": "keyword_values",
     "named": true
   },
   {

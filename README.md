@@ -13,6 +13,7 @@ SQL grammar for [tree-sitter](https://github.com/tree-sitter/tree-sitter).
 - [ ] UPDATE statements
 - [x] DELETE statements
 - [x] CREATE statements
+- [x] INSERT/REPLACE statements
 - [ ] DROP statements
 - [ ] ALTER TABLE statements
 - [ ] CREATE INDEX statements
