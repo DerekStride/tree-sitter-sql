@@ -31,7 +31,7 @@
     "fields": {
       "size": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "literal",
@@ -166,7 +166,7 @@
           "named": true
         },
         {
-          "type": "constraint",
+          "type": "constraints",
           "named": true
         }
       ]
@@ -193,7 +193,7 @@
     "fields": {
       "name": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "identifier",
@@ -220,6 +220,21 @@
         },
         {
           "type": "keyword_primary",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "constraints",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "constraint",
           "named": true
         }
       ]
@@ -259,6 +274,10 @@
         },
         {
           "type": "table_expression",
+          "named": true
+        },
+        {
+          "type": "table_options",
           "named": true
         }
       ]
@@ -867,12 +886,53 @@
     }
   },
   {
+    "type": "table_option",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "table_options",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "table_option",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "varchar",
     "named": true,
     "fields": {
       "size": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "literal",
@@ -1004,6 +1064,10 @@
   },
   {
     "type": "^",
+    "named": false
+  },
+  {
+    "type": "`",
     "named": false
   },
   {

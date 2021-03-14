@@ -56,15 +56,14 @@ CREATE TABLE my_table (
       (keyword_null)
       (direction (keyword_asc)))))))
 
-
 ==================
 Create table with constraint
 ==================
 
 CREATE TABLE my_table (
   host CHAR(50) NOT NULL,
-  created_date DATE NOT NULL
-  PRIMARY KEY (host ASC, created_date DESC)
+  created_date DATE NOT NULL,
+  CONSTRAINT pk PRIMARY KEY (host ASC, created_date DESC)
 );
 
 ---
@@ -78,33 +77,154 @@ CREATE TABLE my_table (
     name: (identifier))
    (column_definitions
     (column_definition
-      name: (identifier)
-      type:
-       (char
-        (keyword_char)
-        size: (literal))
-      (keyword_not)
-      (keyword_null))
+     name: (identifier)
+     type:
+     (char
+      (keyword_char)
+      size: (literal))
+     (keyword_not)
+     (keyword_null))
     (column_definition
-      name: (identifier)
-      type: (keyword_date)
-      (keyword_not)
-      (keyword_null))
-    (constraint
+     name: (identifier)
+     type: (keyword_date)
+     (keyword_not)
+     (keyword_null))
+    (constraints
+     (constraint
       (keyword_constraint)
       name: (identifier)
       (keyword_primary)
       (keyword_key)
       (column_list
-        (column
-          name: (identifier)
-          (direction (keyword_asc)))
-        (column
-          name: (identifier)
-          (direction (keyword_desc)))))))))
+       (column
+        name: (identifier)
+        (direction (keyword_asc)))
+       (column
+        name: (identifier)
+        (direction (keyword_desc))))))))))
+
+==================
+Create table with constraint on multiple columns
+==================
+
+CREATE TABLE my_table (
+  host CHAR(50) NOT NULL,
+  created_date DATE NOT NULL,
+  KEY `idx` (`host`, `created_date`)
+);
+
+---
+
+(program
+ (statement
+  (create
+   (keyword_create)
+   (keyword_table)
+   (table_expression
+    name: (identifier))
+   (column_definitions
+    (column_definition
+     name: (identifier)
+     type:
+     (char
+      (keyword_char)
+      size: (literal))
+     (keyword_not)
+     (keyword_null))
+    (column_definition
+     name: (identifier)
+     type: (keyword_date)
+     (keyword_not)
+     (keyword_null))
+    (constraints
+     (constraint
+      (keyword_key)
+      name: (identifier)
+      (column_list
+       (column
+        name: (identifier))
+       (column
+        name: (identifier)))))))))
 
 ==================
 Create table if not exists
+==================
+
+CREATE TABLE IF NOT EXISTS `addresses` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT
+);
+
+---
+
+(program
+ (statement
+  (create
+   (keyword_create)
+   (keyword_table)
+   (keyword_if)
+   (keyword_not)
+   (keyword_exists)
+   (table_expression
+    name: (identifier))
+   (column_definitions
+    (column_definition
+      name: (identifier)
+      type:
+       (bigint
+        (keyword_bigint)
+        size: (literal))
+      (keyword_not)
+      (keyword_null)
+      (keyword_auto_increment))))))
+
+==================
+Create table with auto increment
+==================
+
+CREATE TABLE IF NOT EXISTS `addresses` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`),
+  KEY `addresses_s_id_index` (`s_id`)
+);
+
+---
+
+(program
+ (statement
+  (create
+   (keyword_create)
+   (keyword_table)
+   (keyword_if)
+   (keyword_not)
+   (keyword_exists)
+   (table_expression
+    name: (identifier))
+   (column_definitions
+    (column_definition
+      name: (identifier)
+      type:
+       (bigint
+        (keyword_bigint)
+        size: (literal))
+      (keyword_not)
+      (keyword_null)
+      (keyword_auto_increment))
+    (constraints
+     (constraint
+      (keyword_primary)
+      (keyword_key)
+      (column_list
+       (column
+        name: (identifier))))
+     (constraint
+      (keyword_key)
+      name: (identifier)
+      (column_list
+       (column
+        name: (identifier)))))))))
+
+==================
+Create table with multiple constraints
 ==================
 
 CREATE TABLE IF NOT EXISTS `addresses` (
@@ -115,8 +235,8 @@ CREATE TABLE IF NOT EXISTS `addresses` (
   PRIMARY KEY (`id`),
   KEY `addresses_s_id_index` (`s_id`),
   KEY `index_addresses_on_updated_at` (`updated_at`),
-  KEY `index_addresses_on_s_id_and_id` (`s_id`,`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+  KEY `index_addresses_on_s_id_and_id` (`s_id`, `id`)
+);
 
 ---
 
@@ -161,37 +281,90 @@ CREATE TABLE IF NOT EXISTS `addresses` (
       type: (keyword_datetime)
       (keyword_default)
       (keyword_null))
-    (column_definition
-      name: (identifier)
-      type: (keyword_date)
-      (keyword_not)
-      (keyword_null))
-    (constraint
-      (keyword_constraint)
-      name: (identifier)
+    (constraints
+     (constraint
       (keyword_primary)
       (keyword_key)
       (column_list
-        (column
-          name: (identifier)
-          (direction (keyword_asc)))
-        (column
-          name: (identifier)
-          (direction (keyword_desc)))))))))
+       (column
+        name: (identifier))))
+     (constraint
+      (keyword_key)
+      name: (identifier)
+      (column_list
+       (column
+        name: (identifier))))
+     (constraint
+      (keyword_key)
+      name: (identifier)
+      (column_list
+       (column
+        name: (identifier))))
+     (constraint
+      (keyword_key)
+      name: (identifier)
+      (column_list
+       (column
+        name: (identifier))
+       (column
+        name: (identifier)))))))))
 
 ==================
-Create table with table_options
+Debugging
 ==================
 
 CREATE TABLE IF NOT EXISTS `addresses` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `s_id` bigint(20) DEFAULT NULL,
-  `first_name` varchar(255) DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `addresses_shop_id_index` (`shop_id`),
-  KEY `index_addresses_on_updated_at` (`updated_at`),
-  KEY `index_addresses_on_shop_id_and_id` (`shop_id`,`id`)
+  `first_name` varchar(255) DEFAULT NULL
+);
+
+---
+
+(program
+ (statement
+  (create
+   (keyword_create)
+   (keyword_table)
+   (keyword_if)
+   (keyword_not)
+   (keyword_exists)
+   (table_expression
+    name: (identifier))
+   (column_definitions
+    (column_definition
+      name: (identifier)
+      type:
+       (bigint
+        (keyword_bigint)
+        size: (literal))
+      (keyword_not)
+      (keyword_null)
+      (keyword_auto_increment))
+    (column_definition
+      name: (identifier)
+      type:
+       (bigint
+        (keyword_bigint)
+        size: (literal))
+      (keyword_default)
+      (keyword_null))
+    (column_definition
+      name: (identifier)
+      type:
+       (varchar
+        (keyword_varchar)
+        size: (literal))
+      (keyword_default)
+      (keyword_null))))))
+
+==================
+Create table with table options
+==================
+
+CREATE TABLE my_table (
+  id BIGINT(20) NOT NULL,
+  date DATE DEFAULT NULL ASC
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 ---
@@ -207,25 +380,26 @@ CREATE TABLE IF NOT EXISTS `addresses` (
     (column_definition
       name: (identifier)
       type:
-       (char
-        (keyword_char)
+       (bigint
+        (keyword_bigint)
         size: (literal))
       (keyword_not)
       (keyword_null))
     (column_definition
       name: (identifier)
       type: (keyword_date)
-      (keyword_not)
-      (keyword_null))
-    (constraint
-      (keyword_constraint)
-      name: (identifier)
-      (keyword_primary)
-      (keyword_key)
-      (column_list
-        (column
-          name: (identifier)
-          (direction (keyword_asc)))
-        (column
-          name: (identifier)
-          (direction (keyword_desc)))))))))
+      (keyword_default)
+      (keyword_null)
+      (direction (keyword_asc))))
+   (table_options
+    (table_option
+     name: (identifier)
+     value: (identifier))
+    (table_option
+     name: (identifier))
+    (table_option
+     name: (identifier)
+     value: (identifier))
+    (table_option
+     name: (identifier)
+     value: (identifier))))))
