@@ -81,6 +81,18 @@ module.exports = grammar({
     keyword_char: _ => make_keyword("char"),
     keyword_varchar: _ => make_keyword("varchar"),
 
+    _type: $ => choice(
+      $.bigint,
+      $.keyword_date,
+      $.keyword_datetime,
+      $.char,
+      $.varchar,
+    ),
+
+    bigint: $ => sized_type($, $.keyword_bigint),
+    char: $ => sized_type($, $.keyword_char),
+    varchar: $ => sized_type($, $.keyword_varchar),
+
     comment: _ => /--.*\n/,
     marginalia: _ => /\/'*.*\*\//,
 
@@ -90,27 +102,6 @@ module.exports = grammar({
       $._create_statement,
       $._insert_statement,
     ),
-
-    _insert_statement: $ => seq(
-      $.insert,
-      ';',
-    ),
-
-    insert: $ => seq(
-      choice($.keyword_insert, $.keyword_replace),
-      $.keyword_into,
-      $.insert_expression,
-    ),
-
-    insert_expression: $ => seq(
-      alias($._create_table_expression, $.table_expression),
-      optional(alias($._column_list_without_order, $.column_list)),
-      $.keyword_values,
-      $.list,
-    ),
-
-    _column_list_without_order: $ => param_list(alias($._column_without_order, $.column)),
-    _column_without_order: $ => field('name', $.identifier),
 
     _select_statement: $ => seq(
       $.select,
@@ -133,17 +124,18 @@ module.exports = grammar({
       ';',
     ),
 
-    delete: $ => seq(
-      $.keyword_delete,
-      optional($.index_hint),
-    ),
-
     _delete_from: $ => seq(
       $.keyword_from,
       $.table_expression,
       optional($.where),
       optional($.order_by),
       optional($.limit),
+    ),
+
+
+    delete: $ => seq(
+      $.keyword_delete,
+      optional($.index_hint),
     ),
 
     _create_statement: $ => seq(
@@ -160,6 +152,38 @@ module.exports = grammar({
       optional($.table_options),
     ),
 
+    _create_table_expression: $ => seq(
+      optional(
+        seq(
+          field('schema', $.identifier),
+          '.',
+        ),
+      ),
+      field('name', $.identifier),
+    ),
+
+
+    _insert_statement: $ => seq(
+      $.insert,
+      ';',
+    ),
+
+    insert: $ => seq(
+      choice($.keyword_insert, $.keyword_replace),
+      $.keyword_into,
+      $.insert_expression,
+    ),
+
+    insert_expression: $ => seq(
+      alias($._create_table_expression, $.table_expression),
+      optional(alias($._column_list_without_order, $.column_list)),
+      $.keyword_values,
+      $.list,
+    ),
+
+    _column_list_without_order: $ => param_list(alias($._column_without_order, $.column)),
+    _column_without_order: $ => field('name', $.identifier),
+
     table_options: $ => repeat1($.table_option),
     table_option: $ => choice(
       field('name', alias($.keyword_default, $.identifier)),
@@ -169,7 +193,6 @@ module.exports = grammar({
         field('value', $.identifier),
       ),
     ),
-
 
     column_definitions: $ => seq(
       '(',
@@ -230,28 +253,6 @@ module.exports = grammar({
     column: $ => seq(
       field('name', $.identifier),
       optional($.direction),
-    ),
-
-    _type: $ => choice(
-      $.bigint,
-      $.keyword_date,
-      $.keyword_datetime,
-      $.char,
-      $.varchar,
-    ),
-
-    bigint: $ => sized_type($, $.keyword_bigint),
-    char: $ => sized_type($, $.keyword_char),
-    varchar: $ => sized_type($, $.keyword_varchar),
-
-    _create_table_expression: $ => seq(
-      optional(
-        seq(
-          field('schema', $.identifier),
-          '.',
-        ),
-      ),
-      field('name', $.identifier),
     ),
 
     _field_list: $ => choice(
