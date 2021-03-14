@@ -288,11 +288,11 @@
           "named": true
         },
         {
-          "type": "table_expression",
+          "type": "table_options",
           "named": true
         },
         {
-          "type": "table_options",
+          "type": "table_reference",
           "named": true
         }
       ]
@@ -573,7 +573,7 @@
           "named": true
         },
         {
-          "type": "table_expression",
+          "type": "table_reference",
           "named": true
         }
       ]
@@ -940,16 +940,6 @@
           }
         ]
       },
-      "schema": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
       "table_alias": {
         "multiple": false,
         "required": false,
@@ -1004,6 +994,32 @@
     }
   },
   {
+    "type": "table_reference",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "schema": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "update",
     "named": true,
     "fields": {},
@@ -1047,7 +1063,7 @@
           "named": true
         },
         {
-          "type": "table_expression",
+          "type": "table_reference",
           "named": true
         },
         {

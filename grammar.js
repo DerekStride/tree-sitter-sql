@@ -150,12 +150,12 @@ module.exports = grammar({
       $.keyword_create,
       $.keyword_table,
       optional($._if_not_exists),
-      alias($._create_table_expression, $.table_expression),
+      $.table_reference,
       $.column_definitions,
       optional($.table_options),
     ),
 
-    _create_table_expression: $ => seq(
+    table_reference: $ => seq(
       optional(
         seq(
           field('schema', $.identifier),
@@ -178,7 +178,7 @@ module.exports = grammar({
     ),
 
     insert_expression: $ => seq(
-      alias($._create_table_expression, $.table_expression),
+      $.table_reference,
       optional(alias($._column_list_without_order, $.column_list)),
       $.keyword_values,
       $.list,
@@ -198,7 +198,7 @@ module.exports = grammar({
     ),
 
     update_expression: $ => seq(
-      alias($._create_table_expression, $.table_expression),
+      $.table_reference,
       $.keyword_set,
       $.assignment_list,
       optional($.where),

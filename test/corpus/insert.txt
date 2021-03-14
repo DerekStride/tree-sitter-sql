@@ -13,7 +13,7 @@ VALUES('foo','bar', 3);
    (keyword_insert)
    (keyword_into)
    (insert_expression
-    (table_expression name: (identifier))
+    (table_reference name: (identifier))
     (keyword_values)
     (list
      (literal)
@@ -35,7 +35,7 @@ VALUES ('foo', 123, '2020');
    (keyword_replace)
    (keyword_into)
    (insert_expression
-    (table_expression name: (identifier))
+    (table_reference name: (identifier))
     (column_list
      (column name: (identifier))
      (column name: (identifier))

@@ -11,7 +11,7 @@ CREATE TABLE my_schema.my_table (id BIGINT NOT NULL PRIMARY KEY);
   (create
    (keyword_create)
    (keyword_table)
-   (table_expression
+   (table_reference
     schema: (identifier)
     name: (identifier))
    (column_definitions
@@ -39,7 +39,7 @@ CREATE TABLE my_table (
   (create
    (keyword_create)
    (keyword_table)
-   (table_expression
+   (table_reference
     name: (identifier))
    (column_definitions
     (column_definition
@@ -73,7 +73,7 @@ CREATE TABLE my_table (
   (create
    (keyword_create)
    (keyword_table)
-   (table_expression
+   (table_reference
     name: (identifier))
    (column_definitions
     (column_definition
@@ -120,7 +120,7 @@ CREATE TABLE my_table (
   (create
    (keyword_create)
    (keyword_table)
-   (table_expression
+   (table_reference
     name: (identifier))
    (column_definitions
     (column_definition
@@ -164,7 +164,7 @@ CREATE TABLE IF NOT EXISTS `addresses` (
    (keyword_if)
    (keyword_not)
    (keyword_exists)
-   (table_expression
+   (table_reference
     name: (identifier))
    (column_definitions
     (column_definition
@@ -197,7 +197,7 @@ CREATE TABLE IF NOT EXISTS `addresses` (
    (keyword_if)
    (keyword_not)
    (keyword_exists)
-   (table_expression
+   (table_reference
     name: (identifier))
    (column_definitions
     (column_definition
@@ -248,7 +248,7 @@ CREATE TABLE IF NOT EXISTS `addresses` (
    (keyword_if)
    (keyword_not)
    (keyword_exists)
-   (table_expression
+   (table_reference
     name: (identifier))
    (column_definitions
     (column_definition
@@ -329,7 +329,7 @@ CREATE TABLE IF NOT EXISTS `addresses` (
    (keyword_if)
    (keyword_not)
    (keyword_exists)
-   (table_expression
+   (table_reference
     name: (identifier))
    (column_definitions
     (column_definition
@@ -374,7 +374,7 @@ CREATE TABLE my_table (
   (create
    (keyword_create)
    (keyword_table)
-   (table_expression
+   (table_reference
     name: (identifier))
    (column_definitions
     (column_definition
