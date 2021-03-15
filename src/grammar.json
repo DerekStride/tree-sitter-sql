@@ -1420,10 +1420,10 @@
       "members": [
         {
           "type": "FIELD",
-          "name": "function_name",
+          "name": "name",
           "content": {
             "type": "SYMBOL",
-            "name": "_function_name"
+            "name": "function_name"
           }
         },
         {
@@ -1457,28 +1457,62 @@
         }
       ]
     },
+    "function_name": {
+      "type": "ALIAS",
+      "content": {
+        "type": "SYMBOL",
+        "name": "_function_name"
+      },
+      "named": true,
+      "value": "identifier"
+    },
     "_function_name": {
       "type": "CHOICE",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "keyword_distinct"
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "keyword_distinct"
+          },
+          "named": false,
+          "value": "distinct"
         },
         {
-          "type": "SYMBOL",
-          "name": "keyword_count"
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "keyword_count"
+          },
+          "named": false,
+          "value": "count"
         },
         {
-          "type": "SYMBOL",
-          "name": "keyword_max"
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "keyword_max"
+          },
+          "named": false,
+          "value": "max"
         },
         {
-          "type": "SYMBOL",
-          "name": "keyword_min"
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "keyword_min"
+          },
+          "named": false,
+          "value": "min"
         },
         {
-          "type": "SYMBOL",
-          "name": "keyword_avg"
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "keyword_avg"
+          },
+          "named": false,
+          "value": "avg"
         }
       ]
     },

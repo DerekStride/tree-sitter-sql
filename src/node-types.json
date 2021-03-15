@@ -409,28 +409,12 @@
     "type": "function_call",
     "named": true,
     "fields": {
-      "function_name": {
+      "name": {
         "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "keyword_avg",
-            "named": true
-          },
-          {
-            "type": "keyword_count",
-            "named": true
-          },
-          {
-            "type": "keyword_distinct",
-            "named": true
-          },
-          {
-            "type": "keyword_max",
-            "named": true
-          },
-          {
-            "type": "keyword_min",
+            "type": "function_name",
             "named": true
           }
         ]
@@ -449,6 +433,21 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "function_name",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -1226,8 +1225,20 @@
     "named": false
   },
   {
+    "type": "avg",
+    "named": false
+  },
+  {
     "type": "comment",
     "named": true
+  },
+  {
+    "type": "count",
+    "named": false
+  },
+  {
+    "type": "distinct",
+    "named": false
   },
   {
     "type": "keyword_and",
@@ -1242,10 +1253,6 @@
     "named": true
   },
   {
-    "type": "keyword_avg",
-    "named": true
-  },
-  {
     "type": "keyword_bigint",
     "named": true
   },
@@ -1255,10 +1262,6 @@
   },
   {
     "type": "keyword_constraint",
-    "named": true
-  },
-  {
-    "type": "keyword_count",
     "named": true
   },
   {
@@ -1283,10 +1286,6 @@
   },
   {
     "type": "keyword_desc",
-    "named": true
-  },
-  {
-    "type": "keyword_distinct",
     "named": true
   },
   {
@@ -1343,14 +1342,6 @@
   },
   {
     "type": "keyword_limit",
-    "named": true
-  },
-  {
-    "type": "keyword_max",
-    "named": true
-  },
-  {
-    "type": "keyword_min",
     "named": true
   },
   {
@@ -1420,5 +1411,13 @@
   {
     "type": "marginalia",
     "named": true
+  },
+  {
+    "type": "max",
+    "named": false
+  },
+  {
+    "type": "min",
+    "named": false
   }
 ]
