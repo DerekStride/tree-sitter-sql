@@ -1,1 +1,10 @@
 tmp/
+Cargo.lock
+node_modules
+.node-version
+build
+*.log
+/test.js
+/examples/npm
+package-lock.json
+/target/
