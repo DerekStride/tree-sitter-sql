@@ -2580,14 +2580,38 @@
   "conflicts": [],
   "precedences": [
     [
-      "unary_not",
-      "binary_exp",
-      "binary_times",
-      "binary_plus",
-      "binary_in",
-      "binary_compare",
-      "binary_relation",
-      "clause_connective"
+      {
+        "type": "STRING",
+        "value": "unary_not"
+      },
+      {
+        "type": "STRING",
+        "value": "binary_exp"
+      },
+      {
+        "type": "STRING",
+        "value": "binary_times"
+      },
+      {
+        "type": "STRING",
+        "value": "binary_plus"
+      },
+      {
+        "type": "STRING",
+        "value": "binary_in"
+      },
+      {
+        "type": "STRING",
+        "value": "binary_compare"
+      },
+      {
+        "type": "STRING",
+        "value": "binary_relation"
+      },
+      {
+        "type": "STRING",
+        "value": "clause_connective"
+      }
     ]
   ],
   "externals": [],
