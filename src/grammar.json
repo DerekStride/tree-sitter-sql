@@ -2367,6 +2367,39 @@
         {
           "type": "SYMBOL",
           "name": "predicate"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "subquery"
+        }
+      ]
+    },
+    "subquery": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "SYMBOL",
+          "name": "select"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "from"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": ")"
         }
       ]
     },

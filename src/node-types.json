@@ -740,6 +740,10 @@
           {
             "type": "predicate",
             "named": true
+          },
+          {
+            "type": "subquery",
+            "named": true
           }
         ]
       },
@@ -827,6 +831,10 @@
           },
           {
             "type": "predicate",
+            "named": true
+          },
+          {
+            "type": "subquery",
             "named": true
           }
         ]
@@ -920,6 +928,25 @@
         },
         {
           "type": "update",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "subquery",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "from",
+          "named": true
+        },
+        {
+          "type": "select",
           "named": true
         }
       ]
@@ -1139,6 +1166,10 @@
         },
         {
           "type": "predicate",
+          "named": true
+        },
+        {
+          "type": "subquery",
           "named": true
         }
       ]
