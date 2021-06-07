@@ -1,0 +1,36 @@
+==================
+Can parse subquery
+==================
+
+SELECT id
+FROM foo
+WHERE id < (
+  SELECT id
+  FROM bar
+  LIMIT 1);
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (field (identifier))))
+  (from
+   (keyword_from)
+   (table_expression (identifier))
+   (where
+    (keyword_where)
+    (where_expression
+     (predicate
+      (field (identifier))
+      (subquery
+       (select
+        (keyword_select)
+        (select_expression
+         (field (identifier))))
+       (from
+        (keyword_from)
+        (table_expression (identifier))
+        (limit (keyword_limit) (literal))))))))))

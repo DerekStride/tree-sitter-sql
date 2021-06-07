@@ -470,6 +470,14 @@ module.exports = grammar({
       $.list,
       $.field,
       $.predicate,
+      $.subquery,
+    ),
+
+    subquery: $ => seq(
+      '(',
+      $.select,
+      optional($.from),
+      ')',
     ),
 
     list: $ => param_list($.literal),
