@@ -2432,71 +2432,6 @@
         }
       ]
     },
-    "operator": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "="
-        },
-        {
-          "type": "STRING",
-          "value": ">"
-        },
-        {
-          "type": "STRING",
-          "value": "<"
-        },
-        {
-          "type": "STRING",
-          "value": "+"
-        },
-        {
-          "type": "STRING",
-          "value": "-"
-        },
-        {
-          "type": "STRING",
-          "value": "*"
-        },
-        {
-          "type": "STRING",
-          "value": "/"
-        },
-        {
-          "type": "STRING",
-          "value": "%"
-        },
-        {
-          "type": "STRING",
-          "value": "^"
-        },
-        {
-          "type": "STRING",
-          "value": "<"
-        },
-        {
-          "type": "STRING",
-          "value": "<="
-        },
-        {
-          "type": "STRING",
-          "value": "!="
-        },
-        {
-          "type": "STRING",
-          "value": ">="
-        },
-        {
-          "type": "STRING",
-          "value": ">"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "keyword_in"
-        }
-      ]
-    },
     "literal": {
       "type": "PREC",
       "value": 2,
@@ -2543,7 +2478,7 @@
             },
             {
               "type": "PATTERN",
-              "value": "[^']*"
+              "value": "[^\"]*"
             },
             {
               "type": "STRING",
