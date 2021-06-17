@@ -1422,8 +1422,13 @@
           "type": "FIELD",
           "name": "name",
           "content": {
-            "type": "SYMBOL",
-            "name": "function_name"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_function_name"
+            },
+            "named": true,
+            "value": "identifier"
           }
         },
         {
@@ -1456,15 +1461,6 @@
           "value": ")"
         }
       ]
-    },
-    "function_name": {
-      "type": "ALIAS",
-      "content": {
-        "type": "SYMBOL",
-        "name": "_function_name"
-      },
-      "named": true,
-      "value": "identifier"
     },
     "_function_name": {
       "type": "CHOICE",

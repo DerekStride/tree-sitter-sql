@@ -336,7 +336,7 @@ module.exports = grammar({
     ),
 
     function_call: $ => seq(
-      field('name', $.function_name),
+      field('name', alias($._function_name, $.identifier)),
       '(',
       field('parameter',
         choice(
@@ -346,8 +346,6 @@ module.exports = grammar({
       ),
       ')',
     ),
-
-    function_name: $ => alias($._function_name, $.identifier),
 
     _function_name: $ => choice(
       alias($.keyword_distinct, 'distinct'),
