@@ -234,7 +234,7 @@ FROM my_table;
    (keyword_select)
    (select_expression
     (function_call
-     name: (function_name (identifier))
+     name: (identifier)
      parameter: (field name: (identifier)))))
   (from
    (keyword_from)
@@ -255,7 +255,7 @@ FROM my_table;
    (keyword_select)
    (select_expression
     (function_call
-     name: (function_name (identifier))
+     name: (identifier)
      parameter: (field name: (identifier)))))
   (from
    (keyword_from)
@@ -276,10 +276,10 @@ FROM my_table;
    (keyword_select)
    (select_expression
     (function_call
-     name: (function_name (identifier))
+     name: (identifier)
      parameter: 
      (function_call
-      name: (function_name (identifier))
+      name: (identifier)
       parameter: (field name: (identifier))))))
   (from
    (keyword_from)
@@ -303,7 +303,7 @@ HAVING other_id > 10;
    (select_expression
     (field name: (identifier))
     (function_call
-     name: (function_name (identifier))
+     name: (identifier)
      parameter: (field name: (identifier)))))
   (from
    (keyword_from)
