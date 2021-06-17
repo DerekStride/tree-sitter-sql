@@ -90,6 +90,34 @@ WHERE id = 4;
   (select
    (keyword_select)
    (select_expression
+    (field
+     name: (identifier))))
+  (from
+   (keyword_from)
+   (table_expression
+    name: (identifier))
+   (where
+    (keyword_where)
+    (where_expression
+     (predicate
+      left: (field name: (identifier))
+      right: (literal)))))))
+
+==================
+Simple select with where and string
+==================
+
+SELECT id
+FROM my_table
+WHERE id = "abc";
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
     (field 
      name: (identifier))))
   (from

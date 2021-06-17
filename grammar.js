@@ -480,24 +480,6 @@ module.exports = grammar({
 
     list: $ => param_list($.literal),
 
-    operator: $ => choice(
-      '=',
-      '>',
-      '<',
-      '+',
-      '-',
-      '*',
-      '/',
-      '%',
-      '^',
-      '<',
-      '<=',
-      '!=',
-      '>=',
-      '>',
-      $.keyword_in,
-    ),
-
     literal: $ => prec(2,
       choice(
         $._number,
@@ -506,7 +488,7 @@ module.exports = grammar({
     ),
     _literal_string: _ => choice(
       seq("'", /[^']*/, "'"),
-      seq('"', /[^']*/, '"'),
+      seq('"', /[^"]*/, '"'),
     ),
     _number: _ => /\d+/,
 
