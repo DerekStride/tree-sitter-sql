@@ -102,6 +102,10 @@
       "type": "PATTERN",
       "value": "key|KEY"
     },
+    "keyword_as": {
+      "type": "PATTERN",
+      "value": "as|AS"
+    },
     "keyword_distinct": {
       "type": "PATTERN",
       "value": "distinct|DISTINCT"
@@ -1443,14 +1447,51 @@
             "members": [
               {
                 "type": "SYMBOL",
+                "name": "predicate"
+              },
+              {
+                "type": "SYMBOL",
                 "name": "function_call"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "field"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "literal"
+              }
+            ]
+          }
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": ","
               },
               {
                 "type": "FIELD",
                 "name": "parameter",
                 "content": {
-                  "type": "SYMBOL",
-                  "name": "field"
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "function_call"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "field"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "literal"
+                    }
+                  ]
                 }
               }
             ]
@@ -1459,6 +1500,34 @@
         {
           "type": "STRING",
           "value": ")"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "keyword_as"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "alias",
+              "content": {
+                "type": "SYMBOL",
+                "name": "identifier"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
@@ -1509,6 +1578,15 @@
           },
           "named": false,
           "value": "avg"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "keyword_if"
+          },
+          "named": false,
+          "value": "if"
         }
       ]
     },
@@ -1602,6 +1680,18 @@
             "type": "SYMBOL",
             "name": "identifier"
           }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "keyword_as"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         },
         {
           "type": "CHOICE",

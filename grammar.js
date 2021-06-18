@@ -50,6 +50,7 @@ module.exports = grammar({
     keyword_primary: _ => make_keyword("primary"),
     keyword_table: _ => make_keyword("table"),
     keyword_key: _ => make_keyword("key"),
+    keyword_as: _ => make_keyword("as"),
     keyword_distinct: _ => make_keyword("distinct"),
     keyword_constraint: _ => make_keyword("constraint"),
     keyword_count: _ => make_keyword("count"),
@@ -340,11 +341,27 @@ module.exports = grammar({
       '(',
       field('parameter',
         choice(
+          $.predicate,
           $.function_call,
-          field('parameter', $.field),
+          $.field,
+          $.literal,
         )
       ),
+      repeat(
+        seq(
+          ',',
+          field('parameter',
+            choice(
+              $.function_call,
+              $.field,
+              $.literal,
+            ),
+          ),
+        ),
+      ),
       ')',
+      optional($.keyword_as),
+      optional(field('alias', $.identifier)),
     ),
 
     _function_name: $ => choice(
@@ -353,6 +370,7 @@ module.exports = grammar({
       alias($.keyword_max, 'max'),
       alias($.keyword_min, 'min'),
       alias($.keyword_avg, 'avg'),
+      alias($.keyword_if, 'if'),
     ),
 
     from: $ => seq(
@@ -368,6 +386,7 @@ module.exports = grammar({
 
     table_expression: $ => seq(
       field('name', $.identifier),
+      optional($.keyword_as),
       optional(field('table_alias', $.identifier)),
     ),
 

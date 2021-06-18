@@ -161,6 +161,89 @@ WHERE id IN(1,2);
       right: (list (literal) (literal))))))))
 
 ==================
+Simple select with IF
+==================
+
+SELECT IF(m.is_published, 'global', 'local') as published_scope
+FROM my_table m;
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (function_call
+     name: (identifier)
+     parameter: (field
+       table_alias: (identifier)
+       name: (identifier))
+     parameter: (literal)
+     parameter: (literal)
+     (keyword_as)
+     alias: (identifier))))
+  (from
+   (keyword_from)
+   (table_expression
+    name: (identifier)
+    table_alias: (identifier)))))
+
+==================
+Select with complex IF
+==================
+
+SELECT IF(m.is_published > 4, 'global', 'local') published_scope
+FROM my_table m;
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (function_call
+     name: (identifier)
+     parameter: (predicate
+      left: (field
+       table_alias: (identifier)
+       name: (identifier))
+      right: (literal))
+     parameter: (literal)
+     parameter: (literal)
+     alias: (identifier))))
+  (from
+   (keyword_from)
+   (table_expression
+    name: (identifier)
+    table_alias: (identifier)))))
+
+==================
+Simple select with AS
+==================
+
+SELECT m.id
+FROM my_table AS m;
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (field
+     table_alias: (identifier)
+     name: (identifier))))
+  (from
+   (keyword_from)
+   (table_expression
+    name: (identifier)
+    (keyword_as)
+    table_alias: (identifier)))))
+
+==================
 Simple select with order by
 ==================
 
