@@ -328,6 +328,12 @@ module.exports = grammar({
       seq(
         optional(
           seq(
+            optional(
+              seq(
+                field('schema', $.identifier),
+                '.',
+              ),
+            ),
             field('table_alias', $.identifier),
             '.',
           ),
@@ -385,6 +391,12 @@ module.exports = grammar({
     ),
 
     table_expression: $ => seq(
+      optional(
+        seq(
+          field('schema', $.identifier),
+          '.',
+        ),
+      ),
       field('name', $.identifier),
       optional($.keyword_as),
       optional(field('table_alias', $.identifier)),

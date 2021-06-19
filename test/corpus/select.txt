@@ -332,6 +332,40 @@ OFFSET 40;
      (literal))))))
 
 ==================
+Simple select with schema
+==================
+
+SELECT * FROM my_schema.my_table;
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression))
+  (from
+   (keyword_from)
+   (table_expression schema: (identifier) name: (identifier)))))
+
+==================
+Simple select with schema and fully-pathed fields
+==================
+
+SELECT my_schema.my_table.my_field FROM my_schema.my_table;
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression (field schema: (identifier) table_alias: (identifier) name: (identifier))))
+  (from
+   (keyword_from)
+   (table_expression schema: (identifier) name: (identifier)))))
+
+==================
 Functions
 ==================
 

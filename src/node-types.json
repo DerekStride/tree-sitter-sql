@@ -350,6 +350,16 @@
           }
         ]
       },
+      "schema": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
       "table_alias": {
         "multiple": false,
         "required": false,
@@ -972,6 +982,16 @@
       "name": {
         "multiple": false,
         "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "schema": {
+        "multiple": false,
+        "required": false,
         "types": [
           {
             "type": "identifier",
