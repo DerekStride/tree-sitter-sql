@@ -1,5 +1,250 @@
 [
   {
+    "type": "add_column",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "column_definition",
+          "named": true
+        },
+        {
+          "type": "keyword_add",
+          "named": true
+        },
+        {
+          "type": "keyword_column",
+          "named": true
+        },
+        {
+          "type": "keyword_exists",
+          "named": true
+        },
+        {
+          "type": "keyword_if",
+          "named": true
+        },
+        {
+          "type": "keyword_not",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "alter_column",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "bigint",
+            "named": true
+          },
+          {
+            "type": "char",
+            "named": true
+          },
+          {
+            "type": "keyword_date",
+            "named": true
+          },
+          {
+            "type": "keyword_datetime",
+            "named": true
+          },
+          {
+            "type": "varchar",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "field",
+          "named": true
+        },
+        {
+          "type": "keyword_alter",
+          "named": true
+        },
+        {
+          "type": "keyword_column",
+          "named": true
+        },
+        {
+          "type": "keyword_data",
+          "named": true
+        },
+        {
+          "type": "keyword_default",
+          "named": true
+        },
+        {
+          "type": "keyword_drop",
+          "named": true
+        },
+        {
+          "type": "keyword_not",
+          "named": true
+        },
+        {
+          "type": "keyword_null",
+          "named": true
+        },
+        {
+          "type": "keyword_set",
+          "named": true
+        },
+        {
+          "type": "keyword_type",
+          "named": true
+        },
+        {
+          "type": "list",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "predicate",
+          "named": true
+        },
+        {
+          "type": "subquery",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "alter_table",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "add_column",
+          "named": true
+        },
+        {
+          "type": "alter_column",
+          "named": true
+        },
+        {
+          "type": "change_ownership",
+          "named": true
+        },
+        {
+          "type": "drop_column",
+          "named": true
+        },
+        {
+          "type": "keyword_alter",
+          "named": true
+        },
+        {
+          "type": "keyword_exists",
+          "named": true
+        },
+        {
+          "type": "keyword_if",
+          "named": true
+        },
+        {
+          "type": "keyword_table",
+          "named": true
+        },
+        {
+          "type": "rename_column",
+          "named": true
+        },
+        {
+          "type": "rename_object",
+          "named": true
+        },
+        {
+          "type": "set_schema",
+          "named": true
+        },
+        {
+          "type": "table_reference",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "alter_view",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "change_ownership",
+          "named": true
+        },
+        {
+          "type": "keyword_alter",
+          "named": true
+        },
+        {
+          "type": "keyword_exists",
+          "named": true
+        },
+        {
+          "type": "keyword_if",
+          "named": true
+        },
+        {
+          "type": "keyword_view",
+          "named": true
+        },
+        {
+          "type": "rename_column",
+          "named": true
+        },
+        {
+          "type": "rename_object",
+          "named": true
+        },
+        {
+          "type": "set_schema",
+          "named": true
+        },
+        {
+          "type": "table_reference",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "assignment_list",
     "named": true,
     "fields": {},
@@ -35,6 +280,29 @@
       "types": [
         {
           "type": "keyword_bigint",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "change_ownership",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "keyword_owner",
+          "named": true
+        },
+        {
+          "type": "keyword_to",
           "named": true
         }
       ]
@@ -256,7 +524,78 @@
     }
   },
   {
-    "type": "create",
+    "type": "create_materialized_view",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "from",
+          "named": true
+        },
+        {
+          "type": "keyword_as",
+          "named": true
+        },
+        {
+          "type": "keyword_create",
+          "named": true
+        },
+        {
+          "type": "keyword_data",
+          "named": true
+        },
+        {
+          "type": "keyword_exists",
+          "named": true
+        },
+        {
+          "type": "keyword_if",
+          "named": true
+        },
+        {
+          "type": "keyword_materialized",
+          "named": true
+        },
+        {
+          "type": "keyword_no",
+          "named": true
+        },
+        {
+          "type": "keyword_not",
+          "named": true
+        },
+        {
+          "type": "keyword_or",
+          "named": true
+        },
+        {
+          "type": "keyword_replace",
+          "named": true
+        },
+        {
+          "type": "keyword_view",
+          "named": true
+        },
+        {
+          "type": "keyword_with",
+          "named": true
+        },
+        {
+          "type": "select",
+          "named": true
+        },
+        {
+          "type": "table_reference",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "create_table",
     "named": true,
     "fields": {},
     "children": {
@@ -288,7 +627,70 @@
           "named": true
         },
         {
+          "type": "keyword_temp",
+          "named": true
+        },
+        {
+          "type": "keyword_temporary",
+          "named": true
+        },
+        {
           "type": "table_options",
+          "named": true
+        },
+        {
+          "type": "table_reference",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "create_view",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "from",
+          "named": true
+        },
+        {
+          "type": "keyword_as",
+          "named": true
+        },
+        {
+          "type": "keyword_create",
+          "named": true
+        },
+        {
+          "type": "keyword_exists",
+          "named": true
+        },
+        {
+          "type": "keyword_if",
+          "named": true
+        },
+        {
+          "type": "keyword_not",
+          "named": true
+        },
+        {
+          "type": "keyword_or",
+          "named": true
+        },
+        {
+          "type": "keyword_replace",
+          "named": true
+        },
+        {
+          "type": "keyword_view",
+          "named": true
+        },
+        {
+          "type": "select",
           "named": true
         },
         {
@@ -331,6 +733,114 @@
         },
         {
           "type": "keyword_desc",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "drop_column",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_column",
+          "named": true
+        },
+        {
+          "type": "keyword_drop",
+          "named": true
+        },
+        {
+          "type": "keyword_exists",
+          "named": true
+        },
+        {
+          "type": "keyword_if",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "drop_table",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_cascade",
+          "named": true
+        },
+        {
+          "type": "keyword_drop",
+          "named": true
+        },
+        {
+          "type": "keyword_exists",
+          "named": true
+        },
+        {
+          "type": "keyword_if",
+          "named": true
+        },
+        {
+          "type": "keyword_table",
+          "named": true
+        },
+        {
+          "type": "table_reference",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "drop_view",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_cascade",
+          "named": true
+        },
+        {
+          "type": "keyword_drop",
+          "named": true
+        },
+        {
+          "type": "keyword_exists",
+          "named": true
+        },
+        {
+          "type": "keyword_if",
+          "named": true
+        },
+        {
+          "type": "keyword_view",
+          "named": true
+        },
+        {
+          "type": "table_reference",
           "named": true
         }
       ]
@@ -920,6 +1430,73 @@
     }
   },
   {
+    "type": "rename_column",
+    "named": true,
+    "fields": {
+      "new_name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "old_name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_column",
+          "named": true
+        },
+        {
+          "type": "keyword_rename",
+          "named": true
+        },
+        {
+          "type": "keyword_to",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "rename_object",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_rename",
+          "named": true
+        },
+        {
+          "type": "keyword_to",
+          "named": true
+        },
+        {
+          "type": "table_reference",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "select",
     "named": true,
     "fields": {},
@@ -966,6 +1543,36 @@
     }
   },
   {
+    "type": "set_schema",
+    "named": true,
+    "fields": {
+      "schema": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_schema",
+          "named": true
+        },
+        {
+          "type": "keyword_set",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "statement",
     "named": true,
     "fields": {},
@@ -974,11 +1581,35 @@
       "required": true,
       "types": [
         {
-          "type": "create",
+          "type": "alter_table",
+          "named": true
+        },
+        {
+          "type": "alter_view",
+          "named": true
+        },
+        {
+          "type": "create_materialized_view",
+          "named": true
+        },
+        {
+          "type": "create_table",
+          "named": true
+        },
+        {
+          "type": "create_view",
           "named": true
         },
         {
           "type": "delete",
+          "named": true
+        },
+        {
+          "type": "drop_table",
+          "named": true
+        },
+        {
+          "type": "drop_view",
           "named": true
         },
         {
@@ -1355,6 +1986,14 @@
     "named": false
   },
   {
+    "type": "keyword_add",
+    "named": true
+  },
+  {
+    "type": "keyword_alter",
+    "named": true
+  },
+  {
     "type": "keyword_and",
     "named": true
   },
@@ -1375,7 +2014,15 @@
     "named": true
   },
   {
+    "type": "keyword_cascade",
+    "named": true
+  },
+  {
     "type": "keyword_char",
+    "named": true
+  },
+  {
+    "type": "keyword_column",
     "named": true
   },
   {
@@ -1384,6 +2031,10 @@
   },
   {
     "type": "keyword_create",
+    "named": true
+  },
+  {
+    "type": "keyword_data",
     "named": true
   },
   {
@@ -1408,6 +2059,10 @@
   },
   {
     "type": "keyword_distinct",
+    "named": true
+  },
+  {
+    "type": "keyword_drop",
     "named": true
   },
   {
@@ -1475,6 +2130,14 @@
     "named": true
   },
   {
+    "type": "keyword_materialized",
+    "named": true
+  },
+  {
+    "type": "keyword_no",
+    "named": true
+  },
+  {
     "type": "keyword_not",
     "named": true
   },
@@ -1503,7 +2166,15 @@
     "named": true
   },
   {
+    "type": "keyword_owner",
+    "named": true
+  },
+  {
     "type": "keyword_primary",
+    "named": true
+  },
+  {
+    "type": "keyword_rename",
     "named": true
   },
   {
@@ -1512,6 +2183,10 @@
   },
   {
     "type": "keyword_right",
+    "named": true
+  },
+  {
+    "type": "keyword_schema",
     "named": true
   },
   {
@@ -1524,6 +2199,22 @@
   },
   {
     "type": "keyword_table",
+    "named": true
+  },
+  {
+    "type": "keyword_temp",
+    "named": true
+  },
+  {
+    "type": "keyword_temporary",
+    "named": true
+  },
+  {
+    "type": "keyword_to",
+    "named": true
+  },
+  {
+    "type": "keyword_type",
     "named": true
   },
   {
@@ -1543,7 +2234,15 @@
     "named": true
   },
   {
+    "type": "keyword_view",
+    "named": true
+  },
+  {
     "type": "keyword_where",
+    "named": true
+  },
+  {
+    "type": "keyword_with",
     "named": true
   },
   {

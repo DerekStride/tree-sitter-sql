@@ -8,7 +8,7 @@ CREATE TABLE my_schema.my_table (id BIGINT NOT NULL PRIMARY KEY);
 
 (program
  (statement
-  (create
+  (create_table
    (keyword_create)
    (keyword_table)
    (table_reference
@@ -36,7 +36,7 @@ CREATE TABLE my_table (
 
 (program
  (statement
-  (create
+  (create_table
    (keyword_create)
    (keyword_table)
    (table_reference
@@ -57,6 +57,31 @@ CREATE TABLE my_table (
       (direction (keyword_asc)))))))
 
 ==================
+Create temp table
+==================
+
+CREATE TEMP TABLE my_table (id BIGINT NOT NULL PRIMARY KEY);
+
+---
+
+(program
+ (statement
+  (create_table
+   (keyword_create)
+   (keyword_temp)
+   (keyword_table)
+   (table_reference
+    name: (identifier))
+   (column_definitions
+    (column_definition
+      name: (identifier)
+      type: (bigint (keyword_bigint))
+      (keyword_not)
+      (keyword_null)
+      (keyword_primary)
+      (keyword_key))))))
+
+==================
 Create table with constraint
 ==================
 
@@ -70,7 +95,7 @@ CREATE TABLE my_table (
 
 (program
  (statement
-  (create
+  (create_table
    (keyword_create)
    (keyword_table)
    (table_reference
@@ -117,7 +142,7 @@ CREATE TABLE my_table (
 
 (program
  (statement
-  (create
+  (create_table
    (keyword_create)
    (keyword_table)
    (table_reference
@@ -158,7 +183,7 @@ CREATE TABLE IF NOT EXISTS `addresses` (
 
 (program
  (statement
-  (create
+  (create_table
    (keyword_create)
    (keyword_table)
    (keyword_if)
@@ -191,7 +216,7 @@ CREATE TABLE IF NOT EXISTS `addresses` (
 
 (program
  (statement
-  (create
+  (create_table
    (keyword_create)
    (keyword_table)
    (keyword_if)
@@ -242,7 +267,7 @@ CREATE TABLE IF NOT EXISTS `addresses` (
 
 (program
  (statement
-  (create
+  (create_table
    (keyword_create)
    (keyword_table)
    (keyword_if)
@@ -323,7 +348,7 @@ CREATE TABLE IF NOT EXISTS `addresses` (
 
 (program
  (statement
-  (create
+  (create_table
    (keyword_create)
    (keyword_table)
    (keyword_if)
@@ -371,7 +396,7 @@ CREATE TABLE my_table (
 
 (program
  (statement
-  (create
+  (create_table
    (keyword_create)
    (keyword_table)
    (table_reference
@@ -403,3 +428,81 @@ CREATE TABLE my_table (
     (table_option
      name: (identifier)
      value: (identifier))))))
+
+==================
+Create view
+==================
+
+CREATE VIEW my_view AS
+SELECT * FROM my_table;
+
+---
+
+(program
+ (statement
+  (create_view
+   (keyword_create)
+   (keyword_view)
+   (table_reference name: (identifier))
+   (keyword_as)
+   (select
+    (keyword_select)
+    (select_expression))
+   (from
+    (keyword_from)
+    (table_expression name: (identifier))
+   ))))
+
+==================
+Create or replace view
+==================
+
+CREATE OR REPLACE VIEW my_view AS
+SELECT * FROM my_table;
+
+---
+
+(program
+ (statement
+  (create_view
+   (keyword_create)
+   (keyword_or)
+   (keyword_replace)
+   (keyword_view)
+   (table_reference name: (identifier))
+   (keyword_as)
+   (select
+    (keyword_select)
+    (select_expression))
+   (from
+    (keyword_from)
+    (table_expression name: (identifier))
+   ))))
+
+==================
+Create matview
+==================
+
+CREATE MATERIALIZED VIEW my_view AS
+SELECT * FROM my_table
+WITH NO DATA;
+
+---
+
+(program
+ (statement
+  (create_materialized_view
+   (keyword_create)
+   (keyword_materialized)
+   (keyword_view)
+   (table_reference name: (identifier))
+   (keyword_as)
+   (select
+    (keyword_select)
+    (select_expression))
+   (from
+    (keyword_from)
+    (table_expression name: (identifier))
+   )
+   (keyword_with) (keyword_no) (keyword_data)
+  )))
