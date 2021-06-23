@@ -353,6 +353,15 @@ module.exports = grammar({
         ),
       ),
       field('name', $.identifier),
+      optional(
+        choice(
+          field('alias', $.identifier),
+          seq(
+            $.keyword_as,
+            field('alias', $.identifier),
+          ),
+        ),
+      ),
     ),
 
     function_call: $ => choice(
