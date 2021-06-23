@@ -441,7 +441,7 @@
       },
       "parameter": {
         "multiple": true,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "field",
@@ -463,11 +463,15 @@
       }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": false,
       "types": [
         {
           "type": "keyword_as",
+          "named": true
+        },
+        {
+          "type": "keyword_distinct",
           "named": true
         }
       ]
@@ -888,6 +892,10 @@
       "required": true,
       "types": [
         {
+          "type": "keyword_distinct",
+          "named": true
+        },
+        {
           "type": "keyword_select",
           "named": true
         },
@@ -1307,14 +1315,6 @@
     "named": true
   },
   {
-    "type": "count",
-    "named": false
-  },
-  {
-    "type": "distinct",
-    "named": false
-  },
-  {
     "type": "if",
     "named": false
   },
@@ -1368,6 +1368,10 @@
   },
   {
     "type": "keyword_desc",
+    "named": true
+  },
+  {
+    "type": "keyword_distinct",
     "named": true
   },
   {
