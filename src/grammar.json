@@ -50,6 +50,22 @@
       "type": "PATTERN",
       "value": "from|FROM"
     },
+    "keyword_left": {
+      "type": "PATTERN",
+      "value": "left|LEFT"
+    },
+    "keyword_right": {
+      "type": "PATTERN",
+      "value": "right|RIGHT"
+    },
+    "keyword_inner": {
+      "type": "PATTERN",
+      "value": "inner|INNER"
+    },
+    "keyword_outer": {
+      "type": "PATTERN",
+      "value": "outer|OUTER"
+    },
     "keyword_join": {
       "type": "PATTERN",
       "value": "join|JOIN"
@@ -2070,6 +2086,57 @@
     "join": {
       "type": "SEQ",
       "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_left"
+                },
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "keyword_left"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "keyword_outer"
+                    }
+                  ]
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_right"
+                },
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "keyword_right"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "keyword_outer"
+                    }
+                  ]
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_inner"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
         {
           "type": "SYMBOL",
           "name": "keyword_join"

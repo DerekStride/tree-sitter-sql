@@ -37,6 +37,10 @@ module.exports = grammar({
     keyword_values: _ => make_keyword("values"),
     keyword_set: _ => make_keyword("set"),
     keyword_from: _ => make_keyword("from"),
+    keyword_left: _ => make_keyword("left"),
+    keyword_right: _ => make_keyword("right"),
+    keyword_inner: _ => make_keyword("inner"),
+    keyword_outer: _ => make_keyword("outer"),
     keyword_join: _ => make_keyword("join"),
     keyword_on: _ => make_keyword("on"),
     keyword_where: _ => make_keyword("where"),
@@ -484,6 +488,15 @@ module.exports = grammar({
     ),
 
     join: $ => seq(
+      optional(
+        choice(
+          $.keyword_left,
+          seq($.keyword_left, $.keyword_outer),
+          $.keyword_right,
+          seq($.keyword_right, $.keyword_outer),
+          $.keyword_inner,
+        ),
+      ),
       $.keyword_join,
       $.table_expression,
       optional($.index_hint),

@@ -618,11 +618,27 @@
           "named": true
         },
         {
+          "type": "keyword_inner",
+          "named": true
+        },
+        {
           "type": "keyword_join",
           "named": true
         },
         {
+          "type": "keyword_left",
+          "named": true
+        },
+        {
           "type": "keyword_on",
+          "named": true
+        },
+        {
+          "type": "keyword_outer",
+          "named": true
+        },
+        {
+          "type": "keyword_right",
           "named": true
         },
         {
@@ -1411,6 +1427,10 @@
     "named": true
   },
   {
+    "type": "keyword_inner",
+    "named": true
+  },
+  {
     "type": "keyword_insert",
     "named": true
   },
@@ -1424,6 +1444,10 @@
   },
   {
     "type": "keyword_key",
+    "named": true
+  },
+  {
+    "type": "keyword_left",
     "named": true
   },
   {
@@ -1455,11 +1479,19 @@
     "named": true
   },
   {
+    "type": "keyword_outer",
+    "named": true
+  },
+  {
     "type": "keyword_primary",
     "named": true
   },
   {
     "type": "keyword_replace",
+    "named": true
+  },
+  {
+    "type": "keyword_right",
     "named": true
   },
   {
