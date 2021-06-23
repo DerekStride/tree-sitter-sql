@@ -608,6 +608,111 @@ ON a.id = b.a_id;
       name: (identifier)))))))
 
 ==================
+Specific Joins
+==================
+
+SELECT table_a.id
+FROM table_a a
+LEFT JOIN table_b b
+ON a.id = b.a_id
+LEFT OUTER JOIN table_c c
+ON a.id = c.a_id
+RIGHT JOIN table_d d
+ON a.id = d.d_id
+RIGHT OUTER JOIN table_d d
+ON a.id = d.d_id
+INNER JOIN table_e e
+ON a.id = e.e_id;
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (field 
+     table_alias: (identifier)
+     name: (identifier))))
+  (from
+   (keyword_from)
+   (table_expression
+    name: (identifier)
+    table_alias: (identifier))
+   (join
+    (keyword_left)
+    (keyword_join)
+    (table_expression
+     name: (identifier)
+     table_alias: (identifier))
+    (keyword_on)
+    (predicate
+     left: (field
+      table_alias: (identifier)
+      name: (identifier))
+     right: (field
+      table_alias: (identifier)
+      name: (identifier))))
+   (join
+    (keyword_left)
+    (keyword_outer)
+    (keyword_join)
+    (table_expression
+     name: (identifier)
+     table_alias: (identifier))
+    (keyword_on)
+    (predicate
+     left: (field
+      table_alias: (identifier)
+      name: (identifier))
+     right: (field
+      table_alias: (identifier)
+      name: (identifier))))
+   (join
+    (keyword_right)
+    (keyword_join)
+    (table_expression
+     name: (identifier)
+     table_alias: (identifier))
+    (keyword_on)
+    (predicate
+     left: (field
+      table_alias: (identifier)
+      name: (identifier))
+     right: (field
+      table_alias: (identifier)
+      name: (identifier))))
+   (join
+    (keyword_right)
+    (keyword_outer)
+    (keyword_join)
+    (table_expression
+     name: (identifier)
+     table_alias: (identifier))
+    (keyword_on)
+    (predicate
+     left: (field
+      table_alias: (identifier)
+      name: (identifier))
+     right: (field
+      table_alias: (identifier)
+      name: (identifier))))
+   (join
+    (keyword_inner)
+    (keyword_join)
+    (table_expression
+     name: (identifier)
+     table_alias: (identifier))
+    (keyword_on)
+    (predicate
+     left: (field
+      table_alias: (identifier)
+      name: (identifier))
+     right: (field
+      table_alias: (identifier)
+      name: (identifier)))))))
+
+==================
 Multiple joins
 ==================
 
