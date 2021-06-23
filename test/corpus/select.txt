@@ -220,6 +220,54 @@ FROM my_table m;
     table_alias: (identifier)))))
 
 ==================
+Select with distinct without parenthesis
+==================
+
+SELECT DISTINCT id
+FROM my_table;
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (keyword_distinct)
+   (select_expression
+    (field
+     name: (identifier))))
+  (from
+   (keyword_from)
+   (table_expression
+    name: (identifier)))))
+
+==================
+Select with count and distinct without parenthesis and alias
+==================
+
+SELECT COUNT(DISTINCT id) AS count
+FROM my_table;
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (function_call
+     name: (identifier)
+     (keyword_distinct)
+     parameter: (field
+      name: (identifier))
+     (keyword_as)
+     alias: (identifier))))
+  (from
+   (keyword_from)
+   (table_expression
+    name: (identifier)))))
+
+==================
 Simple select with AS
 ==================
 
@@ -366,7 +414,7 @@ SELECT my_schema.my_table.my_field FROM my_schema.my_table;
    (table_expression schema: (identifier) name: (identifier)))))
 
 ==================
-Functions
+Distinct
 ==================
 
 SELECT DISTINCT(id)
@@ -377,17 +425,17 @@ FROM my_table;
  (statement
   (select
    (keyword_select)
+   (keyword_distinct)
    (select_expression
-    (function_call
-     name: (identifier)
-     parameter: (field name: (identifier)))))
+    (field
+     name: (identifier))))
   (from
    (keyword_from)
    (table_expression
     name: (identifier)))))
 
 ==================
-Functions MAX
+Functions
 ==================
 
 SELECT MAX(id)
@@ -408,7 +456,7 @@ FROM my_table;
     name: (identifier)))))
 
 ==================
-Functions in functions
+Distinct in count function
 ==================
 
 SELECT COUNT(DISTINCT(id))
@@ -422,10 +470,10 @@ FROM my_table;
    (select_expression
     (function_call
      name: (identifier)
-     parameter: 
-     (function_call
-      name: (identifier)
-      parameter: (field name: (identifier))))))
+     (keyword_distinct)
+     parameter:
+     (field
+      name: (identifier)))))
   (from
    (keyword_from)
    (table_expression

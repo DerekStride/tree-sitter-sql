@@ -115,7 +115,18 @@ module.exports = grammar({
 
     select: $ => seq(
       $.keyword_select,
-      $.select_expression,
+      choice(
+        seq(
+          optional($.keyword_distinct),
+          $.select_expression,
+        ),
+        seq(
+          $.keyword_distinct,
+          '(',
+          $.select_expression,
+          ')',
+        ),
+      ),
     ),
 
     select_expression: $ => choice(
@@ -324,58 +335,111 @@ module.exports = grammar({
       ),
     ),
 
-    field: $ => choice(
-      seq(
-        optional(
-          seq(
-            optional(
-              seq(
-                field('schema', $.identifier),
-                '.',
-              ),
+    field: $ => seq(
+      optional(
+        seq(
+          optional(
+            seq(
+              field('schema', $.identifier),
+              '.',
             ),
-            field('table_alias', $.identifier),
-            '.',
           ),
+          field('table_alias', $.identifier),
+          '.',
         ),
-        field('name', $.identifier),
+      ),
+      field('name', $.identifier),
+    ),
+
+    function_call: $ => choice(
+      $._unary_function,
+      $._count_function,
+      $._multi_param_function,
+    ),
+
+    _unary_function: $ => seq(
+      field('name', alias($._unary_function_name, $.identifier)),
+      '(',
+      field('parameter', $._function_param),
+      ')',
+      optional(
+        choice(
+          seq(
+            $.keyword_as,
+            field('alias', $.identifier),
+          ),
+          field('alias', $.identifier),
+        ),
       ),
     ),
 
-    function_call: $ => seq(
-      field('name', alias($._function_name, $.identifier)),
+    _count_function: $ => seq(
+      field('name', alias($.keyword_count, $.identifier)),
       '(',
-      field('parameter',
-        choice(
-          $.predicate,
-          $.function_call,
-          $.field,
-          $.literal,
-        )
-      ),
-      repeat(
+      choice(
         seq(
-          ',',
-          field('parameter',
-            choice(
-              $.function_call,
-              $.field,
-              $.literal,
-            ),
-          ),
+          optional($.keyword_distinct),
+          field('parameter', $._function_param),
+        ),
+        seq(
+          $.keyword_distinct,
+          '(',
+          field('parameter', $._function_param),
+          ')',
         ),
       ),
       ')',
-      optional($.keyword_as),
-      optional(field('alias', $.identifier)),
+      optional(
+        choice(
+          seq(
+            $.keyword_as,
+            field('alias', $.identifier),
+          ),
+          field('alias', $.identifier),
+        ),
+      ),
     ),
 
-    _function_name: $ => choice(
-      alias($.keyword_distinct, 'distinct'),
-      alias($.keyword_count, 'count'),
+    _multi_param_function: $ => seq(
+      field('name', alias($._function_name, $.identifier)),
+      '(',
+      $._function_params,
+      ')',
+      optional(
+        choice(
+          seq(
+            $.keyword_as,
+            field('alias', $.identifier),
+          ),
+          field('alias', $.identifier),
+        ),
+      ),
+    ),
+
+    _function_param: $ => choice(
+      $.predicate,
+      $.function_call,
+      $.field,
+      prec(2, $.literal),
+    ),
+
+    _function_params: $ => seq(
+      field('parameter', $._function_param),
+      repeat1(
+        seq(
+          ',',
+          field('parameter', $._function_param),
+        ),
+      ),
+    ),
+
+    _unary_function_name: $ => choice(
       alias($.keyword_max, 'max'),
       alias($.keyword_min, 'min'),
       alias($.keyword_avg, 'avg'),
+    ),
+
+    _function_name: $ => choice(
       alias($.keyword_if, 'if'),
     ),
 
