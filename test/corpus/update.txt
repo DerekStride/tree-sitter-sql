@@ -77,27 +77,3 @@ WHERE items.id=month.item_id;
       (predicate
        left: (field table_alias: (identifier) name: (identifier))
        right: (field table_alias: (identifier) name: (identifier)))))))))
-
-==================
-update with multiple reference does not support order by or limit
-==================
-
-UPDATE items, month
-SET items.price=month.price
-LIMIT 4;
-
----
-
-(program
- (statement
-  (update
-   (keyword_update)
-   (update_expression
-    (table_reference name: (identifier))
-    (table_reference name: (identifier))
-    (keyword_set)
-    (assignment_list
-     (predicate
-      left: (field table_alias: (identifier) name: (identifier))
-      right: (field table_alias: (identifier) name: (identifier))))))
-    (ERROR (keyword_limit))))

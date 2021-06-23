@@ -271,7 +271,7 @@ FROM my_table;
 Simple select with AS
 ==================
 
-SELECT m.id
+SELECT m.id AS m_id, m.a_id a_id
 FROM my_table AS m;
 
 ---
@@ -283,7 +283,13 @@ FROM my_table AS m;
    (select_expression
     (field
      table_alias: (identifier)
-     name: (identifier))))
+     name: (identifier)
+     (keyword_as)
+     alias: (identifier))
+    (field
+     table_alias: (identifier)
+     name: (identifier)
+     alias: (identifier))))
   (from
    (keyword_from)
    (table_expression
