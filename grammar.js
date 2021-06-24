@@ -29,7 +29,6 @@ module.exports = grammar({
 
     keyword_select: _ => make_keyword("select"),
     keyword_delete: _ => make_keyword("delete"),
-    keyword_create: _ => make_keyword("create"),
     keyword_insert: _ => make_keyword("insert"),
     keyword_replace: _ => make_keyword("replace"),
     keyword_update: _ => make_keyword("update"),
@@ -52,7 +51,14 @@ module.exports = grammar({
     keyword_limit: _ => make_keyword("limit"),
     keyword_offset: _ => make_keyword("offset"),
     keyword_primary: _ => make_keyword("primary"),
+    keyword_create: _ => make_keyword("create"),
+    keyword_alter: _ => make_keyword("alter"),
+    keyword_drop: _ => make_keyword("drop"),
+    keyword_add: _ => make_keyword("add"),
     keyword_table: _ => make_keyword("table"),
+    keyword_view: _ => make_keyword("view"),
+    keyword_materialized: _ => make_keyword("materialized"),
+    keyword_column: _ => make_keyword("column"),
     keyword_key: _ => make_keyword("key"),
     keyword_as: _ => make_keyword("as"),
     keyword_distinct: _ => make_keyword("distinct"),
@@ -73,10 +79,24 @@ module.exports = grammar({
     keyword_exists: _ => make_keyword("exists"),
     keyword_auto_increment: _ => make_keyword("auto_increment"),
     keyword_default: _ => make_keyword("default"),
+    keyword_cascade: _ => make_keyword("cascade"),
+    keyword_with: _ => make_keyword("with"),
+    keyword_no: _ => make_keyword("no"),
+    keyword_data: _ => make_keyword("data"),
+    keyword_type: _ => make_keyword("type"),
+    keyword_rename: _ => make_keyword("rename"),
+    keyword_to: _ => make_keyword("to"),
+    keyword_schema: _ => make_keyword("schema"),
+    keyword_owner: _ => make_keyword("owner"),
+    keyword_temp: _ => make_keyword("temp"),
+    keyword_temporary: _ => make_keyword("temporary"),
 
+    _temporary: $ => choice($.keyword_temp, $.keyword_temporary),
     _not_null: $ => seq($.keyword_not, $.keyword_null),
     _primary_key: $ => seq($.keyword_primary, $.keyword_key),
+    _if_exists: $ => seq($.keyword_if, $.keyword_exists),
     _if_not_exists: $ => seq($.keyword_if, $.keyword_not, $.keyword_exists),
+    _or_replace: $ => seq($.keyword_or, $.keyword_replace),
     _default_null: $ => seq($.keyword_default, $.keyword_null),
     direction: $ => choice($.keyword_desc, $.keyword_asc),
 
@@ -103,18 +123,22 @@ module.exports = grammar({
     comment: _ => /--.*\n/,
     marginalia: _ => /\/'*.*\*\//,
 
-    statement: $ => choice(
-      $._select_statement,
-      $._delete_statement,
-      $._create_statement,
-      $._insert_statement,
-      $._update_statement,
+    statement: $ => seq(
+      choice(
+        $._select_statement,
+        $._delete_statement,
+        $._create_statement,
+        $._alter_statement,
+        $._drop_statement,
+        $._insert_statement,
+        $._update_statement,
+      ),
+      ';',
     ),
 
     _select_statement: $ => seq(
       $.select,
       optional($.from),
-      ';',
     ),
 
     select: $ => seq(
@@ -140,7 +164,6 @@ module.exports = grammar({
     _delete_statement: $ => seq(
       $.delete,
       alias($._delete_from, $.from),
-      ';',
     ),
 
     _delete_from: $ => seq(
@@ -151,24 +174,219 @@ module.exports = grammar({
       optional($.limit),
     ),
 
-
     delete: $ => seq(
       $.keyword_delete,
       optional($.index_hint),
     ),
 
     _create_statement: $ => seq(
-      $.create,
-      ';',
+      choice(
+        $.create_table,
+        $.create_view,
+        $.create_materialized_view,
+        // TODO function, sequence
+      ),
     ),
 
-    create: $ => seq(
+    create_table: $ => seq(
       $.keyword_create,
+      optional($._temporary),
       $.keyword_table,
       optional($._if_not_exists),
       $.table_reference,
       $.column_definitions,
       optional($.table_options),
+    ),
+
+    create_view: $ => seq(
+      $.keyword_create,
+      optional($._or_replace),
+      $.keyword_view,
+      optional($._if_not_exists),
+      $.table_reference,
+      $.keyword_as,
+      $._select_statement,
+    ),
+
+    create_materialized_view: $ => seq(
+      $.keyword_create,
+      optional($._or_replace),
+      $.keyword_materialized,
+      $.keyword_view,
+      optional($._if_not_exists),
+      $.table_reference,
+      $.keyword_as,
+      $._select_statement,
+      optional(
+        choice(
+          seq(
+            $.keyword_with,
+            $.keyword_data,
+          ),
+          seq(
+            $.keyword_with,
+            $.keyword_no,
+            $.keyword_data,
+          )
+        )
+      )
+    ),
+
+    _alter_statement: $ => seq(
+      choice(
+        $.alter_table,
+        $.alter_view,
+      ),
+    ),
+
+    alter_table: $ => seq(
+      $.keyword_alter,
+      $.keyword_table,
+      optional($._if_exists),
+      $.table_reference,
+      choice(
+        seq(
+          choice(
+            $.add_column,
+            $.alter_column,
+            $.drop_column,
+          ),
+          repeat(
+            seq(
+              ",",
+              choice(
+                $.add_column,
+                $.alter_column,
+                $.drop_column,
+              )
+            )
+          )
+        ),
+        // some operations may not be chained to others
+        $.rename_object,
+        $.rename_column,
+        $.set_schema,
+        $.change_ownership,
+      ),
+    ),
+
+    add_column: $ => seq(
+      $.keyword_add,
+      $.keyword_column,
+      optional($._if_not_exists),
+      $.column_definition,
+    ),
+
+    alter_column: $ => seq(
+      // TODO constraint management
+      $.keyword_alter,
+      $.keyword_column,
+      field('name', $.identifier),
+      choice(
+        seq(
+          choice(
+            $.keyword_set,
+            $.keyword_drop,
+          ),
+          $.keyword_not,
+          $.keyword_null,
+        ),
+        seq(
+          optional(
+            seq(
+              $.keyword_set,
+              $.keyword_data,
+            ),
+          ),
+          $.keyword_type,
+          field('type', $._type),
+        ),
+        seq(
+          $.keyword_set,
+          $.keyword_default,
+          $._expression,
+        ),
+        seq(
+          $.keyword_drop,
+          $.keyword_default,
+        ),
+      ),
+    ),
+
+    drop_column: $ => seq(
+      $.keyword_drop,
+      $.keyword_column,
+      optional($._if_exists),
+      field('name', $.identifier),
+    ),
+
+    rename_column: $ => seq(
+      $.keyword_rename,
+      optional(
+        $.keyword_column,
+      ),
+      field('old_name', $.identifier),
+      $.keyword_to,
+      field('new_name', $.identifier),
+    ),
+
+    alter_view: $ => seq(
+      $.keyword_alter,
+      $.keyword_view,
+      optional($._if_exists),
+      $.table_reference,
+      choice(
+        // TODO Postgres allows a single "alter column" to set or drop default
+        $.rename_object,
+        $.rename_column,
+        $.set_schema,
+        $.change_ownership,
+      ),
+    ),
+
+    _drop_statement: $ => seq(
+      choice(
+        $.drop_table,
+        $.drop_view,
+      ),
+    ),
+
+    drop_table: $ => seq(
+      $.keyword_drop,
+      $.keyword_table,
+      optional($._if_exists),
+      $.table_reference,
+      optional(
+        $.keyword_cascade,
+      ),
+    ),
+
+    drop_view: $ => seq(
+      $.keyword_drop,
+      $.keyword_view,
+      optional($._if_exists),
+      $.table_reference,
+      optional(
+        $.keyword_cascade,
+      ),
+    ),
+
+    rename_object: $ => seq(
+      $.keyword_rename,
+      $.keyword_to,
+      $.table_reference,
+    ),
+
+    set_schema: $ => seq(
+      $.keyword_set,
+      $.keyword_schema,
+      field('schema', $.identifier),
+    ),
+
+    change_ownership: $ => seq(
+      $.keyword_owner,
+      $.keyword_to,
+      $.identifier,
     ),
 
     table_reference: $ => seq(
@@ -181,10 +399,8 @@ module.exports = grammar({
       field('name', $.identifier),
     ),
 
-
     _insert_statement: $ => seq(
       $.insert,
-      ';',
     ),
 
     insert: $ => seq(
@@ -205,7 +421,6 @@ module.exports = grammar({
 
     _update_statement: $ => seq(
       $.update,
-      ';',
     ),
 
     update: $ => seq(

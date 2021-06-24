@@ -1,0 +1,48 @@
+==================
+Drop table
+==================
+
+DROP TABLE my_table;
+
+---
+
+(program
+ (statement
+  (drop_table
+   (keyword_drop)
+   (keyword_table)
+   (table_reference (identifier))
+  )))
+
+==================
+Drop table and cascade through
+==================
+
+DROP TABLE my_table CASCADE;
+
+---
+
+(program
+ (statement
+  (drop_table
+   (keyword_drop)
+   (keyword_table)
+   (table_reference (identifier))
+   (keyword_cascade)
+  )))
+
+==================
+Drop view
+==================
+
+DROP VIEW my_view;
+
+---
+
+(program
+ (statement
+  (drop_view
+   (keyword_drop)
+   (keyword_view)
+   (table_reference (identifier))
+  )))
