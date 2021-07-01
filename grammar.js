@@ -101,24 +101,121 @@ module.exports = grammar({
     direction: $ => choice($.keyword_desc, $.keyword_asc),
 
     // Types
-    keyword_bigint: _ => make_keyword("bigint"),
     keyword_null: _ => make_keyword("null"),
+
+    keyword_boolean: _ => make_keyword("boolean"),
+
+    keyword_smallserial: _ => make_keyword("smallserial"),
+    keyword_serial: _ => make_keyword("serial"),
+    keyword_bigserial: _ => make_keyword("bigserial"),
+    keyword_smallint: _ => make_keyword("smallint"),
+    keyword_int: _ => choice(make_keyword("int"), make_keyword("integer")),
+    keyword_bigint: _ => make_keyword("bigint"),
+    keyword_decimal: _ => make_keyword("decimal"),
+    keyword_numeric: _ => make_keyword("numeric"),
+    keyword_real: _ => make_keyword("real"),
+    double: _ => seq(make_keyword("double"), make_keyword("precision")),
+
+    keyword_money: _ => make_keyword("money"),
+
+    keyword_char: _ => choice(make_keyword("char"), make_keyword("character")),
+    keyword_varchar: _ => choice(
+      make_keyword("varchar"),
+      seq(
+        make_keyword("character"),
+        make_keyword("varying"),
+      )
+    ),
+    keyword_text: _ => make_keyword("text"),
+
+    keyword_json: _ => make_keyword("json"),
+    keyword_jsonb: _ => make_keyword("jsonb"),
+    keyword_xml: _ => make_keyword("xml"),
+
+    keyword_bytea: _ => make_keyword("bytea"),
+
     keyword_date: _ => make_keyword("date"),
     keyword_datetime: _ => make_keyword("datetime"),
-    keyword_char: _ => make_keyword("char"),
-    keyword_varchar: _ => make_keyword("varchar"),
-
-    _type: $ => choice(
-      $.bigint,
-      $.keyword_date,
-      $.keyword_datetime,
-      $.char,
-      $.varchar,
+    keyword_timestamp: _ => seq(
+      make_keyword("timestamp"),
+      optional(
+        seq(
+          make_keyword('without'),
+          make_keyword('time'),
+          make_keyword('zone')
+        )
+      ),
+    ),
+    keyword_timestamptz: _ => choice(
+      make_keyword('timestamptz'),
+      seq(
+        make_keyword("timestamp"),
+        make_keyword('with'),
+        make_keyword('time'),
+        make_keyword('zone')
+      ),
     ),
 
-    bigint: $ => sized_type($, $.keyword_bigint),
-    char: $ => sized_type($, $.keyword_char),
-    varchar: $ => sized_type($, $.keyword_varchar),
+    keyword_geometry: _ => make_keyword("geometry"),
+    keyword_geography: _ => make_keyword("geography"),
+    keyword_box2d: _ => make_keyword("box2d"),
+    keyword_box3d: _ => make_keyword("box3d"),
+
+    _type: $ => choice(
+      $.keyword_boolean,
+
+      $.keyword_smallserial,
+      $.keyword_serial,
+      $.keyword_bigserial,
+      $.keyword_smallint,
+      $.keyword_int,
+
+      $.bigint,
+      $.decimal,
+      $.numeric,
+      $.keyword_real,
+      $.double,
+
+      $.keyword_money,
+
+      $.char,
+      $.varchar,
+      $.keyword_text,
+
+      $.keyword_json,
+      $.keyword_jsonb,
+      $.keyword_xml,
+
+      $.keyword_bytea,
+
+      $.keyword_date,
+      $.keyword_datetime,
+      $.keyword_timestamp,
+      $.keyword_timestamptz,
+
+      $.keyword_geometry,
+      $.keyword_geography,
+      $.keyword_box2d,
+      $.keyword_box3d,
+
+      $.bigint,
+      $.char,
+      $.varchar,
+      $.decimal,
+      $.numeric,
+    ),
+
+    bigint: $ => parametric_type($, $.keyword_bigint),
+    decimal: $ => choice(
+      parametric_type($, $.keyword_decimal, ['precision']),
+      parametric_type($, $.keyword_decimal, ['precision', 'scale']),
+    ),
+    numeric: $ => choice(
+      parametric_type($, $.keyword_numeric, ['precision']),
+      parametric_type($, $.keyword_numeric, ['precision', 'scale']),
+    ),
+    char: $ => parametric_type($, $.keyword_char),
+    varchar: $ => parametric_type($, $.keyword_varchar),
 
     comment: _ => /--.*\n/,
     marginalia: _ => /\/'*.*\*\//,
@@ -833,13 +930,16 @@ module.exports = grammar({
 
 });
 
-function sized_type($, type) {
+function parametric_type($, type, params = ['size']) {
   return choice(
     type,
     seq(
       type,
       '(',
-      field('size', alias($._number, $.literal)),
+      // first parameter is guaranteed, shift it out of the array
+      field(params.shift(), alias($._number, $.literal)),
+      // then, fill in the ", next" until done
+      ...params.map(p => seq(',', field(p, alias($._number, $.literal)))),
       ')',
     ),
   )

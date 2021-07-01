@@ -506,3 +506,94 @@ WITH NO DATA;
    )
    (keyword_with) (keyword_no) (keyword_data)
   )))
+
+==================
+Create table with all types
+==================
+
+CREATE TABLE type_test (
+  a_bool BOOLEAN,
+  a_smallser SMALLSERIAL,
+  a_serial SERIAL,
+  a_bigser BIGSERIAL,
+  an_int INT,
+  an_integer INTEGER,
+  a_bigint BIGINT,
+  a_decimal DECIMAL,
+  a_sized_decimal DECIMAL (8),
+  a_sized_decimal_with_scale DECIMAL (8, 4),
+  a_numeric NUMERIC,
+  a_sized_numeric NUMERIC (8),
+  a_sized_numeric_with_scale NUMERIC (8, 4),
+  a_real REAL,
+  a_double_precision DOUBLE PRECISION,
+  a_money MONEY,
+  a_char CHAR,
+  a_character CHARACTER,
+  a_sized_char CHAR (10),
+  a_varchar VARCHAR (10),
+  a_character_varying CHARACTER VARYING (10),
+  a_text TEXT,
+  a_json JSON,
+  a_jsonb JSONB,
+  an_xml XML,
+  a_bytea BYTEA,
+  a_date DATE,
+  a_datetime DATETIME,
+  a_timestamp TIMESTAMP,
+  a_verbose_timestamp TIMESTAMP WITHOUT TIME ZONE,
+  a_tstz TIMESTAMPTZ,
+  a_verbose_tstz TIMESTAMP WITH TIME ZONE,
+  a_geometry GEOMETRY,
+  a_geography GEOGRAPHY,
+  a_box2d BOX2D,
+  a_box3d BOX3D
+);
+
+---
+
+(program
+ (statement
+  (create_table
+   (keyword_create)
+   (keyword_table)
+   (table_reference
+    name: (identifier))
+   (column_definitions
+    (column_definition name: (identifier) type: (keyword_boolean))
+    (column_definition name: (identifier) type: (keyword_smallserial))
+    (column_definition name: (identifier) type: (keyword_serial))
+    (column_definition name: (identifier) type: (keyword_bigserial))
+    (column_definition name: (identifier) type: (keyword_int))
+    (column_definition name: (identifier) type: (keyword_int))
+    (column_definition name: (identifier) type: (bigint (keyword_bigint)))
+    (column_definition name: (identifier) type: (decimal (keyword_decimal)))
+    (column_definition name: (identifier) type: (decimal (keyword_decimal) precision: (literal)))
+    (column_definition name: (identifier) type: (decimal (keyword_decimal) precision: (literal) scale: (literal)))
+    (column_definition name: (identifier) type: (numeric (keyword_numeric)))
+    (column_definition name: (identifier) type: (numeric (keyword_numeric) precision: (literal)))
+    (column_definition name: (identifier) type: (numeric (keyword_numeric) precision: (literal) scale: (literal)))
+    (column_definition name: (identifier) type: (keyword_real))
+    (column_definition name: (identifier) type: (double))
+    (column_definition name: (identifier) type: (keyword_money))
+    (column_definition name: (identifier) type: (char (keyword_char)))
+    (column_definition name: (identifier) type: (char (keyword_char)))
+    (column_definition name: (identifier) type: (char (keyword_char) size: (literal)))
+    (column_definition name: (identifier) type: (varchar (keyword_varchar) size: (literal)))
+    (column_definition name: (identifier) type: (varchar (keyword_varchar) size: (literal)))
+    (column_definition name: (identifier) type: (keyword_text))
+    (column_definition name: (identifier) type: (keyword_json))
+    (column_definition name: (identifier) type: (keyword_jsonb))
+    (column_definition name: (identifier) type: (keyword_xml))
+    (column_definition name: (identifier) type: (keyword_bytea))
+    (column_definition name: (identifier) type: (keyword_date))
+    (column_definition name: (identifier) type: (keyword_datetime))
+    (column_definition name: (identifier) type: (keyword_timestamp))
+    (column_definition name: (identifier) type: (keyword_timestamp))
+    (column_definition name: (identifier) type: (keyword_timestamptz))
+    (column_definition name: (identifier) type: (keyword_timestamptz))
+    (column_definition name: (identifier) type: (keyword_geometry))
+    (column_definition name: (identifier) type: (keyword_geography))
+    (column_definition name: (identifier) type: (keyword_box2d))
+    (column_definition name: (identifier) type: (keyword_box3d))
+   ))))
