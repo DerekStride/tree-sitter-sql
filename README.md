@@ -8,14 +8,14 @@ SQL grammar for [tree-sitter](https://github.com/tree-sitter/tree-sitter).
 
 - [x] SELECT statements (some features may be incomplete)
 - [x] Index hints
-- [x] Comments 
-- [x] Marginalia 
+- [x] Comments
+- [x] Marginalia
 - [x] UPDATE statements
 - [x] DELETE statements
 - [x] CREATE statements
 - [x] INSERT/REPLACE statements
-- [ ] DROP statements
-- [ ] ALTER TABLE statements
+- [x] DROP statements
+- [x] ALTER TABLE statements
 - [ ] CREATE INDEX statements
 - [ ] DROP INDEX statements
 - [ ] ALTER INDEX statements
