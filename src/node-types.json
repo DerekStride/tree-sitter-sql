@@ -1188,7 +1188,7 @@
       },
       "parameter": {
         "multiple": true,
-        "required": false,
+        "required": true,
         "types": [
           {
             "type": "field",
@@ -2257,16 +2257,8 @@
     "named": false
   },
   {
-    "type": "avg",
-    "named": false
-  },
-  {
     "type": "comment",
     "named": true
-  },
-  {
-    "type": "if",
-    "named": false
   },
   {
     "type": "keyword_add",
@@ -2591,13 +2583,5 @@
   {
     "type": "marginalia",
     "named": true
-  },
-  {
-    "type": "max",
-    "named": false
-  },
-  {
-    "type": "min",
-    "named": false
   }
 ]

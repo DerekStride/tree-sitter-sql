@@ -193,7 +193,7 @@ FROM my_table m;
 Select with complex IF
 ==================
 
-SELECT IF(m.is_published > 4, 'global', 'local') published_scope
+SELECT m.is_published, IF(m.is_published > 4, 'global', 'local') published_scope
 FROM my_table m;
 
 ---
@@ -203,6 +203,7 @@ FROM my_table m;
   (select
    (keyword_select)
    (select_expression
+    (field table_alias: (identifier) name: (identifier))
     (function_call
      name: (identifier)
      parameter: (predicate
@@ -460,6 +461,51 @@ FROM my_table;
    (keyword_from)
    (table_expression
     name: (identifier)))))
+
+==================
+More complex function arguments
+==================
+
+SELECT
+  user_id,
+  user_defined_func(user_id, 123, other_func(user_id, 321), user_id + 1 > 5) as something,
+  regexp_replace(t.username, '^(.)[^@]+', '\1--', 'g') as username,
+  created_at
+FROM my_table AS t;
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (field name: (identifier))
+    (function_call
+     name: (identifier)
+     parameter: (field name: (identifier))
+     parameter: (literal)
+     parameter:
+      (function_call
+       name: (identifier)
+       parameter: (field name: (identifier))
+       parameter: (literal))
+     parameter:
+      (predicate
+       left: (predicate left: (field name: (identifier)) right: (literal))
+       right: (literal))
+     (keyword_as) alias: (identifier))
+    (function_call
+     name: (identifier)
+     parameter: (field table_alias: (identifier) name: (identifier))
+     parameter: (literal)
+     parameter: (literal)
+     parameter: (literal)
+     (keyword_as) alias: (identifier))
+    (field name: (identifier))))
+  (from
+   (keyword_from)
+   (table_expression
+    name: (identifier) (keyword_as) table_alias: (identifier)))))
 
 ==================
 Distinct in count function
