@@ -682,7 +682,9 @@ module.exports = grammar({
         seq(
           field('name', $.identifier),
           '(',
-          $._function_params,
+          optional(
+            $._function_params,
+          ),
           ')',
         ),
       ),

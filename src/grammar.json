@@ -2890,8 +2890,16 @@
                   "value": "("
                 },
                 {
-                  "type": "SYMBOL",
-                  "name": "_function_params"
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "_function_params"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
                 },
                 {
                   "type": "STRING",

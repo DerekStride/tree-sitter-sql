@@ -463,6 +463,21 @@ FROM my_table;
     name: (identifier)))))
 
 ==================
+No-arg functions
+==================
+
+SELECT now();
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (function_call
+     name: (identifier))))))
+
+==================
 More complex function arguments
 ==================
 
