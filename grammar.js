@@ -676,17 +676,18 @@ module.exports = grammar({
       ),
     ),
 
-    function_call: $ => choice(
-      $._unary_function,
-      $._count_function,
-      $._multi_param_function,
-    ),
-
-    _unary_function: $ => seq(
-      field('name', alias($._unary_function_name, $.identifier)),
-      '(',
-      field('parameter', $._function_param),
-      ')',
+    function_call: $ => seq(
+      choice(
+        $._count_function,
+        seq(
+          field('name', $.identifier),
+          '(',
+          optional(
+            $._function_params,
+          ),
+          ')',
+        ),
+      ),
       optional(
         choice(
           seq(
@@ -714,31 +715,6 @@ module.exports = grammar({
         ),
       ),
       ')',
-      optional(
-        choice(
-          seq(
-            $.keyword_as,
-            field('alias', $.identifier),
-          ),
-          field('alias', $.identifier),
-        ),
-      ),
-    ),
-
-    _multi_param_function: $ => seq(
-      field('name', alias($._function_name, $.identifier)),
-      '(',
-      $._function_params,
-      ')',
-      optional(
-        choice(
-          seq(
-            $.keyword_as,
-            field('alias', $.identifier),
-          ),
-          field('alias', $.identifier),
-        ),
-      ),
     ),
 
     _function_param: $ => choice(
@@ -750,22 +726,14 @@ module.exports = grammar({
 
     _function_params: $ => seq(
       field('parameter', $._function_param),
-      repeat1(
-        seq(
-          ',',
-          field('parameter', $._function_param),
+      optional(
+        repeat1(
+          seq(
+            ',',
+            field('parameter', $._function_param),
+          ),
         ),
       ),
-    ),
-
-    _unary_function_name: $ => choice(
-      alias($.keyword_max, 'max'),
-      alias($.keyword_min, 'min'),
-      alias($.keyword_avg, 'avg'),
-    ),
-
-    _function_name: $ => choice(
-      alias($.keyword_if, 'if'),
     ),
 
     from: $ => seq(

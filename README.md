@@ -7,6 +7,7 @@ SQL grammar for [tree-sitter](https://github.com/tree-sitter/tree-sitter).
 ## Features
 
 - [x] SELECT statements (some features may be incomplete)
+- [x] Function calls
 - [x] Index hints
 - [x] Comments
 - [x] Marginalia
@@ -20,7 +21,7 @@ SQL grammar for [tree-sitter](https://github.com/tree-sitter/tree-sitter).
 - [ ] DROP INDEX statements
 - [ ] ALTER INDEX statements
 - [ ] EXPLAIN statements
-- [ ] Functions (some are implemented)
+- [ ] Function definitions
 
 For a complete list of features see the the [tests](test/corpus)
 
