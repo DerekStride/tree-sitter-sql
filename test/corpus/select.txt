@@ -31,6 +31,45 @@ SELECT * FROM my_table;
    (table_expression name: (identifier)))))
 
 ==================
+Table.*
+==================
+
+SELECT my_table.* FROM my_table;
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+     (all_fields table_alias: (identifier))))
+  (from
+   (keyword_from)
+   (table_expression name: (identifier)))))
+
+==================
+Alias.*
+==================
+
+SELECT t.* FROM my_table AS t;
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+     (all_fields table_alias: (identifier))))
+  (from
+   (keyword_from)
+   (table_expression
+     name: (identifier)
+     (keyword_as)
+     table_alias: (identifier)))))
+
+==================
 Simple select with fields
 ==================
 

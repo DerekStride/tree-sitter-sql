@@ -639,6 +639,7 @@ module.exports = grammar({
         choice(
           $.function_call,
           $.field,
+          $.all_fields,
         ),
         repeat(
           seq(
@@ -646,6 +647,7 @@ module.exports = grammar({
             choice(
               $.function_call,
               $.field,
+              $.all_fields,
             ),
           ),
         ),
@@ -675,6 +677,20 @@ module.exports = grammar({
           ),
         ),
       ),
+    ),
+
+    all_fields: $ => seq(
+      seq(
+        optional(
+          seq(
+            field('schema', $.identifier),
+            '.',
+          ),
+        ),
+        field('table_alias', $.identifier),
+        '.',
+      ),
+      '*',
     ),
 
     function_call: $ => seq(

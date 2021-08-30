@@ -35,6 +35,32 @@
     }
   },
   {
+    "type": "all_fields",
+    "named": true,
+    "fields": {
+      "schema": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "table_alias": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "alter_column",
     "named": true,
     "fields": {
@@ -1563,6 +1589,10 @@
       "required": false,
       "types": [
         {
+          "type": "all_fields",
+          "named": true
+        },
+        {
           "type": "direction",
           "named": true
         },
@@ -1818,6 +1848,10 @@
       "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "all_fields",
+          "named": true
+        },
         {
           "type": "field",
           "named": true
