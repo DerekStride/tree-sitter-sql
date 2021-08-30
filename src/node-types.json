@@ -1361,6 +1361,10 @@
       "required": true,
       "types": [
         {
+          "type": "column_list",
+          "named": true
+        },
+        {
           "type": "index_hint",
           "named": true
         },
@@ -1386,6 +1390,10 @@
         },
         {
           "type": "keyword_right",
+          "named": true
+        },
+        {
+          "type": "keyword_using",
           "named": true
         },
         {
@@ -2562,6 +2570,10 @@
   },
   {
     "type": "keyword_use",
+    "named": true
+  },
+  {
+    "type": "keyword_using",
     "named": true
   },
   {

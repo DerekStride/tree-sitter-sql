@@ -72,6 +72,7 @@ module.exports = grammar({
     keyword_or: _ => make_keyword("or"),
     keyword_not: _ => make_keyword("not"),
     keyword_force: _ => make_keyword("force"),
+    keyword_using: _ => make_keyword("using"),
     keyword_use: _ => make_keyword("use"),
     keyword_index: _ => make_keyword("index"),
     keyword_for: _ => make_keyword("for"),
@@ -789,8 +790,16 @@ module.exports = grammar({
       $.keyword_join,
       $.table_expression,
       optional($.index_hint),
-      $.keyword_on,
-      $.predicate,
+      choice(
+        seq(
+          $.keyword_on,
+          $.predicate,
+        ),
+        seq(
+          $.keyword_using,
+          alias($._column_list_without_order, $.column_list),
+        )
+      )
     ),
 
     where: $ => seq(

@@ -675,6 +675,43 @@ ON a.id = b.a_id;
       name: (identifier)))))))
 
 ==================
+Joins with USING
+==================
+
+SELECT a.id, b.id
+FROM my_table a
+JOIN my_other_table b USING (q, w);
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (field
+     table_alias: (identifier)
+     name: (identifier))
+    (field
+     table_alias: (identifier)
+     name: (identifier))))
+  (from
+   (keyword_from)
+   (table_expression
+    name: (identifier)
+    table_alias: (identifier))
+   (join
+    (keyword_join)
+    (table_expression
+     name: (identifier)
+     table_alias: (identifier))
+     (keyword_using)
+     (column_list
+       (column name: (identifier))
+       (column name: (identifier))))
+    )))
+
+==================
 Specific Joins
 ==================
 
