@@ -214,14 +214,15 @@ FROM my_table m;
    (keyword_select)
    (select_expression
     (function_call
-     name: (identifier)
-     parameter: (field
-       table_alias: (identifier)
-       name: (identifier))
-     parameter: (literal)
-     parameter: (literal)
-     (keyword_as)
-     alias: (identifier))))
+      (invocation
+        name: (identifier)
+        parameter: (field
+          table_alias: (identifier)
+          name: (identifier))
+        parameter: (literal)
+        parameter: (literal))
+      (keyword_as)
+      alias: (identifier))))
   (from
    (keyword_from)
    (table_expression
@@ -244,15 +245,16 @@ FROM my_table m;
    (select_expression
     (field table_alias: (identifier) name: (identifier))
     (function_call
-     name: (identifier)
-     parameter: (predicate
-      left: (field
-       table_alias: (identifier)
-       name: (identifier))
-      right: (literal))
-     parameter: (literal)
-     parameter: (literal)
-     alias: (identifier))))
+      (invocation
+        name: (identifier)
+        parameter: (predicate
+         left: (field
+          table_alias: (identifier)
+          name: (identifier))
+         right: (literal))
+        parameter: (literal)
+        parameter: (literal))
+      alias: (identifier))))
   (from
    (keyword_from)
    (table_expression
@@ -494,8 +496,9 @@ FROM my_table;
    (keyword_select)
    (select_expression
     (function_call
-     name: (identifier)
-     parameter: (field name: (identifier)))))
+      (invocation
+        name: (identifier)
+        parameter: (field name: (identifier))))))
   (from
    (keyword_from)
    (table_expression
@@ -514,7 +517,8 @@ SELECT now();
    (keyword_select)
    (select_expression
     (function_call
-     name: (identifier))))))
+      (invocation
+        name: (identifier)))))))
 
 ==================
 More complex function arguments
@@ -535,25 +539,28 @@ FROM my_table AS t;
    (select_expression
     (field name: (identifier))
     (function_call
-     name: (identifier)
-     parameter: (field name: (identifier))
-     parameter: (literal)
-     parameter:
-      (function_call
-       name: (identifier)
-       parameter: (field name: (identifier))
-       parameter: (literal))
-     parameter:
-      (predicate
-       left: (predicate left: (field name: (identifier)) right: (literal))
-       right: (literal))
+     (invocation
+      name: (identifier)
+      parameter: (field name: (identifier))
+      parameter: (literal)
+      parameter:
+       (function_call
+        (invocation
+         name: (identifier)
+         parameter: (field name: (identifier))
+         parameter: (literal)))
+      parameter:
+       (predicate
+        left: (predicate left: (field name: (identifier)) right: (literal))
+        right: (literal)))
      (keyword_as) alias: (identifier))
     (function_call
-     name: (identifier)
-     parameter: (field table_alias: (identifier) name: (identifier))
-     parameter: (literal)
-     parameter: (literal)
-     parameter: (literal)
+     (invocation
+      name: (identifier)
+      parameter: (field table_alias: (identifier) name: (identifier))
+      parameter: (literal)
+      parameter: (literal)
+      parameter: (literal))
      (keyword_as) alias: (identifier))
     (field name: (identifier))))
   (from
@@ -665,6 +672,33 @@ WHERE b.c_id = 4;
        table_alias: (identifier)
        name: (identifier))
       right: (literal)))))))
+
+==================
+Join with boolean
+==================
+
+SELECT *
+FROM my_table
+JOIN my_other_table ON TRUE;
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression))
+  (from
+   (keyword_from)
+   (table_expression
+    name: (identifier))
+   (join
+    (keyword_join)
+    (table_expression
+     name: (identifier))
+    (keyword_on)
+    (keyword_true))
+   )))
 
 ==================
 Joins with hint
@@ -854,6 +888,82 @@ ON a.id = e.e_id;
      right: (field
       table_alias: (identifier)
       name: (identifier)))))))
+
+==================
+Lateral join
+==================
+
+SELECT a.id, arr.*
+FROM my_table a
+JOIN LATERAL unnest(a.arr) AS arr ON TRUE;
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (field
+     table_alias: (identifier)
+     name: (identifier))
+    (all_fields
+     table_alias: (identifier))))
+  (from
+   (keyword_from)
+   (table_expression
+    name: (identifier)
+    table_alias: (identifier))
+   (lateral_join
+    (keyword_join)
+    (keyword_lateral)
+    (invocation
+      name: (identifier)
+      parameter: (field
+        table_alias: (identifier)
+        name: (identifier)))
+    (keyword_as)
+    alias: (identifier)
+    (keyword_on)
+    (keyword_true)))))
+
+==================
+Lateral join subquery
+==================
+
+SELECT a.id, b.*
+FROM my_table a
+CROSS JOIN LATERAL (SELECT 1) AS b ON TRUE;
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (field
+     table_alias: (identifier)
+     name: (identifier))
+    (all_fields
+     table_alias: (identifier))))
+  (from
+   (keyword_from)
+   (table_expression
+    name: (identifier)
+    table_alias: (identifier))
+   (lateral_join
+    (keyword_cross)
+    (keyword_join)
+    (keyword_lateral)
+    (subquery
+      (select
+        (keyword_select)
+        (select_expression (literal))))
+    (keyword_as)
+    alias: (identifier)
+    (keyword_on)
+    (keyword_true)))))
 
 ==================
 Multiple joins

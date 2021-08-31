@@ -40,7 +40,9 @@ module.exports = grammar({
     keyword_right: _ => make_keyword("right"),
     keyword_inner: _ => make_keyword("inner"),
     keyword_outer: _ => make_keyword("outer"),
+    keyword_cross: _ => make_keyword("cross"),
     keyword_join: _ => make_keyword("join"),
+    keyword_lateral: _ => make_keyword("lateral"),
     keyword_on: _ => make_keyword("on"),
     keyword_where: _ => make_keyword("where"),
     keyword_order_by: _ => make_keyword("order by"),
@@ -103,6 +105,8 @@ module.exports = grammar({
 
     // Types
     keyword_null: _ => make_keyword("null"),
+    keyword_true: _ => make_keyword("true"),
+    keyword_false: _ => make_keyword("false"),
 
     keyword_boolean: _ => make_keyword("boolean"),
 
@@ -696,14 +700,7 @@ module.exports = grammar({
     function_call: $ => seq(
       choice(
         $._count_function,
-        seq(
-          field('name', $.identifier),
-          '(',
-          optional(
-            $._function_params,
-          ),
-          ')',
-        ),
+        $.invocation,
       ),
       optional(
         choice(
@@ -714,6 +711,15 @@ module.exports = grammar({
           field('alias', $.identifier),
         ),
       ),
+    ),
+
+    invocation: $ => seq(
+      field('name', $.identifier),
+      '(',
+      optional(
+        $._function_params,
+      ),
+      ')',
     ),
 
     _count_function: $ => seq(
@@ -757,7 +763,12 @@ module.exports = grammar({
       $.keyword_from,
       $.table_expression,
       optional($.index_hint),
-      repeat($.join),
+      repeat(
+        choice(
+          $.join,
+          $.lateral_join,
+        ),
+      ),
       optional($.where),
       optional($.group_by),
       optional($.order_by),
@@ -796,6 +807,7 @@ module.exports = grammar({
     join: $ => seq(
       optional(
         choice(
+          $.keyword_cross,
           $.keyword_left,
           seq($.keyword_left, $.keyword_outer),
           $.keyword_right,
@@ -809,13 +821,50 @@ module.exports = grammar({
       choice(
         seq(
           $.keyword_on,
-          $.predicate,
+          choice(
+            $.predicate,
+            $.keyword_true,
+            $.keyword_false,
+          ),
         ),
         seq(
           $.keyword_using,
           alias($._column_list_without_order, $.column_list),
         )
       )
+    ),
+
+    lateral_join: $ => seq(
+      optional(
+        choice(
+          // lateral joins cannot be right!
+          $.keyword_cross,
+          $.keyword_left,
+          seq($.keyword_left, $.keyword_outer),
+          $.keyword_inner,
+        ),
+      ),
+      $.keyword_join,
+      $.keyword_lateral,
+      choice(
+        $.invocation,
+        $.subquery,
+      ),
+      optional(
+        choice(
+          seq(
+            $.keyword_as,
+            field('alias', $.identifier),
+          ),
+          field('alias', $.identifier),
+        ),
+      ),
+      $.keyword_on,
+      choice(
+        $.predicate,
+        $.keyword_true,
+        $.keyword_false,
+      ),
     ),
 
     where: $ => seq(

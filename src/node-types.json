@@ -1170,6 +1170,10 @@
           "named": true
         },
         {
+          "type": "lateral_join",
+          "named": true
+        },
+        {
           "type": "limit",
           "named": true
         },
@@ -1204,7 +1208,7 @@
       },
       "name": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "identifier",
@@ -1213,7 +1217,7 @@
         ]
       },
       "parameter": {
-        "multiple": true,
+        "multiple": false,
         "required": false,
         "types": [
           {
@@ -1239,6 +1243,10 @@
       "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "invocation",
+          "named": true
+        },
         {
           "type": "keyword_as",
           "named": true
@@ -1379,6 +1387,44 @@
     }
   },
   {
+    "type": "invocation",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "parameter": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "field",
+            "named": true
+          },
+          {
+            "type": "function_call",
+            "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "predicate",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "join",
     "named": true,
     "fields": {},
@@ -1392,6 +1438,14 @@
         },
         {
           "type": "index_hint",
+          "named": true
+        },
+        {
+          "type": "keyword_cross",
+          "named": true
+        },
+        {
+          "type": "keyword_false",
           "named": true
         },
         {
@@ -1416,6 +1470,10 @@
         },
         {
           "type": "keyword_right",
+          "named": true
+        },
+        {
+          "type": "keyword_true",
           "named": true
         },
         {
@@ -1462,6 +1520,80 @@
     "type": "keyword_with",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "lateral_join",
+    "named": true,
+    "fields": {
+      "alias": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "invocation",
+          "named": true
+        },
+        {
+          "type": "keyword_as",
+          "named": true
+        },
+        {
+          "type": "keyword_cross",
+          "named": true
+        },
+        {
+          "type": "keyword_false",
+          "named": true
+        },
+        {
+          "type": "keyword_inner",
+          "named": true
+        },
+        {
+          "type": "keyword_join",
+          "named": true
+        },
+        {
+          "type": "keyword_lateral",
+          "named": true
+        },
+        {
+          "type": "keyword_left",
+          "named": true
+        },
+        {
+          "type": "keyword_on",
+          "named": true
+        },
+        {
+          "type": "keyword_outer",
+          "named": true
+        },
+        {
+          "type": "keyword_true",
+          "named": true
+        },
+        {
+          "type": "predicate",
+          "named": true
+        },
+        {
+          "type": "subquery",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "limit",
@@ -2367,6 +2499,10 @@
     "named": true
   },
   {
+    "type": "keyword_cross",
+    "named": true
+  },
+  {
     "type": "keyword_data",
     "named": true
   },
@@ -2404,6 +2540,10 @@
   },
   {
     "type": "keyword_exists",
+    "named": true
+  },
+  {
+    "type": "keyword_false",
     "named": true
   },
   {
@@ -2472,6 +2612,10 @@
   },
   {
     "type": "keyword_key",
+    "named": true
+  },
+  {
+    "type": "keyword_lateral",
     "named": true
   },
   {
@@ -2592,6 +2736,10 @@
   },
   {
     "type": "keyword_to",
+    "named": true
+  },
+  {
+    "type": "keyword_true",
     "named": true
   },
   {
