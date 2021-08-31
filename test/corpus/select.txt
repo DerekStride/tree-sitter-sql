@@ -102,10 +102,10 @@ FROM my_table m;
     (select
      (keyword_select)
      (select_expression
-      (field 
+      (field
        table_alias: (identifier)
        name: (identifier))
-      (field 
+      (field
        table_alias: (identifier)
        name: (identifier))))
     (from
@@ -157,7 +157,7 @@ WHERE id = "abc";
   (select
    (keyword_select)
    (select_expression
-    (field 
+    (field
      name: (identifier))))
   (from
    (keyword_from)
@@ -185,7 +185,7 @@ WHERE id IN(1,2);
   (select
    (keyword_select)
    (select_expression
-    (field 
+    (field
      name: (identifier))))
   (from
    (keyword_from)
@@ -355,7 +355,7 @@ ORDER BY id DESC;
   (select
    (keyword_select)
    (select_expression
-    (field 
+    (field
      name: (identifier))))
   (from
    (keyword_from)
@@ -388,7 +388,7 @@ LIMIT 5;
   (select
    (keyword_select)
    (select_expression
-    (field 
+    (field
      name: (identifier))))
   (from
    (keyword_from)
@@ -414,7 +414,7 @@ OFFSET 40;
   (select
    (keyword_select)
    (select_expression
-    (field 
+    (field
      name: (identifier))))
   (from
    (keyword_from)
@@ -640,10 +640,10 @@ WHERE b.c_id = 4;
   (select
    (keyword_select)
    (select_expression
-    (field 
+    (field
      table_alias: (identifier)
      name: (identifier))
-    (field 
+    (field
      table_alias: (identifier)
      name: (identifier))))
   (from
@@ -716,10 +716,10 @@ ON a.id = b.a_id;
   (select
    (keyword_select)
    (select_expression
-    (field 
+    (field
      table_alias: (identifier)
      name: (identifier))
-    (field 
+    (field
      table_alias: (identifier)
      name: (identifier))))
   (from
@@ -808,7 +808,7 @@ ON a.id = e.e_id;
   (select
    (keyword_select)
    (select_expression
-    (field 
+    (field
      table_alias: (identifier)
      name: (identifier))))
   (from
@@ -983,13 +983,13 @@ ON a.id = c.a_id;
   (select
    (keyword_select)
    (select_expression
-    (field 
+    (field
      table_alias: (identifier)
      name: (identifier))
-    (field 
+    (field
      table_alias: (identifier)
      name: (identifier))
-    (field 
+    (field
      table_alias: (identifier)
      name: (identifier))))
   (from
@@ -1050,7 +1050,7 @@ WHERE m.id > 4 AND id < 3;
     (keyword_where)
     (where_expression
      (predicate
-      left: 
+      left:
        (predicate
         left:
           (field
@@ -1058,7 +1058,7 @@ WHERE m.id > 4 AND id < 3;
            name: (identifier))
         right: (literal))
        operator: (keyword_and)
-       right: 
+       right:
         (predicate
           left: (field name: (identifier))
           right: (literal))))))))
@@ -1090,7 +1090,7 @@ ORDER BY m.title, id ASC;
     (keyword_where)
     (where_expression
      (predicate
-      left: 
+      left:
        (predicate
         left:
           (field
@@ -1098,7 +1098,7 @@ ORDER BY m.title, id ASC;
            name: (identifier))
         right: (literal))
        operator: (keyword_and)
-       right: 
+       right:
         (predicate
           left: (field name: (identifier))
           right: (literal)))))
@@ -1213,13 +1213,13 @@ ORDER BY my_table.title, my_table.id;
     (table_expression name: (identifier) table_alias: (identifier))
     (keyword_on)
     (predicate
-     left: 
-     (predicate 
+     left:
+     (predicate
       left: (field table_alias: (identifier) name: (identifier))
       right: (field table_alias: (identifier) name: (identifier)))
      operator: (keyword_and)
-     right: 
-     (predicate 
+     right:
+     (predicate
       left: (field table_alias: (identifier) name: (identifier))
       right: (field table_alias: (identifier) name: (identifier)))))
   (join
@@ -1232,21 +1232,21 @@ ORDER BY my_table.title, my_table.id;
     (keyword_join)
     index_name: (identifier))
    (keyword_on)
-   (predicate 
-    left: 
+   (predicate
+    left:
     (predicate
      left: (field table_alias: (identifier) name: (identifier))
      right: (field table_alias: (identifier) name: (identifier)))
     operator: (keyword_and)
-    right: 
-    (predicate 
+    right:
+    (predicate
      left: (field table_alias: (identifier) name: (identifier))
      right: (field table_alias: (identifier) name: (identifier)))))
   (where
    (keyword_where)
    (where_expression
     (predicate
-     left: 
+     left:
      (predicate
       left:
       (predicate
@@ -1258,18 +1258,18 @@ ORDER BY my_table.title, my_table.id;
          name: (identifier))
         right: (literal))
        operator: (keyword_and)
-       right: 
+       right:
        (predicate
         left: (field table_alias: (identifier) name: (identifier))
         operator: (keyword_in)
         right: (list (literal))))
       operator: (keyword_and)
-      right: 
+      right:
       (predicate
        left: (field table_alias: (identifier) name: (identifier))
        right: (literal)))
      operator: (keyword_and)
-     right: 
+     right:
      (predicate
       left: (field table_alias: (identifier) name: (identifier))
       right: (field name: (identifier))))))
