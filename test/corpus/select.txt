@@ -89,6 +89,27 @@ SELECT id, name FROM my_table;
    (table_expression name: (identifier)))))
 
 ==================
+Simple select with fields that look like keywords
+==================
+
+SELECT t.from_where, t.created_at, t.updated_at
+FROM join_something_on AS where_this_like_that;
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (field table_alias: (identifier) name: (identifier))
+    (field table_alias: (identifier) name: (identifier))
+    (field table_alias: (identifier) name: (identifier))))
+  (from
+   (keyword_from)
+   (table_expression name: (identifier) (keyword_as) table_alias: (identifier)))))
+
+==================
 Simple select with fields field table alias
 ==================
 

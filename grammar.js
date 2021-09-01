@@ -783,8 +783,12 @@ module.exports = grammar({
         ),
       ),
       field('name', $.identifier),
-      optional($.keyword_as),
-      optional(field('table_alias', $.identifier)),
+      optional(
+        seq(
+          optional($.keyword_as),
+          field('table_alias', $.identifier),
+        ),
+      ),
     ),
 
     index_hint: $ => seq(
