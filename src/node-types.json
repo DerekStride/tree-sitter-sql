@@ -1715,7 +1715,18 @@
   {
     "type": "order_expression",
     "named": true,
-    "fields": {},
+    "fields": {
+      "alias": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": false,
@@ -1734,6 +1745,10 @@
         },
         {
           "type": "function_call",
+          "named": true
+        },
+        {
+          "type": "keyword_as",
           "named": true
         },
         {
@@ -1975,7 +1990,18 @@
   {
     "type": "select_expression",
     "named": true,
-    "fields": {},
+    "fields": {
+      "alias": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": false,
@@ -1990,6 +2016,10 @@
         },
         {
           "type": "function_call",
+          "named": true
+        },
+        {
+          "type": "keyword_as",
           "named": true
         },
         {

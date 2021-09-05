@@ -638,7 +638,15 @@ module.exports = grammar({
 
     _field_list: $ => choice(
       '*',
-      $.literal,
+      seq(
+        $.literal,
+        optional(
+          seq(
+            $.keyword_as,
+            field('alias', $.identifier),
+          ),
+        ),
+      ),
       seq(
         choice(
           $.function_call,

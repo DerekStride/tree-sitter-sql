@@ -14,6 +14,21 @@ SELECT 1;
     (literal)))))
 
 ==================
+Select 1 as alias
+==================
+
+SELECT 1 AS one;
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (literal) (keyword_as) (identifier)))))
+
+==================
 Simple select
 ==================
 
