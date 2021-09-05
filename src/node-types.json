@@ -1338,11 +1338,19 @@
           "named": true
         },
         {
+          "type": "from",
+          "named": true
+        },
+        {
           "type": "keyword_values",
           "named": true
         },
         {
           "type": "list",
+          "named": true
+        },
+        {
+          "type": "select",
           "named": true
         },
         {

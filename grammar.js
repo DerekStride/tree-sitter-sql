@@ -524,8 +524,13 @@ module.exports = grammar({
     insert_expression: $ => seq(
       $.table_reference,
       optional(alias($._column_list_without_order, $.column_list)),
-      $.keyword_values,
-      $.list,
+      choice(
+        seq(
+          $.keyword_values,
+          $.list,
+        ),
+        $._select_statement,
+      ),
     ),
 
     _column_list_without_order: $ => param_list(alias($._column_without_order, $.column)),

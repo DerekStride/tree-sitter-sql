@@ -2201,12 +2201,26 @@
           ]
         },
         {
-          "type": "SYMBOL",
-          "name": "keyword_values"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "list"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_values"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "list"
+                }
+              ]
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_select_statement"
+            }
+          ]
         }
       ]
     },
