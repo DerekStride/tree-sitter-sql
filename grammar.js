@@ -260,7 +260,17 @@ module.exports = grammar({
     ),
 
     select_expression: $ => choice(
-      $._field_list,
+      seq(
+        $._field,
+        optional($._alias),
+        repeat(
+          seq(
+            ',',
+            $._field,
+            optional($._alias),
+          ),
+        ),
+      ),
     ),
 
     _delete_statement: $ => seq(
@@ -636,34 +646,32 @@ module.exports = grammar({
       optional($.direction),
     ),
 
-    _field_list: $ => choice(
-      '*',
-      seq(
+    _field: $ => seq(
+      choice(
         $.literal,
-        optional(
-          seq(
-            $.keyword_as,
-            field('alias', $.identifier),
-          ),
-        ),
+        $.keyword_true,
+        $.keyword_false,
+        $.keyword_null,
+        $.function_call,
+        $.field,
+        $.all_fields,
       ),
-      seq(
-        choice(
-          $.function_call,
-          $.field,
-          $.all_fields,
-        ),
-        repeat(
-          seq(
-            ',',
-            choice(
-              $.function_call,
-              $.field,
-              $.all_fields,
+    ),
+
+    all_fields: $ => seq(
+      optional(
+        seq(
+          optional(
+            seq(
+              field('schema', $.identifier),
+              '.',
             ),
           ),
+          field('table_alias', $.identifier),
+          '.',
         ),
       ),
+      '*',
     ),
 
     field: $ => seq(
@@ -680,44 +688,12 @@ module.exports = grammar({
         ),
       ),
       field('name', $.identifier),
-      optional(
-        choice(
-          field('alias', $.identifier),
-          seq(
-            $.keyword_as,
-            field('alias', $.identifier),
-          ),
-        ),
-      ),
-    ),
-
-    all_fields: $ => seq(
-      seq(
-        optional(
-          seq(
-            field('schema', $.identifier),
-            '.',
-          ),
-        ),
-        field('table_alias', $.identifier),
-        '.',
-      ),
-      '*',
     ),
 
     function_call: $ => seq(
       choice(
         $._count_function,
         $.invocation,
-      ),
-      optional(
-        choice(
-          seq(
-            $.keyword_as,
-            field('alias', $.identifier),
-          ),
-          field('alias', $.identifier),
-        ),
       ),
     ),
 
@@ -764,6 +740,14 @@ module.exports = grammar({
             field('parameter', $._function_param),
           ),
         ),
+      ),
+    ),
+
+    _alias: $ => choice(
+      field('alias', $.identifier),
+      seq(
+        $.keyword_as,
+        field('alias', $.identifier),
       ),
     ),
 
@@ -901,8 +885,15 @@ module.exports = grammar({
     ),
 
     order_expression: $ => seq(
-      $._field_list,
+      $._field,
       optional($.direction),
+      repeat(
+        seq(
+          ',',
+          $._field,
+          optional($.direction),
+        ),
+      ),
     ),
 
     limit: $ => seq(
@@ -967,6 +958,9 @@ module.exports = grammar({
       choice(
         $._number,
         $._literal_string,
+        $.keyword_true,
+        $.keyword_false,
+        $.keyword_null,
       ),
     ),
     _literal_string: _ => choice(

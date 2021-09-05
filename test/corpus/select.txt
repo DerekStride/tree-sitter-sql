@@ -14,10 +14,12 @@ SELECT 1;
     (literal)))))
 
 ==================
-Select 1 as alias
+Select aliased literals
 ==================
 
-SELECT 1 AS one;
+SELECT 1 AS one,
+  TRUE AS two,
+  NULL AS three;
 
 ---
 
@@ -26,7 +28,9 @@ SELECT 1 AS one;
   (select
    (keyword_select)
    (select_expression
-    (literal) (keyword_as) (identifier)))))
+    (literal) (keyword_as) (identifier)
+    (literal (keyword_true)) (keyword_as) (identifier)
+    (literal (keyword_null)) (keyword_as) (identifier)))))
 
 ==================
 Simple select
@@ -40,7 +44,7 @@ SELECT * FROM my_table;
  (statement
   (select
    (keyword_select)
-   (select_expression))
+   (select_expression (all_fields)))
   (from
    (keyword_from)
    (table_expression name: (identifier)))))
@@ -256,9 +260,9 @@ FROM my_table m;
           table_alias: (identifier)
           name: (identifier))
         parameter: (literal)
-        parameter: (literal))
+        parameter: (literal)))
       (keyword_as)
-      alias: (identifier))))
+      alias: (identifier)))
   (from
    (keyword_from)
    (table_expression
@@ -289,8 +293,8 @@ FROM my_table m;
           name: (identifier))
          right: (literal))
         parameter: (literal)
-        parameter: (literal))
-      alias: (identifier))))
+        parameter: (literal)))
+      alias: (identifier)))
   (from
    (keyword_from)
    (table_expression
@@ -337,9 +341,9 @@ FROM my_table;
      name: (identifier)
      (keyword_distinct)
      parameter: (field
-      name: (identifier))
-     (keyword_as)
-     alias: (identifier))))
+      name: (identifier)))
+    (keyword_as)
+    alias: (identifier)))
   (from
    (keyword_from)
    (table_expression
@@ -361,13 +365,13 @@ FROM my_table AS m;
    (select_expression
     (field
      table_alias: (identifier)
-     name: (identifier)
-     (keyword_as)
-     alias: (identifier))
+     name: (identifier))
+    (keyword_as)
+    alias: (identifier)
     (field
      table_alias: (identifier)
-     name: (identifier)
-     alias: (identifier))))
+     name: (identifier))
+    alias: (identifier)))
   (from
    (keyword_from)
    (table_expression
@@ -475,7 +479,7 @@ SELECT * FROM my_schema.my_table;
  (statement
   (select
    (keyword_select)
-   (select_expression))
+   (select_expression (all_fields)))
   (from
    (keyword_from)
    (table_expression schema: (identifier) name: (identifier)))))
@@ -588,16 +592,16 @@ FROM my_table AS t;
       parameter:
        (predicate
         left: (predicate left: (field name: (identifier)) right: (literal))
-        right: (literal)))
-     (keyword_as) alias: (identifier))
+        right: (literal))))
+    (keyword_as) alias: (identifier)
     (function_call
      (invocation
       name: (identifier)
       parameter: (field table_alias: (identifier) name: (identifier))
       parameter: (literal)
       parameter: (literal)
-      parameter: (literal))
-     (keyword_as) alias: (identifier))
+      parameter: (literal)))
+    (keyword_as) alias: (identifier)
     (field name: (identifier))))
   (from
    (keyword_from)
@@ -723,7 +727,7 @@ JOIN my_other_table ON TRUE;
  (statement
   (select
    (keyword_select)
-   (select_expression))
+   (select_expression (all_fields)))
   (from
    (keyword_from)
    (table_expression
@@ -1308,7 +1312,7 @@ ORDER BY my_table.title, my_table.id;
      right:
      (predicate
       left: (field table_alias: (identifier) name: (identifier))
-      right: (field name: (identifier))))))
+      right: (literal (keyword_true))))))
   (order_by
    (keyword_order_by)
    (order_expression
