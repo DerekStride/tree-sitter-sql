@@ -275,6 +275,22 @@
       "type": "PATTERN",
       "value": "temporary|TEMPORARY"
     },
+    "keyword_union": {
+      "type": "PATTERN",
+      "value": "union|UNION"
+    },
+    "keyword_all": {
+      "type": "PATTERN",
+      "value": "all|ALL"
+    },
+    "keyword_except": {
+      "type": "PATTERN",
+      "value": "except|EXCEPT"
+    },
+    "keyword_intersect": {
+      "type": "PATTERN",
+      "value": "intersect|INTERSECT"
+    },
     "_temporary": {
       "type": "CHOICE",
       "members": [
@@ -1132,6 +1148,64 @@
               "type": "BLANK"
             }
           ]
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "keyword_union"
+                      },
+                      {
+                        "type": "CHOICE",
+                        "members": [
+                          {
+                            "type": "SYMBOL",
+                            "name": "keyword_all"
+                          },
+                          {
+                            "type": "BLANK"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "keyword_except"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "keyword_intersect"
+                  }
+                ]
+              },
+              {
+                "type": "SYMBOL",
+                "name": "select"
+              },
+              {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "from"
+                  },
+                  {
+                    "type": "BLANK"
+                  }
+                ]
+              }
+            ]
+          }
         }
       ]
     },

@@ -738,6 +738,10 @@
           "named": true
         },
         {
+          "type": "keyword_all",
+          "named": true
+        },
+        {
           "type": "keyword_as",
           "named": true
         },
@@ -750,11 +754,19 @@
           "named": true
         },
         {
+          "type": "keyword_except",
+          "named": true
+        },
+        {
           "type": "keyword_exists",
           "named": true
         },
         {
           "type": "keyword_if",
+          "named": true
+        },
+        {
+          "type": "keyword_intersect",
           "named": true
         },
         {
@@ -775,6 +787,10 @@
         },
         {
           "type": "keyword_replace",
+          "named": true
+        },
+        {
+          "type": "keyword_union",
           "named": true
         },
         {
@@ -860,6 +876,10 @@
           "named": true
         },
         {
+          "type": "keyword_all",
+          "named": true
+        },
+        {
           "type": "keyword_as",
           "named": true
         },
@@ -868,11 +888,19 @@
           "named": true
         },
         {
+          "type": "keyword_except",
+          "named": true
+        },
+        {
           "type": "keyword_exists",
           "named": true
         },
         {
           "type": "keyword_if",
+          "named": true
+        },
+        {
+          "type": "keyword_intersect",
           "named": true
         },
         {
@@ -885,6 +913,10 @@
         },
         {
           "type": "keyword_replace",
+          "named": true
+        },
+        {
+          "type": "keyword_union",
           "named": true
         },
         {
@@ -1339,6 +1371,22 @@
         },
         {
           "type": "from",
+          "named": true
+        },
+        {
+          "type": "keyword_all",
+          "named": true
+        },
+        {
+          "type": "keyword_except",
+          "named": true
+        },
+        {
+          "type": "keyword_intersect",
+          "named": true
+        },
+        {
+          "type": "keyword_union",
           "named": true
         },
         {
@@ -2109,6 +2157,22 @@
           "named": true
         },
         {
+          "type": "keyword_all",
+          "named": true
+        },
+        {
+          "type": "keyword_except",
+          "named": true
+        },
+        {
+          "type": "keyword_intersect",
+          "named": true
+        },
+        {
+          "type": "keyword_union",
+          "named": true
+        },
+        {
           "type": "select",
           "named": true
         },
@@ -2470,6 +2534,10 @@
     "named": true
   },
   {
+    "type": "keyword_all",
+    "named": true
+  },
+  {
     "type": "keyword_alter",
     "named": true
   },
@@ -2570,6 +2638,10 @@
     "named": true
   },
   {
+    "type": "keyword_except",
+    "named": true
+  },
+  {
     "type": "keyword_exists",
     "named": true
   },
@@ -2623,6 +2695,10 @@
   },
   {
     "type": "keyword_insert",
+    "named": true
+  },
+  {
+    "type": "keyword_intersect",
     "named": true
   },
   {
@@ -2775,6 +2851,10 @@
   },
   {
     "type": "keyword_type",
+    "named": true
+  },
+  {
+    "type": "keyword_union",
     "named": true
   },
   {

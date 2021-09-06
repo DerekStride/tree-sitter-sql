@@ -95,6 +95,10 @@ module.exports = grammar({
     keyword_owner: _ => make_keyword("owner"),
     keyword_temp: _ => make_keyword("temp"),
     keyword_temporary: _ => make_keyword("temporary"),
+    keyword_union: _ => make_keyword("union"),
+    keyword_all: _ => make_keyword("all"),
+    keyword_except: _ => make_keyword("except"),
+    keyword_intersect: _ => make_keyword("intersect"),
 
     _temporary: $ => choice($.keyword_temp, $.keyword_temporary),
     _not_null: $ => seq($.keyword_not, $.keyword_null),
@@ -243,6 +247,20 @@ module.exports = grammar({
     _select_statement: $ => seq(
       $.select,
       optional($.from),
+      repeat(
+        seq(
+          choice(
+            seq(
+              $.keyword_union,
+              optional($.keyword_all),
+            ),
+            $.keyword_except,
+            $.keyword_intersect,
+          ),
+          $.select,
+          optional($.from),
+        ),
+      ),
     ),
 
     select: $ => seq(

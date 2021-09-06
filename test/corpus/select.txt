@@ -1209,7 +1209,54 @@ LIMIT 1;
     (keyword_limit)
     (literal)))))
 
+==================
+Union
+==================
 
+SELECT 1 UNION ALL SELECT 2;
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (literal)))
+   (keyword_union)
+   (keyword_all)
+  (select
+   (keyword_select)
+   (select_expression
+    (literal)))))
+
+==================
+Intersect
+==================
+
+SELECT a FROM one
+INTERSECT
+SELECT b FROM two;
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (field (identifier))))
+  (from
+   (keyword_from)
+   (table_expression (identifier)))
+  (keyword_intersect)
+  (select
+   (keyword_select)
+   (select_expression
+    (field (identifier))))
+  (from
+   (keyword_from)
+   (table_expression (identifier)))))
 
 ==================
 Altogether now
