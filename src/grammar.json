@@ -1,5 +1,6 @@
 {
   "name": "sql",
+  "word": "_identifier",
   "rules": {
     "program": {
       "type": "SEQ",
@@ -4492,7 +4493,7 @@
     },
     "_identifier": {
       "type": "PATTERN",
-      "value": "([a-zA-Z_$][0-9a-zA-Z_]*)"
+      "value": "([a-zA-Z_][0-9a-zA-Z_]*)"
     }
   },
   "extras": [
