@@ -45,3 +45,32 @@ VALUES ('foo', 123, '2020');
      (literal)
      (literal)
      (literal))))))
+
+==================
+Insert-select
+==================
+
+INSERT INTO my_table (a, b, c)
+SELECT a, b, c
+FROM my_other_table;
+
+---
+
+(program
+ (statement
+  (insert
+   (keyword_insert)
+   (keyword_into)
+   (insert_expression
+    (table_reference name: (identifier))
+    (column_list
+     (column name: (identifier))
+     (column name: (identifier))
+     (column name: (identifier)))
+    (select
+     (keyword_select)
+     (select_expression
+      (field name: (identifier))
+      (field name: (identifier))
+      (field name: (identifier))))
+    (from (keyword_from) (table_expression name: (identifier)))))))

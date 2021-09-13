@@ -447,7 +447,7 @@ SELECT * FROM my_table;
    (keyword_as)
    (select
     (keyword_select)
-    (select_expression))
+    (select_expression (all_fields)))
    (from
     (keyword_from)
     (table_expression name: (identifier))
@@ -473,7 +473,7 @@ SELECT * FROM my_table;
    (keyword_as)
    (select
     (keyword_select)
-    (select_expression))
+    (select_expression (all_fields)))
    (from
     (keyword_from)
     (table_expression name: (identifier))
@@ -499,7 +499,7 @@ WITH NO DATA;
    (keyword_as)
    (select
     (keyword_select)
-    (select_expression))
+    (select_expression (all_fields)))
    (from
     (keyword_from)
     (table_expression name: (identifier))

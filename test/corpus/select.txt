@@ -14,6 +14,25 @@ SELECT 1;
     (literal)))))
 
 ==================
+Select aliased literals
+==================
+
+SELECT 1 AS one,
+  TRUE AS two,
+  NULL AS three;
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (literal) (keyword_as) (identifier)
+    (literal (keyword_true)) (keyword_as) (identifier)
+    (literal (keyword_null)) (keyword_as) (identifier)))))
+
+==================
 Simple select
 ==================
 
@@ -25,10 +44,49 @@ SELECT * FROM my_table;
  (statement
   (select
    (keyword_select)
-   (select_expression))
+   (select_expression (all_fields)))
   (from
    (keyword_from)
    (table_expression name: (identifier)))))
+
+==================
+Table.*
+==================
+
+SELECT my_table.* FROM my_table;
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+     (all_fields table_alias: (identifier))))
+  (from
+   (keyword_from)
+   (table_expression name: (identifier)))))
+
+==================
+Alias.*
+==================
+
+SELECT t.* FROM my_table AS t;
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+     (all_fields table_alias: (identifier))))
+  (from
+   (keyword_from)
+   (table_expression
+     name: (identifier)
+     (keyword_as)
+     table_alias: (identifier)))))
 
 ==================
 Simple select with fields
@@ -50,6 +108,27 @@ SELECT id, name FROM my_table;
    (table_expression name: (identifier)))))
 
 ==================
+Simple select with fields that look like keywords
+==================
+
+SELECT t.from_where, t.created_at, t.updated_at
+FROM join_something_on AS where_this_like_that;
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (field table_alias: (identifier) name: (identifier))
+    (field table_alias: (identifier) name: (identifier))
+    (field table_alias: (identifier) name: (identifier))))
+  (from
+   (keyword_from)
+   (table_expression name: (identifier) (keyword_as) table_alias: (identifier)))))
+
+==================
 Simple select with fields field table alias
 ==================
 
@@ -63,10 +142,10 @@ FROM my_table m;
     (select
      (keyword_select)
      (select_expression
-      (field 
+      (field
        table_alias: (identifier)
        name: (identifier))
-      (field 
+      (field
        table_alias: (identifier)
        name: (identifier))))
     (from
@@ -118,7 +197,7 @@ WHERE id = "abc";
   (select
    (keyword_select)
    (select_expression
-    (field 
+    (field
      name: (identifier))))
   (from
    (keyword_from)
@@ -146,7 +225,7 @@ WHERE id IN(1,2);
   (select
    (keyword_select)
    (select_expression
-    (field 
+    (field
      name: (identifier))))
   (from
    (keyword_from)
@@ -175,14 +254,15 @@ FROM my_table m;
    (keyword_select)
    (select_expression
     (function_call
-     name: (identifier)
-     parameter: (field
-       table_alias: (identifier)
-       name: (identifier))
-     parameter: (literal)
-     parameter: (literal)
-     (keyword_as)
-     alias: (identifier))))
+      (invocation
+        name: (identifier)
+        parameter: (field
+          table_alias: (identifier)
+          name: (identifier))
+        parameter: (literal)
+        parameter: (literal)))
+      (keyword_as)
+      alias: (identifier)))
   (from
    (keyword_from)
    (table_expression
@@ -205,15 +285,16 @@ FROM my_table m;
    (select_expression
     (field table_alias: (identifier) name: (identifier))
     (function_call
-     name: (identifier)
-     parameter: (predicate
-      left: (field
-       table_alias: (identifier)
-       name: (identifier))
-      right: (literal))
-     parameter: (literal)
-     parameter: (literal)
-     alias: (identifier))))
+      (invocation
+        name: (identifier)
+        parameter: (predicate
+         left: (field
+          table_alias: (identifier)
+          name: (identifier))
+         right: (literal))
+        parameter: (literal)
+        parameter: (literal)))
+      alias: (identifier)))
   (from
    (keyword_from)
    (table_expression
@@ -260,9 +341,9 @@ FROM my_table;
      name: (identifier)
      (keyword_distinct)
      parameter: (field
-      name: (identifier))
-     (keyword_as)
-     alias: (identifier))))
+      name: (identifier)))
+    (keyword_as)
+    alias: (identifier)))
   (from
    (keyword_from)
    (table_expression
@@ -284,13 +365,13 @@ FROM my_table AS m;
    (select_expression
     (field
      table_alias: (identifier)
-     name: (identifier)
-     (keyword_as)
-     alias: (identifier))
+     name: (identifier))
+    (keyword_as)
+    alias: (identifier)
     (field
      table_alias: (identifier)
-     name: (identifier)
-     alias: (identifier))))
+     name: (identifier))
+    alias: (identifier)))
   (from
    (keyword_from)
    (table_expression
@@ -314,7 +395,7 @@ ORDER BY id DESC;
   (select
    (keyword_select)
    (select_expression
-    (field 
+    (field
      name: (identifier))))
   (from
    (keyword_from)
@@ -347,7 +428,7 @@ LIMIT 5;
   (select
    (keyword_select)
    (select_expression
-    (field 
+    (field
      name: (identifier))))
   (from
    (keyword_from)
@@ -373,7 +454,7 @@ OFFSET 40;
   (select
    (keyword_select)
    (select_expression
-    (field 
+    (field
      name: (identifier))))
   (from
    (keyword_from)
@@ -398,7 +479,7 @@ SELECT * FROM my_schema.my_table;
  (statement
   (select
    (keyword_select)
-   (select_expression))
+   (select_expression (all_fields)))
   (from
    (keyword_from)
    (table_expression schema: (identifier) name: (identifier)))))
@@ -455,8 +536,9 @@ FROM my_table;
    (keyword_select)
    (select_expression
     (function_call
-     name: (identifier)
-     parameter: (field name: (identifier)))))
+      (invocation
+        name: (identifier)
+        parameter: (field name: (identifier))))))
   (from
    (keyword_from)
    (table_expression
@@ -475,7 +557,8 @@ SELECT now();
    (keyword_select)
    (select_expression
     (function_call
-     name: (identifier))))))
+      (invocation
+        name: (identifier)))))))
 
 ==================
 More complex function arguments
@@ -496,26 +579,29 @@ FROM my_table AS t;
    (select_expression
     (field name: (identifier))
     (function_call
-     name: (identifier)
-     parameter: (field name: (identifier))
-     parameter: (literal)
-     parameter:
-      (function_call
-       name: (identifier)
-       parameter: (field name: (identifier))
-       parameter: (literal))
-     parameter:
-      (predicate
-       left: (predicate left: (field name: (identifier)) right: (literal))
-       right: (literal))
-     (keyword_as) alias: (identifier))
+     (invocation
+      name: (identifier)
+      parameter: (field name: (identifier))
+      parameter: (literal)
+      parameter:
+       (function_call
+        (invocation
+         name: (identifier)
+         parameter: (field name: (identifier))
+         parameter: (literal)))
+      parameter:
+       (predicate
+        left: (predicate left: (field name: (identifier)) right: (literal))
+        right: (literal))))
+    (keyword_as) alias: (identifier)
     (function_call
-     name: (identifier)
-     parameter: (field table_alias: (identifier) name: (identifier))
-     parameter: (literal)
-     parameter: (literal)
-     parameter: (literal)
-     (keyword_as) alias: (identifier))
+     (invocation
+      name: (identifier)
+      parameter: (field table_alias: (identifier) name: (identifier))
+      parameter: (literal)
+      parameter: (literal)
+      parameter: (literal)))
+    (keyword_as) alias: (identifier)
     (field name: (identifier))))
   (from
    (keyword_from)
@@ -594,10 +680,10 @@ WHERE b.c_id = 4;
   (select
    (keyword_select)
    (select_expression
-    (field 
+    (field
      table_alias: (identifier)
      name: (identifier))
-    (field 
+    (field
      table_alias: (identifier)
      name: (identifier))))
   (from
@@ -628,6 +714,33 @@ WHERE b.c_id = 4;
       right: (literal)))))))
 
 ==================
+Join with boolean
+==================
+
+SELECT *
+FROM my_table
+JOIN my_other_table ON TRUE;
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression (all_fields)))
+  (from
+   (keyword_from)
+   (table_expression
+    name: (identifier))
+   (join
+    (keyword_join)
+    (table_expression
+     name: (identifier))
+    (keyword_on)
+    (keyword_true))
+   )))
+
+==================
 Joins with hint
 ==================
 
@@ -643,10 +756,10 @@ ON a.id = b.a_id;
   (select
    (keyword_select)
    (select_expression
-    (field 
+    (field
      table_alias: (identifier)
      name: (identifier))
-    (field 
+    (field
      table_alias: (identifier)
      name: (identifier))))
   (from
@@ -675,6 +788,43 @@ ON a.id = b.a_id;
       name: (identifier)))))))
 
 ==================
+Joins with USING
+==================
+
+SELECT a.id, b.id
+FROM my_table a
+JOIN my_other_table b USING (q, w);
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (field
+     table_alias: (identifier)
+     name: (identifier))
+    (field
+     table_alias: (identifier)
+     name: (identifier))))
+  (from
+   (keyword_from)
+   (table_expression
+    name: (identifier)
+    table_alias: (identifier))
+   (join
+    (keyword_join)
+    (table_expression
+     name: (identifier)
+     table_alias: (identifier))
+     (keyword_using)
+     (column_list
+       (column name: (identifier))
+       (column name: (identifier))))
+    )))
+
+==================
 Specific Joins
 ==================
 
@@ -698,7 +848,7 @@ ON a.id = e.e_id;
   (select
    (keyword_select)
    (select_expression
-    (field 
+    (field
      table_alias: (identifier)
      name: (identifier))))
   (from
@@ -780,6 +930,82 @@ ON a.id = e.e_id;
       name: (identifier)))))))
 
 ==================
+Lateral join
+==================
+
+SELECT a.id, arr.*
+FROM my_table a
+JOIN LATERAL unnest(a.arr) AS arr ON TRUE;
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (field
+     table_alias: (identifier)
+     name: (identifier))
+    (all_fields
+     table_alias: (identifier))))
+  (from
+   (keyword_from)
+   (table_expression
+    name: (identifier)
+    table_alias: (identifier))
+   (lateral_join
+    (keyword_join)
+    (keyword_lateral)
+    (invocation
+      name: (identifier)
+      parameter: (field
+        table_alias: (identifier)
+        name: (identifier)))
+    (keyword_as)
+    alias: (identifier)
+    (keyword_on)
+    (keyword_true)))))
+
+==================
+Lateral join subquery
+==================
+
+SELECT a.id, b.*
+FROM my_table a
+CROSS JOIN LATERAL (SELECT 1) AS b ON TRUE;
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (field
+     table_alias: (identifier)
+     name: (identifier))
+    (all_fields
+     table_alias: (identifier))))
+  (from
+   (keyword_from)
+   (table_expression
+    name: (identifier)
+    table_alias: (identifier))
+   (lateral_join
+    (keyword_cross)
+    (keyword_join)
+    (keyword_lateral)
+    (subquery
+      (select
+        (keyword_select)
+        (select_expression (literal))))
+    (keyword_as)
+    alias: (identifier)
+    (keyword_on)
+    (keyword_true)))))
+
+==================
 Multiple joins
 ==================
 
@@ -797,13 +1023,13 @@ ON a.id = c.a_id;
   (select
    (keyword_select)
    (select_expression
-    (field 
+    (field
      table_alias: (identifier)
      name: (identifier))
-    (field 
+    (field
      table_alias: (identifier)
      name: (identifier))
-    (field 
+    (field
      table_alias: (identifier)
      name: (identifier))))
   (from
@@ -864,7 +1090,7 @@ WHERE m.id > 4 AND id < 3;
     (keyword_where)
     (where_expression
      (predicate
-      left: 
+      left:
        (predicate
         left:
           (field
@@ -872,7 +1098,7 @@ WHERE m.id > 4 AND id < 3;
            name: (identifier))
         right: (literal))
        operator: (keyword_and)
-       right: 
+       right:
         (predicate
           left: (field name: (identifier))
           right: (literal))))))))
@@ -904,7 +1130,7 @@ ORDER BY m.title, id ASC;
     (keyword_where)
     (where_expression
      (predicate
-      left: 
+      left:
        (predicate
         left:
           (field
@@ -912,7 +1138,7 @@ ORDER BY m.title, id ASC;
            name: (identifier))
         right: (literal))
        operator: (keyword_and)
-       right: 
+       right:
         (predicate
           left: (field name: (identifier))
           right: (literal)))))
@@ -983,7 +1209,54 @@ LIMIT 1;
     (keyword_limit)
     (literal)))))
 
+==================
+Union
+==================
 
+SELECT 1 UNION ALL SELECT 2;
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (literal)))
+   (keyword_union)
+   (keyword_all)
+  (select
+   (keyword_select)
+   (select_expression
+    (literal)))))
+
+==================
+Intersect
+==================
+
+SELECT a FROM one
+INTERSECT
+SELECT b FROM two;
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (field (identifier))))
+  (from
+   (keyword_from)
+   (table_expression (identifier)))
+  (keyword_intersect)
+  (select
+   (keyword_select)
+   (select_expression
+    (field (identifier))))
+  (from
+   (keyword_from)
+   (table_expression (identifier)))))
 
 ==================
 Altogether now
@@ -1027,13 +1300,13 @@ ORDER BY my_table.title, my_table.id;
     (table_expression name: (identifier) table_alias: (identifier))
     (keyword_on)
     (predicate
-     left: 
-     (predicate 
+     left:
+     (predicate
       left: (field table_alias: (identifier) name: (identifier))
       right: (field table_alias: (identifier) name: (identifier)))
      operator: (keyword_and)
-     right: 
-     (predicate 
+     right:
+     (predicate
       left: (field table_alias: (identifier) name: (identifier))
       right: (field table_alias: (identifier) name: (identifier)))))
   (join
@@ -1046,21 +1319,21 @@ ORDER BY my_table.title, my_table.id;
     (keyword_join)
     index_name: (identifier))
    (keyword_on)
-   (predicate 
-    left: 
+   (predicate
+    left:
     (predicate
      left: (field table_alias: (identifier) name: (identifier))
      right: (field table_alias: (identifier) name: (identifier)))
     operator: (keyword_and)
-    right: 
-    (predicate 
+    right:
+    (predicate
      left: (field table_alias: (identifier) name: (identifier))
      right: (field table_alias: (identifier) name: (identifier)))))
   (where
    (keyword_where)
    (where_expression
     (predicate
-     left: 
+     left:
      (predicate
       left:
       (predicate
@@ -1072,21 +1345,21 @@ ORDER BY my_table.title, my_table.id;
          name: (identifier))
         right: (literal))
        operator: (keyword_and)
-       right: 
+       right:
        (predicate
         left: (field table_alias: (identifier) name: (identifier))
         operator: (keyword_in)
         right: (list (literal))))
       operator: (keyword_and)
-      right: 
+      right:
       (predicate
        left: (field table_alias: (identifier) name: (identifier))
        right: (literal)))
      operator: (keyword_and)
-     right: 
+     right:
      (predicate
       left: (field table_alias: (identifier) name: (identifier))
-      right: (field name: (identifier))))))
+      right: (literal (keyword_true))))))
   (order_by
    (keyword_order_by)
    (order_expression
