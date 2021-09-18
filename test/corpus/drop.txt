@@ -11,7 +11,7 @@ DROP TABLE my_table;
   (drop_table
    (keyword_drop)
    (keyword_table)
-   (table_reference (identifier))
+   (table_reference name: (identifier))
   )))
 
 ==================
@@ -27,7 +27,7 @@ DROP TABLE my_table CASCADE;
   (drop_table
    (keyword_drop)
    (keyword_table)
-   (table_reference (identifier))
+   (table_reference name: (identifier))
    (keyword_cascade)
   )))
 
@@ -44,5 +44,5 @@ DROP VIEW my_view;
   (drop_view
    (keyword_drop)
    (keyword_view)
-   (table_reference (identifier))
+   (table_reference name: (identifier))
   )))
