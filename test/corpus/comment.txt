@@ -16,7 +16,7 @@ SELECT 1;
     (literal)))))
 
 ==================
-Can parse comments anywhere
+Can parse comments anywhere...
 ==================
 
 -- hello
@@ -36,6 +36,32 @@ SELECT 1; --hi
  (comment))
 
 ==================
+...including between statements
+==================
+
+-- hello
+SELECT 1; --hi
+-- hi again
+SELECT 2;
+
+---
+
+(program
+ (comment)
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (literal))))
+ (comment)
+ (comment)
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (literal)))))
+
+==================
 Simple marginalia
 ==================
 
@@ -51,7 +77,7 @@ FROM my_table;
   (select
    (keyword_select)
    (select_expression
-    (field 
+    (field
      name: (identifier))))
   (marginalia)
   (from

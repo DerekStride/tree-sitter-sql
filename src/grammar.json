@@ -3,13 +3,11 @@
   "word": "_identifier",
   "rules": {
     "program": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "statement"
-        }
-      ]
+      "type": "REPEAT",
+      "content": {
+        "type": "SYMBOL",
+        "name": "statement"
+      }
     },
     "keyword_select": {
       "type": "PATTERN",

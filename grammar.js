@@ -24,7 +24,7 @@ module.exports = grammar({
   word: $ => $._identifier,
 
   rules: {
-    program: $ => seq(
+    program: $ => repeat(
       $.statement,
       // TODO: other kinds of definitions
     ),

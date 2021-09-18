@@ -6,7 +6,7 @@ selections
 
 ---
 
-(ERROR)
+(program (ERROR))
 
 ==================
 ^selections for your perusal
@@ -16,7 +16,7 @@ selections for your perusal
 
 ---
 
-(ERROR (keyword_for))
+(program (ERROR (keyword_for)))
 
 ==================
 ^inserted_at
@@ -26,7 +26,7 @@ inserted_at
 
 ---
 
-(ERROR)
+(program (ERROR))
 
 ==================
 ^updated_at
@@ -36,7 +36,7 @@ updated_at
 
 ---
 
-(ERROR)
+(program (ERROR))
 
 ==================
 ^deleted_at
@@ -46,7 +46,7 @@ deleted_at
 
 ---
 
-(ERROR)
+(program (ERROR))
 
 ==================
 ^created_at
@@ -56,5 +56,4 @@ created_at
 
 ---
 
-(ERROR)
-
+(program (ERROR))
