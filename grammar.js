@@ -138,6 +138,7 @@ module.exports = grammar({
       )
     ),
     keyword_text: _ => make_keyword("text"),
+    keyword_uuid: _ => make_keyword("uuid"),
 
     keyword_json: _ => make_keyword("json"),
     keyword_jsonb: _ => make_keyword("jsonb"),
@@ -192,6 +193,8 @@ module.exports = grammar({
       $.char,
       $.varchar,
       $.keyword_text,
+
+      $.keyword_uuid,
 
       $.keyword_json,
       $.keyword_jsonb,

@@ -175,6 +175,10 @@
             "named": true
           },
           {
+            "type": "keyword_uuid",
+            "named": true
+          },
+          {
             "type": "keyword_xml",
             "named": true
           },
@@ -586,6 +590,10 @@
           },
           {
             "type": "keyword_timestamptz",
+            "named": true
+          },
+          {
+            "type": "keyword_uuid",
             "named": true
           },
           {
@@ -2867,6 +2875,10 @@
   },
   {
     "type": "keyword_using",
+    "named": true
+  },
+  {
+    "type": "keyword_uuid",
     "named": true
   },
   {

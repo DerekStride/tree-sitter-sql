@@ -514,6 +514,10 @@
       "type": "PATTERN",
       "value": "text|TEXT"
     },
+    "keyword_uuid": {
+      "type": "PATTERN",
+      "value": "uuid|UUID"
+    },
     "keyword_json": {
       "type": "PATTERN",
       "value": "json|JSON"
@@ -680,6 +684,10 @@
         {
           "type": "SYMBOL",
           "name": "keyword_text"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_uuid"
         },
         {
           "type": "SYMBOL",

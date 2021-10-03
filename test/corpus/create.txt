@@ -547,7 +547,8 @@ CREATE TABLE type_test (
   a_geometry GEOMETRY,
   a_geography GEOGRAPHY,
   a_box2d BOX2D,
-  a_box3d BOX3D
+  a_box3d BOX3D,
+  a_uuid UUID
 );
 
 ---
@@ -596,4 +597,5 @@ CREATE TABLE type_test (
     (column_definition name: (identifier) type: (keyword_geography))
     (column_definition name: (identifier) type: (keyword_box2d))
     (column_definition name: (identifier) type: (keyword_box3d))
+    (column_definition name: (identifier) type: (keyword_uuid))
    ))))
