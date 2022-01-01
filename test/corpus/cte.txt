@@ -1,5 +1,5 @@
 ==================
-one cte
+One cte
 ==================
 
 WITH my_cte AS (
@@ -31,3 +31,57 @@ FROM my_cte;
     (from
      (keyword_from)
      (table_expression name: (identifier)))))
+
+==================
+Multiple ctes with returning
+==================
+
+WITH first AS (
+  INSERT INTO my_table (one, two)
+  VALUES (1, 2)
+  RETURNING *
+), second AS (
+  SELECT one, two
+  FROM my_table
+)
+SELECT *
+FROM second;
+
+---
+
+(program
+ (keyword_with)
+ (cte
+  (identifier)
+  (keyword_as)
+  (insert
+   (keyword_insert)
+   (keyword_into)
+   (insert_expression
+    (table_reference name: (identifier))
+    (column_list
+     (column name: (identifier))
+     (column name: (identifier)))
+    (keyword_values)
+    (list (literal) (literal))))
+  (returning
+   (keyword_returning)
+   (all_fields)))
+ (cte
+  (identifier)
+  (keyword_as)
+  (select
+   (keyword_select)
+   (select_expression
+    (field name: (identifier))
+    (field name: (identifier))))
+  (from
+   (keyword_from)
+   (table_expression name: (identifier))))
+ (statement
+  (select
+   (keyword_select)
+   (select_expression (all_fields)))
+  (from
+   (keyword_from)
+   (table_expression name: (identifier)))))
