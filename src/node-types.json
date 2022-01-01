@@ -943,6 +943,61 @@
     }
   },
   {
+    "type": "cte",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "delete",
+          "named": true
+        },
+        {
+          "type": "from",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "insert",
+          "named": true
+        },
+        {
+          "type": "keyword_all",
+          "named": true
+        },
+        {
+          "type": "keyword_as",
+          "named": true
+        },
+        {
+          "type": "keyword_except",
+          "named": true
+        },
+        {
+          "type": "keyword_intersect",
+          "named": true
+        },
+        {
+          "type": "keyword_union",
+          "named": true
+        },
+        {
+          "type": "select",
+          "named": true
+        },
+        {
+          "type": "update",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "decimal",
     "named": true,
     "fields": {
@@ -1935,6 +1990,14 @@
       "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "cte",
+          "named": true
+        },
+        {
+          "type": "keyword_with",
+          "named": true
+        },
         {
           "type": "statement",
           "named": true

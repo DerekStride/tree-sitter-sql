@@ -25,8 +25,21 @@ module.exports = grammar({
 
   rules: {
     program: $ => repeat(
-      $.statement,
       // TODO: other kinds of definitions
+      choice(
+        seq(
+          $.keyword_with,
+          $.cte,
+          repeat(
+            seq(
+              ',',
+              $.cte,
+            ),
+          ),
+          $.statement,
+        ),
+        $.statement,
+      )
     ),
 
     keyword_select: _ => make_keyword("select"),
@@ -233,6 +246,19 @@ module.exports = grammar({
 
     comment: _ => /--.*\n/,
     marginalia: _ => /\/'*.*\*\//,
+
+    cte: $ => seq(
+      $.identifier,
+      $.keyword_as,
+      '(',
+      choice(
+        $._select_statement,
+        $._delete_statement,
+        $._insert_statement,
+        $._update_statement,
+      ),
+      ')',
+    ),
 
     statement: $ => seq(
       choice(

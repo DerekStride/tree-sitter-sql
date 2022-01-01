@@ -1,0 +1,33 @@
+==================
+one cte
+==================
+
+WITH my_cte AS (
+  SELECT one, two
+  FROM my_table
+)
+SELECT *
+FROM my_cte;
+
+---
+
+(program
+ (keyword_with)
+ (cte
+  (identifier)
+  (keyword_as)
+  (select
+   (keyword_select)
+   (select_expression
+    (field name: (identifier))
+    (field name: (identifier))))
+  (from
+   (keyword_from)
+   (table_expression name: (identifier))))
+  (statement
+   (select
+    (keyword_select)
+    (select_expression (all_fields)))
+    (from
+     (keyword_from)
+     (table_expression name: (identifier)))))

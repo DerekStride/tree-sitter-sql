@@ -5,8 +5,46 @@
     "program": {
       "type": "REPEAT",
       "content": {
-        "type": "SYMBOL",
-        "name": "statement"
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "keyword_with"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "cte"
+              },
+              {
+                "type": "REPEAT",
+                "content": {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "STRING",
+                      "value": ","
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "cte"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "SYMBOL",
+                "name": "statement"
+              }
+            ]
+          },
+          {
+            "type": "SYMBOL",
+            "name": "statement"
+          }
+        ]
       }
     },
     "keyword_select": {
@@ -1093,6 +1131,48 @@
     "marginalia": {
       "type": "PATTERN",
       "value": "\\/'*.*\\*\\/"
+    },
+    "cte": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_as"
+        },
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_select_statement"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_delete_statement"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_insert_statement"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_update_statement"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
     },
     "statement": {
       "type": "SEQ",
