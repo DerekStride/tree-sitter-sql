@@ -74,3 +74,83 @@ FROM my_other_table;
       (field name: (identifier))
       (field name: (identifier))))
     (from (keyword_from) (table_expression name: (identifier)))))))
+
+==================
+Insert returning
+==================
+
+INSERT INTO my_table
+VALUES('foo','bar', 3)
+RETURNING *;
+
+---
+
+(program
+ (statement
+  (insert
+   (keyword_insert)
+   (keyword_into)
+   (insert_expression
+    (table_reference name: (identifier))
+    (keyword_values)
+    (list
+     (literal)
+     (literal)
+     (literal))))
+  (returning
+   (keyword_returning)
+   (all_fields))))
+
+==================
+Insert returning single column
+==================
+
+INSERT INTO my_table
+VALUES('foo','bar', 3)
+RETURNING id;
+
+---
+
+(program
+ (statement
+  (insert
+   (keyword_insert)
+   (keyword_into)
+   (insert_expression
+    (table_reference name: (identifier))
+    (keyword_values)
+    (list
+     (literal)
+     (literal)
+     (literal))))
+  (returning
+   (keyword_returning)
+   (field name: (identifier)))))
+
+==================
+Insert returning multiple defined columns
+==================
+
+INSERT INTO my_table
+VALUES('foo','bar', 3)
+RETURNING id, val1, val2;
+
+---
+
+(program
+ (statement
+  (insert
+   (keyword_insert)
+   (keyword_into)
+   (insert_expression
+    (table_reference name: (identifier))
+    (keyword_values)
+    (list
+     (literal)
+     (literal)
+     (literal))))
+  (returning
+   (keyword_returning)
+   (field name: (identifier))
+   (field name: (identifier))
+   (field name: (identifier)))))
