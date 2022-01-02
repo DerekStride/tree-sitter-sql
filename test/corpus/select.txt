@@ -502,6 +502,71 @@ SELECT my_schema.my_table.my_field FROM my_schema.my_table;
    (table_expression schema: (identifier) name: (identifier)))))
 
 ==================
+IS DISTINCT FROM
+==================
+
+SELECT *
+FROM my_table
+WHERE col IS DISTINCT FROM NULL;
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (all_fields)))
+  (from
+   (keyword_from)
+   (table_expression
+    (identifier))
+   (where
+    (keyword_where)
+    (where_expression
+     (predicate
+      (field
+       (identifier))
+      (keyword_is)
+      (keyword_distinct)
+      (keyword_from)
+      (literal
+       (keyword_null))))))))
+
+==================
+IS NOT DISTINCT FROM
+==================
+
+SELECT *
+FROM my_table
+WHERE col IS NOT DISTINCT FROM NULL;
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (all_fields)))
+  (from
+   (keyword_from)
+   (table_expression
+    (identifier))
+   (where
+    (keyword_where)
+    (where_expression
+     (predicate
+      (field
+       (identifier))
+      (keyword_is)
+      (keyword_not)
+      (keyword_distinct)
+      (keyword_from)
+      (literal
+       (keyword_null))))))))
+
+==================
 Distinct
 ==================
 
@@ -1257,6 +1322,139 @@ SELECT b FROM two;
   (from
    (keyword_from)
    (table_expression (identifier)))))
+
+==================
+Simple CASE
+==================
+
+SELECT a, CASE b WHEN 1 THEN 'yes' ELSE 'no' END AS is_b
+FROM my_table;
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (field
+     (identifier))
+    (case
+     (keyword_case)
+     (field
+      (identifier))
+     (keyword_when)
+     (literal)
+     (keyword_then)
+     (literal)
+     (keyword_else)
+     (literal)
+     (keyword_end))
+     (keyword_as)
+     (identifier)))
+  (from
+   (keyword_from)
+   (table_expression
+    (identifier)))))
+
+==================
+Standard CASE
+==================
+
+SELECT a, CASE WHEN b = 1 THEN 'yes' ELSE 'no' END AS is_b
+FROM my_table;
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (field
+     (identifier))
+    (case
+     (keyword_case)
+     (keyword_when)
+     (predicate
+      (field
+       (identifier))
+      (literal))
+     (keyword_then)
+     (literal)
+     (keyword_else)
+     (literal)
+     (keyword_end))
+    (keyword_as)
+    (identifier)))
+  (from
+   (keyword_from)
+   (table_expression
+    (identifier)))))
+
+==================
+Both CASEs, with missing ELSE and AS in the latter
+==================
+
+SELECT a, CASE
+    WHEN b = 1 THEN 'yes'
+    WHEN b = 2 THEN 'maybe'
+    ELSE 'no'
+  END AS is_b,
+  CASE b
+    WHEN 1 THEN 'yes'
+    WHEN 2 THEN 'maybe'
+  END is_b_really
+FROM my_table;
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (field
+     (identifier))
+    (case
+     (keyword_case)
+     (keyword_when)
+     (predicate
+      (field
+       (identifier))
+      (literal))
+     (keyword_then)
+     (literal)
+     (keyword_when)
+     (predicate
+      (field
+       (identifier))
+      (literal))
+     (keyword_then)
+     (literal)
+     (keyword_else)
+     (literal)
+     (keyword_end))
+     (keyword_as)
+     (identifier)
+  (case
+   (keyword_case)
+   (field
+    (identifier))
+   (keyword_when)
+   (literal)
+   (keyword_then)
+   (literal)
+   (keyword_when)
+   (literal)
+   (keyword_then)
+   (literal)
+   (keyword_end))
+   (identifier)))
+  (from
+   (keyword_from)
+   (table_expression
+    (identifier)))))
 
 ==================
 Altogether now
