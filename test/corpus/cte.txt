@@ -16,21 +16,22 @@ FROM my_cte;
  (cte
   (identifier)
   (keyword_as)
-  (select
-   (keyword_select)
-   (select_expression
-    (field name: (identifier))
-    (field name: (identifier))))
-  (from
-   (keyword_from)
-   (table_expression name: (identifier))))
   (statement
    (select
     (keyword_select)
-    (select_expression (all_fields)))
-    (from
-     (keyword_from)
-     (table_expression name: (identifier)))))
+    (select_expression
+     (field name: (identifier))
+     (field name: (identifier))))
+   (from
+    (keyword_from)
+    (table_expression name: (identifier)))))
+ (statement
+  (select
+   (keyword_select)
+   (select_expression (all_fields)))
+  (from
+   (keyword_from)
+   (table_expression name: (identifier)))))
 
 ==================
 Multiple ctes with returning
@@ -54,30 +55,32 @@ FROM second;
  (cte
   (identifier)
   (keyword_as)
-  (insert
-   (keyword_insert)
-   (keyword_into)
-   (insert_expression
-    (table_reference name: (identifier))
-    (column_list
-     (column name: (identifier))
-     (column name: (identifier)))
-    (keyword_values)
-    (list (literal) (literal))))
-  (returning
-   (keyword_returning)
-   (all_fields)))
+  (statement
+   (insert
+    (keyword_insert)
+    (keyword_into)
+    (insert_expression
+     (table_reference name: (identifier))
+     (column_list
+      (column name: (identifier))
+      (column name: (identifier)))
+     (keyword_values)
+     (list (literal) (literal))))
+   (returning
+    (keyword_returning)
+    (all_fields))))
  (cte
   (identifier)
   (keyword_as)
-  (select
-   (keyword_select)
-   (select_expression
-    (field name: (identifier))
-    (field name: (identifier))))
-  (from
-   (keyword_from)
-   (table_expression name: (identifier))))
+  (statement
+   (select
+    (keyword_select)
+    (select_expression
+     (field name: (identifier))
+     (field name: (identifier))))
+   (from
+    (keyword_from)
+    (table_expression name: (identifier)))))
  (statement
   (select
    (keyword_select)

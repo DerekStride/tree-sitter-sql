@@ -404,6 +404,57 @@
     }
   },
   {
+    "type": "case",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "field",
+          "named": true
+        },
+        {
+          "type": "keyword_case",
+          "named": true
+        },
+        {
+          "type": "keyword_else",
+          "named": true
+        },
+        {
+          "type": "keyword_end",
+          "named": true
+        },
+        {
+          "type": "keyword_then",
+          "named": true
+        },
+        {
+          "type": "keyword_when",
+          "named": true
+        },
+        {
+          "type": "list",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "predicate",
+          "named": true
+        },
+        {
+          "type": "subquery",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "change_ownership",
     "named": true,
     "fields": {},
@@ -951,23 +1002,7 @@
       "required": true,
       "types": [
         {
-          "type": "delete",
-          "named": true
-        },
-        {
-          "type": "from",
-          "named": true
-        },
-        {
           "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "insert",
-          "named": true
-        },
-        {
-          "type": "keyword_all",
           "named": true
         },
         {
@@ -975,27 +1010,7 @@
           "named": true
         },
         {
-          "type": "keyword_except",
-          "named": true
-        },
-        {
-          "type": "keyword_intersect",
-          "named": true
-        },
-        {
-          "type": "keyword_union",
-          "named": true
-        },
-        {
-          "type": "returning",
-          "named": true
-        },
-        {
-          "type": "select",
-          "named": true
-        },
-        {
-          "type": "update",
+          "type": "statement",
           "named": true
         }
       ]
@@ -1832,6 +1847,10 @@
           "named": true
         },
         {
+          "type": "case",
+          "named": true
+        },
+        {
           "type": "direction",
           "named": true
         },
@@ -1868,7 +1887,7 @@
     "fields": {
       "left": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "field",
@@ -1893,8 +1912,8 @@
         ]
       },
       "operator": {
-        "multiple": false,
-        "required": true,
+        "multiple": true,
+        "required": false,
         "types": [
           {
             "type": "!=",
@@ -1949,7 +1968,23 @@
             "named": true
           },
           {
+            "type": "keyword_distinct",
+            "named": true
+          },
+          {
+            "type": "keyword_from",
+            "named": true
+          },
+          {
             "type": "keyword_in",
+            "named": true
+          },
+          {
+            "type": "keyword_is",
+            "named": true
+          },
+          {
+            "type": "keyword_not",
             "named": true
           },
           {
@@ -1960,7 +1995,7 @@
       },
       "right": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "field",
@@ -1984,6 +2019,52 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "field",
+          "named": true
+        },
+        {
+          "type": "keyword_false",
+          "named": true
+        },
+        {
+          "type": "keyword_is",
+          "named": true
+        },
+        {
+          "type": "keyword_not",
+          "named": true
+        },
+        {
+          "type": "keyword_null",
+          "named": true
+        },
+        {
+          "type": "keyword_true",
+          "named": true
+        },
+        {
+          "type": "list",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "predicate",
+          "named": true
+        },
+        {
+          "type": "subquery",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -2100,6 +2181,10 @@
           "named": true
         },
         {
+          "type": "case",
+          "named": true
+        },
+        {
           "type": "field",
           "named": true
         },
@@ -2178,6 +2263,10 @@
       "types": [
         {
           "type": "all_fields",
+          "named": true
+        },
+        {
+          "type": "case",
           "named": true
         },
         {
@@ -2723,6 +2812,10 @@
     "named": true
   },
   {
+    "type": "keyword_case",
+    "named": true
+  },
+  {
     "type": "keyword_column",
     "named": true
   },
@@ -2772,6 +2865,14 @@
   },
   {
     "type": "keyword_drop",
+    "named": true
+  },
+  {
+    "type": "keyword_else",
+    "named": true
+  },
+  {
+    "type": "keyword_end",
     "named": true
   },
   {
@@ -2840,6 +2941,10 @@
   },
   {
     "type": "keyword_into",
+    "named": true
+  },
+  {
+    "type": "keyword_is",
     "named": true
   },
   {
@@ -2983,6 +3088,10 @@
     "named": true
   },
   {
+    "type": "keyword_then",
+    "named": true
+  },
+  {
     "type": "keyword_to",
     "named": true
   },
@@ -3020,6 +3129,10 @@
   },
   {
     "type": "keyword_view",
+    "named": true
+  },
+  {
+    "type": "keyword_when",
     "named": true
   },
   {

@@ -84,9 +84,15 @@ module.exports = grammar({
     keyword_max: _ => make_keyword("max"),
     keyword_min: _ => make_keyword("min"),
     keyword_avg: _ => make_keyword("avg"),
+    keyword_case: _ => make_keyword("case"),
+    keyword_when: _ => make_keyword("when"),
+    keyword_then: _ => make_keyword("then"),
+    keyword_else: _ => make_keyword("else"),
+    keyword_end: _ => make_keyword("end"),
     keyword_in: _ => make_keyword("in"),
     keyword_and: _ => make_keyword("and"),
     keyword_or: _ => make_keyword("or"),
+    keyword_is: _ => make_keyword("is"),
     keyword_not: _ => make_keyword("not"),
     keyword_force: _ => make_keyword("force"),
     keyword_using: _ => make_keyword("using"),
@@ -714,6 +720,7 @@ module.exports = grammar({
         $.keyword_false,
         $.keyword_null,
         $.function_call,
+        $.case,
         $.field,
         $.all_fields,
       ),
@@ -733,6 +740,50 @@ module.exports = grammar({
         ),
       ),
       '*',
+    ),
+
+    case: $ => seq(
+      $.keyword_case,
+      choice(
+        // simplified CASE x WHEN
+        seq(
+          $._expression,
+          $.keyword_when,
+          $._expression,
+          $.keyword_then,
+          $._expression,
+          repeat(
+            seq(
+              $.keyword_when,
+              $._expression,
+              $.keyword_then,
+              $._expression,
+            )
+          ),
+        ),
+        // standard CASE WHEN x, where x must be a predicate
+        seq(
+          $.keyword_when,
+          $.predicate,
+          $.keyword_then,
+          $._expression,
+          repeat(
+            seq(
+              $.keyword_when,
+              $.predicate,
+              $.keyword_then,
+              $._expression,
+            )
+          ),
+        ),
+      ),
+      optional(
+        seq(
+          $.keyword_else,
+          $._expression,
+        )
+      ),
+      $.keyword_end,
     ),
 
     field: $ => seq(
@@ -1001,6 +1052,8 @@ module.exports = grammar({
         ['!=', 'binary_relation'],
         ['>=', 'binary_relation'],
         ['>', 'binary_relation'],
+        [seq($.keyword_is, $.keyword_distinct, $.keyword_from), 'binary_relation'],
+        [seq($.keyword_is, $.keyword_not, $.keyword_distinct, $.keyword_from), 'binary_relation'],
         [$.keyword_and, 'clause_connective'],
         [$.keyword_or, 'clause_connective'],
         [$.keyword_in, 'binary_in'],
@@ -1010,7 +1063,18 @@ module.exports = grammar({
           field('operator', operator),
           field('right', $._expression)
         ))
-      )
+      ),
+      seq(
+        $._expression,
+        $.keyword_is,
+        choice(
+          $.keyword_null,
+          $._not_null,
+          $.keyword_true,
+          $.keyword_false,
+        ),
+      ),
+      // TODO exists/not exists (subquery)
     ),
 
     _expression: $ => choice(
