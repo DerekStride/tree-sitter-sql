@@ -252,11 +252,14 @@ module.exports = grammar({
       $.identifier,
       $.keyword_as,
       '(',
-      choice(
-        $._select_statement,
-        $._delete_statement,
-        $._insert_statement,
-        $._update_statement,
+      alias(
+        choice(
+          $._select_statement,
+          $._delete_statement,
+          $._insert_statement,
+          $._update_statement,
+        ),
+        $.statement,
       ),
       ')',
     ),
