@@ -656,7 +656,7 @@ FROM my_table AS t;
          parameter: (literal)))
       parameter:
        (predicate
-        left: (predicate left: (field name: (identifier)) right: (literal))
+        left: (binary_expression left: (field name: (identifier)) right: (literal))
         right: (literal))))
     (keyword_as) alias: (identifier)
     (function_call

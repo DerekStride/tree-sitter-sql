@@ -198,6 +198,10 @@
       "required": true,
       "types": [
         {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
           "type": "field",
           "named": true
         },
@@ -363,6 +367,52 @@
     }
   },
   {
+    "type": "assignment",
+    "named": true,
+    "fields": {
+      "left": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "field",
+            "named": true
+          }
+        ]
+      },
+      "right": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "field",
+            "named": true
+          },
+          {
+            "type": "list",
+            "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "predicate",
+            "named": true
+          },
+          {
+            "type": "subquery",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "assignment_list",
     "named": true,
     "fields": {},
@@ -371,7 +421,7 @@
       "required": true,
       "types": [
         {
-          "type": "predicate",
+          "type": "assignment",
           "named": true
         }
       ]
@@ -404,6 +454,102 @@
     }
   },
   {
+    "type": "binary_expression",
+    "named": true,
+    "fields": {
+      "left": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "field",
+            "named": true
+          },
+          {
+            "type": "list",
+            "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "predicate",
+            "named": true
+          },
+          {
+            "type": "subquery",
+            "named": true
+          }
+        ]
+      },
+      "operator": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "%",
+            "named": false
+          },
+          {
+            "type": "*",
+            "named": false
+          },
+          {
+            "type": "+",
+            "named": false
+          },
+          {
+            "type": "-",
+            "named": false
+          },
+          {
+            "type": "/",
+            "named": false
+          },
+          {
+            "type": "^",
+            "named": false
+          }
+        ]
+      },
+      "right": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "field",
+            "named": true
+          },
+          {
+            "type": "list",
+            "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "predicate",
+            "named": true
+          },
+          {
+            "type": "subquery",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "case",
     "named": true,
     "fields": {},
@@ -411,6 +557,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "binary_expression",
+          "named": true
+        },
         {
           "type": "field",
           "named": true
@@ -1890,6 +2040,10 @@
         "required": false,
         "types": [
           {
+            "type": "binary_expression",
+            "named": true
+          },
+          {
             "type": "field",
             "named": true
           },
@@ -1920,26 +2074,6 @@
             "named": false
           },
           {
-            "type": "%",
-            "named": false
-          },
-          {
-            "type": "*",
-            "named": false
-          },
-          {
-            "type": "+",
-            "named": false
-          },
-          {
-            "type": "-",
-            "named": false
-          },
-          {
-            "type": "/",
-            "named": false
-          },
-          {
             "type": "<",
             "named": false
           },
@@ -1957,10 +2091,6 @@
           },
           {
             "type": ">=",
-            "named": false
-          },
-          {
-            "type": "^",
             "named": false
           },
           {
@@ -1998,6 +2128,10 @@
         "required": false,
         "types": [
           {
+            "type": "binary_expression",
+            "named": true
+          },
+          {
             "type": "field",
             "named": true
           },
@@ -2024,6 +2158,10 @@
       "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "binary_expression",
+          "named": true
+        },
         {
           "type": "field",
           "named": true
@@ -2648,6 +2786,10 @@
       "multiple": false,
       "required": true,
       "types": [
+        {
+          "type": "binary_expression",
+          "named": true
+        },
         {
           "type": "field",
           "named": true

@@ -636,10 +636,16 @@ module.exports = grammar({
     ),
 
     assignment_list: $ => seq(
-      $.predicate,
+      $.assignment,
       repeat(
-        seq(',', $.predicate),
+        seq(',', $.assignment),
       ),
+    ),
+
+    assignment: $ => seq(
+      field('left', $.field),
+      '=',
+      field('right', $._expression),
     ),
 
     table_options: $ => repeat1($.table_option),
@@ -1040,12 +1046,6 @@ module.exports = grammar({
 
     predicate: $ => choice(
       ...[
-        ['+', 'binary_plus'],
-        ['-', 'binary_plus'],
-        ['*', 'binary_times'],
-        ['/', 'binary_times'],
-        ['%', 'binary_times'],
-        ['^', 'binary_exp'],
         ['=', 'binary_relation'],
         ['<', 'binary_relation'],
         ['<=', 'binary_relation'],
@@ -1078,11 +1078,29 @@ module.exports = grammar({
     ),
 
     _expression: $ => choice(
+      $.binary_expression,
       $.literal,
       $.list,
       $.field,
       $.predicate,
       $.subquery,
+    ),
+
+    binary_expression: $ => choice(
+      ...[
+        ['+', 'binary_plus'],
+        ['-', 'binary_plus'],
+        ['*', 'binary_times'],
+        ['/', 'binary_times'],
+        ['%', 'binary_times'],
+        ['^', 'binary_exp'],
+      ].map(([operator, precedence]) =>
+        prec.left(precedence, seq(
+          field('left', $._expression),
+          field('operator', operator),
+          field('right', $._expression)
+        ))
+      ),
     ),
 
     subquery: $ => seq(

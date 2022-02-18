@@ -15,10 +15,10 @@ SET for = foo + 1;
     (table_reference name: (identifier))
     (keyword_set)
     (assignment_list
-     (predicate
+     (assignment
       left: (field name: (identifier))
       right:
-       (predicate
+       (binary_expression
         left: (field name: (identifier))
         right: (literal))))))))
 
@@ -39,13 +39,13 @@ SET for = foo + 1, col2 = col1;
     (table_reference name: (identifier))
     (keyword_set)
     (assignment_list
-     (predicate
+     (assignment
       left: (field name: (identifier))
       right:
-       (predicate
+       (binary_expression
         left: (field name: (identifier))
         right: (literal)))
-     (predicate
+     (assignment
       left: (field name: (identifier))
       right: (field name: (identifier))))))))
 
@@ -68,7 +68,7 @@ WHERE items.id=month.item_id;
     (table_reference name: (identifier))
     (keyword_set)
     (assignment_list
-     (predicate
+     (assignment
       left: (field table_alias: (identifier) name: (identifier))
       right: (field table_alias: (identifier) name: (identifier))))
     (where
