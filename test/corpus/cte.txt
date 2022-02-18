@@ -68,7 +68,8 @@ FROM second;
      (list (literal) (literal))))
    (returning
     (keyword_returning)
-    (all_fields))))
+    (select_expression
+     (all_fields)))))
  (cte
   (identifier)
   (keyword_as)

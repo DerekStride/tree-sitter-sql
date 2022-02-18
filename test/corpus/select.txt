@@ -580,6 +580,28 @@ FROM my_table;
    (keyword_select)
    (keyword_distinct)
    (select_expression
+    (list
+     (field
+      name: (identifier)))))
+  (from
+   (keyword_from)
+   (table_expression
+    name: (identifier)))))
+
+==================
+Distinct, no extra parens
+==================
+
+SELECT DISTINCT id
+FROM my_table;
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (keyword_distinct)
+   (select_expression
     (field
      name: (identifier))))
   (from
@@ -678,6 +700,30 @@ Distinct in count function
 ==================
 
 SELECT COUNT(DISTINCT(id))
+FROM my_table;
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (function_call
+     name: (identifier)
+     (keyword_distinct)
+     parameter: (list
+       (field
+        name: (identifier))))))
+  (from
+   (keyword_from)
+   (table_expression
+    name: (identifier)))))
+
+==================
+Distinct in count function, no extra parens
+==================
+
+SELECT COUNT(DISTINCT id)
 FROM my_table;
 ---
 

@@ -99,7 +99,8 @@ RETURNING *;
      (literal))))
   (returning
    (keyword_returning)
-   (all_fields))))
+   (select_expression
+    (all_fields)))))
 
 ==================
 Insert returning single column
@@ -125,7 +126,8 @@ RETURNING id;
      (literal))))
   (returning
    (keyword_returning)
-   (field name: (identifier)))))
+   (select_expression
+    (field name: (identifier))))))
 
 ==================
 Insert returning multiple defined columns
@@ -151,6 +153,7 @@ RETURNING id, val1, val2;
      (literal))))
   (returning
    (keyword_returning)
-   (field name: (identifier))
-   (field name: (identifier))
-   (field name: (identifier)))))
+   (select_expression
+    (field name: (identifier))
+    (field name: (identifier))
+    (field name: (identifier))))))
