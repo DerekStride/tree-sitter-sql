@@ -202,7 +202,15 @@
           "named": true
         },
         {
+          "type": "case",
+          "named": true
+        },
+        {
           "type": "field",
+          "named": true
+        },
+        {
+          "type": "function_call",
           "named": true
         },
         {
@@ -389,7 +397,15 @@
             "named": true
           },
           {
+            "type": "case",
+            "named": true
+          },
+          {
             "type": "field",
+            "named": true
+          },
+          {
+            "type": "function_call",
             "named": true
           },
           {
@@ -466,7 +482,15 @@
             "named": true
           },
           {
+            "type": "case",
+            "named": true
+          },
+          {
             "type": "field",
+            "named": true
+          },
+          {
+            "type": "function_call",
             "named": true
           },
           {
@@ -526,7 +550,15 @@
             "named": true
           },
           {
+            "type": "case",
+            "named": true
+          },
+          {
             "type": "field",
+            "named": true
+          },
+          {
+            "type": "function_call",
             "named": true
           },
           {
@@ -562,7 +594,15 @@
           "named": true
         },
         {
+          "type": "case",
+          "named": true
+        },
+        {
           "type": "field",
+          "named": true
+        },
+        {
+          "type": "function_call",
           "named": true
         },
         {
@@ -1455,6 +1495,14 @@
         "required": false,
         "types": [
           {
+            "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "case",
+            "named": true
+          },
+          {
             "type": "field",
             "named": true
           },
@@ -1463,11 +1511,19 @@
             "named": true
           },
           {
+            "type": "list",
+            "named": true
+          },
+          {
             "type": "literal",
             "named": true
           },
           {
             "type": "predicate",
+            "named": true
+          },
+          {
+            "type": "subquery",
             "named": true
           }
         ]
@@ -1659,6 +1715,14 @@
         "required": false,
         "types": [
           {
+            "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "case",
+            "named": true
+          },
+          {
             "type": "field",
             "named": true
           },
@@ -1667,11 +1731,19 @@
             "named": true
           },
           {
+            "type": "list",
+            "named": true
+          },
+          {
             "type": "literal",
             "named": true
           },
           {
             "type": "predicate",
+            "named": true
+          },
+          {
+            "type": "subquery",
             "named": true
           }
         ]
@@ -1881,7 +1953,35 @@
       "required": true,
       "types": [
         {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "case",
+          "named": true
+        },
+        {
+          "type": "field",
+          "named": true
+        },
+        {
+          "type": "function_call",
+          "named": true
+        },
+        {
+          "type": "list",
+          "named": true
+        },
+        {
           "type": "literal",
+          "named": true
+        },
+        {
+          "type": "predicate",
+          "named": true
+        },
+        {
+          "type": "subquery",
           "named": true
         }
       ]
@@ -1993,7 +2093,7 @@
       "required": true,
       "types": [
         {
-          "type": "all_fields",
+          "type": "binary_expression",
           "named": true
         },
         {
@@ -2013,19 +2113,19 @@
           "named": true
         },
         {
-          "type": "keyword_false",
-          "named": true
-        },
-        {
-          "type": "keyword_null",
-          "named": true
-        },
-        {
-          "type": "keyword_true",
+          "type": "list",
           "named": true
         },
         {
           "type": "literal",
+          "named": true
+        },
+        {
+          "type": "predicate",
+          "named": true
+        },
+        {
+          "type": "subquery",
           "named": true
         }
       ]
@@ -2044,7 +2144,15 @@
             "named": true
           },
           {
+            "type": "case",
+            "named": true
+          },
+          {
             "type": "field",
+            "named": true
+          },
+          {
+            "type": "function_call",
             "named": true
           },
           {
@@ -2132,7 +2240,15 @@
             "named": true
           },
           {
+            "type": "case",
+            "named": true
+          },
+          {
             "type": "field",
+            "named": true
+          },
+          {
+            "type": "function_call",
             "named": true
           },
           {
@@ -2163,7 +2279,15 @@
           "named": true
         },
         {
+          "type": "case",
+          "named": true
+        },
+        {
           "type": "field",
+          "named": true
+        },
+        {
+          "type": "function_call",
           "named": true
         },
         {
@@ -2298,60 +2422,17 @@
   {
     "type": "returning",
     "named": true,
-    "fields": {
-      "alias": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
-    },
+    "fields": {},
     "children": {
       "multiple": true,
       "required": true,
       "types": [
         {
-          "type": "all_fields",
-          "named": true
-        },
-        {
-          "type": "case",
-          "named": true
-        },
-        {
-          "type": "field",
-          "named": true
-        },
-        {
-          "type": "function_call",
-          "named": true
-        },
-        {
-          "type": "keyword_as",
-          "named": true
-        },
-        {
-          "type": "keyword_false",
-          "named": true
-        },
-        {
-          "type": "keyword_null",
-          "named": true
-        },
-        {
           "type": "keyword_returning",
           "named": true
         },
         {
-          "type": "keyword_true",
-          "named": true
-        },
-        {
-          "type": "literal",
+          "type": "select_expression",
           "named": true
         }
       ]
@@ -2404,6 +2485,10 @@
           "named": true
         },
         {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
           "type": "case",
           "named": true
         },
@@ -2420,19 +2505,19 @@
           "named": true
         },
         {
-          "type": "keyword_false",
-          "named": true
-        },
-        {
-          "type": "keyword_null",
-          "named": true
-        },
-        {
-          "type": "keyword_true",
+          "type": "list",
           "named": true
         },
         {
           "type": "literal",
+          "named": true
+        },
+        {
+          "type": "predicate",
+          "named": true
+        },
+        {
+          "type": "subquery",
           "named": true
         }
       ]
@@ -2791,7 +2876,15 @@
           "named": true
         },
         {
+          "type": "case",
+          "named": true
+        },
+        {
           "type": "field",
+          "named": true
+        },
+        {
+          "type": "function_call",
           "named": true
         },
         {

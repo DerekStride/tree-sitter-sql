@@ -304,31 +304,27 @@ module.exports = grammar({
 
     select: $ => seq(
       $.keyword_select,
-      choice(
+      seq(
+        optional($.keyword_distinct),
+        $.select_expression,
+      ),
+    ),
+
+    select_expression: $ => seq(
+      $._select_expression,
+      repeat(
         seq(
-          optional($.keyword_distinct),
-          $.select_expression,
-        ),
-        seq(
-          $.keyword_distinct,
-          '(',
-          $.select_expression,
-          ')',
+          ',',
+          $._select_expression,
         ),
       ),
     ),
 
-    select_expression: $ => choice(
+    _select_expression: $ => choice(
+      $.all_fields,
       seq(
-        $._field,
+        $._expression,
         optional($._alias),
-        repeat(
-          seq(
-            ',',
-            $._field,
-            optional($._alias),
-          ),
-        ),
       ),
     ),
 
@@ -719,19 +715,6 @@ module.exports = grammar({
       optional($.direction),
     ),
 
-    _field: $ => seq(
-      choice(
-        $.literal,
-        $.keyword_true,
-        $.keyword_false,
-        $.keyword_null,
-        $.function_call,
-        $.case,
-        $.field,
-        $.all_fields,
-      ),
-    ),
-
     all_fields: $ => seq(
       optional(
         seq(
@@ -827,35 +810,20 @@ module.exports = grammar({
     _count_function: $ => seq(
       field('name', alias($.keyword_count, $.identifier)),
       '(',
-      choice(
-        seq(
-          optional($.keyword_distinct),
-          field('parameter', $._function_param),
-        ),
-        seq(
-          $.keyword_distinct,
-          '(',
-          field('parameter', $._function_param),
-          ')',
-        ),
+      seq(
+        optional($.keyword_distinct),
+        field('parameter', $._expression),
       ),
       ')',
     ),
 
-    _function_param: $ => choice(
-      $.predicate,
-      $.function_call,
-      $.field,
-      prec(2, $.literal),
-    ),
-
     _function_params: $ => seq(
-      field('parameter', $._function_param),
+      field('parameter', $._expression),
       optional(
         repeat1(
           seq(
             ',',
-            field('parameter', $._function_param),
+            field('parameter', $._expression),
           ),
         ),
       ),
@@ -1003,12 +971,12 @@ module.exports = grammar({
     ),
 
     order_expression: $ => seq(
-      $._field,
+      $._expression,
       optional($.direction),
       repeat(
         seq(
           ',',
-          $._field,
+          $._expression,
           optional($.direction),
         ),
       ),
@@ -1027,17 +995,7 @@ module.exports = grammar({
 
     returning: $ => seq(
       $.keyword_returning,
-      seq(
-        $._field,
-        optional($._alias),
-        repeat(
-          seq(
-            ',',
-            $._field,
-            optional($._alias),
-          ),
-        ),
-      ),
+      $.select_expression,
     ),
 
     where_expression: $ => seq(
@@ -1078,12 +1036,14 @@ module.exports = grammar({
     ),
 
     _expression: $ => choice(
-      $.binary_expression,
       $.literal,
-      $.list,
       $.field,
+      $.list,
+      $.case,
       $.predicate,
       $.subquery,
+      $.function_call,
+      $.binary_expression,
     ),
 
     binary_expression: $ => choice(
@@ -1110,7 +1070,7 @@ module.exports = grammar({
       ')',
     ),
 
-    list: $ => param_list($.literal),
+    list: $ => param_list($._expression),
 
     literal: $ => prec(2,
       choice(
