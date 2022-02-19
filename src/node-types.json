@@ -2338,14 +2338,6 @@
       "required": false,
       "types": [
         {
-          "type": "cte",
-          "named": true
-        },
-        {
-          "type": "keyword_with",
-          "named": true
-        },
-        {
           "type": "statement",
           "named": true
         }
@@ -2559,7 +2551,7 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "alter_table",
@@ -2579,6 +2571,10 @@
         },
         {
           "type": "create_view",
+          "named": true
+        },
+        {
+          "type": "cte",
           "named": true
         },
         {
@@ -2615,6 +2611,10 @@
         },
         {
           "type": "keyword_union",
+          "named": true
+        },
+        {
+          "type": "keyword_with",
           "named": true
         },
         {

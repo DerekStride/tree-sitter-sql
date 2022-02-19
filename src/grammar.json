@@ -5,46 +5,8 @@
     "program": {
       "type": "REPEAT",
       "content": {
-        "type": "CHOICE",
-        "members": [
-          {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "keyword_with"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "cte"
-              },
-              {
-                "type": "REPEAT",
-                "content": {
-                  "type": "SEQ",
-                  "members": [
-                    {
-                      "type": "STRING",
-                      "value": ","
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "cte"
-                    }
-                  ]
-                }
-              },
-              {
-                "type": "SYMBOL",
-                "name": "statement"
-              }
-            ]
-          },
-          {
-            "type": "SYMBOL",
-            "name": "statement"
-          }
-        ]
+        "type": "SYMBOL",
+        "name": "statement"
       }
     },
     "keyword_select": {
@@ -1160,6 +1122,108 @@
       "type": "PATTERN",
       "value": "\\/'*.*\\*\\/"
     },
+    "statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_ddl_statement"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_dml_statement"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": ";"
+        }
+      ]
+    },
+    "_ddl_statement": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_create_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_alter_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_drop_statement"
+        }
+      ]
+    },
+    "_dml_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_with"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "cte"
+                },
+                {
+                  "type": "REPEAT",
+                  "content": {
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "STRING",
+                        "value": ","
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "cte"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_select_statement"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_delete_statement"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_insert_statement"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_update_statement"
+            }
+          ]
+        }
+      ]
+    },
     "cte": {
       "type": "SEQ",
       "members": [
@@ -1204,48 +1268,6 @@
         {
           "type": "STRING",
           "value": ")"
-        }
-      ]
-    },
-    "statement": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "_select_statement"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "_delete_statement"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "_create_statement"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "_alter_statement"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "_drop_statement"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "_insert_statement"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "_update_statement"
-            }
-          ]
-        },
-        {
-          "type": "STRING",
-          "value": ";"
         }
       ]
     },

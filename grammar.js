@@ -26,20 +26,7 @@ module.exports = grammar({
   rules: {
     program: $ => repeat(
       // TODO: other kinds of definitions
-      choice(
-        seq(
-          $.keyword_with,
-          $.cte,
-          repeat(
-            seq(
-              ',',
-              $.cte,
-            ),
-          ),
-          $.statement,
-        ),
-        $.statement,
-      )
+      $.statement,
     ),
 
     keyword_select: _ => make_keyword("select"),
@@ -254,6 +241,41 @@ module.exports = grammar({
     comment: _ => /--.*\n/,
     marginalia: _ => /\/'*.*\*\//,
 
+    statement: $ => seq(
+      choice(
+        $._ddl_statement,
+        $._dml_statement,
+      ),
+      ';',
+    ),
+
+    _ddl_statement: $ => choice(
+      $._create_statement,
+      $._alter_statement,
+      $._drop_statement,
+    ),
+
+    _dml_statement: $ => seq(
+      optional(
+        seq(
+          $.keyword_with,
+          $.cte,
+          repeat(
+            seq(
+              ',',
+              $.cte,
+            ),
+          ),
+        ),
+      ),
+      choice(
+        $._select_statement,
+        $._delete_statement,
+        $._insert_statement,
+        $._update_statement,
+      ),
+    ),
+
     cte: $ => seq(
       $.identifier,
       $.keyword_as,
@@ -268,19 +290,6 @@ module.exports = grammar({
         $.statement,
       ),
       ')',
-    ),
-
-    statement: $ => seq(
-      choice(
-        $._select_statement,
-        $._delete_statement,
-        $._create_statement,
-        $._alter_statement,
-        $._drop_statement,
-        $._insert_statement,
-        $._update_statement,
-      ),
-      ';',
     ),
 
     _select_statement: $ => seq(

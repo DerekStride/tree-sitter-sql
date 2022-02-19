@@ -12,20 +12,20 @@ FROM my_cte;
 ---
 
 (program
- (keyword_with)
- (cte
-  (identifier)
-  (keyword_as)
-  (statement
-   (select
-    (keyword_select)
-    (select_expression
-     (field name: (identifier))
-     (field name: (identifier))))
-   (from
-    (keyword_from)
-    (table_expression name: (identifier)))))
  (statement
+  (keyword_with)
+  (cte
+   (identifier)
+   (keyword_as)
+   (statement
+    (select
+     (keyword_select)
+     (select_expression
+      (field name: (identifier))
+      (field name: (identifier))))
+    (from
+     (keyword_from)
+     (table_expression name: (identifier)))))
   (select
    (keyword_select)
    (select_expression (all_fields)))
@@ -51,38 +51,38 @@ FROM second;
 ---
 
 (program
- (keyword_with)
- (cte
-  (identifier)
-  (keyword_as)
-  (statement
-   (insert
-    (keyword_insert)
-    (keyword_into)
-    (insert_expression
-     (table_reference name: (identifier))
-     (column_list
-      (column name: (identifier))
-      (column name: (identifier)))
-     (keyword_values)
-     (list (literal) (literal))))
-   (returning
-    (keyword_returning)
-    (select_expression
-     (all_fields)))))
- (cte
-  (identifier)
-  (keyword_as)
-  (statement
-   (select
-    (keyword_select)
-    (select_expression
-     (field name: (identifier))
-     (field name: (identifier))))
-   (from
-    (keyword_from)
-    (table_expression name: (identifier)))))
  (statement
+  (keyword_with)
+  (cte
+   (identifier)
+   (keyword_as)
+   (statement
+    (insert
+     (keyword_insert)
+     (keyword_into)
+     (insert_expression
+      (table_reference name: (identifier))
+      (column_list
+       (column name: (identifier))
+       (column name: (identifier)))
+      (keyword_values)
+      (list (literal) (literal))))
+    (returning
+     (keyword_returning)
+     (select_expression
+      (all_fields)))))
+  (cte
+   (identifier)
+   (keyword_as)
+   (statement
+    (select
+     (keyword_select)
+     (select_expression
+      (field name: (identifier))
+      (field name: (identifier))))
+    (from
+     (keyword_from)
+     (table_expression name: (identifier)))))
   (select
    (keyword_select)
    (select_expression (all_fields)))
