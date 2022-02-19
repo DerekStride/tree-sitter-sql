@@ -26,7 +26,10 @@ module.exports = grammar({
   rules: {
     program: $ => repeat(
       // TODO: other kinds of definitions
-      $.statement,
+      choice(
+        $.transaction,
+        $.statement,
+      ),
     ),
 
     keyword_select: _ => make_keyword("select"),
@@ -106,6 +109,10 @@ module.exports = grammar({
     keyword_except: _ => make_keyword("except"),
     keyword_intersect: _ => make_keyword("intersect"),
     keyword_returning: _ => make_keyword("returning"),
+    keyword_begin: _ => make_keyword("begin"),
+    keyword_commit: _ => make_keyword("commit"),
+    keyword_rollback: _ => make_keyword("rollback"),
+    keyword_transaction: _ => make_keyword("transaction"),
 
     _temporary: $ => choice($.keyword_temp, $.keyword_temporary),
     _not_null: $ => seq($.keyword_not, $.keyword_null),
@@ -290,6 +297,41 @@ module.exports = grammar({
         $.statement,
       ),
       ')',
+    ),
+
+    transaction: $ => seq(
+      $._begin,
+      repeat(
+        $.statement,
+      ),
+      choice(
+        $._commit,
+        $._rollback,
+      ),
+    ),
+
+    _begin: $ => seq(
+      $.keyword_begin,
+      optional(
+        $.keyword_transaction,
+      ),
+      ';',
+    ),
+
+    _commit: $ => seq(
+      $.keyword_commit,
+      optional(
+        $.keyword_transaction,
+      ),
+      ';',
+    ),
+
+    _rollback: $ => seq(
+      $.keyword_rollback,
+      optional(
+        $.keyword_transaction,
+      ),
+      ';',
     ),
 
     _select_statement: $ => seq(

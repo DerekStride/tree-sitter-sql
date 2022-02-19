@@ -1,0 +1,115 @@
+==================
+Empty transaction
+==================
+
+BEGIN;
+COMMIT;
+
+---
+
+(program
+ (transaction
+  (keyword_begin)
+  (keyword_commit)))
+
+==================
+Transaction begin and commit
+==================
+
+BEGIN;
+ALTER TABLE my_table
+  ADD COLUMN val3 VARCHAR(100) NOT NULL;
+UPDATE my_table SET val3 = 'new';
+COMMIT;
+
+---
+
+(program
+ (transaction
+  (keyword_begin)
+  (statement
+   (alter_table
+    (keyword_alter)
+    (keyword_table)
+    (table_reference name: (identifier))
+    (add_column (keyword_add) (keyword_column)
+     (column_definition
+      name: (identifier)
+      type: (varchar
+        (keyword_varchar)
+        size: (literal))
+      (keyword_not)
+      (keyword_null)))))
+  (statement
+   (update
+    (keyword_update)
+    (update_expression
+     (table_reference
+      name: (identifier))
+     (keyword_set)
+     (assignment_list
+      (assignment
+       left: (field
+         name: (identifier))
+       right: (literal))))))
+  (keyword_commit)))
+
+==================
+Transaction begin and rollback
+==================
+
+BEGIN;
+ALTER TABLE my_table
+  ADD COLUMN val3 VARCHAR(100) NOT NULL;
+ROLLBACK;
+
+---
+
+(program
+ (transaction
+  (keyword_begin)
+  (statement
+   (alter_table
+    (keyword_alter)
+    (keyword_table)
+    (table_reference name: (identifier))
+    (add_column (keyword_add) (keyword_column)
+     (column_definition
+      name: (identifier)
+      type: (varchar
+        (keyword_varchar)
+        size: (literal))
+      (keyword_not)
+      (keyword_null)))))
+  (keyword_rollback)))
+
+==================
+Use explicit transaction keywords
+==================
+
+BEGIN TRANSACTION;
+ALTER TABLE my_table
+  ADD COLUMN val3 VARCHAR(100) NOT NULL;
+ROLLBACK TRANSACTION;
+
+---
+
+(program
+ (transaction
+  (keyword_begin)
+  (keyword_transaction)
+  (statement
+   (alter_table
+    (keyword_alter)
+    (keyword_table)
+    (table_reference name: (identifier))
+    (add_column (keyword_add) (keyword_column)
+     (column_definition
+      name: (identifier)
+      type: (varchar
+        (keyword_varchar)
+        size: (literal))
+      (keyword_not)
+      (keyword_null)))))
+  (keyword_rollback)
+  (keyword_transaction)))

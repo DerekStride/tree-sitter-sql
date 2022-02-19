@@ -2340,6 +2340,10 @@
         {
           "type": "statement",
           "named": true
+        },
+        {
+          "type": "transaction",
+          "named": true
         }
       ]
     }
@@ -2765,6 +2769,37 @@
     }
   },
   {
+    "type": "transaction",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_begin",
+          "named": true
+        },
+        {
+          "type": "keyword_commit",
+          "named": true
+        },
+        {
+          "type": "keyword_rollback",
+          "named": true
+        },
+        {
+          "type": "keyword_transaction",
+          "named": true
+        },
+        {
+          "type": "statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "update",
     "named": true,
     "fields": {},
@@ -3019,6 +3054,10 @@
     "named": true
   },
   {
+    "type": "keyword_begin",
+    "named": true
+  },
+  {
     "type": "keyword_bigint",
     "named": true
   },
@@ -3052,6 +3091,10 @@
   },
   {
     "type": "keyword_column",
+    "named": true
+  },
+  {
+    "type": "keyword_commit",
     "named": true
   },
   {
@@ -3283,6 +3326,10 @@
     "named": true
   },
   {
+    "type": "keyword_rollback",
+    "named": true
+  },
+  {
     "type": "keyword_schema",
     "named": true
   },
@@ -3328,6 +3375,10 @@
   },
   {
     "type": "keyword_to",
+    "named": true
+  },
+  {
+    "type": "keyword_transaction",
     "named": true
   },
   {

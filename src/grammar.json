@@ -5,8 +5,17 @@
     "program": {
       "type": "REPEAT",
       "content": {
-        "type": "SYMBOL",
-        "name": "statement"
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "transaction"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "statement"
+          }
+        ]
       }
     },
     "keyword_select": {
@@ -316,6 +325,22 @@
     "keyword_returning": {
       "type": "PATTERN",
       "value": "returning|RETURNING"
+    },
+    "keyword_begin": {
+      "type": "PATTERN",
+      "value": "begin|BEGIN"
+    },
+    "keyword_commit": {
+      "type": "PATTERN",
+      "value": "commit|COMMIT"
+    },
+    "keyword_rollback": {
+      "type": "PATTERN",
+      "value": "rollback|ROLLBACK"
+    },
+    "keyword_transaction": {
+      "type": "PATTERN",
+      "value": "transaction|TRANSACTION"
     },
     "_temporary": {
       "type": "CHOICE",
@@ -1268,6 +1293,110 @@
         {
           "type": "STRING",
           "value": ")"
+        }
+      ]
+    },
+    "transaction": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_begin"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "statement"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_commit"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_rollback"
+            }
+          ]
+        }
+      ]
+    },
+    "_begin": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_begin"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "keyword_transaction"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": ";"
+        }
+      ]
+    },
+    "_commit": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_commit"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "keyword_transaction"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": ";"
+        }
+      ]
+    },
+    "_rollback": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_rollback"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "keyword_transaction"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": ";"
         }
       ]
     },
