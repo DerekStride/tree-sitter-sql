@@ -538,6 +538,10 @@
           {
             "type": "^",
             "named": false
+          },
+          {
+            "type": "||",
+            "named": false
           }
         ]
       },
@@ -3432,5 +3436,9 @@
   {
     "type": "marginalia",
     "named": true
+  },
+  {
+    "type": "||",
+    "named": false
   }
 ]

@@ -1503,6 +1503,28 @@ FROM my_table;
     (identifier)))))
 
 ==================
+Concatenation
+==================
+
+SELECT id || '-' || name FROM my_table;
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (binary_expression
+     left: (binary_expression
+      left: (field name: (identifier))
+      right: (literal))
+     right: (field name: (identifier)))))
+  (from
+   (keyword_from)
+   (table_expression name: (identifier)))))
+
+==================
 Altogether now
 ==================
 

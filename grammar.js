@@ -17,6 +17,7 @@ module.exports = grammar({
       'binary_in',
       'binary_compare',
       'binary_relation',
+      'binary_concat',
       'clause_connective',
     ],
   ],
@@ -1105,6 +1106,7 @@ module.exports = grammar({
         ['/', 'binary_times'],
         ['%', 'binary_times'],
         ['^', 'binary_exp'],
+        ['||', 'binary_concat'],
       ].map(([operator, precedence]) =>
         prec.left(precedence, seq(
           field('left', $._expression),
