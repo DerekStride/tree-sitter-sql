@@ -891,7 +891,7 @@ module.exports = grammar({
 
     from: $ => seq(
       $.keyword_from,
-      $.table_expression,
+      $._table_expression,
       optional($.index_hint),
       repeat(
         choice(
@@ -903,6 +903,16 @@ module.exports = grammar({
       optional($.group_by),
       optional($.order_by),
       optional($.limit),
+    ),
+
+    _table_expression: $ => seq(
+      $.table_expression,
+      repeat(
+        seq(
+          ',',
+          $.table_expression,
+        ),
+      ),
     ),
 
     table_expression: $ => seq(
