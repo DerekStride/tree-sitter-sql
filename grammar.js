@@ -783,6 +783,11 @@ module.exports = grammar({
       '*',
     ),
 
+    parameter: $ => choice(
+      "?",
+      seq("$", RegExp("[0-9]+")),
+    ),
+
     case: $ => seq(
       $.keyword_case,
       choice(
@@ -1100,6 +1105,7 @@ module.exports = grammar({
     _expression: $ => choice(
       $.literal,
       $.field,
+      $.parameter,
       $.list,
       $.case,
       $.predicate,

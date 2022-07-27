@@ -258,6 +258,10 @@
           "named": true
         },
         {
+          "type": "parameter",
+          "named": true
+        },
+        {
           "type": "predicate",
           "named": true
         },
@@ -417,6 +421,10 @@
             "named": true
           },
           {
+            "type": "parameter",
+            "named": true
+          },
+          {
             "type": "predicate",
             "named": true
           },
@@ -502,6 +510,10 @@
             "named": true
           },
           {
+            "type": "parameter",
+            "named": true
+          },
+          {
             "type": "predicate",
             "named": true
           },
@@ -574,6 +586,10 @@
             "named": true
           },
           {
+            "type": "parameter",
+            "named": true
+          },
+          {
             "type": "predicate",
             "named": true
           },
@@ -635,6 +651,10 @@
         },
         {
           "type": "literal",
+          "named": true
+        },
+        {
+          "type": "parameter",
           "named": true
         },
         {
@@ -1523,6 +1543,10 @@
             "named": true
           },
           {
+            "type": "parameter",
+            "named": true
+          },
+          {
             "type": "predicate",
             "named": true
           },
@@ -1740,6 +1764,10 @@
           },
           {
             "type": "literal",
+            "named": true
+          },
+          {
+            "type": "parameter",
             "named": true
           },
           {
@@ -1981,6 +2009,10 @@
           "named": true
         },
         {
+          "type": "parameter",
+          "named": true
+        },
+        {
           "type": "predicate",
           "named": true
         },
@@ -2125,6 +2157,10 @@
           "named": true
         },
         {
+          "type": "parameter",
+          "named": true
+        },
+        {
           "type": "predicate",
           "named": true
         },
@@ -2134,6 +2170,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "parameter",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "predicate",
@@ -2165,6 +2206,10 @@
           },
           {
             "type": "literal",
+            "named": true
+          },
+          {
+            "type": "parameter",
             "named": true
           },
           {
@@ -2264,6 +2309,10 @@
             "named": true
           },
           {
+            "type": "parameter",
+            "named": true
+          },
+          {
             "type": "predicate",
             "named": true
           },
@@ -2320,6 +2369,10 @@
         },
         {
           "type": "literal",
+          "named": true
+        },
+        {
+          "type": "parameter",
           "named": true
         },
         {
@@ -2510,6 +2563,10 @@
         },
         {
           "type": "literal",
+          "named": true
+        },
+        {
+          "type": "parameter",
           "named": true
         },
         {
@@ -2935,6 +2992,10 @@
           "named": true
         },
         {
+          "type": "parameter",
+          "named": true
+        },
+        {
           "type": "predicate",
           "named": true
         },
@@ -2951,6 +3012,10 @@
   },
   {
     "type": "\"",
+    "named": false
+  },
+  {
+    "type": "$",
     "named": false
   },
   {
@@ -3015,6 +3080,10 @@
   },
   {
     "type": ">=",
+    "named": false
+  },
+  {
+    "type": "?",
     "named": false
   },
   {
