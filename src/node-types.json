@@ -2172,6 +2172,11 @@
     }
   },
   {
+    "type": "parameter",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "predicate",
     "named": true,
     "fields": {
@@ -3010,6 +3015,10 @@
     "named": false
   },
   {
+    "type": "$",
+    "named": false
+  },
+  {
     "type": "%",
     "named": false
   },
@@ -3071,6 +3080,10 @@
   },
   {
     "type": ">=",
+    "named": false
+  },
+  {
+    "type": "?",
     "named": false
   },
   {
@@ -3491,10 +3504,6 @@
   },
   {
     "type": "marginalia",
-    "named": true
-  },
-  {
-    "type": "parameter",
     "named": true
   },
   {

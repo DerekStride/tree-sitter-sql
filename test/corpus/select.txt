@@ -1690,3 +1690,29 @@ WHERE id = ?;
           (predicate
             (field (identifier))
             (parameter)))))))
+
+==================
+Parameterized Queries w/ $1 syntax
+==================
+
+SELECT *
+FROM x
+WHERE id = $12;
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (all_fields)))
+  (from
+    (keyword_from)
+    (table_expression (identifier))
+    (where
+      (keyword_where)
+        (where_expression
+          (predicate
+            (field (identifier))
+            (parameter)))))))
