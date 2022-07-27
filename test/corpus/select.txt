@@ -1631,3 +1631,37 @@ ORDER BY my_table.title, my_table.id;
    (order_expression
     (field table_alias: (identifier) name: (identifier))
     (field table_alias: (identifier) name: (identifier)))))))
+
+==================
+Multiple tables in list
+==================
+
+SELECT *
+FROM 
+    Table1 a,
+    Table2 b,
+    Table3 c,
+    TableN z;
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+     (all_fields)))
+  (from
+   (keyword_from)
+   (table_expression 
+     name: (identifier)
+     table_alias: (identifier))
+   (table_expression 
+     name: (identifier)
+     table_alias: (identifier))
+   (table_expression 
+     name: (identifier)
+     table_alias: (identifier))
+   (table_expression 
+     name: (identifier)
+     table_alias: (identifier)))))

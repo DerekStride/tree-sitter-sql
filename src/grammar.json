@@ -3604,7 +3604,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "table_expression"
+          "name": "_table_expression"
         },
         {
           "type": "CHOICE",
@@ -3681,6 +3681,31 @@
               "type": "BLANK"
             }
           ]
+        }
+      ]
+    },
+    "_table_expression": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "table_expression"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": ","
+              },
+              {
+                "type": "SYMBOL",
+                "name": "table_expression"
+              }
+            ]
+          }
         }
       ]
     },
