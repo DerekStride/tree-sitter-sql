@@ -1665,3 +1665,28 @@ FROM
    (table_expression 
      name: (identifier)
      table_alias: (identifier)))))
+==================
+Parameterized Queries
+==================
+
+SELECT *
+FROM x
+WHERE id = ?;
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (all_fields)))
+  (from
+    (keyword_from)
+    (table_expression (identifier))
+    (where
+      (keyword_where)
+        (where_expression
+          (predicate
+            (field (identifier))
+            (parameter)))))))
