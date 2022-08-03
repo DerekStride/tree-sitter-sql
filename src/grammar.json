@@ -1542,25 +1542,8 @@
           "name": "all_fields"
         },
         {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "_expression"
-            },
-            {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "_alias"
-                },
-                {
-                  "type": "BLANK"
-                }
-              ]
-            }
-          ]
+          "type": "SYMBOL",
+          "name": "_expression"
         }
       ]
     },
@@ -3587,33 +3570,36 @@
         }
       ]
     },
-    "_alias": {
-      "type": "CHOICE",
+    "alias": {
+      "type": "SEQ",
       "members": [
         {
           "type": "FIELD",
-          "name": "alias",
+          "name": "value",
           "content": {
             "type": "SYMBOL",
-            "name": "identifier"
+            "name": "_expression"
           }
         },
         {
-          "type": "SEQ",
+          "type": "CHOICE",
           "members": [
             {
               "type": "SYMBOL",
               "name": "keyword_as"
             },
             {
-              "type": "FIELD",
-              "name": "alias",
-              "content": {
-                "type": "SYMBOL",
-                "name": "identifier"
-              }
+              "type": "BLANK"
             }
           ]
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
         }
       ]
     },
@@ -4719,45 +4705,53 @@
       ]
     },
     "_expression": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "literal"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "field"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "parameter"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "list"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "case"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "predicate"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "subquery"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "function_call"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "binary_expression"
-        }
-      ]
+      "type": "PREC_LEFT",
+      "value": 0,
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "literal"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "field"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "parameter"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "list"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "case"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "predicate"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "subquery"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "function_call"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "binary_expression"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "alias"
+          }
+        ]
+      }
     },
     "binary_expression": {
       "type": "CHOICE",

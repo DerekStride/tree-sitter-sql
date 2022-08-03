@@ -374,10 +374,7 @@ module.exports = grammar({
 
     _select_expression: $ => choice(
       $.all_fields,
-      seq(
-        $._expression,
-        optional($._alias),
-      ),
+      $._expression,
     ),
 
     _delete_statement: $ => seq(
@@ -886,12 +883,10 @@ module.exports = grammar({
       ),
     ),
 
-    _alias: $ => choice(
-      field('alias', $.identifier),
-      seq(
-        $.keyword_as,
-        field('alias', $.identifier),
-      ),
+    alias: $ => seq(
+      field('value', $._expression),
+      optional($.keyword_as),
+      field('name', $.identifier),
     ),
 
     from: $ => seq(
@@ -1102,16 +1097,19 @@ module.exports = grammar({
       // TODO exists/not exists (subquery)
     ),
 
-    _expression: $ => choice(
-      $.literal,
-      $.field,
-      $.parameter,
-      $.list,
-      $.case,
-      $.predicate,
-      $.subquery,
-      $.function_call,
-      $.binary_expression,
+    _expression: $ => prec.left(
+      choice(
+        $.literal,
+        $.field,
+        $.parameter,
+        $.list,
+        $.case,
+        $.predicate,
+        $.subquery,
+        $.function_call,
+        $.binary_expression,
+        $.alias,
+      ),
     ),
 
     binary_expression: $ => choice(
