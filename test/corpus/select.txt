@@ -253,16 +253,15 @@ FROM my_table m;
   (select
    (keyword_select)
    (select_expression
-    (function_call
-      (invocation
-        name: (identifier)
-        parameter: (field
-          table_alias: (identifier)
-          name: (identifier))
-        parameter: (literal)
-        parameter: (literal)))
-      (keyword_as)
-      alias: (identifier)))
+    (invocation
+     name: (identifier)
+     parameter: (field
+       table_alias: (identifier)
+       name: (identifier))
+     parameter: (literal)
+     parameter: (literal))
+    (keyword_as)
+    alias: (identifier)))
   (from
    (keyword_from)
    (table_expression
@@ -284,17 +283,16 @@ FROM my_table m;
    (keyword_select)
    (select_expression
     (field table_alias: (identifier) name: (identifier))
-    (function_call
-      (invocation
-        name: (identifier)
-        parameter: (predicate
-         left: (field
-          table_alias: (identifier)
-          name: (identifier))
-         right: (literal))
-        parameter: (literal)
-        parameter: (literal)))
-      alias: (identifier)))
+    (invocation
+     name: (identifier)
+     parameter: (predicate
+       left: (field
+         table_alias: (identifier)
+         name: (identifier))
+       right: (literal))
+     parameter: (literal)
+     parameter: (literal))
+    alias: (identifier)))
   (from
    (keyword_from)
    (table_expression
@@ -337,7 +335,7 @@ FROM my_table;
   (select
    (keyword_select)
    (select_expression
-    (function_call
+    (count
      name: (identifier)
      (keyword_distinct)
      parameter: (field
@@ -622,10 +620,9 @@ FROM my_table;
   (select
    (keyword_select)
    (select_expression
-    (function_call
-      (invocation
-        name: (identifier)
-        parameter: (field name: (identifier))))))
+    (invocation
+     name: (identifier)
+     parameter: (field name: (identifier)))))
   (from
    (keyword_from)
    (table_expression
@@ -643,9 +640,8 @@ SELECT now();
   (select
    (keyword_select)
    (select_expression
-    (function_call
-      (invocation
-        name: (identifier)))))))
+    (invocation
+     name: (identifier))))))
 
 ==================
 More complex function arguments
@@ -665,31 +661,27 @@ FROM my_table AS t;
    (keyword_select)
    (select_expression
     (field name: (identifier))
-    (function_call
-     (invocation
-      name: (identifier)
-      parameter: (field name: (identifier))
-      parameter: (literal)
-      parameter:
-       (function_call
-        (invocation
-         name: (identifier)
-         parameter: (field name: (identifier))
-         parameter: (literal)))
-      parameter:
-       (predicate
-        left: (binary_expression left: (field name: (identifier)) right: (literal))
-        right: (literal))))
+    (invocation
+     name: (identifier)
+     parameter: (field name: (identifier))
+     parameter: (literal)
+     parameter: (invocation
+       name: (identifier)
+       parameter: (field name: (identifier))
+       parameter: (literal))
+     parameter:
+     (predicate
+      left: (binary_expression left: (field name: (identifier)) right: (literal))
+      right: (literal)))
     (keyword_as) alias: (identifier)
-    (function_call
-     (invocation
-      name: (identifier)
-      parameter: (field table_alias: (identifier) name: (identifier))
-      parameter: (literal)
-      parameter: (literal)
-      parameter: (literal)))
-    (keyword_as) alias: (identifier)
-    (field name: (identifier))))
+    (invocation
+     name: (identifier)
+     parameter: (field table_alias: (identifier) name: (identifier))
+     parameter: (literal)
+     parameter: (literal)
+     parameter: (literal))
+  (keyword_as) alias: (identifier)
+(field name: (identifier))))
   (from
    (keyword_from)
    (table_expression
@@ -708,7 +700,7 @@ FROM my_table;
   (select
    (keyword_select)
    (select_expression
-    (function_call
+    (count
      name: (identifier)
      (keyword_distinct)
      parameter: (list
@@ -732,7 +724,7 @@ FROM my_table;
   (select
    (keyword_select)
    (select_expression
-    (function_call
+    (count
      name: (identifier)
      (keyword_distinct)
      parameter:
@@ -759,7 +751,7 @@ HAVING other_id > 10;
    (keyword_select)
    (select_expression
     (field name: (identifier))
-    (function_call
+    (count
      name: (identifier)
      parameter: (field name: (identifier)))))
   (from
@@ -1637,7 +1629,7 @@ Multiple tables in list
 ==================
 
 SELECT *
-FROM 
+FROM
     Table1 a,
     Table2 b,
     Table3 c,
@@ -1653,16 +1645,16 @@ FROM
      (all_fields)))
   (from
    (keyword_from)
-   (table_expression 
+   (table_expression
      name: (identifier)
      table_alias: (identifier))
-   (table_expression 
+   (table_expression
      name: (identifier)
      table_alias: (identifier))
-   (table_expression 
+   (table_expression
      name: (identifier)
      table_alias: (identifier))
-   (table_expression 
+   (table_expression
      name: (identifier)
      table_alias: (identifier)))))
 ==================

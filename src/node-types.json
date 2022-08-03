@@ -206,11 +206,19 @@
           "named": true
         },
         {
+          "type": "cast",
+          "named": true
+        },
+        {
+          "type": "count",
+          "named": true
+        },
+        {
           "type": "field",
           "named": true
         },
         {
-          "type": "function_call",
+          "type": "invocation",
           "named": true
         },
         {
@@ -405,11 +413,19 @@
             "named": true
           },
           {
+            "type": "cast",
+            "named": true
+          },
+          {
+            "type": "count",
+            "named": true
+          },
+          {
             "type": "field",
             "named": true
           },
           {
-            "type": "function_call",
+            "type": "invocation",
             "named": true
           },
           {
@@ -494,11 +510,19 @@
             "named": true
           },
           {
+            "type": "cast",
+            "named": true
+          },
+          {
+            "type": "count",
+            "named": true
+          },
+          {
             "type": "field",
             "named": true
           },
           {
-            "type": "function_call",
+            "type": "invocation",
             "named": true
           },
           {
@@ -570,11 +594,19 @@
             "named": true
           },
           {
+            "type": "cast",
+            "named": true
+          },
+          {
+            "type": "count",
+            "named": true
+          },
+          {
             "type": "field",
             "named": true
           },
           {
-            "type": "function_call",
+            "type": "invocation",
             "named": true
           },
           {
@@ -618,11 +650,19 @@
           "named": true
         },
         {
+          "type": "cast",
+          "named": true
+        },
+        {
+          "type": "count",
+          "named": true
+        },
+        {
           "type": "field",
           "named": true
         },
         {
-          "type": "function_call",
+          "type": "invocation",
           "named": true
         },
         {
@@ -663,6 +703,238 @@
         },
         {
           "type": "subquery",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "cast",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "parameter": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "case",
+            "named": true
+          },
+          {
+            "type": "cast",
+            "named": true
+          },
+          {
+            "type": "count",
+            "named": true
+          },
+          {
+            "type": "field",
+            "named": true
+          },
+          {
+            "type": "invocation",
+            "named": true
+          },
+          {
+            "type": "list",
+            "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "parameter",
+            "named": true
+          },
+          {
+            "type": "predicate",
+            "named": true
+          },
+          {
+            "type": "subquery",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "bigint",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "case",
+          "named": true
+        },
+        {
+          "type": "cast",
+          "named": true
+        },
+        {
+          "type": "char",
+          "named": true
+        },
+        {
+          "type": "count",
+          "named": true
+        },
+        {
+          "type": "decimal",
+          "named": true
+        },
+        {
+          "type": "double",
+          "named": true
+        },
+        {
+          "type": "field",
+          "named": true
+        },
+        {
+          "type": "invocation",
+          "named": true
+        },
+        {
+          "type": "keyword_as",
+          "named": true
+        },
+        {
+          "type": "keyword_bigserial",
+          "named": true
+        },
+        {
+          "type": "keyword_boolean",
+          "named": true
+        },
+        {
+          "type": "keyword_box2d",
+          "named": true
+        },
+        {
+          "type": "keyword_box3d",
+          "named": true
+        },
+        {
+          "type": "keyword_bytea",
+          "named": true
+        },
+        {
+          "type": "keyword_date",
+          "named": true
+        },
+        {
+          "type": "keyword_datetime",
+          "named": true
+        },
+        {
+          "type": "keyword_geography",
+          "named": true
+        },
+        {
+          "type": "keyword_geometry",
+          "named": true
+        },
+        {
+          "type": "keyword_int",
+          "named": true
+        },
+        {
+          "type": "keyword_json",
+          "named": true
+        },
+        {
+          "type": "keyword_jsonb",
+          "named": true
+        },
+        {
+          "type": "keyword_money",
+          "named": true
+        },
+        {
+          "type": "keyword_real",
+          "named": true
+        },
+        {
+          "type": "keyword_serial",
+          "named": true
+        },
+        {
+          "type": "keyword_smallint",
+          "named": true
+        },
+        {
+          "type": "keyword_smallserial",
+          "named": true
+        },
+        {
+          "type": "keyword_text",
+          "named": true
+        },
+        {
+          "type": "keyword_timestamp",
+          "named": true
+        },
+        {
+          "type": "keyword_timestamptz",
+          "named": true
+        },
+        {
+          "type": "keyword_uuid",
+          "named": true
+        },
+        {
+          "type": "keyword_xml",
+          "named": true
+        },
+        {
+          "type": "list",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "numeric",
+          "named": true
+        },
+        {
+          "type": "parameter",
+          "named": true
+        },
+        {
+          "type": "predicate",
+          "named": true
+        },
+        {
+          "type": "subquery",
+          "named": true
+        },
+        {
+          "type": "varchar",
           "named": true
         }
       ]
@@ -993,6 +1265,82 @@
       "types": [
         {
           "type": "constraint",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "count",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "parameter": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "case",
+            "named": true
+          },
+          {
+            "type": "cast",
+            "named": true
+          },
+          {
+            "type": "count",
+            "named": true
+          },
+          {
+            "type": "field",
+            "named": true
+          },
+          {
+            "type": "invocation",
+            "named": true
+          },
+          {
+            "type": "list",
+            "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "parameter",
+            "named": true
+          },
+          {
+            "type": "predicate",
+            "named": true
+          },
+          {
+            "type": "subquery",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "keyword_distinct",
           "named": true
         }
       ]
@@ -1501,78 +1849,6 @@
     }
   },
   {
-    "type": "function_call",
-    "named": true,
-    "fields": {
-      "name": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "parameter": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "binary_expression",
-            "named": true
-          },
-          {
-            "type": "case",
-            "named": true
-          },
-          {
-            "type": "field",
-            "named": true
-          },
-          {
-            "type": "function_call",
-            "named": true
-          },
-          {
-            "type": "list",
-            "named": true
-          },
-          {
-            "type": "literal",
-            "named": true
-          },
-          {
-            "type": "parameter",
-            "named": true
-          },
-          {
-            "type": "predicate",
-            "named": true
-          },
-          {
-            "type": "subquery",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "invocation",
-          "named": true
-        },
-        {
-          "type": "keyword_distinct",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "group_by",
     "named": true,
     "fields": {},
@@ -1751,11 +2027,19 @@
             "named": true
           },
           {
+            "type": "cast",
+            "named": true
+          },
+          {
+            "type": "count",
+            "named": true
+          },
+          {
             "type": "field",
             "named": true
           },
           {
-            "type": "function_call",
+            "type": "invocation",
             "named": true
           },
           {
@@ -1993,11 +2277,19 @@
           "named": true
         },
         {
+          "type": "cast",
+          "named": true
+        },
+        {
+          "type": "count",
+          "named": true
+        },
+        {
           "type": "field",
           "named": true
         },
         {
-          "type": "function_call",
+          "type": "invocation",
           "named": true
         },
         {
@@ -2137,6 +2429,14 @@
           "named": true
         },
         {
+          "type": "cast",
+          "named": true
+        },
+        {
+          "type": "count",
+          "named": true
+        },
+        {
           "type": "direction",
           "named": true
         },
@@ -2145,7 +2445,7 @@
           "named": true
         },
         {
-          "type": "function_call",
+          "type": "invocation",
           "named": true
         },
         {
@@ -2193,11 +2493,19 @@
             "named": true
           },
           {
+            "type": "cast",
+            "named": true
+          },
+          {
+            "type": "count",
+            "named": true
+          },
+          {
             "type": "field",
             "named": true
           },
           {
-            "type": "function_call",
+            "type": "invocation",
             "named": true
           },
           {
@@ -2293,11 +2601,19 @@
             "named": true
           },
           {
+            "type": "cast",
+            "named": true
+          },
+          {
+            "type": "count",
+            "named": true
+          },
+          {
             "type": "field",
             "named": true
           },
           {
-            "type": "function_call",
+            "type": "invocation",
             "named": true
           },
           {
@@ -2336,11 +2652,19 @@
           "named": true
         },
         {
+          "type": "cast",
+          "named": true
+        },
+        {
+          "type": "count",
+          "named": true
+        },
+        {
           "type": "field",
           "named": true
         },
         {
-          "type": "function_call",
+          "type": "invocation",
           "named": true
         },
         {
@@ -2546,11 +2870,19 @@
           "named": true
         },
         {
+          "type": "cast",
+          "named": true
+        },
+        {
+          "type": "count",
+          "named": true
+        },
+        {
           "type": "field",
           "named": true
         },
         {
-          "type": "function_call",
+          "type": "invocation",
           "named": true
         },
         {
@@ -2976,11 +3308,19 @@
           "named": true
         },
         {
+          "type": "cast",
+          "named": true
+        },
+        {
+          "type": "count",
+          "named": true
+        },
+        {
           "type": "field",
           "named": true
         },
         {
-          "type": "function_call",
+          "type": "invocation",
           "named": true
         },
         {
@@ -3056,6 +3396,10 @@
   },
   {
     "type": "/",
+    "named": false
+  },
+  {
+    "type": "::",
     "named": false
   },
   {

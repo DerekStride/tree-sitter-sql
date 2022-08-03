@@ -1,0 +1,46 @@
+==================
+Standard cast
+==================
+
+SELECT CAST(1 AS TEXT);
+
+---
+
+(program
+ (statement
+  (select
+    (keyword_select)
+    (select_expression
+      (cast (identifier) (literal) (keyword_as) (keyword_text))))))
+
+==================
+Aliased
+==================
+
+SELECT CAST(1 AS TEXT) AS fieldname;
+
+---
+
+(program
+ (statement
+  (select
+    (keyword_select)
+    (select_expression
+      (cast (identifier) (literal) (keyword_as) (keyword_text))
+      (keyword_as)
+      (identifier)))))
+
+==================
+Postgres shorthand
+==================
+
+SELECT 1::TEXT;
+
+---
+
+(program
+ (statement
+  (select
+    (keyword_select)
+    (select_expression
+      (cast (literal) (keyword_text))))))

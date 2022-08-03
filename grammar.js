@@ -71,6 +71,7 @@ module.exports = grammar({
     keyword_as: _ => make_keyword("as"),
     keyword_distinct: _ => make_keyword("distinct"),
     keyword_constraint: _ => make_keyword("constraint"),
+    keyword_cast: _ => make_keyword("cast"),
     keyword_count: _ => make_keyword("count"),
     keyword_max: _ => make_keyword("max"),
     keyword_min: _ => make_keyword("min"),
@@ -163,14 +164,16 @@ module.exports = grammar({
 
     keyword_date: _ => make_keyword("date"),
     keyword_datetime: _ => make_keyword("datetime"),
-    keyword_timestamp: _ => seq(
-      make_keyword("timestamp"),
-      optional(
-        seq(
-          make_keyword('without'),
-          make_keyword('time'),
-          make_keyword('zone')
-        )
+    keyword_timestamp: _ => prec.right(
+      seq(
+        make_keyword("timestamp"),
+        optional(
+          seq(
+            make_keyword('without'),
+            make_keyword('time'),
+            make_keyword('zone')
+          ),
+        ),
       ),
     ),
     keyword_timestamptz: _ => choice(
@@ -848,11 +851,31 @@ module.exports = grammar({
       field('name', $.identifier),
     ),
 
-    function_call: $ => seq(
-      choice(
-        $._count_function,
-        $.invocation,
+    implicit_cast: $ => seq(
+      $._expression,
+      '::',
+      $._type,
+    ),
+
+    cast: $ => seq(
+      field('name', alias($.keyword_cast, $.identifier)),
+      '(',
+      seq(
+        field('parameter', $._expression),
+        $.keyword_as,
+        $._type,
       ),
+      ')',
+    ),
+
+    count: $ => seq(
+      field('name', alias($.keyword_count, $.identifier)),
+      '(',
+      seq(
+        optional($.keyword_distinct),
+        field('parameter', $._expression),
+      ),
+      ')',
     ),
 
     invocation: $ => seq(
@@ -860,16 +883,6 @@ module.exports = grammar({
       '(',
       optional(
         $._function_params,
-      ),
-      ')',
-    ),
-
-    _count_function: $ => seq(
-      field('name', alias($.keyword_count, $.identifier)),
-      '(',
-      seq(
-        optional($.keyword_distinct),
-        field('parameter', $._expression),
       ),
       ')',
     ),
@@ -1110,7 +1123,10 @@ module.exports = grammar({
       $.case,
       $.predicate,
       $.subquery,
-      $.function_call,
+      $.cast,
+      alias($.implicit_cast, $.cast),
+      $.count,
+      $.invocation,
       $.binary_expression,
     ),
 
