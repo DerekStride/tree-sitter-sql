@@ -65,6 +65,10 @@
             "named": true
           },
           {
+            "type": "cast",
+            "named": true
+          },
+          {
             "type": "field",
             "named": true
           },
@@ -282,6 +286,10 @@
           "named": true
         },
         {
+          "type": "cast",
+          "named": true
+        },
+        {
           "type": "field",
           "named": true
         },
@@ -485,6 +493,10 @@
             "named": true
           },
           {
+            "type": "cast",
+            "named": true
+          },
+          {
             "type": "field",
             "named": true
           },
@@ -578,6 +590,10 @@
             "named": true
           },
           {
+            "type": "cast",
+            "named": true
+          },
+          {
             "type": "field",
             "named": true
           },
@@ -658,6 +674,10 @@
             "named": true
           },
           {
+            "type": "cast",
+            "named": true
+          },
+          {
             "type": "field",
             "named": true
           },
@@ -710,6 +730,10 @@
           "named": true
         },
         {
+          "type": "cast",
+          "named": true
+        },
+        {
           "type": "field",
           "named": true
         },
@@ -758,6 +782,32 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "cast",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "literal",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -1623,6 +1673,10 @@
             "named": true
           },
           {
+            "type": "cast",
+            "named": true
+          },
+          {
             "type": "field",
             "named": true
           },
@@ -1848,6 +1902,10 @@
           },
           {
             "type": "case",
+            "named": true
+          },
+          {
+            "type": "cast",
             "named": true
           },
           {
@@ -2097,6 +2155,10 @@
           "named": true
         },
         {
+          "type": "cast",
+          "named": true
+        },
+        {
           "type": "field",
           "named": true
         },
@@ -2245,6 +2307,10 @@
           "named": true
         },
         {
+          "type": "cast",
+          "named": true
+        },
+        {
           "type": "direction",
           "named": true
         },
@@ -2302,6 +2368,10 @@
           },
           {
             "type": "case",
+            "named": true
+          },
+          {
+            "type": "cast",
             "named": true
           },
           {
@@ -2409,6 +2479,10 @@
             "named": true
           },
           {
+            "type": "cast",
+            "named": true
+          },
+          {
             "type": "field",
             "named": true
           },
@@ -2453,6 +2527,10 @@
         },
         {
           "type": "case",
+          "named": true
+        },
+        {
+          "type": "cast",
           "named": true
         },
         {
@@ -2656,6 +2734,10 @@
         },
         {
           "type": "case",
+          "named": true
+        },
+        {
+          "type": "cast",
           "named": true
         },
         {
@@ -3089,6 +3171,10 @@
           "named": true
         },
         {
+          "type": "cast",
+          "named": true
+        },
+        {
           "type": "field",
           "named": true
         },
@@ -3169,6 +3255,10 @@
   },
   {
     "type": "/",
+    "named": false
+  },
+  {
+    "type": "::",
     "named": false
   },
   {

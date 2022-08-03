@@ -1735,7 +1735,9 @@ Postgresql style cast syntax
 ==================
 
 SELECT
-  CAST ('100' AS INTEGER);
+  CAST ('100' AS INTEGER),
+  '100'::INTEGER,
+  '01-OCT-2015'::DATE;
 
 ---
 
@@ -1750,4 +1752,10 @@ SELECT
         parameter: (alias
           value: (literal)
           (keyword_as)
-          name: (identifier))))))))
+          name: (identifier))))
+    (cast
+      value: (literal)
+      name: (identifier))
+    (cast
+      value: (literal)
+      name: (identifier))))))

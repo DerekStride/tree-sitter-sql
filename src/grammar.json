@@ -3603,6 +3603,31 @@
         }
       ]
     },
+    "cast": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "value",
+          "content": {
+            "type": "SYMBOL",
+            "name": "literal"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "::"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
     "from": {
       "type": "SEQ",
       "members": [
@@ -4749,6 +4774,10 @@
           {
             "type": "SYMBOL",
             "name": "alias"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "cast"
           }
         ]
       }

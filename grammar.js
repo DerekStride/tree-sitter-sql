@@ -889,6 +889,12 @@ module.exports = grammar({
       field('name', $.identifier),
     ),
 
+    cast: $ => seq(
+      field('value', $.literal),
+      "::",
+      field('name', $.identifier),
+    ),
+
     from: $ => seq(
       $.keyword_from,
       $._table_expression,
@@ -1109,6 +1115,7 @@ module.exports = grammar({
         $.function_call,
         $.binary_expression,
         $.alias,
+        $.cast,
       ),
     ),
 
