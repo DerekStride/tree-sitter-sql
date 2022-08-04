@@ -44,3 +44,31 @@ SELECT 1::TEXT;
     (keyword_select)
     (select_expression
       (cast (literal) (keyword_text))))))
+
+==================
+Multiple casts
+==================
+
+SELECT
+  CAST ('100' AS INTEGER),
+  '100'::INTEGER,
+  '01-OCT-2015'::DATE;
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (cast
+     name: (identifier)
+     parameter: (literal)
+     (keyword_as)
+     (keyword_int))
+    (cast
+     (literal)
+     (keyword_int))
+    (cast
+     (literal)
+     (keyword_date))))))
