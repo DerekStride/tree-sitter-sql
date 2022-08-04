@@ -97,7 +97,5 @@ SET ts = now();
     (assignment_list
      (assignment
       left: (field name: (identifier))
-      right:
-      (function_call
-       (invocation
-        name: (identifier)))))))))
+      right: (invocation
+        name: (identifier))))))))
