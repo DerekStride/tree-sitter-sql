@@ -31,3 +31,8 @@ For a complete list of features see the the [tests](test/corpus)
   though I may not have been strict early on in the prototyping.
 * [Phoenix Language Reference](https://forcedotcom.github.io/phoenix/index.html) - Note I'm using this as a reference
   but implementing the Grammar in terms of the MySQL dialect of SQL.
+
+### Other projects
+
+* https://github.com/m-novikov/tree-sitter-sql
+* https://github.com/dhcmrlchtdj/tree-sitter-sqlite
