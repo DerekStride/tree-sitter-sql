@@ -5228,7 +5228,7 @@
     },
     "_identifier": {
       "type": "PATTERN",
-      "value": "([a-zA-Z_][0-9a-zA-Z_]*)"
+      "value": "([0-9a-zA-Z_][0-9a-zA-Z_]*)"
     }
   },
   "extras": [

@@ -767,6 +767,37 @@ HAVING other_id > 10;
      right: (literal))))))
 
 ==================
+Group by numbered alias
+==================
+
+SELECT other_id, COUNT(name)
+FROM my_table
+GROUP BY 1
+HAVING other_id > 10;
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (field name: (identifier))
+    (count
+     name: (identifier)
+     parameter: (field name: (identifier)))))
+  (from
+   (keyword_from)
+   (table_expression
+    name: (identifier))
+   (group_by
+    (keyword_group_by)
+    (identifier)
+    (keyword_having)
+    (predicate
+     left: (field name: (identifier))
+     right: (literal))))))
+
+==================
 Joins
 ==================
 
