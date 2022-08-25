@@ -791,7 +791,7 @@ HAVING other_id > 10;
     name: (identifier))
    (group_by
     (keyword_group_by)
-    (identifier)
+    (literal)
     (keyword_having)
     (predicate
      left: (field name: (identifier))
