@@ -4188,8 +4188,22 @@
           "name": "keyword_group_by"
         },
         {
-          "type": "SYMBOL",
-          "name": "identifier"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "_number"
+              },
+              "named": true,
+              "value": "literal"
+            }
+          ]
         },
         {
           "type": "CHOICE",
@@ -5228,7 +5242,7 @@
     },
     "_identifier": {
       "type": "PATTERN",
-      "value": "([0-9a-zA-Z_][0-9a-zA-Z_]*)"
+      "value": "([a-zA-Z_][0-9a-zA-Z_]*)"
     }
   },
   "extras": [

@@ -1869,6 +1869,10 @@
           "named": true
         },
         {
+          "type": "literal",
+          "named": true
+        },
+        {
           "type": "predicate",
           "named": true
         }

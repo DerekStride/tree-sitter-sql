@@ -1036,7 +1036,10 @@ module.exports = grammar({
 
     group_by: $ => seq(
       $.keyword_group_by,
-      $.identifier,
+      choice(
+          $.identifier,
+          alias($._number, $.literal)
+      ),
       optional($._having),
     ),
 
@@ -1176,7 +1179,7 @@ module.exports = grammar({
       $._identifier,
       seq('`', $._identifier, '`'),
     ),
-    _identifier: _ => /([0-9a-zA-Z_][0-9a-zA-Z_]*)/,
+    _identifier: _ => /([a-zA-Z_][0-9a-zA-Z_]*)/,
   }
 
 });
