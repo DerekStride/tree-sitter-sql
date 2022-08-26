@@ -760,7 +760,74 @@ HAVING other_id > 10;
     name: (identifier))
    (group_by
     (keyword_group_by)
-    (identifier)
+    (group_list
+     (identifier))
+    (keyword_having)
+    (predicate
+     left: (field name: (identifier))
+     right: (literal))))))
+
+==================
+Group by numbered alias
+==================
+
+SELECT other_id, COUNT(name)
+FROM my_table
+GROUP BY 1
+HAVING other_id > 10;
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (field name: (identifier))
+    (count
+     name: (identifier)
+     parameter: (field name: (identifier)))))
+  (from
+   (keyword_from)
+   (table_expression
+    name: (identifier))
+   (group_by
+    (keyword_group_by)
+    (group_list
+     (literal))
+    (keyword_having)
+    (predicate
+     left: (field name: (identifier))
+     right: (literal))))))
+
+==================
+Group by with mixed list
+==================
+
+SELECT other_id, other_col, COUNT(name)
+FROM my_table
+GROUP BY 1, other_col
+HAVING other_id > 10;
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (field name: (identifier))
+    (field name: (identifier))
+    (count
+     name: (identifier)
+     parameter: (field name: (identifier)))))
+  (from
+   (keyword_from)
+   (table_expression
+    name: (identifier))
+   (group_by
+    (keyword_group_by)
+    (group_list
+     (literal)
+     (identifier))
     (keyword_having)
     (predicate
      left: (field name: (identifier))

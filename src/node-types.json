@@ -1857,7 +1857,7 @@
       "required": true,
       "types": [
         {
-          "type": "identifier",
+          "type": "group_list",
           "named": true
         },
         {
@@ -1870,6 +1870,25 @@
         },
         {
           "type": "predicate",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "group_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "literal",
           "named": true
         }
       ]
