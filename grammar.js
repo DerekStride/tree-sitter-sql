@@ -383,6 +383,24 @@ module.exports = grammar({
       ),
     ),
 
+
+    group_list :$ => seq(
+        $._group_list,
+        repeat(
+            seq(
+                ',',
+                $._group_list,
+            )
+        )
+    ),
+      
+    _group_list: $ => seq(
+        choice(
+          $.identifier,
+          alias($._number, $.literal),
+        )
+    ),
+
     _delete_statement: $ => seq(
       $.delete,
       alias($._delete_from, $.from),
@@ -1036,10 +1054,7 @@ module.exports = grammar({
 
     group_by: $ => seq(
       $.keyword_group_by,
-      choice(
-          $.identifier,
-          alias($._number, $.literal)
-      ),
+      $.group_list,
       optional($._having),
     ),
 
