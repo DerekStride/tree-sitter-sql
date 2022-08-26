@@ -346,6 +346,26 @@
       "type": "PATTERN",
       "value": "transaction|TRANSACTION"
     },
+    "keyword_over": {
+      "type": "PATTERN",
+      "value": "over|OVER"
+    },
+    "keyword_partition_by": {
+      "type": "PATTERN",
+      "value": "partition by|PARTITION BY"
+    },
+    "keyword_nulls": {
+      "type": "PATTERN",
+      "value": "nulls|NULLS"
+    },
+    "keyword_first": {
+      "type": "PATTERN",
+      "value": "first|FIRST"
+    },
+    "keyword_last": {
+      "type": "PATTERN",
+      "value": "last|LAST"
+    },
     "_temporary": {
       "type": "CHOICE",
       "members": [
@@ -3648,6 +3668,143 @@
         }
       ]
     },
+    "_window_partition_by_expression": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_partition_by"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_window_order_by_expression"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "_window_order_by_expression": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_order_by"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "direction"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "keyword_using"
+                    }
+                  ]
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "SYMBOL",
+                          "name": "keyword_nulls"
+                        },
+                        {
+                          "type": "CHOICE",
+                          "members": [
+                            {
+                              "type": "SYMBOL",
+                              "name": "keyword_first"
+                            },
+                            {
+                              "type": "SYMBOL",
+                              "name": "keyword_last"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "_window_specification": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_window_partition_by_expression"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_window_order_by_expression"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
+    },
+    "window_function": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "invocation"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_over"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_window_specification"
+        }
+      ]
+    },
     "_function_params": {
       "type": "SEQ",
       "members": [
@@ -4842,6 +4999,10 @@
         {
           "type": "SYMBOL",
           "name": "case"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "window_function"
         },
         {
           "type": "SYMBOL",

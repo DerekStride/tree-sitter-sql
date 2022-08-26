@@ -115,6 +115,11 @@ module.exports = grammar({
     keyword_commit: _ => make_keyword("commit"),
     keyword_rollback: _ => make_keyword("rollback"),
     keyword_transaction: _ => make_keyword("transaction"),
+    keyword_over: _ => make_keyword("over"),
+    keyword_partition_by: _ => make_keyword("partition by"),
+    keyword_nulls: _ => make_keyword("nulls"),
+    keyword_first: _ => make_keyword("first"),
+    keyword_last: _ => make_keyword("last"),
 
     _temporary: $ => choice($.keyword_temp, $.keyword_temporary),
     _not_null: $ => seq($.keyword_not, $.keyword_null),
@@ -905,6 +910,51 @@ module.exports = grammar({
       ')',
     ),
 
+    _window_partition_by_expression: $ => seq(
+        $.keyword_partition_by,
+        $.identifier,
+        optional(
+            $._window_order_by_expression,
+        ),
+    ),  
+
+    _window_order_by_expression: $ => seq(
+        $.keyword_order_by,
+        $.identifier,
+        optional(
+            seq(
+                choice(
+                    $.direction,
+                    $.keyword_using,
+                ),
+                optional(
+                    seq(
+                        $.keyword_nulls,
+                        choice(
+                            $.keyword_first,
+                            $.keyword_last,
+                        ),
+                    ),
+                ),
+            ),
+        )
+    ),  
+
+    _window_specification: $ => seq(
+        '(',
+        choice(
+            $._window_partition_by_expression,
+            $._window_order_by_expression,
+        ),
+        ')',
+    ),
+
+    window_function: $ => seq(
+        $.invocation, // sum(), mean(), lead(), lag()
+        $.keyword_over,
+        $._window_specification,
+    ),
+
     _function_params: $ => seq(
       field('parameter', $._expression),
       optional(
@@ -1139,6 +1189,7 @@ module.exports = grammar({
       $.parameter,
       $.list,
       $.case,
+      $.window_function,
       $.predicate,
       $.subquery,
       $.cast,

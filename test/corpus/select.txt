@@ -1775,3 +1775,122 @@ WHERE id = $12;
           (predicate
             (field (identifier))
             (parameter)))))))
+
+
+==================
+Window Functions Partition by
+==================
+
+SELECT 
+  x,
+  y,
+  z,
+  AVG(x) OVER (PARTITION BY y)
+FROM tab1;
+
+---
+(program 
+  (statement 
+    (select 
+      (keyword_select)
+      (select_expression
+        (field 
+          name: (identifier))
+        (field 
+          name: (identifier))
+        (field 
+          name: (identifier))
+        (window_function 
+          (invocation 
+            name: (identifier)
+            parameter: (field 
+              name: (identifier)))
+          (keyword_over )
+          (keyword_partition_by)
+          (identifier))))
+    (from
+      (keyword_from)
+      (table_expression
+        name: (identifier)))))
+
+==================
+Window Functions Order by
+==================
+
+SELECT 
+  x,
+  y,
+  z,
+  AVG(x) OVER (ORDER BY y DESC NULLS LAST)
+FROM tab1;
+
+---
+(program 
+  (statement 
+    (select 
+      (keyword_select)
+      (select_expression
+        (field 
+          name: (identifier))
+        (field 
+          name: (identifier))
+        (field 
+          name: (identifier))
+        (window_function 
+          (invocation 
+            name: (identifier)
+            parameter: (field 
+              name: (identifier)))
+          (keyword_over )
+          (keyword_order_by)
+          (identifier)
+          (direction
+            (keyword_desc))
+          (keyword_nulls)
+          (keyword_last))))
+    (from
+      (keyword_from)
+      (table_expression
+        name: (identifier)))))
+
+==================
+Window Functions Partition and Order by
+==================
+
+SELECT 
+  x,
+  y,
+  z,
+  AVG(x) OVER (PARTITION BY z ORDER BY y DESC NULLS FIRST)
+FROM tab1;
+
+---
+(program 
+  (statement 
+    (select 
+      (keyword_select)
+      (select_expression
+        (field 
+          name: (identifier))
+        (field 
+          name: (identifier))
+        (field 
+          name: (identifier))
+        (window_function 
+          (invocation 
+            name: (identifier)
+            parameter: (field 
+              name: (identifier)))
+          (keyword_over )
+          (keyword_partition_by)
+          (identifier)
+          (keyword_order_by)
+          (identifier)
+          (direction
+            (keyword_desc))
+          (keyword_nulls)
+          (keyword_first))))
+    (from
+      (keyword_from)
+      (table_expression
+        name: (identifier)))))
