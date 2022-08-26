@@ -950,7 +950,7 @@ module.exports = grammar({
     ),
 
     window_function: $ => seq(
-        $.invocation, // sum(), mean(), lead(), lag()
+        $.invocation,
         $.keyword_over,
         $._window_specification,
     ),
