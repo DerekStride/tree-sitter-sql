@@ -1805,9 +1805,11 @@ FROM tab1;
             name: (identifier)
             parameter: (field 
               name: (identifier)))
-          (keyword_over )
-          (keyword_partition_by)
-          (identifier))))
+          (keyword_over)
+          (window_specification
+            (window_partition_by_expression
+              (keyword_partition_by)
+              (identifier))))))
     (from
       (keyword_from)
       (table_expression
@@ -1842,12 +1844,14 @@ FROM tab1;
             parameter: (field 
               name: (identifier)))
           (keyword_over )
-          (keyword_order_by)
-          (identifier)
-          (direction
-            (keyword_desc))
-          (keyword_nulls)
-          (keyword_last))))
+          (window_specification
+            (window_order_by_expression
+              (keyword_order_by)
+              (identifier)
+              (direction
+                (keyword_desc))
+              (keyword_nulls)
+              (keyword_last))))))
     (from
       (keyword_from)
       (table_expression
@@ -1882,15 +1886,170 @@ FROM tab1;
             parameter: (field 
               name: (identifier)))
           (keyword_over )
-          (keyword_partition_by)
-          (identifier)
-          (keyword_order_by)
-          (identifier)
-          (direction
-            (keyword_desc))
-          (keyword_nulls)
-          (keyword_first))))
+            (window_specification
+                (window_partition_by_expression
+                    (keyword_partition_by)
+                    (identifier))
+                (window_order_by_expression
+                (keyword_order_by)
+                (identifier)
+                (direction
+                  (keyword_desc))
+                (keyword_nulls)
+                (keyword_first))))))
     (from
       (keyword_from)
       (table_expression
         name: (identifier)))))
+
+==================
+Window Functions separate definition
+==================
+
+SELECT 
+  x,
+  y,
+  MAX(x) OVER window_def
+FROM tab1
+WINDOW window_def AS (PARTITION BY y)
+;
+
+---
+(program 
+  (statement 
+    (select 
+      (keyword_select)
+      (select_expression
+        (field 
+          name: (identifier))
+        (field 
+          name: (identifier))
+        (window_function 
+          (invocation 
+            name: (identifier)
+            parameter: (field 
+              name: (identifier)))
+          (keyword_over )
+          (identifier))))
+    (from
+      (keyword_from)
+      (table_expression
+        name: (identifier)))
+    (window_clause
+        (keyword_window)
+        (identifier)
+        (keyword_as)
+        (window_specification
+          (window_partition_by_expression
+            (keyword_partition_by)
+            (identifier))))))
+
+
+==================
+Window Functions partition order frame
+==================
+
+SELECT
+    a,
+    c,
+    MAX(c) OVER (
+        PARTITION BY a
+        ORDER BY a
+        RANGE BETWEEN UNBOUNDED PRECEDING
+        AND UNBOUNDED FOLLOWING
+    )
+FROM
+    tab;
+
+---
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (field
+          (identifier))
+        (field
+          (identifier))
+        (window_function
+          (invocation
+            (identifier)
+            (field
+              (identifier)))
+          (keyword_over)
+          (window_specification
+            (window_partition_by_expression
+              (keyword_partition_by)
+              (identifier))
+            (window_order_by_expression
+              (keyword_order_by)
+              (identifier))
+            (window_frame_clause
+              (keyword_range)
+              (keyword_between)
+              (keyword_unbounded_preceding)
+              (keyword_and)
+              (keyword_unbounded_following))))))
+    (from
+      (keyword_from)
+      (table_expression
+        (identifier)))))
+
+
+
+==================
+Window Functions complex example
+==================
+
+SELECT
+    a,
+    c,
+    MAX(c) OVER (
+        PARTITION BY a
+        ORDER BY a ASC NULLS FIRST
+        ROWS BETWEEN 3 PRECEDING
+        AND 3 FOLLOWING EXCLUDE CURRENT ROW
+    )
+FROM
+    tab;
+
+---
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (field
+          (identifier))
+        (field
+          (identifier))
+        (window_function
+          (invocation
+            (identifier)
+            (field
+              (identifier)))
+          (keyword_over)
+          (window_specification
+            (window_partition_by_expression
+              (keyword_partition_by)
+              (identifier))
+            (window_order_by_expression
+              (keyword_order_by)
+              (identifier)
+              (direction
+                (keyword_asc))
+              (keyword_nulls)
+              (keyword_first))
+            (window_frame_clause
+              (keyword_rows)
+              (keyword_between)
+              (literal)
+              (keyword_preceding)
+              (keyword_and)
+              (literal)
+              (keyword_following)
+              (keyword_exclude_current_row))))))
+    (from
+      (keyword_from)
+      (table_expression
+        (identifier)))))

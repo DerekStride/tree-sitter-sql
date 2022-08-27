@@ -3104,6 +3104,10 @@
         {
           "type": "update",
           "named": true
+        },
+        {
+          "type": "window_clause",
+          "named": true
         }
       ]
     }
@@ -3430,7 +3434,132 @@
     }
   },
   {
+    "type": "window_clause",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "keyword_as",
+          "named": true
+        },
+        {
+          "type": "keyword_window",
+          "named": true
+        },
+        {
+          "type": "window_specification",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "window_frame_clause",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_and",
+          "named": true
+        },
+        {
+          "type": "keyword_between",
+          "named": true
+        },
+        {
+          "type": "keyword_current_row",
+          "named": true
+        },
+        {
+          "type": "keyword_exclude_current_row",
+          "named": true
+        },
+        {
+          "type": "keyword_exclude_group",
+          "named": true
+        },
+        {
+          "type": "keyword_exclude_no_others",
+          "named": true
+        },
+        {
+          "type": "keyword_exclude_ties",
+          "named": true
+        },
+        {
+          "type": "keyword_following",
+          "named": true
+        },
+        {
+          "type": "keyword_groups",
+          "named": true
+        },
+        {
+          "type": "keyword_preceding",
+          "named": true
+        },
+        {
+          "type": "keyword_range",
+          "named": true
+        },
+        {
+          "type": "keyword_rows",
+          "named": true
+        },
+        {
+          "type": "keyword_unbounded_following",
+          "named": true
+        },
+        {
+          "type": "keyword_unbounded_preceding",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "window_function",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "invocation",
+          "named": true
+        },
+        {
+          "type": "keyword_over",
+          "named": true
+        },
+        {
+          "type": "window_specification",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "window_order_by_expression",
     "named": true,
     "fields": {},
     "children": {
@@ -3443,10 +3572,6 @@
         },
         {
           "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "invocation",
           "named": true
         },
         {
@@ -3466,15 +3591,49 @@
           "named": true
         },
         {
-          "type": "keyword_over",
+          "type": "keyword_using",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "window_partition_by_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
           "named": true
         },
         {
           "type": "keyword_partition_by",
           "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "window_specification",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "window_frame_clause",
+          "named": true
         },
         {
-          "type": "keyword_using",
+          "type": "window_order_by_expression",
+          "named": true
+        },
+        {
+          "type": "window_partition_by_expression",
           "named": true
         }
       ]
@@ -3609,6 +3768,10 @@
     "named": true
   },
   {
+    "type": "keyword_between",
+    "named": true
+  },
+  {
     "type": "keyword_bigint",
     "named": true
   },
@@ -3661,6 +3824,10 @@
     "named": true
   },
   {
+    "type": "keyword_current_row",
+    "named": true
+  },
+  {
     "type": "keyword_data",
     "named": true
   },
@@ -3709,6 +3876,22 @@
     "named": true
   },
   {
+    "type": "keyword_exclude_current_row",
+    "named": true
+  },
+  {
+    "type": "keyword_exclude_group",
+    "named": true
+  },
+  {
+    "type": "keyword_exclude_no_others",
+    "named": true
+  },
+  {
+    "type": "keyword_exclude_ties",
+    "named": true
+  },
+  {
     "type": "keyword_exists",
     "named": true
   },
@@ -3718,6 +3901,10 @@
   },
   {
     "type": "keyword_first",
+    "named": true
+  },
+  {
+    "type": "keyword_following",
     "named": true
   },
   {
@@ -3742,6 +3929,10 @@
   },
   {
     "type": "keyword_group_by",
+    "named": true
+  },
+  {
+    "type": "keyword_groups",
     "named": true
   },
   {
@@ -3873,7 +4064,15 @@
     "named": true
   },
   {
+    "type": "keyword_preceding",
+    "named": true
+  },
+  {
     "type": "keyword_primary",
+    "named": true
+  },
+  {
+    "type": "keyword_range",
     "named": true
   },
   {
@@ -3898,6 +4097,10 @@
   },
   {
     "type": "keyword_rollback",
+    "named": true
+  },
+  {
+    "type": "keyword_rows",
     "named": true
   },
   {
@@ -3961,6 +4164,14 @@
     "named": true
   },
   {
+    "type": "keyword_unbounded_following",
+    "named": true
+  },
+  {
+    "type": "keyword_unbounded_preceding",
+    "named": true
+  },
+  {
     "type": "keyword_union",
     "named": true
   },
@@ -3994,6 +4205,10 @@
   },
   {
     "type": "keyword_where",
+    "named": true
+  },
+  {
+    "type": "keyword_window",
     "named": true
   },
   {
