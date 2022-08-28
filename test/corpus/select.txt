@@ -1789,6 +1789,7 @@ SELECT
 FROM tab1;
 
 ---
+
 (program 
   (statement 
     (select 
@@ -1807,7 +1808,7 @@ FROM tab1;
               name: (identifier)))
           (keyword_over)
           (window_specification
-            (window_partition_by_expression
+            (partition_by
               (keyword_partition_by)
               (identifier))))))
     (from
@@ -1827,6 +1828,7 @@ SELECT
 FROM tab1;
 
 ---
+
 (program 
   (statement 
     (select 
@@ -1845,13 +1847,15 @@ FROM tab1;
               name: (identifier)))
           (keyword_over )
           (window_specification
-            (window_order_by_expression
+            (order_by
               (keyword_order_by)
-              (identifier)
-              (direction
-                (keyword_desc))
-              (keyword_nulls)
-              (keyword_last))))))
+              (order_expression
+                (field
+                  name: (identifier))
+                (direction
+                  (keyword_desc))
+                (keyword_nulls)
+                (keyword_last)))))))
     (from
       (keyword_from)
       (table_expression
@@ -1869,6 +1873,7 @@ SELECT
 FROM tab1;
 
 ---
+
 (program 
   (statement 
     (select 
@@ -1887,20 +1892,103 @@ FROM tab1;
               name: (identifier)))
           (keyword_over )
             (window_specification
-                (window_partition_by_expression
+                (partition_by
                     (keyword_partition_by)
                     (identifier))
-                (window_order_by_expression
+                (order_by
                 (keyword_order_by)
-                (identifier)
-                (direction
-                  (keyword_desc))
-                (keyword_nulls)
-                (keyword_first))))))
+                (order_expression
+                  (field
+                    name: (identifier))
+                  (direction
+                    (keyword_desc))
+                  (keyword_nulls)
+                  (keyword_first)))))))
     (from
       (keyword_from)
       (table_expression
         name: (identifier)))))
+
+==================
+Window Functions Empty Window
+==================
+
+SELECT
+    a,
+    SUM(b) OVER () AS empty_sum
+FROM tab1;
+
+---
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (field
+          (identifier))
+        (window_function
+          (invocation
+            (identifier)
+            (field
+              (identifier)))
+          (keyword_over)
+          (window_specification))
+        (keyword_as)
+        (identifier)))
+    (from
+      (keyword_from)
+      (table_expression
+        (identifier)))))
+
+==================
+Window Functions two inline functions
+==================
+
+SELECT
+    a,
+    SUM(b) OVER (PARTITION BY c) AS w1,
+    AVG(b) OVER (ORDER BY d) AS w2,
+FROM tab1;
+
+---
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (field
+          (identifier))
+        (window_function
+          (invocation
+            (identifier)
+            (field
+              (identifier)))
+          (keyword_over)
+          (window_specification
+            (partition_by
+              (keyword_partition_by)
+              (identifier))))
+        (keyword_as)
+        (identifier)
+        (window_function
+          (invocation
+            (identifier)
+            (field
+              (identifier)))
+          (keyword_over)
+          (window_specification
+            (order_by
+              (keyword_order_by)
+              (order_expression
+                (field
+                  (identifier))))))
+        (keyword_as)
+        (identifier)
+        (field
+          (identifier))
+        (identifier)))))
 
 ==================
 Window Functions separate definition
@@ -1911,10 +1999,10 @@ SELECT
   y,
   MAX(x) OVER window_def
 FROM tab1
-WINDOW window_def AS (PARTITION BY y)
-;
+WINDOW window_def AS (PARTITION BY y);
 
 ---
+
 (program 
   (statement 
     (select 
@@ -1940,10 +2028,66 @@ WINDOW window_def AS (PARTITION BY y)
         (identifier)
         (keyword_as)
         (window_specification
-          (window_partition_by_expression
+          (partition_by
             (keyword_partition_by)
             (identifier))))))
 
+
+==================
+Window Functions one inlined one named
+==================
+
+SELECT
+    a,
+    SUM(b) OVER (PARTITION BY c) AS w1,
+    AVG(b) OVER win AS w2,
+FROM tab1
+WINDOW win AS (ORDER BY d)
+;
+
+---
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (field
+          (identifier))
+        (window_function
+          (invocation
+            (identifier)
+            (field
+              (identifier)))
+          (keyword_over)
+          (window_specification
+            (partition_by
+              (keyword_partition_by)
+              (identifier))))
+        (keyword_as)
+        (identifier)
+        (window_function
+          (invocation
+            (identifier)
+            (field
+              (identifier)))
+          (keyword_over)
+          (identifier))
+        (keyword_as)
+        (identifier)
+        (field
+          (identifier))
+        (identifier)))
+    (window_clause
+      (keyword_window)
+      (identifier)
+      (keyword_as)
+      (window_specification
+        (order_by
+          (keyword_order_by)
+          (order_expression
+            (field
+              (identifier))))))))
 
 ==================
 Window Functions partition order frame
@@ -1962,6 +2106,7 @@ FROM
     tab;
 
 ---
+
 (program
   (statement
     (select
@@ -1978,18 +2123,24 @@ FROM
               (identifier)))
           (keyword_over)
           (window_specification
-            (window_partition_by_expression
+            (partition_by
               (keyword_partition_by)
               (identifier))
-            (window_order_by_expression
+            (order_by
               (keyword_order_by)
-              (identifier))
-            (window_frame_clause
+              (order_expression
+                (field
+                  (identifier))))
+            (window_frame
               (keyword_range)
               (keyword_between)
-              (keyword_unbounded_preceding)
+              (frame_definition
+                (keyword_unbounded)
+                (keyword_preceding))
               (keyword_and)
-              (keyword_unbounded_following))))))
+              (frame_definition
+                (keyword_unbounded)
+                (keyword_following)))))))
     (from
       (keyword_from)
       (table_expression
@@ -2020,36 +2171,40 @@ FROM
       (keyword_select)
       (select_expression
         (field
-          (identifier))
+          name: (identifier))
         (field
-          (identifier))
+          name: (identifier))
         (window_function
           (invocation
-            (identifier)
-            (field
-              (identifier)))
+            name: (identifier)
+            parameter: (field
+              name: (identifier)))
           (keyword_over)
           (window_specification
-            (window_partition_by_expression
+            (partition_by
               (keyword_partition_by)
               (identifier))
-            (window_order_by_expression
+            (order_by
               (keyword_order_by)
-              (identifier)
-              (direction
-                (keyword_asc))
-              (keyword_nulls)
-              (keyword_first))
-            (window_frame_clause
+              (order_expression
+                (field
+                  name: (identifier))
+                (direction
+                  (keyword_asc))
+                (keyword_nulls)
+                (keyword_first)))
+            (window_frame
               (keyword_rows)
               (keyword_between)
-              (literal)
-              (keyword_preceding)
+              (frame_definition
+                  (literal)
+                  (keyword_preceding))
               (keyword_and)
-              (literal)
-              (keyword_following)
+              (frame_definition
+                  (literal)
+                  (keyword_following))
               (keyword_exclude_current_row))))))
     (from
       (keyword_from)
       (table_expression
-        (identifier)))))
+        name: (identifier)))))

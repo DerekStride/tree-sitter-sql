@@ -1834,6 +1834,37 @@
     }
   },
   {
+    "type": "frame_definition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_current_row",
+          "named": true
+        },
+        {
+          "type": "keyword_following",
+          "named": true
+        },
+        {
+          "type": "keyword_preceding",
+          "named": true
+        },
+        {
+          "type": "keyword_unbounded",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "from",
     "named": true,
     "fields": {},
@@ -2508,6 +2539,22 @@
           "named": true
         },
         {
+          "type": "keyword_first",
+          "named": true
+        },
+        {
+          "type": "keyword_last",
+          "named": true
+        },
+        {
+          "type": "keyword_nulls",
+          "named": true
+        },
+        {
+          "type": "keyword_using",
+          "named": true
+        },
+        {
           "type": "list",
           "named": true
         },
@@ -2538,6 +2585,25 @@
     "type": "parameter",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "partition_by",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "keyword_partition_by",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "predicate",
@@ -3461,7 +3527,7 @@
     }
   },
   {
-    "type": "window_frame_clause",
+    "type": "window_frame",
     "named": true,
     "fields": {},
     "children": {
@@ -3469,15 +3535,15 @@
       "required": true,
       "types": [
         {
+          "type": "frame_definition",
+          "named": true
+        },
+        {
           "type": "keyword_and",
           "named": true
         },
         {
           "type": "keyword_between",
-          "named": true
-        },
-        {
-          "type": "keyword_current_row",
           "named": true
         },
         {
@@ -3497,15 +3563,7 @@
           "named": true
         },
         {
-          "type": "keyword_following",
-          "named": true
-        },
-        {
           "type": "keyword_groups",
-          "named": true
-        },
-        {
-          "type": "keyword_preceding",
           "named": true
         },
         {
@@ -3514,18 +3572,6 @@
         },
         {
           "type": "keyword_rows",
-          "named": true
-        },
-        {
-          "type": "keyword_unbounded_following",
-          "named": true
-        },
-        {
-          "type": "keyword_unbounded_preceding",
-          "named": true
-        },
-        {
-          "type": "literal",
           "named": true
         }
       ]
@@ -3559,64 +3605,6 @@
     }
   },
   {
-    "type": "window_order_by_expression",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "direction",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "keyword_first",
-          "named": true
-        },
-        {
-          "type": "keyword_last",
-          "named": true
-        },
-        {
-          "type": "keyword_nulls",
-          "named": true
-        },
-        {
-          "type": "keyword_order_by",
-          "named": true
-        },
-        {
-          "type": "keyword_using",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "window_partition_by_expression",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "keyword_partition_by",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "window_specification",
     "named": true,
     "fields": {},
@@ -3625,15 +3613,15 @@
       "required": false,
       "types": [
         {
-          "type": "window_frame_clause",
+          "type": "order_by",
           "named": true
         },
         {
-          "type": "window_order_by_expression",
+          "type": "partition_by",
           "named": true
         },
         {
-          "type": "window_partition_by_expression",
+          "type": "window_frame",
           "named": true
         }
       ]
@@ -4164,11 +4152,7 @@
     "named": true
   },
   {
-    "type": "keyword_unbounded_following",
-    "named": true
-  },
-  {
-    "type": "keyword_unbounded_preceding",
+    "type": "keyword_unbounded",
     "named": true
   },
   {

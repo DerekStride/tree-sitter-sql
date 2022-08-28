@@ -125,11 +125,12 @@ module.exports = grammar({
     keyword_rows: _ => make_keyword("rows"),
     keyword_groups: _ => make_keyword("groups"),
     keyword_between: _ => make_keyword("between"),
-    keyword_unbounded_preceding: _ => make_keyword("unbounded preceding"),
+    keyword_unbounded: _ => make_keyword("unbounded"),
+    // keyword_unbounded_preceding: _ => make_keyword("unbounded preceding"),
+    // keyword_unbounded_following: _ => make_keyword("unbounded following"),
     keyword_preceding: _ => make_keyword("preceding"),
     keyword_current_row: _ => make_keyword("current row"),
     keyword_following: _ => make_keyword("following"),
-    keyword_unbounded_following: _ => make_keyword("unbounded following"),
     keyword_exclude_current_row: _ => make_keyword("exclude current row"),
     keyword_exclude_group: _ => make_keyword("exclude group"),
     keyword_exclude_ties: _ => make_keyword("exclude ties"),
@@ -925,61 +926,54 @@ module.exports = grammar({
       ')',
     ),
 
-    window_partition_by_expression: $ => seq(
+    partition_by: $ => seq(
         $.keyword_partition_by,
         $.identifier,
     ),  
 
-    window_order_by_expression: $ => seq(
-        $.keyword_order_by,
-        $.identifier,
-        optional(
-            seq(
-                choice(
-                    $.direction,
-                    $.keyword_using,
-                ),
-                optional(
-                    seq(
-                        $.keyword_nulls,
-                        choice(
-                            $.keyword_first,
-                            $.keyword_last,
-                        ),
-                    ),
-                ),
-            ),
-        ),
-    ),  
-
-    _frame_definition: $ => seq(
+    frame_definition: $ => seq(
         choice(
-            $.keyword_unbounded_preceding,
-            seq(
-                alias($._number, $.literal),
-                $.keyword_preceding,
-            ),
-            $.keyword_current_row,
-            seq(
-                alias($._number, $.literal),
-                $.keyword_following,
-            ),
-            $.keyword_unbounded_following,
+          seq(
+            $.keyword_unbounded,
+            $.keyword_preceding,
+          ),
+          seq(
+              alias($._number, $.literal),
+              $.keyword_preceding,
+          ),
+          $.keyword_current_row,
+          seq(
+              alias($._number, $.literal),
+              $.keyword_following,
+          ),
+          seq(
+            $.keyword_unbounded,
+            $.keyword_following,
+          ),
         ),
     ),
 
-    window_frame_clause: $ => seq(
+    window_frame: $ => seq(
         choice(
             $.keyword_range,
             $.keyword_rows,
             $.keyword_groups,
         ),
+
         optional(
-            $.keyword_between,
+            choice(
+                seq(
+                    $.keyword_between,
+                    $.frame_definition,
+                    $.keyword_and,
+                    $.frame_definition,
+                ),
+                seq(
+                    $.frame_definition,
+                    $.frame_definition,
+                )
+            ),
         ),
-        $._frame_definition,
-        $.keyword_and,
-        $._frame_definition,
         optional(
             choice(
                 $.keyword_exclude_current_row,
@@ -999,11 +993,15 @@ module.exports = grammar({
 
     window_specification: $ => seq(
         '(',
-        repeat(
-            choice(
-                $.window_partition_by_expression,
-                $.window_order_by_expression,
-                $.window_frame_clause,
+        seq(
+            optional(
+                $.partition_by,
+            ),
+            optional(
+                $.order_by
+            ),
+            optional(
+                $.window_frame,
             ),
         ),
         ')',
@@ -1183,7 +1181,23 @@ module.exports = grammar({
 
     order_expression: $ => seq(
       $._expression,
-      optional($.direction),
+      optional(
+        seq(
+          choice(
+            $.direction,
+            $.keyword_using,
+          ),
+          optional(
+            seq(
+              $.keyword_nulls,
+              choice(
+                $.keyword_first,
+                $.keyword_last,
+              ),
+            ),
+          ),
+        ),
+      ),
       repeat(
         seq(
           ',',
