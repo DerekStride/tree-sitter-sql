@@ -51,8 +51,10 @@ module.exports = grammar({
     keyword_lateral: _ => make_keyword("lateral"),
     keyword_on: _ => make_keyword("on"),
     keyword_where: _ => make_keyword("where"),
-    keyword_order_by: _ => make_keyword("order by"),
-    keyword_group_by: _ => make_keyword("group by"),
+    keyword_order: _ => make_keyword("order"),
+    keyword_group: _ => make_keyword("group"),
+    keyword_partition: _ => make_keyword("partition"),
+    keyword_by: _ => make_keyword("by"),
     keyword_having: _ => make_keyword("having"),
     keyword_desc: _ => make_keyword("desc"),
     keyword_asc: _ => make_keyword("asc"),
@@ -115,6 +117,23 @@ module.exports = grammar({
     keyword_commit: _ => make_keyword("commit"),
     keyword_rollback: _ => make_keyword("rollback"),
     keyword_transaction: _ => make_keyword("transaction"),
+    keyword_over: _ => make_keyword("over"),
+    keyword_nulls: _ => make_keyword("nulls"),
+    keyword_first: _ => make_keyword("first"),
+    keyword_last: _ => make_keyword("last"),
+    keyword_window: _ => make_keyword("window"),
+    keyword_range: _ => make_keyword("range"),
+    keyword_rows: _ => make_keyword("rows"),
+    keyword_groups: _ => make_keyword("groups"),
+    keyword_between: _ => make_keyword("between"),
+    keyword_unbounded: _ => make_keyword("unbounded"),
+    keyword_preceding: _ => make_keyword("preceding"),
+    keyword_following: _ => make_keyword("following"),
+    keyword_exclude: _ => make_keyword("exclude"),
+    keyword_current: _ => make_keyword("current"),
+    keyword_row: _ => make_keyword("row"),
+    keyword_ties: _ => make_keyword("ties"),
+    keyword_others: _ => make_keyword("others"),
 
     _temporary: $ => choice($.keyword_temp, $.keyword_temporary),
     _not_null: $ => seq($.keyword_not, $.keyword_null),
@@ -123,6 +142,11 @@ module.exports = grammar({
     _if_not_exists: $ => seq($.keyword_if, $.keyword_not, $.keyword_exists),
     _or_replace: $ => seq($.keyword_or, $.keyword_replace),
     _default_null: $ => seq($.keyword_default, $.keyword_null),
+    _current_row: $ => seq($.keyword_current, $.keyword_row),
+    _exclude_current_row: $ => seq($.keyword_exclude, $.keyword_current, $.keyword_row),
+    _exclude_group: $ => seq($.keyword_exclude, $.keyword_group),
+    _exclude_no_others: $ => seq($.keyword_exclude, $.keyword_no, $.keyword_others),
+    _exclude_ties: $ => seq($.keyword_exclude, $.keyword_ties),
     direction: $ => choice($.keyword_desc, $.keyword_asc),
 
     // Types
@@ -285,6 +309,7 @@ module.exports = grammar({
         $._insert_statement,
         $._update_statement,
       ),
+      optional($.window_clause),
     ),
 
     cte: $ => seq(
@@ -905,6 +930,97 @@ module.exports = grammar({
       ')',
     ),
 
+    partition_by: $ => seq(
+        $.keyword_partition,
+        $.keyword_by,
+        $.identifier,
+    ),  
+
+    frame_definition: $ => seq(
+        choice(
+          seq(
+            $.keyword_unbounded,
+            $.keyword_preceding,
+          ),
+          seq(
+              alias($._number, $.literal),
+              $.keyword_preceding,
+          ),
+          $._current_row,
+          seq(
+              alias($._number, $.literal),
+              $.keyword_following,
+          ),
+          seq(
+            $.keyword_unbounded,
+            $.keyword_following,
+          ),
+        ),
+    ),
+
+    window_frame: $ => seq(
+        choice(
+            $.keyword_range,
+            $.keyword_rows,
+            $.keyword_groups,
+        ),
+
+        optional(
+            choice(
+                seq(
+                    $.keyword_between,
+                    $.frame_definition,
+                    $.keyword_and,
+                    $.frame_definition,
+                ),
+                seq(
+                    $.frame_definition,
+                    $.frame_definition,
+                )
+            ),
+        ),
+        optional(
+            choice(
+                $._exclude_current_row,
+                $._exclude_group,
+                $._exclude_ties,
+                $._exclude_no_others,
+            ),
+        ), 
+    ),
+
+    window_clause: $ => seq(
+        $.keyword_window,
+        $.identifier,
+        $.keyword_as,
+        $.window_specification,
+    ),
+
+    window_specification: $ => seq(
+        '(',
+        seq(
+            optional(
+                $.partition_by,
+            ),
+            optional(
+                $.order_by
+            ),
+            optional(
+                $.window_frame,
+            ),
+        ),
+        ')',
+    ),
+
+    window_function: $ => seq(
+        $.invocation,
+        $.keyword_over,
+        choice(
+            $.identifier,
+            $.window_specification,
+        ),
+    ),
+
     _function_params: $ => seq(
       field('parameter', $._expression),
       optional(
@@ -1053,7 +1169,8 @@ module.exports = grammar({
     ),
 
     group_by: $ => seq(
-      $.keyword_group_by,
+      $.keyword_group,
+      $.keyword_by,
       $.group_list,
       optional($._having),
     ),
@@ -1064,13 +1181,30 @@ module.exports = grammar({
     ),
 
     order_by: $ => seq(
-      $.keyword_order_by,
+      $.keyword_order,
+      $.keyword_by,
       $.order_expression,
     ),
 
     order_expression: $ => seq(
       $._expression,
-      optional($.direction),
+      optional(
+        seq(
+          choice(
+            $.direction,
+            $.keyword_using,
+          ),
+          optional(
+            seq(
+              $.keyword_nulls,
+              choice(
+                $.keyword_first,
+                $.keyword_last,
+              ),
+            ),
+          ),
+        ),
+      ),
       repeat(
         seq(
           ',',
@@ -1139,6 +1273,7 @@ module.exports = grammar({
       $.parameter,
       $.list,
       $.case,
+      $.window_function,
       $.predicate,
       $.subquery,
       $.cast,
