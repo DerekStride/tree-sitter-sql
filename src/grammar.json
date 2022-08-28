@@ -90,13 +90,21 @@
       "type": "PATTERN",
       "value": "where|WHERE"
     },
-    "keyword_order_by": {
+    "keyword_order": {
       "type": "PATTERN",
-      "value": "order by|ORDER BY"
+      "value": "order|ORDER"
     },
-    "keyword_group_by": {
+    "keyword_group": {
       "type": "PATTERN",
-      "value": "group by|GROUP BY"
+      "value": "group|GROUP"
+    },
+    "keyword_partition": {
+      "type": "PATTERN",
+      "value": "partition|PARTITION"
+    },
+    "keyword_by": {
+      "type": "PATTERN",
+      "value": "by|BY"
     },
     "keyword_having": {
       "type": "PATTERN",
@@ -350,10 +358,6 @@
       "type": "PATTERN",
       "value": "over|OVER"
     },
-    "keyword_partition_by": {
-      "type": "PATTERN",
-      "value": "partition by|PARTITION BY"
-    },
     "keyword_nulls": {
       "type": "PATTERN",
       "value": "nulls|NULLS"
@@ -394,29 +398,102 @@
       "type": "PATTERN",
       "value": "preceding|PRECEDING"
     },
-    "keyword_current_row": {
-      "type": "PATTERN",
-      "value": "current row|CURRENT ROW"
-    },
     "keyword_following": {
       "type": "PATTERN",
       "value": "following|FOLLOWING"
     },
-    "keyword_exclude_current_row": {
+    "keyword_exclude": {
       "type": "PATTERN",
-      "value": "exclude current row|EXCLUDE CURRENT ROW"
+      "value": "exclude|EXCLUDE"
     },
-    "keyword_exclude_group": {
+    "keyword_current": {
       "type": "PATTERN",
-      "value": "exclude group|EXCLUDE GROUP"
+      "value": "current|CURRENT"
     },
-    "keyword_exclude_ties": {
+    "keyword_row": {
       "type": "PATTERN",
-      "value": "exclude ties|EXCLUDE TIES"
+      "value": "row|ROW"
     },
-    "keyword_exclude_no_others": {
+    "keyword_ties": {
       "type": "PATTERN",
-      "value": "exclude no others|EXCLUDE NO OTHERS"
+      "value": "ties|TIES"
+    },
+    "keyword_others": {
+      "type": "PATTERN",
+      "value": "others|OTHERS"
+    },
+    "_current_row": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_current"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_row"
+        }
+      ]
+    },
+    "_exclude_current_row": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_exclude"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_current"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_row"
+        }
+      ]
+    },
+    "_exclude_group": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_exclude"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_group"
+        }
+      ]
+    },
+    "_exclude_no_others": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_exclude"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_no"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_others"
+        }
+      ]
+    },
+    "_exclude_ties": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_exclude"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_ties"
+        }
+      ]
     },
     "_temporary": {
       "type": "CHOICE",
@@ -3737,7 +3814,11 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "keyword_partition_by"
+          "name": "keyword_partition"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_by"
         },
         {
           "type": "SYMBOL",
@@ -3784,7 +3865,7 @@
             },
             {
               "type": "SYMBOL",
-              "name": "keyword_current_row"
+              "name": "_current_row"
             },
             {
               "type": "SEQ",
@@ -3896,19 +3977,19 @@
               "members": [
                 {
                   "type": "SYMBOL",
-                  "name": "keyword_exclude_current_row"
+                  "name": "_exclude_current_row"
                 },
                 {
                   "type": "SYMBOL",
-                  "name": "keyword_exclude_group"
+                  "name": "_exclude_group"
                 },
                 {
                   "type": "SYMBOL",
-                  "name": "keyword_exclude_ties"
+                  "name": "_exclude_ties"
                 },
                 {
                   "type": "SYMBOL",
-                  "name": "keyword_exclude_no_others"
+                  "name": "_exclude_no_others"
                 }
               ]
             },
@@ -4605,7 +4686,11 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "keyword_group_by"
+          "name": "keyword_group"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_by"
         },
         {
           "type": "SYMBOL",
@@ -4643,7 +4728,11 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "keyword_order_by"
+          "name": "keyword_order"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_by"
         },
         {
           "type": "SYMBOL",

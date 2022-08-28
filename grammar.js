@@ -51,8 +51,10 @@ module.exports = grammar({
     keyword_lateral: _ => make_keyword("lateral"),
     keyword_on: _ => make_keyword("on"),
     keyword_where: _ => make_keyword("where"),
-    keyword_order_by: _ => make_keyword("order by"),
-    keyword_group_by: _ => make_keyword("group by"),
+    keyword_order: _ => make_keyword("order"),
+    keyword_group: _ => make_keyword("group"),
+    keyword_partition: _ => make_keyword("partition"),
+    keyword_by: _ => make_keyword("by"),
     keyword_having: _ => make_keyword("having"),
     keyword_desc: _ => make_keyword("desc"),
     keyword_asc: _ => make_keyword("asc"),
@@ -116,7 +118,6 @@ module.exports = grammar({
     keyword_rollback: _ => make_keyword("rollback"),
     keyword_transaction: _ => make_keyword("transaction"),
     keyword_over: _ => make_keyword("over"),
-    keyword_partition_by: _ => make_keyword("partition by"),
     keyword_nulls: _ => make_keyword("nulls"),
     keyword_first: _ => make_keyword("first"),
     keyword_last: _ => make_keyword("last"),
@@ -127,12 +128,12 @@ module.exports = grammar({
     keyword_between: _ => make_keyword("between"),
     keyword_unbounded: _ => make_keyword("unbounded"),
     keyword_preceding: _ => make_keyword("preceding"),
-    keyword_current_row: _ => make_keyword("current row"),
     keyword_following: _ => make_keyword("following"),
-    keyword_exclude_current_row: _ => make_keyword("exclude current row"),
-    keyword_exclude_group: _ => make_keyword("exclude group"),
-    keyword_exclude_ties: _ => make_keyword("exclude ties"),
-    keyword_exclude_no_others: _ => make_keyword("exclude no others"),
+    keyword_exclude: _ => make_keyword("exclude"),
+    keyword_current: _ => make_keyword("current"),
+    keyword_row: _ => make_keyword("row"),
+    keyword_ties: _ => make_keyword("ties"),
+    keyword_others: _ => make_keyword("others"),
 
     _temporary: $ => choice($.keyword_temp, $.keyword_temporary),
     _not_null: $ => seq($.keyword_not, $.keyword_null),
@@ -141,6 +142,11 @@ module.exports = grammar({
     _if_not_exists: $ => seq($.keyword_if, $.keyword_not, $.keyword_exists),
     _or_replace: $ => seq($.keyword_or, $.keyword_replace),
     _default_null: $ => seq($.keyword_default, $.keyword_null),
+    _current_row: $ => seq($.keyword_current, $.keyword_row),
+    _exclude_current_row: $ => seq($.keyword_exclude, $.keyword_current, $.keyword_row),
+    _exclude_group: $ => seq($.keyword_exclude, $.keyword_group),
+    _exclude_no_others: $ => seq($.keyword_exclude, $.keyword_no, $.keyword_others),
+    _exclude_ties: $ => seq($.keyword_exclude, $.keyword_ties),
     direction: $ => choice($.keyword_desc, $.keyword_asc),
 
     // Types
@@ -925,7 +931,8 @@ module.exports = grammar({
     ),
 
     partition_by: $ => seq(
-        $.keyword_partition_by,
+        $.keyword_partition,
+        $.keyword_by,
         $.identifier,
     ),  
 
@@ -939,7 +946,7 @@ module.exports = grammar({
               alias($._number, $.literal),
               $.keyword_preceding,
           ),
-          $.keyword_current_row,
+          $._current_row,
           seq(
               alias($._number, $.literal),
               $.keyword_following,
@@ -974,10 +981,10 @@ module.exports = grammar({
         ),
         optional(
             choice(
-                $.keyword_exclude_current_row,
-                $.keyword_exclude_group,
-                $.keyword_exclude_ties,
-                $.keyword_exclude_no_others,
+                $._exclude_current_row,
+                $._exclude_group,
+                $._exclude_ties,
+                $._exclude_no_others,
             ),
         ), 
     ),
@@ -1162,7 +1169,8 @@ module.exports = grammar({
     ),
 
     group_by: $ => seq(
-      $.keyword_group_by,
+      $.keyword_group,
+      $.keyword_by,
       $.group_list,
       optional($._having),
     ),
@@ -1173,7 +1181,8 @@ module.exports = grammar({
     ),
 
     order_by: $ => seq(
-      $.keyword_order_by,
+      $.keyword_order,
+      $.keyword_by,
       $.order_expression,
     ),
 

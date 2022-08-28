@@ -1842,7 +1842,7 @@
       "required": true,
       "types": [
         {
-          "type": "keyword_current_row",
+          "type": "keyword_current",
           "named": true
         },
         {
@@ -1851,6 +1851,10 @@
         },
         {
           "type": "keyword_preceding",
+          "named": true
+        },
+        {
+          "type": "keyword_row",
           "named": true
         },
         {
@@ -1924,7 +1928,11 @@
           "named": true
         },
         {
-          "type": "keyword_group_by",
+          "type": "keyword_by",
+          "named": true
+        },
+        {
+          "type": "keyword_group",
           "named": true
         },
         {
@@ -2492,7 +2500,11 @@
       "required": true,
       "types": [
         {
-          "type": "keyword_order_by",
+          "type": "keyword_by",
+          "named": true
+        },
+        {
+          "type": "keyword_order",
           "named": true
         },
         {
@@ -2599,7 +2611,11 @@
           "named": true
         },
         {
-          "type": "keyword_partition_by",
+          "type": "keyword_by",
+          "named": true
+        },
+        {
+          "type": "keyword_partition",
           "named": true
         }
       ]
@@ -3547,19 +3563,15 @@
           "named": true
         },
         {
-          "type": "keyword_exclude_current_row",
+          "type": "keyword_current",
           "named": true
         },
         {
-          "type": "keyword_exclude_group",
+          "type": "keyword_exclude",
           "named": true
         },
         {
-          "type": "keyword_exclude_no_others",
-          "named": true
-        },
-        {
-          "type": "keyword_exclude_ties",
+          "type": "keyword_group",
           "named": true
         },
         {
@@ -3567,11 +3579,27 @@
           "named": true
         },
         {
+          "type": "keyword_no",
+          "named": true
+        },
+        {
+          "type": "keyword_others",
+          "named": true
+        },
+        {
           "type": "keyword_range",
           "named": true
         },
         {
+          "type": "keyword_row",
+          "named": true
+        },
+        {
           "type": "keyword_rows",
+          "named": true
+        },
+        {
+          "type": "keyword_ties",
           "named": true
         }
       ]
@@ -3780,6 +3808,10 @@
     "named": true
   },
   {
+    "type": "keyword_by",
+    "named": true
+  },
+  {
     "type": "keyword_bytea",
     "named": true
   },
@@ -3812,7 +3844,7 @@
     "named": true
   },
   {
-    "type": "keyword_current_row",
+    "type": "keyword_current",
     "named": true
   },
   {
@@ -3864,19 +3896,7 @@
     "named": true
   },
   {
-    "type": "keyword_exclude_current_row",
-    "named": true
-  },
-  {
-    "type": "keyword_exclude_group",
-    "named": true
-  },
-  {
-    "type": "keyword_exclude_no_others",
-    "named": true
-  },
-  {
-    "type": "keyword_exclude_ties",
+    "type": "keyword_exclude",
     "named": true
   },
   {
@@ -3916,7 +3936,7 @@
     "named": true
   },
   {
-    "type": "keyword_group_by",
+    "type": "keyword_group",
     "named": true
   },
   {
@@ -4032,7 +4052,11 @@
     "named": true
   },
   {
-    "type": "keyword_order_by",
+    "type": "keyword_order",
+    "named": true
+  },
+  {
+    "type": "keyword_others",
     "named": true
   },
   {
@@ -4048,7 +4072,7 @@
     "named": true
   },
   {
-    "type": "keyword_partition_by",
+    "type": "keyword_partition",
     "named": true
   },
   {
@@ -4085,6 +4109,10 @@
   },
   {
     "type": "keyword_rollback",
+    "named": true
+  },
+  {
+    "type": "keyword_row",
     "named": true
   },
   {
@@ -4133,6 +4161,10 @@
   },
   {
     "type": "keyword_then",
+    "named": true
+  },
+  {
+    "type": "keyword_ties",
     "named": true
   },
   {

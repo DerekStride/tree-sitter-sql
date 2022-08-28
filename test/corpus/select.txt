@@ -406,7 +406,8 @@ ORDER BY id DESC;
       left: (field name: (identifier))
       right: (literal))))
    (order_by
-    (keyword_order_by)
+    (keyword_order)
+    (keyword_by)
     (order_expression
      (field name: (identifier))
      (direction (keyword_desc)))))))
@@ -759,7 +760,8 @@ HAVING other_id > 10;
    (table_expression
     name: (identifier))
    (group_by
-    (keyword_group_by)
+    (keyword_group)
+    (keyword_by)
     (group_list
      (identifier))
     (keyword_having)
@@ -791,7 +793,8 @@ HAVING other_id > 10;
    (table_expression
     name: (identifier))
    (group_by
-    (keyword_group_by)
+    (keyword_group)
+    (keyword_by)
     (group_list
      (literal))
     (keyword_having)
@@ -824,7 +827,8 @@ HAVING other_id > 10;
    (table_expression
     name: (identifier))
    (group_by
-    (keyword_group_by)
+    (keyword_group)
+    (keyword_by)
     (group_list
      (literal)
      (identifier))
@@ -1313,7 +1317,8 @@ ORDER BY m.title, id ASC;
           left: (field name: (identifier))
           right: (literal)))))
    (order_by
-    (keyword_order_by)
+    (keyword_order)
+    (keyword_by)
     (order_expression
      (field table_alias: (identifier) name: (identifier))
      (field name: (identifier))
@@ -1686,7 +1691,8 @@ ORDER BY my_table.title, my_table.id;
       left: (field table_alias: (identifier) name: (identifier))
       right: (literal (keyword_true))))))
   (order_by
-   (keyword_order_by)
+   (keyword_order)
+   (keyword_by)
    (order_expression
     (field table_alias: (identifier) name: (identifier))
     (field table_alias: (identifier) name: (identifier)))))))
@@ -1809,7 +1815,8 @@ FROM tab1;
           (keyword_over)
           (window_specification
             (partition_by
-              (keyword_partition_by)
+              (keyword_partition)
+              (keyword_by)
               (identifier))))))
     (from
       (keyword_from)
@@ -1848,7 +1855,8 @@ FROM tab1;
           (keyword_over )
           (window_specification
             (order_by
-              (keyword_order_by)
+              (keyword_order)
+              (keyword_by)
               (order_expression
                 (field
                   name: (identifier))
@@ -1893,10 +1901,12 @@ FROM tab1;
           (keyword_over )
             (window_specification
                 (partition_by
-                    (keyword_partition_by)
+                    (keyword_partition)
+                    (keyword_by)
                     (identifier))
                 (order_by
-                (keyword_order_by)
+                (keyword_order)
+                (keyword_by)
                 (order_expression
                   (field
                     name: (identifier))
@@ -1968,7 +1978,8 @@ FROM tab1;
           (keyword_over)
           (window_specification
             (partition_by
-              (keyword_partition_by)
+              (keyword_partition)
+              (keyword_by)
               (identifier))))
         (keyword_as)
         (identifier)
@@ -1980,7 +1991,8 @@ FROM tab1;
           (keyword_over)
           (window_specification
             (order_by
-              (keyword_order_by)
+              (keyword_order)
+              (keyword_by)
               (order_expression
                 (field
                   (identifier))))))
@@ -2029,7 +2041,8 @@ WINDOW window_def AS (PARTITION BY y);
         (keyword_as)
         (window_specification
           (partition_by
-            (keyword_partition_by)
+            (keyword_partition)
+            (keyword_by)
             (identifier))))))
 
 
@@ -2062,7 +2075,8 @@ WINDOW win AS (ORDER BY d)
           (keyword_over)
           (window_specification
             (partition_by
-              (keyword_partition_by)
+              (keyword_partition)
+              (keyword_by)
               (identifier))))
         (keyword_as)
         (identifier)
@@ -2084,7 +2098,8 @@ WINDOW win AS (ORDER BY d)
       (keyword_as)
       (window_specification
         (order_by
-          (keyword_order_by)
+          (keyword_order)
+          (keyword_by)
           (order_expression
             (field
               (identifier))))))))
@@ -2124,10 +2139,12 @@ FROM
           (keyword_over)
           (window_specification
             (partition_by
-              (keyword_partition_by)
+              (keyword_partition)
+              (keyword_by)
               (identifier))
             (order_by
-              (keyword_order_by)
+              (keyword_order)
+              (keyword_by)
               (order_expression
                 (field
                   (identifier))))
@@ -2182,10 +2199,12 @@ FROM
           (keyword_over)
           (window_specification
             (partition_by
-              (keyword_partition_by)
+              (keyword_partition)
+              (keyword_by)
               (identifier))
             (order_by
-              (keyword_order_by)
+              (keyword_order)
+              (keyword_by)
               (order_expression
                 (field
                   name: (identifier))
@@ -2203,7 +2222,9 @@ FROM
               (frame_definition
                   (literal)
                   (keyword_following))
-              (keyword_exclude_current_row))))))
+              (keyword_exclude)
+              (keyword_current)
+              (keyword_row))))))
     (from
       (keyword_from)
       (table_expression
