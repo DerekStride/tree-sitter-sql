@@ -1806,11 +1806,15 @@
       "required": true,
       "types": [
         {
-          "type": "identifier",
+          "type": "field",
           "named": true
         },
         {
           "type": "literal",
+          "named": true
+        },
+        {
+          "type": "subquery",
           "named": true
         }
       ]

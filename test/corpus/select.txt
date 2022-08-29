@@ -764,7 +764,8 @@ HAVING other_id > 10;
     (keyword_group)
     (keyword_by)
     (expression_list
-     (identifier))
+     (field
+      name: (identifier)))
     (keyword_having)
     (predicate
      left: (field name: (identifier))
@@ -832,7 +833,8 @@ HAVING other_id > 10;
     (keyword_by)
     (expression_list
      (literal)
-     (identifier))
+     (field
+     name: (identifier)))
     (keyword_having)
     (predicate
      left: (field name: (identifier))
@@ -1819,7 +1821,8 @@ FROM tab1;
               (keyword_partition)
               (keyword_by)
               (expression_list
-              (identifier)))))))
+              (field
+                name: (identifier))))))))
     (from
       (keyword_from)
       (table_expression
@@ -1906,7 +1909,8 @@ FROM tab1;
                     (keyword_partition)
                     (keyword_by)
                     (expression_list
-                    (identifier)))
+                    (field
+                      name: (identifier))))
                 (order_by
                 (keyword_order)
                 (keyword_by)
@@ -1972,26 +1976,27 @@ FROM tab1;
       (keyword_select)
       (select_expression
         (field
-          (identifier))
+          name: (identifier))
         (window_function
           (invocation
-            (identifier)
-            (field
-              (identifier)))
+            name: (identifier)
+            parameter: (field
+              name: (identifier)))
           (keyword_over)
           (window_specification
             (partition_by
               (keyword_partition)
               (keyword_by)
               (expression_list
-              (identifier)))))
+              (field
+                name: (identifier))))))
         (keyword_as)
-        (identifier)
+        alias: (identifier)
         (window_function
           (invocation
-            (identifier)
-            (field
-              (identifier)))
+            name: (identifier)
+            parameter: (field
+              name: (identifier)))
           (keyword_over)
           (window_specification
             (order_by
@@ -1999,12 +2004,12 @@ FROM tab1;
               (keyword_by)
               (order_expression
                 (field
-                  (identifier))))))
+                  name: (identifier))))))
         (keyword_as)
-        (identifier)
+        alias: (identifier)
         (field
-          (identifier))
-        (identifier)))))
+          name: (identifier))
+        alias: (identifier)))))
 
 ==================
 Window Functions separate definition
@@ -2048,7 +2053,8 @@ WINDOW window_def AS (PARTITION BY y);
             (keyword_partition)
             (keyword_by)
             (expression_list
-            (identifier)))))))
+            (field
+              name: (identifier))))))))
 
 
 ==================
@@ -2071,33 +2077,34 @@ WINDOW win AS (ORDER BY d)
       (keyword_select)
       (select_expression
         (field
-          (identifier))
+          name: (identifier))
         (window_function
           (invocation
-            (identifier)
-            (field
-              (identifier)))
+            name: (identifier)
+            parameter: (field
+              name: (identifier)))
           (keyword_over)
           (window_specification
             (partition_by
               (keyword_partition)
               (keyword_by)
               (expression_list
-              (identifier)))))
+              (field
+                name: (identifier))))))
         (keyword_as)
-        (identifier)
+        alias: (identifier)
         (window_function
           (invocation
-            (identifier)
-            (field
-              (identifier)))
+            name: (identifier)
+            parameter: (field
+              name: (identifier)))
           (keyword_over)
           (identifier))
         (keyword_as)
-        (identifier)
+        alias: (identifier)
         (field
-          (identifier))
-        (identifier)))
+          name: (identifier))
+        alias: (identifier)))
     (window_clause
       (keyword_window)
       (identifier)
@@ -2108,7 +2115,7 @@ WINDOW win AS (ORDER BY d)
           (keyword_by)
           (order_expression
             (field
-              (identifier))))))))
+              name: (identifier))))))))
 
 ==================
 Window Functions partition order frame
@@ -2134,27 +2141,28 @@ FROM
       (keyword_select)
       (select_expression
         (field
-          (identifier))
+          name: (identifier))
         (field
-          (identifier))
+          name: (identifier))
         (window_function
           (invocation
-            (identifier)
-            (field
-              (identifier)))
+            name: (identifier)
+            parameter: (field
+              name: (identifier)))
           (keyword_over)
           (window_specification
             (partition_by
               (keyword_partition)
               (keyword_by)
               (expression_list
-              (identifier)))
+              (field
+                name: (identifier))))
             (order_by
               (keyword_order)
               (keyword_by)
               (order_expression
                 (field
-                  (identifier))))
+                  name: (identifier))))
             (window_frame
               (keyword_range)
               (keyword_between)
@@ -2168,7 +2176,7 @@ FROM
     (from
       (keyword_from)
       (table_expression
-        (identifier)))))
+        name: (identifier)))))
 
 
 
@@ -2209,8 +2217,10 @@ FROM
               (keyword_partition)
               (keyword_by)
               (expression_list
-              (identifier)
-              (identifier)))
+              (field
+                name: (identifier))
+              (field
+                name: (identifier))))
             (order_by
               (keyword_order)
               (keyword_by)
