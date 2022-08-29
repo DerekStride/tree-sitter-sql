@@ -409,17 +409,17 @@ module.exports = grammar({
     ),
 
 
-    group_list :$ => seq(
-        $._group_list,
+    expression_list :$ => seq(
+        $._expression_list,
         repeat(
             seq(
                 ',',
-                $._group_list,
+                $._expression_list,
             )
         )
     ),
       
-    _group_list: $ => seq(
+    _expression_list: $ => seq(
         choice(
           $.identifier,
           alias($._number, $.literal),
@@ -933,7 +933,7 @@ module.exports = grammar({
     partition_by: $ => seq(
         $.keyword_partition,
         $.keyword_by,
-        $.identifier,
+        $.expression_list,
     ),  
 
     frame_definition: $ => seq(
@@ -1171,7 +1171,7 @@ module.exports = grammar({
     group_by: $ => seq(
       $.keyword_group,
       $.keyword_by,
-      $.group_list,
+      $.expression_list,
       optional($._having),
     ),
 
