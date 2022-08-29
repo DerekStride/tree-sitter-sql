@@ -744,6 +744,7 @@ SELECT other_id, COUNT(name)
 FROM my_table
 GROUP BY other_id
 HAVING other_id > 10;
+
 ---
 
 (program
@@ -762,7 +763,7 @@ HAVING other_id > 10;
    (group_by
     (keyword_group)
     (keyword_by)
-    (group_list
+    (expression_list
      (identifier))
     (keyword_having)
     (predicate
@@ -795,7 +796,7 @@ HAVING other_id > 10;
    (group_by
     (keyword_group)
     (keyword_by)
-    (group_list
+    (expression_list
      (literal))
     (keyword_having)
     (predicate
@@ -829,7 +830,7 @@ HAVING other_id > 10;
    (group_by
     (keyword_group)
     (keyword_by)
-    (group_list
+    (expression_list
      (literal)
      (identifier))
     (keyword_having)
@@ -1817,7 +1818,8 @@ FROM tab1;
             (partition_by
               (keyword_partition)
               (keyword_by)
-              (identifier))))))
+              (expression_list
+              (identifier)))))))
     (from
       (keyword_from)
       (table_expression
@@ -1903,7 +1905,8 @@ FROM tab1;
                 (partition_by
                     (keyword_partition)
                     (keyword_by)
-                    (identifier))
+                    (expression_list
+                    (identifier)))
                 (order_by
                 (keyword_order)
                 (keyword_by)
@@ -1980,7 +1983,8 @@ FROM tab1;
             (partition_by
               (keyword_partition)
               (keyword_by)
-              (identifier))))
+              (expression_list
+              (identifier)))))
         (keyword_as)
         (identifier)
         (window_function
@@ -2043,7 +2047,8 @@ WINDOW window_def AS (PARTITION BY y);
           (partition_by
             (keyword_partition)
             (keyword_by)
-            (identifier))))))
+            (expression_list
+            (identifier)))))))
 
 
 ==================
@@ -2077,7 +2082,8 @@ WINDOW win AS (ORDER BY d)
             (partition_by
               (keyword_partition)
               (keyword_by)
-              (identifier))))
+              (expression_list
+              (identifier)))))
         (keyword_as)
         (identifier)
         (window_function
@@ -2141,7 +2147,8 @@ FROM
             (partition_by
               (keyword_partition)
               (keyword_by)
-              (identifier))
+              (expression_list
+              (identifier)))
             (order_by
               (keyword_order)
               (keyword_by)
@@ -2173,7 +2180,7 @@ SELECT
     a,
     c,
     MAX(c) OVER (
-        PARTITION BY a
+        PARTITION BY a,b
         ORDER BY a ASC NULLS FIRST
         ROWS BETWEEN 3 PRECEDING
         AND 3 FOLLOWING EXCLUDE CURRENT ROW
@@ -2201,7 +2208,9 @@ FROM
             (partition_by
               (keyword_partition)
               (keyword_by)
-              (identifier))
+              (expression_list
+              (identifier)
+              (identifier)))
             (order_by
               (keyword_order)
               (keyword_by)

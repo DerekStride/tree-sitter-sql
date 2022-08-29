@@ -422,79 +422,6 @@
       "type": "PATTERN",
       "value": "others|OTHERS"
     },
-    "_current_row": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "keyword_current"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "keyword_row"
-        }
-      ]
-    },
-    "_exclude_current_row": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "keyword_exclude"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "keyword_current"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "keyword_row"
-        }
-      ]
-    },
-    "_exclude_group": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "keyword_exclude"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "keyword_group"
-        }
-      ]
-    },
-    "_exclude_no_others": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "keyword_exclude"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "keyword_no"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "keyword_others"
-        }
-      ]
-    },
-    "_exclude_ties": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "keyword_exclude"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "keyword_ties"
-        }
-      ]
-    },
     "_temporary": {
       "type": "CHOICE",
       "members": [
@@ -587,6 +514,79 @@
         {
           "type": "SYMBOL",
           "name": "keyword_null"
+        }
+      ]
+    },
+    "_current_row": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_current"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_row"
+        }
+      ]
+    },
+    "_exclude_current_row": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_exclude"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_current"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_row"
+        }
+      ]
+    },
+    "_exclude_group": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_exclude"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_group"
+        }
+      ]
+    },
+    "_exclude_no_others": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_exclude"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_no"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_others"
+        }
+      ]
+    },
+    "_exclude_ties": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_exclude"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_ties"
         }
       ]
     },
@@ -1733,12 +1733,12 @@
         }
       ]
     },
-    "group_list": {
+    "expression_list": {
       "type": "SEQ",
       "members": [
         {
           "type": "SYMBOL",
-          "name": "_group_list"
+          "name": "_expression_list"
         },
         {
           "type": "REPEAT",
@@ -1751,14 +1751,14 @@
               },
               {
                 "type": "SYMBOL",
-                "name": "_group_list"
+                "name": "_expression_list"
               }
             ]
           }
         }
       ]
     },
-    "_group_list": {
+    "_expression_list": {
       "type": "SEQ",
       "members": [
         {
@@ -3822,7 +3822,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "identifier"
+          "name": "expression_list"
         }
       ]
     },
@@ -4694,7 +4694,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "group_list"
+          "name": "expression_list"
         },
         {
           "type": "CHOICE",
