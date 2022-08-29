@@ -1766,7 +1766,7 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "identifier"
+              "name": "field"
             },
             {
               "type": "ALIAS",
@@ -1776,6 +1776,10 @@
               },
               "named": true,
               "value": "literal"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "subquery"
             }
           ]
         }

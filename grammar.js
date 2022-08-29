@@ -421,8 +421,9 @@ module.exports = grammar({
       
     _expression_list: $ => seq(
         choice(
-          $.identifier,
+          $.field,
           alias($._number, $.literal),
+          $.subquery,
         )
     ),
 
