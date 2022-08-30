@@ -418,7 +418,7 @@ module.exports = grammar({
             )
         )
     ),
-      
+
     _expression_list: $ => seq(
         choice(
           $.field,
@@ -935,7 +935,7 @@ module.exports = grammar({
         $.keyword_partition,
         $.keyword_by,
         $.expression_list,
-    ),  
+    ),
 
     frame_definition: $ => seq(
         choice(
@@ -987,7 +987,7 @@ module.exports = grammar({
                 $._exclude_ties,
                 $._exclude_no_others,
             ),
-        ), 
+        ),
     ),
 
     window_clause: $ => seq(
@@ -1188,12 +1188,25 @@ module.exports = grammar({
     ),
 
     order_expression: $ => seq(
+      $._order_expression,
+      repeat(
+        seq(
+          ',',
+          $._order_expression,
+        ),
+      ),
+    ),
+
+    _order_expression: $ => seq(
       $._expression,
       optional(
         seq(
           choice(
             $.direction,
-            $.keyword_using,
+            seq(
+              $.keyword_using,
+              choice('<', '>', '<=', '>='),
+            ),
           ),
           optional(
             seq(
@@ -1204,13 +1217,6 @@ module.exports = grammar({
               ),
             ),
           ),
-        ),
-      ),
-      repeat(
-        seq(
-          ',',
-          $._expression,
-          optional($.direction),
         ),
       ),
     ),

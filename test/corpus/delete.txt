@@ -32,7 +32,7 @@ LIMIT 4;
    (keyword_from)
    (table_expression
     name: (identifier))
-   (limit 
+   (limit
     (keyword_limit)
     (literal)))))
 
@@ -61,7 +61,7 @@ LIMIT 4;
       (field name: (identifier))
       (direction
         (keyword_desc))))
-   (limit 
+   (limit
     (keyword_limit)
     (literal)))))
 
