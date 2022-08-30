@@ -1766,20 +1766,52 @@
           "members": [
             {
               "type": "SYMBOL",
+              "name": "literal"
+            },
+            {
+              "type": "SYMBOL",
               "name": "field"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "parameter"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "list"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "case"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "predicate"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "subquery"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "cast"
             },
             {
               "type": "ALIAS",
               "content": {
                 "type": "SYMBOL",
-                "name": "_number"
+                "name": "implicit_cast"
               },
               "named": true,
-              "value": "literal"
+              "value": "cast"
             },
             {
               "type": "SYMBOL",
-              "name": "subquery"
+              "name": "invocation"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "binary_expression"
             }
           ]
         }
@@ -5878,4 +5910,3 @@
   "inline": [],
   "supertypes": []
 }
-
