@@ -2527,6 +2527,21 @@
       "required": true,
       "types": [
         {
+          "type": "order_target",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "order_target",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
           "type": "binary_expression",
           "named": true
         },

@@ -4749,7 +4749,7 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "_order_expression"
+          "name": "order_target"
         },
         {
           "type": "REPEAT",
@@ -4762,14 +4762,14 @@
               },
               {
                 "type": "SYMBOL",
-                "name": "_order_expression"
+                "name": "order_target"
               }
             ]
           }
         }
       ]
     },
-    "_order_expression": {
+    "order_target": {
       "type": "SEQ",
       "members": [
         {
