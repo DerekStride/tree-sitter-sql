@@ -421,9 +421,17 @@ module.exports = grammar({
 
     _expression_list: $ => seq(
         choice(
+          $.literal,
           $.field,
-          alias($._number, $.literal),
+          $.parameter,
+          $.list,
+          $.case,
+          $.predicate,
           $.subquery,
+          $.cast,
+          alias($.implicit_cast, $.cast),
+          $.invocation,
+          $.binary_expression,
         )
     ),
 
