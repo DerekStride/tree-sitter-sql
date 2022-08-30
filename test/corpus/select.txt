@@ -1327,7 +1327,46 @@ ORDER BY m.title, id ASC;
      (field name: (identifier))
      (direction (keyword_asc)))))))
 
+==================
+Order by with extra directives
+==================
 
+SELECT id
+FROM my_table
+WHERE id > 4
+ORDER BY id DESC NULLS LAST, val USING < NULLS FIRST;
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (field
+     name: (identifier))))
+  (from
+   (keyword_from)
+   (table_expression
+    name: (identifier))
+   (where
+    (keyword_where)
+    (where_expression
+     (predicate
+      left: (field name: (identifier))
+      right: (literal))))
+   (order_by
+    (keyword_order)
+    (keyword_by)
+    (order_expression
+      (field name: (identifier))
+      (direction (keyword_desc))
+      (keyword_nulls)
+      (keyword_last)
+      (field name: (identifier))
+      (keyword_using)
+      (keyword_nulls)
+      (keyword_first))))))
 
 ==================
 Index hints
@@ -1790,7 +1829,7 @@ WHERE id = $12;
 Window Functions Partition by
 ==================
 
-SELECT 
+SELECT
   x,
   y,
   z,
@@ -1799,21 +1838,21 @@ FROM tab1;
 
 ---
 
-(program 
-  (statement 
-    (select 
+(program
+  (statement
+    (select
       (keyword_select)
       (select_expression
-        (field 
+        (field
           name: (identifier))
-        (field 
+        (field
           name: (identifier))
-        (field 
+        (field
           name: (identifier))
-        (window_function 
-          (invocation 
+        (window_function
+          (invocation
             name: (identifier)
-            parameter: (field 
+            parameter: (field
               name: (identifier)))
           (keyword_over)
           (window_specification
@@ -1832,7 +1871,7 @@ FROM tab1;
 Window Functions Order by
 ==================
 
-SELECT 
+SELECT
   x,
   y,
   z,
@@ -1841,21 +1880,21 @@ FROM tab1;
 
 ---
 
-(program 
-  (statement 
-    (select 
+(program
+  (statement
+    (select
       (keyword_select)
       (select_expression
-        (field 
+        (field
           name: (identifier))
-        (field 
+        (field
           name: (identifier))
-        (field 
+        (field
           name: (identifier))
-        (window_function 
-          (invocation 
+        (window_function
+          (invocation
             name: (identifier)
-            parameter: (field 
+            parameter: (field
               name: (identifier)))
           (keyword_over )
           (window_specification
@@ -1878,7 +1917,7 @@ FROM tab1;
 Window Functions Partition and Order by
 ==================
 
-SELECT 
+SELECT
   x,
   y,
   z,
@@ -1887,21 +1926,21 @@ FROM tab1;
 
 ---
 
-(program 
-  (statement 
-    (select 
+(program
+  (statement
+    (select
       (keyword_select)
       (select_expression
-        (field 
+        (field
           name: (identifier))
-        (field 
+        (field
           name: (identifier))
-        (field 
+        (field
           name: (identifier))
-        (window_function 
-          (invocation 
+        (window_function
+          (invocation
             name: (identifier)
-            parameter: (field 
+            parameter: (field
               name: (identifier)))
           (keyword_over )
             (window_specification
@@ -2015,7 +2054,7 @@ FROM tab1;
 Window Functions separate definition
 ==================
 
-SELECT 
+SELECT
   x,
   y,
   MAX(x) OVER window_def
@@ -2024,19 +2063,19 @@ WINDOW window_def AS (PARTITION BY y);
 
 ---
 
-(program 
-  (statement 
-    (select 
+(program
+  (statement
+    (select
       (keyword_select)
       (select_expression
-        (field 
+        (field
           name: (identifier))
-        (field 
+        (field
           name: (identifier))
-        (window_function 
-          (invocation 
+        (window_function
+          (invocation
             name: (identifier)
-            parameter: (field 
+            parameter: (field
               name: (identifier)))
           (keyword_over )
           (identifier))))
