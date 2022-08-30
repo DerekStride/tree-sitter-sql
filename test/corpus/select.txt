@@ -409,8 +409,9 @@ ORDER BY id DESC;
     (keyword_order)
     (keyword_by)
     (order_expression
-     (field name: (identifier))
-     (direction (keyword_desc)))))))
+     (order_target
+      (field name: (identifier))
+      (direction (keyword_desc))))))))
 
 ==================
 Simple select with limit
@@ -1323,9 +1324,10 @@ ORDER BY m.title, id ASC;
     (keyword_order)
     (keyword_by)
     (order_expression
-     (field table_alias: (identifier) name: (identifier))
-     (field name: (identifier))
-     (direction (keyword_asc)))))))
+     (order_target (field table_alias: (identifier) name: (identifier)))
+     (order_target
+      (field name: (identifier))
+      (direction (keyword_asc))))))))
 
 ==================
 Order by with extra directives
@@ -1359,14 +1361,16 @@ ORDER BY id DESC NULLS LAST, val USING < NULLS FIRST;
     (keyword_order)
     (keyword_by)
     (order_expression
+     (order_target
       (field name: (identifier))
       (direction (keyword_desc))
       (keyword_nulls)
-      (keyword_last)
+      (keyword_last))
+     (order_target
       (field name: (identifier))
       (keyword_using)
       (keyword_nulls)
-      (keyword_first))))))
+      (keyword_first)))))))
 
 ==================
 Index hints
@@ -1736,8 +1740,8 @@ ORDER BY my_table.title, my_table.id;
    (keyword_order)
    (keyword_by)
    (order_expression
-    (field table_alias: (identifier) name: (identifier))
-    (field table_alias: (identifier) name: (identifier)))))))
+    (order_target (field table_alias: (identifier) name: (identifier)))
+    (order_target (field table_alias: (identifier) name: (identifier))))))))
 
 ==================
 Multiple tables in list
@@ -1902,12 +1906,13 @@ FROM tab1;
               (keyword_order)
               (keyword_by)
               (order_expression
+               (order_target
                 (field
-                  name: (identifier))
+                 name: (identifier))
                 (direction
-                  (keyword_desc))
+                 (keyword_desc))
                 (keyword_nulls)
-                (keyword_last)))))))
+                (keyword_last))))))))
     (from
       (keyword_from)
       (table_expression
@@ -1954,12 +1959,13 @@ FROM tab1;
                 (keyword_order)
                 (keyword_by)
                 (order_expression
+                 (order_target
                   (field
-                    name: (identifier))
+                   name: (identifier))
                   (direction
-                    (keyword_desc))
+                   (keyword_desc))
                   (keyword_nulls)
-                  (keyword_first)))))))
+                  (keyword_first))))))))
     (from
       (keyword_from)
       (table_expression
@@ -2042,8 +2048,9 @@ FROM tab1;
               (keyword_order)
               (keyword_by)
               (order_expression
+               (order_target
                 (field
-                  name: (identifier))))))
+                 name: (identifier)))))))
         (keyword_as)
         alias: (identifier)
         (field
@@ -2153,8 +2160,8 @@ WINDOW win AS (ORDER BY d)
           (keyword_order)
           (keyword_by)
           (order_expression
-            (field
-              name: (identifier))))))))
+            (order_target
+             (field name: (identifier)))))))))
 
 ==================
 Window Functions partition order frame
@@ -2200,8 +2207,8 @@ FROM
               (keyword_order)
               (keyword_by)
               (order_expression
-                (field
-                  name: (identifier))))
+                (order_target
+                 (field name: (identifier)))))
             (window_frame
               (keyword_range)
               (keyword_between)
@@ -2264,12 +2271,13 @@ FROM
               (keyword_order)
               (keyword_by)
               (order_expression
+               (order_target
                 (field
                   name: (identifier))
                 (direction
                   (keyword_asc))
                 (keyword_nulls)
-                (keyword_first)))
+                (keyword_first))))
             (window_frame
               (keyword_rows)
               (keyword_between)

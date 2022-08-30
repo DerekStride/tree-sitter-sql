@@ -1188,16 +1188,16 @@ module.exports = grammar({
     ),
 
     order_expression: $ => seq(
-      $._order_expression,
+      $.order_target,
       repeat(
         seq(
           ',',
-          $._order_expression,
+          $.order_target,
         ),
       ),
     ),
 
-    _order_expression: $ => seq(
+    order_target: $ => seq(
       $._expression,
       optional(
         seq(
