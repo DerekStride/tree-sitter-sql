@@ -424,7 +424,6 @@ module.exports = grammar({
           $.literal,
           $.field,
           $.parameter,
-          $.list,
           $.case,
           $.predicate,
           $.subquery,
