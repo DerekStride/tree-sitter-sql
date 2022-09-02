@@ -1076,13 +1076,20 @@ module.exports = grammar({
     ),
 
     table_expression: $ => seq(
-      optional(
+      choice(
         seq(
-          field('schema', $.identifier),
-          '.',
+          optional(
+            seq(
+              field('schema', $.identifier),
+              '.',
+            ),
+          ),
+          field('name', $.identifier),
         ),
+        $.parameter,
+        $.subquery,
+        $.invocation,
       ),
-      field('name', $.identifier),
       optional(
         seq(
           optional($.keyword_as),
