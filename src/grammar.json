@@ -4328,31 +4328,53 @@
               "type": "SEQ",
               "members": [
                 {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "FIELD",
+                          "name": "schema",
+                          "content": {
+                            "type": "SYMBOL",
+                            "name": "identifier"
+                          }
+                        },
+                        {
+                          "type": "STRING",
+                          "value": "."
+                        }
+                      ]
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                },
+                {
                   "type": "FIELD",
-                  "name": "schema",
+                  "name": "name",
                   "content": {
                     "type": "SYMBOL",
                     "name": "identifier"
                   }
-                },
-                {
-                  "type": "STRING",
-                  "value": "."
                 }
               ]
             },
             {
-              "type": "BLANK"
+              "type": "SYMBOL",
+              "name": "parameter"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "subquery"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "invocation"
             }
           ]
-        },
-        {
-          "type": "FIELD",
-          "name": "name",
-          "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
-          }
         },
         {
           "type": "CHOICE",
