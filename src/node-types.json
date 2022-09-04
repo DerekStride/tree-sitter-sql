@@ -1952,6 +1952,10 @@
           "named": true
         },
         {
+          "type": "relation_list",
+          "named": true
+        },
+        {
           "type": "table_expression",
           "named": true
         },
@@ -2930,6 +2934,59 @@
     }
   },
   {
+    "type": "relation",
+    "named": true,
+    "fields": {
+      "table_alias": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "invocation",
+          "named": true
+        },
+        {
+          "type": "keyword_as",
+          "named": true
+        },
+        {
+          "type": "subquery",
+          "named": true
+        },
+        {
+          "type": "table_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "relation_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "relation",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "rename_column",
     "named": true,
     "fields": {
@@ -3262,7 +3319,7 @@
     "fields": {
       "name": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
             "type": "identifier",
@@ -3292,23 +3349,15 @@
       }
     },
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": false,
       "types": [
-        {
-          "type": "invocation",
-          "named": true
-        },
         {
           "type": "keyword_as",
           "named": true
         },
         {
-          "type": "parameter",
-          "named": true
-        },
-        {
-          "type": "subquery",
+          "type": "keyword_only",
           "named": true
         }
       ]
@@ -4100,6 +4149,10 @@
   },
   {
     "type": "keyword_on",
+    "named": true
+  },
+  {
+    "type": "keyword_only",
     "named": true
   },
   {

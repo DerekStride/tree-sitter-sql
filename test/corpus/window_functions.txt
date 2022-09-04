@@ -37,8 +37,10 @@ FROM tab1;
                 name: (identifier))))))))
     (from
       (keyword_from)
-      (table_expression
-        name: (identifier)))))
+      (relation_list
+        (relation
+          (table_expression
+            name: (identifier)))))))
 
 ==================
 Window Functions Order by
@@ -84,8 +86,10 @@ FROM tab1;
                 (keyword_last))))))))
     (from
       (keyword_from)
-      (table_expression
-        name: (identifier)))))
+      (relation_list
+        (relation
+          (table_expression
+            name: (identifier)))))))
 
 ==================
 Window Functions Partition and Order by
@@ -137,8 +141,10 @@ FROM tab1;
                   (keyword_first))))))))
     (from
       (keyword_from)
-      (table_expression
-        name: (identifier)))))
+      (relation_list
+        (relation
+          (table_expression
+            name: (identifier)))))))
 
 ==================
 Window Functions Empty Window
@@ -169,8 +175,10 @@ FROM tab1;
         (identifier)))
     (from
       (keyword_from)
-      (table_expression
-        (identifier)))))
+      (relation_list
+        (relation
+          (table_expression
+            (identifier)))))))
 
 ==================
 Window Functions two inline functions
@@ -257,8 +265,10 @@ WINDOW window_def AS (PARTITION BY y);
           (identifier))))
     (from
       (keyword_from)
-      (table_expression
-        name: (identifier)))
+      (relation_list
+        (relation
+          (table_expression
+            name: (identifier)))))
     (window_clause
         (keyword_window)
         (identifier)
@@ -390,8 +400,10 @@ FROM
                 (keyword_following)))))))
     (from
       (keyword_from)
-      (table_expression
-        name: (identifier)))))
+      (relation_list
+        (relation
+          (table_expression
+            name: (identifier)))))))
 
 
 
@@ -463,8 +475,10 @@ FROM
               (keyword_row))))))
     (from
       (keyword_from)
-      (table_expression
-        name: (identifier)))))
+      (relation_list
+        (relation
+          (table_expression
+            name: (identifier)))))))
 
 
 ==================
@@ -557,8 +571,10 @@ FROM
                         (identifier))))
                   (from
                     (keyword_from)
-                    (table_expression
-                      (identifier))))
+                    (relation_list
+                      (relation
+                        (table_expression
+                          (identifier))))))
                 (invocation
                   (identifier)
                   (field
@@ -615,8 +631,10 @@ FROM
                           (identifier))))
                     (from
                       (keyword_from)
-                      (table_expression
-                        (identifier)))))
+                      (relation_list
+                        (relation
+                          (table_expression
+                            (identifier)))))))
                 (order_target
                   (invocation
                     (identifier)
@@ -630,5 +648,7 @@ FROM
                       (identifier))))))))))
     (from
       (keyword_from)
-      (table_expression
-        (identifier)))))
+      (relation_list
+        (relation
+          (table_expression
+            (identifier)))))))
