@@ -2938,7 +2938,7 @@
     "named": true,
     "fields": {
       "table_alias": {
-        "multiple": false,
+        "multiple": true,
         "required": false,
         "types": [
           {
@@ -2958,6 +2958,14 @@
         },
         {
           "type": "keyword_as",
+          "named": true
+        },
+        {
+          "type": "keyword_values",
+          "named": true
+        },
+        {
+          "type": "list",
           "named": true
         },
         {
