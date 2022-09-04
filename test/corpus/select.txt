@@ -1980,3 +1980,39 @@ FROM
                     (identifier))))))
           (keyword_as)
           (identifier))))))
+
+==================
+Select from inplace values insert
+==================
+
+SELECT
+    *
+FROM
+    (VALUES (1, 2), (3, 4) AS V (col1, col2));
+
+---
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (all_fields)))
+    (from
+      (keyword_from)
+      (relation_list
+        (relation
+          (keyword_values)
+          (list
+            (literal)
+            (literal))
+          (list
+            (literal)
+            (literal))
+          (keyword_as)
+          (identifier)
+          (list
+            (field
+              (identifier))
+            (field
+              (identifier))))))))

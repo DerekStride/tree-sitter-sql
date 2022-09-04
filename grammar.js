@@ -1093,11 +1093,34 @@ module.exports = grammar({
       field('name', $.identifier),
     ),
 
+    _inplace_insert: $ => seq(
+        '(',
+          $.keyword_values,
+          $.list,
+          optional(
+              repeat(
+              seq(
+                ',',
+                $.list,
+              ),
+            ),
+          ),
+          optional(
+            seq(
+              $.keyword_as,
+              field('table_alias', $.identifier),
+              $.list,
+            ),
+          ),
+        ')',
+    ),
+
     relation: $ => seq(
       choice(
         $.subquery,
         $.invocation,
         alias($._table_expression, $.table_expression),
+        $._inplace_insert,
       ),
       optional(
         seq(
@@ -1106,8 +1129,6 @@ module.exports = grammar({
         ),
       ),
     ),
-
-
 
     table_expression: $ => seq(
       optional(
