@@ -1945,3 +1945,38 @@ WHERE id = $12;
           (predicate
             (field (identifier))
             (parameter)))))))
+
+==================
+Select from aliased subquery
+==================
+
+SELECT a
+FROM
+  (SELECT * FROM tab2) AS tab;
+
+---
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (field
+          (identifier))))
+    (from
+      (keyword_from)
+      (relation_list
+        (relation
+          (subquery
+            (select
+              (keyword_select)
+              (select_expression
+                (all_fields)))
+            (from
+              (keyword_from)
+              (relation_list
+                (relation
+                  (table_expression
+                    (identifier))))))
+          (keyword_as)
+          (identifier))))))
