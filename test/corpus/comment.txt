@@ -82,8 +82,11 @@ FROM my_table;
   (marginalia)
   (from
    (keyword_from)
-   (table_expression
-    name: (identifier)))))
+   (relation_list
+    (relation
+     (table_expression
+         name: (identifier)))))))
+
 
 ==================
 Can parse delete with marginalia

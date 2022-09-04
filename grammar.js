@@ -134,6 +134,7 @@ module.exports = grammar({
     keyword_row: _ => make_keyword("row"),
     keyword_ties: _ => make_keyword("ties"),
     keyword_others: _ => make_keyword("others"),
+    keyword_only: _ => make_keyword("only"),
 
     _temporary: $ => choice($.keyword_temp, $.keyword_temporary),
     _not_null: $ => seq($.keyword_not, $.keyword_null),
@@ -1051,7 +1052,7 @@ module.exports = grammar({
 
     from: $ => seq(
       $.keyword_from,
-      $._table_expression,
+      $.relation_list,
       optional($.index_hint),
       repeat(
         choice(
@@ -1065,30 +1066,38 @@ module.exports = grammar({
       optional($.limit),
     ),
 
-    _table_expression: $ => seq(
-      $.table_expression,
+    relation_list: $ => seq(
+      choice(
+        $.relation,
+      ),
       repeat(
         seq(
           ',',
-          $.table_expression,
+          choice(
+            $.relation,
+          )
         ),
       ),
     ),
 
-    table_expression: $ => seq(
-      choice(
+    _table_expression: $ => seq(
+      optional(
+        $.keyword_only,
+      ),
+      optional(
         seq(
-          optional(
-            seq(
-              field('schema', $.identifier),
-              '.',
-            ),
-          ),
-          field('name', $.identifier),
+          field('schema', $.identifier),
+          '.',
         ),
-        $.parameter,
+      ),
+      field('name', $.identifier),
+    ),
+
+    relation: $ => seq(
+      choice(
         $.subquery,
         $.invocation,
+        alias($._table_expression, $.table_expression),
       ),
       optional(
         seq(
@@ -1097,6 +1106,25 @@ module.exports = grammar({
         ),
       ),
     ),
+
+
+
+    table_expression: $ => seq(
+      optional(
+        seq(
+          field('schema', $.identifier),
+          '.',
+        ),
+      ),
+      field('name', $.identifier),
+      optional(
+        seq(
+          optional($.keyword_as),
+          field('table_alias', $.identifier),
+        ),
+      ),
+    ),
+
 
     index_hint: $ => seq(
       choice(
