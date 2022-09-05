@@ -82,10 +82,9 @@ FROM my_table;
   (marginalia)
   (from
    (keyword_from)
-   (relation_list
     (relation
      (table_expression
-         name: (identifier)))))))
+         name: (identifier))))))
 
 
 ==================

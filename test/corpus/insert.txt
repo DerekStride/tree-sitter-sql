@@ -75,9 +75,8 @@ FROM my_other_table;
       (field name: (identifier))))
     (from
       (keyword_from)
-      (relation_list
         (relation
-          (table_expression name: (identifier)))))))))
+          (table_expression name: (identifier))))))))
 
 ==================
 Insert returning

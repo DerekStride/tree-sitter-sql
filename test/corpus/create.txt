@@ -450,9 +450,8 @@ SELECT * FROM my_table;
     (select_expression (all_fields)))
    (from
     (keyword_from)
-    (relation_list
       (relation
-        (table_expression name: (identifier))))
+        (table_expression name: (identifier)))
    ))))
 
 ==================
@@ -478,9 +477,8 @@ SELECT * FROM my_table;
     (select_expression (all_fields)))
    (from
     (keyword_from)
-    (relation_list
       (relation
-        (table_expression name: (identifier))))
+        (table_expression name: (identifier)))
    ))))
 
 ==================
@@ -506,9 +504,8 @@ WITH NO DATA;
     (select_expression (all_fields)))
    (from
     (keyword_from)
-    (relation_list
       (relation
-        (table_expression name: (identifier))))
+        (table_expression name: (identifier)))
    )
    (keyword_with) (keyword_no) (keyword_data)
   )))

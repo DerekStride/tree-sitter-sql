@@ -25,17 +25,15 @@ FROM my_cte;
       (field name: (identifier))))
     (from
      (keyword_from)
-     (relation_list
       (relation
-         (table_expression name: (identifier)))))))
+         (table_expression name: (identifier))))))
   (select
    (keyword_select)
    (select_expression (all_fields)))
   (from
    (keyword_from)
-   (relation_list
     (relation
-       (table_expression name: (identifier)))))))
+       (table_expression name: (identifier))))))
 
 ==================
 Multiple ctes with returning
@@ -86,14 +84,12 @@ FROM second;
       (field name: (identifier))))
     (from
      (keyword_from)
-     (relation_list
       (relation
-         (table_expression name: (identifier)))))))
+         (table_expression name: (identifier))))))
   (select
    (keyword_select)
    (select_expression (all_fields)))
   (from
    (keyword_from)
-   (relation_list
     (relation
-       (table_expression name: (identifier)))))))
+       (table_expression name: (identifier))))))
