@@ -1052,7 +1052,10 @@ module.exports = grammar({
 
     from: $ => seq(
       $.keyword_from,
-      $.relation_list,
+      choice(
+        $.relation_list,
+        $.relation,
+      ),
       optional($.index_hint),
       repeat(
         choice(
@@ -1067,15 +1070,11 @@ module.exports = grammar({
     ),
 
     relation_list: $ => seq(
-      choice(
-        $.relation,
-      ),
-      repeat(
+      $.relation,
+      repeat1(
         seq(
           ',',
-          choice(
-            $.relation,
-          )
+          $.relation,
         ),
       ),
     ),

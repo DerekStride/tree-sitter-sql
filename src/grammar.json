@@ -4216,8 +4216,17 @@
           "name": "keyword_from"
         },
         {
-          "type": "SYMBOL",
-          "name": "relation_list"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "relation_list"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "relation"
+            }
+          ]
         },
         {
           "type": "CHOICE",
@@ -4301,16 +4310,11 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "relation"
-            }
-          ]
+          "type": "SYMBOL",
+          "name": "relation"
         },
         {
-          "type": "REPEAT",
+          "type": "REPEAT1",
           "content": {
             "type": "SEQ",
             "members": [
@@ -4319,13 +4323,8 @@
                 "value": ","
               },
               {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "SYMBOL",
-                    "name": "relation"
-                  }
-                ]
+                "type": "SYMBOL",
+                "name": "relation"
               }
             ]
           }

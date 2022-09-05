@@ -19,9 +19,8 @@ WHERE id < (
     (field (identifier))))
   (from
    (keyword_from)
-   (relation_list
     (relation
-       (table_expression (identifier))))
+       (table_expression (identifier)))
    (where
     (keyword_where)
     (where_expression
@@ -34,7 +33,6 @@ WHERE id < (
          (field (identifier))))
        (from
         (keyword_from)
-        (relation_list
           (relation
-            (table_expression (identifier))))
+            (table_expression (identifier)))
         (limit (keyword_limit) (literal))))))))))

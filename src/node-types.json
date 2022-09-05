@@ -1952,6 +1952,10 @@
           "named": true
         },
         {
+          "type": "relation",
+          "named": true
+        },
+        {
           "type": "relation_list",
           "named": true
         },
