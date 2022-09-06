@@ -43,16 +43,15 @@ COMMIT;
   (statement
    (update
     (keyword_update)
-    (update_expression
-     (table_reference
-      name: (identifier))
-     (keyword_set)
-     (assignment_list
-      (assignment
-       left: (field
-         name: (identifier))
-       right: (literal))))))
-  (keyword_commit)))
+    (table_reference
+     name: (identifier))
+    (keyword_set)
+    (assignment_list
+     (assignment
+      left: (field
+        name: (identifier))
+      right: (literal)))))
+ (keyword_commit)))
 
 ==================
 Transaction begin and rollback

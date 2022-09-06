@@ -38,7 +38,7 @@ FROM tab1;
     (from
       (keyword_from)
         (relation
-          (table_expression
+          (table_reference
             name: (identifier))))))
 
 ==================
@@ -86,7 +86,7 @@ FROM tab1;
     (from
       (keyword_from)
         (relation
-          (table_expression
+          (table_reference
             name: (identifier))))))
 
 ==================
@@ -140,7 +140,7 @@ FROM tab1;
     (from
       (keyword_from)
         (relation
-          (table_expression
+          (table_reference
             name: (identifier))))))
 
 ==================
@@ -173,7 +173,7 @@ FROM tab1;
     (from
       (keyword_from)
         (relation
-          (table_expression
+          (table_reference
             (identifier))))))
 
 ==================
@@ -262,7 +262,7 @@ WINDOW window_def AS (PARTITION BY y);
     (from
       (keyword_from)
         (relation
-          (table_expression
+          (table_reference
             name: (identifier))))
     (window_clause
         (keyword_window)
@@ -396,7 +396,7 @@ FROM
     (from
       (keyword_from)
         (relation
-          (table_expression
+          (table_reference
             name: (identifier))))))
 
 
@@ -470,7 +470,7 @@ FROM
     (from
       (keyword_from)
         (relation
-          (table_expression
+          (table_reference
             name: (identifier))))))
 
 
@@ -565,7 +565,7 @@ FROM
                   (from
                     (keyword_from)
                       (relation
-                        (table_expression
+                        (table_reference
                           (identifier)))))
                 (invocation
                   (identifier)
@@ -624,7 +624,7 @@ FROM
                     (from
                       (keyword_from)
                         (relation
-                          (table_expression
+                          (table_reference
                             (identifier))))))
                 (order_target
                   (invocation
@@ -640,5 +640,5 @@ FROM
     (from
       (keyword_from)
         (relation
-          (table_expression
+          (table_reference
             (identifier))))))

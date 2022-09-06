@@ -48,7 +48,26 @@ SELECT * FROM my_table;
   (from
    (keyword_from)
     (relation
-       (table_expression name: (identifier))))))
+       (table_reference name: (identifier))))))
+
+==================
+Simple select with ONLY
+==================
+
+SELECT * FROM ONLY my_table;
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression (all_fields)))
+  (from
+   (keyword_from)
+   (keyword_only)
+   (relation
+    (table_reference name: (identifier))))))
 
 ==================
 Table.*
@@ -67,7 +86,7 @@ SELECT my_table.* FROM my_table;
   (from
    (keyword_from)
     (relation
-       (table_expression name: (identifier))))))
+       (table_reference name: (identifier))))))
 
 ==================
 Alias.*
@@ -86,7 +105,7 @@ SELECT t.* FROM my_table AS t;
   (from
    (keyword_from)
     (relation
-       (table_expression
+       (table_reference
          name: (identifier))
        (keyword_as)
        table_alias: (identifier)))))
@@ -109,7 +128,7 @@ SELECT id, name FROM my_table;
   (from
    (keyword_from)
     (relation
-       (table_expression name: (identifier))))))
+       (table_reference name: (identifier))))))
 
 ==================
 Simple select with fields that look like keywords
@@ -131,7 +150,7 @@ FROM join_something_on AS where_this_like_that;
   (from
    (keyword_from)
     (relation
-       (table_expression
+       (table_reference
         name: (identifier))
       (keyword_as)
       table_alias: (identifier)))))
@@ -159,7 +178,7 @@ FROM my_table m;
     (from
      (keyword_from)
       (relation
-       (table_expression
+       (table_reference
         name: (identifier))
       table_alias: (identifier)))))
 
@@ -183,7 +202,7 @@ WHERE id = 4;
   (from
    (keyword_from)
     (relation
-       (table_expression
+       (table_reference
     name: (identifier)))
    (where
     (keyword_where)
@@ -212,7 +231,7 @@ WHERE id = "abc";
   (from
    (keyword_from)
     (relation
-     (table_expression
+     (table_reference
       name: (identifier)))
    (where
     (keyword_where)
@@ -241,7 +260,7 @@ WHERE id IN(1,2);
   (from
    (keyword_from)
     (relation
-     (table_expression
+     (table_reference
       name: (identifier)))
    (where
     (keyword_where)
@@ -277,7 +296,7 @@ FROM my_table m;
   (from
    (keyword_from)
     (relation
-       (table_expression
+       (table_reference
           name: (identifier))
           table_alias: (identifier)))))
 
@@ -309,7 +328,7 @@ FROM my_table m;
   (from
    (keyword_from)
     (relation
-       (table_expression
+       (table_reference
         name: (identifier))
       table_alias: (identifier)))))
 
@@ -333,7 +352,7 @@ FROM my_table;
   (from
    (keyword_from)
     (relation
-       (table_expression
+       (table_reference
         name: (identifier))))))
 
 ==================
@@ -360,7 +379,7 @@ FROM my_table;
   (from
    (keyword_from)
     (relation
-       (table_expression
+       (table_reference
         name: (identifier))))))
 
 ==================
@@ -389,7 +408,7 @@ FROM my_table AS m;
   (from
    (keyword_from)
     (relation
-       (table_expression
+       (table_reference
     name: (identifier))
     (keyword_as)
     table_alias: (identifier)))))
@@ -415,7 +434,7 @@ ORDER BY id DESC;
   (from
    (keyword_from)
     (relation
-       (table_expression
+       (table_reference
         name: (identifier)))
    (where
     (keyword_where)
@@ -451,7 +470,7 @@ LIMIT 5;
   (from
    (keyword_from)
     (relation
-       (table_expression
+       (table_reference
         name: (identifier)))
    (limit
     (keyword_limit)
@@ -478,7 +497,7 @@ OFFSET 40;
   (from
    (keyword_from)
     (relation
-       (table_expression
+       (table_reference
         name: (identifier)))
    (limit
     (keyword_limit)
@@ -503,7 +522,7 @@ SELECT * FROM my_schema.my_table;
   (from
    (keyword_from)
     (relation
-       (table_expression schema: (identifier) name: (identifier))))))
+       (table_reference schema: (identifier) name: (identifier))))))
 
 ==================
 Simple select with schema and fully-pathed fields
@@ -524,7 +543,7 @@ FROM
   (from
    (keyword_from)
     (relation
-       (table_expression schema: (identifier) name: (identifier))))))
+       (table_reference schema: (identifier) name: (identifier))))))
 
 ==================
 IS DISTINCT FROM
@@ -545,7 +564,7 @@ WHERE col IS DISTINCT FROM NULL;
   (from
    (keyword_from)
     (relation
-       (table_expression
+       (table_reference
         (identifier)))
    (where
     (keyword_where)
@@ -578,7 +597,7 @@ WHERE col IS NOT DISTINCT FROM NULL;
   (from
    (keyword_from)
     (relation
-       (table_expression
+       (table_reference
         (identifier)))
    (where
     (keyword_where)
@@ -613,7 +632,7 @@ FROM my_table;
   (from
    (keyword_from)
     (relation
-       (table_expression
+       (table_reference
         name: (identifier))))))
 
 ==================
@@ -635,7 +654,7 @@ FROM my_table;
   (from
    (keyword_from)
     (relation
-       (table_expression
+       (table_reference
         name: (identifier))))))
 
 ==================
@@ -657,7 +676,7 @@ FROM my_table;
   (from
    (keyword_from)
     (relation
-       (table_expression
+       (table_reference
         name: (identifier))))))
 
 ==================
@@ -717,7 +736,7 @@ FROM my_table AS t;
   (from
    (keyword_from)
     (relation
-       (table_expression
+       (table_reference
         name: (identifier))
        (keyword_as)
        table_alias: (identifier)))))
@@ -744,7 +763,7 @@ FROM my_table;
   (from
    (keyword_from)
     (relation
-       (table_expression
+       (table_reference
         name: (identifier))))))
 
 ==================
@@ -769,7 +788,7 @@ FROM my_table;
   (from
    (keyword_from)
     (relation
-       (table_expression
+       (table_reference
         name: (identifier))))))
 
 ==================
@@ -795,7 +814,7 @@ HAVING other_id > 10;
   (from
    (keyword_from)
     (relation
-       (table_expression
+       (table_reference
         name: (identifier)))
    (group_by
     (keyword_group)
@@ -830,7 +849,7 @@ HAVING other_id > 10;
   (from
    (keyword_from)
     (relation
-       (table_expression
+       (table_reference
         name: (identifier)))
    (group_by
     (keyword_group)
@@ -865,7 +884,7 @@ HAVING other_id > 10;
   (from
    (keyword_from)
     (relation
-       (table_expression
+       (table_reference
         name: (identifier)))
    (group_by
     (keyword_group)
@@ -904,14 +923,13 @@ WHERE b.c_id = 4;
      name: (identifier))))
   (from
    (keyword_from)
-    (relation
-       (table_expression
-        name: (identifier))
-      table_alias: (identifier))
+   (relation
+    (table_reference name: (identifier))
+    table_alias: (identifier))
    (join
     (keyword_join)
-    (table_expression
-     name: (identifier)
+    (relation
+     (table_reference name: (identifier))
      table_alias: (identifier))
     (keyword_on)
     (predicate
@@ -947,13 +965,12 @@ JOIN my_other_table ON TRUE;
    (select_expression (all_fields)))
   (from
    (keyword_from)
-    (relation
-       (table_expression
-        name: (identifier)))
+   (relation
+    (table_reference name: (identifier)))
    (join
     (keyword_join)
-    (table_expression
-     name: (identifier))
+    (relation
+     (table_reference name: (identifier)))
     (keyword_on)
     (keyword_true))
    )))
@@ -983,13 +1000,12 @@ ON a.id = b.a_id;
   (from
    (keyword_from)
     (relation
-       (table_expression
-        name: (identifier))
-      table_alias: (identifier))
+     (table_reference name: (identifier))
+     table_alias: (identifier))
    (join
     (keyword_join)
-    (table_expression
-     name: (identifier)
+    (relation
+     (table_reference name: (identifier))
      table_alias: (identifier))
     (index_hint
      (keyword_use)
@@ -1029,20 +1045,57 @@ JOIN my_other_table b USING (q, w);
      name: (identifier))))
   (from
    (keyword_from)
-    (relation
-       (table_expression
-        name: (identifier))
-      table_alias: (identifier))
+   (relation
+    (table_reference name: (identifier))
+    table_alias: (identifier))
    (join
     (keyword_join)
-    (table_expression
-     name: (identifier)
+    (relation
+     (table_reference name: (identifier))
      table_alias: (identifier))
      (keyword_using)
      (column_list
        (column name: (identifier))
        (column name: (identifier))))
     )))
+
+==================
+Join a VALUES clause
+==================
+
+SELECT *
+FROM my_table
+JOIN (VALUES (1, 2), (3, 4)) AS v (col1, col2) ON TRUE;
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression (all_fields)))
+  (from
+   (keyword_from)
+   (relation
+    (table_reference name: (identifier)))
+   (join
+    (keyword_join)
+    (relation
+     (values
+      (keyword_values)
+      (list
+       (literal)
+       (literal))
+      (list
+       (literal)
+       (literal)))
+     (keyword_as)
+     table_alias: (identifier)
+     (column_list
+      (column name: (identifier))
+      (column name: (identifier))))
+    (keyword_on)
+    (keyword_true)))))
 
 ==================
 Specific Joins
@@ -1074,14 +1127,14 @@ ON a.id = e.e_id;
   (from
    (keyword_from)
     (relation
-       (table_expression
-        name: (identifier))
-      table_alias: (identifier))
+     (table_reference
+      name: (identifier))
+     table_alias: (identifier))
    (join
     (keyword_left)
     (keyword_join)
-    (table_expression
-     name: (identifier)
+    (relation
+     (table_reference name: (identifier))
      table_alias: (identifier))
     (keyword_on)
     (predicate
@@ -1095,8 +1148,8 @@ ON a.id = e.e_id;
     (keyword_left)
     (keyword_outer)
     (keyword_join)
-    (table_expression
-     name: (identifier)
+    (relation
+     (table_reference name: (identifier))
      table_alias: (identifier))
     (keyword_on)
     (predicate
@@ -1109,8 +1162,8 @@ ON a.id = e.e_id;
    (join
     (keyword_right)
     (keyword_join)
-    (table_expression
-     name: (identifier)
+    (relation
+     (table_reference name: (identifier))
      table_alias: (identifier))
     (keyword_on)
     (predicate
@@ -1124,8 +1177,8 @@ ON a.id = e.e_id;
     (keyword_right)
     (keyword_outer)
     (keyword_join)
-    (table_expression
-     name: (identifier)
+    (relation
+     (table_reference name: (identifier))
      table_alias: (identifier))
     (keyword_on)
     (predicate
@@ -1138,8 +1191,8 @@ ON a.id = e.e_id;
    (join
     (keyword_inner)
     (keyword_join)
-    (table_expression
-     name: (identifier)
+    (relation
+     (table_reference name: (identifier))
      table_alias: (identifier))
     (keyword_on)
     (predicate
@@ -1173,7 +1226,7 @@ JOIN LATERAL unnest(a.arr) AS arr ON TRUE;
   (from
    (keyword_from)
     (relation
-       (table_expression
+       (table_reference
         name: (identifier))
       table_alias: (identifier))
    (lateral_join
@@ -1212,7 +1265,7 @@ CROSS JOIN LATERAL (SELECT 1) AS b ON TRUE;
   (from
    (keyword_from)
     (relation
-       (table_expression
+       (table_reference
         name: (identifier))
       table_alias: (identifier))
    (lateral_join
@@ -1258,13 +1311,12 @@ ON a.id = c.a_id;
   (from
    (keyword_from)
     (relation
-       (table_expression
-        name: (identifier))
-      table_alias: (identifier))
+     (table_reference name: (identifier))
+     table_alias: (identifier))
    (join
     (keyword_join)
-    (table_expression
-     name: (identifier)
+    (relation
+     (table_reference name: (identifier))
      table_alias: (identifier))
     (keyword_on)
     (predicate
@@ -1276,8 +1328,8 @@ ON a.id = c.a_id;
       name: (identifier))))
    (join
     (keyword_join)
-    (table_expression
-     name: (identifier)
+    (relation
+     (table_reference name: (identifier))
      table_alias: (identifier))
     (keyword_on)
     (predicate
@@ -1308,7 +1360,7 @@ WHERE m.id > 4 AND id < 3;
   (from
    (keyword_from)
     (relation
-       (table_expression
+       (table_reference
         name: (identifier))
       table_alias: (identifier))
    (where
@@ -1349,7 +1401,7 @@ ORDER BY m.title, id ASC;
   (from
    (keyword_from)
     (relation
-       (table_expression
+       (table_reference
         name: (identifier))
     table_alias: (identifier))
    (where
@@ -1398,7 +1450,7 @@ ORDER BY id DESC NULLS LAST, val USING < NULLS FIRST;
   (from
    (keyword_from)
     (relation
-       (table_expression
+       (table_reference
         name: (identifier)))
    (where
     (keyword_where)
@@ -1441,7 +1493,7 @@ LIMIT 1;
   (from
    (keyword_from)
     (relation
-       (table_expression
+       (table_reference
         name: (identifier)))
    (index_hint
     (keyword_force)
@@ -1471,7 +1523,7 @@ LIMIT 1;
   (from
    (keyword_from)
     (relation
-       (table_expression
+       (table_reference
         name: (identifier)))
    (index_hint
     (keyword_use)
@@ -1521,7 +1573,7 @@ SELECT b FROM two;
   (from
    (keyword_from)
     (relation
-       (table_expression (identifier))))
+       (table_reference (identifier))))
   (keyword_intersect)
   (select
    (keyword_select)
@@ -1530,7 +1582,7 @@ SELECT b FROM two;
   (from
    (keyword_from)
     (relation
-       (table_expression (identifier))))))
+       (table_reference (identifier))))))
 
 ==================
 Simple CASE
@@ -1564,7 +1616,7 @@ FROM my_table;
   (from
    (keyword_from)
     (relation
-       (table_expression
+       (table_reference
         (identifier))))))
 
 ==================
@@ -1600,7 +1652,7 @@ FROM my_table;
   (from
    (keyword_from)
     (relation
-       (table_expression
+       (table_reference
         (identifier))))))
 
 ==================
@@ -1665,7 +1717,7 @@ FROM my_table;
   (from
    (keyword_from)
     (relation
-       (table_expression
+       (table_reference
         (identifier))))))
 
 ==================
@@ -1689,7 +1741,7 @@ SELECT id || '-' || name FROM my_table;
   (from
    (keyword_from)
     (relation
-       (table_expression name: (identifier))))))
+       (table_reference name: (identifier))))))
 
 ==================
 Altogether now
@@ -1722,16 +1774,17 @@ ORDER BY my_table.title, my_table.id;
   (from
    (keyword_from)
     (relation
-       (table_expression
-          name: (identifier))
-        table_alias: (identifier))
+     (table_reference
+      name: (identifier))
+      table_alias: (identifier))
    (index_hint
     (keyword_force)
     (keyword_index)
     index_name: (identifier))
    (join
     (keyword_join)
-    (table_expression name: (identifier) table_alias: (identifier))
+    (relation
+     (table_reference name: (identifier)) table_alias: (identifier))
     (keyword_on)
     (predicate
      left:
@@ -1745,7 +1798,8 @@ ORDER BY my_table.title, my_table.id;
       right: (field table_alias: (identifier) name: (identifier)))))
   (join
    (keyword_join)
-   (table_expression name: (identifier))
+    (relation
+     (table_reference name: (identifier)))
    (index_hint
     (keyword_use)
     (keyword_index)
@@ -1824,19 +1878,19 @@ FROM
    (keyword_from)
    (relation_list
     (relation
-     (table_expression
+     (table_reference
        name: (identifier))
        table_alias: (identifier))
     (relation
-     (table_expression
+     (table_reference
        name: (identifier))
        table_alias: (identifier))
     (relation
-     (table_expression
+     (table_reference
        name: (identifier))
        table_alias: (identifier))
     (relation
-     (table_expression
+     (table_reference
        name: (identifier))
        table_alias: (identifier))))))
 
@@ -1859,7 +1913,7 @@ WHERE id = ?;
   (from
     (keyword_from)
       (relation
-        (table_expression (identifier)))
+        (table_reference (identifier)))
     (where
       (keyword_where)
         (where_expression
@@ -1886,7 +1940,7 @@ WHERE id = $12;
   (from
     (keyword_from)
       (relation
-        (table_expression (identifier)))
+        (table_reference (identifier)))
     (where
       (keyword_where)
         (where_expression
@@ -1922,7 +1976,7 @@ FROM
             (from
               (keyword_from)
                 (relation
-                  (table_expression
+                  (table_reference
                     (identifier)))))
           (keyword_as)
           (identifier)))))

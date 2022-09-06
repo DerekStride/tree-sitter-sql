@@ -443,7 +443,10 @@ module.exports = grammar({
 
     _delete_from: $ => seq(
       $.keyword_from,
-      $.table_expression,
+      optional(
+        $.keyword_only,
+      ),
+      $.table_reference,
       optional($.where),
       optional($.order_by),
       optional($.limit),
@@ -707,15 +710,16 @@ module.exports = grammar({
 
     update: $ => seq(
       $.keyword_update,
-      $.update_expression,
-    ),
-
-    update_expression: $ => choice(
-      $._single_table_update,
-      $._multi_table_update,
+      choice(
+        $._single_table_update,
+        $._multi_table_update,
+      ),
     ),
 
     _single_table_update: $ => seq(
+      optional(
+        $.keyword_only,
+      ),
       $.table_reference,
       $.keyword_set,
       $.assignment_list,
@@ -1052,6 +1056,9 @@ module.exports = grammar({
 
     from: $ => seq(
       $.keyword_from,
+      optional(
+        $.keyword_only,
+      ),
       choice(
         $.relation_list,
         $.relation,
@@ -1079,37 +1086,11 @@ module.exports = grammar({
       ),
     ),
 
-    _table_expression: $ => seq(
-      optional(
-        $.keyword_only,
-      ),
-      optional(
-        seq(
-          field('schema', $.identifier),
-          '.',
-        ),
-      ),
-      field('name', $.identifier),
-    ),
-
-    values: $ => seq(
-      $.keyword_values,
-      $.list,
-      optional(
-          repeat(
-          seq(
-            ',',
-            $.list,
-          ),
-        ),
-      ),
-    ),
-
     relation: $ => seq(
       choice(
         $.subquery,
         $.invocation,
-        alias($._table_expression, $.table_expression),
+        $.table_reference,
         seq(
           '(',
           $.values,
@@ -1125,22 +1106,18 @@ module.exports = grammar({
       ),
     ),
 
-    table_expression: $ => seq(
+    values: $ => seq(
+      $.keyword_values,
+      $.list,
       optional(
-        seq(
-          field('schema', $.identifier),
-          '.',
-        ),
-      ),
-      field('name', $.identifier),
-      optional(
-        seq(
-          optional($.keyword_as),
-          field('table_alias', $.identifier),
+          repeat(
+          seq(
+            ',',
+            $.list,
+          ),
         ),
       ),
     ),
-
 
     index_hint: $ => seq(
       choice(
@@ -1171,7 +1148,7 @@ module.exports = grammar({
         ),
       ),
       $.keyword_join,
-      $.table_expression,
+      $.relation,
       optional($.index_hint),
       choice(
         seq(

@@ -1940,6 +1940,10 @@
           "named": true
         },
         {
+          "type": "keyword_only",
+          "named": true
+        },
+        {
           "type": "lateral_join",
           "named": true
         },
@@ -1960,7 +1964,7 @@
           "named": true
         },
         {
-          "type": "table_expression",
+          "type": "table_reference",
           "named": true
         },
         {
@@ -2257,7 +2261,7 @@
           "named": true
         },
         {
-          "type": "table_expression",
+          "type": "relation",
           "named": true
         }
       ]
@@ -2973,7 +2977,7 @@
           "named": true
         },
         {
-          "type": "table_expression",
+          "type": "table_reference",
           "named": true
         },
         {
@@ -3326,56 +3330,6 @@
     }
   },
   {
-    "type": "table_expression",
-    "named": true,
-    "fields": {
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "schema": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "table_alias": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "keyword_as",
-          "named": true
-        },
-        {
-          "type": "keyword_only",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "table_option",
     "named": true,
     "fields": {
@@ -3482,30 +3436,19 @@
       "required": true,
       "types": [
         {
-          "type": "keyword_update",
-          "named": true
-        },
-        {
-          "type": "update_expression",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "update_expression",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
           "type": "assignment_list",
           "named": true
         },
         {
+          "type": "keyword_only",
+          "named": true
+        },
+        {
           "type": "keyword_set",
+          "named": true
+        },
+        {
+          "type": "keyword_update",
           "named": true
         },
         {

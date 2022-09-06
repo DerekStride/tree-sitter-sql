@@ -12,7 +12,25 @@ DELETE FROM my_table;
    (keyword_delete))
   (from
    (keyword_from)
-   (table_expression
+   (table_reference
+    name: (identifier)))))
+
+==================
+Delete whole table and only the whole table
+==================
+
+DELETE FROM ONLY my_table;
+
+---
+
+(program
+ (statement
+  (delete
+   (keyword_delete))
+  (from
+   (keyword_from)
+   (keyword_only)
+   (table_reference
     name: (identifier)))))
 
 ==================
@@ -30,7 +48,7 @@ LIMIT 4;
    (keyword_delete))
   (from
    (keyword_from)
-   (table_expression
+   (table_reference
     name: (identifier))
    (limit
     (keyword_limit)
@@ -52,7 +70,7 @@ LIMIT 4;
    (keyword_delete))
   (from
    (keyword_from)
-   (table_expression
+   (table_reference
     name: (identifier))
    (order_by
     (keyword_order)
@@ -81,7 +99,7 @@ WHERE id = 9;
    (keyword_delete))
   (from
    (keyword_from)
-   (table_expression
+   (table_reference
     name: (identifier))
    (where
     (keyword_where)

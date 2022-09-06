@@ -83,7 +83,7 @@ FROM my_table;
   (from
    (keyword_from)
     (relation
-     (table_expression
+     (table_reference
          name: (identifier))))))
 
 
@@ -103,5 +103,5 @@ FROM my_table;
   (marginalia)
   (from
    (keyword_from)
-   (table_expression
+   (table_reference
     name: (identifier)))))
