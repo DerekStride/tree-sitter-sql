@@ -624,20 +624,56 @@
       "value": "boolean|BOOLEAN"
     },
     "keyword_smallserial": {
-      "type": "PATTERN",
-      "value": "smallserial|SMALLSERIAL"
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "smallserial|SMALLSERIAL"
+        },
+        {
+          "type": "PATTERN",
+          "value": "serial2|SERIAL2"
+        }
+      ]
     },
     "keyword_serial": {
-      "type": "PATTERN",
-      "value": "serial|SERIAL"
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "serial|SERIAL"
+        },
+        {
+          "type": "PATTERN",
+          "value": "serial4|SERIAL4"
+        }
+      ]
     },
     "keyword_bigserial": {
-      "type": "PATTERN",
-      "value": "bigserial|BIGSERIAL"
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "bigserial|BIGSERIAL"
+        },
+        {
+          "type": "PATTERN",
+          "value": "serial8|SERIAL8"
+        }
+      ]
     },
     "keyword_smallint": {
-      "type": "PATTERN",
-      "value": "smallint|SMALLINT"
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "smallint|SMALLINT"
+        },
+        {
+          "type": "PATTERN",
+          "value": "int2|INT2"
+        }
+      ]
     },
     "keyword_int": {
       "type": "CHOICE",
@@ -649,12 +685,25 @@
         {
           "type": "PATTERN",
           "value": "integer|INTEGER"
+        },
+        {
+          "type": "PATTERN",
+          "value": "int4|INT4"
         }
       ]
     },
     "keyword_bigint": {
-      "type": "PATTERN",
-      "value": "bigint|BIGINT"
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "bigint|BIGINT"
+        },
+        {
+          "type": "PATTERN",
+          "value": "int8|INT8"
+        }
+      ]
     },
     "keyword_decimal": {
       "type": "PATTERN",
@@ -667,6 +716,10 @@
     "keyword_real": {
       "type": "PATTERN",
       "value": "real|REAL"
+    },
+    "keyword_float": {
+      "type": "PATTERN",
+      "value": "float|FLOAT"
     },
     "double": {
       "type": "SEQ",
@@ -885,6 +938,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "float"
+        },
+        {
+          "type": "SYMBOL",
           "name": "keyword_money"
         },
         {
@@ -953,19 +1010,11 @@
         },
         {
           "type": "SYMBOL",
-          "name": "bigint"
-        },
-        {
-          "type": "SYMBOL",
           "name": "char"
         },
         {
           "type": "SYMBOL",
           "name": "varchar"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "decimal"
         },
         {
           "type": "SYMBOL",
@@ -994,6 +1043,45 @@
             {
               "type": "FIELD",
               "name": "size",
+              "content": {
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_number"
+                },
+                "named": true,
+                "value": "literal"
+              }
+            },
+            {
+              "type": "STRING",
+              "value": ")"
+            }
+          ]
+        }
+      ]
+    },
+    "float": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_float"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "keyword_float"
+            },
+            {
+              "type": "STRING",
+              "value": "("
+            },
+            {
+              "type": "FIELD",
+              "name": "precision",
               "content": {
                 "type": "ALIAS",
                 "content": {

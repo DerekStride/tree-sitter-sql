@@ -95,6 +95,10 @@
             "named": true
           },
           {
+            "type": "float",
+            "named": true
+          },
+          {
             "type": "keyword_bigserial",
             "named": true
           },
@@ -838,6 +842,10 @@
           "named": true
         },
         {
+          "type": "float",
+          "named": true
+        },
+        {
           "type": "invocation",
           "named": true
         },
@@ -1075,6 +1083,10 @@
           },
           {
             "type": "double",
+            "named": true
+          },
+          {
+            "type": "float",
             "named": true
           },
           {
@@ -1881,6 +1893,32 @@
     }
   },
   {
+    "type": "float",
+    "named": true,
+    "fields": {
+      "precision": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "literal",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_float",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "frame_definition",
     "named": true,
     "fields": {},
@@ -2268,12 +2306,37 @@
     }
   },
   {
+    "type": "keyword_bigint",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "keyword_bigserial",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "keyword_char",
     "named": true,
     "fields": {}
   },
   {
     "type": "keyword_int",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "keyword_serial",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "keyword_smallint",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "keyword_smallserial",
     "named": true,
     "fields": {}
   },
@@ -3866,14 +3929,6 @@
     "named": true
   },
   {
-    "type": "keyword_bigint",
-    "named": true
-  },
-  {
-    "type": "keyword_bigserial",
-    "named": true
-  },
-  {
     "type": "keyword_boolean",
     "named": true
   },
@@ -3987,6 +4042,10 @@
   },
   {
     "type": "keyword_first",
+    "named": true
+  },
+  {
+    "type": "keyword_float",
     "named": true
   },
   {
@@ -4210,19 +4269,7 @@
     "named": true
   },
   {
-    "type": "keyword_serial",
-    "named": true
-  },
-  {
     "type": "keyword_set",
-    "named": true
-  },
-  {
-    "type": "keyword_smallint",
-    "named": true
-  },
-  {
-    "type": "keyword_smallserial",
     "named": true
   },
   {
