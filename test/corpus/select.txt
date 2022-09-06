@@ -1934,7 +1934,7 @@ Select from inplace values insert
 SELECT
     *
 FROM
-    (VALUES (1, 2), (3, 4) AS V (col1, col2));
+    (VALUES (1, 2), (3, 4)) AS V (col1, col2);
 
 ---
 
@@ -1947,17 +1947,18 @@ FROM
     (from
       (keyword_from)
         (relation
-          (keyword_values)
-          (list
-            (literal)
-            (literal))
-          (list
-            (literal)
-            (literal))
+          (values
+            (keyword_values)
+            (list
+              (literal)
+              (literal))
+            (list
+              (literal)
+              (literal)))
           (keyword_as)
           (identifier)
-          (list
-            (field
+          (column_list
+            (column
               (identifier))
-            (field
+            (column
               (identifier)))))))

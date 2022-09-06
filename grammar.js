@@ -1092,26 +1092,17 @@ module.exports = grammar({
       field('name', $.identifier),
     ),
 
-    _inplace_insert: $ => seq(
-        '(',
-          $.keyword_values,
-          $.list,
-          optional(
-              repeat(
-              seq(
-                ',',
-                $.list,
-              ),
-            ),
+    values: $ => seq(
+      $.keyword_values,
+      $.list,
+      optional(
+          repeat(
+          seq(
+            ',',
+            $.list,
           ),
-          optional(
-            seq(
-              $.keyword_as,
-              field('table_alias', $.identifier),
-              $.list,
-            ),
-          ),
-        ')',
+        ),
+      ),
     ),
 
     relation: $ => seq(
@@ -1119,12 +1110,17 @@ module.exports = grammar({
         $.subquery,
         $.invocation,
         alias($._table_expression, $.table_expression),
-        $._inplace_insert,
+        seq(
+          '(',
+          $.values,
+          ')',
+        ),
       ),
       optional(
         seq(
           optional($.keyword_as),
           field('table_alias', $.identifier),
+          optional(alias($._column_list_without_order, $.column_list)),
         ),
       ),
     ),

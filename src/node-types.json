@@ -2942,7 +2942,7 @@
     "named": true,
     "fields": {
       "table_alias": {
-        "multiple": true,
+        "multiple": false,
         "required": false,
         "types": [
           {
@@ -2957,6 +2957,10 @@
       "required": true,
       "types": [
         {
+          "type": "column_list",
+          "named": true
+        },
+        {
           "type": "invocation",
           "named": true
         },
@@ -2965,19 +2969,15 @@
           "named": true
         },
         {
-          "type": "keyword_values",
-          "named": true
-        },
-        {
-          "type": "list",
-          "named": true
-        },
-        {
           "type": "subquery",
           "named": true
         },
         {
           "type": "table_expression",
+          "named": true
+        },
+        {
+          "type": "values",
           "named": true
         }
       ]
@@ -3522,6 +3522,25 @@
         },
         {
           "type": "where",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "values",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_values",
+          "named": true
+        },
+        {
+          "type": "list",
           "named": true
         }
       ]
