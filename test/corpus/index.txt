@@ -1,0 +1,59 @@
+==================
+Create simple index
+==================
+
+CREATE INDEX ON tab(col);
+
+---
+
+(program
+  (statement
+    (create_index
+      (keyword_create)
+      (keyword_index)
+      (keyword_on)
+      (table_reference
+        (identifier))
+      (column
+        (identifier)))))
+
+
+==================
+Create named index with options
+==================
+
+CREATE UNIQUE INDEX CONCURRENTLY
+IF NOT EXISTS idx1
+ON tab USING HASH(col ASC)
+WHERE tab.col > 10;
+
+---
+
+(program
+  (statement
+    (create_index
+      (keyword_create)
+      (keyword_unique)
+      (keyword_index)
+      (keyword_concurrently)
+      (keyword_if)
+      (keyword_not)
+      (keyword_exists)
+      (identifier)
+      (keyword_on)
+      (table_reference
+        (identifier))
+      (keyword_using)
+      (keyword_hash)
+      (column
+        (identifier)
+        (direction
+          (keyword_asc)))
+      (where
+        (keyword_where)
+        (where_expression
+          (predicate
+            (field
+              (identifier)
+              (identifier))
+            (literal)))))))

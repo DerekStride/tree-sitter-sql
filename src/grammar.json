@@ -426,6 +426,38 @@
       "type": "PATTERN",
       "value": "only|ONLY"
     },
+    "keyword_unique": {
+      "type": "PATTERN",
+      "value": "unique|UNIQUE"
+    },
+    "keyword_concurrently": {
+      "type": "PATTERN",
+      "value": "concurrently|CONCURRENTLY"
+    },
+    "keyword_btree": {
+      "type": "PATTERN",
+      "value": "btree|BTREE"
+    },
+    "keyword_hash": {
+      "type": "PATTERN",
+      "value": "hash|HASH"
+    },
+    "keyword_gist": {
+      "type": "PATTERN",
+      "value": "gist|GIST"
+    },
+    "keyword_spgist": {
+      "type": "PATTERN",
+      "value": "spgist|SPGIST"
+    },
+    "keyword_gin": {
+      "type": "PATTERN",
+      "value": "gin|GIN"
+    },
+    "keyword_brin": {
+      "type": "PATTERN",
+      "value": "brin|BRIN"
+    },
     "_temporary": {
       "type": "CHOICE",
       "members": [
@@ -2034,6 +2066,10 @@
             {
               "type": "SYMBOL",
               "name": "create_materialized_view"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "create_index"
             }
           ]
         }
@@ -2233,6 +2269,167 @@
                   ]
                 }
               ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "create_index": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_create"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "keyword_unique"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_index"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "keyword_concurrently"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "_if_not_exists"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "identifier"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_on"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "keyword_only"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "table_reference"
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "keyword_using"
+                    },
+                    {
+                      "type": "CHOICE",
+                      "members": [
+                        {
+                          "type": "SYMBOL",
+                          "name": "keyword_btree"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "keyword_hash"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "keyword_gist"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "keyword_spgist"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "keyword_gin"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "keyword_brin"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
+              "type": "STRING",
+              "value": "("
+            },
+            {
+              "type": "SYMBOL",
+              "name": "column"
+            },
+            {
+              "type": "STRING",
+              "value": ")"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "where"
             },
             {
               "type": "BLANK"
@@ -6094,4 +6291,3 @@
   "inline": [],
   "supertypes": []
 }
-
