@@ -34,7 +34,9 @@ SELECT CAST(1 AS TEXT) AS fieldname;
 Postgres shorthand
 ==================
 
-SELECT 1::TEXT;
+SELECT
+  1::TEXT,
+  1::INT4;
 
 ---
 
@@ -43,7 +45,8 @@ SELECT 1::TEXT;
   (select
     (keyword_select)
     (select_expression
-      (cast (literal) (keyword_text))))))
+      (cast (literal) (keyword_text))
+      (cast (literal) (keyword_int))))))
 
 ==================
 Multiple casts
@@ -72,3 +75,31 @@ SELECT
     (cast
      (literal)
      (keyword_date))))))
+
+==================
+Casts /w precision
+==================
+
+SELECT
+CAST (100 AS NUMERIC(32)),
+     100::FLOAT(32);
+
+---
+
+(program
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (cast
+     name: (identifier)
+     parameter: (literal)
+     (keyword_as)
+     (numeric
+     (keyword_numeric)
+     precision: (literal)))
+    (cast
+     (literal)
+     (float
+      (keyword_float)
+      precision: (literal)))))))

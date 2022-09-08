@@ -157,15 +157,16 @@ module.exports = grammar({
 
     keyword_boolean: _ => make_keyword("boolean"),
 
-    keyword_smallserial: _ => make_keyword("smallserial"),
-    keyword_serial: _ => make_keyword("serial"),
-    keyword_bigserial: _ => make_keyword("bigserial"),
-    keyword_smallint: _ => make_keyword("smallint"),
-    keyword_int: _ => choice(make_keyword("int"), make_keyword("integer")),
-    keyword_bigint: _ => make_keyword("bigint"),
+    keyword_smallserial: _ => choice(make_keyword("smallserial"),make_keyword("serial2")),
+    keyword_serial: _ => choice(make_keyword("serial"),make_keyword("serial4")),
+    keyword_bigserial: _ => choice(make_keyword("bigserial"),make_keyword("serial8")),
+    keyword_smallint: _ => choice(make_keyword("smallint"),make_keyword("int2")),
+    keyword_int: _ => choice(make_keyword("int"), make_keyword("integer"), make_keyword("int4")),
+    keyword_bigint: _ => choice(make_keyword("bigint"),make_keyword("int8")),
     keyword_decimal: _ => make_keyword("decimal"),
     keyword_numeric: _ => make_keyword("numeric"),
     keyword_real: _ => make_keyword("real"),
+    keyword_float: _ => make_keyword("float"),
     double: _ => seq(make_keyword("double"), make_keyword("precision")),
 
     keyword_money: _ => make_keyword("money"),
@@ -230,6 +231,7 @@ module.exports = grammar({
       $.numeric,
       $.keyword_real,
       $.double,
+      $.float,
 
       $.keyword_money,
 
@@ -255,14 +257,15 @@ module.exports = grammar({
       $.keyword_box2d,
       $.keyword_box3d,
 
-      $.bigint,
       $.char,
       $.varchar,
-      $.decimal,
       $.numeric,
     ),
 
     bigint: $ => parametric_type($, $.keyword_bigint),
+
+    // TODO: should qualify against /\\b(0?[1-9]|[1-4][0-9]|5[0-4])\\b/g
+    float: $  => parametric_type($, $.keyword_float, ['precision']),
     decimal: $ => choice(
       parametric_type($, $.keyword_decimal, ['precision']),
       parametric_type($, $.keyword_decimal, ['precision', 'scale']),
