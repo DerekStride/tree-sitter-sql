@@ -2411,16 +2411,8 @@
               ]
             },
             {
-              "type": "STRING",
-              "value": "("
-            },
-            {
               "type": "SYMBOL",
-              "name": "column"
-            },
-            {
-              "type": "STRING",
-              "value": ")"
+              "name": "column_list"
             }
           ]
         },

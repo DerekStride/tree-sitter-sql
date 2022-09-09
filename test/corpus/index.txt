@@ -14,8 +14,9 @@ CREATE INDEX ON tab(col);
       (keyword_on)
       (table_reference
         (identifier))
-      (column
-        (identifier)))))
+      (column_list
+        (column
+          (identifier))))))
 
 
 ==================
@@ -45,10 +46,11 @@ WHERE tab.col > 10;
         (identifier))
       (keyword_using)
       (keyword_hash)
-      (column
-        (identifier)
-        (direction
-          (keyword_asc)))
+      (column_list
+        (column
+          (identifier)
+          (direction
+            (keyword_asc))))
       (where
         (keyword_where)
         (where_expression

@@ -1399,7 +1399,7 @@
       "required": true,
       "types": [
         {
-          "type": "column",
+          "type": "column_list",
           "named": true
         },
         {

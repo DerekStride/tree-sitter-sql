@@ -550,9 +550,7 @@ module.exports = grammar({
             ),
           ),
         ),
-        '(',
-        $.column,
-        ')',
+        $.column_list,
       ),
       optional(
         $.where,
