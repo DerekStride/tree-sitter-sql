@@ -135,6 +135,14 @@ module.exports = grammar({
     keyword_ties: _ => make_keyword("ties"),
     keyword_others: _ => make_keyword("others"),
     keyword_only: _ => make_keyword("only"),
+    keyword_unique: _ => make_keyword("unique"),
+    keyword_concurrently: _ => make_keyword("concurrently"),
+    keyword_btree: _ => make_keyword("btree"),
+    keyword_hash: _ => make_keyword("hash"),
+    keyword_gist: _ => make_keyword("gist"),
+    keyword_spgist: _ => make_keyword("spgist"),
+    keyword_gin:  _ => make_keyword("gin"),
+    keyword_brin: _ => make_keyword("brin"),
 
     _temporary: $ => choice($.keyword_temp, $.keyword_temporary),
     _not_null: $ => seq($.keyword_not, $.keyword_null),
@@ -465,6 +473,7 @@ module.exports = grammar({
         $.create_table,
         $.create_view,
         $.create_materialized_view,
+        $.create_index,
         // TODO function, sequence
       ),
     ),
@@ -511,6 +520,41 @@ module.exports = grammar({
           )
         )
       )
+    ),
+
+    create_index: $ => seq(
+      $.keyword_create,
+      optional($.keyword_unique),
+      $.keyword_index,
+      optional($.keyword_concurrently),
+      optional(
+        seq(
+          optional($._if_not_exists),
+          $.identifier,
+        ),
+      ),
+      $.keyword_on,
+      optional($.keyword_only),
+      seq(
+        $.table_reference,
+        optional(
+          seq(
+            $.keyword_using,
+            choice(
+              $.keyword_btree,
+              $.keyword_hash,
+              $.keyword_gist,
+              $.keyword_spgist,
+              $.keyword_gin,
+              $.keyword_brin
+            ),
+          ),
+        ),
+        $.column_list,
+      ),
+      optional(
+        $.where,
+      ),
     ),
 
     _alter_statement: $ => seq(

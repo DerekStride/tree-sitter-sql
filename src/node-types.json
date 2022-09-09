@@ -1391,6 +1391,97 @@
     }
   },
   {
+    "type": "create_index",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "column_list",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "keyword_brin",
+          "named": true
+        },
+        {
+          "type": "keyword_btree",
+          "named": true
+        },
+        {
+          "type": "keyword_concurrently",
+          "named": true
+        },
+        {
+          "type": "keyword_create",
+          "named": true
+        },
+        {
+          "type": "keyword_exists",
+          "named": true
+        },
+        {
+          "type": "keyword_gin",
+          "named": true
+        },
+        {
+          "type": "keyword_gist",
+          "named": true
+        },
+        {
+          "type": "keyword_hash",
+          "named": true
+        },
+        {
+          "type": "keyword_if",
+          "named": true
+        },
+        {
+          "type": "keyword_index",
+          "named": true
+        },
+        {
+          "type": "keyword_not",
+          "named": true
+        },
+        {
+          "type": "keyword_on",
+          "named": true
+        },
+        {
+          "type": "keyword_only",
+          "named": true
+        },
+        {
+          "type": "keyword_spgist",
+          "named": true
+        },
+        {
+          "type": "keyword_unique",
+          "named": true
+        },
+        {
+          "type": "keyword_using",
+          "named": true
+        },
+        {
+          "type": "table_reference",
+          "named": true
+        },
+        {
+          "type": "where",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "create_materialized_view",
     "named": true,
     "fields": {},
@@ -3299,6 +3390,10 @@
           "named": true
         },
         {
+          "type": "create_index",
+          "named": true
+        },
+        {
           "type": "create_materialized_view",
           "named": true
         },
@@ -3941,6 +4036,14 @@
     "named": true
   },
   {
+    "type": "keyword_brin",
+    "named": true
+  },
+  {
+    "type": "keyword_btree",
+    "named": true
+  },
+  {
     "type": "keyword_by",
     "named": true
   },
@@ -3962,6 +4065,10 @@
   },
   {
     "type": "keyword_commit",
+    "named": true
+  },
+  {
+    "type": "keyword_concurrently",
     "named": true
   },
   {
@@ -4073,11 +4180,23 @@
     "named": true
   },
   {
+    "type": "keyword_gin",
+    "named": true
+  },
+  {
+    "type": "keyword_gist",
+    "named": true
+  },
+  {
     "type": "keyword_group",
     "named": true
   },
   {
     "type": "keyword_groups",
+    "named": true
+  },
+  {
+    "type": "keyword_hash",
     "named": true
   },
   {
@@ -4273,6 +4392,10 @@
     "named": true
   },
   {
+    "type": "keyword_spgist",
+    "named": true
+  },
+  {
     "type": "keyword_table",
     "named": true
   },
@@ -4318,6 +4441,10 @@
   },
   {
     "type": "keyword_union",
+    "named": true
+  },
+  {
+    "type": "keyword_unique",
     "named": true
   },
   {
