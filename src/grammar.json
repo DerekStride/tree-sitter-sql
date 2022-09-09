@@ -746,23 +746,41 @@
       "value": "numeric|NUMERIC"
     },
     "keyword_real": {
-      "type": "PATTERN",
-      "value": "real|REAL"
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "real|REAL"
+        },
+        {
+          "type": "PATTERN",
+          "value": "float4|FLOAT4"
+        }
+      ]
     },
     "keyword_float": {
       "type": "PATTERN",
       "value": "float|FLOAT"
     },
     "double": {
-      "type": "SEQ",
+      "type": "CHOICE",
       "members": [
         {
-          "type": "PATTERN",
-          "value": "double|DOUBLE"
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "PATTERN",
+              "value": "double|DOUBLE"
+            },
+            {
+              "type": "PATTERN",
+              "value": "precision|PRECISION"
+            }
+          ]
         },
         {
           "type": "PATTERN",
-          "value": "precision|PRECISION"
+          "value": "float8|FLOAT8"
         }
       ]
     },

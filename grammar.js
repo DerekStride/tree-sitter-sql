@@ -173,9 +173,12 @@ module.exports = grammar({
     keyword_bigint: _ => choice(make_keyword("bigint"),make_keyword("int8")),
     keyword_decimal: _ => make_keyword("decimal"),
     keyword_numeric: _ => make_keyword("numeric"),
-    keyword_real: _ => make_keyword("real"),
+    keyword_real: _ => choice(make_keyword("real"),make_keyword("float4")),
     keyword_float: _ => make_keyword("float"),
-    double: _ => seq(make_keyword("double"), make_keyword("precision")),
+    double: _ => choice(
+        seq(make_keyword("double"), make_keyword("precision")),
+        make_keyword("float8")
+    ),
 
     keyword_money: _ => make_keyword("money"),
 
