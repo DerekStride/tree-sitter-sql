@@ -2016,3 +2016,66 @@ FROM
               (identifier))
             (column
               (identifier)))))))
+
+
+==================
+Where with pattern matching
+==================
+
+SELECT
+    *
+FROM
+    a
+WHERE
+        a LIKE '%a'
+    AND a NOT LIKE '%a'
+    AND a SIMILAR TO '%a'
+    AND a NOT SIMILAR TO '%a';
+
+
+---
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (all_fields)))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          (identifier)))
+      (where
+        (keyword_where)
+        (where_expression
+          (predicate
+            (predicate
+              (predicate
+                (predicate
+                  (field
+                    (identifier))
+                  (keyword_like)
+                  (predicate
+                    (literal)
+                    (keyword_and)
+                    (field
+                      (identifier))))
+                (keyword_not)
+                (keyword_like)
+                (predicate
+                  (literal)
+                  (keyword_and)
+                  (field
+                    (identifier))))
+              (keyword_simliar)
+              (keyword_to)
+              (predicate
+                (literal)
+                (keyword_and)
+                (field
+                  (identifier))))
+            (keyword_not)
+            (keyword_simliar)
+            (keyword_to)
+            (literal)))))))
