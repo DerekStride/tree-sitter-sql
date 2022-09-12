@@ -471,7 +471,7 @@
         }
       ]
     },
-    "keyword_simliar": {
+    "keyword_similar": {
       "type": "PATTERN",
       "value": "similar|SIMILAR"
     },
@@ -480,7 +480,7 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "keyword_simliar"
+          "name": "keyword_similar"
         },
         {
           "type": "SYMBOL",
@@ -497,7 +497,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "keyword_simliar"
+          "name": "keyword_similar"
         },
         {
           "type": "SYMBOL",
@@ -5701,7 +5701,7 @@
                   "members": [
                     {
                       "type": "SYMBOL",
-                      "name": "keyword_simliar"
+                      "name": "keyword_similar"
                     },
                     {
                       "type": "SYMBOL",
@@ -5747,7 +5747,7 @@
                     },
                     {
                       "type": "SYMBOL",
-                      "name": "keyword_simliar"
+                      "name": "keyword_similar"
                     },
                     {
                       "type": "SYMBOL",

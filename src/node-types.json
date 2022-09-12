@@ -2959,7 +2959,7 @@
             "named": true
           },
           {
-            "type": "keyword_simliar",
+            "type": "keyword_similar",
             "named": true
           },
           {
@@ -4410,7 +4410,7 @@
     "named": true
   },
   {
-    "type": "keyword_simliar",
+    "type": "keyword_similar",
     "named": true
   },
   {
