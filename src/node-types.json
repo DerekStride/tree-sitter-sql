@@ -2417,6 +2417,11 @@
     "fields": {}
   },
   {
+    "type": "keyword_real",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "keyword_serial",
     "named": true,
     "fields": {}
@@ -4345,10 +4350,6 @@
   },
   {
     "type": "keyword_range",
-    "named": true
-  },
-  {
-    "type": "keyword_real",
     "named": true
   },
   {

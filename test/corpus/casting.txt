@@ -82,7 +82,8 @@ Casts /w precision
 
 SELECT
 CAST (100 AS NUMERIC(32)),
-     100::FLOAT(32);
+     100::FLOAT(32),
+     100::FLOAT8;
 
 ---
 
@@ -102,4 +103,7 @@ CAST (100 AS NUMERIC(32)),
      (literal)
      (float
       (keyword_float)
-      precision: (literal)))))))
+        precision: (literal)))
+    (cast
+      (literal)
+      (double))))))
