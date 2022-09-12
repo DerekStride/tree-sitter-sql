@@ -2045,37 +2045,37 @@ WHERE
       (keyword_from)
       (relation
         (table_reference
-          (identifier)))
+          name: (identifier)))
       (where
         (keyword_where)
         (where_expression
           (predicate
-            (predicate
-              (predicate
-                (predicate
-                  (field
-                    (identifier))
-                  (keyword_like)
-                  (predicate
-                    (literal)
-                    (keyword_and)
-                    (field
-                      (identifier))))
-                (keyword_not)
-                (keyword_like)
-                (predicate
-                  (literal)
-                  (keyword_and)
-                  (field
-                    (identifier))))
-              (keyword_similar)
-              (keyword_to)
-              (predicate
-                (literal)
-                (keyword_and)
-                (field
-                  (identifier))))
-            (keyword_not)
-            (keyword_similar)
-            (keyword_to)
-            (literal)))))))
+            left: (predicate
+              left: (predicate
+                left: (predicate
+                  left: (field
+                    name: (identifier))
+                  operator: (keyword_like)
+                  right: (predicate
+                    left: (literal)
+                    operator: (keyword_and)
+                    right: (field
+                      name: (identifier))))
+                operator: (keyword_not)
+                operator: (keyword_like)
+                right: (predicate
+                  left: (literal)
+                  operator: (keyword_and)
+                  right: (field
+                    name: (identifier))))
+              operator: (keyword_similar)
+              operator: (keyword_to)
+              right: (predicate
+                left: (literal)
+                operator: (keyword_and)
+                right: (field
+                  name: (identifier))))
+            operator: (keyword_not)
+            operator: (keyword_similar)
+            operator: (keyword_to)
+            right: (literal)))))))

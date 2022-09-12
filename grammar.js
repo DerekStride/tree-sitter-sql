@@ -1342,7 +1342,7 @@ module.exports = grammar({
         ['>', 'binary_relation'],
         [$.keyword_like, 'pattern_matching'],
         [seq($.keyword_not, $.keyword_like), 'pattern_matching'],
-        [seq($.keyword_similar, $.keyword_to), 'pattern_matching'],
+        [$._similar_to, 'pattern_matching'],
         [seq($.keyword_not,$.keyword_similar, $.keyword_to), 'pattern_matching'],
         [seq($.keyword_is, $.keyword_distinct, $.keyword_from), 'binary_relation'],
         [seq($.keyword_is, $.keyword_not, $.keyword_distinct, $.keyword_from), 'binary_relation'],

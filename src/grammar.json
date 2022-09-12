@@ -5697,17 +5697,8 @@
                 "type": "FIELD",
                 "name": "operator",
                 "content": {
-                  "type": "SEQ",
-                  "members": [
-                    {
-                      "type": "SYMBOL",
-                      "name": "keyword_similar"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "keyword_to"
-                    }
-                  ]
+                  "type": "SYMBOL",
+                  "name": "_similar_to"
                 }
               },
               {
