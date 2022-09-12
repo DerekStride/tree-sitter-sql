@@ -2068,7 +2068,7 @@ WHERE
                   (keyword_and)
                   (field
                     (identifier))))
-              (keyword_simliar)
+              (keyword_similar)
               (keyword_to)
               (predicate
                 (literal)
@@ -2076,6 +2076,6 @@ WHERE
                 (field
                   (identifier))))
             (keyword_not)
-            (keyword_simliar)
+            (keyword_similar)
             (keyword_to)
             (literal)))))))
