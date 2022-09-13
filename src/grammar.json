@@ -5655,17 +5655,8 @@
                 "type": "FIELD",
                 "name": "operator",
                 "content": {
-                  "type": "SEQ",
-                  "members": [
-                    {
-                      "type": "SYMBOL",
-                      "name": "keyword_not"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "keyword_like"
-                    }
-                  ]
+                  "type": "SYMBOL",
+                  "name": "_not_like"
                 }
               },
               {
@@ -5730,21 +5721,8 @@
                 "type": "FIELD",
                 "name": "operator",
                 "content": {
-                  "type": "SEQ",
-                  "members": [
-                    {
-                      "type": "SYMBOL",
-                      "name": "keyword_not"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "keyword_similar"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "keyword_to"
-                    }
-                  ]
+                  "type": "SYMBOL",
+                  "name": "_not_similar_to"
                 }
               },
               {
@@ -6507,11 +6485,11 @@
       },
       {
         "type": "STRING",
-        "value": "clause_connective"
+        "value": "pattern_matching"
       },
       {
         "type": "STRING",
-        "value": "pattern_matching"
+        "value": "clause_connective"
       }
     ]
   ],

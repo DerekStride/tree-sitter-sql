@@ -2056,26 +2056,26 @@ WHERE
                   left: (field
                     name: (identifier))
                   operator: (keyword_like)
-                  right: (predicate
-                    left: (literal)
-                    operator: (keyword_and)
-                    right: (field
-                      name: (identifier))))
-                operator: (keyword_not)
-                operator: (keyword_like)
+                right: (literal))
+                operator: (keyword_and)
                 right: (predicate
-                  left: (literal)
-                  operator: (keyword_and)
-                  right: (field
-                    name: (identifier))))
+                  left: (field
+                    name: (identifier))
+                  operator: (keyword_not)
+                  operator: (keyword_like)
+                  right: (literal)))
+              operator: (keyword_and)
+            right: (predicate
+              left: (field
+                name: (identifier))
               operator: (keyword_similar)
               operator: (keyword_to)
-              right: (predicate
-                left: (literal)
-                operator: (keyword_and)
-                right: (field
-                  name: (identifier))))
+              right: (literal)))
+          operator: (keyword_and)
+          right: (predicate
+            left: (field
+              name: (identifier))
             operator: (keyword_not)
             operator: (keyword_similar)
             operator: (keyword_to)
-            right: (literal)))))))
+            right: (literal))))))))
