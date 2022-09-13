@@ -2417,6 +2417,11 @@
     "fields": {}
   },
   {
+    "type": "keyword_like",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "keyword_real",
     "named": true,
     "fields": {}
@@ -2942,11 +2947,23 @@
             "named": true
           },
           {
+            "type": "keyword_like",
+            "named": true
+          },
+          {
             "type": "keyword_not",
             "named": true
           },
           {
             "type": "keyword_or",
+            "named": true
+          },
+          {
+            "type": "keyword_similar",
+            "named": true
+          },
+          {
+            "type": "keyword_to",
             "named": true
           }
         ]
@@ -4390,6 +4407,10 @@
   },
   {
     "type": "keyword_set",
+    "named": true
+  },
+  {
+    "type": "keyword_similar",
     "named": true
   },
   {
