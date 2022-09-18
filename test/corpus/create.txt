@@ -602,3 +602,15 @@ CREATE TABLE type_test (
     (column_definition name: (identifier) type: (keyword_box3d))
     (column_definition name: (identifier) type: (keyword_uuid))
    ))))
+
+
+==================
+Create table with nullable columns
+==================
+
+CREATE TABLE tableName (
+    id NUMERIC NULL,
+    name VARCHAR NULL
+);
+
+---
