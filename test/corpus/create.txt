@@ -614,3 +614,22 @@ CREATE TABLE tableName (
 );
 
 ---
+
+(program
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (table_reference
+        (identifier))
+      (column_definitions
+        (column_definition
+          (identifier)
+          (numeric
+            (keyword_numeric))
+          (keyword_null))
+        (column_definition
+          (identifier)
+          (varchar
+            (keyword_varchar))
+          (keyword_null))))))
