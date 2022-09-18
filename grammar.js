@@ -336,6 +336,11 @@ module.exports = grammar({
     cte: $ => seq(
       $.identifier,
       $.keyword_as,
+      optional(
+        seq(
+          optional($.keyword_not),
+          $.keyword_materialized),
+      ),
       '(',
       alias(
         choice(
@@ -835,6 +840,7 @@ module.exports = grammar({
       field('name', $.identifier),
       field('type', $._type),
       choice(
+        optional($.keyword_null),
         optional($._not_null),
         optional($._default_null),
       ),

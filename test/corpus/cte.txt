@@ -93,3 +93,64 @@ FROM second;
    (keyword_from)
     (relation
        (table_reference name: (identifier))))))
+
+==================
+CTE with materializations
+==================
+
+WITH first AS NOT MATERIALIZED (
+  SELECT a FROM b
+), second AS MATERIALIZED (
+  SELECT one, two
+  FROM my_table
+)
+SELECT *
+FROM second;
+
+---
+
+(program
+  (statement
+    (keyword_with)
+    (cte
+      (identifier)
+      (keyword_as)
+      (keyword_not)
+      (keyword_materialized)
+      (statement
+        (select
+          (keyword_select)
+          (select_expression
+            (field
+              (identifier))))
+        (from
+          (keyword_from)
+          (relation
+            (table_reference
+              (identifier))))))
+    (cte
+      (identifier)
+      (keyword_as)
+      (keyword_materialized)
+      (statement
+        (select
+          (keyword_select)
+          (select_expression
+            (field
+              (identifier))
+            (field
+              (identifier))))
+        (from
+          (keyword_from)
+          (relation
+            (table_reference
+              (identifier))))))
+    (select
+      (keyword_select)
+      (select_expression
+        (all_fields)))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          (identifier))))))

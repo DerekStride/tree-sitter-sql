@@ -1707,6 +1707,14 @@
           "named": true
         },
         {
+          "type": "keyword_materialized",
+          "named": true
+        },
+        {
+          "type": "keyword_not",
+          "named": true
+        },
+        {
           "type": "statement",
           "named": true
         }
