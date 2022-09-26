@@ -3984,8 +3984,17 @@
                   "name": "keyword_when"
                 },
                 {
-                  "type": "SYMBOL",
-                  "name": "predicate"
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "predicate"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "identifier"
+                    }
+                  ]
                 },
                 {
                   "type": "SYMBOL",

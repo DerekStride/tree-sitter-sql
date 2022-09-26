@@ -682,6 +682,10 @@
           "named": true
         },
         {
+          "type": "identifier",
+          "named": true
+        },
+        {
           "type": "invocation",
           "named": true
         },
