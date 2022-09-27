@@ -931,7 +931,10 @@ module.exports = grammar({
         // standard CASE WHEN x, where x must be a predicate
         seq(
           $.keyword_when,
-          $.predicate,
+          choice(
+            $.predicate,
+            $.identifier,
+          ),
           $.keyword_then,
           $._expression,
           repeat(
