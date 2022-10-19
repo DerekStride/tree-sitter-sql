@@ -183,6 +183,32 @@ FROM my_table m;
       table_alias: (identifier)))))
 
 ==================
+Simple select with aliased table and column name using double quotes
+==================
+
+SELECT "My Table".name as "My Name"
+FROM my_table "My Table";
+
+---
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (field
+          table_alias: (identifier)
+          name: (identifier))
+        (keyword_as)
+        alias: (identifier)))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier))
+        table_alias: (identifier)))))
+
+==================
 Simple select with where
 ==================
 

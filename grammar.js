@@ -893,11 +893,11 @@ module.exports = grammar({
         seq(
           optional(
             seq(
-              field('schema', $.identifier),
+              field('schema', $._alias_identifier),
               '.',
             ),
           ),
-          field('table_alias', $.identifier),
+          field('table_alias', $._alias_identifier),
           '.',
         ),
       ),
@@ -961,11 +961,11 @@ module.exports = grammar({
         seq(
           optional(
             seq(
-              field('schema', $.identifier),
+              field('schema', $._alias_identifier),
               '.',
             ),
           ),
-          field('table_alias', $.identifier),
+          field('table_alias', $._alias_identifier),
           '.',
         ),
       ),
@@ -1111,11 +1111,16 @@ module.exports = grammar({
       ),
     ),
 
+    _alias_identifier : $ => choice(
+      $.identifier,
+      alias($._double_quote_string, $.identifier),
+    ),
+
     _alias: $ => choice(
-      field('alias', $.identifier),
+      field('alias', $._alias_identifier),
       seq(
         $.keyword_as,
-        field('alias', $.identifier),
+        field('alias', $._alias_identifier),
       ),
     ),
 
@@ -1165,7 +1170,7 @@ module.exports = grammar({
       optional(
         seq(
           optional($.keyword_as),
-          field('table_alias', $.identifier),
+          field('table_alias', $._alias_identifier),
           optional(alias($._column_list_without_order, $.column_list)),
         ),
       ),
@@ -1430,9 +1435,10 @@ module.exports = grammar({
         $.keyword_null,
       ),
     ),
-    _literal_string: _ => choice(
+    _double_quote_string: _ => seq('"', /[^"]*/, '"'),
+    _literal_string: $ => choice(
       seq("'", /[^']*/, "'"),
-      seq('"', /[^"]*/, '"'),
+      $._double_quote_string,
     ),
     _number: _ => /\d+/,
 
