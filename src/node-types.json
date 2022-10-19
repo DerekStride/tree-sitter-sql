@@ -39,13 +39,9 @@
     "named": true,
     "fields": {
       "schema": {
-        "multiple": true,
+        "multiple": false,
         "required": false,
         "types": [
-          {
-            "type": "\"",
-            "named": false
-          },
           {
             "type": "identifier",
             "named": true
@@ -53,13 +49,9 @@
         ]
       },
       "table_alias": {
-        "multiple": true,
+        "multiple": false,
         "required": false,
         "types": [
-          {
-            "type": "\"",
-            "named": false
-          },
           {
             "type": "identifier",
             "named": true
@@ -1982,13 +1974,9 @@
         ]
       },
       "schema": {
-        "multiple": true,
+        "multiple": false,
         "required": false,
         "types": [
-          {
-            "type": "\"",
-            "named": false
-          },
           {
             "type": "identifier",
             "named": true
@@ -1996,13 +1984,9 @@
         ]
       },
       "table_alias": {
-        "multiple": true,
+        "multiple": false,
         "required": false,
         "types": [
-          {
-            "type": "\"",
-            "named": false
-          },
           {
             "type": "identifier",
             "named": true
@@ -3150,13 +3134,9 @@
     "named": true,
     "fields": {
       "table_alias": {
-        "multiple": true,
+        "multiple": false,
         "required": false,
         "types": [
-          {
-            "type": "\"",
-            "named": false
-          },
           {
             "type": "identifier",
             "named": true
@@ -3327,10 +3307,6 @@
         "multiple": true,
         "required": false,
         "types": [
-          {
-            "type": "\"",
-            "named": false
-          },
           {
             "type": "identifier",
             "named": true

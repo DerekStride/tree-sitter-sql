@@ -197,13 +197,16 @@ FROM my_table "My Table";
       (keyword_select)
       (select_expression
         (field
+          table_alias: (identifier)
           name: (identifier))
-        (keyword_as)))
+        (keyword_as)
+        alias: (identifier)))
     (from
       (keyword_from)
       (relation
         (table_reference
-          name: (identifier))))))
+          name: (identifier))
+        table_alias: (identifier)))))
 
 ==================
 Simple select with where

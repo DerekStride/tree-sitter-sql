@@ -4611,8 +4611,13 @@
           "name": "identifier"
         },
         {
-          "type": "SYMBOL",
-          "name": "_double_quote_string"
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_double_quote_string"
+          },
+          "named": true,
+          "value": "identifier"
         }
       ]
     },

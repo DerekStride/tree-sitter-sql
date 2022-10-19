@@ -1113,7 +1113,7 @@ module.exports = grammar({
 
     _alias_identifier : $ => choice(
       $.identifier,
-      $._double_quote_string
+      alias($._double_quote_string, $.identifier),
     ),
 
     _alias: $ => choice(
