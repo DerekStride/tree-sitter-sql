@@ -294,8 +294,9 @@ module.exports = grammar({
     char: $ => parametric_type($, $.keyword_char),
     varchar: $ => parametric_type($, $.keyword_varchar),
 
-    comment: _ => /--.*\n/,
-    marginalia: _ => /\/'*.*\*\//,
+    comment: _ => seq('--', /.*\n/),
+    // https://stackoverflow.com/questions/13014947/regex-to-match-a-c-style-multiline-comment
+    marginalia: _ => seq('/*', /[^*]*\*+(?:[^/*][^*]*\*+)*/, '/' ),
 
     statement: $ => seq(
       choice(
