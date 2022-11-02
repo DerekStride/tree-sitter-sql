@@ -105,3 +105,132 @@ FROM my_table;
    (keyword_from)
    (table_reference
     name: (identifier)))))
+
+==================
+Multiline marginalia, basic
+==================
+
+/*
+This is a query
+With a multiline comment
+*/
+SELECT id
+/*
+SELECT id FROM my_table;
+*/
+FROM my_table;
+
+---
+
+(program
+ (marginalia)
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (field
+     name: (identifier))))
+  (marginalia)
+  (from
+   (keyword_from)
+    (relation
+     (table_reference
+         name: (identifier))))))
+
+==================
+Multiline marginalia, empty
+==================
+
+/*
+*/
+SELECT id
+/*
+
+*/
+FROM my_table;
+
+---
+
+(program
+ (marginalia)
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (field
+     name: (identifier))))
+  (marginalia)
+  (from
+   (keyword_from)
+    (relation
+     (table_reference
+         name: (identifier))))))
+
+==================
+Marginalia, more symbols
+==================
+
+/**
+ * Javadoc style
+ * -- with an inline comment
+ */
+SELECT id
+/******/
+FROM my_table;
+
+---
+
+(program
+ (marginalia)
+ (statement
+  (select
+   (keyword_select)
+   (select_expression
+    (field
+     name: (identifier))))
+  (marginalia)
+  (from
+   (keyword_from)
+    (relation
+     (table_reference
+         name: (identifier))))))
+
+==================
+Comment inside string literal
+==================
+
+SELECT '-- foo' FROM bar;
+
+---
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (literal)))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          (identifier))))))
+
+==================
+Marginalia inside string literal
+==================
+
+SELECT '/* foo */' FROM bar;
+
+---
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (literal)))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          (identifier))))))

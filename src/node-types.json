@@ -1262,6 +1262,11 @@
     }
   },
   {
+    "type": "comment",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "constraint",
     "named": true,
     "fields": {
@@ -2653,6 +2658,11 @@
     }
   },
   {
+    "type": "marginalia",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "numeric",
     "named": true,
     "fields": {
@@ -3970,11 +3980,19 @@
     "named": false
   },
   {
+    "type": "--",
+    "named": false
+  },
+  {
     "type": ".",
     "named": false
   },
   {
     "type": "/",
+    "named": false
+  },
+  {
+    "type": "/*",
     "named": false
   },
   {
@@ -4016,10 +4034,6 @@
   {
     "type": "`",
     "named": false
-  },
-  {
-    "type": "comment",
-    "named": true
   },
   {
     "type": "keyword_add",
@@ -4519,10 +4533,6 @@
   },
   {
     "type": "keyword_xml",
-    "named": true
-  },
-  {
-    "type": "marginalia",
     "named": true
   },
   {

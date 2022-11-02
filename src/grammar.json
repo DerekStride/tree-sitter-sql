@@ -1499,12 +1499,34 @@
       ]
     },
     "comment": {
-      "type": "PATTERN",
-      "value": "--.*\\n"
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "--"
+        },
+        {
+          "type": "PATTERN",
+          "value": ".*\\n"
+        }
+      ]
     },
     "marginalia": {
-      "type": "PATTERN",
-      "value": "\\/'*.*\\*\\/"
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "/*"
+        },
+        {
+          "type": "PATTERN",
+          "value": "[^*]*\\*+(?:[^/*][^*]*\\*+)*"
+        },
+        {
+          "type": "STRING",
+          "value": "/"
+        }
+      ]
     },
     "statement": {
       "type": "SEQ",
