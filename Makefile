@@ -8,3 +8,6 @@ generate:
 
 test: generate
 	${ts} test
+
+compile: generate
+	gcc -shared -o target/parser.so -fPIC src/parser.c -I./src
