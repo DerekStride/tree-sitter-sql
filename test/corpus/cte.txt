@@ -21,10 +21,12 @@ FROM my_cte;
         (select
           (keyword_select)
           (select_expression
-            (field
-              name: (identifier))
-            (field
-              name: (identifier))))
+            (term
+              value: (field
+                name: (identifier)))
+            (term
+              value: (field
+                name: (identifier)))))
         (from
           (keyword_from)
           (relation
@@ -90,10 +92,12 @@ FROM second;
         (select
           (keyword_select)
           (select_expression
-            (field
-              name: (identifier))
-            (field
-              name: (identifier))))
+            (term
+              value: (field
+                name: (identifier)))
+            (term
+              value: (field
+                name: (identifier)))))
         (from
           (keyword_from)
           (relation
@@ -136,8 +140,9 @@ FROM second;
         (select
           (keyword_select)
           (select_expression
-            (field
-              (identifier))))
+            (term
+              (field
+                (identifier)))))
         (from
           (keyword_from)
           (relation
@@ -151,10 +156,12 @@ FROM second;
         (select
           (keyword_select)
           (select_expression
-            (field
-              (identifier))
-            (field
-              (identifier))))
+            (term
+              (field
+                (identifier)))
+            (term
+              (field
+                (identifier)))))
         (from
           (keyword_from)
           (relation

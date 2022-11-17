@@ -1964,23 +1964,31 @@
           "name": "all_fields"
         },
         {
-          "type": "SEQ",
+          "type": "SYMBOL",
+          "name": "term"
+        }
+      ]
+    },
+    "term": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "value",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_expression"
+          }
+        },
+        {
+          "type": "CHOICE",
           "members": [
             {
               "type": "SYMBOL",
-              "name": "_expression"
+              "name": "_alias"
             },
             {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "_alias"
-                },
-                {
-                  "type": "BLANK"
-                }
-              ]
+              "type": "BLANK"
             }
           ]
         }

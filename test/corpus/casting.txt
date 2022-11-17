@@ -11,11 +11,12 @@ SELECT CAST(1 AS TEXT);
     (select
       (keyword_select)
       (select_expression
-        (cast
-          (identifier)
-          (literal)
-          (keyword_as)
-          (keyword_text))))))
+        (term
+          (cast
+            (identifier)
+            (literal)
+            (keyword_as)
+            (keyword_text)))))))
 
 ================================================================================
 Aliased
@@ -30,13 +31,14 @@ SELECT CAST(1 AS TEXT) AS fieldname;
     (select
       (keyword_select)
       (select_expression
-        (cast
-          name: (identifier)
-          parameter: (literal)
+        (term
+          value: (cast
+            name: (identifier)
+            parameter: (literal)
+            (keyword_as)
+            (keyword_text))
           (keyword_as)
-          (keyword_text))
-        (keyword_as)
-        alias: (identifier)))))
+          alias: (identifier))))))
 
 ================================================================================
 Postgres shorthand
@@ -53,12 +55,14 @@ SELECT
     (select
       (keyword_select)
       (select_expression
-        (cast
-          (literal)
-          (keyword_text))
-        (cast
-          (literal)
-          (keyword_int))))))
+        (term
+          (cast
+            (literal)
+            (keyword_text)))
+        (term
+          (cast
+            (literal)
+            (keyword_int)))))))
 
 ================================================================================
 Multiple casts
@@ -76,17 +80,20 @@ SELECT
     (select
       (keyword_select)
       (select_expression
-        (cast
-          name: (identifier)
-          parameter: (literal)
-          (keyword_as)
-          (keyword_int))
-        (cast
-          (literal)
-          (keyword_int))
-        (cast
-          (literal)
-          (keyword_date))))))
+        (term
+          value: (cast
+            name: (identifier)
+            parameter: (literal)
+            (keyword_as)
+            (keyword_int)))
+        (term
+          value: (cast
+            (literal)
+            (keyword_int)))
+        (term
+          value: (cast
+            (literal)
+            (keyword_date)))))))
 
 ================================================================================
 Casts /w precision
@@ -104,18 +111,21 @@ CAST (100 AS NUMERIC(32)),
     (select
       (keyword_select)
       (select_expression
-        (cast
-          name: (identifier)
-          parameter: (literal)
-          (keyword_as)
-          (numeric
-            (keyword_numeric)
-            precision: (literal)))
-        (cast
-          (literal)
-          (float
-            (keyword_float)
-            precision: (literal)))
-        (cast
-          (literal)
-          (double))))))
+        (term
+          value: (cast
+            name: (identifier)
+            parameter: (literal)
+            (keyword_as)
+            (numeric
+              (keyword_numeric)
+              precision: (literal))))
+        (term
+          value: (cast
+            (literal)
+            (float
+              (keyword_float)
+              precision: (literal))))
+        (term
+          value: (cast
+            (literal)
+            (double)))))))

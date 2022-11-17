@@ -16,8 +16,9 @@ WHERE id < (
     (select
       (keyword_select)
       (select_expression
-        (field
-          (identifier))))
+        (term
+          (field
+            (identifier)))))
     (from
       (keyword_from)
       (relation
@@ -33,8 +34,9 @@ WHERE id < (
               (select
                 (keyword_select)
                 (select_expression
-                  (field
-                    (identifier))))
+                  (term
+                    (field
+                      (identifier)))))
               (from
                 (keyword_from)
                 (relation

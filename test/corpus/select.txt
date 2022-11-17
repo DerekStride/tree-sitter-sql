@@ -11,7 +11,8 @@ SELECT 1;
     (select
       (keyword_select)
       (select_expression
-        (literal)))))
+        (term
+          (literal))))))
 
 ================================================================================
 Select aliased literals
@@ -28,17 +29,20 @@ SELECT 1 AS one,
     (select
       (keyword_select)
       (select_expression
-        (literal)
-        (keyword_as)
-        alias: (identifier)
-        (literal
-          (keyword_true))
-        (keyword_as)
-        alias: (identifier)
-        (literal
-          (keyword_null))
-        (keyword_as)
-        alias: (identifier)))))
+        (term
+          value: (literal)
+          (keyword_as)
+          alias: (identifier))
+        (term
+          value: (literal
+            (keyword_true))
+          (keyword_as)
+          alias: (identifier))
+        (term
+          value: (literal
+            (keyword_null))
+          (keyword_as)
+          alias: (identifier))))))
 
 ================================================================================
 Simple select
@@ -138,10 +142,12 @@ SELECT id, name FROM my_table;
     (select
       (keyword_select)
       (select_expression
-        (field
-          name: (identifier))
-        (field
-          name: (identifier))))
+        (term
+          value: (field
+            name: (identifier)))
+        (term
+          value: (field
+            name: (identifier)))))
     (from
       (keyword_from)
       (relation
@@ -162,15 +168,18 @@ FROM join_something_on AS where_this_like_that;
     (select
       (keyword_select)
       (select_expression
-        (field
-          table_alias: (identifier)
-          name: (identifier))
-        (field
-          table_alias: (identifier)
-          name: (identifier))
-        (field
-          table_alias: (identifier)
-          name: (identifier))))
+        (term
+          value: (field
+            table_alias: (identifier)
+            name: (identifier)))
+        (term
+          value: (field
+            table_alias: (identifier)
+            name: (identifier)))
+        (term
+          value: (field
+            table_alias: (identifier)
+            name: (identifier)))))
     (from
       (keyword_from)
       (relation
@@ -193,12 +202,14 @@ FROM my_table m;
     (select
       (keyword_select)
       (select_expression
-        (field
-          table_alias: (identifier)
-          name: (identifier))
-        (field
-          table_alias: (identifier)
-          name: (identifier))))
+        (term
+          value: (field
+            table_alias: (identifier)
+            name: (identifier)))
+        (term
+          value: (field
+            table_alias: (identifier)
+            name: (identifier)))))
     (from
       (keyword_from)
       (relation
@@ -220,11 +231,12 @@ FROM my_table "My Table";
     (select
       (keyword_select)
       (select_expression
-        (field
-          table_alias: (identifier)
-          name: (identifier))
-        (keyword_as)
-        alias: (identifier)))
+        (term
+          value: (field
+            table_alias: (identifier)
+            name: (identifier))
+          (keyword_as)
+          alias: (identifier))))
     (from
       (keyword_from)
       (relation
@@ -247,8 +259,9 @@ WHERE id = 4;
     (select
       (keyword_select)
       (select_expression
-        (field
-          name: (identifier))))
+        (term
+          value: (field
+            name: (identifier)))))
     (from
       (keyword_from)
       (relation
@@ -277,8 +290,9 @@ WHERE id = "abc";
     (select
       (keyword_select)
       (select_expression
-        (field
-          name: (identifier))))
+        (term
+          value: (field
+            name: (identifier)))))
     (from
       (keyword_from)
       (relation
@@ -307,8 +321,9 @@ WHERE id IN(1,2);
     (select
       (keyword_select)
       (select_expression
-        (field
-          name: (identifier))))
+        (term
+          value: (field
+            name: (identifier)))))
     (from
       (keyword_from)
       (relation
@@ -339,15 +354,16 @@ FROM my_table m;
     (select
       (keyword_select)
       (select_expression
-        (invocation
-          name: (identifier)
-          parameter: (field
-            table_alias: (identifier)
-            name: (identifier))
-          parameter: (literal)
-          parameter: (literal))
-        (keyword_as)
-        alias: (identifier)))
+        (term
+          value: (invocation
+            name: (identifier)
+            parameter: (field
+              table_alias: (identifier)
+              name: (identifier))
+            parameter: (literal)
+            parameter: (literal))
+          (keyword_as)
+          alias: (identifier))))
     (from
       (keyword_from)
       (relation
@@ -369,19 +385,21 @@ FROM my_table m;
     (select
       (keyword_select)
       (select_expression
-        (field
-          table_alias: (identifier)
-          name: (identifier))
-        (invocation
-          name: (identifier)
-          parameter: (predicate
-            left: (field
-              table_alias: (identifier)
-              name: (identifier))
-            right: (literal))
-          parameter: (literal)
-          parameter: (literal))
-        alias: (identifier)))
+        (term
+          value: (field
+            table_alias: (identifier)
+            name: (identifier)))
+        (term
+          value: (invocation
+            name: (identifier)
+            parameter: (predicate
+              left: (field
+                table_alias: (identifier)
+                name: (identifier))
+              right: (literal))
+            parameter: (literal)
+            parameter: (literal))
+          alias: (identifier))))
     (from
       (keyword_from)
       (relation
@@ -404,8 +422,9 @@ FROM my_table;
       (keyword_select)
       (keyword_distinct)
       (select_expression
-        (field
-          name: (identifier))))
+        (term
+          value: (field
+            name: (identifier)))))
     (from
       (keyword_from)
       (relation
@@ -426,13 +445,14 @@ FROM my_table;
     (select
       (keyword_select)
       (select_expression
-        (count
-          name: (identifier)
-          (keyword_distinct)
-          parameter: (field
-            name: (identifier)))
-        (keyword_as)
-        alias: (identifier)))
+        (term
+          value: (count
+            name: (identifier)
+            (keyword_distinct)
+            parameter: (field
+              name: (identifier)))
+          (keyword_as)
+          alias: (identifier))))
     (from
       (keyword_from)
       (relation
@@ -453,15 +473,17 @@ FROM my_table AS m;
     (select
       (keyword_select)
       (select_expression
-        (field
-          table_alias: (identifier)
-          name: (identifier))
-        (keyword_as)
-        alias: (identifier)
-        (field
-          table_alias: (identifier)
-          name: (identifier))
-        alias: (identifier)))
+        (term
+          value: (field
+            table_alias: (identifier)
+            name: (identifier))
+          (keyword_as)
+          alias: (identifier))
+        (term
+          value: (field
+            table_alias: (identifier)
+            name: (identifier))
+          alias: (identifier))))
     (from
       (keyword_from)
       (relation
@@ -486,8 +508,9 @@ ORDER BY id DESC;
     (select
       (keyword_select)
       (select_expression
-        (field
-          name: (identifier))))
+        (term
+          value: (field
+            name: (identifier)))))
     (from
       (keyword_from)
       (relation
@@ -525,8 +548,9 @@ LIMIT 5;
     (select
       (keyword_select)
       (select_expression
-        (field
-          name: (identifier))))
+        (term
+          value: (field
+            name: (identifier)))))
     (from
       (keyword_from)
       (relation
@@ -552,8 +576,9 @@ OFFSET 40;
     (select
       (keyword_select)
       (select_expression
-        (field
-          name: (identifier))))
+        (term
+          value: (field
+            name: (identifier)))))
     (from
       (keyword_from)
       (relation
@@ -603,10 +628,11 @@ FROM
     (select
       (keyword_select)
       (select_expression
-        (field
-          schema: (identifier)
-          table_alias: (identifier)
-          name: (identifier))))
+        (term
+          value: (field
+            schema: (identifier)
+            table_alias: (identifier)
+            name: (identifier)))))
     (from
       (keyword_from)
       (relation
@@ -695,9 +721,10 @@ FROM my_table;
       (keyword_select)
       (keyword_distinct)
       (select_expression
-        (list
-          (field
-            name: (identifier)))))
+        (term
+          value: (list
+            (field
+              name: (identifier))))))
     (from
       (keyword_from)
       (relation
@@ -718,8 +745,9 @@ FROM my_table;
       (keyword_select)
       (keyword_distinct)
       (select_expression
-        (field
-          name: (identifier))))
+        (term
+          value: (field
+            name: (identifier)))))
     (from
       (keyword_from)
       (relation
@@ -739,10 +767,11 @@ FROM my_table;
     (select
       (keyword_select)
       (select_expression
-        (invocation
-          name: (identifier)
-          parameter: (field
-            name: (identifier)))))
+        (term
+          value: (invocation
+            name: (identifier)
+            parameter: (field
+              name: (identifier))))))
     (from
       (keyword_from)
       (relation
@@ -761,8 +790,9 @@ SELECT now();
     (select
       (keyword_select)
       (select_expression
-        (invocation
-          name: (identifier))))))
+        (term
+          value: (invocation
+            name: (identifier)))))))
 
 ================================================================================
 More complex function arguments
@@ -781,38 +811,42 @@ FROM my_table AS t;
     (select
       (keyword_select)
       (select_expression
-        (field
-          name: (identifier))
-        (invocation
-          name: (identifier)
-          parameter: (field
-            name: (identifier))
-          parameter: (literal)
-          parameter: (invocation
+        (term
+          value: (field
+            name: (identifier)))
+        (term
+          value: (invocation
             name: (identifier)
             parameter: (field
               name: (identifier))
-            parameter: (literal))
-          parameter: (predicate
-            left: (binary_expression
-              left: (field
+            parameter: (literal)
+            parameter: (invocation
+              name: (identifier)
+              parameter: (field
                 name: (identifier))
-              right: (literal))
-            right: (literal)))
-        (keyword_as)
-        alias: (identifier)
-        (invocation
-          name: (identifier)
-          parameter: (field
-            table_alias: (identifier)
-            name: (identifier))
-          parameter: (literal)
-          parameter: (literal)
-          parameter: (literal))
-        (keyword_as)
-        alias: (identifier)
-        (field
-          name: (identifier))))
+              parameter: (literal))
+            parameter: (predicate
+              left: (binary_expression
+                left: (field
+                  name: (identifier))
+                right: (literal))
+              right: (literal)))
+          (keyword_as)
+          alias: (identifier))
+        (term
+          value: (invocation
+            name: (identifier)
+            parameter: (field
+              table_alias: (identifier)
+              name: (identifier))
+            parameter: (literal)
+            parameter: (literal)
+            parameter: (literal))
+          (keyword_as)
+          alias: (identifier))
+        (term
+          value: (field
+            name: (identifier)))))
     (from
       (keyword_from)
       (relation
@@ -834,12 +868,13 @@ FROM my_table;
     (select
       (keyword_select)
       (select_expression
-        (count
-          name: (identifier)
-          (keyword_distinct)
-          parameter: (list
-            (field
-              name: (identifier))))))
+        (term
+          value: (count
+            name: (identifier)
+            (keyword_distinct)
+            parameter: (list
+              (field
+                name: (identifier)))))))
     (from
       (keyword_from)
       (relation
@@ -859,11 +894,12 @@ FROM my_table;
     (select
       (keyword_select)
       (select_expression
-        (count
-          name: (identifier)
-          (keyword_distinct)
-          parameter: (field
-            name: (identifier)))))
+        (term
+          value: (count
+            name: (identifier)
+            (keyword_distinct)
+            parameter: (field
+              name: (identifier))))))
     (from
       (keyword_from)
       (relation
@@ -886,12 +922,14 @@ HAVING other_id > 10;
     (select
       (keyword_select)
       (select_expression
-        (field
-          name: (identifier))
-        (count
-          name: (identifier)
-          parameter: (field
-            name: (identifier)))))
+        (term
+          value: (field
+            name: (identifier)))
+        (term
+          value: (count
+            name: (identifier)
+            parameter: (field
+              name: (identifier))))))
     (from
       (keyword_from)
       (relation
@@ -924,12 +962,14 @@ HAVING other_id > 10;
     (select
       (keyword_select)
       (select_expression
-        (field
-          name: (identifier))
-        (count
-          name: (identifier)
-          parameter: (field
-            name: (identifier)))))
+        (term
+          value: (field
+            name: (identifier)))
+        (term
+          value: (count
+            name: (identifier)
+            parameter: (field
+              name: (identifier))))))
     (from
       (keyword_from)
       (relation
@@ -961,14 +1001,17 @@ HAVING other_id > 10;
     (select
       (keyword_select)
       (select_expression
-        (field
-          name: (identifier))
-        (field
-          name: (identifier))
-        (count
-          name: (identifier)
-          parameter: (field
-            name: (identifier)))))
+        (term
+          value: (field
+            name: (identifier)))
+        (term
+          value: (field
+            name: (identifier)))
+        (term
+          value: (count
+            name: (identifier)
+            parameter: (field
+              name: (identifier))))))
     (from
       (keyword_from)
       (relation
@@ -1004,12 +1047,14 @@ WHERE b.c_id = 4;
     (select
       (keyword_select)
       (select_expression
-        (field
-          table_alias: (identifier)
-          name: (identifier))
-        (field
-          table_alias: (identifier)
-          name: (identifier))))
+        (term
+          value: (field
+            table_alias: (identifier)
+            name: (identifier)))
+        (term
+          value: (field
+            table_alias: (identifier)
+            name: (identifier)))))
     (from
       (keyword_from)
       (relation
@@ -1084,12 +1129,14 @@ ON a.id = b.a_id;
     (select
       (keyword_select)
       (select_expression
-        (field
-          table_alias: (identifier)
-          name: (identifier))
-        (field
-          table_alias: (identifier)
-          name: (identifier))))
+        (term
+          value: (field
+            table_alias: (identifier)
+            name: (identifier)))
+        (term
+          value: (field
+            table_alias: (identifier)
+            name: (identifier)))))
     (from
       (keyword_from)
       (relation
@@ -1132,12 +1179,14 @@ JOIN my_other_table b USING (q, w);
     (select
       (keyword_select)
       (select_expression
-        (field
-          table_alias: (identifier)
-          name: (identifier))
-        (field
-          table_alias: (identifier)
-          name: (identifier))))
+        (term
+          value: (field
+            table_alias: (identifier)
+            name: (identifier)))
+        (term
+          value: (field
+            table_alias: (identifier)
+            name: (identifier)))))
     (from
       (keyword_from)
       (relation
@@ -1223,9 +1272,10 @@ ON a.id = e.e_id;
     (select
       (keyword_select)
       (select_expression
-        (field
-          table_alias: (identifier)
-          name: (identifier))))
+        (term
+          value: (field
+            table_alias: (identifier)
+            name: (identifier)))))
     (from
       (keyword_from)
       (relation
@@ -1325,9 +1375,10 @@ JOIN LATERAL unnest(a.arr) AS arr ON TRUE;
     (select
       (keyword_select)
       (select_expression
-        (field
-          table_alias: (identifier)
-          name: (identifier))
+        (term
+          value: (field
+            table_alias: (identifier)
+            name: (identifier)))
         (all_fields
           table_alias: (identifier))))
     (from
@@ -1364,9 +1415,10 @@ CROSS JOIN LATERAL (SELECT 1) AS b ON TRUE;
     (select
       (keyword_select)
       (select_expression
-        (field
-          table_alias: (identifier)
-          name: (identifier))
+        (term
+          value: (field
+            table_alias: (identifier)
+            name: (identifier)))
         (all_fields
           table_alias: (identifier))))
     (from
@@ -1383,7 +1435,8 @@ CROSS JOIN LATERAL (SELECT 1) AS b ON TRUE;
           (select
             (keyword_select)
             (select_expression
-              (literal))))
+              (term
+                value: (literal)))))
         (keyword_as)
         alias: (identifier)
         (keyword_on)
@@ -1407,15 +1460,18 @@ ON a.id = c.a_id;
     (select
       (keyword_select)
       (select_expression
-        (field
-          table_alias: (identifier)
-          name: (identifier))
-        (field
-          table_alias: (identifier)
-          name: (identifier))
-        (field
-          table_alias: (identifier)
-          name: (identifier))))
+        (term
+          value: (field
+            table_alias: (identifier)
+            name: (identifier)))
+        (term
+          value: (field
+            table_alias: (identifier)
+            name: (identifier)))
+        (term
+          value: (field
+            table_alias: (identifier)
+            name: (identifier)))))
     (from
       (keyword_from)
       (relation
@@ -1466,8 +1522,9 @@ WHERE m.id > 4 AND id < 3;
     (select
       (keyword_select)
       (select_expression
-        (field
-          name: (identifier))))
+        (term
+          value: (field
+            name: (identifier)))))
     (from
       (keyword_from)
       (relation
@@ -1505,10 +1562,12 @@ ORDER BY m.title, id ASC;
     (select
       (keyword_select)
       (select_expression
-        (field
-          name: (identifier))
-        (field
-          name: (identifier))))
+        (term
+          value: (field
+            name: (identifier)))
+        (term
+          value: (field
+            name: (identifier)))))
     (from
       (keyword_from)
       (relation
@@ -1559,8 +1618,9 @@ ORDER BY id DESC NULLS LAST, val USING < NULLS FIRST;
     (select
       (keyword_select)
       (select_expression
-        (field
-          name: (identifier))))
+        (term
+          value: (field
+            name: (identifier)))))
     (from
       (keyword_from)
       (relation
@@ -1606,8 +1666,9 @@ LIMIT 1;
     (select
       (keyword_select)
       (select_expression
-        (field
-          name: (identifier))))
+        (term
+          value: (field
+            name: (identifier)))))
     (from
       (keyword_from)
       (relation
@@ -1636,8 +1697,9 @@ LIMIT 1;
     (select
       (keyword_select)
       (select_expression
-        (field
-          name: (identifier))))
+        (term
+          value: (field
+            name: (identifier)))))
     (from
       (keyword_from)
       (relation
@@ -1664,13 +1726,15 @@ SELECT 1 UNION ALL SELECT 2;
     (select
       (keyword_select)
       (select_expression
-        (literal)))
+        (term
+          (literal))))
     (keyword_union)
     (keyword_all)
     (select
       (keyword_select)
       (select_expression
-        (literal)))))
+        (term
+          (literal))))))
 
 ================================================================================
 Intersect
@@ -1687,8 +1751,9 @@ SELECT b FROM two;
     (select
       (keyword_select)
       (select_expression
-        (field
-          (identifier))))
+        (term
+          (field
+            (identifier)))))
     (from
       (keyword_from)
       (relation
@@ -1698,8 +1763,9 @@ SELECT b FROM two;
     (select
       (keyword_select)
       (select_expression
-        (field
-          (identifier))))
+        (term
+          (field
+            (identifier)))))
     (from
       (keyword_from)
       (relation
@@ -1720,21 +1786,23 @@ FROM my_table;
     (select
       (keyword_select)
       (select_expression
-        (field
-          (identifier))
-        (case
-          (keyword_case)
+        (term
           (field
-            (identifier))
-          (keyword_when)
-          (literal)
-          (keyword_then)
-          (literal)
-          (keyword_else)
-          (literal)
-          (keyword_end))
-        (keyword_as)
-        (identifier)))
+            (identifier)))
+        (term
+          (case
+            (keyword_case)
+            (field
+              (identifier))
+            (keyword_when)
+            (literal)
+            (keyword_then)
+            (literal)
+            (keyword_else)
+            (literal)
+            (keyword_end))
+          (keyword_as)
+          (identifier))))
     (from
       (keyword_from)
       (relation
@@ -1755,22 +1823,24 @@ FROM my_table;
     (select
       (keyword_select)
       (select_expression
-        (field
-          (identifier))
-        (case
-          (keyword_case)
-          (keyword_when)
-          (predicate
-            (field
-              (identifier))
-            (literal))
-          (keyword_then)
-          (literal)
-          (keyword_else)
-          (literal)
-          (keyword_end))
-        (keyword_as)
-        (identifier)))
+        (term
+          (field
+            (identifier)))
+        (term
+          (case
+            (keyword_case)
+            (keyword_when)
+            (predicate
+              (field
+                (identifier))
+              (literal))
+            (keyword_then)
+            (literal)
+            (keyword_else)
+            (literal)
+            (keyword_end))
+          (keyword_as)
+          (identifier))))
     (from
       (keyword_from)
       (relation
@@ -1799,43 +1869,46 @@ FROM my_table;
     (select
       (keyword_select)
       (select_expression
-        (field
-          (identifier))
-        (case
-          (keyword_case)
-          (keyword_when)
-          (predicate
-            (field
-              (identifier))
-            (literal))
-          (keyword_then)
-          (literal)
-          (keyword_when)
-          (predicate
-            (field
-              (identifier))
-            (literal))
-          (keyword_then)
-          (literal)
-          (keyword_else)
-          (literal)
-          (keyword_end))
-        (keyword_as)
-        (identifier)
-        (case
-          (keyword_case)
+        (term
           (field
-            (identifier))
-          (keyword_when)
-          (literal)
-          (keyword_then)
-          (literal)
-          (keyword_when)
-          (literal)
-          (keyword_then)
-          (literal)
-          (keyword_end))
-        (identifier)))
+            (identifier)))
+        (term
+          (case
+            (keyword_case)
+            (keyword_when)
+            (predicate
+              (field
+                (identifier))
+              (literal))
+            (keyword_then)
+            (literal)
+            (keyword_when)
+            (predicate
+              (field
+                (identifier))
+              (literal))
+            (keyword_then)
+            (literal)
+            (keyword_else)
+            (literal)
+            (keyword_end))
+          (keyword_as)
+          (identifier))
+        (term
+          (case
+            (keyword_case)
+            (field
+              (identifier))
+            (keyword_when)
+            (literal)
+            (keyword_then)
+            (literal)
+            (keyword_when)
+            (literal)
+            (keyword_then)
+            (literal)
+            (keyword_end))
+          (identifier))))
     (from
       (keyword_from)
       (relation
@@ -1855,13 +1928,14 @@ SELECT id || '-' || name FROM my_table;
     (select
       (keyword_select)
       (select_expression
-        (binary_expression
-          left: (binary_expression
-            left: (field
-              name: (identifier))
-            right: (literal))
-          right: (field
-            name: (identifier)))))
+        (term
+          value: (binary_expression
+            left: (binary_expression
+              left: (field
+                name: (identifier))
+              right: (literal))
+            right: (field
+              name: (identifier))))))
     (from
       (keyword_from)
       (relation
@@ -1894,12 +1968,14 @@ ORDER BY my_table.title, my_table.id;
     (select
       (keyword_select)
       (select_expression
-        (field
-          table_alias: (identifier)
-          name: (identifier))
-        (field
-          table_alias: (identifier)
-          name: (identifier))))
+        (term
+          value: (field
+            table_alias: (identifier)
+            name: (identifier)))
+        (term
+          value: (field
+            table_alias: (identifier)
+            name: (identifier)))))
     (from
       (keyword_from)
       (relation
@@ -2118,8 +2194,9 @@ FROM
     (select
       (keyword_select)
       (select_expression
-        (field
-          name: (identifier))))
+        (term
+          value: (field
+            name: (identifier)))))
     (from
       (keyword_from)
       (relation
@@ -2279,15 +2356,16 @@ FROM test_data;
     (select
       (keyword_select)
       (select_expression
-        (case
-          (keyword_case)
-          (keyword_when)
-          (identifier)
-          (keyword_then)
-          (literal)
-          (keyword_end))
-        (keyword_as)
-        (identifier)))
+        (term
+          (case
+            (keyword_case)
+            (keyword_when)
+            (identifier)
+            (keyword_then)
+            (literal)
+            (keyword_end))
+          (keyword_as)
+          (identifier))))
     (from
       (keyword_from)
       (relation

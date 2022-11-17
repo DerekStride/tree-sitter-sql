@@ -429,12 +429,13 @@ module.exports = grammar({
 
     _select_expression: $ => choice(
       $.all_fields,
-      seq(
-        $._expression,
-        optional($._alias),
-      ),
+      $.term,
     ),
 
+    term: $ => seq(
+      field("value", $._expression),
+      optional($._alias),
+    ),
 
     expression_list :$ => seq(
         $._expression_list,

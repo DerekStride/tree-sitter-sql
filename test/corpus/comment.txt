@@ -13,7 +13,8 @@ SELECT 1;
     (select
       (keyword_select)
       (select_expression
-        (literal)))))
+        (term
+          (literal))))))
 
 ================================================================================
 Can parse comments anywhere...
@@ -31,7 +32,8 @@ SELECT 1; --hi
     (select
       (keyword_select)
       (select_expression
-        (literal))))
+        (term
+          (literal)))))
   (comment)
   (comment))
 
@@ -52,14 +54,16 @@ SELECT 2;
     (select
       (keyword_select)
       (select_expression
-        (literal))))
+        (term
+          (literal)))))
   (comment)
   (comment)
   (statement
     (select
       (keyword_select)
       (select_expression
-        (literal)))))
+        (term
+          (literal))))))
 
 ================================================================================
 Simple marginalia
@@ -77,8 +81,9 @@ FROM my_table;
     (select
       (keyword_select)
       (select_expression
-        (field
-          name: (identifier))))
+        (term
+          value: (field
+            name: (identifier)))))
     (marginalia)
     (from
       (keyword_from)
@@ -127,8 +132,9 @@ FROM my_table;
     (select
       (keyword_select)
       (select_expression
-        (field
-          name: (identifier))))
+        (term
+          value: (field
+            name: (identifier)))))
     (marginalia)
     (from
       (keyword_from)
@@ -156,8 +162,9 @@ FROM my_table;
     (select
       (keyword_select)
       (select_expression
-        (field
-          name: (identifier))))
+        (term
+          value: (field
+            name: (identifier)))))
     (marginalia)
     (from
       (keyword_from)
@@ -185,8 +192,9 @@ FROM my_table;
     (select
       (keyword_select)
       (select_expression
-        (field
-          name: (identifier))))
+        (term
+          value: (field
+            name: (identifier)))))
     (marginalia)
     (from
       (keyword_from)
@@ -207,7 +215,8 @@ SELECT '-- foo' FROM bar;
     (select
       (keyword_select)
       (select_expression
-        (literal)))
+        (term
+          (literal))))
     (from
       (keyword_from)
       (relation
@@ -227,7 +236,8 @@ SELECT '/* foo */' FROM bar;
     (select
       (keyword_select)
       (select_expression
-        (literal)))
+        (term
+          (literal))))
     (from
       (keyword_from)
       (relation
