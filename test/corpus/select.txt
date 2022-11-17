@@ -2371,3 +2371,92 @@ FROM test_data;
       (relation
         (table_reference
           (identifier))))))
+
+================================================================================
+No semi-colon
+================================================================================
+
+SELECT *
+FROM some_table s
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (all_fields)))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier))
+        table_alias: (identifier)))))
+
+================================================================================
+Aliases everywhere
+================================================================================
+
+SELECT
+  s.id,
+  at.code AS codes,
+  -- comment
+  s.another_table_id
+FROM some_table s
+  LEFT JOIN another_table at
+    ON s.another_table_id = at.id
+WHERE
+  s.is_not_deleted = 1
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            table_alias: (identifier)
+            name: (identifier)))
+        (term
+          value: (field
+            table_alias: (identifier)
+            name: (identifier))
+          (keyword_as)
+          alias: (identifier))
+        (comment)
+        (term
+          value: (field
+            table_alias: (identifier)
+            name: (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier))
+        table_alias: (identifier))
+      (join
+        (keyword_left)
+        (keyword_join)
+        (relation
+          (table_reference
+            name: (identifier))
+          table_alias: (identifier))
+        (keyword_on)
+        (predicate
+          left: (field
+            table_alias: (identifier)
+            name: (identifier))
+          right: (field
+            table_alias: (identifier)
+            name: (identifier))))
+      (where
+        (keyword_where)
+        (where_expression
+          (predicate
+            left: (field
+              table_alias: (identifier)
+              name: (identifier))
+            right: (literal)))))))

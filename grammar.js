@@ -303,7 +303,7 @@ module.exports = grammar({
         $._ddl_statement,
         $._dml_statement,
       ),
-      ';',
+      optional(';'),
     ),
 
     _ddl_statement: $ => choice(
@@ -514,28 +514,30 @@ module.exports = grammar({
       $._select_statement,
     ),
 
-    create_materialized_view: $ => seq(
-      $.keyword_create,
-      optional($._or_replace),
-      $.keyword_materialized,
-      $.keyword_view,
-      optional($._if_not_exists),
-      $.table_reference,
-      $.keyword_as,
-      $._select_statement,
-      optional(
-        choice(
-          seq(
-            $.keyword_with,
-            $.keyword_data,
-          ),
-          seq(
-            $.keyword_with,
-            $.keyword_no,
-            $.keyword_data,
+    create_materialized_view: $ => prec.right(
+      seq(
+        $.keyword_create,
+        optional($._or_replace),
+        $.keyword_materialized,
+        $.keyword_view,
+        optional($._if_not_exists),
+        $.table_reference,
+        $.keyword_as,
+        $._select_statement,
+        optional(
+          choice(
+            seq(
+              $.keyword_with,
+              $.keyword_data,
+            ),
+            seq(
+              $.keyword_with,
+              $.keyword_no,
+              $.keyword_data,
+            )
           )
         )
-      )
+      ),
     ),
 
     create_index: $ => seq(

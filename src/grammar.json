@@ -1545,8 +1545,16 @@
           ]
         },
         {
-          "type": "STRING",
-          "value": ";"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": ";"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
@@ -2319,100 +2327,104 @@
       ]
     },
     "create_materialized_view": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "keyword_create"
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "_or_replace"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "SYMBOL",
-          "name": "keyword_materialized"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "keyword_view"
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "_if_not_exists"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "SYMBOL",
-          "name": "table_reference"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "keyword_as"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_select_statement"
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SEQ",
-                  "members": [
-                    {
-                      "type": "SYMBOL",
-                      "name": "keyword_with"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "keyword_data"
-                    }
-                  ]
-                },
-                {
-                  "type": "SEQ",
-                  "members": [
-                    {
-                      "type": "SYMBOL",
-                      "name": "keyword_with"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "keyword_no"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "keyword_data"
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        }
-      ]
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "keyword_create"
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_or_replace"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "SYMBOL",
+            "name": "keyword_materialized"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "keyword_view"
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_if_not_exists"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "SYMBOL",
+            "name": "table_reference"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "keyword_as"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_select_statement"
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "keyword_with"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "keyword_data"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "keyword_with"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "keyword_no"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "keyword_data"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        ]
+      }
     },
     "create_index": {
       "type": "SEQ",
