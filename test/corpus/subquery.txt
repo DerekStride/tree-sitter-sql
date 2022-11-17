@@ -1,6 +1,6 @@
-==================
+================================================================================
 Can parse subquery
-==================
+================================================================================
 
 SELECT id
 FROM foo
@@ -9,30 +9,37 @@ WHERE id < (
   FROM bar
   LIMIT 1);
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (field (identifier))))
-  (from
-   (keyword_from)
-    (relation
-       (table_reference (identifier)))
-   (where
-    (keyword_where)
-    (where_expression
-     (predicate
-      (field (identifier))
-      (subquery
-       (select
-        (keyword_select)
-        (select_expression
-         (field (identifier))))
-       (from
-        (keyword_from)
-          (relation
-            (table_reference (identifier)))
-        (limit (keyword_limit) (literal))))))))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (field
+          (identifier))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          (identifier)))
+      (where
+        (keyword_where)
+        (where_expression
+          (predicate
+            (field
+              (identifier))
+            (subquery
+              (select
+                (keyword_select)
+                (select_expression
+                  (field
+                    (identifier))))
+              (from
+                (keyword_from)
+                (relation
+                  (table_reference
+                    (identifier)))
+                (limit
+                  (keyword_limit)
+                  (literal))))))))))

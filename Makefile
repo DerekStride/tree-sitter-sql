@@ -9,5 +9,8 @@ generate:
 test: generate
 	${ts} test
 
+format: generate
+	${ts} test --update
+
 compile: generate
 	gcc -shared -o target/parser.so -fPIC src/parser.c -I./src
