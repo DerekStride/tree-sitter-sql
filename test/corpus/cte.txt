@@ -1,6 +1,6 @@
-==================
+================================================================================
 One cte
-==================
+================================================================================
 
 WITH my_cte AS (
   SELECT one, two
@@ -9,35 +9,42 @@ WITH my_cte AS (
 SELECT *
 FROM my_cte;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (keyword_with)
-  (cte
-   (identifier)
-   (keyword_as)
-   (statement
+  (statement
+    (keyword_with)
+    (cte
+      (identifier)
+      (keyword_as)
+      (statement
+        (select
+          (keyword_select)
+          (select_expression
+            (term
+              value: (field
+                name: (identifier)))
+            (term
+              value: (field
+                name: (identifier)))))
+        (from
+          (keyword_from)
+          (relation
+            (table_reference
+              name: (identifier))))))
     (select
-     (keyword_select)
-     (select_expression
-      (field name: (identifier))
-      (field name: (identifier))))
+      (keyword_select)
+      (select_expression
+        (all_fields)))
     (from
-     (keyword_from)
+      (keyword_from)
       (relation
-         (table_reference name: (identifier))))))
-  (select
-   (keyword_select)
-   (select_expression (all_fields)))
-  (from
-   (keyword_from)
-    (relation
-       (table_reference name: (identifier))))))
+        (table_reference
+          name: (identifier))))))
 
-==================
+================================================================================
 Multiple ctes with returning
-==================
+================================================================================
 
 WITH first AS (
   INSERT INTO my_table (one, two)
@@ -50,53 +57,65 @@ WITH first AS (
 SELECT *
 FROM second;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (keyword_with)
-  (cte
-   (identifier)
-   (keyword_as)
-   (statement
-    (insert
-     (keyword_insert)
-     (keyword_into)
-     (insert_expression
-      (table_reference name: (identifier))
-      (column_list
-       (column name: (identifier))
-       (column name: (identifier)))
-      (keyword_values)
-      (list (literal) (literal))))
-    (returning
-     (keyword_returning)
-     (select_expression
-      (all_fields)))))
-  (cte
-   (identifier)
-   (keyword_as)
-   (statement
+  (statement
+    (keyword_with)
+    (cte
+      (identifier)
+      (keyword_as)
+      (statement
+        (insert
+          (keyword_insert)
+          (keyword_into)
+          (insert_expression
+            (table_reference
+              name: (identifier))
+            (column_list
+              (column
+                name: (identifier))
+              (column
+                name: (identifier)))
+            (keyword_values)
+            (list
+              (literal)
+              (literal))))
+        (returning
+          (keyword_returning)
+          (select_expression
+            (all_fields)))))
+    (cte
+      (identifier)
+      (keyword_as)
+      (statement
+        (select
+          (keyword_select)
+          (select_expression
+            (term
+              value: (field
+                name: (identifier)))
+            (term
+              value: (field
+                name: (identifier)))))
+        (from
+          (keyword_from)
+          (relation
+            (table_reference
+              name: (identifier))))))
     (select
-     (keyword_select)
-     (select_expression
-      (field name: (identifier))
-      (field name: (identifier))))
+      (keyword_select)
+      (select_expression
+        (all_fields)))
     (from
-     (keyword_from)
+      (keyword_from)
       (relation
-         (table_reference name: (identifier))))))
-  (select
-   (keyword_select)
-   (select_expression (all_fields)))
-  (from
-   (keyword_from)
-    (relation
-       (table_reference name: (identifier))))))
+        (table_reference
+          name: (identifier))))))
 
-==================
+================================================================================
 CTE with materializations
-==================
+================================================================================
 
 WITH first AS NOT MATERIALIZED (
   SELECT a FROM b
@@ -107,7 +126,7 @@ WITH first AS NOT MATERIALIZED (
 SELECT *
 FROM second;
 
----
+--------------------------------------------------------------------------------
 
 (program
   (statement
@@ -121,8 +140,9 @@ FROM second;
         (select
           (keyword_select)
           (select_expression
-            (field
-              (identifier))))
+            (term
+              (field
+                (identifier)))))
         (from
           (keyword_from)
           (relation
@@ -136,10 +156,12 @@ FROM second;
         (select
           (keyword_select)
           (select_expression
-            (field
-              (identifier))
-            (field
-              (identifier))))
+            (term
+              (field
+                (identifier)))
+            (term
+              (field
+                (identifier)))))
         (from
           (keyword_from)
           (relation

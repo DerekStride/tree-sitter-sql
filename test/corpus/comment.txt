@@ -1,114 +1,118 @@
-==================
+================================================================================
 Can parse comments
-==================
+================================================================================
 
 -- hello
 SELECT 1;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (comment)
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (literal)))))
+  (comment)
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (literal))))))
 
-==================
+================================================================================
 Can parse comments anywhere...
-==================
+================================================================================
 
 -- hello
 SELECT 1; --hi
 --hi
 
----
+--------------------------------------------------------------------------------
 
 (program
- (comment)
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (literal))))
- (comment)
- (comment))
+  (comment)
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (literal)))))
+  (comment)
+  (comment))
 
-==================
+================================================================================
 ...including between statements
-==================
+================================================================================
 
 -- hello
 SELECT 1; --hi
 -- hi again
 SELECT 2;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (comment)
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (literal))))
- (comment)
- (comment)
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (literal)))))
+  (comment)
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (literal)))))
+  (comment)
+  (comment)
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (literal))))))
 
-==================
+================================================================================
 Simple marginalia
-==================
+================================================================================
 
 /* application=super-app */
 SELECT id /* MAX_EXECUTION_TIME(500) */
 FROM my_table;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (marginalia)
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (field
-     name: (identifier))))
   (marginalia)
-  (from
-   (keyword_from)
-    (relation
-     (table_reference
-         name: (identifier))))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            name: (identifier)))))
+    (marginalia)
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier))))))
 
-
-==================
+================================================================================
 Can parse delete with marginalia
-==================
+================================================================================
 
 DELETE /* MAX_EXECUTION_TIME(500) */
 FROM my_table;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (delete
-   (keyword_delete))
-  (marginalia)
-  (from
-   (keyword_from)
-   (table_reference
-    name: (identifier)))))
+  (statement
+    (delete
+      (keyword_delete))
+    (marginalia)
+    (from
+      (keyword_from)
+      (table_reference
+        name: (identifier)))))
 
-==================
+================================================================================
 Multiline marginalia, basic
-==================
+================================================================================
 
 /*
 This is a query
@@ -120,26 +124,27 @@ SELECT id FROM my_table;
 */
 FROM my_table;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (marginalia)
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (field
-     name: (identifier))))
   (marginalia)
-  (from
-   (keyword_from)
-    (relation
-     (table_reference
-         name: (identifier))))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            name: (identifier)))))
+    (marginalia)
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier))))))
 
-==================
+================================================================================
 Multiline marginalia, empty
-==================
+================================================================================
 
 /*
 */
@@ -149,26 +154,27 @@ SELECT id
 */
 FROM my_table;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (marginalia)
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (field
-     name: (identifier))))
   (marginalia)
-  (from
-   (keyword_from)
-    (relation
-     (table_reference
-         name: (identifier))))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            name: (identifier)))))
+    (marginalia)
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier))))))
 
-==================
+================================================================================
 Marginalia, more symbols
-==================
+================================================================================
 
 /**
  * Javadoc style
@@ -178,57 +184,60 @@ SELECT id
 /******/
 FROM my_table;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (marginalia)
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (field
-     name: (identifier))))
   (marginalia)
-  (from
-   (keyword_from)
-    (relation
-     (table_reference
-         name: (identifier))))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            name: (identifier)))))
+    (marginalia)
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier))))))
 
-==================
+================================================================================
 Comment inside string literal
-==================
+================================================================================
 
 SELECT '-- foo' FROM bar;
 
----
+--------------------------------------------------------------------------------
 
 (program
   (statement
     (select
       (keyword_select)
       (select_expression
-        (literal)))
+        (term
+          (literal))))
     (from
       (keyword_from)
       (relation
         (table_reference
           (identifier))))))
 
-==================
+================================================================================
 Marginalia inside string literal
-==================
+================================================================================
 
 SELECT '/* foo */' FROM bar;
 
----
+--------------------------------------------------------------------------------
 
 (program
   (statement
     (select
       (keyword_select)
       (select_expression
-        (literal)))
+        (term
+          (literal))))
     (from
       (keyword_from)
       (relation

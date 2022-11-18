@@ -1,6 +1,6 @@
-==================
+================================================================================
 Window Functions Partition by
-==================
+================================================================================
 
 SELECT
   x,
@@ -9,41 +9,45 @@ SELECT
   AVG(x) OVER (PARTITION BY y)
 FROM tab1;
 
----
+--------------------------------------------------------------------------------
 
 (program
   (statement
     (select
       (keyword_select)
       (select_expression
-        (field
-          name: (identifier))
-        (field
-          name: (identifier))
-        (field
-          name: (identifier))
-        (window_function
-          (invocation
-            name: (identifier)
-            parameter: (field
-              name: (identifier)))
-          (keyword_over)
-          (window_specification
-            (partition_by
-              (keyword_partition)
-              (keyword_by)
-              (expression_list
-              (field
-                name: (identifier))))))))
+        (term
+          value: (field
+            name: (identifier)))
+        (term
+          value: (field
+            name: (identifier)))
+        (term
+          value: (field
+            name: (identifier)))
+        (term
+          value: (window_function
+            (invocation
+              name: (identifier)
+              parameter: (field
+                name: (identifier)))
+            (keyword_over)
+            (window_specification
+              (partition_by
+                (keyword_partition)
+                (keyword_by)
+                (expression_list
+                  (field
+                    name: (identifier)))))))))
     (from
       (keyword_from)
-        (relation
-          (table_reference
-            name: (identifier))))))
+      (relation
+        (table_reference
+          name: (identifier))))))
 
-==================
+================================================================================
 Window Functions Order by
-==================
+================================================================================
 
 SELECT
   x,
@@ -52,46 +56,50 @@ SELECT
   AVG(x) OVER (ORDER BY y DESC NULLS LAST)
 FROM tab1;
 
----
+--------------------------------------------------------------------------------
 
 (program
   (statement
     (select
       (keyword_select)
       (select_expression
-        (field
-          name: (identifier))
-        (field
-          name: (identifier))
-        (field
-          name: (identifier))
-        (window_function
-          (invocation
-            name: (identifier)
-            parameter: (field
-              name: (identifier)))
-          (keyword_over )
-          (window_specification
-            (order_by
-              (keyword_order)
-              (keyword_by)
-              (order_expression
-               (order_target
-                (field
-                 name: (identifier))
-                (direction
-                 (keyword_desc))
-                (keyword_nulls)
-                (keyword_last))))))))
+        (term
+          value: (field
+            name: (identifier)))
+        (term
+          value: (field
+            name: (identifier)))
+        (term
+          value: (field
+            name: (identifier)))
+        (term
+          value: (window_function
+            (invocation
+              name: (identifier)
+              parameter: (field
+                name: (identifier)))
+            (keyword_over)
+            (window_specification
+              (order_by
+                (keyword_order)
+                (keyword_by)
+                (order_expression
+                  (order_target
+                    (field
+                      name: (identifier))
+                    (direction
+                      (keyword_desc))
+                    (keyword_nulls)
+                    (keyword_last)))))))))
     (from
       (keyword_from)
-        (relation
-          (table_reference
-            name: (identifier))))))
+      (relation
+        (table_reference
+          name: (identifier))))))
 
-==================
+================================================================================
 Window Functions Partition and Order by
-==================
+================================================================================
 
 SELECT
   x,
@@ -100,85 +108,91 @@ SELECT
   AVG(x) OVER (PARTITION BY z ORDER BY y DESC NULLS FIRST)
 FROM tab1;
 
----
+--------------------------------------------------------------------------------
 
 (program
   (statement
     (select
       (keyword_select)
       (select_expression
-        (field
-          name: (identifier))
-        (field
-          name: (identifier))
-        (field
-          name: (identifier))
-        (window_function
-          (invocation
-            name: (identifier)
-            parameter: (field
-              name: (identifier)))
-          (keyword_over )
+        (term
+          value: (field
+            name: (identifier)))
+        (term
+          value: (field
+            name: (identifier)))
+        (term
+          value: (field
+            name: (identifier)))
+        (term
+          value: (window_function
+            (invocation
+              name: (identifier)
+              parameter: (field
+                name: (identifier)))
+            (keyword_over)
             (window_specification
-                (partition_by
-                    (keyword_partition)
-                    (keyword_by)
-                    (expression_list
-                    (field
-                      name: (identifier))))
-                (order_by
+              (partition_by
+                (keyword_partition)
+                (keyword_by)
+                (expression_list
+                  (field
+                    name: (identifier))))
+              (order_by
                 (keyword_order)
                 (keyword_by)
                 (order_expression
-                 (order_target
-                  (field
-                   name: (identifier))
-                  (direction
-                   (keyword_desc))
-                  (keyword_nulls)
-                  (keyword_first))))))))
+                  (order_target
+                    (field
+                      name: (identifier))
+                    (direction
+                      (keyword_desc))
+                    (keyword_nulls)
+                    (keyword_first)))))))))
     (from
       (keyword_from)
-        (relation
-          (table_reference
-            name: (identifier))))))
+      (relation
+        (table_reference
+          name: (identifier))))))
 
-==================
+================================================================================
 Window Functions Empty Window
-==================
+================================================================================
 
 SELECT
   a,
   SUM(b) OVER () AS empty_sum
 FROM tab1;
 
----
+--------------------------------------------------------------------------------
 
 (program
   (statement
     (select
       (keyword_select)
       (select_expression
-        (field
-          (identifier))
-        (window_function
-          (invocation
-            (identifier)
-            (field
-              (identifier)))
-          (keyword_over)
-          (window_specification))
-        (keyword_as)
-        (identifier)))
+        (term
+          (field
+            (identifier)))
+        (term
+          (window_function
+            (invocation
+              (identifier)
+              (field
+                (identifier)))
+            (keyword_over)
+            (window_specification))
+          (keyword_as)
+          (identifier))))
     (from
       (keyword_from)
-        (relation
-          (table_reference
-            (identifier))))))
+      (relation
+        (table_reference
+          (identifier))))))
 
-==================
+================================================================================
 Window Functions two inline functions
-==================
+================================================================================
 
 SELECT
   a,
@@ -186,53 +200,57 @@ SELECT
   AVG(b) OVER (ORDER BY d) AS w2,
 FROM tab1;
 
----
+--------------------------------------------------------------------------------
 
 (program
   (statement
     (select
       (keyword_select)
       (select_expression
-        (field
-          name: (identifier))
-        (window_function
-          (invocation
-            name: (identifier)
-            parameter: (field
-              name: (identifier)))
-          (keyword_over)
-          (window_specification
-            (partition_by
-              (keyword_partition)
-              (keyword_by)
-              (expression_list
-              (field
-                name: (identifier))))))
-        (keyword_as)
-        alias: (identifier)
-        (window_function
-          (invocation
-            name: (identifier)
-            parameter: (field
-              name: (identifier)))
-          (keyword_over)
-          (window_specification
-            (order_by
-              (keyword_order)
-              (keyword_by)
-              (order_expression
-               (order_target
-                (field
-                 name: (identifier)))))))
-        (keyword_as)
-        alias: (identifier)
-        (field
-          name: (identifier))
-        alias: (identifier)))))
+        (term
+          value: (field
+            name: (identifier)))
+        (term
+          value: (window_function
+            (invocation
+              name: (identifier)
+              parameter: (field
+                name: (identifier)))
+            (keyword_over)
+            (window_specification
+              (partition_by
+                (keyword_partition)
+                (keyword_by)
+                (expression_list
+                  (field
+                    name: (identifier))))))
+          (keyword_as)
+          alias: (identifier))
+        (term
+          value: (window_function
+            (invocation
+              name: (identifier)
+              parameter: (field
+                name: (identifier)))
+            (keyword_over)
+            (window_specification
+              (order_by
+                (keyword_order)
+                (keyword_by)
+                (order_expression
+                  (order_target
+                    (field
+                      name: (identifier)))))))
+          (keyword_as)
+          alias: (identifier))
+        (term
+          value: (field
+            name: (identifier))
+          alias: (identifier))))))
 
-==================
+================================================================================
 Window Functions separate definition
-==================
+================================================================================
 
 SELECT
   x,
@@ -241,45 +259,47 @@ SELECT
 FROM tab1
 WINDOW window_def AS (PARTITION BY y);
 
----
+--------------------------------------------------------------------------------
 
 (program
   (statement
     (select
       (keyword_select)
       (select_expression
-        (field
-          name: (identifier))
-        (field
-          name: (identifier))
-        (window_function
-          (invocation
-            name: (identifier)
-            parameter: (field
-              name: (identifier)))
-          (keyword_over )
-          (identifier))))
+        (term
+          value: (field
+            name: (identifier)))
+        (term
+          value: (field
+            name: (identifier)))
+        (term
+          value: (window_function
+            (invocation
+              name: (identifier)
+              parameter: (field
+                name: (identifier)))
+            (keyword_over)
+            (identifier)))))
     (from
       (keyword_from)
-        (relation
-          (table_reference
-            name: (identifier))))
+      (relation
+        (table_reference
+          name: (identifier))))
     (window_clause
-        (keyword_window)
-        (identifier)
-        (keyword_as)
-        (window_specification
-          (partition_by
-            (keyword_partition)
-            (keyword_by)
-            (expression_list
+      (keyword_window)
+      (identifier)
+      (keyword_as)
+      (window_specification
+        (partition_by
+          (keyword_partition)
+          (keyword_by)
+          (expression_list
             (field
               name: (identifier))))))))
 
-
-==================
+================================================================================
 Window Functions one inlined one named
-==================
+================================================================================
 
 SELECT
   a,
@@ -289,42 +309,46 @@ FROM tab1
 WINDOW win AS (ORDER BY d)
 ;
 
----
+--------------------------------------------------------------------------------
 
 (program
   (statement
     (select
       (keyword_select)
       (select_expression
-        (field
-          name: (identifier))
-        (window_function
-          (invocation
-            name: (identifier)
-            parameter: (field
-              name: (identifier)))
-          (keyword_over)
-          (window_specification
-            (partition_by
-              (keyword_partition)
-              (keyword_by)
-              (expression_list
-              (field
-                name: (identifier))))))
-        (keyword_as)
-        alias: (identifier)
-        (window_function
-          (invocation
-            name: (identifier)
-            parameter: (field
-              name: (identifier)))
-          (keyword_over)
-          (identifier))
-        (keyword_as)
-        alias: (identifier)
-        (field
-          name: (identifier))
-        alias: (identifier)))
+        (term
+          value: (field
+            name: (identifier)))
+        (term
+          value: (window_function
+            (invocation
+              name: (identifier)
+              parameter: (field
+                name: (identifier)))
+            (keyword_over)
+            (window_specification
+              (partition_by
+                (keyword_partition)
+                (keyword_by)
+                (expression_list
+                  (field
+                    name: (identifier))))))
+          (keyword_as)
+          alias: (identifier))
+        (term
+          value: (window_function
+            (invocation
+              name: (identifier)
+              parameter: (field
+                name: (identifier)))
+            (keyword_over)
+            (identifier))
+          (keyword_as)
+          alias: (identifier))
+        (term
+          value: (field
+            name: (identifier))
+          alias: (identifier))))
     (window_clause
       (keyword_window)
       (identifier)
@@ -335,11 +359,12 @@ WINDOW win AS (ORDER BY d)
           (keyword_by)
           (order_expression
             (order_target
-             (field name: (identifier)))))))))
+              (field
+                name: (identifier)))))))))
 
-==================
+================================================================================
 Window Functions partition order frame
-==================
+================================================================================
 
 SELECT
     a,
@@ -353,57 +378,59 @@ SELECT
 FROM
     tab;
 
----
+--------------------------------------------------------------------------------
 
 (program
   (statement
     (select
       (keyword_select)
       (select_expression
-        (field
-          name: (identifier))
-        (field
-          name: (identifier))
-        (window_function
-          (invocation
-            name: (identifier)
-            parameter: (field
-              name: (identifier)))
-          (keyword_over)
-          (window_specification
-            (partition_by
-              (keyword_partition)
-              (keyword_by)
-              (expression_list
-              (field
-                name: (identifier))))
-            (order_by
-              (keyword_order)
-              (keyword_by)
-              (order_expression
-                (order_target
-                 (field name: (identifier)))))
-            (window_frame
-              (keyword_range)
-              (keyword_between)
-              (frame_definition
-                (keyword_unbounded)
-                (keyword_preceding))
-              (keyword_and)
-              (frame_definition
-                (keyword_unbounded)
-                (keyword_following)))))))
+        (term
+          value: (field
+            name: (identifier)))
+        (term
+          value: (field
+            name: (identifier)))
+        (term
+          value: (window_function
+            (invocation
+              name: (identifier)
+              parameter: (field
+                name: (identifier)))
+            (keyword_over)
+            (window_specification
+              (partition_by
+                (keyword_partition)
+                (keyword_by)
+                (expression_list
+                  (field
+                    name: (identifier))))
+              (order_by
+                (keyword_order)
+                (keyword_by)
+                (order_expression
+                  (order_target
+                    (field
+                      name: (identifier)))))
+              (window_frame
+                (keyword_range)
+                (keyword_between)
+                (frame_definition
+                  (keyword_unbounded)
+                  (keyword_preceding))
+                (keyword_and)
+                (frame_definition
+                  (keyword_unbounded)
+                  (keyword_following))))))))
     (from
       (keyword_from)
-        (relation
-          (table_reference
-            name: (identifier))))))
+      (relation
+        (table_reference
+          name: (identifier))))))
 
-
-
-==================
+================================================================================
 Window Functions complex example
-==================
+================================================================================
 
 SELECT
     a,
@@ -417,66 +444,68 @@ SELECT
 FROM
     tab;
 
----
+--------------------------------------------------------------------------------
 
 (program
   (statement
     (select
       (keyword_select)
       (select_expression
-        (field
-          name: (identifier))
-        (field
-          name: (identifier))
-        (window_function
-          (invocation
-            name: (identifier)
-            parameter: (field
-              name: (identifier)))
-          (keyword_over)
-          (window_specification
-            (partition_by
-              (keyword_partition)
-              (keyword_by)
-              (expression_list
-              (field
-                name: (identifier))
-              (field
-                name: (identifier))))
-            (order_by
-              (keyword_order)
-              (keyword_by)
-              (order_expression
-               (order_target
-                (field
-                  name: (identifier))
-                (direction
-                  (keyword_asc))
-                (keyword_nulls)
-                (keyword_first))))
-            (window_frame
-              (keyword_rows)
-              (keyword_between)
-              (frame_definition
+        (term
+          value: (field
+            name: (identifier)))
+        (term
+          value: (field
+            name: (identifier)))
+        (term
+          value: (window_function
+            (invocation
+              name: (identifier)
+              parameter: (field
+                name: (identifier)))
+            (keyword_over)
+            (window_specification
+              (partition_by
+                (keyword_partition)
+                (keyword_by)
+                (expression_list
+                  (field
+                    name: (identifier))
+                  (field
+                    name: (identifier))))
+              (order_by
+                (keyword_order)
+                (keyword_by)
+                (order_expression
+                  (order_target
+                    (field
+                      name: (identifier))
+                    (direction
+                      (keyword_asc))
+                    (keyword_nulls)
+                    (keyword_first))))
+              (window_frame
+                (keyword_rows)
+                (keyword_between)
+                (frame_definition
                   (literal)
                   (keyword_preceding))
-              (keyword_and)
-              (frame_definition
+                (keyword_and)
+                (frame_definition
                   (literal)
                   (keyword_following))
-              (keyword_exclude)
-              (keyword_current)
-              (keyword_row))))))
+                (keyword_exclude)
+                (keyword_current)
+                (keyword_row)))))))
     (from
       (keyword_from)
-        (relation
-          (table_reference
-            name: (identifier))))))
+      (relation
+        (table_reference
+          name: (identifier))))))
 
-
-==================
+================================================================================
 Window Functions complex example #2
-==================
+================================================================================
 
 SELECT
   a,
@@ -506,139 +535,144 @@ SELECT
 FROM
     tab;
 
----
+--------------------------------------------------------------------------------
 
 (program
   (statement
     (select
       (keyword_select)
       (select_expression
-        (field
-          (identifier))
-        (field
-          (identifier))
-        (window_function
-          (invocation
-            (identifier)
-            (field
-              (identifier)))
-          (keyword_over)
-          (window_specification
-            (partition_by
-              (keyword_partition)
-              (keyword_by)
-              (expression_list
-                (literal)
-                (field
-                  (identifier))
-                (parameter)
-                (case
-                  (keyword_case)
-                  (keyword_when)
-                  (predicate
-                    (field
-                      (identifier))
-                    (literal))
-                  (keyword_then)
-                  (literal
-                    (keyword_true))
-                  (keyword_else)
-                  (literal
-                    (keyword_false))
-                  (keyword_end))
-                (cast
-                  (identifier)
+        (term
+          (field
+            (identifier)))
+        (term
+          (field
+            (identifier)))
+        (term
+          (window_function
+            (invocation
+              (identifier)
+              (field
+                (identifier)))
+            (keyword_over)
+            (window_specification
+              (partition_by
+                (keyword_partition)
+                (keyword_by)
+                (expression_list
+                  (literal)
                   (field
                     (identifier))
-                  (keyword_as)
-                  (keyword_date))
-                (cast
-                  (field
-                    (identifier))
-                  (keyword_date))
-                (subquery
-                  (select
-                    (keyword_select)
-                    (select_expression
-                      (field
-                        (identifier))))
-                  (from
-                    (keyword_from)
-                      (relation
-                        (table_reference
-                          (identifier)))))
-                (invocation
-                  (identifier)
-                  (field
-                    (identifier)))
-                (binary_expression
-                  (field
-                    (identifier))
-                  (field
-                    (identifier)))))
-            (order_by
-              (keyword_order)
-              (keyword_by)
-              (order_expression
-                (order_target
-                  (literal))
-                (order_target
-                  (field
-                    (identifier)))
-                (order_target
-                  (parameter))
-                (order_target
+                  (parameter)
                   (case
                     (keyword_case)
                     (keyword_when)
                     (predicate
                       (field
                         (identifier))
-                      (parameter))
+                      (literal))
                     (keyword_then)
                     (literal
                       (keyword_true))
                     (keyword_else)
                     (literal
                       (keyword_false))
-                    (keyword_end)))
-                (order_target
+                    (keyword_end))
                   (cast
                     (identifier)
                     (field
                       (identifier))
                     (keyword_as)
-                    (keyword_date)))
-                (order_target
+                    (keyword_date))
                   (cast
                     (field
                       (identifier))
-                    (keyword_date)))
-                (order_target
+                    (keyword_date))
                   (subquery
                     (select
                       (keyword_select)
                       (select_expression
-                        (field
-                          (identifier))))
+                        (term
+                          (field
+                            (identifier)))))
                     (from
                       (keyword_from)
-                        (relation
-                          (table_reference
-                            (identifier))))))
-                (order_target
+                      (relation
+                        (table_reference
+                          (identifier)))))
                   (invocation
                     (identifier)
                     (field
-                      (identifier))))
-                (order_target
+                      (identifier)))
                   (binary_expression
                     (field
                       (identifier))
                     (field
-                      (identifier))))))))))
+                      (identifier)))))
+              (order_by
+                (keyword_order)
+                (keyword_by)
+                (order_expression
+                  (order_target
+                    (literal))
+                  (order_target
+                    (field
+                      (identifier)))
+                  (order_target
+                    (parameter))
+                  (order_target
+                    (case
+                      (keyword_case)
+                      (keyword_when)
+                      (predicate
+                        (field
+                          (identifier))
+                        (parameter))
+                      (keyword_then)
+                      (literal
+                        (keyword_true))
+                      (keyword_else)
+                      (literal
+                        (keyword_false))
+                      (keyword_end)))
+                  (order_target
+                    (cast
+                      (identifier)
+                      (field
+                        (identifier))
+                      (keyword_as)
+                      (keyword_date)))
+                  (order_target
+                    (cast
+                      (field
+                        (identifier))
+                      (keyword_date)))
+                  (order_target
+                    (subquery
+                      (select
+                        (keyword_select)
+                        (select_expression
+                          (term
+                            (field
+                              (identifier)))))
+                      (from
+                        (keyword_from)
+                        (relation
+                          (table_reference
+                            (identifier))))))
+                  (order_target
+                    (invocation
+                      (identifier)
+                      (field
+                        (identifier))))
+                  (order_target
+                    (binary_expression
+                      (field
+                        (identifier))
+                      (field
+                        (identifier)))))))))))
     (from
       (keyword_from)
-        (relation
-          (table_reference
-            (identifier))))))
+      (relation
+        (table_reference
+          (identifier))))))

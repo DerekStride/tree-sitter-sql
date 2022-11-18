@@ -1,206 +1,215 @@
-==================
+================================================================================
 Select 1
-==================
+================================================================================
 
 SELECT 1;
 
----
-
-(program
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (literal)))))
-
-==================
-Select aliased literals
-==================
-
-SELECT 1 AS one,
-  TRUE AS two,
-  NULL AS three;
-
----
-
-(program
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (literal) (keyword_as) (identifier)
-    (literal (keyword_true)) (keyword_as) (identifier)
-    (literal (keyword_null)) (keyword_as) (identifier)))))
-
-==================
-Simple select
-==================
-
-SELECT * FROM my_table;
-
----
-
-(program
- (statement
-  (select
-   (keyword_select)
-   (select_expression (all_fields)))
-  (from
-   (keyword_from)
-    (relation
-       (table_reference name: (identifier))))))
-
-==================
-Simple select with ONLY
-==================
-
-SELECT * FROM ONLY my_table;
-
----
-
-(program
- (statement
-  (select
-   (keyword_select)
-   (select_expression (all_fields)))
-  (from
-   (keyword_from)
-   (keyword_only)
-   (relation
-    (table_reference name: (identifier))))))
-
-==================
-Table.*
-==================
-
-SELECT my_table.* FROM my_table;
-
----
-
-(program
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-     (all_fields table_alias: (identifier))))
-  (from
-   (keyword_from)
-    (relation
-       (table_reference name: (identifier))))))
-
-==================
-Alias.*
-==================
-
-SELECT t.* FROM my_table AS t;
-
----
-
-(program
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-     (all_fields table_alias: (identifier))))
-  (from
-   (keyword_from)
-    (relation
-       (table_reference
-         name: (identifier))
-       (keyword_as)
-       table_alias: (identifier)))))
-
-==================
-Simple select with fields
-==================
-
-SELECT id, name FROM my_table;
-
----
-
-(program
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (field name: (identifier))
-    (field name: (identifier))))
-  (from
-   (keyword_from)
-    (relation
-       (table_reference name: (identifier))))))
-
-==================
-Simple select with fields that look like keywords
-==================
-
-SELECT t.from_where, t.created_at, t.updated_at
-FROM join_something_on AS where_this_like_that;
-
----
-
-(program
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (field table_alias: (identifier) name: (identifier))
-    (field table_alias: (identifier) name: (identifier))
-    (field table_alias: (identifier) name: (identifier))))
-  (from
-   (keyword_from)
-    (relation
-       (table_reference
-        name: (identifier))
-      (keyword_as)
-      table_alias: (identifier)))))
-
-==================
-Simple select with fields field table alias
-==================
-
-SELECT m.id, m.name
-FROM my_table m;
-
----
-
-(program
-  (statement
-    (select
-     (keyword_select)
-     (select_expression
-      (field
-       table_alias: (identifier)
-       name: (identifier))
-      (field
-       table_alias: (identifier)
-       name: (identifier))))
-    (from
-     (keyword_from)
-      (relation
-       (table_reference
-        name: (identifier))
-      table_alias: (identifier)))))
-
-==================
-Simple select with aliased table and column name using double quotes
-==================
-
-SELECT "My Table".name as "My Name"
-FROM my_table "My Table";
-
----
+--------------------------------------------------------------------------------
 
 (program
   (statement
     (select
       (keyword_select)
       (select_expression
-        (field
-          table_alias: (identifier)
+        (term
+          (literal))))))
+
+================================================================================
+Select aliased literals
+================================================================================
+
+SELECT 1 AS one,
+  TRUE AS two,
+  NULL AS three;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (literal)
+          (keyword_as)
+          alias: (identifier))
+        (term
+          value: (literal
+            (keyword_true))
+          (keyword_as)
+          alias: (identifier))
+        (term
+          value: (literal
+            (keyword_null))
+          (keyword_as)
+          alias: (identifier))))))
+
+================================================================================
+Simple select
+================================================================================
+
+SELECT * FROM my_table;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (all_fields)))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier))))))
+
+================================================================================
+Simple select with ONLY
+================================================================================
+
+SELECT * FROM ONLY my_table;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (all_fields)))
+    (from
+      (keyword_from)
+      (keyword_only)
+      (relation
+        (table_reference
+          name: (identifier))))))
+
+================================================================================
+Table.*
+================================================================================
+
+SELECT my_table.* FROM my_table;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (all_fields
+          table_alias: (identifier))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier))))))
+
+================================================================================
+Alias.*
+================================================================================
+
+SELECT t.* FROM my_table AS t;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (all_fields
+          table_alias: (identifier))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
           name: (identifier))
         (keyword_as)
-        alias: (identifier)))
+        table_alias: (identifier)))))
+
+================================================================================
+Simple select with fields
+================================================================================
+
+SELECT id, name FROM my_table;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            name: (identifier)))
+        (term
+          value: (field
+            name: (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier))))))
+
+================================================================================
+Simple select with fields that look like keywords
+================================================================================
+
+SELECT t.from_where, t.created_at, t.updated_at
+FROM join_something_on AS where_this_like_that;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            table_alias: (identifier)
+            name: (identifier)))
+        (term
+          value: (field
+            table_alias: (identifier)
+            name: (identifier)))
+        (term
+          value: (field
+            table_alias: (identifier)
+            name: (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier))
+        (keyword_as)
+        table_alias: (identifier)))))
+
+================================================================================
+Simple select with fields field table alias
+================================================================================
+
+SELECT m.id, m.name
+FROM my_table m;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            table_alias: (identifier)
+            name: (identifier)))
+        (term
+          value: (field
+            table_alias: (identifier)
+            name: (identifier)))))
     (from
       (keyword_from)
       (relation
@@ -208,521 +217,586 @@ FROM my_table "My Table";
           name: (identifier))
         table_alias: (identifier)))))
 
-==================
+================================================================================
+Simple select with aliased table and column name using double quotes
+================================================================================
+
+SELECT "My Table".name as "My Name"
+FROM my_table "My Table";
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            table_alias: (identifier)
+            name: (identifier))
+          (keyword_as)
+          alias: (identifier))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier))
+        table_alias: (identifier)))))
+
+================================================================================
 Simple select with where
-==================
+================================================================================
 
 SELECT id
 FROM my_table
 WHERE id = 4;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (field
-     name: (identifier))))
-  (from
-   (keyword_from)
-    (relation
-       (table_reference
-    name: (identifier)))
-   (where
-    (keyword_where)
-    (where_expression
-     (predicate
-      left: (field name: (identifier))
-      right: (literal)))))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            name: (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier)))
+      (where
+        (keyword_where)
+        (where_expression
+          (predicate
+            left: (field
+              name: (identifier))
+            right: (literal)))))))
 
-==================
+================================================================================
 Simple select with where and string
-==================
+================================================================================
 
 SELECT id
 FROM my_table
 WHERE id = "abc";
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (field
-     name: (identifier))))
-  (from
-   (keyword_from)
-    (relation
-     (table_reference
-      name: (identifier)))
-   (where
-    (keyword_where)
-    (where_expression
-     (predicate
-      left: (field name: (identifier))
-      right: (literal)))))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            name: (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier)))
+      (where
+        (keyword_where)
+        (where_expression
+          (predicate
+            left: (field
+              name: (identifier))
+            right: (literal)))))))
 
-==================
+================================================================================
 Simple select with IN
-==================
+================================================================================
 
 SELECT id
 FROM my_table
 WHERE id IN(1,2);
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (field
-     name: (identifier))))
-  (from
-   (keyword_from)
-    (relation
-     (table_reference
-      name: (identifier)))
-   (where
-    (keyword_where)
-    (where_expression
-     (predicate
-      left: (field name: (identifier))
-      operator: (keyword_in)
-      right: (list (literal) (literal))))))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            name: (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier)))
+      (where
+        (keyword_where)
+        (where_expression
+          (predicate
+            left: (field
+              name: (identifier))
+            operator: (keyword_in)
+            right: (list
+              (literal)
+              (literal))))))))
 
-==================
+================================================================================
 Simple select with IF
-==================
+================================================================================
 
 SELECT IF(m.is_published, 'global', 'local') as published_scope
 FROM my_table m;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (invocation
-     name: (identifier)
-     parameter: (field
-       table_alias: (identifier)
-       name: (identifier))
-     parameter: (literal)
-     parameter: (literal))
-    (keyword_as)
-    alias: (identifier)))
-  (from
-   (keyword_from)
-    (relation
-       (table_reference
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (invocation
+            name: (identifier)
+            parameter: (field
+              table_alias: (identifier)
+              name: (identifier))
+            parameter: (literal)
+            parameter: (literal))
+          (keyword_as)
+          alias: (identifier))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
           name: (identifier))
-          table_alias: (identifier)))))
+        table_alias: (identifier)))))
 
-==================
+================================================================================
 Select with complex IF
-==================
+================================================================================
 
 SELECT m.is_published, IF(m.is_published > 4, 'global', 'local') published_scope
 FROM my_table m;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (field table_alias: (identifier) name: (identifier))
-    (invocation
-     name: (identifier)
-     parameter: (predicate
-       left: (field
-         table_alias: (identifier)
-         name: (identifier))
-       right: (literal))
-     parameter: (literal)
-     parameter: (literal))
-    alias: (identifier)))
-  (from
-   (keyword_from)
-    (relation
-       (table_reference
-        name: (identifier))
-      table_alias: (identifier)))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            table_alias: (identifier)
+            name: (identifier)))
+        (term
+          value: (invocation
+            name: (identifier)
+            parameter: (predicate
+              left: (field
+                table_alias: (identifier)
+                name: (identifier))
+              right: (literal))
+            parameter: (literal)
+            parameter: (literal))
+          alias: (identifier))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier))
+        table_alias: (identifier)))))
 
-==================
+================================================================================
 Select with distinct without parenthesis
-==================
+================================================================================
 
 SELECT DISTINCT id
 FROM my_table;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (select
-   (keyword_select)
-   (keyword_distinct)
-   (select_expression
-    (field
-     name: (identifier))))
-  (from
-   (keyword_from)
-    (relation
-       (table_reference
-        name: (identifier))))))
+  (statement
+    (select
+      (keyword_select)
+      (keyword_distinct)
+      (select_expression
+        (term
+          value: (field
+            name: (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier))))))
 
-==================
+================================================================================
 Select with count and distinct without parenthesis and alias
-==================
+================================================================================
 
 SELECT COUNT(DISTINCT id) AS count
 FROM my_table;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (count
-     name: (identifier)
-     (keyword_distinct)
-     parameter: (field
-      name: (identifier)))
-    (keyword_as)
-    alias: (identifier)))
-  (from
-   (keyword_from)
-    (relation
-       (table_reference
-        name: (identifier))))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (count
+            name: (identifier)
+            (keyword_distinct)
+            parameter: (field
+              name: (identifier)))
+          (keyword_as)
+          alias: (identifier))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier))))))
 
-==================
+================================================================================
 Simple select with AS
-==================
+================================================================================
 
 SELECT m.id AS m_id, m.a_id a_id
 FROM my_table AS m;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (field
-     table_alias: (identifier)
-     name: (identifier))
-    (keyword_as)
-    alias: (identifier)
-    (field
-     table_alias: (identifier)
-     name: (identifier))
-    alias: (identifier)))
-  (from
-   (keyword_from)
-    (relation
-       (table_reference
-    name: (identifier))
-    (keyword_as)
-    table_alias: (identifier)))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            table_alias: (identifier)
+            name: (identifier))
+          (keyword_as)
+          alias: (identifier))
+        (term
+          value: (field
+            table_alias: (identifier)
+            name: (identifier))
+          alias: (identifier))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier))
+        (keyword_as)
+        table_alias: (identifier)))))
 
-==================
+================================================================================
 Simple select with order by
-==================
+================================================================================
 
 SELECT id
 FROM my_table
 WHERE id > 4
 ORDER BY id DESC;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (field
-     name: (identifier))))
-  (from
-   (keyword_from)
-    (relation
-       (table_reference
-        name: (identifier)))
-   (where
-    (keyword_where)
-    (where_expression
-     (predicate
-      left: (field name: (identifier))
-      right: (literal))))
-   (order_by
-    (keyword_order)
-    (keyword_by)
-    (order_expression
-     (order_target
-      (field name: (identifier))
-      (direction (keyword_desc))))))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            name: (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier)))
+      (where
+        (keyword_where)
+        (where_expression
+          (predicate
+            left: (field
+              name: (identifier))
+            right: (literal))))
+      (order_by
+        (keyword_order)
+        (keyword_by)
+        (order_expression
+          (order_target
+            (field
+              name: (identifier))
+            (direction
+              (keyword_desc))))))))
 
-==================
+================================================================================
 Simple select with limit
-==================
+================================================================================
 
 SELECT id
 FROM my_table
 LIMIT 5;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (field
-     name: (identifier))))
-  (from
-   (keyword_from)
-    (relation
-       (table_reference
-        name: (identifier)))
-   (limit
-    (keyword_limit)
-    (literal)))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            name: (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier)))
+      (limit
+        (keyword_limit)
+        (literal)))))
 
-==================
+================================================================================
 Simple select with offset
-==================
+================================================================================
 
 SELECT id
 FROM my_table
 LIMIT 5
 OFFSET 40;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (field
-     name: (identifier))))
-  (from
-   (keyword_from)
-    (relation
-       (table_reference
-        name: (identifier)))
-   (limit
-    (keyword_limit)
-    (literal)
-    (offset
-     (keyword_offset)
-     (literal))))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            name: (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier)))
+      (limit
+        (keyword_limit)
+        (literal)
+        (offset
+          (keyword_offset)
+          (literal))))))
 
-==================
+================================================================================
 Simple select with schema
-==================
+================================================================================
 
 SELECT * FROM my_schema.my_table;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (select
-   (keyword_select)
-   (select_expression (all_fields)))
-  (from
-   (keyword_from)
-    (relation
-       (table_reference schema: (identifier) name: (identifier))))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (all_fields)))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          schema: (identifier)
+          name: (identifier))))))
 
-==================
+================================================================================
 Simple select with schema and fully-pathed fields
-==================
+================================================================================
 
 SELECT
   my_schema.my_table.my_field
 FROM
   my_schema.my_table;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (select
-   (keyword_select)
-   (select_expression (field schema: (identifier) table_alias: (identifier) name: (identifier))))
-  (from
-   (keyword_from)
-    (relation
-       (table_reference schema: (identifier) name: (identifier))))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            schema: (identifier)
+            table_alias: (identifier)
+            name: (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          schema: (identifier)
+          name: (identifier))))))
 
-==================
+================================================================================
 IS DISTINCT FROM
-==================
+================================================================================
 
 SELECT *
 FROM my_table
 WHERE col IS DISTINCT FROM NULL;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (all_fields)))
-  (from
-   (keyword_from)
-    (relation
-       (table_reference
-        (identifier)))
-   (where
-    (keyword_where)
-    (where_expression
-     (predicate
-      (field
-       (identifier))
-      (keyword_is)
-      (keyword_distinct)
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (all_fields)))
+    (from
       (keyword_from)
-      (literal
-       (keyword_null))))))))
+      (relation
+        (table_reference
+          (identifier)))
+      (where
+        (keyword_where)
+        (where_expression
+          (predicate
+            (field
+              (identifier))
+            (keyword_is)
+            (keyword_distinct)
+            (keyword_from)
+            (literal
+              (keyword_null))))))))
 
-==================
+================================================================================
 IS NOT DISTINCT FROM
-==================
+================================================================================
 
 SELECT *
 FROM my_table
 WHERE col IS NOT DISTINCT FROM NULL;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (all_fields)))
-  (from
-   (keyword_from)
-    (relation
-       (table_reference
-        (identifier)))
-   (where
-    (keyword_where)
-    (where_expression
-     (predicate
-      (field
-       (identifier))
-      (keyword_is)
-      (keyword_not)
-      (keyword_distinct)
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (all_fields)))
+    (from
       (keyword_from)
-      (literal
-       (keyword_null))))))))
+      (relation
+        (table_reference
+          (identifier)))
+      (where
+        (keyword_where)
+        (where_expression
+          (predicate
+            (field
+              (identifier))
+            (keyword_is)
+            (keyword_not)
+            (keyword_distinct)
+            (keyword_from)
+            (literal
+              (keyword_null))))))))
 
-==================
+================================================================================
 Distinct
-==================
+================================================================================
 
 SELECT DISTINCT(id)
 FROM my_table;
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (select
-   (keyword_select)
-   (keyword_distinct)
-   (select_expression
-    (list
-     (field
-      name: (identifier)))))
-  (from
-   (keyword_from)
-    (relation
-       (table_reference
-        name: (identifier))))))
+  (statement
+    (select
+      (keyword_select)
+      (keyword_distinct)
+      (select_expression
+        (term
+          value: (list
+            (field
+              name: (identifier))))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier))))))
 
-==================
+================================================================================
 Distinct, no extra parens
-==================
+================================================================================
 
 SELECT DISTINCT id
 FROM my_table;
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (select
-   (keyword_select)
-   (keyword_distinct)
-   (select_expression
-    (field
-     name: (identifier))))
-  (from
-   (keyword_from)
-    (relation
-       (table_reference
-        name: (identifier))))))
+  (statement
+    (select
+      (keyword_select)
+      (keyword_distinct)
+      (select_expression
+        (term
+          value: (field
+            name: (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier))))))
 
-==================
+================================================================================
 Functions
-==================
+================================================================================
 
 SELECT MAX(id)
 FROM my_table;
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (invocation
-     name: (identifier)
-     parameter: (field name: (identifier)))))
-  (from
-   (keyword_from)
-    (relation
-       (table_reference
-        name: (identifier))))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (invocation
+            name: (identifier)
+            parameter: (field
+              name: (identifier))))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier))))))
 
-==================
+================================================================================
 No-arg functions
-==================
+================================================================================
 
 SELECT now();
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (invocation
-     name: (identifier))))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (invocation
+            name: (identifier)))))))
 
-==================
+================================================================================
 More complex function arguments
-==================
+================================================================================
 
 SELECT
   user_id,
@@ -730,203 +804,235 @@ SELECT
   regexp_replace(t.username, '^(.)[^@]+', '\1--', 'g') as username,
   created_at
 FROM my_table AS t;
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (field name: (identifier))
-    (invocation
-     name: (identifier)
-     parameter: (field name: (identifier))
-     parameter: (literal)
-     parameter: (invocation
-       name: (identifier)
-       parameter: (field name: (identifier))
-       parameter: (literal))
-     parameter:
-     (predicate
-      left: (binary_expression left: (field name: (identifier)) right: (literal))
-      right: (literal)))
-    (keyword_as) alias: (identifier)
-    (invocation
-     name: (identifier)
-     parameter: (field table_alias: (identifier) name: (identifier))
-     parameter: (literal)
-     parameter: (literal)
-     parameter: (literal))
-  (keyword_as) alias: (identifier)
-(field name: (identifier))))
-  (from
-   (keyword_from)
-    (relation
-       (table_reference
-        name: (identifier))
-       (keyword_as)
-       table_alias: (identifier)))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            name: (identifier)))
+        (term
+          value: (invocation
+            name: (identifier)
+            parameter: (field
+              name: (identifier))
+            parameter: (literal)
+            parameter: (invocation
+              name: (identifier)
+              parameter: (field
+                name: (identifier))
+              parameter: (literal))
+            parameter: (predicate
+              left: (binary_expression
+                left: (field
+                  name: (identifier))
+                right: (literal))
+              right: (literal)))
+          (keyword_as)
+          alias: (identifier))
+        (term
+          value: (invocation
+            name: (identifier)
+            parameter: (field
+              table_alias: (identifier)
+              name: (identifier))
+            parameter: (literal)
+            parameter: (literal)
+            parameter: (literal))
+          (keyword_as)
+          alias: (identifier))
+        (term
+          value: (field
+            name: (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier))
+        (keyword_as)
+        table_alias: (identifier)))))
 
-==================
+================================================================================
 Distinct in count function
-==================
+================================================================================
 
 SELECT COUNT(DISTINCT(id))
 FROM my_table;
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (count
-     name: (identifier)
-     (keyword_distinct)
-     parameter: (list
-       (field
-        name: (identifier))))))
-  (from
-   (keyword_from)
-    (relation
-       (table_reference
-        name: (identifier))))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (count
+            name: (identifier)
+            (keyword_distinct)
+            parameter: (list
+              (field
+                name: (identifier)))))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier))))))
 
-==================
+================================================================================
 Distinct in count function, no extra parens
-==================
+================================================================================
 
 SELECT COUNT(DISTINCT id)
 FROM my_table;
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (count
-     name: (identifier)
-     (keyword_distinct)
-     parameter:
-     (field
-      name: (identifier)))))
-  (from
-   (keyword_from)
-    (relation
-       (table_reference
-        name: (identifier))))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (count
+            name: (identifier)
+            (keyword_distinct)
+            parameter: (field
+              name: (identifier))))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier))))))
 
-==================
+================================================================================
 Group by
-==================
+================================================================================
 
 SELECT other_id, COUNT(name)
 FROM my_table
 GROUP BY other_id
 HAVING other_id > 10;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (field name: (identifier))
-    (count
-     name: (identifier)
-     parameter: (field name: (identifier)))))
-  (from
-   (keyword_from)
-    (relation
-       (table_reference
-        name: (identifier)))
-   (group_by
-    (keyword_group)
-    (keyword_by)
-    (expression_list
-     (field
-      name: (identifier)))
-    (keyword_having)
-    (predicate
-     left: (field name: (identifier))
-     right: (literal))))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            name: (identifier)))
+        (term
+          value: (count
+            name: (identifier)
+            parameter: (field
+              name: (identifier))))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier)))
+      (group_by
+        (keyword_group)
+        (keyword_by)
+        (expression_list
+          (field
+            name: (identifier)))
+        (keyword_having)
+        (predicate
+          left: (field
+            name: (identifier))
+          right: (literal))))))
 
-==================
+================================================================================
 Group by numbered alias
-==================
+================================================================================
 
 SELECT other_id, COUNT(name)
 FROM my_table
 GROUP BY 1
 HAVING other_id > 10;
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (field name: (identifier))
-    (count
-     name: (identifier)
-     parameter: (field name: (identifier)))))
-  (from
-   (keyword_from)
-    (relation
-       (table_reference
-        name: (identifier)))
-   (group_by
-    (keyword_group)
-    (keyword_by)
-    (expression_list
-     (literal))
-    (keyword_having)
-    (predicate
-     left: (field name: (identifier))
-     right: (literal))))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            name: (identifier)))
+        (term
+          value: (count
+            name: (identifier)
+            parameter: (field
+              name: (identifier))))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier)))
+      (group_by
+        (keyword_group)
+        (keyword_by)
+        (expression_list
+          (literal))
+        (keyword_having)
+        (predicate
+          left: (field
+            name: (identifier))
+          right: (literal))))))
 
-==================
+================================================================================
 Group by with mixed list
-==================
+================================================================================
 
 SELECT other_id, other_col, COUNT(name)
 FROM my_table
 GROUP BY 1, other_col
 HAVING other_id > 10;
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (field name: (identifier))
-    (field name: (identifier))
-    (count
-     name: (identifier)
-     parameter: (field name: (identifier)))))
-  (from
-   (keyword_from)
-    (relation
-       (table_reference
-        name: (identifier)))
-   (group_by
-    (keyword_group)
-    (keyword_by)
-    (expression_list
-     (literal)
-     (field
-     name: (identifier)))
-    (keyword_having)
-    (predicate
-     left: (field name: (identifier))
-     right: (literal))))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            name: (identifier)))
+        (term
+          value: (field
+            name: (identifier)))
+        (term
+          value: (count
+            name: (identifier)
+            parameter: (field
+              name: (identifier))))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier)))
+      (group_by
+        (keyword_group)
+        (keyword_by)
+        (expression_list
+          (literal)
+          (field
+            name: (identifier)))
+        (keyword_having)
+        (predicate
+          left: (field
+            name: (identifier))
+          right: (literal))))))
 
-==================
+================================================================================
 Joins
-==================
+================================================================================
 
 SELECT a.id, b.id
 FROM my_table a
@@ -934,198 +1040,217 @@ JOIN my_other_table b
 ON a.id = b.a_id
 WHERE b.c_id = 4;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (field
-     table_alias: (identifier)
-     name: (identifier))
-    (field
-     table_alias: (identifier)
-     name: (identifier))))
-  (from
-   (keyword_from)
-   (relation
-    (table_reference name: (identifier))
-    table_alias: (identifier))
-   (join
-    (keyword_join)
-    (relation
-     (table_reference name: (identifier))
-     table_alias: (identifier))
-    (keyword_on)
-    (predicate
-     left: (field
-      table_alias: (identifier)
-      name: (identifier))
-     right: (field
-      table_alias: (identifier)
-      name: (identifier))))
-   (where
-    (keyword_where)
-    (where_expression
-     (predicate
-      left: (field
-       table_alias: (identifier)
-       name: (identifier))
-      right: (literal)))))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            table_alias: (identifier)
+            name: (identifier)))
+        (term
+          value: (field
+            table_alias: (identifier)
+            name: (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier))
+        table_alias: (identifier))
+      (join
+        (keyword_join)
+        (relation
+          (table_reference
+            name: (identifier))
+          table_alias: (identifier))
+        (keyword_on)
+        (predicate
+          left: (field
+            table_alias: (identifier)
+            name: (identifier))
+          right: (field
+            table_alias: (identifier)
+            name: (identifier))))
+      (where
+        (keyword_where)
+        (where_expression
+          (predicate
+            left: (field
+              table_alias: (identifier)
+              name: (identifier))
+            right: (literal)))))))
 
-==================
+================================================================================
 Join with boolean
-==================
+================================================================================
 
 SELECT *
 FROM my_table
 JOIN my_other_table ON TRUE;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (select
-   (keyword_select)
-   (select_expression (all_fields)))
-  (from
-   (keyword_from)
-   (relation
-    (table_reference name: (identifier)))
-   (join
-    (keyword_join)
-    (relation
-     (table_reference name: (identifier)))
-    (keyword_on)
-    (keyword_true))
-   )))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (all_fields)))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier)))
+      (join
+        (keyword_join)
+        (relation
+          (table_reference
+            name: (identifier)))
+        (keyword_on)
+        (keyword_true)))))
 
-==================
+================================================================================
 Joins with hint
-==================
+================================================================================
 
 SELECT a.id, b.id
 FROM my_table a
 JOIN my_other_table b USE INDEX FOR JOIN (idx_a)
 ON a.id = b.a_id;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (field
-     table_alias: (identifier)
-     name: (identifier))
-    (field
-     table_alias: (identifier)
-     name: (identifier))))
-  (from
-   (keyword_from)
-    (relation
-     (table_reference name: (identifier))
-     table_alias: (identifier))
-   (join
-    (keyword_join)
-    (relation
-     (table_reference name: (identifier))
-     table_alias: (identifier))
-    (index_hint
-     (keyword_use)
-     (keyword_index)
-     (keyword_for)
-     (keyword_join)
-     index_name: (identifier))
-    (keyword_on)
-    (predicate
-     left: (field
-      table_alias: (identifier)
-      name: (identifier))
-     right: (field
-      table_alias: (identifier)
-      name: (identifier)))))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            table_alias: (identifier)
+            name: (identifier)))
+        (term
+          value: (field
+            table_alias: (identifier)
+            name: (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier))
+        table_alias: (identifier))
+      (join
+        (keyword_join)
+        (relation
+          (table_reference
+            name: (identifier))
+          table_alias: (identifier))
+        (index_hint
+          (keyword_use)
+          (keyword_index)
+          (keyword_for)
+          (keyword_join)
+          index_name: (identifier))
+        (keyword_on)
+        (predicate
+          left: (field
+            table_alias: (identifier)
+            name: (identifier))
+          right: (field
+            table_alias: (identifier)
+            name: (identifier)))))))
 
-==================
+================================================================================
 Joins with USING
-==================
+================================================================================
 
 SELECT a.id, b.id
 FROM my_table a
 JOIN my_other_table b USING (q, w);
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (field
-     table_alias: (identifier)
-     name: (identifier))
-    (field
-     table_alias: (identifier)
-     name: (identifier))))
-  (from
-   (keyword_from)
-   (relation
-    (table_reference name: (identifier))
-    table_alias: (identifier))
-   (join
-    (keyword_join)
-    (relation
-     (table_reference name: (identifier))
-     table_alias: (identifier))
-     (keyword_using)
-     (column_list
-       (column name: (identifier))
-       (column name: (identifier))))
-    )))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            table_alias: (identifier)
+            name: (identifier)))
+        (term
+          value: (field
+            table_alias: (identifier)
+            name: (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier))
+        table_alias: (identifier))
+      (join
+        (keyword_join)
+        (relation
+          (table_reference
+            name: (identifier))
+          table_alias: (identifier))
+        (keyword_using)
+        (column_list
+          (column
+            name: (identifier))
+          (column
+            name: (identifier)))))))
 
-==================
+================================================================================
 Join a VALUES clause
-==================
+================================================================================
 
 SELECT *
 FROM my_table
 JOIN (VALUES (1, 2), (3, 4)) AS v (col1, col2) ON TRUE;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (select
-   (keyword_select)
-   (select_expression (all_fields)))
-  (from
-   (keyword_from)
-   (relation
-    (table_reference name: (identifier)))
-   (join
-    (keyword_join)
-    (relation
-     (values
-      (keyword_values)
-      (list
-       (literal)
-       (literal))
-      (list
-       (literal)
-       (literal)))
-     (keyword_as)
-     table_alias: (identifier)
-     (column_list
-      (column name: (identifier))
-      (column name: (identifier))))
-    (keyword_on)
-    (keyword_true)))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (all_fields)))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier)))
+      (join
+        (keyword_join)
+        (relation
+          (values
+            (keyword_values)
+            (list
+              (literal)
+              (literal))
+            (list
+              (literal)
+              (literal)))
+          (keyword_as)
+          table_alias: (identifier)
+          (column_list
+            (column
+              name: (identifier))
+            (column
+              name: (identifier))))
+        (keyword_on)
+        (keyword_true)))))
 
-==================
+================================================================================
 Specific Joins
-==================
+================================================================================
 
 SELECT table_a.id
 FROM table_a a
@@ -1140,176 +1265,186 @@ ON a.id = d.d_id
 INNER JOIN table_e e
 ON a.id = e.e_id;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (field
-     table_alias: (identifier)
-     name: (identifier))))
-  (from
-   (keyword_from)
-    (relation
-     (table_reference
-      name: (identifier))
-     table_alias: (identifier))
-   (join
-    (keyword_left)
-    (keyword_join)
-    (relation
-     (table_reference name: (identifier))
-     table_alias: (identifier))
-    (keyword_on)
-    (predicate
-     left: (field
-      table_alias: (identifier)
-      name: (identifier))
-     right: (field
-      table_alias: (identifier)
-      name: (identifier))))
-   (join
-    (keyword_left)
-    (keyword_outer)
-    (keyword_join)
-    (relation
-     (table_reference name: (identifier))
-     table_alias: (identifier))
-    (keyword_on)
-    (predicate
-     left: (field
-      table_alias: (identifier)
-      name: (identifier))
-     right: (field
-      table_alias: (identifier)
-      name: (identifier))))
-   (join
-    (keyword_right)
-    (keyword_join)
-    (relation
-     (table_reference name: (identifier))
-     table_alias: (identifier))
-    (keyword_on)
-    (predicate
-     left: (field
-      table_alias: (identifier)
-      name: (identifier))
-     right: (field
-      table_alias: (identifier)
-      name: (identifier))))
-   (join
-    (keyword_right)
-    (keyword_outer)
-    (keyword_join)
-    (relation
-     (table_reference name: (identifier))
-     table_alias: (identifier))
-    (keyword_on)
-    (predicate
-     left: (field
-      table_alias: (identifier)
-      name: (identifier))
-     right: (field
-      table_alias: (identifier)
-      name: (identifier))))
-   (join
-    (keyword_inner)
-    (keyword_join)
-    (relation
-     (table_reference name: (identifier))
-     table_alias: (identifier))
-    (keyword_on)
-    (predicate
-     left: (field
-      table_alias: (identifier)
-      name: (identifier))
-     right: (field
-      table_alias: (identifier)
-      name: (identifier)))))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            table_alias: (identifier)
+            name: (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier))
+        table_alias: (identifier))
+      (join
+        (keyword_left)
+        (keyword_join)
+        (relation
+          (table_reference
+            name: (identifier))
+          table_alias: (identifier))
+        (keyword_on)
+        (predicate
+          left: (field
+            table_alias: (identifier)
+            name: (identifier))
+          right: (field
+            table_alias: (identifier)
+            name: (identifier))))
+      (join
+        (keyword_left)
+        (keyword_outer)
+        (keyword_join)
+        (relation
+          (table_reference
+            name: (identifier))
+          table_alias: (identifier))
+        (keyword_on)
+        (predicate
+          left: (field
+            table_alias: (identifier)
+            name: (identifier))
+          right: (field
+            table_alias: (identifier)
+            name: (identifier))))
+      (join
+        (keyword_right)
+        (keyword_join)
+        (relation
+          (table_reference
+            name: (identifier))
+          table_alias: (identifier))
+        (keyword_on)
+        (predicate
+          left: (field
+            table_alias: (identifier)
+            name: (identifier))
+          right: (field
+            table_alias: (identifier)
+            name: (identifier))))
+      (join
+        (keyword_right)
+        (keyword_outer)
+        (keyword_join)
+        (relation
+          (table_reference
+            name: (identifier))
+          table_alias: (identifier))
+        (keyword_on)
+        (predicate
+          left: (field
+            table_alias: (identifier)
+            name: (identifier))
+          right: (field
+            table_alias: (identifier)
+            name: (identifier))))
+      (join
+        (keyword_inner)
+        (keyword_join)
+        (relation
+          (table_reference
+            name: (identifier))
+          table_alias: (identifier))
+        (keyword_on)
+        (predicate
+          left: (field
+            table_alias: (identifier)
+            name: (identifier))
+          right: (field
+            table_alias: (identifier)
+            name: (identifier)))))))
 
-==================
+================================================================================
 Lateral join
-==================
+================================================================================
 
 SELECT a.id, arr.*
 FROM my_table a
 JOIN LATERAL unnest(a.arr) AS arr ON TRUE;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (field
-     table_alias: (identifier)
-     name: (identifier))
-    (all_fields
-     table_alias: (identifier))))
-  (from
-   (keyword_from)
-    (relation
-       (table_reference
-        name: (identifier))
-      table_alias: (identifier))
-   (lateral_join
-    (keyword_join)
-    (keyword_lateral)
-    (invocation
-      name: (identifier)
-      parameter: (field
-        table_alias: (identifier)
-        name: (identifier)))
-    (keyword_as)
-    alias: (identifier)
-    (keyword_on)
-    (keyword_true)))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            table_alias: (identifier)
+            name: (identifier)))
+        (all_fields
+          table_alias: (identifier))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier))
+        table_alias: (identifier))
+      (lateral_join
+        (keyword_join)
+        (keyword_lateral)
+        (invocation
+          name: (identifier)
+          parameter: (field
+            table_alias: (identifier)
+            name: (identifier)))
+        (keyword_as)
+        alias: (identifier)
+        (keyword_on)
+        (keyword_true)))))
 
-==================
+================================================================================
 Lateral join subquery
-==================
+================================================================================
 
 SELECT a.id, b.*
 FROM my_table a
 CROSS JOIN LATERAL (SELECT 1) AS b ON TRUE;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (field
-     table_alias: (identifier)
-     name: (identifier))
-    (all_fields
-     table_alias: (identifier))))
-  (from
-   (keyword_from)
-    (relation
-       (table_reference
-        name: (identifier))
-      table_alias: (identifier))
-   (lateral_join
-    (keyword_cross)
-    (keyword_join)
-    (keyword_lateral)
-    (subquery
-      (select
-        (keyword_select)
-        (select_expression (literal))))
-    (keyword_as)
-    alias: (identifier)
-    (keyword_on)
-    (keyword_true)))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            table_alias: (identifier)
+            name: (identifier)))
+        (all_fields
+          table_alias: (identifier))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier))
+        table_alias: (identifier))
+      (lateral_join
+        (keyword_cross)
+        (keyword_join)
+        (keyword_lateral)
+        (subquery
+          (select
+            (keyword_select)
+            (select_expression
+              (term
+                value: (literal)))))
+        (keyword_as)
+        alias: (identifier)
+        (keyword_on)
+        (keyword_true)))))
 
-==================
+================================================================================
 Multiple joins
-==================
+================================================================================
 
 SELECT a.id, b.id, c.id
 FROM my_table a
@@ -1318,372 +1453,403 @@ ON a.id = b.a_id
 JOIN table_three c
 ON a.id = c.a_id;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (field
-     table_alias: (identifier)
-     name: (identifier))
-    (field
-     table_alias: (identifier)
-     name: (identifier))
-    (field
-     table_alias: (identifier)
-     name: (identifier))))
-  (from
-   (keyword_from)
-    (relation
-     (table_reference name: (identifier))
-     table_alias: (identifier))
-   (join
-    (keyword_join)
-    (relation
-     (table_reference name: (identifier))
-     table_alias: (identifier))
-    (keyword_on)
-    (predicate
-     left: (field
-      table_alias: (identifier)
-      name: (identifier))
-     right: (field
-      table_alias: (identifier)
-      name: (identifier))))
-   (join
-    (keyword_join)
-    (relation
-     (table_reference name: (identifier))
-     table_alias: (identifier))
-    (keyword_on)
-    (predicate
-     left: (field
-      table_alias: (identifier)
-      name: (identifier))
-     right: (field
-      table_alias: (identifier)
-      name: (identifier)))))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            table_alias: (identifier)
+            name: (identifier)))
+        (term
+          value: (field
+            table_alias: (identifier)
+            name: (identifier)))
+        (term
+          value: (field
+            table_alias: (identifier)
+            name: (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier))
+        table_alias: (identifier))
+      (join
+        (keyword_join)
+        (relation
+          (table_reference
+            name: (identifier))
+          table_alias: (identifier))
+        (keyword_on)
+        (predicate
+          left: (field
+            table_alias: (identifier)
+            name: (identifier))
+          right: (field
+            table_alias: (identifier)
+            name: (identifier))))
+      (join
+        (keyword_join)
+        (relation
+          (table_reference
+            name: (identifier))
+          table_alias: (identifier))
+        (keyword_on)
+        (predicate
+          left: (field
+            table_alias: (identifier)
+            name: (identifier))
+          right: (field
+            table_alias: (identifier)
+            name: (identifier)))))))
 
-==================
+================================================================================
 Complex Predicates
-==================
+================================================================================
 
 SELECT id
 FROM my_table m
 WHERE m.id > 4 AND id < 3;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (field
-     name: (identifier))))
-  (from
-   (keyword_from)
-    (relation
-       (table_reference
-        name: (identifier))
-      table_alias: (identifier))
-   (where
-    (keyword_where)
-    (where_expression
-     (predicate
-      left:
-       (predicate
-        left:
-          (field
-           table_alias: (identifier)
-           name: (identifier))
-        right: (literal))
-       operator: (keyword_and)
-       right:
-        (predicate
-          left: (field name: (identifier))
-          right: (literal))))))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            name: (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier))
+        table_alias: (identifier))
+      (where
+        (keyword_where)
+        (where_expression
+          (predicate
+            left: (predicate
+              left: (field
+                table_alias: (identifier)
+                name: (identifier))
+              right: (literal))
+            operator: (keyword_and)
+            right: (predicate
+              left: (field
+                name: (identifier))
+              right: (literal))))))))
 
-==================
+================================================================================
 Complex Predicates with order by
-==================
+================================================================================
 
 SELECT title, id
 FROM my_table m
 WHERE m.id > 4 AND id < 3
 ORDER BY m.title, id ASC;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (field name: (identifier))
-    (field name: (identifier))))
-  (from
-   (keyword_from)
-    (relation
-       (table_reference
-        name: (identifier))
-    table_alias: (identifier))
-   (where
-    (keyword_where)
-    (where_expression
-     (predicate
-      left:
-       (predicate
-        left:
-          (field
-           table_alias: (identifier)
-           name: (identifier))
-        right: (literal))
-       operator: (keyword_and)
-       right:
-        (predicate
-          left: (field name: (identifier))
-          right: (literal)))))
-   (order_by
-    (keyword_order)
-    (keyword_by)
-    (order_expression
-     (order_target (field table_alias: (identifier) name: (identifier)))
-     (order_target
-      (field name: (identifier))
-      (direction (keyword_asc))))))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            name: (identifier)))
+        (term
+          value: (field
+            name: (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier))
+        table_alias: (identifier))
+      (where
+        (keyword_where)
+        (where_expression
+          (predicate
+            left: (predicate
+              left: (field
+                table_alias: (identifier)
+                name: (identifier))
+              right: (literal))
+            operator: (keyword_and)
+            right: (predicate
+              left: (field
+                name: (identifier))
+              right: (literal)))))
+      (order_by
+        (keyword_order)
+        (keyword_by)
+        (order_expression
+          (order_target
+            (field
+              table_alias: (identifier)
+              name: (identifier)))
+          (order_target
+            (field
+              name: (identifier))
+            (direction
+              (keyword_asc))))))))
 
-==================
+================================================================================
 Order by with extra directives
-==================
+================================================================================
 
 SELECT id
 FROM my_table
 WHERE id > 4
 ORDER BY id DESC NULLS LAST, val USING < NULLS FIRST;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (field
-     name: (identifier))))
-  (from
-   (keyword_from)
-    (relation
-       (table_reference
-        name: (identifier)))
-   (where
-    (keyword_where)
-    (where_expression
-     (predicate
-      left: (field name: (identifier))
-      right: (literal))))
-   (order_by
-    (keyword_order)
-    (keyword_by)
-    (order_expression
-     (order_target
-      (field name: (identifier))
-      (direction (keyword_desc))
-      (keyword_nulls)
-      (keyword_last))
-     (order_target
-      (field name: (identifier))
-      (keyword_using)
-      (keyword_nulls)
-      (keyword_first)))))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            name: (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier)))
+      (where
+        (keyword_where)
+        (where_expression
+          (predicate
+            left: (field
+              name: (identifier))
+            right: (literal))))
+      (order_by
+        (keyword_order)
+        (keyword_by)
+        (order_expression
+          (order_target
+            (field
+              name: (identifier))
+            (direction
+              (keyword_desc))
+            (keyword_nulls)
+            (keyword_last))
+          (order_target
+            (field
+              name: (identifier))
+            (keyword_using)
+            (keyword_nulls)
+            (keyword_first)))))))
 
-==================
+================================================================================
 Index hints
-==================
+================================================================================
 
 SELECT id
 FROM my_table FORCE INDEX (long_index_identifier)
 LIMIT 1;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (field
-     name: (identifier))))
-  (from
-   (keyword_from)
-    (relation
-       (table_reference
-        name: (identifier)))
-   (index_hint
-    (keyword_force)
-    (keyword_index)
-    index_name: (identifier))
-   (limit
-    (keyword_limit)
-    (literal)))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            name: (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier)))
+      (index_hint
+        (keyword_force)
+        (keyword_index)
+        index_name: (identifier))
+      (limit
+        (keyword_limit)
+        (literal)))))
 
-==================
+================================================================================
 Index hints (use)
-==================
+================================================================================
 
 SELECT id
 FROM my_table USE INDEX (long_index_identifier)
 LIMIT 1;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (field
-     name: (identifier))))
-  (from
-   (keyword_from)
-    (relation
-       (table_reference
-        name: (identifier)))
-   (index_hint
-    (keyword_use)
-    (keyword_index)
-    index_name: (identifier))
-   (limit
-    (keyword_limit)
-    (literal)))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            name: (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier)))
+      (index_hint
+        (keyword_use)
+        (keyword_index)
+        index_name: (identifier))
+      (limit
+        (keyword_limit)
+        (literal)))))
 
-==================
+================================================================================
 Union
-==================
+================================================================================
 
 SELECT 1 UNION ALL SELECT 2;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (literal)))
-   (keyword_union)
-   (keyword_all)
-  (select
-   (keyword_select)
-   (select_expression
-    (literal)))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (literal))))
+    (keyword_union)
+    (keyword_all)
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (literal))))))
 
-==================
+================================================================================
 Intersect
-==================
+================================================================================
 
 SELECT a FROM one
 INTERSECT
 SELECT b FROM two;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (field (identifier))))
-  (from
-   (keyword_from)
-    (relation
-       (table_reference (identifier))))
-  (keyword_intersect)
-  (select
-   (keyword_select)
-   (select_expression
-    (field (identifier))))
-  (from
-   (keyword_from)
-    (relation
-       (table_reference (identifier))))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (field
+            (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          (identifier))))
+    (keyword_intersect)
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (field
+            (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          (identifier))))))
 
-==================
+================================================================================
 Simple CASE
-==================
+================================================================================
 
 SELECT a, CASE b WHEN 1 THEN 'yes' ELSE 'no' END AS is_b
 FROM my_table;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (field
-     (identifier))
-    (case
-     (keyword_case)
-     (field
-      (identifier))
-     (keyword_when)
-     (literal)
-     (keyword_then)
-     (literal)
-     (keyword_else)
-     (literal)
-     (keyword_end))
-     (keyword_as)
-     (identifier)))
-  (from
-   (keyword_from)
-    (relation
-       (table_reference
-        (identifier))))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (field
+            (identifier)))
+        (term
+          (case
+            (keyword_case)
+            (field
+              (identifier))
+            (keyword_when)
+            (literal)
+            (keyword_then)
+            (literal)
+            (keyword_else)
+            (literal)
+            (keyword_end))
+          (keyword_as)
+          (identifier))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          (identifier))))))
 
-==================
+================================================================================
 Standard CASE
-==================
+================================================================================
 
 SELECT a, CASE WHEN b = 1 THEN 'yes' ELSE 'no' END AS is_b
 FROM my_table;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (field
-     (identifier))
-    (case
-     (keyword_case)
-     (keyword_when)
-     (predicate
-      (field
-       (identifier))
-      (literal))
-     (keyword_then)
-     (literal)
-     (keyword_else)
-     (literal)
-     (keyword_end))
-    (keyword_as)
-    (identifier)))
-  (from
-   (keyword_from)
-    (relation
-       (table_reference
-        (identifier))))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (field
+            (identifier)))
+        (term
+          (case
+            (keyword_case)
+            (keyword_when)
+            (predicate
+              (field
+                (identifier))
+              (literal))
+            (keyword_then)
+            (literal)
+            (keyword_else)
+            (literal)
+            (keyword_end))
+          (keyword_as)
+          (identifier))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          (identifier))))))
 
-==================
+================================================================================
 Both CASEs, with missing ELSE and AS in the latter
-==================
+================================================================================
 
 SELECT a, CASE
     WHEN b = 1 THEN 'yes'
@@ -1696,82 +1862,89 @@ SELECT a, CASE
   END is_b_really
 FROM my_table;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (field
-     (identifier))
-    (case
-     (keyword_case)
-     (keyword_when)
-     (predicate
-      (field
-       (identifier))
-      (literal))
-     (keyword_then)
-     (literal)
-     (keyword_when)
-     (predicate
-      (field
-       (identifier))
-      (literal))
-     (keyword_then)
-     (literal)
-     (keyword_else)
-     (literal)
-     (keyword_end))
-     (keyword_as)
-     (identifier)
-  (case
-   (keyword_case)
-   (field
-    (identifier))
-   (keyword_when)
-   (literal)
-   (keyword_then)
-   (literal)
-   (keyword_when)
-   (literal)
-   (keyword_then)
-   (literal)
-   (keyword_end))
-   (identifier)))
-  (from
-   (keyword_from)
-    (relation
-       (table_reference
-        (identifier))))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (field
+            (identifier)))
+        (term
+          (case
+            (keyword_case)
+            (keyword_when)
+            (predicate
+              (field
+                (identifier))
+              (literal))
+            (keyword_then)
+            (literal)
+            (keyword_when)
+            (predicate
+              (field
+                (identifier))
+              (literal))
+            (keyword_then)
+            (literal)
+            (keyword_else)
+            (literal)
+            (keyword_end))
+          (keyword_as)
+          (identifier))
+        (term
+          (case
+            (keyword_case)
+            (field
+              (identifier))
+            (keyword_when)
+            (literal)
+            (keyword_then)
+            (literal)
+            (keyword_when)
+            (literal)
+            (keyword_then)
+            (literal)
+            (keyword_end))
+          (identifier))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          (identifier))))))
 
-==================
+================================================================================
 Concatenation
-==================
+================================================================================
 
 SELECT id || '-' || name FROM my_table;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (binary_expression
-     left: (binary_expression
-      left: (field name: (identifier))
-      right: (literal))
-     right: (field name: (identifier)))))
-  (from
-   (keyword_from)
-    (relation
-       (table_reference name: (identifier))))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (binary_expression
+            left: (binary_expression
+              left: (field
+                name: (identifier))
+              right: (literal))
+            right: (field
+              name: (identifier))))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier))))))
 
-==================
+================================================================================
 Altogether now
-==================
+================================================================================
 
 SELECT c._id, c.p_id
   FROM c_table c
@@ -1788,102 +1961,130 @@ WHERE c.s_id = 1239
   AND cp.is_published = TRUE
 ORDER BY my_table.title, my_table.id;
 
-----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (field table_alias: (identifier) name: (identifier))
-    (field table_alias: (identifier) name: (identifier))))
-  (from
-   (keyword_from)
-    (relation
-     (table_reference
-      name: (identifier))
-      table_alias: (identifier))
-   (index_hint
-    (keyword_force)
-    (keyword_index)
-    index_name: (identifier))
-   (join
-    (keyword_join)
-    (relation
-     (table_reference name: (identifier)) table_alias: (identifier))
-    (keyword_on)
-    (predicate
-     left:
-     (predicate
-      left: (field table_alias: (identifier) name: (identifier))
-      right: (field table_alias: (identifier) name: (identifier)))
-     operator: (keyword_and)
-     right:
-     (predicate
-      left: (field table_alias: (identifier) name: (identifier))
-      right: (field table_alias: (identifier) name: (identifier)))))
-  (join
-   (keyword_join)
-    (relation
-     (table_reference name: (identifier)))
-   (index_hint
-    (keyword_use)
-    (keyword_index)
-    (keyword_for)
-    (keyword_join)
-    index_name: (identifier))
-   (keyword_on)
-   (predicate
-    left:
-    (predicate
-     left: (field table_alias: (identifier) name: (identifier))
-     right: (field table_alias: (identifier) name: (identifier)))
-    operator: (keyword_and)
-    right:
-    (predicate
-     left: (field table_alias: (identifier) name: (identifier))
-     right: (field table_alias: (identifier) name: (identifier)))))
-  (where
-   (keyword_where)
-   (where_expression
-    (predicate
-     left:
-     (predicate
-      left:
-      (predicate
-       left:
-       (predicate
-        left:
-        (field
-         table_alias: (identifier)
-         name: (identifier))
-        right: (literal))
-       operator: (keyword_and)
-       right:
-       (predicate
-        left: (field table_alias: (identifier) name: (identifier))
-        operator: (keyword_in)
-        right: (list (literal))))
-      operator: (keyword_and)
-      right:
-      (predicate
-       left: (field table_alias: (identifier) name: (identifier))
-       right: (literal)))
-     operator: (keyword_and)
-     right:
-     (predicate
-      left: (field table_alias: (identifier) name: (identifier))
-      right: (literal (keyword_true))))))
-  (order_by
-   (keyword_order)
-   (keyword_by)
-   (order_expression
-    (order_target (field table_alias: (identifier) name: (identifier)))
-    (order_target (field table_alias: (identifier) name: (identifier))))))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            table_alias: (identifier)
+            name: (identifier)))
+        (term
+          value: (field
+            table_alias: (identifier)
+            name: (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier))
+        table_alias: (identifier))
+      (index_hint
+        (keyword_force)
+        (keyword_index)
+        index_name: (identifier))
+      (join
+        (keyword_join)
+        (relation
+          (table_reference
+            name: (identifier))
+          table_alias: (identifier))
+        (keyword_on)
+        (predicate
+          left: (predicate
+            left: (field
+              table_alias: (identifier)
+              name: (identifier))
+            right: (field
+              table_alias: (identifier)
+              name: (identifier)))
+          operator: (keyword_and)
+          right: (predicate
+            left: (field
+              table_alias: (identifier)
+              name: (identifier))
+            right: (field
+              table_alias: (identifier)
+              name: (identifier)))))
+      (join
+        (keyword_join)
+        (relation
+          (table_reference
+            name: (identifier)))
+        (index_hint
+          (keyword_use)
+          (keyword_index)
+          (keyword_for)
+          (keyword_join)
+          index_name: (identifier))
+        (keyword_on)
+        (predicate
+          left: (predicate
+            left: (field
+              table_alias: (identifier)
+              name: (identifier))
+            right: (field
+              table_alias: (identifier)
+              name: (identifier)))
+          operator: (keyword_and)
+          right: (predicate
+            left: (field
+              table_alias: (identifier)
+              name: (identifier))
+            right: (field
+              table_alias: (identifier)
+              name: (identifier)))))
+      (where
+        (keyword_where)
+        (where_expression
+          (predicate
+            left: (predicate
+              left: (predicate
+                left: (predicate
+                  left: (field
+                    table_alias: (identifier)
+                    name: (identifier))
+                  right: (literal))
+                operator: (keyword_and)
+                right: (predicate
+                  left: (field
+                    table_alias: (identifier)
+                    name: (identifier))
+                  operator: (keyword_in)
+                  right: (list
+                    (literal))))
+              operator: (keyword_and)
+              right: (predicate
+                left: (field
+                  table_alias: (identifier)
+                  name: (identifier))
+                right: (literal)))
+            operator: (keyword_and)
+            right: (predicate
+              left: (field
+                table_alias: (identifier)
+                name: (identifier))
+              right: (literal
+                (keyword_true))))))
+      (order_by
+        (keyword_order)
+        (keyword_by)
+        (order_expression
+          (order_target
+            (field
+              table_alias: (identifier)
+              name: (identifier)))
+          (order_target
+            (field
+              table_alias: (identifier)
+              name: (identifier))))))))
 
-==================
+================================================================================
 Multiple tables in list
-==================
+================================================================================
 
 SELECT *
 FROM
@@ -1892,131 +2093,7 @@ FROM
     Table3 c,
     TableN z;
 
----
-
-(program
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-     (all_fields)))
-  (from
-   (keyword_from)
-   (relation_list
-    (relation
-     (table_reference
-       name: (identifier))
-       table_alias: (identifier))
-    (relation
-     (table_reference
-       name: (identifier))
-       table_alias: (identifier))
-    (relation
-     (table_reference
-       name: (identifier))
-       table_alias: (identifier))
-    (relation
-     (table_reference
-       name: (identifier))
-       table_alias: (identifier))))))
-
-==================
-Parameterized Queries
-==================
-
-SELECT *
-FROM x
-WHERE id = ?;
-
----
-
-(program
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (all_fields)))
-  (from
-    (keyword_from)
-      (relation
-        (table_reference (identifier)))
-    (where
-      (keyword_where)
-        (where_expression
-          (predicate
-            (field (identifier))
-            (parameter)))))))
-
-==================
-Parameterized Queries w/ $1 syntax
-==================
-
-SELECT *
-FROM x
-WHERE id = $12;
-
----
-
-(program
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (all_fields)))
-  (from
-    (keyword_from)
-      (relation
-        (table_reference (identifier)))
-    (where
-      (keyword_where)
-        (where_expression
-          (predicate
-            (field (identifier))
-            (parameter)))))))
-
-==================
-Select from aliased subquery
-==================
-
-SELECT a
-FROM
-  (SELECT * FROM tab2) AS tab;
-
----
-
-(program
-  (statement
-    (select
-      (keyword_select)
-      (select_expression
-        (field
-          (identifier))))
-    (from
-      (keyword_from)
-        (relation
-          (subquery
-            (select
-              (keyword_select)
-              (select_expression
-                (all_fields)))
-            (from
-              (keyword_from)
-                (relation
-                  (table_reference
-                    (identifier)))))
-          (keyword_as)
-          (identifier)))))
-
-==================
-Select from inplace values insert
-==================
-
-SELECT
-    *
-FROM
-    (VALUES (1, 2), (3, 4)) AS V (col1, col2);
-
----
+--------------------------------------------------------------------------------
 
 (program
   (statement
@@ -2026,27 +2103,155 @@ FROM
         (all_fields)))
     (from
       (keyword_from)
+      (relation_list
         (relation
-          (values
-            (keyword_values)
-            (list
-              (literal)
-              (literal))
-            (list
-              (literal)
-              (literal)))
-          (keyword_as)
-          (identifier)
-          (column_list
-            (column
+          (table_reference
+            name: (identifier))
+          table_alias: (identifier))
+        (relation
+          (table_reference
+            name: (identifier))
+          table_alias: (identifier))
+        (relation
+          (table_reference
+            name: (identifier))
+          table_alias: (identifier))
+        (relation
+          (table_reference
+            name: (identifier))
+          table_alias: (identifier))))))
+
+================================================================================
+Parameterized Queries
+================================================================================
+
+SELECT *
+FROM x
+WHERE id = ?;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (all_fields)))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          (identifier)))
+      (where
+        (keyword_where)
+        (where_expression
+          (predicate
+            (field
               (identifier))
-            (column
-              (identifier)))))))
+            (parameter)))))))
 
+================================================================================
+Parameterized Queries w/ $1 syntax
+================================================================================
 
-==================
+SELECT *
+FROM x
+WHERE id = $12;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (all_fields)))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          (identifier)))
+      (where
+        (keyword_where)
+        (where_expression
+          (predicate
+            (field
+              (identifier))
+            (parameter)))))))
+
+================================================================================
+Select from aliased subquery
+================================================================================
+
+SELECT a
+FROM
+  (SELECT * FROM tab2) AS tab;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            name: (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (subquery
+          (select
+            (keyword_select)
+            (select_expression
+              (all_fields)))
+          (from
+            (keyword_from)
+            (relation
+              (table_reference
+                name: (identifier)))))
+        (keyword_as)
+        table_alias: (identifier)))))
+
+================================================================================
+Select from inplace values insert
+================================================================================
+
+SELECT
+    *
+FROM
+    (VALUES (1, 2), (3, 4)) AS V (col1, col2);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (all_fields)))
+    (from
+      (keyword_from)
+      (relation
+        (values
+          (keyword_values)
+          (list
+            (literal)
+            (literal))
+          (list
+            (literal)
+            (literal)))
+        (keyword_as)
+        (identifier)
+        (column_list
+          (column
+            (identifier))
+          (column
+            (identifier)))))))
+
+================================================================================
 Where with pattern matching
-==================
+================================================================================
 
 SELECT
     *
@@ -2059,7 +2264,7 @@ WHERE
     AND a NOT SIMILAR TO '%a';
 
 
----
+--------------------------------------------------------------------------------
 
 (program
   (statement
@@ -2082,7 +2287,7 @@ WHERE
                   left: (field
                     name: (identifier))
                   operator: (keyword_like)
-                right: (literal))
+                  right: (literal))
                 operator: (keyword_and)
                 right: (predicate
                   left: (field
@@ -2091,26 +2296,24 @@ WHERE
                   operator: (keyword_like)
                   right: (literal)))
               operator: (keyword_and)
+              right: (predicate
+                left: (field
+                  name: (identifier))
+                operator: (keyword_similar)
+                operator: (keyword_to)
+                right: (literal)))
+            operator: (keyword_and)
             right: (predicate
               left: (field
                 name: (identifier))
+              operator: (keyword_not)
               operator: (keyword_similar)
               operator: (keyword_to)
-              right: (literal)))
-          operator: (keyword_and)
-          right: (predicate
-            left: (field
-              name: (identifier))
-            operator: (keyword_not)
-            operator: (keyword_similar)
-            operator: (keyword_to)
-            right: (literal))))))))
+              right: (literal))))))))
 
-
-
-==================
+================================================================================
 CASE WHEN with bool column
-==================
+================================================================================
 
 WITH test_data AS (
 SELECT
@@ -2124,7 +2327,7 @@ SELECT
     CASE WHEN a THEN 'A' END AS A
 FROM test_data;
 
----
+--------------------------------------------------------------------------------
 
 (program
   (statement
@@ -2153,17 +2356,107 @@ FROM test_data;
     (select
       (keyword_select)
       (select_expression
-        (case
-          (keyword_case)
-          (keyword_when)
-          (identifier)
-          (keyword_then)
-          (literal)
-          (keyword_end))
-        (keyword_as)
-        (identifier)))
+        (term
+          (case
+            (keyword_case)
+            (keyword_when)
+            (identifier)
+            (keyword_then)
+            (literal)
+            (keyword_end))
+          (keyword_as)
+          (identifier))))
     (from
       (keyword_from)
       (relation
         (table_reference
           (identifier))))))
+
+================================================================================
+No semi-colon
+================================================================================
+
+SELECT *
+FROM some_table s
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (all_fields)))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier))
+        table_alias: (identifier)))))
+
+================================================================================
+Aliases everywhere
+================================================================================
+
+SELECT
+  s.id,
+  at.code AS codes,
+  -- comment
+  s.another_table_id
+FROM some_table s
+  LEFT JOIN another_table at
+    ON s.another_table_id = at.id
+WHERE
+  s.is_not_deleted = 1
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            table_alias: (identifier)
+            name: (identifier)))
+        (term
+          value: (field
+            table_alias: (identifier)
+            name: (identifier))
+          (keyword_as)
+          alias: (identifier))
+        (comment)
+        (term
+          value: (field
+            table_alias: (identifier)
+            name: (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier))
+        table_alias: (identifier))
+      (join
+        (keyword_left)
+        (keyword_join)
+        (relation
+          (table_reference
+            name: (identifier))
+          table_alias: (identifier))
+        (keyword_on)
+        (predicate
+          left: (field
+            table_alias: (identifier)
+            name: (identifier))
+          right: (field
+            table_alias: (identifier)
+            name: (identifier))))
+      (where
+        (keyword_where)
+        (where_expression
+          (predicate
+            left: (field
+              table_alias: (identifier)
+              name: (identifier))
+            right: (literal)))))))

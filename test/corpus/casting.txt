@@ -1,109 +1,131 @@
-==================
+================================================================================
 Standard cast
-==================
+================================================================================
 
 SELECT CAST(1 AS TEXT);
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (select
-    (keyword_select)
-    (select_expression
-      (cast (identifier) (literal) (keyword_as) (keyword_text))))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (cast
+            (identifier)
+            (literal)
+            (keyword_as)
+            (keyword_text)))))))
 
-==================
+================================================================================
 Aliased
-==================
+================================================================================
 
 SELECT CAST(1 AS TEXT) AS fieldname;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (select
-    (keyword_select)
-    (select_expression
-      (cast (identifier) (literal) (keyword_as) (keyword_text))
-      (keyword_as)
-      (identifier)))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (cast
+            name: (identifier)
+            parameter: (literal)
+            (keyword_as)
+            (keyword_text))
+          (keyword_as)
+          alias: (identifier))))))
 
-==================
+================================================================================
 Postgres shorthand
-==================
+================================================================================
 
 SELECT
   1::TEXT,
   1::INT4;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (select
-    (keyword_select)
-    (select_expression
-      (cast (literal) (keyword_text))
-      (cast (literal) (keyword_int))))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (cast
+            (literal)
+            (keyword_text)))
+        (term
+          (cast
+            (literal)
+            (keyword_int)))))))
 
-==================
+================================================================================
 Multiple casts
-==================
+================================================================================
 
 SELECT
   CAST ('100' AS INTEGER),
   '100'::INTEGER,
   '01-OCT-2015'::DATE;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (cast
-     name: (identifier)
-     parameter: (literal)
-     (keyword_as)
-     (keyword_int))
-    (cast
-     (literal)
-     (keyword_int))
-    (cast
-     (literal)
-     (keyword_date))))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (cast
+            name: (identifier)
+            parameter: (literal)
+            (keyword_as)
+            (keyword_int)))
+        (term
+          value: (cast
+            (literal)
+            (keyword_int)))
+        (term
+          value: (cast
+            (literal)
+            (keyword_date)))))))
 
-==================
+================================================================================
 Casts /w precision
-==================
+================================================================================
 
 SELECT
 CAST (100 AS NUMERIC(32)),
      100::FLOAT(32),
      100::FLOAT8;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (cast
-     name: (identifier)
-     parameter: (literal)
-     (keyword_as)
-     (numeric
-     (keyword_numeric)
-     precision: (literal)))
-    (cast
-     (literal)
-     (float
-      (keyword_float)
-        precision: (literal)))
-    (cast
-      (literal)
-      (double))))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (cast
+            name: (identifier)
+            parameter: (literal)
+            (keyword_as)
+            (numeric
+              (keyword_numeric)
+              precision: (literal))))
+        (term
+          value: (cast
+            (literal)
+            (float
+              (keyword_float)
+              precision: (literal))))
+        (term
+          value: (cast
+            (literal)
+            (double)))))))
