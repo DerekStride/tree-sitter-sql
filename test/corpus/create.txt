@@ -511,6 +511,35 @@ WITH NO DATA;
   )))
 
 ==================
+Create matview with ambiguous grammar
+==================
+
+CREATE MATERIALIZED VIEW my_view AS
+SELECT * FROM my_table
+WITH NO DATA
+
+---
+
+(program
+ (statement
+  (create_materialized_view
+   (keyword_create)
+   (keyword_materialized)
+   (keyword_view)
+   (table_reference name: (identifier))
+   (keyword_as)
+   (select
+    (keyword_select)
+    (select_expression (all_fields)))
+   (from
+    (keyword_from)
+      (relation
+        (table_reference name: (identifier)))
+   )
+   (keyword_with) (keyword_no) (keyword_data)
+  )))
+
+==================
 Create table with all types
 ==================
 
