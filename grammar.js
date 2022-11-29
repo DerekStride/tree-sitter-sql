@@ -1008,7 +1008,7 @@ module.exports = grammar({
       '(',
       seq(
         optional($.keyword_distinct),
-        field('parameter', $._expression),
+        field('parameter', choice($._expression, $.all_fields)),
       ),
       ')',
     ),

@@ -1361,6 +1361,10 @@
         "required": true,
         "types": [
           {
+            "type": "all_fields",
+            "named": true
+          },
+          {
             "type": "binary_expression",
             "named": true
           },

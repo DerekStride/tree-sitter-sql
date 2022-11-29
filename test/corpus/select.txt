@@ -946,6 +946,29 @@ FROM my_table;
           name: (identifier))))))
 
 ================================================================================
+COUNT *
+================================================================================
+
+SELECT COUNT(*)
+FROM my_table;
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (count
+            name: (identifier)
+            parameter: (all_fields)))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier))))))
+
+================================================================================
 Distinct in count function, no extra parens
 ================================================================================
 
