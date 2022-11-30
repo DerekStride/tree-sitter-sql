@@ -1267,6 +1267,29 @@
     "fields": {}
   },
   {
+    "type": "compound_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_begin",
+          "named": true
+        },
+        {
+          "type": "keyword_end",
+          "named": true
+        },
+        {
+          "type": "statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "constraint",
     "named": true,
     "fields": {
@@ -3128,6 +3151,10 @@
       "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "compound_statement",
+          "named": true
+        },
         {
           "type": "statement",
           "named": true
