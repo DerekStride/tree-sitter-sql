@@ -31,6 +31,7 @@ module.exports = grammar({
       choice(
         $.transaction,
         $.statement,
+        $.compound_statement,
       ),
     ),
 
@@ -297,6 +298,15 @@ module.exports = grammar({
     comment: _ => seq('--', /.*\n/),
     // https://stackoverflow.com/questions/13014947/regex-to-match-a-c-style-multiline-comment
     marginalia: _ => seq('/*', /[^*]*\*+(?:[^/*][^*]*\*+)*/, '/' ),
+
+    compound_statement: $ => seq(
+      $.keyword_begin,
+      repeat1(
+        $.statement,
+      ),
+      $.keyword_end,
+      optional(';'),
+    ),
 
     statement: $ => seq(
       choice(

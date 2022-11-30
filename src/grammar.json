@@ -14,6 +14,10 @@
           {
             "type": "SYMBOL",
             "name": "statement"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "compound_statement"
           }
         ]
       }
@@ -1525,6 +1529,38 @@
         {
           "type": "STRING",
           "value": "/"
+        }
+      ]
+    },
+    "compound_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_begin"
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "SYMBOL",
+            "name": "statement"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_end"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": ";"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
