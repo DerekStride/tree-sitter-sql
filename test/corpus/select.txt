@@ -674,6 +674,70 @@ WHERE col IS DISTINCT FROM NULL;
               (keyword_null))))))))
 
 ================================================================================
+Single Unary Predicate
+================================================================================
+
+SELECT *
+FROM my_table m
+WHERE m.is_not_deleted;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (all_fields)))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier))
+        table_alias: (identifier))
+      (where
+        (keyword_where)
+        (where_expression
+          (predicate
+            operand: (field
+              table_alias: (identifier)
+              name: (identifier))))))))
+
+================================================================================
+Multiple Unary Predicates
+================================================================================
+
+SELECT *
+FROM my_table m
+WHERE m.is_not_deleted AND m.is_visible;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (all_fields)))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier))
+        table_alias: (identifier))
+      (where
+        (keyword_where)
+        (where_expression
+          (predicate
+            left: (field
+              table_alias: (identifier)
+              name: (identifier))
+            operator: (keyword_and)
+            right: (field
+              table_alias: (identifier)
+              name: (identifier))))))))
+
+================================================================================
 IS NOT DISTINCT FROM
 ================================================================================
 

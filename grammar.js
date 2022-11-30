@@ -1356,9 +1356,12 @@ module.exports = grammar({
       $.select_expression,
     ),
 
-    where_expression: $ => seq(
-      $._expression,
+    where_expression: $ => choice(
+      $.predicate,
+      alias($._field_predicate, $.predicate),
     ),
+
+    _field_predicate: $ => field('operand', $.field),
 
     predicate: $ => choice(
       ...[
