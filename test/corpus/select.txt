@@ -218,6 +218,42 @@ FROM my_table m;
         table_alias: (identifier)))))
 
 ================================================================================
+Predicates with keywords
+================================================================================
+
+SELECT *
+FROM my_table
+WHERE id IS NOT NULL
+  AND name IS NULL;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (all_fields)))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier)))
+      (where
+        (keyword_where)
+        (where_expression
+          (predicate
+            left: (predicate
+              left: (field name: (identifier))
+              operator: (is_not (keyword_is) (keyword_not))
+              right: (literal (keyword_null)))
+            operator: (keyword_and)
+            right: (predicate
+              left: (field name: (identifier))
+              operator: (keyword_is)
+              right: (literal (keyword_null)))))))))
+
+================================================================================
 Simple select with aliased table and column name using double quotes
 ================================================================================
 
@@ -939,6 +975,29 @@ FROM my_table;
             parameter: (list
               (field
                 name: (identifier)))))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier))))))
+
+================================================================================
+COUNT *
+================================================================================
+
+SELECT COUNT(*)
+FROM my_table;
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (count
+            name: (identifier)
+            parameter: (all_fields)))))
     (from
       (keyword_from)
       (relation

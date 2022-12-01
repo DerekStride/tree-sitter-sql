@@ -150,6 +150,7 @@ module.exports = grammar({
 
     _similar_to: $ => seq($.keyword_similar, $.keyword_to),
     _not_similar_to: $ => seq($.keyword_not, $.keyword_similar, $.keyword_to),
+    is_not: $ => seq($.keyword_is, $.keyword_not),
     _not_like: $ => seq($.keyword_not, $.keyword_like),
     _temporary: $ => choice($.keyword_temp, $.keyword_temporary),
     _not_null: $ => seq($.keyword_not, $.keyword_null),
@@ -1008,7 +1009,7 @@ module.exports = grammar({
       '(',
       seq(
         optional($.keyword_distinct),
-        field('parameter', $._expression),
+        field('parameter', choice($._expression, $.all_fields)),
       ),
       ')',
     ),
@@ -1377,6 +1378,8 @@ module.exports = grammar({
         [$._not_similar_to, 'pattern_matching'],
         [seq($.keyword_is, $.keyword_distinct, $.keyword_from), 'binary_relation'],
         [seq($.keyword_is, $.keyword_not, $.keyword_distinct, $.keyword_from), 'binary_relation'],
+        [$.keyword_is, 'binary_relation'],
+        [$.is_not, 'binary_relation'],
         [$.keyword_and, 'clause_connective'],
         [$.keyword_or, 'clause_connective'],
         [$.keyword_in, 'binary_in'],
@@ -1387,17 +1390,6 @@ module.exports = grammar({
           field('right', $._expression)
         ))
       ),
-      seq(
-        $._expression,
-        $.keyword_is,
-        choice(
-          $.keyword_null,
-          $._not_null,
-          $.keyword_true,
-          $.keyword_false,
-        ),
-      ),
-      // TODO exists/not exists (subquery)
     ),
 
     _expression: $ => choice(
