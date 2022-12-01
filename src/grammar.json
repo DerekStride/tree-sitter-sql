@@ -5541,13 +5541,30 @@
       ]
     },
     "where_expression": {
-      "type": "SEQ",
+      "type": "CHOICE",
       "members": [
         {
           "type": "SYMBOL",
-          "name": "_expression"
+          "name": "predicate"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_field_predicate"
+          },
+          "named": true,
+          "value": "predicate"
         }
       ]
+    },
+    "_field_predicate": {
+      "type": "FIELD",
+      "name": "operand",
+      "content": {
+        "type": "SYMBOL",
+        "name": "field"
+      }
     },
     "predicate": {
       "type": "CHOICE",
