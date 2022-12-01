@@ -5,8 +5,7 @@
   "main": "bindings/node",
   "scripts": {
     "test": "tree-sitter test",
-    "generate": "tree-sitter generate",
-    "compile": "node-gyp rebuild"
+    "install": "tree-sitter generate && node-gyp rebuild"
   },
   "author": "derek stride",
   "license": "MIT",
