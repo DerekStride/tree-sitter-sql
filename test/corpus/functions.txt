@@ -1,0 +1,129 @@
+================================================================================
+Functions
+================================================================================
+
+SELECT MAX(id)
+FROM my_table;
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (invocation
+            name: (identifier)
+            parameter: (field
+              name: (identifier))))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier))))))
+
+================================================================================
+No-arg functions
+================================================================================
+
+SELECT now();
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (invocation
+            name: (identifier)))))))
+
+================================================================================
+More complex function arguments
+================================================================================
+
+SELECT
+  user_id,
+  user_defined_func(user_id, 123, other_func(user_id, 321), user_id + 1 > 5) as something,
+  regexp_replace(t.username, '^(.)[^@]+', '\1--', 'g') as username,
+  created_at
+FROM my_table AS t;
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            name: (identifier)))
+        (term
+          value: (invocation
+            name: (identifier)
+            parameter: (field
+              name: (identifier))
+            parameter: (literal)
+            parameter: (invocation
+              name: (identifier)
+              parameter: (field
+                name: (identifier))
+              parameter: (literal))
+            parameter: (predicate
+              left: (binary_expression
+                left: (field
+                  name: (identifier))
+                right: (literal))
+              right: (literal)))
+          (keyword_as)
+          alias: (identifier))
+        (term
+          value: (invocation
+            name: (identifier)
+            parameter: (field
+              table_alias: (identifier)
+              name: (identifier))
+            parameter: (literal)
+            parameter: (literal)
+            parameter: (literal))
+          (keyword_as)
+          alias: (identifier))
+        (term
+          value: (field
+            name: (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier))
+        (keyword_as)
+        table_alias: (identifier)))))
+
+================================================================================
+Casts and arrays
+================================================================================
+
+select col_has_check(
+  'one'::name,
+  'two'::name,
+  array['three'::name, 'four'::name],
+  'description'
+);
+
+-------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (invocation
+            name: (identifier)
+            parameter: (cast (literal) (keyword_name))
+            parameter: (cast (literal) (keyword_name))
+            parameter: (array
+              (keyword_array)
+              (cast (literal) (keyword_name))
+              (cast (literal) (keyword_name)))
+            parameter: (literal)))))))

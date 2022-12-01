@@ -236,6 +236,15 @@ module.exports = grammar({
     keyword_box2d: _ => make_keyword("box2d"),
     keyword_box3d: _ => make_keyword("box3d"),
 
+    keyword_oid: _ => make_keyword("oid"),
+    keyword_name: _ => make_keyword("name"),
+    keyword_regclass: _ => make_keyword("regclass"),
+    keyword_regnamespace: _ => make_keyword("regnamespace"),
+    keyword_regproc: _ => make_keyword("regproc"),
+    keyword_regtype: _ => make_keyword("regtype"),
+
+    keyword_array: _ => make_keyword("array"), // not included in _type since it's a constructor literal
+
     _type: $ => choice(
       $.keyword_boolean,
 
@@ -279,6 +288,13 @@ module.exports = grammar({
       $.char,
       $.varchar,
       $.numeric,
+
+      $.keyword_oid,
+      $.keyword_name,
+      $.keyword_regclass,
+      $.keyword_regnamespace,
+      $.keyword_regproc,
+      $.keyword_regtype,
     ),
 
     bigint: $ => parametric_type($, $.keyword_bigint),
@@ -295,6 +311,13 @@ module.exports = grammar({
     ),
     char: $ => parametric_type($, $.keyword_char),
     varchar: $ => parametric_type($, $.keyword_varchar),
+
+    array: $ => seq(
+      $.keyword_array,
+      "[",
+      comma_list($._expression),
+      "]"
+    ),
 
     comment: _ => seq('--', /.*\n/),
     // https://stackoverflow.com/questions/13014947/regex-to-match-a-c-style-multiline-comment
@@ -776,7 +799,7 @@ module.exports = grammar({
       ),
     ),
 
-    _column_list_without_order: $ => param_list(alias($._column_without_order, $.column)),
+    _column_list_without_order: $ => paren_list(alias($._column_without_order, $.column)),
     _column_without_order: $ => field('name', $.identifier),
 
     _update_statement: $ => seq(
@@ -896,7 +919,7 @@ module.exports = grammar({
       $.column_list,
     ),
 
-    column_list: $ => param_list($.column),
+    column_list: $ => paren_list($.column),
 
     column: $ => seq(
       field('name', $.identifier),
@@ -971,20 +994,22 @@ module.exports = grammar({
       $.keyword_end,
     ),
 
-    field: $ => seq(
-      optional(
-        seq(
-          optional(
-            seq(
-              field('schema', $._alias_identifier),
-              '.',
+    field: $ => prec.left(
+      seq(
+        optional(
+          seq(
+            optional(
+              seq(
+                field('schema', $._alias_identifier),
+                '.',
+              ),
             ),
+            field('table_alias', $._alias_identifier),
+            '.',
           ),
-          field('table_alias', $._alias_identifier),
-          '.',
         ),
+        field('name', $.identifier),
       ),
-      field('name', $.identifier),
     ),
 
     implicit_cast: $ => seq(
@@ -1016,11 +1041,7 @@ module.exports = grammar({
 
     invocation: $ => seq(
       field('name', $.identifier),
-      '(',
-      optional(
-        $._function_params,
-      ),
-      ')',
+      paren_list(field('parameter', $._expression)),
     ),
 
     partition_by: $ => seq(
@@ -1112,18 +1133,6 @@ module.exports = grammar({
             $.identifier,
             $.window_specification,
         ),
-    ),
-
-    _function_params: $ => seq(
-      field('parameter', $._expression),
-      optional(
-        repeat1(
-          seq(
-            ',',
-            field('parameter', $._expression),
-          ),
-        ),
-      ),
     ),
 
     _alias_identifier : $ => choice(
@@ -1406,6 +1415,7 @@ module.exports = grammar({
       $.count,
       $.invocation,
       $.binary_expression,
+      $.array,
     ),
 
     binary_expression: $ => choice(
@@ -1433,7 +1443,7 @@ module.exports = grammar({
       ')',
     ),
 
-    list: $ => param_list($._expression),
+    list: $ => paren_list($._expression),
 
     literal: $ => prec(2,
       choice(
@@ -1461,27 +1471,37 @@ module.exports = grammar({
 });
 
 function parametric_type($, type, params = ['size']) {
-  return choice(
-    type,
-    seq(
+  return prec.right(
+    choice(
       type,
-      '(',
-      // first parameter is guaranteed, shift it out of the array
-      field(params.shift(), alias($._number, $.literal)),
-      // then, fill in the ", next" until done
-      ...params.map(p => seq(',', field(p, alias($._number, $.literal)))),
-      ')',
+      seq(
+        type,
+        '(',
+        // first parameter is guaranteed, shift it out of the array
+        field(params.shift(), alias($._number, $.literal)),
+        // then, fill in the ", next" until done
+        ...params.map(p => seq(',', field(p, alias($._number, $.literal)))),
+        ')',
+      ),
     ),
   )
 }
 
-function param_list(field) {
+function comma_list(field) {
+  return optional(
+    seq(
+      field,
+      repeat(
+        seq(',', field)
+      ),
+    ),
+  )
+}
+
+function paren_list(field) {
   return seq(
     '(',
-    field,
-    repeat(
-      seq(',', field)
-    ),
+    comma_list(field),
     ')',
   )
 }
