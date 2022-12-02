@@ -9,3 +9,6 @@ build
 package-lock.json
 /target/
 /.build/
+/src/
+binding.gyp
+/bindings/
