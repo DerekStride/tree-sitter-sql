@@ -244,14 +244,20 @@ WHERE id IS NOT NULL
         (where_expression
           (predicate
             left: (predicate
-              left: (field name: (identifier))
-              operator: (is_not (keyword_is) (keyword_not))
-              right: (literal (keyword_null)))
+              left: (field
+                name: (identifier))
+              operator: (is_not
+                (keyword_is)
+                (keyword_not))
+              right: (literal
+                (keyword_null)))
             operator: (keyword_and)
             right: (predicate
-              left: (field name: (identifier))
+              left: (field
+                name: (identifier))
               operator: (keyword_is)
-              right: (literal (keyword_null)))))))))
+              right: (literal
+                (keyword_null)))))))))
 
 ================================================================================
 Simple select with aliased table and column name using double quotes
@@ -927,130 +933,6 @@ FROM my_table;
       (relation
         (table_reference
           name: (identifier))))))
-
-================================================================================
-Group by
-================================================================================
-
-SELECT other_id, COUNT(name)
-FROM my_table
-GROUP BY other_id
-HAVING other_id > 10;
-
---------------------------------------------------------------------------------
-
-(program
-  (statement
-    (select
-      (keyword_select)
-      (select_expression
-        (term
-          value: (field
-            name: (identifier)))
-        (term
-          value: (count
-            name: (identifier)
-            parameter: (field
-              name: (identifier))))))
-    (from
-      (keyword_from)
-      (relation
-        (table_reference
-          name: (identifier)))
-      (group_by
-        (keyword_group)
-        (keyword_by)
-        (expression_list
-          (field
-            name: (identifier)))
-        (keyword_having)
-        (predicate
-          left: (field
-            name: (identifier))
-          right: (literal))))))
-
-================================================================================
-Group by numbered alias
-================================================================================
-
-SELECT other_id, COUNT(name)
-FROM my_table
-GROUP BY 1
-HAVING other_id > 10;
---------------------------------------------------------------------------------
-
-(program
-  (statement
-    (select
-      (keyword_select)
-      (select_expression
-        (term
-          value: (field
-            name: (identifier)))
-        (term
-          value: (count
-            name: (identifier)
-            parameter: (field
-              name: (identifier))))))
-    (from
-      (keyword_from)
-      (relation
-        (table_reference
-          name: (identifier)))
-      (group_by
-        (keyword_group)
-        (keyword_by)
-        (expression_list
-          (literal))
-        (keyword_having)
-        (predicate
-          left: (field
-            name: (identifier))
-          right: (literal))))))
-
-================================================================================
-Group by with mixed list
-================================================================================
-
-SELECT other_id, other_col, COUNT(name)
-FROM my_table
-GROUP BY 1, other_col
-HAVING other_id > 10;
---------------------------------------------------------------------------------
-
-(program
-  (statement
-    (select
-      (keyword_select)
-      (select_expression
-        (term
-          value: (field
-            name: (identifier)))
-        (term
-          value: (field
-            name: (identifier)))
-        (term
-          value: (count
-            name: (identifier)
-            parameter: (field
-              name: (identifier))))))
-    (from
-      (keyword_from)
-      (relation
-        (table_reference
-          name: (identifier)))
-      (group_by
-        (keyword_group)
-        (keyword_by)
-        (expression_list
-          (literal)
-          (field
-            name: (identifier)))
-        (keyword_having)
-        (predicate
-          left: (field
-            name: (identifier))
-          right: (literal))))))
 
 ================================================================================
 Joins
@@ -2492,20 +2374,20 @@ SELECT array[1, 2, 3 + 4, '5'::int, int_please()];
 --------------------------------------------------------------------------------
 
 (program
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (term
-     (array
-      (keyword_array)
-      (literal)
-      (literal)
-      (binary_expression
-       (literal)
-       (literal))
-      (cast
-       (literal)
-       (keyword_int))
-      (invocation
-       (identifier))))))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (array
+            (keyword_array)
+            (literal)
+            (literal)
+            (binary_expression
+              (literal)
+              (literal))
+            (cast
+              (literal)
+              (keyword_int))
+            (invocation
+              (identifier))))))))
