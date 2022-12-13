@@ -1069,6 +1069,51 @@ ON a.id = b.a_id;
             name: (identifier)))))))
 
 ================================================================================
+Ignore index for join
+================================================================================
+
+SELECT 1
+FROM my_table a
+JOIN my_other_table b IGNORE INDEX FOR JOIN (idx_a)
+ON a.id = b.a_id;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (literal))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier))
+        table_alias: (identifier))
+      (join
+        (keyword_join)
+        (relation
+          (table_reference
+            name: (identifier))
+          table_alias: (identifier))
+        (index_hint
+          (keyword_ignore)
+          (keyword_index)
+          (keyword_for)
+          (keyword_join)
+          index_name: (identifier))
+        (keyword_on)
+        (predicate
+          left: (field
+            table_alias: (identifier)
+            name: (identifier))
+          right: (field
+            table_alias: (identifier)
+            name: (identifier)))))))
+
+================================================================================
 Joins with USING
 ================================================================================
 

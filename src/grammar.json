@@ -246,6 +246,10 @@
       "type": "PATTERN",
       "value": "force|FORCE"
     },
+    "keyword_ignore": {
+      "type": "PATTERN",
+      "value": "ignore|IGNORE"
+    },
     "keyword_using": {
       "type": "PATTERN",
       "value": "using|USING"
@@ -5182,6 +5186,10 @@
             {
               "type": "SYMBOL",
               "name": "keyword_use"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "keyword_ignore"
             }
           ]
         },
