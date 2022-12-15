@@ -91,6 +91,7 @@ module.exports = grammar({
     keyword_is: _ => make_keyword("is"),
     keyword_not: _ => make_keyword("not"),
     keyword_force: _ => make_keyword("force"),
+    keyword_ignore: _ => make_keyword("ignore"),
     keyword_using: _ => make_keyword("using"),
     keyword_use: _ => make_keyword("use"),
     keyword_index: _ => make_keyword("index"),
@@ -1217,6 +1218,7 @@ module.exports = grammar({
       choice(
         $.keyword_force,
         $.keyword_use,
+        $.keyword_ignore,
       ),
       $.keyword_index,
       optional(

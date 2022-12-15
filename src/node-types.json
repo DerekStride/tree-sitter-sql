@@ -2382,6 +2382,10 @@
           "named": true
         },
         {
+          "type": "keyword_ignore",
+          "named": true
+        },
+        {
           "type": "keyword_index",
           "named": true
         },
@@ -4427,6 +4431,10 @@
   },
   {
     "type": "keyword_if",
+    "named": true
+  },
+  {
+    "type": "keyword_ignore",
     "named": true
   },
   {
