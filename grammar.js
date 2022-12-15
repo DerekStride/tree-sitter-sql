@@ -20,6 +20,7 @@ module.exports = grammar({
       'binary_concat',
       'pattern_matching',
       'clause_connective',
+      'clause_disjunctive',
     ],
   ],
 
@@ -1391,7 +1392,6 @@ module.exports = grammar({
         [seq($.keyword_is, $.keyword_not, $.keyword_distinct, $.keyword_from), 'binary_relation'],
         [$.keyword_is, 'binary_relation'],
         [$.is_not, 'binary_relation'],
-        [$.keyword_or, 'clause_connective'],
         [$.keyword_in, 'binary_in'],
       ].map(([operator, precedence]) =>
         prec.left(precedence, seq(
@@ -1402,6 +1402,7 @@ module.exports = grammar({
       ),
       ...[
         [$.keyword_and, 'clause_connective'],
+        [$.keyword_or, 'clause_disjunctive'],
       ].map(([operator, precedence]) =>
         prec.left(precedence, seq(
           field('left', $._predicate_expression),

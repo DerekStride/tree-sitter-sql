@@ -836,6 +836,60 @@ WHERE m.status = "success"
                 name: (identifier)))))))))
 
 ================================================================================
+Disjunctive Predicate
+================================================================================
+
+SELECT *
+FROM my_table m
+WHERE m.status = "success"
+  AND m.name = "foobar"
+  OR m.id = 5
+  AND m.is_not_deleted
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (all_fields)))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier))
+        table_alias: (identifier))
+      (where
+        (keyword_where)
+        (where_expression
+          (predicate
+            left: (predicate
+              left: (predicate
+                left: (field
+                  table_alias: (identifier)
+                  name: (identifier))
+                right: (literal))
+              operator: (keyword_and)
+              right: (predicate
+                left: (field
+                  table_alias: (identifier)
+                  name: (identifier))
+                right: (literal)))
+            operator: (keyword_or)
+            right: (predicate
+              left: (predicate
+                left: (field
+                  table_alias: (identifier)
+                  name: (identifier))
+                right: (literal))
+              operator: (keyword_and)
+              right: (predicate
+                operand: (field
+                  table_alias: (identifier)
+                  name: (identifier))))))))))
+
+================================================================================
 IS NOT DISTINCT FROM
 ================================================================================
 
