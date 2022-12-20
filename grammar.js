@@ -20,6 +20,7 @@ module.exports = grammar({
       'binary_concat',
       'pattern_matching',
       'clause_connective',
+      'clause_disjunctive',
     ],
   ],
 
@@ -1373,7 +1374,7 @@ module.exports = grammar({
       alias($._field_predicate, $.predicate),
     ),
 
-    _field_predicate: $ => field('operand', $.field),
+    _field_predicate: $ => prec(0, field('operand', $.field)),
 
     predicate: $ => choice(
       ...[
@@ -1391,8 +1392,6 @@ module.exports = grammar({
         [seq($.keyword_is, $.keyword_not, $.keyword_distinct, $.keyword_from), 'binary_relation'],
         [$.keyword_is, 'binary_relation'],
         [$.is_not, 'binary_relation'],
-        [$.keyword_and, 'clause_connective'],
-        [$.keyword_or, 'clause_connective'],
         [$.keyword_in, 'binary_in'],
       ].map(([operator, precedence]) =>
         prec.left(precedence, seq(
@@ -1401,23 +1400,40 @@ module.exports = grammar({
           field('right', $._expression)
         ))
       ),
+      ...[
+        [$.keyword_and, 'clause_connective'],
+        [$.keyword_or, 'clause_disjunctive'],
+      ].map(([operator, precedence]) =>
+        prec.left(precedence, seq(
+          field('left', $._predicate_expression),
+          field('operator', operator),
+          field('right', $._predicate_expression)
+        ))
+      ),
     ),
 
-    _expression: $ => choice(
-      $.literal,
-      $.field,
-      $.parameter,
-      $.list,
-      $.case,
-      $.window_function,
+    _predicate_expression: $ => choice(
       $.predicate,
-      $.subquery,
-      $.cast,
-      alias($.implicit_cast, $.cast),
-      $.count,
-      $.invocation,
-      $.binary_expression,
-      $.array,
+      alias($._field_predicate, $.predicate),
+    ),
+
+    _expression: $ => prec(1,
+      choice(
+        $.literal,
+        $.field,
+        $.parameter,
+        $.list,
+        $.case,
+        $.window_function,
+        $.predicate,
+        $.subquery,
+        $.cast,
+        alias($.implicit_cast, $.cast),
+        $.count,
+        $.invocation,
+        $.binary_expression,
+        $.array,
+      )
     ),
 
     binary_expression: $ => choice(

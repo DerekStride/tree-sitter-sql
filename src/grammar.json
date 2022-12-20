@@ -5746,11 +5746,15 @@
       ]
     },
     "_field_predicate": {
-      "type": "FIELD",
-      "name": "operand",
+      "type": "PREC",
+      "value": 0,
       "content": {
-        "type": "SYMBOL",
-        "name": "field"
+        "type": "FIELD",
+        "name": "operand",
+        "content": {
+          "type": "SYMBOL",
+          "name": "field"
+        }
       }
     },
     "predicate": {
@@ -6250,72 +6254,6 @@
         },
         {
           "type": "PREC_LEFT",
-          "value": "clause_connective",
-          "content": {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "FIELD",
-                "name": "left",
-                "content": {
-                  "type": "SYMBOL",
-                  "name": "_expression"
-                }
-              },
-              {
-                "type": "FIELD",
-                "name": "operator",
-                "content": {
-                  "type": "SYMBOL",
-                  "name": "keyword_and"
-                }
-              },
-              {
-                "type": "FIELD",
-                "name": "right",
-                "content": {
-                  "type": "SYMBOL",
-                  "name": "_expression"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "PREC_LEFT",
-          "value": "clause_connective",
-          "content": {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "FIELD",
-                "name": "left",
-                "content": {
-                  "type": "SYMBOL",
-                  "name": "_expression"
-                }
-              },
-              {
-                "type": "FIELD",
-                "name": "operator",
-                "content": {
-                  "type": "SYMBOL",
-                  "name": "keyword_or"
-                }
-              },
-              {
-                "type": "FIELD",
-                "name": "right",
-                "content": {
-                  "type": "SYMBOL",
-                  "name": "_expression"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "PREC_LEFT",
           "value": "binary_in",
           "content": {
             "type": "SEQ",
@@ -6346,74 +6284,162 @@
               }
             ]
           }
+        },
+        {
+          "type": "PREC_LEFT",
+          "value": "clause_connective",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "FIELD",
+                "name": "left",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_predicate_expression"
+                }
+              },
+              {
+                "type": "FIELD",
+                "name": "operator",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "keyword_and"
+                }
+              },
+              {
+                "type": "FIELD",
+                "name": "right",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_predicate_expression"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "PREC_LEFT",
+          "value": "clause_disjunctive",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "FIELD",
+                "name": "left",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_predicate_expression"
+                }
+              },
+              {
+                "type": "FIELD",
+                "name": "operator",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "keyword_or"
+                }
+              },
+              {
+                "type": "FIELD",
+                "name": "right",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_predicate_expression"
+                }
+              }
+            ]
+          }
         }
       ]
     },
-    "_expression": {
+    "_predicate_expression": {
       "type": "CHOICE",
       "members": [
-        {
-          "type": "SYMBOL",
-          "name": "literal"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "field"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "parameter"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "list"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "case"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "window_function"
-        },
         {
           "type": "SYMBOL",
           "name": "predicate"
         },
         {
-          "type": "SYMBOL",
-          "name": "subquery"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "cast"
-        },
-        {
           "type": "ALIAS",
           "content": {
             "type": "SYMBOL",
-            "name": "implicit_cast"
+            "name": "_field_predicate"
           },
           "named": true,
-          "value": "cast"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "count"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "invocation"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "binary_expression"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "array"
+          "value": "predicate"
         }
       ]
+    },
+    "_expression": {
+      "type": "PREC",
+      "value": 1,
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "literal"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "field"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "parameter"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "list"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "case"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "window_function"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "predicate"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "subquery"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "cast"
+          },
+          {
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "implicit_cast"
+            },
+            "named": true,
+            "value": "cast"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "count"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "invocation"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "binary_expression"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "array"
+          }
+        ]
+      }
     },
     "binary_expression": {
       "type": "CHOICE",
@@ -6893,6 +6919,10 @@
       {
         "type": "STRING",
         "value": "clause_connective"
+      },
+      {
+        "type": "STRING",
+        "value": "clause_disjunctive"
       }
     ]
   ],
