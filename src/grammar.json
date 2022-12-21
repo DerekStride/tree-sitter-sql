@@ -514,17 +514,21 @@
       ]
     },
     "is_not": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "keyword_is"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "keyword_not"
-        }
-      ]
+      "type": "PREC",
+      "value": "is_not",
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "keyword_is"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "keyword_not"
+          }
+        ]
+      }
     },
     "_not_like": {
       "type": "SEQ",
@@ -5742,12 +5746,21 @@
           },
           "named": true,
           "value": "predicate"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_unary_predicate"
+          },
+          "named": true,
+          "value": "predicate"
         }
       ]
     },
     "_field_predicate": {
       "type": "PREC",
-      "value": 0,
+      "value": 1,
       "content": {
         "type": "FIELD",
         "name": "operand",
@@ -5755,6 +5768,40 @@
           "type": "SYMBOL",
           "name": "field"
         }
+      }
+    },
+    "_unary_predicate": {
+      "type": "PREC",
+      "value": 0,
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "PREC_LEFT",
+            "value": "unary_not",
+            "content": {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "FIELD",
+                  "name": "operator",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "keyword_not"
+                  }
+                },
+                {
+                  "type": "FIELD",
+                  "name": "operand",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "_expression"
+                  }
+                }
+              ]
+            }
+          }
+        ]
       }
     },
     "predicate": {
@@ -6368,12 +6415,21 @@
           },
           "named": true,
           "value": "predicate"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_unary_predicate"
+          },
+          "named": true,
+          "value": "predicate"
         }
       ]
     },
     "_expression": {
       "type": "PREC",
-      "value": 1,
+      "value": 2,
       "content": {
         "type": "CHOICE",
         "members": [
@@ -6880,6 +6936,10 @@
   "conflicts": [],
   "precedences": [
     [
+      {
+        "type": "STRING",
+        "value": "is_not"
+      },
       {
         "type": "STRING",
         "value": "unary_not"

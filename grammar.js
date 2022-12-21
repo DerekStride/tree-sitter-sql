@@ -10,6 +10,7 @@ module.exports = grammar({
 
   precedences: $ => [
     [
+      'is_not',
       'unary_not',
       'binary_exp',
       'binary_times',
@@ -152,7 +153,7 @@ module.exports = grammar({
 
     _similar_to: $ => seq($.keyword_similar, $.keyword_to),
     _not_similar_to: $ => seq($.keyword_not, $.keyword_similar, $.keyword_to),
-    is_not: $ => seq($.keyword_is, $.keyword_not),
+    is_not: $ => prec('is_not', seq($.keyword_is, $.keyword_not)),
     _not_like: $ => seq($.keyword_not, $.keyword_like),
     _temporary: $ => choice($.keyword_temp, $.keyword_temporary),
     _not_null: $ => seq($.keyword_not, $.keyword_null),
@@ -1372,9 +1373,20 @@ module.exports = grammar({
     where_expression: $ => choice(
       $.predicate,
       alias($._field_predicate, $.predicate),
+      alias($._unary_predicate, $.predicate),
     ),
 
-    _field_predicate: $ => prec(0, field('operand', $.field)),
+    _field_predicate: $ => prec(1, field('operand', $.field)),
+
+    _unary_predicate: $ => prec(0, choice(
+      ...[
+        [$.keyword_not, 'unary_not'],
+      ].map(([operator, precedence]) =>
+        prec.left(precedence, seq(
+          field('operator', operator),
+          field('operand', $._expression),
+        ))),
+    )),
 
     predicate: $ => choice(
       ...[
@@ -1415,9 +1427,10 @@ module.exports = grammar({
     _predicate_expression: $ => choice(
       $.predicate,
       alias($._field_predicate, $.predicate),
+      alias($._unary_predicate, $.predicate),
     ),
 
-    _expression: $ => prec(1,
+    _expression: $ => prec(2,
       choice(
         $.literal,
         $.field,

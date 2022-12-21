@@ -890,6 +890,76 @@ WHERE m.status = "success"
                   name: (identifier))))))))))
 
 ================================================================================
+Field Predicate w/ unary predicate
+================================================================================
+
+SELECT *
+FROM my_table m
+WHERE NOT m.is_deleted;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (all_fields)))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier))
+        table_alias: (identifier))
+      (where
+        (keyword_where)
+        (where_expression
+          (predicate
+            operator: (keyword_not)
+            operand: (field
+              table_alias: (identifier)
+              name: (identifier))))))))
+
+================================================================================
+Field Predicate w/ multiple unary predicate
+================================================================================
+
+SELECT *
+FROM my_table m
+WHERE NOT m.is_deleted
+  AND NOT m.is_invisible;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (all_fields)))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier))
+        table_alias: (identifier))
+      (where
+        (keyword_where)
+        (where_expression
+          (predicate
+            left: (predicate
+              operator: (keyword_not)
+              operand: (field
+                table_alias: (identifier)
+                name: (identifier)))
+            operator: (keyword_and)
+            right: (predicate
+              operator: (keyword_not)
+              operand: (field
+                table_alias: (identifier)
+                name: (identifier)))))))))
+
+================================================================================
 IS NOT DISTINCT FROM
 ================================================================================
 
