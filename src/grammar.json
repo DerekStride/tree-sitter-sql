@@ -5800,6 +5800,31 @@
                 }
               ]
             }
+          },
+          {
+            "type": "PREC_LEFT",
+            "value": "unary_not",
+            "content": {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "FIELD",
+                  "name": "operator",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "bang"
+                  }
+                },
+                {
+                  "type": "FIELD",
+                  "name": "operand",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "_expression"
+                  }
+                }
+              ]
+            }
           }
         ]
       }
@@ -6883,6 +6908,10 @@
     "_number": {
       "type": "PATTERN",
       "value": "\\d+"
+    },
+    "bang": {
+      "type": "STRING",
+      "value": "!"
     },
     "identifier": {
       "type": "CHOICE",

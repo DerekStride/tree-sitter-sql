@@ -3244,6 +3244,10 @@
             "named": false
           },
           {
+            "type": "bang",
+            "named": true
+          },
+          {
             "type": "is_not",
             "named": true
           },
@@ -4256,6 +4260,10 @@
   {
     "type": "`",
     "named": false
+  },
+  {
+    "type": "bang",
+    "named": true
   },
   {
     "type": "keyword_add",

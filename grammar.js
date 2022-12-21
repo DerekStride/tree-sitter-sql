@@ -1381,6 +1381,7 @@ module.exports = grammar({
     _unary_predicate: $ => prec(0, choice(
       ...[
         [$.keyword_not, 'unary_not'],
+        [$.bang, 'unary_not'],
       ].map(([operator, precedence]) =>
         prec.left(precedence, seq(
           field('operator', operator),
@@ -1491,6 +1492,8 @@ module.exports = grammar({
       $._double_quote_string,
     ),
     _number: _ => /\d+/,
+
+    bang: _ => '!',
 
     identifier: $ => choice(
       $._identifier,
