@@ -54,7 +54,7 @@ WHERE tab.col > 10;
       (where
         (keyword_where)
         (where_expression
-          (predicate
+          (binary_expression
             (field
               (identifier)
               (identifier))

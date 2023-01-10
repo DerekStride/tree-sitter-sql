@@ -302,11 +302,11 @@
           "named": true
         },
         {
-          "type": "predicate",
+          "type": "subquery",
           "named": true
         },
         {
-          "type": "subquery",
+          "type": "unary_expression",
           "named": true
         },
         {
@@ -475,11 +475,11 @@
           "named": true
         },
         {
-          "type": "predicate",
+          "type": "subquery",
           "named": true
         },
         {
-          "type": "subquery",
+          "type": "unary_expression",
           "named": true
         },
         {
@@ -548,11 +548,11 @@
             "named": true
           },
           {
-            "type": "predicate",
+            "type": "subquery",
             "named": true
           },
           {
-            "type": "subquery",
+            "type": "unary_expression",
             "named": true
           },
           {
@@ -653,11 +653,11 @@
             "named": true
           },
           {
-            "type": "predicate",
+            "type": "subquery",
             "named": true
           },
           {
-            "type": "subquery",
+            "type": "unary_expression",
             "named": true
           },
           {
@@ -667,9 +667,13 @@
         ]
       },
       "operator": {
-        "multiple": false,
+        "multiple": true,
         "required": true,
         "types": [
+          {
+            "type": "!=",
+            "named": false
+          },
           {
             "type": "%",
             "named": false
@@ -691,8 +695,72 @@
             "named": false
           },
           {
+            "type": "<",
+            "named": false
+          },
+          {
+            "type": "<=",
+            "named": false
+          },
+          {
+            "type": "=",
+            "named": false
+          },
+          {
+            "type": ">",
+            "named": false
+          },
+          {
+            "type": ">=",
+            "named": false
+          },
+          {
             "type": "^",
             "named": false
+          },
+          {
+            "type": "is_not",
+            "named": true
+          },
+          {
+            "type": "keyword_and",
+            "named": true
+          },
+          {
+            "type": "keyword_distinct",
+            "named": true
+          },
+          {
+            "type": "keyword_from",
+            "named": true
+          },
+          {
+            "type": "keyword_in",
+            "named": true
+          },
+          {
+            "type": "keyword_is",
+            "named": true
+          },
+          {
+            "type": "keyword_like",
+            "named": true
+          },
+          {
+            "type": "keyword_not",
+            "named": true
+          },
+          {
+            "type": "keyword_or",
+            "named": true
+          },
+          {
+            "type": "keyword_similar",
+            "named": true
+          },
+          {
+            "type": "keyword_to",
+            "named": true
           },
           {
             "type": "||",
@@ -745,11 +813,11 @@
             "named": true
           },
           {
-            "type": "predicate",
+            "type": "subquery",
             "named": true
           },
           {
-            "type": "subquery",
+            "type": "unary_expression",
             "named": true
           },
           {
@@ -833,11 +901,11 @@
           "named": true
         },
         {
-          "type": "predicate",
+          "type": "subquery",
           "named": true
         },
         {
-          "type": "subquery",
+          "type": "unary_expression",
           "named": true
         },
         {
@@ -906,11 +974,11 @@
             "named": true
           },
           {
-            "type": "predicate",
+            "type": "subquery",
             "named": true
           },
           {
-            "type": "subquery",
+            "type": "unary_expression",
             "named": true
           },
           {
@@ -1105,11 +1173,11 @@
           "named": true
         },
         {
-          "type": "predicate",
+          "type": "subquery",
           "named": true
         },
         {
-          "type": "subquery",
+          "type": "unary_expression",
           "named": true
         },
         {
@@ -1572,11 +1640,11 @@
             "named": true
           },
           {
-            "type": "predicate",
+            "type": "subquery",
             "named": true
           },
           {
-            "type": "subquery",
+            "type": "unary_expression",
             "named": true
           },
           {
@@ -2152,10 +2220,6 @@
           "named": true
         },
         {
-          "type": "predicate",
-          "named": true
-        },
-        {
           "type": "subquery",
           "named": true
         }
@@ -2327,7 +2391,35 @@
       "required": true,
       "types": [
         {
+          "type": "array",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "case",
+          "named": true
+        },
+        {
+          "type": "cast",
+          "named": true
+        },
+        {
+          "type": "count",
+          "named": true
+        },
+        {
           "type": "expression_list",
+          "named": true
+        },
+        {
+          "type": "field",
+          "named": true
+        },
+        {
+          "type": "invocation",
           "named": true
         },
         {
@@ -2343,7 +2435,27 @@
           "named": true
         },
         {
-          "type": "predicate",
+          "type": "list",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "parameter",
+          "named": true
+        },
+        {
+          "type": "subquery",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "window_function",
           "named": true
         }
       ]
@@ -2537,11 +2649,11 @@
             "named": true
           },
           {
-            "type": "predicate",
+            "type": "subquery",
             "named": true
           },
           {
-            "type": "subquery",
+            "type": "unary_expression",
             "named": true
           },
           {
@@ -2588,11 +2700,11 @@
           "named": true
         },
         {
-          "type": "keyword_cross",
+          "type": "join_expression",
           "named": true
         },
         {
-          "type": "keyword_false",
+          "type": "keyword_cross",
           "named": true
         },
         {
@@ -2620,19 +2732,74 @@
           "named": true
         },
         {
-          "type": "keyword_true",
-          "named": true
-        },
-        {
           "type": "keyword_using",
           "named": true
         },
         {
-          "type": "predicate",
+          "type": "relation",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "join_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "array",
           "named": true
         },
         {
-          "type": "relation",
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "case",
+          "named": true
+        },
+        {
+          "type": "cast",
+          "named": true
+        },
+        {
+          "type": "count",
+          "named": true
+        },
+        {
+          "type": "field",
+          "named": true
+        },
+        {
+          "type": "invocation",
+          "named": true
+        },
+        {
+          "type": "list",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "parameter",
+          "named": true
+        },
+        {
+          "type": "subquery",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "window_function",
           "named": true
         }
       ]
@@ -2723,6 +2890,30 @@
       "required": true,
       "types": [
         {
+          "type": "array",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "case",
+          "named": true
+        },
+        {
+          "type": "cast",
+          "named": true
+        },
+        {
+          "type": "count",
+          "named": true
+        },
+        {
+          "type": "field",
+          "named": true
+        },
+        {
           "type": "invocation",
           "named": true
         },
@@ -2767,11 +2958,27 @@
           "named": true
         },
         {
-          "type": "predicate",
+          "type": "list",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "parameter",
           "named": true
         },
         {
           "type": "subquery",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "window_function",
           "named": true
         }
       ]
@@ -2849,11 +3056,11 @@
           "named": true
         },
         {
-          "type": "predicate",
+          "type": "subquery",
           "named": true
         },
         {
-          "type": "subquery",
+          "type": "unary_expression",
           "named": true
         },
         {
@@ -3053,11 +3260,11 @@
           "named": true
         },
         {
-          "type": "predicate",
+          "type": "subquery",
           "named": true
         },
         {
-          "type": "subquery",
+          "type": "unary_expression",
           "named": true
         },
         {
@@ -3093,212 +3300,6 @@
           "named": true
         }
       ]
-    }
-  },
-  {
-    "type": "predicate",
-    "named": true,
-    "fields": {
-      "left": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "array",
-            "named": true
-          },
-          {
-            "type": "binary_expression",
-            "named": true
-          },
-          {
-            "type": "case",
-            "named": true
-          },
-          {
-            "type": "cast",
-            "named": true
-          },
-          {
-            "type": "count",
-            "named": true
-          },
-          {
-            "type": "field",
-            "named": true
-          },
-          {
-            "type": "invocation",
-            "named": true
-          },
-          {
-            "type": "list",
-            "named": true
-          },
-          {
-            "type": "literal",
-            "named": true
-          },
-          {
-            "type": "parameter",
-            "named": true
-          },
-          {
-            "type": "predicate",
-            "named": true
-          },
-          {
-            "type": "subquery",
-            "named": true
-          },
-          {
-            "type": "window_function",
-            "named": true
-          }
-        ]
-      },
-      "operand": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "field",
-            "named": true
-          }
-        ]
-      },
-      "operator": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "!=",
-            "named": false
-          },
-          {
-            "type": "<",
-            "named": false
-          },
-          {
-            "type": "<=",
-            "named": false
-          },
-          {
-            "type": "=",
-            "named": false
-          },
-          {
-            "type": ">",
-            "named": false
-          },
-          {
-            "type": ">=",
-            "named": false
-          },
-          {
-            "type": "is_not",
-            "named": true
-          },
-          {
-            "type": "keyword_and",
-            "named": true
-          },
-          {
-            "type": "keyword_distinct",
-            "named": true
-          },
-          {
-            "type": "keyword_from",
-            "named": true
-          },
-          {
-            "type": "keyword_in",
-            "named": true
-          },
-          {
-            "type": "keyword_is",
-            "named": true
-          },
-          {
-            "type": "keyword_like",
-            "named": true
-          },
-          {
-            "type": "keyword_not",
-            "named": true
-          },
-          {
-            "type": "keyword_or",
-            "named": true
-          },
-          {
-            "type": "keyword_similar",
-            "named": true
-          },
-          {
-            "type": "keyword_to",
-            "named": true
-          }
-        ]
-      },
-      "right": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "array",
-            "named": true
-          },
-          {
-            "type": "binary_expression",
-            "named": true
-          },
-          {
-            "type": "case",
-            "named": true
-          },
-          {
-            "type": "cast",
-            "named": true
-          },
-          {
-            "type": "count",
-            "named": true
-          },
-          {
-            "type": "field",
-            "named": true
-          },
-          {
-            "type": "invocation",
-            "named": true
-          },
-          {
-            "type": "list",
-            "named": true
-          },
-          {
-            "type": "literal",
-            "named": true
-          },
-          {
-            "type": "parameter",
-            "named": true
-          },
-          {
-            "type": "predicate",
-            "named": true
-          },
-          {
-            "type": "subquery",
-            "named": true
-          },
-          {
-            "type": "window_function",
-            "named": true
-          }
-        ]
-      }
     }
   },
   {
@@ -3783,11 +3784,11 @@
             "named": true
           },
           {
-            "type": "predicate",
+            "type": "subquery",
             "named": true
           },
           {
-            "type": "subquery",
+            "type": "unary_expression",
             "named": true
           },
           {
@@ -3837,6 +3838,84 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "unary_expression",
+    "named": true,
+    "fields": {
+      "operand": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "array",
+            "named": true
+          },
+          {
+            "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "case",
+            "named": true
+          },
+          {
+            "type": "cast",
+            "named": true
+          },
+          {
+            "type": "count",
+            "named": true
+          },
+          {
+            "type": "field",
+            "named": true
+          },
+          {
+            "type": "invocation",
+            "named": true
+          },
+          {
+            "type": "list",
+            "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "parameter",
+            "named": true
+          },
+          {
+            "type": "subquery",
+            "named": true
+          },
+          {
+            "type": "unary_expression",
+            "named": true
+          },
+          {
+            "type": "window_function",
+            "named": true
+          }
+        ]
+      },
+      "operator": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "bang",
+            "named": true
+          },
+          {
+            "type": "keyword_not",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -3955,7 +4034,55 @@
       "required": true,
       "types": [
         {
-          "type": "predicate",
+          "type": "array",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "case",
+          "named": true
+        },
+        {
+          "type": "cast",
+          "named": true
+        },
+        {
+          "type": "count",
+          "named": true
+        },
+        {
+          "type": "field",
+          "named": true
+        },
+        {
+          "type": "invocation",
+          "named": true
+        },
+        {
+          "type": "list",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "parameter",
+          "named": true
+        },
+        {
+          "type": "subquery",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "window_function",
           "named": true
         }
       ]
@@ -4208,6 +4335,10 @@
   {
     "type": "`",
     "named": false
+  },
+  {
+    "type": "bang",
+    "named": true
   },
   {
     "type": "keyword_add",

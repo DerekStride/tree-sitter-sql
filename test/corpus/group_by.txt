@@ -34,7 +34,7 @@ HAVING other_id > 10;
           (field
             name: (identifier)))
         (keyword_having)
-        (predicate
+        (binary_expression
           left: (field
             name: (identifier))
           right: (literal))))))
@@ -73,7 +73,7 @@ HAVING other_id > 10;
         (expression_list
           (literal))
         (keyword_having)
-        (predicate
+        (binary_expression
           left: (field
             name: (identifier))
           right: (literal))))))
@@ -117,7 +117,7 @@ HAVING other_id > 10;
           (field
             name: (identifier)))
         (keyword_having)
-        (predicate
+        (binary_expression
           left: (field
             name: (identifier))
           right: (literal))))))
@@ -158,7 +158,7 @@ HAVING COUNT(*) = 2;
           (field
             (identifier)))
         (keyword_having)
-        (predicate
+        (binary_expression
           (count
             (identifier)
             (all_fields))

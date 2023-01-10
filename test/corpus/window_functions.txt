@@ -567,7 +567,7 @@ FROM
                   (case
                     (keyword_case)
                     (keyword_when)
-                    (predicate
+                    (binary_expression
                       (field
                         (identifier))
                       (literal))
@@ -624,7 +624,7 @@ FROM
                     (case
                       (keyword_case)
                       (keyword_when)
-                      (predicate
+                      (binary_expression
                         (field
                           (identifier))
                         (parameter))

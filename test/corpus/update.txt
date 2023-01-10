@@ -95,7 +95,7 @@ WHERE items.id=month.item_id;
    (where
     (keyword_where)
     (where_expression
-     (predicate
+     (binary_expression
       left: (field table_alias: (identifier) name: (identifier))
       right: (field table_alias: (identifier) name: (identifier))))))))
 
