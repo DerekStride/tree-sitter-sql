@@ -13,13 +13,12 @@ SET for = foo + 1;
    (keyword_update)
    (table_reference name: (identifier))
    (keyword_set)
-   (assignment_list
-    (assignment
+   (assignment
      left: (field name: (identifier))
      right:
      (binary_expression
       left: (field name: (identifier))
-      right: (literal)))))))
+      right: (literal))))))
 
 ==================
 Simple update with ONLY
@@ -37,13 +36,12 @@ SET for = foo + 1;
    (keyword_only)
    (table_reference name: (identifier))
    (keyword_set)
-   (assignment_list
-    (assignment
+   (assignment
      left: (field name: (identifier))
      right:
      (binary_expression
       left: (field name: (identifier))
-      right: (literal)))))))
+      right: (literal))))))
 
 ==================
 update with multiple assignments
@@ -60,8 +58,7 @@ SET for = foo + 1, col2 = col1;
    (keyword_update)
    (table_reference name: (identifier))
    (keyword_set)
-   (assignment_list
-    (assignment
+   (assignment
      left: (field name: (identifier))
      right:
      (binary_expression
@@ -69,7 +66,7 @@ SET for = foo + 1, col2 = col1;
       right: (literal)))
     (assignment
      left: (field name: (identifier))
-     right: (field name: (identifier)))))))
+     right: (field name: (identifier))))))
 
 ==================
 update with multiple table references
@@ -88,10 +85,9 @@ WHERE items.id=month.item_id;
    (table_reference name: (identifier))
    (table_reference name: (identifier))
    (keyword_set)
-   (assignment_list
-    (assignment
+   (assignment
      left: (field table_alias: (identifier) name: (identifier))
-     right: (field table_alias: (identifier) name: (identifier))))
+     right: (field table_alias: (identifier) name: (identifier)))
    (where
     (keyword_where)
     (binary_expression
@@ -113,8 +109,7 @@ SET ts = now();
    (keyword_update)
    (table_reference name: (identifier))
    (keyword_set)
-   (assignment_list
-    (assignment
+   (assignment
      left: (field name: (identifier))
      right: (invocation
-       name: (identifier)))))))
+       name: (identifier))))))
