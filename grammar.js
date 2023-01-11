@@ -762,10 +762,6 @@ module.exports = grammar({
     insert: $ => seq(
       choice($.keyword_insert, $.keyword_replace),
       $.keyword_into,
-      $.insert_expression,
-    ),
-
-    insert_expression: $ => seq(
       $.table_reference,
       optional(alias($._column_list_without_order, $.column_list)),
       choice(

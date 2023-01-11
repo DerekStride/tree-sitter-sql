@@ -3318,15 +3318,6 @@
         },
         {
           "type": "SYMBOL",
-          "name": "insert_expression"
-        }
-      ]
-    },
-    "insert_expression": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
           "name": "table_reference"
         },
         {

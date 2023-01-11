@@ -12,14 +12,13 @@ VALUES('foo','bar', 3);
     (insert
       (keyword_insert)
       (keyword_into)
-      (insert_expression
-        (table_reference
-          name: (identifier))
-        (keyword_values)
-        (list
-          (literal)
-          (literal)
-          (literal))))))
+      (table_reference
+        name: (identifier))
+      (keyword_values)
+      (list
+        (literal)
+        (literal)
+        (literal)))))
 
 ================================================================================
 Simple insert with column ordering
@@ -35,21 +34,20 @@ VALUES ('foo', 123, '2020');
     (insert
       (keyword_replace)
       (keyword_into)
-      (insert_expression
-        (table_reference
+      (table_reference
+        name: (identifier))
+      (column_list
+        (column
           name: (identifier))
-        (column_list
-          (column
-            name: (identifier))
-          (column
-            name: (identifier))
-          (column
-            name: (identifier)))
-        (keyword_values)
-        (list
-          (literal)
-          (literal)
-          (literal))))))
+        (column
+          name: (identifier))
+        (column
+          name: (identifier)))
+      (keyword_values)
+      (list
+        (literal)
+        (literal)
+        (literal)))))
 
 ================================================================================
 Insert-select
@@ -66,33 +64,32 @@ FROM my_other_table;
     (insert
       (keyword_insert)
       (keyword_into)
-      (insert_expression
-        (table_reference
+      (table_reference
+        name: (identifier))
+      (column_list
+        (column
           name: (identifier))
-        (column_list
-          (column
-            name: (identifier))
-          (column
-            name: (identifier))
-          (column
-            name: (identifier)))
-        (select
-          (keyword_select)
-          (select_expression
-            (term
-              value: (field
-                name: (identifier)))
-            (term
-              value: (field
-                name: (identifier)))
-            (term
-              value: (field
-                name: (identifier)))))
-        (from
-          (keyword_from)
-          (relation
-            (table_reference
-              name: (identifier))))))))
+        (column
+          name: (identifier))
+        (column
+          name: (identifier)))
+      (select
+        (keyword_select)
+        (select_expression
+          (term
+            value: (field
+              name: (identifier)))
+          (term
+            value: (field
+              name: (identifier)))
+          (term
+            value: (field
+              name: (identifier)))))
+      (from
+        (keyword_from)
+        (relation
+          (table_reference
+            name: (identifier)))))))
 
 ================================================================================
 Insert returning
@@ -109,14 +106,13 @@ RETURNING *;
     (insert
       (keyword_insert)
       (keyword_into)
-      (insert_expression
-        (table_reference
-          name: (identifier))
-        (keyword_values)
-        (list
-          (literal)
-          (literal)
-          (literal))))
+      (table_reference
+        name: (identifier))
+      (keyword_values)
+      (list
+        (literal)
+        (literal)
+        (literal)))
     (returning
       (keyword_returning)
       (select_expression
@@ -137,14 +133,13 @@ RETURNING id;
     (insert
       (keyword_insert)
       (keyword_into)
-      (insert_expression
-        (table_reference
-          name: (identifier))
-        (keyword_values)
-        (list
-          (literal)
-          (literal)
-          (literal))))
+      (table_reference
+        name: (identifier))
+      (keyword_values)
+      (list
+        (literal)
+        (literal)
+        (literal)))
     (returning
       (keyword_returning)
       (select_expression
@@ -167,14 +162,13 @@ RETURNING id, val1, val2;
     (insert
       (keyword_insert)
       (keyword_into)
-      (insert_expression
-        (table_reference
-          name: (identifier))
-        (keyword_values)
-        (list
-          (literal)
-          (literal)
-          (literal))))
+      (table_reference
+        name: (identifier))
+      (keyword_values)
+      (list
+        (literal)
+        (literal)
+        (literal)))
     (returning
       (keyword_returning)
       (select_expression
