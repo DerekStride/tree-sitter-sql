@@ -1250,7 +1250,7 @@ module.exports = grammar({
       choice(
         seq(
           $.keyword_on,
-          $.join_expression,
+          $._expression,
         ),
         seq(
           $.keyword_using,
@@ -1258,8 +1258,6 @@ module.exports = grammar({
         )
       )
     ),
-
-    join_expression: $ => $._expression,
 
     lateral_join: $ => seq(
       optional(
@@ -1296,10 +1294,8 @@ module.exports = grammar({
 
     where: $ => seq(
       $.keyword_where,
-      $.where_expression,
+      $._expression,
     ),
-
-    where_expression: $ => $._expression,
 
     group_by: $ => seq(
       $.keyword_group,
