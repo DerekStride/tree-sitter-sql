@@ -1134,10 +1134,7 @@ module.exports = grammar({
       optional(
         $.keyword_only,
       ),
-      choice(
-        $.relation_list,
-        $.relation,
-      ),
+      comma_list($.relation, true),
       optional($.index_hint),
       repeat(
         choice(
@@ -1149,16 +1146,6 @@ module.exports = grammar({
       optional($.group_by),
       optional($.order_by),
       optional($.limit),
-    ),
-
-    relation_list: $ => seq(
-      $.relation,
-      repeat1(
-        seq(
-          ',',
-          $.relation,
-        ),
-      ),
     ),
 
     relation: $ => seq(

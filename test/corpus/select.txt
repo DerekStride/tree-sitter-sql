@@ -1832,23 +1832,22 @@ FROM
         (all_fields)))
     (from
       (keyword_from)
-      (relation_list
-        (relation
-          (table_reference
-            name: (identifier))
-          table_alias: (identifier))
-        (relation
-          (table_reference
-            name: (identifier))
-          table_alias: (identifier))
-        (relation
-          (table_reference
-            name: (identifier))
-          table_alias: (identifier))
-        (relation
-          (table_reference
-            name: (identifier))
-          table_alias: (identifier))))))
+      (relation
+        (table_reference
+          name: (identifier))
+        table_alias: (identifier))
+      (relation
+        (table_reference
+          name: (identifier))
+        table_alias: (identifier))
+      (relation
+        (table_reference
+          name: (identifier))
+        table_alias: (identifier))
+      (relation
+        (table_reference
+          name: (identifier))
+        table_alias: (identifier)))))
 
 ================================================================================
 Parameterized Queries

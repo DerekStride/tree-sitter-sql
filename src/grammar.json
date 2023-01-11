@@ -4898,15 +4898,27 @@
           ]
         },
         {
-          "type": "CHOICE",
+          "type": "SEQ",
           "members": [
             {
               "type": "SYMBOL",
-              "name": "relation_list"
+              "name": "relation"
             },
             {
-              "type": "SYMBOL",
-              "name": "relation"
+              "type": "REPEAT",
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": ","
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "relation"
+                  }
+                ]
+              }
             }
           ]
         },
@@ -4985,31 +4997,6 @@
               "type": "BLANK"
             }
           ]
-        }
-      ]
-    },
-    "relation_list": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "relation"
-        },
-        {
-          "type": "REPEAT1",
-          "content": {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "STRING",
-                "value": ","
-              },
-              {
-                "type": "SYMBOL",
-                "name": "relation"
-              }
-            ]
-          }
         }
       ]
     },
