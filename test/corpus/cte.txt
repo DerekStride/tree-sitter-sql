@@ -71,7 +71,7 @@ FROM second;
           (keyword_into)
           (table_reference
             name: (identifier))
-          (column_list
+          (list
             (column
               name: (identifier))
             (column
