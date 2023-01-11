@@ -475,26 +475,12 @@ module.exports = grammar({
     ),
 
     expression_list :$ => seq(
-        $._expression_list,
+        $._expression,
         repeat(
             seq(
                 ',',
-                $._expression_list,
+                $._expression,
             )
-        )
-    ),
-
-    _expression_list: $ => seq(
-        choice(
-          $.literal,
-          $.field,
-          $.parameter,
-          $.case,
-          $.subquery,
-          $.cast,
-          alias($.implicit_cast, $.cast),
-          $.invocation,
-          $.binary_expression,
         )
     ),
 
