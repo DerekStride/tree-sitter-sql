@@ -474,16 +474,6 @@ module.exports = grammar({
       optional($._alias),
     ),
 
-    expression_list :$ => seq(
-        $._expression,
-        repeat(
-            seq(
-                ',',
-                $._expression,
-            )
-        )
-    ),
-
     _delete_statement: $ => seq(
       $.delete,
       alias($._delete_from, $.from),
@@ -1028,7 +1018,7 @@ module.exports = grammar({
     partition_by: $ => seq(
         $.keyword_partition,
         $.keyword_by,
-        $.expression_list,
+        comma_list($._expression, true),
     ),
 
     frame_definition: $ => seq(
@@ -1266,7 +1256,7 @@ module.exports = grammar({
     group_by: $ => seq(
       $.keyword_group,
       $.keyword_by,
-      $.expression_list,
+      comma_list($._expression, true),
       optional($._having),
     ),
 

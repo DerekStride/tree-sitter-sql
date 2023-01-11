@@ -30,9 +30,8 @@ HAVING other_id > 10;
       (group_by
         (keyword_group)
         (keyword_by)
-        (expression_list
-          (field
-            name: (identifier)))
+        (field
+          name: (identifier))
         (keyword_having)
         (binary_expression
           left: (field
@@ -70,8 +69,7 @@ HAVING other_id > 10;
       (group_by
         (keyword_group)
         (keyword_by)
-        (expression_list
-          (literal))
+        (literal)
         (keyword_having)
         (binary_expression
           left: (field
@@ -112,10 +110,9 @@ HAVING other_id > 10;
       (group_by
         (keyword_group)
         (keyword_by)
-        (expression_list
-          (literal)
-          (field
-            name: (identifier)))
+        (literal)
+        (field
+          name: (identifier))
         (keyword_having)
         (binary_expression
           left: (field
@@ -154,9 +151,8 @@ HAVING COUNT(*) = 2;
       (group_by
         (keyword_group)
         (keyword_by)
-        (expression_list
-          (field
-            (identifier)))
+        (field
+          (identifier))
         (keyword_having)
         (binary_expression
           (count
