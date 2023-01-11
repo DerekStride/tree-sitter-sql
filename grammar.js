@@ -580,7 +580,7 @@ module.exports = grammar({
             ),
           ),
         ),
-        $.column_list,
+        $.ordered_columns,
       ),
       optional(
         $.where,
@@ -763,7 +763,7 @@ module.exports = grammar({
       choice($.keyword_insert, $.keyword_replace),
       $.keyword_into,
       $.table_reference,
-      optional(alias($._column_list_without_order, $.column_list)),
+      optional(alias($._column_list, $.list)),
       choice(
         seq(
           $.keyword_values,
@@ -773,8 +773,8 @@ module.exports = grammar({
       ),
     ),
 
-    _column_list_without_order: $ => paren_list(alias($._column_without_order, $.column)),
-    _column_without_order: $ => field('name', $.identifier),
+    _column_list: $ => paren_list(alias($._column, $.column), true),
+    _column: $ => field('name', $.identifier),
 
     _update_statement: $ => seq(
       $.update,
@@ -872,23 +872,23 @@ module.exports = grammar({
       $.keyword_constraint,
       field('name', $.identifier),
       $._primary_key,
-      $.column_list,
+      $.ordered_columns,
     ),
 
     _primary_key_constraint: $ => seq(
       $._primary_key,
-      $.column_list,
+      $.ordered_columns,
     ),
 
     _key_constraint: $ => seq(
       $.keyword_key,
       field('name', $.identifier),
-      $.column_list,
+      $.ordered_columns,
     ),
 
-    column_list: $ => paren_list($.column),
+    ordered_columns: $ => paren_list(alias($.ordered_column, $.column), true),
 
-    column: $ => seq(
+    ordered_column: $ => seq(
       field('name', $.identifier),
       optional($.direction),
     ),
@@ -1149,7 +1149,7 @@ module.exports = grammar({
         seq(
           optional($.keyword_as),
           field('table_alias', $._alias_identifier),
-          optional(alias($._column_list_without_order, $.column_list)),
+          optional(alias($._column_list, $.list)),
         ),
       ),
     ),
@@ -1206,7 +1206,7 @@ module.exports = grammar({
         ),
         seq(
           $.keyword_using,
-          alias($._column_list_without_order, $.column_list),
+          alias($._column_list, $.list),
         )
       )
     ),
@@ -1453,10 +1453,10 @@ function comma_list(field, requireFirst) {
   );
 }
 
-function paren_list(field) {
+function paren_list(field, requireFirst) {
   return seq(
     '(',
-    comma_list(field),
+    comma_list(field, requireFirst),
     ')',
   )
 }

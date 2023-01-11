@@ -1467,21 +1467,6 @@
     }
   },
   {
-    "type": "column_list",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "column",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "comment",
     "named": true,
     "fields": {}
@@ -1529,10 +1514,6 @@
       "required": true,
       "types": [
         {
-          "type": "column_list",
-          "named": true
-        },
-        {
           "type": "keyword_constraint",
           "named": true
         },
@@ -1542,6 +1523,10 @@
         },
         {
           "type": "keyword_primary",
+          "named": true
+        },
+        {
+          "type": "ordered_columns",
           "named": true
         }
       ]
@@ -1659,10 +1644,6 @@
       "required": true,
       "types": [
         {
-          "type": "column_list",
-          "named": true
-        },
-        {
           "type": "identifier",
           "named": true
         },
@@ -1728,6 +1709,10 @@
         },
         {
           "type": "keyword_using",
+          "named": true
+        },
+        {
+          "type": "ordered_columns",
           "named": true
         },
         {
@@ -2455,10 +2440,6 @@
       "required": true,
       "types": [
         {
-          "type": "column_list",
-          "named": true
-        },
-        {
           "type": "from",
           "named": true
         },
@@ -2624,10 +2605,6 @@
         },
         {
           "type": "cast",
-          "named": true
-        },
-        {
-          "type": "column_list",
           "named": true
         },
         {
@@ -2936,6 +2913,10 @@
           "named": true
         },
         {
+          "type": "column",
+          "named": true
+        },
+        {
           "type": "count",
           "named": true
         },
@@ -3164,6 +3145,21 @@
     }
   },
   {
+    "type": "ordered_columns",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "column",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "parameter",
     "named": true,
     "fields": {}
@@ -3282,15 +3278,15 @@
       "required": true,
       "types": [
         {
-          "type": "column_list",
-          "named": true
-        },
-        {
           "type": "invocation",
           "named": true
         },
         {
           "type": "keyword_as",
+          "named": true
+        },
+        {
+          "type": "list",
           "named": true
         },
         {

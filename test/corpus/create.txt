@@ -120,7 +120,7 @@ CREATE TABLE my_table (
       name: (identifier)
       (keyword_primary)
       (keyword_key)
-      (column_list
+      (ordered_columns
        (column
         name: (identifier)
         (direction (keyword_asc)))
@@ -165,7 +165,7 @@ CREATE TABLE my_table (
      (constraint
       (keyword_key)
       name: (identifier)
-      (column_list
+      (ordered_columns
        (column
         name: (identifier))
        (column
@@ -238,13 +238,13 @@ CREATE TABLE IF NOT EXISTS `addresses` (
      (constraint
       (keyword_primary)
       (keyword_key)
-      (column_list
+      (ordered_columns
        (column
         name: (identifier))))
      (constraint
       (keyword_key)
       name: (identifier)
-      (column_list
+      (ordered_columns
        (column
         name: (identifier)))))))))
 
@@ -310,25 +310,25 @@ CREATE TABLE IF NOT EXISTS `addresses` (
      (constraint
       (keyword_primary)
       (keyword_key)
-      (column_list
+      (ordered_columns
        (column
         name: (identifier))))
      (constraint
       (keyword_key)
       name: (identifier)
-      (column_list
+      (ordered_columns
        (column
         name: (identifier))))
      (constraint
       (keyword_key)
       name: (identifier)
-      (column_list
+      (ordered_columns
        (column
         name: (identifier))))
      (constraint
       (keyword_key)
       name: (identifier)
-      (column_list
+      (ordered_columns
        (column
         name: (identifier))
        (column

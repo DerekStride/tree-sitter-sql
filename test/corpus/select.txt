@@ -971,7 +971,7 @@ JOIN my_other_table b USING (q, w);
             name: (identifier))
           table_alias: (identifier))
         (keyword_using)
-        (column_list
+        (list
           (column
             name: (identifier))
           (column
@@ -1011,7 +1011,7 @@ JOIN (VALUES (1, 2), (3, 4)) AS v (col1, col2) ON TRUE;
               (literal)))
           (keyword_as)
           table_alias: (identifier)
-          (column_list
+          (list
             (column
               name: (identifier))
             (column
@@ -1969,7 +1969,7 @@ FROM
             (literal)))
         (keyword_as)
         (identifier)
-        (column_list
+        (list
           (column
             (identifier))
           (column
@@ -2014,7 +2014,7 @@ FROM test_data;
                   (keyword_true))))
             (keyword_as)
             (identifier)
-            (column_list
+            (list
               (column
                 (identifier)))))))
     (select
