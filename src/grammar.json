@@ -2198,7 +2198,7 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "_expression_list"
+          "name": "_expression"
         },
         {
           "type": "REPEAT",
@@ -2211,61 +2211,10 @@
               },
               {
                 "type": "SYMBOL",
-                "name": "_expression_list"
+                "name": "_expression"
               }
             ]
           }
-        }
-      ]
-    },
-    "_expression_list": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "literal"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "field"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "parameter"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "case"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "subquery"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "cast"
-            },
-            {
-              "type": "ALIAS",
-              "content": {
-                "type": "SYMBOL",
-                "name": "implicit_cast"
-              },
-              "named": true,
-              "value": "cast"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "invocation"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "binary_expression"
-            }
-          ]
         }
       ]
     },

@@ -2192,6 +2192,10 @@
       "required": true,
       "types": [
         {
+          "type": "array",
+          "named": true
+        },
+        {
           "type": "binary_expression",
           "named": true
         },
@@ -2204,11 +2208,19 @@
           "named": true
         },
         {
+          "type": "count",
+          "named": true
+        },
+        {
           "type": "field",
           "named": true
         },
         {
           "type": "invocation",
+          "named": true
+        },
+        {
+          "type": "list",
           "named": true
         },
         {
@@ -2221,6 +2233,14 @@
         },
         {
           "type": "subquery",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "window_function",
           "named": true
         }
       ]
