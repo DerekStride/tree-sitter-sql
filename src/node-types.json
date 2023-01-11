@@ -2455,33 +2455,6 @@
       "required": true,
       "types": [
         {
-          "type": "insert_expression",
-          "named": true
-        },
-        {
-          "type": "keyword_insert",
-          "named": true
-        },
-        {
-          "type": "keyword_into",
-          "named": true
-        },
-        {
-          "type": "keyword_replace",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "insert_expression",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
           "type": "column_list",
           "named": true
         },
@@ -2498,7 +2471,19 @@
           "named": true
         },
         {
+          "type": "keyword_insert",
+          "named": true
+        },
+        {
           "type": "keyword_intersect",
+          "named": true
+        },
+        {
+          "type": "keyword_into",
+          "named": true
+        },
+        {
+          "type": "keyword_replace",
           "named": true
         },
         {

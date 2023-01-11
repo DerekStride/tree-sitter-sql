@@ -69,18 +69,17 @@ FROM second;
         (insert
           (keyword_insert)
           (keyword_into)
-          (insert_expression
-            (table_reference
+          (table_reference
+            name: (identifier))
+          (column_list
+            (column
               name: (identifier))
-            (column_list
-              (column
-                name: (identifier))
-              (column
-                name: (identifier)))
-            (keyword_values)
-            (list
-              (literal)
-              (literal))))
+            (column
+              name: (identifier)))
+          (keyword_values)
+          (list
+            (literal)
+            (literal)))
         (returning
           (keyword_returning)
           (select_expression
