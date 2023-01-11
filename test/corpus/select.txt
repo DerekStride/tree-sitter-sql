@@ -522,12 +522,11 @@ ORDER BY id DESC;
       (order_by
         (keyword_order)
         (keyword_by)
-        (order_expression
-          (order_target
-            (field
-              name: (identifier))
-            (direction
-              (keyword_desc))))))))
+        (order_target
+          (field
+            name: (identifier))
+          (direction
+            (keyword_desc)))))))
 
 ================================================================================
 Simple select with limit
@@ -1326,16 +1325,15 @@ ORDER BY m.title, id ASC;
       (order_by
         (keyword_order)
         (keyword_by)
-        (order_expression
-          (order_target
-            (field
-              table_alias: (identifier)
-              name: (identifier)))
-          (order_target
-            (field
-              name: (identifier))
-            (direction
-              (keyword_asc))))))))
+        (order_target
+          (field
+            table_alias: (identifier)
+            name: (identifier)))
+        (order_target
+          (field
+            name: (identifier))
+          (direction
+            (keyword_asc)))))))
 
 ================================================================================
 Order by with extra directives
@@ -1370,20 +1368,19 @@ ORDER BY id DESC NULLS LAST, val USING < NULLS FIRST;
       (order_by
         (keyword_order)
         (keyword_by)
-        (order_expression
-          (order_target
-            (field
-              name: (identifier))
-            (direction
-              (keyword_desc))
-            (keyword_nulls)
-            (keyword_last))
-          (order_target
-            (field
-              name: (identifier))
-            (keyword_using)
-            (keyword_nulls)
-            (keyword_first)))))))
+        (order_target
+          (field
+            name: (identifier))
+          (direction
+            (keyword_desc))
+          (keyword_nulls)
+          (keyword_last))
+        (order_target
+          (field
+            name: (identifier))
+          (keyword_using)
+          (keyword_nulls)
+          (keyword_first))))))
 
 ================================================================================
 Index hints
@@ -1805,15 +1802,14 @@ ORDER BY my_table.title, my_table.id;
       (order_by
         (keyword_order)
         (keyword_by)
-        (order_expression
-          (order_target
-            (field
-              table_alias: (identifier)
-              name: (identifier)))
-          (order_target
-            (field
-              table_alias: (identifier)
-              name: (identifier))))))))
+        (order_target
+          (field
+            table_alias: (identifier)
+            name: (identifier)))
+        (order_target
+          (field
+            table_alias: (identifier)
+            name: (identifier)))))))
 
 ================================================================================
 Multiple tables in list

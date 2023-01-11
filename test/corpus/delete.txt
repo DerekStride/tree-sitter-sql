@@ -75,11 +75,10 @@ LIMIT 4;
    (order_by
     (keyword_order)
     (keyword_by)
-    (order_expression
-     (order_target
+    (order_target
       (field name: (identifier))
       (direction
-       (keyword_desc)))))
+       (keyword_desc))))
    (limit
     (keyword_limit)
     (literal)))))
