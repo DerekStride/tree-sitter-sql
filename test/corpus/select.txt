@@ -218,48 +218,6 @@ FROM my_table m;
         table_alias: (identifier)))))
 
 ================================================================================
-Predicates with keywords
-================================================================================
-
-SELECT *
-FROM my_table
-WHERE id IS NOT NULL
-  AND name IS NULL;
-
---------------------------------------------------------------------------------
-
-(program
-  (statement
-    (select
-      (keyword_select)
-      (select_expression
-        (all_fields)))
-    (from
-      (keyword_from)
-      (relation
-        (table_reference
-          name: (identifier)))
-      (where
-        (keyword_where)
-        (where_expression
-          (predicate
-            left: (predicate
-              left: (field
-                name: (identifier))
-              operator: (is_not
-                (keyword_is)
-                (keyword_not))
-              right: (literal
-                (keyword_null)))
-            operator: (keyword_and)
-            right: (predicate
-              left: (field
-                name: (identifier))
-              operator: (keyword_is)
-              right: (literal
-                (keyword_null)))))))))
-
-================================================================================
 Simple select with aliased table and column name using double quotes
 ================================================================================
 
@@ -312,7 +270,7 @@ WHERE id = 4;
       (where
         (keyword_where)
         (where_expression
-          (predicate
+          (binary_expression
             left: (field
               name: (identifier))
             right: (literal)))))))
@@ -343,7 +301,7 @@ WHERE id = "abc";
       (where
         (keyword_where)
         (where_expression
-          (predicate
+          (binary_expression
             left: (field
               name: (identifier))
             right: (literal)))))))
@@ -374,7 +332,7 @@ WHERE id IN(1,2);
       (where
         (keyword_where)
         (where_expression
-          (predicate
+          (binary_expression
             left: (field
               name: (identifier))
             operator: (keyword_in)
@@ -434,7 +392,7 @@ FROM my_table m;
         (term
           value: (invocation
             name: (identifier)
-            parameter: (predicate
+            parameter: (binary_expression
               left: (field
                 table_alias: (identifier)
                 name: (identifier))
@@ -561,7 +519,7 @@ ORDER BY id DESC;
       (where
         (keyword_where)
         (where_expression
-          (predicate
+          (binary_expression
             left: (field
               name: (identifier))
             right: (literal))))
@@ -681,247 +639,6 @@ FROM
         (table_reference
           schema: (identifier)
           name: (identifier))))))
-
-================================================================================
-IS DISTINCT FROM
-================================================================================
-
-SELECT *
-FROM my_table
-WHERE col IS DISTINCT FROM NULL;
-
---------------------------------------------------------------------------------
-
-(program
-  (statement
-    (select
-      (keyword_select)
-      (select_expression
-        (all_fields)))
-    (from
-      (keyword_from)
-      (relation
-        (table_reference
-          (identifier)))
-      (where
-        (keyword_where)
-        (where_expression
-          (predicate
-            (field
-              (identifier))
-            (keyword_is)
-            (keyword_distinct)
-            (keyword_from)
-            (literal
-              (keyword_null))))))))
-
-================================================================================
-Single Unary Predicate
-================================================================================
-
-SELECT *
-FROM my_table m
-WHERE m.is_not_deleted;
-
---------------------------------------------------------------------------------
-
-(program
-  (statement
-    (select
-      (keyword_select)
-      (select_expression
-        (all_fields)))
-    (from
-      (keyword_from)
-      (relation
-        (table_reference
-          name: (identifier))
-        table_alias: (identifier))
-      (where
-        (keyword_where)
-        (where_expression
-          (predicate
-            operand: (field
-              table_alias: (identifier)
-              name: (identifier))))))))
-
-================================================================================
-Multiple Unary Predicates
-================================================================================
-
-SELECT *
-FROM my_table m
-WHERE m.is_not_deleted AND m.is_visible;
-
---------------------------------------------------------------------------------
-
-(program
-  (statement
-    (select
-      (keyword_select)
-      (select_expression
-        (all_fields)))
-    (from
-      (keyword_from)
-      (relation
-        (table_reference
-          name: (identifier))
-        table_alias: (identifier))
-      (where
-        (keyword_where)
-        (where_expression
-          (predicate
-            left: (predicate
-              operand: (field
-                table_alias: (identifier)
-                name: (identifier)))
-            operator: (keyword_and)
-            right: (predicate
-              operand: (field
-                table_alias: (identifier)
-                name: (identifier)))))))))
-
-================================================================================
-Mixed Predicate types
-================================================================================
-
-SELECT *
-FROM my_table m
-WHERE m.status = "success"
-  AND m.name = "foobar"
-  AND m.id = 5
-  AND m.is_not_deleted
-
---------------------------------------------------------------------------------
-
-(program
-  (statement
-    (select
-      (keyword_select)
-      (select_expression
-        (all_fields)))
-    (from
-      (keyword_from)
-      (relation
-        (table_reference
-          name: (identifier))
-        table_alias: (identifier))
-      (where
-        (keyword_where)
-        (where_expression
-          (predicate
-            left: (predicate
-              left: (predicate
-                left: (predicate
-                  left: (field
-                    table_alias: (identifier)
-                    name: (identifier))
-                  right: (literal))
-                operator: (keyword_and)
-                right: (predicate
-                  left: (field
-                    table_alias: (identifier)
-                    name: (identifier))
-                  right: (literal)))
-              operator: (keyword_and)
-              right: (predicate
-                left: (field
-                  table_alias: (identifier)
-                  name: (identifier))
-                right: (literal)))
-            operator: (keyword_and)
-            right: (predicate
-              operand: (field
-                table_alias: (identifier)
-                name: (identifier)))))))))
-
-================================================================================
-Disjunctive Predicate
-================================================================================
-
-SELECT *
-FROM my_table m
-WHERE m.status = "success"
-  AND m.name = "foobar"
-  OR m.id = 5
-  AND m.is_not_deleted
-
---------------------------------------------------------------------------------
-
-(program
-  (statement
-    (select
-      (keyword_select)
-      (select_expression
-        (all_fields)))
-    (from
-      (keyword_from)
-      (relation
-        (table_reference
-          name: (identifier))
-        table_alias: (identifier))
-      (where
-        (keyword_where)
-        (where_expression
-          (predicate
-            left: (predicate
-              left: (predicate
-                left: (field
-                  table_alias: (identifier)
-                  name: (identifier))
-                right: (literal))
-              operator: (keyword_and)
-              right: (predicate
-                left: (field
-                  table_alias: (identifier)
-                  name: (identifier))
-                right: (literal)))
-            operator: (keyword_or)
-            right: (predicate
-              left: (predicate
-                left: (field
-                  table_alias: (identifier)
-                  name: (identifier))
-                right: (literal))
-              operator: (keyword_and)
-              right: (predicate
-                operand: (field
-                  table_alias: (identifier)
-                  name: (identifier))))))))))
-
-================================================================================
-IS NOT DISTINCT FROM
-================================================================================
-
-SELECT *
-FROM my_table
-WHERE col IS NOT DISTINCT FROM NULL;
-
---------------------------------------------------------------------------------
-
-(program
-  (statement
-    (select
-      (keyword_select)
-      (select_expression
-        (all_fields)))
-    (from
-      (keyword_from)
-      (relation
-        (table_reference
-          (identifier)))
-      (where
-        (keyword_where)
-        (where_expression
-          (predicate
-            (field
-              (identifier))
-            (keyword_is)
-            (keyword_not)
-            (keyword_distinct)
-            (keyword_from)
-            (literal
-              (keyword_null))))))))
 
 ================================================================================
 Distinct
@@ -1082,17 +799,18 @@ WHERE b.c_id = 4;
             name: (identifier))
           table_alias: (identifier))
         (keyword_on)
-        (predicate
-          left: (field
-            table_alias: (identifier)
-            name: (identifier))
-          right: (field
-            table_alias: (identifier)
-            name: (identifier))))
+        (join_expression
+          (binary_expression
+            left: (field
+              table_alias: (identifier)
+              name: (identifier))
+            right: (field
+              table_alias: (identifier)
+              name: (identifier)))))
       (where
         (keyword_where)
         (where_expression
-          (predicate
+          (binary_expression
             left: (field
               table_alias: (identifier)
               name: (identifier))
@@ -1125,7 +843,9 @@ JOIN my_other_table ON TRUE;
           (table_reference
             name: (identifier)))
         (keyword_on)
-        (keyword_true)))))
+        (join_expression
+          (literal
+            (keyword_true)))))))
 
 ================================================================================
 Joins with hint
@@ -1170,13 +890,14 @@ ON a.id = b.a_id;
           (keyword_join)
           index_name: (identifier))
         (keyword_on)
-        (predicate
-          left: (field
-            table_alias: (identifier)
-            name: (identifier))
-          right: (field
-            table_alias: (identifier)
-            name: (identifier)))))))
+        (join_expression
+          (binary_expression
+            left: (field
+              table_alias: (identifier)
+              name: (identifier))
+            right: (field
+              table_alias: (identifier)
+              name: (identifier))))))))
 
 ================================================================================
 Ignore index for join
@@ -1215,13 +936,14 @@ ON a.id = b.a_id;
           (keyword_join)
           index_name: (identifier))
         (keyword_on)
-        (predicate
-          left: (field
-            table_alias: (identifier)
-            name: (identifier))
-          right: (field
-            table_alias: (identifier)
-            name: (identifier)))))))
+        (join_expression
+          (binary_expression
+            left: (field
+              table_alias: (identifier)
+              name: (identifier))
+            right: (field
+              table_alias: (identifier)
+              name: (identifier))))))))
 
 ================================================================================
 Joins with USING
@@ -1305,7 +1027,9 @@ JOIN (VALUES (1, 2), (3, 4)) AS v (col1, col2) ON TRUE;
             (column
               name: (identifier))))
         (keyword_on)
-        (keyword_true)))))
+        (join_expression
+          (literal
+            (keyword_true)))))))
 
 ================================================================================
 Specific Joins
@@ -1349,13 +1073,14 @@ ON a.id = e.e_id;
             name: (identifier))
           table_alias: (identifier))
         (keyword_on)
-        (predicate
-          left: (field
-            table_alias: (identifier)
-            name: (identifier))
-          right: (field
-            table_alias: (identifier)
-            name: (identifier))))
+        (join_expression
+          (binary_expression
+            left: (field
+              table_alias: (identifier)
+              name: (identifier))
+            right: (field
+              table_alias: (identifier)
+              name: (identifier)))))
       (join
         (keyword_left)
         (keyword_outer)
@@ -1365,13 +1090,14 @@ ON a.id = e.e_id;
             name: (identifier))
           table_alias: (identifier))
         (keyword_on)
-        (predicate
-          left: (field
-            table_alias: (identifier)
-            name: (identifier))
-          right: (field
-            table_alias: (identifier)
-            name: (identifier))))
+        (join_expression
+          (binary_expression
+            left: (field
+              table_alias: (identifier)
+              name: (identifier))
+            right: (field
+              table_alias: (identifier)
+              name: (identifier)))))
       (join
         (keyword_right)
         (keyword_join)
@@ -1380,13 +1106,14 @@ ON a.id = e.e_id;
             name: (identifier))
           table_alias: (identifier))
         (keyword_on)
-        (predicate
-          left: (field
-            table_alias: (identifier)
-            name: (identifier))
-          right: (field
-            table_alias: (identifier)
-            name: (identifier))))
+        (join_expression
+          (binary_expression
+            left: (field
+              table_alias: (identifier)
+              name: (identifier))
+            right: (field
+              table_alias: (identifier)
+              name: (identifier)))))
       (join
         (keyword_right)
         (keyword_outer)
@@ -1396,13 +1123,14 @@ ON a.id = e.e_id;
             name: (identifier))
           table_alias: (identifier))
         (keyword_on)
-        (predicate
-          left: (field
-            table_alias: (identifier)
-            name: (identifier))
-          right: (field
-            table_alias: (identifier)
-            name: (identifier))))
+        (join_expression
+          (binary_expression
+            left: (field
+              table_alias: (identifier)
+              name: (identifier))
+            right: (field
+              table_alias: (identifier)
+              name: (identifier)))))
       (join
         (keyword_inner)
         (keyword_join)
@@ -1411,13 +1139,14 @@ ON a.id = e.e_id;
             name: (identifier))
           table_alias: (identifier))
         (keyword_on)
-        (predicate
-          left: (field
-            table_alias: (identifier)
-            name: (identifier))
-          right: (field
-            table_alias: (identifier)
-            name: (identifier)))))))
+        (join_expression
+          (binary_expression
+            left: (field
+              table_alias: (identifier)
+              name: (identifier))
+            right: (field
+              table_alias: (identifier)
+              name: (identifier))))))))
 
 ================================================================================
 Lateral join
@@ -1457,7 +1186,8 @@ JOIN LATERAL unnest(a.arr) AS arr ON TRUE;
         (keyword_as)
         alias: (identifier)
         (keyword_on)
-        (keyword_true)))))
+        (literal
+          (keyword_true))))))
 
 ================================================================================
 Lateral join subquery
@@ -1499,7 +1229,8 @@ CROSS JOIN LATERAL (SELECT 1) AS b ON TRUE;
         (keyword_as)
         alias: (identifier)
         (keyword_on)
-        (keyword_true)))))
+        (literal
+          (keyword_true))))))
 
 ================================================================================
 Multiple joins
@@ -1544,13 +1275,14 @@ ON a.id = c.a_id;
             name: (identifier))
           table_alias: (identifier))
         (keyword_on)
-        (predicate
-          left: (field
-            table_alias: (identifier)
-            name: (identifier))
-          right: (field
-            table_alias: (identifier)
-            name: (identifier))))
+        (join_expression
+          (binary_expression
+            left: (field
+              table_alias: (identifier)
+              name: (identifier))
+            right: (field
+              table_alias: (identifier)
+              name: (identifier)))))
       (join
         (keyword_join)
         (relation
@@ -1558,52 +1290,14 @@ ON a.id = c.a_id;
             name: (identifier))
           table_alias: (identifier))
         (keyword_on)
-        (predicate
-          left: (field
-            table_alias: (identifier)
-            name: (identifier))
-          right: (field
-            table_alias: (identifier)
-            name: (identifier)))))))
-
-================================================================================
-Complex Predicates
-================================================================================
-
-SELECT id
-FROM my_table m
-WHERE m.id > 4 AND id < 3;
-
---------------------------------------------------------------------------------
-
-(program
-  (statement
-    (select
-      (keyword_select)
-      (select_expression
-        (term
-          value: (field
-            name: (identifier)))))
-    (from
-      (keyword_from)
-      (relation
-        (table_reference
-          name: (identifier))
-        table_alias: (identifier))
-      (where
-        (keyword_where)
-        (where_expression
-          (predicate
-            left: (predicate
-              left: (field
-                table_alias: (identifier)
-                name: (identifier))
-              right: (literal))
-            operator: (keyword_and)
-            right: (predicate
-              left: (field
-                name: (identifier))
-              right: (literal))))))))
+        (join_expression
+          (binary_expression
+            left: (field
+              table_alias: (identifier)
+              name: (identifier))
+            right: (field
+              table_alias: (identifier)
+              name: (identifier))))))))
 
 ================================================================================
 Complex Predicates with order by
@@ -1636,14 +1330,14 @@ ORDER BY m.title, id ASC;
       (where
         (keyword_where)
         (where_expression
-          (predicate
-            left: (predicate
+          (binary_expression
+            left: (binary_expression
               left: (field
                 table_alias: (identifier)
                 name: (identifier))
               right: (literal))
             operator: (keyword_and)
-            right: (predicate
+            right: (binary_expression
               left: (field
                 name: (identifier))
               right: (literal)))))
@@ -1688,7 +1382,7 @@ ORDER BY id DESC NULLS LAST, val USING < NULLS FIRST;
       (where
         (keyword_where)
         (where_expression
-          (predicate
+          (binary_expression
             left: (field
               name: (identifier))
             right: (literal))))
@@ -1889,7 +1583,7 @@ FROM my_table;
           (case
             (keyword_case)
             (keyword_when)
-            (predicate
+            (binary_expression
               (field
                 (identifier))
               (literal))
@@ -1935,14 +1629,14 @@ FROM my_table;
           (case
             (keyword_case)
             (keyword_when)
-            (predicate
+            (binary_expression
               (field
                 (identifier))
               (literal))
             (keyword_then)
             (literal)
             (keyword_when)
-            (predicate
+            (binary_expression
               (field
                 (identifier))
               (literal))
@@ -2052,22 +1746,23 @@ ORDER BY my_table.title, my_table.id;
             name: (identifier))
           table_alias: (identifier))
         (keyword_on)
-        (predicate
-          left: (predicate
-            left: (field
-              table_alias: (identifier)
-              name: (identifier))
-            right: (field
-              table_alias: (identifier)
-              name: (identifier)))
-          operator: (keyword_and)
-          right: (predicate
-            left: (field
-              table_alias: (identifier)
-              name: (identifier))
-            right: (field
-              table_alias: (identifier)
-              name: (identifier)))))
+        (join_expression
+          (binary_expression
+            left: (binary_expression
+              left: (field
+                table_alias: (identifier)
+                name: (identifier))
+              right: (field
+                table_alias: (identifier)
+                name: (identifier)))
+            operator: (keyword_and)
+            right: (binary_expression
+              left: (field
+                table_alias: (identifier)
+                name: (identifier))
+              right: (field
+                table_alias: (identifier)
+                name: (identifier))))))
       (join
         (keyword_join)
         (relation
@@ -2080,35 +1775,36 @@ ORDER BY my_table.title, my_table.id;
           (keyword_join)
           index_name: (identifier))
         (keyword_on)
-        (predicate
-          left: (predicate
-            left: (field
-              table_alias: (identifier)
-              name: (identifier))
-            right: (field
-              table_alias: (identifier)
-              name: (identifier)))
-          operator: (keyword_and)
-          right: (predicate
-            left: (field
-              table_alias: (identifier)
-              name: (identifier))
-            right: (field
-              table_alias: (identifier)
-              name: (identifier)))))
+        (join_expression
+          (binary_expression
+            left: (binary_expression
+              left: (field
+                table_alias: (identifier)
+                name: (identifier))
+              right: (field
+                table_alias: (identifier)
+                name: (identifier)))
+            operator: (keyword_and)
+            right: (binary_expression
+              left: (field
+                table_alias: (identifier)
+                name: (identifier))
+              right: (field
+                table_alias: (identifier)
+                name: (identifier))))))
       (where
         (keyword_where)
         (where_expression
-          (predicate
-            left: (predicate
-              left: (predicate
-                left: (predicate
+          (binary_expression
+            left: (binary_expression
+              left: (binary_expression
+                left: (binary_expression
                   left: (field
                     table_alias: (identifier)
                     name: (identifier))
                   right: (literal))
                 operator: (keyword_and)
-                right: (predicate
+                right: (binary_expression
                   left: (field
                     table_alias: (identifier)
                     name: (identifier))
@@ -2116,13 +1812,13 @@ ORDER BY my_table.title, my_table.id;
                   right: (list
                     (literal))))
               operator: (keyword_and)
-              right: (predicate
+              right: (binary_expression
                 left: (field
                   table_alias: (identifier)
                   name: (identifier))
                 right: (literal)))
             operator: (keyword_and)
-            right: (predicate
+            right: (binary_expression
               left: (field
                 table_alias: (identifier)
                 name: (identifier))
@@ -2204,7 +1900,7 @@ WHERE id = ?;
       (where
         (keyword_where)
         (where_expression
-          (predicate
+          (binary_expression
             (field
               (identifier))
             (parameter)))))))
@@ -2233,7 +1929,7 @@ WHERE id = $12;
       (where
         (keyword_where)
         (where_expression
-          (predicate
+          (binary_expression
             (field
               (identifier))
             (parameter)))))))
@@ -2307,68 +2003,6 @@ FROM
             (identifier))
           (column
             (identifier)))))))
-
-================================================================================
-Where with pattern matching
-================================================================================
-
-SELECT
-    *
-FROM
-    a
-WHERE
-        a LIKE '%a'
-    AND a NOT LIKE '%a'
-    AND a SIMILAR TO '%a'
-    AND a NOT SIMILAR TO '%a';
-
-
---------------------------------------------------------------------------------
-
-(program
-  (statement
-    (select
-      (keyword_select)
-      (select_expression
-        (all_fields)))
-    (from
-      (keyword_from)
-      (relation
-        (table_reference
-          name: (identifier)))
-      (where
-        (keyword_where)
-        (where_expression
-          (predicate
-            left: (predicate
-              left: (predicate
-                left: (predicate
-                  left: (field
-                    name: (identifier))
-                  operator: (keyword_like)
-                  right: (literal))
-                operator: (keyword_and)
-                right: (predicate
-                  left: (field
-                    name: (identifier))
-                  operator: (keyword_not)
-                  operator: (keyword_like)
-                  right: (literal)))
-              operator: (keyword_and)
-              right: (predicate
-                left: (field
-                  name: (identifier))
-                operator: (keyword_similar)
-                operator: (keyword_to)
-                right: (literal)))
-            operator: (keyword_and)
-            right: (predicate
-              left: (field
-                name: (identifier))
-              operator: (keyword_not)
-              operator: (keyword_similar)
-              operator: (keyword_to)
-              right: (literal))))))))
 
 ================================================================================
 CASE WHEN with bool column
@@ -2504,17 +2138,18 @@ WHERE
             name: (identifier))
           table_alias: (identifier))
         (keyword_on)
-        (predicate
-          left: (field
-            table_alias: (identifier)
-            name: (identifier))
-          right: (field
-            table_alias: (identifier)
-            name: (identifier))))
+        (join_expression
+          (binary_expression
+            left: (field
+              table_alias: (identifier)
+              name: (identifier))
+            right: (field
+              table_alias: (identifier)
+              name: (identifier)))))
       (where
         (keyword_where)
         (where_expression
-          (predicate
+          (binary_expression
             left: (field
               table_alias: (identifier)
               name: (identifier))

@@ -10,6 +10,7 @@ module.exports = grammar({
 
   precedences: $ => [
     [
+      'binary_is',
       'unary_not',
       'binary_exp',
       'binary_times',
@@ -152,7 +153,7 @@ module.exports = grammar({
 
     _similar_to: $ => seq($.keyword_similar, $.keyword_to),
     _not_similar_to: $ => seq($.keyword_not, $.keyword_similar, $.keyword_to),
-    is_not: $ => seq($.keyword_is, $.keyword_not),
+    is_not: $ => prec("binary_is", seq($.keyword_is, $.keyword_not)),
     _not_like: $ => seq($.keyword_not, $.keyword_like),
     _temporary: $ => choice($.keyword_temp, $.keyword_temporary),
     _not_null: $ => seq($.keyword_not, $.keyword_null),
@@ -489,7 +490,6 @@ module.exports = grammar({
           $.field,
           $.parameter,
           $.case,
-          $.predicate,
           $.subquery,
           $.cast,
           alias($.implicit_cast, $.cast),
@@ -972,7 +972,7 @@ module.exports = grammar({
         seq(
           $.keyword_when,
           choice(
-            $.predicate,
+            $.binary_expression,
             $.identifier,
           ),
           $.keyword_then,
@@ -980,7 +980,7 @@ module.exports = grammar({
           repeat(
             seq(
               $.keyword_when,
-              $.predicate,
+              $.binary_expression,
               $.keyword_then,
               $._expression,
             )
@@ -1250,11 +1250,7 @@ module.exports = grammar({
       choice(
         seq(
           $.keyword_on,
-          choice(
-            $.predicate,
-            $.keyword_true,
-            $.keyword_false,
-          ),
+          $.join_expression,
         ),
         seq(
           $.keyword_using,
@@ -1262,6 +1258,8 @@ module.exports = grammar({
         )
       )
     ),
+
+    join_expression: $ => $._expression,
 
     lateral_join: $ => seq(
       optional(
@@ -1290,7 +1288,7 @@ module.exports = grammar({
       ),
       $.keyword_on,
       choice(
-        $.predicate,
+        $._expression,
         $.keyword_true,
         $.keyword_false,
       ),
@@ -1301,6 +1299,8 @@ module.exports = grammar({
       $.where_expression,
     ),
 
+    where_expression: $ => $._expression,
+
     group_by: $ => seq(
       $.keyword_group,
       $.keyword_by,
@@ -1310,7 +1310,7 @@ module.exports = grammar({
 
     _having: $ => seq(
       $.keyword_having,
-      $.predicate,
+      $._expression,
     ),
 
     order_by: $ => seq(
@@ -1369,54 +1369,6 @@ module.exports = grammar({
       $.select_expression,
     ),
 
-    where_expression: $ => choice(
-      $.predicate,
-      alias($._field_predicate, $.predicate),
-    ),
-
-    _field_predicate: $ => prec(0, field('operand', $.field)),
-
-    predicate: $ => choice(
-      ...[
-        ['=', 'binary_relation'],
-        ['<', 'binary_relation'],
-        ['<=', 'binary_relation'],
-        ['!=', 'binary_relation'],
-        ['>=', 'binary_relation'],
-        ['>', 'binary_relation'],
-        [$.keyword_like, 'pattern_matching'],
-        [$._not_like, 'pattern_matching'],
-        [$._similar_to, 'pattern_matching'],
-        [$._not_similar_to, 'pattern_matching'],
-        [seq($.keyword_is, $.keyword_distinct, $.keyword_from), 'binary_relation'],
-        [seq($.keyword_is, $.keyword_not, $.keyword_distinct, $.keyword_from), 'binary_relation'],
-        [$.keyword_is, 'binary_relation'],
-        [$.is_not, 'binary_relation'],
-        [$.keyword_in, 'binary_in'],
-      ].map(([operator, precedence]) =>
-        prec.left(precedence, seq(
-          field('left', $._expression),
-          field('operator', operator),
-          field('right', $._expression)
-        ))
-      ),
-      ...[
-        [$.keyword_and, 'clause_connective'],
-        [$.keyword_or, 'clause_disjunctive'],
-      ].map(([operator, precedence]) =>
-        prec.left(precedence, seq(
-          field('left', $._predicate_expression),
-          field('operator', operator),
-          field('right', $._predicate_expression)
-        ))
-      ),
-    ),
-
-    _predicate_expression: $ => choice(
-      $.predicate,
-      alias($._field_predicate, $.predicate),
-    ),
-
     _expression: $ => prec(1,
       choice(
         $.literal,
@@ -1425,13 +1377,13 @@ module.exports = grammar({
         $.list,
         $.case,
         $.window_function,
-        $.predicate,
         $.subquery,
         $.cast,
         alias($.implicit_cast, $.cast),
         $.count,
         $.invocation,
         $.binary_expression,
+        $.unary_expression,
         $.array,
       )
     ),
@@ -1445,6 +1397,23 @@ module.exports = grammar({
         ['%', 'binary_times'],
         ['^', 'binary_exp'],
         ['||', 'binary_concat'],
+        ['=', 'binary_relation'],
+        ['<', 'binary_relation'],
+        ['<=', 'binary_relation'],
+        ['!=', 'binary_relation'],
+        ['>=', 'binary_relation'],
+        ['>', 'binary_relation'],
+        [$.keyword_like, 'pattern_matching'],
+        [$._not_like, 'pattern_matching'],
+        [$._similar_to, 'pattern_matching'],
+        [$._not_similar_to, 'pattern_matching'],
+        [seq($.keyword_is, $.keyword_distinct, $.keyword_from), 'binary_relation'],
+        [seq($.keyword_is, $.keyword_not, $.keyword_distinct, $.keyword_from), 'binary_relation'],
+        [$.keyword_is, 'binary_in'],
+        [$.is_not, 'binary_in'],
+        [$.keyword_in, 'binary_in'],
+        [$.keyword_and, 'clause_connective'],
+        [$.keyword_or, 'clause_disjunctive'],
       ].map(([operator, precedence]) =>
         prec.left(precedence, seq(
           field('left', $._expression),
@@ -1452,6 +1421,18 @@ module.exports = grammar({
           field('right', $._expression)
         ))
       ),
+    ),
+
+    unary_expression: $ => prec("unary_not", choice(
+      ...[
+        [$.keyword_not, 'unary_not'],
+        [$.bang, 'unary_not'],
+      ].map(([operator, precedence]) =>
+        prec.left(precedence, seq(
+          field('operator', operator),
+          field('operand', $._expression)
+        ))
+      )),
     ),
 
     subquery: $ => seq(
@@ -1478,6 +1459,7 @@ module.exports = grammar({
       $._double_quote_string,
     ),
     _number: _ => /\d+/,
+    bang: _ => '!',
 
     identifier: $ => choice(
       $._identifier,
