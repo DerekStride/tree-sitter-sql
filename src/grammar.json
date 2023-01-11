@@ -5326,7 +5326,7 @@
                 },
                 {
                   "type": "SYMBOL",
-                  "name": "join_expression"
+                  "name": "_expression"
                 }
               ]
             },
@@ -5351,10 +5351,6 @@
           ]
         }
       ]
-    },
-    "join_expression": {
-      "type": "SYMBOL",
-      "name": "_expression"
     },
     "lateral_join": {
       "type": "SEQ",
@@ -5488,13 +5484,9 @@
         },
         {
           "type": "SYMBOL",
-          "name": "where_expression"
+          "name": "_expression"
         }
       ]
-    },
-    "where_expression": {
-      "type": "SYMBOL",
-      "name": "_expression"
     },
     "group_by": {
       "type": "SEQ",

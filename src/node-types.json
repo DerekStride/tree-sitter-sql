@@ -2692,7 +2692,31 @@
       "required": true,
       "types": [
         {
+          "type": "array",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "case",
+          "named": true
+        },
+        {
+          "type": "cast",
+          "named": true
+        },
+        {
           "type": "column_list",
+          "named": true
+        },
+        {
+          "type": "count",
+          "named": true
+        },
+        {
+          "type": "field",
           "named": true
         },
         {
@@ -2700,7 +2724,7 @@
           "named": true
         },
         {
-          "type": "join_expression",
+          "type": "invocation",
           "named": true
         },
         {
@@ -2736,49 +2760,6 @@
           "named": true
         },
         {
-          "type": "relation",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "join_expression",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "array",
-          "named": true
-        },
-        {
-          "type": "binary_expression",
-          "named": true
-        },
-        {
-          "type": "case",
-          "named": true
-        },
-        {
-          "type": "cast",
-          "named": true
-        },
-        {
-          "type": "count",
-          "named": true
-        },
-        {
-          "type": "field",
-          "named": true
-        },
-        {
-          "type": "invocation",
-          "named": true
-        },
-        {
           "type": "list",
           "named": true
         },
@@ -2788,6 +2769,10 @@
         },
         {
           "type": "parameter",
+          "named": true
+        },
+        {
+          "type": "relation",
           "named": true
         },
         {
@@ -4015,25 +4000,6 @@
       "required": true,
       "types": [
         {
-          "type": "keyword_where",
-          "named": true
-        },
-        {
-          "type": "where_expression",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "where_expression",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
           "type": "array",
           "named": true
         },
@@ -4059,6 +4025,10 @@
         },
         {
           "type": "invocation",
+          "named": true
+        },
+        {
+          "type": "keyword_where",
           "named": true
         },
         {

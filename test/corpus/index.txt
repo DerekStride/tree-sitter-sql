@@ -53,9 +53,8 @@ WHERE tab.col > 10;
             (keyword_asc))))
       (where
         (keyword_where)
-        (where_expression
-          (binary_expression
-            (field
-              (identifier)
-              (identifier))
-            (literal)))))))
+        (binary_expression
+          (field
+            (identifier)
+            (identifier))
+          (literal))))))

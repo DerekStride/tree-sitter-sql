@@ -94,10 +94,9 @@ WHERE items.id=month.item_id;
      right: (field table_alias: (identifier) name: (identifier))))
    (where
     (keyword_where)
-    (where_expression
-     (binary_expression
+    (binary_expression
       left: (field table_alias: (identifier) name: (identifier))
-      right: (field table_alias: (identifier) name: (identifier))))))))
+      right: (field table_alias: (identifier) name: (identifier)))))))
 
 ==================
 update with function call
