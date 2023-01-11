@@ -83,14 +83,13 @@ FROM tab1;
               (order_by
                 (keyword_order)
                 (keyword_by)
-                (order_expression
-                  (order_target
-                    (field
-                      name: (identifier))
-                    (direction
-                      (keyword_desc))
-                    (keyword_nulls)
-                    (keyword_last)))))))))
+                (order_target
+                  (field
+                    name: (identifier))
+                  (direction
+                    (keyword_desc))
+                  (keyword_nulls)
+                  (keyword_last))))))))
     (from
       (keyword_from)
       (relation
@@ -141,14 +140,13 @@ FROM tab1;
               (order_by
                 (keyword_order)
                 (keyword_by)
-                (order_expression
-                  (order_target
-                    (field
-                      name: (identifier))
-                    (direction
-                      (keyword_desc))
-                    (keyword_nulls)
-                    (keyword_first)))))))))
+                (order_target
+                  (field
+                    name: (identifier))
+                  (direction
+                    (keyword_desc))
+                  (keyword_nulls)
+                  (keyword_first))))))))
     (from
       (keyword_from)
       (relation
@@ -237,10 +235,9 @@ FROM tab1;
               (order_by
                 (keyword_order)
                 (keyword_by)
-                (order_expression
-                  (order_target
-                    (field
-                      name: (identifier)))))))
+                (order_target
+                  (field
+                    name: (identifier))))))
           (keyword_as)
           alias: (identifier))
         (term
@@ -357,10 +354,9 @@ WINDOW win AS (ORDER BY d)
         (order_by
           (keyword_order)
           (keyword_by)
-          (order_expression
-            (order_target
-              (field
-                name: (identifier)))))))))
+          (order_target
+            (field
+              name: (identifier))))))))
 
 ================================================================================
 Window Functions partition order frame
@@ -408,10 +404,9 @@ FROM
               (order_by
                 (keyword_order)
                 (keyword_by)
-                (order_expression
-                  (order_target
-                    (field
-                      name: (identifier)))))
+                (order_target
+                  (field
+                    name: (identifier))))
               (window_frame
                 (keyword_range)
                 (keyword_between)
@@ -476,14 +471,13 @@ FROM
               (order_by
                 (keyword_order)
                 (keyword_by)
-                (order_expression
-                  (order_target
-                    (field
-                      name: (identifier))
-                    (direction
-                      (keyword_asc))
-                    (keyword_nulls)
-                    (keyword_first))))
+                (order_target
+                  (field
+                    name: (identifier))
+                  (direction
+                    (keyword_asc))
+                  (keyword_nulls)
+                  (keyword_first)))
               (window_frame
                 (keyword_rows)
                 (keyword_between)
@@ -612,65 +606,64 @@ FROM
               (order_by
                 (keyword_order)
                 (keyword_by)
-                (order_expression
-                  (order_target
-                    (literal))
-                  (order_target
-                    (field
-                      (identifier)))
-                  (order_target
-                    (parameter))
-                  (order_target
-                    (case
-                      (keyword_case)
-                      (keyword_when)
-                      (binary_expression
-                        (field
-                          (identifier))
-                        (parameter))
-                      (keyword_then)
-                      (literal
-                        (keyword_true))
-                      (keyword_else)
-                      (literal
-                        (keyword_false))
-                      (keyword_end)))
-                  (order_target
-                    (cast
-                      (identifier)
-                      (field
-                        (identifier))
-                      (keyword_as)
-                      (keyword_date)))
-                  (order_target
-                    (cast
-                      (field
-                        (identifier))
-                      (keyword_date)))
-                  (order_target
-                    (subquery
-                      (select
-                        (keyword_select)
-                        (select_expression
-                          (term
-                            (field
-                              (identifier)))))
-                      (from
-                        (keyword_from)
-                        (relation
-                          (table_reference
-                            (identifier))))))
-                  (order_target
-                    (invocation
-                      (identifier)
-                      (field
-                        (identifier))))
-                  (order_target
+                (order_target
+                  (literal))
+                (order_target
+                  (field
+                    (identifier)))
+                (order_target
+                  (parameter))
+                (order_target
+                  (case
+                    (keyword_case)
+                    (keyword_when)
                     (binary_expression
                       (field
                         (identifier))
-                      (field
-                        (identifier)))))))))))
+                      (parameter))
+                    (keyword_then)
+                    (literal
+                      (keyword_true))
+                    (keyword_else)
+                    (literal
+                      (keyword_false))
+                    (keyword_end)))
+                (order_target
+                  (cast
+                    (identifier)
+                    (field
+                      (identifier))
+                    (keyword_as)
+                    (keyword_date)))
+                (order_target
+                  (cast
+                    (field
+                      (identifier))
+                    (keyword_date)))
+                (order_target
+                  (subquery
+                    (select
+                      (keyword_select)
+                      (select_expression
+                        (term
+                          (field
+                            (identifier)))))
+                    (from
+                      (keyword_from)
+                      (relation
+                        (table_reference
+                          (identifier))))))
+                (order_target
+                  (invocation
+                    (identifier)
+                    (field
+                      (identifier))))
+                (order_target
+                  (binary_expression
+                    (field
+                      (identifier))
+                    (field
+                      (identifier))))))))))
     (from
       (keyword_from)
       (relation

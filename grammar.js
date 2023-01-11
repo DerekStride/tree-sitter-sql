@@ -1312,15 +1312,13 @@ module.exports = grammar({
     order_by: $ => seq(
       $.keyword_order,
       $.keyword_by,
-      $.order_expression,
-    ),
-
-    order_expression: $ => seq(
-      $.order_target,
-      repeat(
-        seq(
-          ',',
-          $.order_target,
+      seq(
+        $.order_target,
+        repeat(
+          seq(
+            ',',
+            $.order_target,
+          ),
         ),
       ),
     ),

@@ -3155,21 +3155,6 @@
           "named": true
         },
         {
-          "type": "order_expression",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "order_expression",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
           "type": "order_target",
           "named": true
         }
