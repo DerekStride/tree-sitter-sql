@@ -564,21 +564,6 @@
     }
   },
   {
-    "type": "assignment_list",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "assignment",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "bigint",
     "named": true,
     "fields": {
@@ -3917,7 +3902,7 @@
       "required": true,
       "types": [
         {
-          "type": "assignment_list",
+          "type": "assignment",
           "named": true
         },
         {

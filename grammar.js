@@ -809,7 +809,7 @@ module.exports = grammar({
       ),
       $.table_reference,
       $.keyword_set,
-      $.assignment_list,
+      comma_list($.assignment, true),
       optional($.where),
       optional($.order_by),
       optional($.limit),
@@ -818,7 +818,7 @@ module.exports = grammar({
     _multi_table_update: $ => seq(
       $._table_references,
       $.keyword_set,
-      $.assignment_list,
+      comma_list($.assignment, true),
       optional($.where),
     ),
 
@@ -826,13 +826,6 @@ module.exports = grammar({
       $.table_reference,
       repeat1(
         seq(',', $.table_reference),
-      ),
-    ),
-
-    assignment_list: $ => seq(
-      $.assignment,
-      repeat(
-        seq(',', $.assignment),
       ),
     ),
 
@@ -1467,7 +1460,16 @@ function parametric_type($, type, params = ['size']) {
   )
 }
 
-function comma_list(field) {
+function comma_list(field, requireFirst) {
+  if (requireFirst) {
+    return seq(
+      field,
+      repeat(
+        seq(',', field)
+      )
+    );
+  }
+
   return optional(
     seq(
       field,
@@ -1475,7 +1477,7 @@ function comma_list(field) {
         seq(',', field)
       ),
     ),
-  )
+  );
 }
 
 function paren_list(field) {

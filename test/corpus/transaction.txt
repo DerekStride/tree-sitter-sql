@@ -46,11 +46,10 @@ COMMIT;
     (table_reference
      name: (identifier))
     (keyword_set)
-    (assignment_list
-     (assignment
+    (assignment
       left: (field
         name: (identifier))
-      right: (literal)))))
+      right: (literal))))
  (keyword_commit)))
 
 ==================
