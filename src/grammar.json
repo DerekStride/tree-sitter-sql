@@ -483,6 +483,52 @@
       "type": "PATTERN",
       "value": "similar|SIMILAR"
     },
+    "_is": {
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "SYMBOL",
+        "name": "keyword_is"
+      }
+    },
+    "_is_not": {
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "keyword_is"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "keyword_not"
+          }
+        ]
+      }
+    },
+    "_in": {
+      "type": "SYMBOL",
+      "name": "keyword_in"
+    },
+    "_like": {
+      "type": "SYMBOL",
+      "name": "keyword_like"
+    },
+    "_not_like": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_not"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_like"
+        }
+      ]
+    },
     "_similar_to": {
       "type": "SEQ",
       "members": [
@@ -531,29 +577,8 @@
       ]
     },
     "_not_distinct_from": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "keyword_is"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "keyword_not"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "keyword_distinct"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "keyword_from"
-        }
-      ]
-    },
-    "is_not": {
-      "type": "PREC",
-      "value": "binary_is",
+      "type": "PREC_RIGHT",
+      "value": 0,
       "content": {
         "type": "SEQ",
         "members": [
@@ -564,22 +589,17 @@
           {
             "type": "SYMBOL",
             "name": "keyword_not"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "keyword_distinct"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "keyword_from"
           }
         ]
       }
-    },
-    "_not_like": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "keyword_not"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "keyword_like"
-        }
-      ]
     },
     "_temporary": {
       "type": "CHOICE",
@@ -6303,7 +6323,7 @@
                   "type": "ALIAS",
                   "content": {
                     "type": "SYMBOL",
-                    "name": "keyword_like"
+                    "name": "_like"
                   },
                   "named": true,
                   "value": "operator"
@@ -6531,7 +6551,7 @@
                   "type": "ALIAS",
                   "content": {
                     "type": "SYMBOL",
-                    "name": "keyword_is"
+                    "name": "_is"
                   },
                   "named": true,
                   "value": "operator"
@@ -6569,7 +6589,7 @@
                   "type": "ALIAS",
                   "content": {
                     "type": "SYMBOL",
-                    "name": "is_not"
+                    "name": "_is_not"
                   },
                   "named": true,
                   "value": "operator"
@@ -6607,7 +6627,7 @@
                   "type": "ALIAS",
                   "content": {
                     "type": "SYMBOL",
-                    "name": "keyword_in"
+                    "name": "_in"
                   },
                   "named": true,
                   "value": "operator"

@@ -334,7 +334,8 @@ WHERE id IN(1,2);
         expression: (binary_expression
           left: (field
             name: (identifier))
-          operator: (operator)
+          operator: (operator
+            (keyword_in))
           right: (list
             (literal)
             (literal)))))))
@@ -1811,7 +1812,8 @@ ORDER BY my_table.title, my_table.id;
                 left: (field
                   table_alias: (identifier)
                   name: (identifier))
-                operator: (operator)
+                operator: (operator
+                  (keyword_in))
                 right: (list
                   (literal))))
             operator: (keyword_and)
