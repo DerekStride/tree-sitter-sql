@@ -36,6 +36,7 @@ HAVING other_id > 10;
         (binary_expression
           left: (field
             name: (identifier))
+          operator: (operator)
           right: (literal))))))
 
 ================================================================================
@@ -74,6 +75,7 @@ HAVING other_id > 10;
         (binary_expression
           left: (field
             name: (identifier))
+          operator: (operator)
           right: (literal))))))
 
 ================================================================================
@@ -117,6 +119,7 @@ HAVING other_id > 10;
         (binary_expression
           left: (field
             name: (identifier))
+          operator: (operator)
           right: (literal))))))
 
 ================================================================================
@@ -136,26 +139,27 @@ HAVING COUNT(*) = 2;
       (keyword_select)
       (select_expression
         (term
-          (field
-            (identifier)))
+          value: (field
+            name: (identifier)))
         (term
-          (count
-            (identifier)
-            (field
-              (identifier))))))
+          value: (count
+            name: (identifier)
+            parameter: (field
+              name: (identifier))))))
     (from
       (keyword_from)
       (relation
         (table_reference
-          (identifier)))
+          name: (identifier)))
       (group_by
         (keyword_group)
         (keyword_by)
         (field
-          (identifier))
+          name: (identifier))
         (keyword_having)
         (binary_expression
-          (count
-            (identifier)
-            (all_fields))
-          (literal))))))
+          left: (count
+            name: (identifier)
+            parameter: (all_fields))
+          operator: (operator)
+          right: (literal))))))

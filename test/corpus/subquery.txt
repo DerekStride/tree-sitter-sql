@@ -29,6 +29,7 @@ WHERE id < (
         (binary_expression
           (field
             (identifier))
+          (operator)
           (subquery
             (select
               (keyword_select)

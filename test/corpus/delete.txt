@@ -102,6 +102,7 @@ WHERE id = 9;
     name: (identifier))
    (where
     (keyword_where)
-    (binary_expression
+    expression: (binary_expression
       left: (field name: (identifier))
+      operator: (operator)
       right: (literal))))))

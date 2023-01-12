@@ -57,4 +57,5 @@ WHERE tab.col > 10;
           (field
             (identifier)
             (identifier))
+          (operator)
           (literal))))))
