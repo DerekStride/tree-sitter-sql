@@ -439,7 +439,8 @@ WHERE id IS NOT NULL
           right: (binary_expression
             left: (field
               name: (identifier))
-            operator: (operator)
+            operator: (operator
+              (keyword_is))
             right: (literal
               (keyword_null))))))))
 
@@ -519,7 +520,8 @@ WHERE
               left: (binary_expression
                 left: (field
                   name: (identifier))
-                operator: (operator)
+                operator: (operator
+                  (keyword_like))
                 right: (literal))
               operator: (keyword_and)
               right: (binary_expression
