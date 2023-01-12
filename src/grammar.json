@@ -5302,7 +5302,7 @@
                 },
                 {
                   "type": "FIELD",
-                  "name": "expression",
+                  "name": "predicate",
                   "content": {
                     "type": "SYMBOL",
                     "name": "_expression"
@@ -5464,7 +5464,7 @@
         },
         {
           "type": "FIELD",
-          "name": "expression",
+          "name": "predicate",
           "content": {
             "type": "SYMBOL",
             "name": "_expression"
