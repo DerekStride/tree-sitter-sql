@@ -36,7 +36,6 @@ HAVING other_id > 10;
         (binary_expression
           left: (field
             name: (identifier))
-          operator: (operator)
           right: (literal))))))
 
 ================================================================================
@@ -75,7 +74,6 @@ HAVING other_id > 10;
         (binary_expression
           left: (field
             name: (identifier))
-          operator: (operator)
           right: (literal))))))
 
 ================================================================================
@@ -119,7 +117,6 @@ HAVING other_id > 10;
         (binary_expression
           left: (field
             name: (identifier))
-          operator: (operator)
           right: (literal))))))
 
 ================================================================================
@@ -161,5 +158,4 @@ HAVING COUNT(*) = 2;
           left: (count
             name: (identifier)
             parameter: (all_fields))
-          operator: (operator)
           right: (literal))))))
