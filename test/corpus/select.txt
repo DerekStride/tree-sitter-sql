@@ -272,7 +272,6 @@ WHERE id = 4;
         expression: (binary_expression
           left: (field
             name: (identifier))
-          operator: (operator)
           right: (literal))))))
 
 ================================================================================
@@ -303,7 +302,6 @@ WHERE id = "abc";
         expression: (binary_expression
           left: (field
             name: (identifier))
-          operator: (operator)
           right: (literal))))))
 
 ================================================================================
@@ -334,8 +332,7 @@ WHERE id IN(1,2);
         expression: (binary_expression
           left: (field
             name: (identifier))
-          operator: (operator
-            (keyword_in))
+          operator: (keyword_in)
           right: (list
             (literal)
             (literal)))))))
@@ -396,7 +393,6 @@ FROM my_table m;
               left: (field
                 table_alias: (identifier)
                 name: (identifier))
-              operator: (operator)
               right: (literal))
             parameter: (literal)
             parameter: (literal))
@@ -522,7 +518,6 @@ ORDER BY id DESC;
         expression: (binary_expression
           left: (field
             name: (identifier))
-          operator: (operator)
           right: (literal)))
       (order_by
         (keyword_order)
@@ -803,7 +798,6 @@ WHERE b.c_id = 4;
           left: (field
             table_alias: (identifier)
             name: (identifier))
-          operator: (operator)
           right: (field
             table_alias: (identifier)
             name: (identifier))))
@@ -813,7 +807,6 @@ WHERE b.c_id = 4;
           left: (field
             table_alias: (identifier)
             name: (identifier))
-          operator: (operator)
           right: (literal))))))
 
 ================================================================================
@@ -893,7 +886,6 @@ ON a.id = b.a_id;
           left: (field
             table_alias: (identifier)
             name: (identifier))
-          operator: (operator)
           right: (field
             table_alias: (identifier)
             name: (identifier)))))))
@@ -939,7 +931,6 @@ ON a.id = b.a_id;
           left: (field
             table_alias: (identifier)
             name: (identifier))
-          operator: (operator)
           right: (field
             table_alias: (identifier)
             name: (identifier)))))))
@@ -1075,7 +1066,6 @@ ON a.id = e.e_id;
           left: (field
             table_alias: (identifier)
             name: (identifier))
-          operator: (operator)
           right: (field
             table_alias: (identifier)
             name: (identifier))))
@@ -1092,7 +1082,6 @@ ON a.id = e.e_id;
           left: (field
             table_alias: (identifier)
             name: (identifier))
-          operator: (operator)
           right: (field
             table_alias: (identifier)
             name: (identifier))))
@@ -1108,7 +1097,6 @@ ON a.id = e.e_id;
           left: (field
             table_alias: (identifier)
             name: (identifier))
-          operator: (operator)
           right: (field
             table_alias: (identifier)
             name: (identifier))))
@@ -1125,7 +1113,6 @@ ON a.id = e.e_id;
           left: (field
             table_alias: (identifier)
             name: (identifier))
-          operator: (operator)
           right: (field
             table_alias: (identifier)
             name: (identifier))))
@@ -1141,7 +1128,6 @@ ON a.id = e.e_id;
           left: (field
             table_alias: (identifier)
             name: (identifier))
-          operator: (operator)
           right: (field
             table_alias: (identifier)
             name: (identifier)))))))
@@ -1277,7 +1263,6 @@ ON a.id = c.a_id;
           left: (field
             table_alias: (identifier)
             name: (identifier))
-          operator: (operator)
           right: (field
             table_alias: (identifier)
             name: (identifier))))
@@ -1292,7 +1277,6 @@ ON a.id = c.a_id;
           left: (field
             table_alias: (identifier)
             name: (identifier))
-          operator: (operator)
           right: (field
             table_alias: (identifier)
             name: (identifier)))))))
@@ -1332,13 +1316,11 @@ ORDER BY m.title, id ASC;
             left: (field
               table_alias: (identifier)
               name: (identifier))
-            operator: (operator)
             right: (literal))
           operator: (keyword_and)
           right: (binary_expression
             left: (field
               name: (identifier))
-            operator: (operator)
             right: (literal))))
       (order_by
         (keyword_order)
@@ -1382,7 +1364,6 @@ ORDER BY id DESC NULLS LAST, val USING < NULLS FIRST;
         expression: (binary_expression
           left: (field
             name: (identifier))
-          operator: (operator)
           right: (literal)))
       (order_by
         (keyword_order)
@@ -1583,7 +1564,6 @@ FROM my_table;
             (binary_expression
               (field
                 (identifier))
-              (operator)
               (literal))
             (keyword_then)
             (literal)
@@ -1630,7 +1610,6 @@ FROM my_table;
             (binary_expression
               (field
                 (identifier))
-              (operator)
               (literal))
             (keyword_then)
             (literal)
@@ -1638,7 +1617,6 @@ FROM my_table;
             (binary_expression
               (field
                 (identifier))
-              (operator)
               (literal))
             (keyword_then)
             (literal)
@@ -1686,9 +1664,7 @@ SELECT id || '-' || name FROM my_table;
             left: (binary_expression
               left: (field
                 name: (identifier))
-              operator: (operator)
               right: (literal))
-            operator: (operator)
             right: (field
               name: (identifier))))))
     (from
@@ -1753,7 +1729,6 @@ ORDER BY my_table.title, my_table.id;
             left: (field
               table_alias: (identifier)
               name: (identifier))
-            operator: (operator)
             right: (field
               table_alias: (identifier)
               name: (identifier)))
@@ -1762,7 +1737,6 @@ ORDER BY my_table.title, my_table.id;
             left: (field
               table_alias: (identifier)
               name: (identifier))
-            operator: (operator)
             right: (field
               table_alias: (identifier)
               name: (identifier)))))
@@ -1783,7 +1757,6 @@ ORDER BY my_table.title, my_table.id;
             left: (field
               table_alias: (identifier)
               name: (identifier))
-            operator: (operator)
             right: (field
               table_alias: (identifier)
               name: (identifier)))
@@ -1792,7 +1765,6 @@ ORDER BY my_table.title, my_table.id;
             left: (field
               table_alias: (identifier)
               name: (identifier))
-            operator: (operator)
             right: (field
               table_alias: (identifier)
               name: (identifier)))))
@@ -1805,15 +1777,13 @@ ORDER BY my_table.title, my_table.id;
                 left: (field
                   table_alias: (identifier)
                   name: (identifier))
-                operator: (operator)
                 right: (literal))
               operator: (keyword_and)
               right: (binary_expression
                 left: (field
                   table_alias: (identifier)
                   name: (identifier))
-                operator: (operator
-                  (keyword_in))
+                operator: (keyword_in)
                 right: (list
                   (literal))))
             operator: (keyword_and)
@@ -1821,14 +1791,12 @@ ORDER BY my_table.title, my_table.id;
               left: (field
                 table_alias: (identifier)
                 name: (identifier))
-              operator: (operator)
               right: (literal)))
           operator: (keyword_and)
           right: (binary_expression
             left: (field
               table_alias: (identifier)
               name: (identifier))
-            operator: (operator)
             right: (literal
               (keyword_true)))))
       (order_by
@@ -1907,7 +1875,6 @@ WHERE id = ?;
         expression: (binary_expression
           left: (field
             name: (identifier))
-          operator: (operator)
           right: (parameter))))))
 
 ================================================================================
@@ -1936,7 +1903,6 @@ WHERE id = $12;
         expression: (binary_expression
           left: (field
             name: (identifier))
-          operator: (operator)
           right: (parameter))))))
 
 ================================================================================
@@ -2147,7 +2113,6 @@ WHERE
           left: (field
             table_alias: (identifier)
             name: (identifier))
-          operator: (operator)
           right: (field
             table_alias: (identifier)
             name: (identifier))))
@@ -2157,7 +2122,6 @@ WHERE
           left: (field
             table_alias: (identifier)
             name: (identifier))
-          operator: (operator)
           right: (literal))))))
 
 ================================================================================
@@ -2180,7 +2144,6 @@ SELECT array[1, 2, 3 + 4, '5'::int, int_please()];
             (literal)
             (binary_expression
               (literal)
-              (operator)
               (literal))
             (cast
               (literal)

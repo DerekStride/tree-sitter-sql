@@ -1,119 +1,135 @@
-==================
+================================================================================
 Simple update
-==================
+================================================================================
 
 UPDATE my_table
 SET for = foo + 1;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (update
-   (keyword_update)
-   (table_reference name: (identifier))
-   (keyword_set)
-   (assignment
-     left: (field name: (identifier))
-     right:
-     (binary_expression
-      left: (field name: (identifier))
-      operator: (operator)
-      right: (literal))))))
+  (statement
+    (update
+      (keyword_update)
+      (table_reference
+        name: (identifier))
+      (keyword_set)
+      (assignment
+        left: (field
+          name: (identifier))
+        right: (binary_expression
+          left: (field
+            name: (identifier))
+          right: (literal))))))
 
-==================
+================================================================================
 Simple update with ONLY
-==================
+================================================================================
 
 UPDATE ONLY my_table
 SET for = foo + 1;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (update
-   (keyword_update)
-   (keyword_only)
-   (table_reference name: (identifier))
-   (keyword_set)
-   (assignment
-     left: (field name: (identifier))
-     right:
-     (binary_expression
-      left: (field name: (identifier))
-      operator: (operator)
-      right: (literal))))))
+  (statement
+    (update
+      (keyword_update)
+      (keyword_only)
+      (table_reference
+        name: (identifier))
+      (keyword_set)
+      (assignment
+        left: (field
+          name: (identifier))
+        right: (binary_expression
+          left: (field
+            name: (identifier))
+          right: (literal))))))
 
-==================
+================================================================================
 update with multiple assignments
-==================
+================================================================================
 
 UPDATE my_table
 SET for = foo + 1, col2 = col1;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (update
-   (keyword_update)
-   (table_reference name: (identifier))
-   (keyword_set)
-   (assignment
-     left: (field name: (identifier))
-     right:
-     (binary_expression
-      left: (field name: (identifier))
-      operator: (operator)
-      right: (literal)))
-    (assignment
-     left: (field name: (identifier))
-     right: (field name: (identifier))))))
+  (statement
+    (update
+      (keyword_update)
+      (table_reference
+        name: (identifier))
+      (keyword_set)
+      (assignment
+        left: (field
+          name: (identifier))
+        right: (binary_expression
+          left: (field
+            name: (identifier))
+          right: (literal)))
+      (assignment
+        left: (field
+          name: (identifier))
+        right: (field
+          name: (identifier))))))
 
-==================
+================================================================================
 update with multiple table references
-==================
+================================================================================
 
 UPDATE items, month
 SET items.price=month.price
 WHERE items.id=month.item_id;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (update
-   (keyword_update)
-   (table_reference name: (identifier))
-   (table_reference name: (identifier))
-   (keyword_set)
-   (assignment
-     left: (field table_alias: (identifier) name: (identifier))
-     right: (field table_alias: (identifier) name: (identifier)))
-   (where
-    (keyword_where)
-    expression: (binary_expression
-      left: (field table_alias: (identifier) name: (identifier))
-      operator: (operator)
-      right: (field table_alias: (identifier) name: (identifier)))))))
+  (statement
+    (update
+      (keyword_update)
+      (table_reference
+        name: (identifier))
+      (table_reference
+        name: (identifier))
+      (keyword_set)
+      (assignment
+        left: (field
+          table_alias: (identifier)
+          name: (identifier))
+        right: (field
+          table_alias: (identifier)
+          name: (identifier)))
+      (where
+        (keyword_where)
+        expression: (binary_expression
+          left: (field
+            table_alias: (identifier)
+            name: (identifier))
+          right: (field
+            table_alias: (identifier)
+            name: (identifier)))))))
 
-==================
+================================================================================
 update with function call
-==================
+================================================================================
 
 UPDATE my_table
 SET ts = now();
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (update
-   (keyword_update)
-   (table_reference name: (identifier))
-   (keyword_set)
-   (assignment
-     left: (field name: (identifier))
-     right: (invocation
-       name: (identifier))))))
+  (statement
+    (update
+      (keyword_update)
+      (table_reference
+        name: (identifier))
+      (keyword_set)
+      (assignment
+        left: (field
+          name: (identifier))
+        right: (invocation
+          name: (identifier))))))

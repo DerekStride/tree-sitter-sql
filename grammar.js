@@ -151,15 +151,15 @@ module.exports = grammar({
     keyword_like: _ => choice(make_keyword("like"),make_keyword("ilike")),
     keyword_similar: _ => make_keyword("similar"),
 
+    // Operators
     _is: $ => prec.right($.keyword_is),
-    _is_not: $ => prec.right(seq($.keyword_is, $.keyword_not)),
-    _in: $ => $.keyword_in,
-    _like: $ => $.keyword_like,
-    _not_like: $ => seq($.keyword_not, $.keyword_like),
-    _similar_to: $ => seq($.keyword_similar, $.keyword_to),
-    _not_similar_to: $ => seq($.keyword_not, $.keyword_similar, $.keyword_to),
-    _distinct_from: $ => seq($.keyword_is, $.keyword_distinct, $.keyword_from),
-    _not_distinct_from: $ => prec.right(seq($.keyword_is, $.keyword_not, $.keyword_distinct, $.keyword_from)),
+    is_not: $ => seq($.keyword_is, $.keyword_not),
+    not_like: $ => seq($.keyword_not, $.keyword_like),
+    similar_to: $ => seq($.keyword_similar, $.keyword_to),
+    not_similar_to: $ => seq($.keyword_not, $.keyword_similar, $.keyword_to),
+    distinct_from: $ => seq($.keyword_is, $.keyword_distinct, $.keyword_from),
+    not_distinct_from: $ => seq($.keyword_is, $.keyword_not, $.keyword_distinct, $.keyword_from),
+
     _temporary: $ => choice($.keyword_temp, $.keyword_temporary),
     _not_null: $ => seq($.keyword_not, $.keyword_null),
     _primary_key: $ => seq($.keyword_primary, $.keyword_key),
@@ -1331,8 +1331,6 @@ module.exports = grammar({
       )
     ),
 
-    operator: $ => '',
-
     binary_expression: $ => choice(
       ...[
         ['+', 'binary_plus'],
@@ -1348,19 +1346,19 @@ module.exports = grammar({
         ['!=', 'binary_relation'],
         ['>=', 'binary_relation'],
         ['>', 'binary_relation'],
-        [$._like, 'pattern_matching'],
-        [$._not_like, 'pattern_matching'],
-        [$._similar_to, 'pattern_matching'],
-        [$._not_similar_to, 'pattern_matching'],
-        [$._distinct_from, 'binary_relation'],
-        [$._not_distinct_from, 'binary_relation'],
         [$._is, 'binary_in'],
-        [$._is_not, 'binary_in'],
-        [$._in, 'binary_in'],
+        [$.is_not, 'binary_in'],
+        [$.keyword_in, 'binary_in'],
+        [$.keyword_like, 'pattern_matching'],
+        [$.not_like, 'pattern_matching'],
+        [$.similar_to, 'pattern_matching'],
+        [$.not_similar_to, 'pattern_matching'],
+        [$.distinct_from, 'binary_relation'],
+        [$.not_distinct_from, 'binary_relation'],
       ].map(([operator, precedence]) =>
         prec.left(precedence, seq(
           field('left', $._expression),
-          field('operator', alias(operator, $.operator)),
+          field('operator', operator),
           field('right', $._expression)
         ))
       ),

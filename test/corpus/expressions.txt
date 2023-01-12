@@ -161,21 +161,18 @@ WHERE m.status = "success"
                 left: (field
                   table_alias: (identifier)
                   name: (identifier))
-                operator: (operator)
                 right: (literal))
               operator: (keyword_and)
               right: (binary_expression
                 left: (field
                   table_alias: (identifier)
                   name: (identifier))
-                operator: (operator)
                 right: (literal)))
             operator: (keyword_and)
             right: (binary_expression
               left: (field
                 table_alias: (identifier)
                 name: (identifier))
-              operator: (operator)
               right: (literal)))
           operator: (keyword_and)
           right: (field
@@ -215,14 +212,12 @@ WHERE m.status = "success"
               left: (field
                 table_alias: (identifier)
                 name: (identifier))
-              operator: (operator)
               right: (literal))
             operator: (keyword_and)
             right: (binary_expression
               left: (field
                 table_alias: (identifier)
                 name: (identifier))
-              operator: (operator)
               right: (literal)))
           operator: (keyword_or)
           right: (binary_expression
@@ -230,7 +225,6 @@ WHERE m.status = "success"
               left: (field
                 table_alias: (identifier)
                 name: (identifier))
-              operator: (operator)
               right: (literal))
             operator: (keyword_and)
             right: (field
@@ -361,7 +355,7 @@ WHERE col IS DISTINCT FROM NULL;
         expression: (binary_expression
           left: (field
             name: (identifier))
-          operator: (operator
+          operator: (distinct_from
             (keyword_is)
             (keyword_distinct)
             (keyword_from))
@@ -394,7 +388,7 @@ WHERE col IS NOT DISTINCT FROM NULL;
         expression: (binary_expression
           left: (field
             name: (identifier))
-          operator: (operator
+          operator: (not_distinct_from
             (keyword_is)
             (keyword_not)
             (keyword_distinct)
@@ -430,7 +424,7 @@ WHERE id IS NOT NULL
           left: (binary_expression
             left: (field
               name: (identifier))
-            operator: (operator
+            operator: (is_not
               (keyword_is)
               (keyword_not))
             right: (literal
@@ -439,8 +433,7 @@ WHERE id IS NOT NULL
           right: (binary_expression
             left: (field
               name: (identifier))
-            operator: (operator
-              (keyword_is))
+            operator: (keyword_is)
             right: (literal
               (keyword_null))))))))
 
@@ -475,13 +468,11 @@ WHERE m.id > 4 AND id < 3;
             left: (field
               table_alias: (identifier)
               name: (identifier))
-            operator: (operator)
             right: (literal))
           operator: (keyword_and)
           right: (binary_expression
             left: (field
               name: (identifier))
-            operator: (operator)
             right: (literal)))))))
 
 ================================================================================
@@ -520,14 +511,13 @@ WHERE
               left: (binary_expression
                 left: (field
                   name: (identifier))
-                operator: (operator
-                  (keyword_like))
+                operator: (keyword_like)
                 right: (literal))
               operator: (keyword_and)
               right: (binary_expression
                 left: (field
                   name: (identifier))
-                operator: (operator
+                operator: (not_like
                   (keyword_not)
                   (keyword_like))
                 right: (literal)))
@@ -535,7 +525,7 @@ WHERE
             right: (binary_expression
               left: (field
                 name: (identifier))
-              operator: (operator
+              operator: (similar_to
                 (keyword_similar)
                 (keyword_to))
               right: (literal)))
@@ -543,7 +533,7 @@ WHERE
           right: (binary_expression
             left: (field
               name: (identifier))
-            operator: (operator
+            operator: (not_similar_to
               (keyword_not)
               (keyword_similar)
               (keyword_to))

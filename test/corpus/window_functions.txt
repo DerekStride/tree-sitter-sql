@@ -547,56 +547,54 @@ FROM
                 (keyword_partition)
                 (keyword_by)
                 (literal)
-                  (field
-                    (identifier))
-                  (parameter)
-                  (case
-                    (keyword_case)
-                    (keyword_when)
-                    (binary_expression
-                      (field
-                        (identifier))
-                      (operator)
-                      (literal))
-                    (keyword_then)
-                    (literal
-                      (keyword_true))
-                    (keyword_else)
-                    (literal
-                      (keyword_false))
-                    (keyword_end))
-                  (cast
-                    (identifier)
-                    (field
-                      (identifier))
-                    (keyword_as)
-                    (keyword_date))
-                  (cast
-                    (field
-                      (identifier))
-                    (keyword_date))
-                  (subquery
-                    (select
-                      (keyword_select)
-                      (select_expression
-                        (term
-                          (field
-                            (identifier)))))
-                    (from
-                      (keyword_from)
-                      (relation
-                        (table_reference
-                          (identifier)))))
-                  (invocation
-                    (identifier)
-                    (field
-                      (identifier)))
+                (field
+                  (identifier))
+                (parameter)
+                (case
+                  (keyword_case)
+                  (keyword_when)
                   (binary_expression
                     (field
                       (identifier))
-                    (operator)
-                    (field
-                      (identifier))))
+                    (literal))
+                  (keyword_then)
+                  (literal
+                    (keyword_true))
+                  (keyword_else)
+                  (literal
+                    (keyword_false))
+                  (keyword_end))
+                (cast
+                  (identifier)
+                  (field
+                    (identifier))
+                  (keyword_as)
+                  (keyword_date))
+                (cast
+                  (field
+                    (identifier))
+                  (keyword_date))
+                (subquery
+                  (select
+                    (keyword_select)
+                    (select_expression
+                      (term
+                        (field
+                          (identifier)))))
+                  (from
+                    (keyword_from)
+                    (relation
+                      (table_reference
+                        (identifier)))))
+                (invocation
+                  (identifier)
+                  (field
+                    (identifier)))
+                (binary_expression
+                  (field
+                    (identifier))
+                  (field
+                    (identifier))))
               (order_by
                 (keyword_order)
                 (keyword_by)
@@ -614,7 +612,6 @@ FROM
                     (binary_expression
                       (field
                         (identifier))
-                      (operator)
                       (parameter))
                     (keyword_then)
                     (literal
@@ -657,7 +654,6 @@ FROM
                   (binary_expression
                     (field
                       (identifier))
-                    (operator)
                     (field
                       (identifier))))))))))
     (from
