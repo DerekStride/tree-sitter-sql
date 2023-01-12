@@ -1264,15 +1264,7 @@ module.exports = grammar({
     order_by: $ => seq(
       $.keyword_order,
       $.keyword_by,
-      seq(
-        $.order_target,
-        repeat(
-          seq(
-            ',',
-            $.order_target,
-          ),
-        ),
-      ),
+      comma_list($.order_target, true),
     ),
 
     order_target: $ => seq(
