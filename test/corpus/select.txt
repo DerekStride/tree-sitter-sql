@@ -269,7 +269,7 @@ WHERE id = 4;
           name: (identifier)))
       (where
         (keyword_where)
-        expression: (binary_expression
+        predicate: (binary_expression
           left: (field
             name: (identifier))
           right: (literal))))))
@@ -299,7 +299,7 @@ WHERE id = "abc";
           name: (identifier)))
       (where
         (keyword_where)
-        expression: (binary_expression
+        predicate: (binary_expression
           left: (field
             name: (identifier))
           right: (literal))))))
@@ -329,7 +329,7 @@ WHERE id IN(1,2);
           name: (identifier)))
       (where
         (keyword_where)
-        expression: (binary_expression
+        predicate: (binary_expression
           left: (field
             name: (identifier))
           operator: (keyword_in)
@@ -515,7 +515,7 @@ ORDER BY id DESC;
           name: (identifier)))
       (where
         (keyword_where)
-        expression: (binary_expression
+        predicate: (binary_expression
           left: (field
             name: (identifier))
           right: (literal)))
@@ -794,7 +794,7 @@ WHERE b.c_id = 4;
             name: (identifier))
           table_alias: (identifier))
         (keyword_on)
-        expression: (binary_expression
+        predicate: (binary_expression
           left: (field
             table_alias: (identifier)
             name: (identifier))
@@ -803,7 +803,7 @@ WHERE b.c_id = 4;
             name: (identifier))))
       (where
         (keyword_where)
-        expression: (binary_expression
+        predicate: (binary_expression
           left: (field
             table_alias: (identifier)
             name: (identifier))
@@ -836,7 +836,7 @@ JOIN my_other_table ON TRUE;
           (table_reference
             name: (identifier)))
         (keyword_on)
-        expression: (literal
+        predicate: (literal
           (keyword_true))))))
 
 ================================================================================
@@ -882,7 +882,7 @@ ON a.id = b.a_id;
           (keyword_join)
           index_name: (identifier))
         (keyword_on)
-        expression: (binary_expression
+        predicate: (binary_expression
           left: (field
             table_alias: (identifier)
             name: (identifier))
@@ -927,7 +927,7 @@ ON a.id = b.a_id;
           (keyword_join)
           index_name: (identifier))
         (keyword_on)
-        expression: (binary_expression
+        predicate: (binary_expression
           left: (field
             table_alias: (identifier)
             name: (identifier))
@@ -1017,7 +1017,7 @@ JOIN (VALUES (1, 2), (3, 4)) AS v (col1, col2) ON TRUE;
             (column
               name: (identifier))))
         (keyword_on)
-        expression: (literal
+        predicate: (literal
           (keyword_true))))))
 
 ================================================================================
@@ -1062,7 +1062,7 @@ ON a.id = e.e_id;
             name: (identifier))
           table_alias: (identifier))
         (keyword_on)
-        expression: (binary_expression
+        predicate: (binary_expression
           left: (field
             table_alias: (identifier)
             name: (identifier))
@@ -1078,7 +1078,7 @@ ON a.id = e.e_id;
             name: (identifier))
           table_alias: (identifier))
         (keyword_on)
-        expression: (binary_expression
+        predicate: (binary_expression
           left: (field
             table_alias: (identifier)
             name: (identifier))
@@ -1093,7 +1093,7 @@ ON a.id = e.e_id;
             name: (identifier))
           table_alias: (identifier))
         (keyword_on)
-        expression: (binary_expression
+        predicate: (binary_expression
           left: (field
             table_alias: (identifier)
             name: (identifier))
@@ -1109,7 +1109,7 @@ ON a.id = e.e_id;
             name: (identifier))
           table_alias: (identifier))
         (keyword_on)
-        expression: (binary_expression
+        predicate: (binary_expression
           left: (field
             table_alias: (identifier)
             name: (identifier))
@@ -1124,7 +1124,7 @@ ON a.id = e.e_id;
             name: (identifier))
           table_alias: (identifier))
         (keyword_on)
-        expression: (binary_expression
+        predicate: (binary_expression
           left: (field
             table_alias: (identifier)
             name: (identifier))
@@ -1259,7 +1259,7 @@ ON a.id = c.a_id;
             name: (identifier))
           table_alias: (identifier))
         (keyword_on)
-        expression: (binary_expression
+        predicate: (binary_expression
           left: (field
             table_alias: (identifier)
             name: (identifier))
@@ -1273,7 +1273,7 @@ ON a.id = c.a_id;
             name: (identifier))
           table_alias: (identifier))
         (keyword_on)
-        expression: (binary_expression
+        predicate: (binary_expression
           left: (field
             table_alias: (identifier)
             name: (identifier))
@@ -1311,7 +1311,7 @@ ORDER BY m.title, id ASC;
         table_alias: (identifier))
       (where
         (keyword_where)
-        expression: (binary_expression
+        predicate: (binary_expression
           left: (binary_expression
             left: (field
               table_alias: (identifier)
@@ -1361,7 +1361,7 @@ ORDER BY id DESC NULLS LAST, val USING < NULLS FIRST;
           name: (identifier)))
       (where
         (keyword_where)
-        expression: (binary_expression
+        predicate: (binary_expression
           left: (field
             name: (identifier))
           right: (literal)))
@@ -1724,7 +1724,7 @@ ORDER BY my_table.title, my_table.id;
             name: (identifier))
           table_alias: (identifier))
         (keyword_on)
-        expression: (binary_expression
+        predicate: (binary_expression
           left: (binary_expression
             left: (field
               table_alias: (identifier)
@@ -1752,7 +1752,7 @@ ORDER BY my_table.title, my_table.id;
           (keyword_join)
           index_name: (identifier))
         (keyword_on)
-        expression: (binary_expression
+        predicate: (binary_expression
           left: (binary_expression
             left: (field
               table_alias: (identifier)
@@ -1770,7 +1770,7 @@ ORDER BY my_table.title, my_table.id;
               name: (identifier)))))
       (where
         (keyword_where)
-        expression: (binary_expression
+        predicate: (binary_expression
           left: (binary_expression
             left: (binary_expression
               left: (binary_expression
@@ -1872,7 +1872,7 @@ WHERE id = ?;
           name: (identifier)))
       (where
         (keyword_where)
-        expression: (binary_expression
+        predicate: (binary_expression
           left: (field
             name: (identifier))
           right: (parameter))))))
@@ -1900,7 +1900,7 @@ WHERE id = $12;
           name: (identifier)))
       (where
         (keyword_where)
-        expression: (binary_expression
+        predicate: (binary_expression
           left: (field
             name: (identifier))
           right: (parameter))))))
@@ -2109,7 +2109,7 @@ WHERE
             name: (identifier))
           table_alias: (identifier))
         (keyword_on)
-        expression: (binary_expression
+        predicate: (binary_expression
           left: (field
             table_alias: (identifier)
             name: (identifier))
@@ -2118,7 +2118,7 @@ WHERE
             name: (identifier))))
       (where
         (keyword_where)
-        expression: (binary_expression
+        predicate: (binary_expression
           left: (field
             table_alias: (identifier)
             name: (identifier))
