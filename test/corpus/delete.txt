@@ -1,108 +1,109 @@
-==================
+================================================================================
 Delete whole table
-==================
+================================================================================
 
 DELETE FROM my_table;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (delete
-   (keyword_delete))
-  (from
-   (keyword_from)
-   (table_reference
-    name: (identifier)))))
+  (statement
+    (delete
+      (keyword_delete))
+    (from
+      (keyword_from)
+      (table_reference
+        name: (identifier)))))
 
-==================
+================================================================================
 Delete whole table and only the whole table
-==================
+================================================================================
 
 DELETE FROM ONLY my_table;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (delete
-   (keyword_delete))
-  (from
-   (keyword_from)
-   (keyword_only)
-   (table_reference
-    name: (identifier)))))
+  (statement
+    (delete
+      (keyword_delete))
+    (from
+      (keyword_from)
+      (keyword_only)
+      (table_reference
+        name: (identifier)))))
 
-==================
+================================================================================
 Delete table with limit
-==================
+================================================================================
 
 DELETE FROM my_table
 LIMIT 4;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (delete
-   (keyword_delete))
-  (from
-   (keyword_from)
-   (table_reference
-    name: (identifier))
-   (limit
-    (keyword_limit)
-    (literal)))))
+  (statement
+    (delete
+      (keyword_delete))
+    (from
+      (keyword_from)
+      (table_reference
+        name: (identifier))
+      (limit
+        (keyword_limit)
+        (literal)))))
 
-==================
+================================================================================
 Delete table with order by
-==================
+================================================================================
 
 DELETE FROM my_table
 ORDER BY id DESC
 LIMIT 4;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (delete
-   (keyword_delete))
-  (from
-   (keyword_from)
-   (table_reference
-    name: (identifier))
-   (order_by
-    (keyword_order)
-    (keyword_by)
-    (order_target
-      (field name: (identifier))
-      (direction
-       (keyword_desc))))
-   (limit
-    (keyword_limit)
-    (literal)))))
+  (statement
+    (delete
+      (keyword_delete))
+    (from
+      (keyword_from)
+      (table_reference
+        name: (identifier))
+      (order_by
+        (keyword_order)
+        (keyword_by)
+        (order_target
+          (field
+            name: (identifier))
+          (direction
+            (keyword_desc))))
+      (limit
+        (keyword_limit)
+        (literal)))))
 
-==================
+================================================================================
 Delete table with where
-==================
+================================================================================
 
 DELETE FROM my_table
 WHERE id = 9;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (delete
-   (keyword_delete))
-  (from
-   (keyword_from)
-   (table_reference
-    name: (identifier))
-   (where
-    (keyword_where)
-    expression: (binary_expression
-      left: (field name: (identifier))
-      operator: (operator)
-      right: (literal))))))
+  (statement
+    (delete
+      (keyword_delete))
+    (from
+      (keyword_from)
+      (table_reference
+        name: (identifier))
+      (where
+        (keyword_where)
+        expression: (binary_expression
+          left: (field
+            name: (identifier))
+          right: (literal))))))

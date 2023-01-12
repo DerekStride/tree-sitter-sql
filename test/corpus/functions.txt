@@ -73,9 +73,7 @@ FROM my_table AS t;
               left: (binary_expression
                 left: (field
                   name: (identifier))
-                operator: (operator)
                 right: (literal))
-              operator: (operator)
               right: (literal)))
           (keyword_as)
           alias: (identifier))
@@ -112,7 +110,7 @@ select col_has_check(
   'description'
 );
 
--------------------------------------------------------
+--------------------------------------------------------------------------------
 
 (program
   (statement
@@ -122,10 +120,18 @@ select col_has_check(
         (term
           value: (invocation
             name: (identifier)
-            parameter: (cast (literal) (keyword_name))
-            parameter: (cast (literal) (keyword_name))
+            parameter: (cast
+              (literal)
+              (keyword_name))
+            parameter: (cast
+              (literal)
+              (keyword_name))
             parameter: (array
               (keyword_array)
-              (cast (literal) (keyword_name))
-              (cast (literal) (keyword_name)))
+              (cast
+                (literal)
+                (keyword_name))
+              (cast
+                (literal)
+                (keyword_name)))
             parameter: (literal)))))))
