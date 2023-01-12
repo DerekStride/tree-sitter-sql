@@ -556,6 +556,7 @@ FROM
                     (binary_expression
                       (field
                         (identifier))
+                      (operator)
                       (literal))
                     (keyword_then)
                     (literal
@@ -593,6 +594,7 @@ FROM
                   (binary_expression
                     (field
                       (identifier))
+                    (operator)
                     (field
                       (identifier))))
               (order_by
@@ -612,6 +614,7 @@ FROM
                     (binary_expression
                       (field
                         (identifier))
+                      (operator)
                       (parameter))
                     (keyword_then)
                     (literal
@@ -654,6 +657,7 @@ FROM
                   (binary_expression
                     (field
                       (identifier))
+                    (operator)
                     (field
                       (identifier))))))))))
     (from

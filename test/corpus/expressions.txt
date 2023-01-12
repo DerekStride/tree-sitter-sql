@@ -22,7 +22,7 @@ WHERE m.is_not_deleted;
         table_alias: (identifier))
       (where
         (keyword_where)
-        (field
+        expression: (field
           table_alias: (identifier)
           name: (identifier))))))
 
@@ -50,7 +50,7 @@ WHERE m.is_not_deleted AND m.is_visible;
         table_alias: (identifier))
       (where
         (keyword_where)
-        (binary_expression
+        expression: (binary_expression
           left: (field
             table_alias: (identifier)
             name: (identifier))
@@ -83,7 +83,7 @@ WHERE NOT m.is_not_deleted;
         table_alias: (identifier))
       (where
         (keyword_where)
-        (unary_expression
+        expression: (unary_expression
           operator: (keyword_not)
           operand: (field
             table_alias: (identifier)
@@ -114,7 +114,7 @@ WHERE NOT m.is_not_deleted
         table_alias: (identifier))
       (where
         (keyword_where)
-        (binary_expression
+        expression: (binary_expression
           left: (unary_expression
             operator: (keyword_not)
             operand: (field
@@ -154,25 +154,28 @@ WHERE m.status = "success"
         table_alias: (identifier))
       (where
         (keyword_where)
-        (binary_expression
+        expression: (binary_expression
           left: (binary_expression
             left: (binary_expression
               left: (binary_expression
                 left: (field
                   table_alias: (identifier)
                   name: (identifier))
+                operator: (operator)
                 right: (literal))
               operator: (keyword_and)
               right: (binary_expression
                 left: (field
                   table_alias: (identifier)
                   name: (identifier))
+                operator: (operator)
                 right: (literal)))
             operator: (keyword_and)
             right: (binary_expression
               left: (field
                 table_alias: (identifier)
                 name: (identifier))
+              operator: (operator)
               right: (literal)))
           operator: (keyword_and)
           right: (field
@@ -206,18 +209,20 @@ WHERE m.status = "success"
         table_alias: (identifier))
       (where
         (keyword_where)
-        (binary_expression
+        expression: (binary_expression
           left: (binary_expression
             left: (binary_expression
               left: (field
                 table_alias: (identifier)
                 name: (identifier))
+              operator: (operator)
               right: (literal))
             operator: (keyword_and)
             right: (binary_expression
               left: (field
                 table_alias: (identifier)
                 name: (identifier))
+              operator: (operator)
               right: (literal)))
           operator: (keyword_or)
           right: (binary_expression
@@ -225,6 +230,7 @@ WHERE m.status = "success"
               left: (field
                 table_alias: (identifier)
                 name: (identifier))
+              operator: (operator)
               right: (literal))
             operator: (keyword_and)
             right: (field
@@ -255,7 +261,7 @@ WHERE NOT m.is_deleted;
         table_alias: (identifier))
       (where
         (keyword_where)
-        (unary_expression
+        expression: (unary_expression
           operator: (keyword_not)
           operand: (field
             table_alias: (identifier)
@@ -285,7 +291,7 @@ WHERE !m.is_deleted;
         table_alias: (identifier))
       (where
         (keyword_where)
-        (unary_expression
+        expression: (unary_expression
           operator: (bang)
           operand: (field
             table_alias: (identifier)
@@ -316,7 +322,7 @@ WHERE NOT m.is_deleted
         table_alias: (identifier))
       (where
         (keyword_where)
-        (binary_expression
+        expression: (binary_expression
           left: (unary_expression
             operator: (keyword_not)
             operand: (field
@@ -349,16 +355,17 @@ WHERE col IS DISTINCT FROM NULL;
       (keyword_from)
       (relation
         (table_reference
-          (identifier)))
+          name: (identifier)))
       (where
         (keyword_where)
-        (binary_expression
-          (field
-            (identifier))
-          (keyword_is)
-          (keyword_distinct)
-          (keyword_from)
-          (literal
+        expression: (binary_expression
+          left: (field
+            name: (identifier))
+          operator: (operator
+            (keyword_is)
+            (keyword_distinct)
+            (keyword_from))
+          right: (literal
             (keyword_null)))))))
 
 ================================================================================
@@ -381,17 +388,18 @@ WHERE col IS NOT DISTINCT FROM NULL;
       (keyword_from)
       (relation
         (table_reference
-          (identifier)))
+          name: (identifier)))
       (where
         (keyword_where)
-        (binary_expression
-          (field
-            (identifier))
-          (keyword_is)
-          (keyword_not)
-          (keyword_distinct)
-          (keyword_from)
-          (literal
+        expression: (binary_expression
+          left: (field
+            name: (identifier))
+          operator: (operator
+            (keyword_is)
+            (keyword_not)
+            (keyword_distinct)
+            (keyword_from))
+          right: (literal
             (keyword_null)))))))
 
 ================================================================================
@@ -418,11 +426,11 @@ WHERE id IS NOT NULL
           name: (identifier)))
       (where
         (keyword_where)
-        (binary_expression
+        expression: (binary_expression
           left: (binary_expression
             left: (field
               name: (identifier))
-            operator: (is_not
+            operator: (operator
               (keyword_is)
               (keyword_not))
             right: (literal
@@ -431,7 +439,7 @@ WHERE id IS NOT NULL
           right: (binary_expression
             left: (field
               name: (identifier))
-            operator: (keyword_is)
+            operator: (operator)
             right: (literal
               (keyword_null))))))))
 
@@ -461,16 +469,18 @@ WHERE m.id > 4 AND id < 3;
         table_alias: (identifier))
       (where
         (keyword_where)
-        (binary_expression
+        expression: (binary_expression
           left: (binary_expression
             left: (field
               table_alias: (identifier)
               name: (identifier))
+            operator: (operator)
             right: (literal))
           operator: (keyword_and)
           right: (binary_expression
             left: (field
               name: (identifier))
+            operator: (operator)
             right: (literal)))))))
 
 ================================================================================
@@ -503,33 +513,36 @@ WHERE
           name: (identifier)))
       (where
         (keyword_where)
-        (binary_expression
+        expression: (binary_expression
           left: (binary_expression
             left: (binary_expression
               left: (binary_expression
                 left: (field
                   name: (identifier))
-                operator: (keyword_like)
+                operator: (operator)
                 right: (literal))
               operator: (keyword_and)
               right: (binary_expression
                 left: (field
                   name: (identifier))
-                operator: (keyword_not)
-                operator: (keyword_like)
+                operator: (operator
+                  (keyword_not)
+                  (keyword_like))
                 right: (literal)))
             operator: (keyword_and)
             right: (binary_expression
               left: (field
                 name: (identifier))
-              operator: (keyword_similar)
-              operator: (keyword_to)
+              operator: (operator
+                (keyword_similar)
+                (keyword_to))
               right: (literal)))
           operator: (keyword_and)
           right: (binary_expression
             left: (field
               name: (identifier))
-            operator: (keyword_not)
-            operator: (keyword_similar)
-            operator: (keyword_to)
+            operator: (operator
+              (keyword_not)
+              (keyword_similar)
+              (keyword_to))
             right: (literal)))))))

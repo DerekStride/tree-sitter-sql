@@ -153,6 +153,8 @@ module.exports = grammar({
 
     _similar_to: $ => seq($.keyword_similar, $.keyword_to),
     _not_similar_to: $ => seq($.keyword_not, $.keyword_similar, $.keyword_to),
+    _distinct_from: $ => seq($.keyword_is, $.keyword_distinct, $.keyword_from),
+    _not_distinct_from: $ => seq($.keyword_is, $.keyword_not, $.keyword_distinct, $.keyword_from),
     is_not: $ => prec("binary_is", seq($.keyword_is, $.keyword_not)),
     _not_like: $ => seq($.keyword_not, $.keyword_like),
     _temporary: $ => choice($.keyword_temp, $.keyword_temporary),
@@ -1202,7 +1204,7 @@ module.exports = grammar({
       choice(
         seq(
           $.keyword_on,
-          $._expression,
+          field("expression", $._expression),
         ),
         seq(
           $.keyword_using,
@@ -1246,7 +1248,7 @@ module.exports = grammar({
 
     where: $ => seq(
       $.keyword_where,
-      $._expression,
+      field("expression", $._expression),
     ),
 
     group_by: $ => seq(
@@ -1326,6 +1328,8 @@ module.exports = grammar({
       )
     ),
 
+    operator: $ => '',
+
     binary_expression: $ => choice(
       ...[
         ['+', 'binary_plus'],
@@ -1345,11 +1349,19 @@ module.exports = grammar({
         [$._not_like, 'pattern_matching'],
         [$._similar_to, 'pattern_matching'],
         [$._not_similar_to, 'pattern_matching'],
-        [seq($.keyword_is, $.keyword_distinct, $.keyword_from), 'binary_relation'],
-        [seq($.keyword_is, $.keyword_not, $.keyword_distinct, $.keyword_from), 'binary_relation'],
+        [$._distinct_from, 'binary_relation'],
+        [$._not_distinct_from, 'binary_relation'],
         [$.keyword_is, 'binary_in'],
         [$.is_not, 'binary_in'],
         [$.keyword_in, 'binary_in'],
+      ].map(([operator, precedence]) =>
+        prec.left(precedence, seq(
+          field('left', $._expression),
+          field('operator', alias(operator, $.operator)),
+          field('right', $._expression)
+        ))
+      ),
+      ...[
         [$.keyword_and, 'clause_connective'],
         [$.keyword_or, 'clause_disjunctive'],
       ].map(([operator, precedence]) =>
