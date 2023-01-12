@@ -2610,7 +2610,7 @@
     "type": "join",
     "named": true,
     "fields": {
-      "expression": {
+      "predicate": {
         "multiple": false,
         "required": false,
         "types": [
@@ -4050,7 +4050,7 @@
     "type": "where",
     "named": true,
     "fields": {
-      "expression": {
+      "predicate": {
         "multiple": false,
         "required": true,
         "types": [

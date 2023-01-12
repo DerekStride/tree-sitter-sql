@@ -22,7 +22,7 @@ WHERE m.is_not_deleted;
         table_alias: (identifier))
       (where
         (keyword_where)
-        expression: (field
+        predicate: (field
           table_alias: (identifier)
           name: (identifier))))))
 
@@ -50,7 +50,7 @@ WHERE m.is_not_deleted AND m.is_visible;
         table_alias: (identifier))
       (where
         (keyword_where)
-        expression: (binary_expression
+        predicate: (binary_expression
           left: (field
             table_alias: (identifier)
             name: (identifier))
@@ -83,7 +83,7 @@ WHERE NOT m.is_not_deleted;
         table_alias: (identifier))
       (where
         (keyword_where)
-        expression: (unary_expression
+        predicate: (unary_expression
           operator: (keyword_not)
           operand: (field
             table_alias: (identifier)
@@ -114,7 +114,7 @@ WHERE NOT m.is_not_deleted
         table_alias: (identifier))
       (where
         (keyword_where)
-        expression: (binary_expression
+        predicate: (binary_expression
           left: (unary_expression
             operator: (keyword_not)
             operand: (field
@@ -154,7 +154,7 @@ WHERE m.status = "success"
         table_alias: (identifier))
       (where
         (keyword_where)
-        expression: (binary_expression
+        predicate: (binary_expression
           left: (binary_expression
             left: (binary_expression
               left: (binary_expression
@@ -206,7 +206,7 @@ WHERE m.status = "success"
         table_alias: (identifier))
       (where
         (keyword_where)
-        expression: (binary_expression
+        predicate: (binary_expression
           left: (binary_expression
             left: (binary_expression
               left: (field
@@ -255,7 +255,7 @@ WHERE NOT m.is_deleted;
         table_alias: (identifier))
       (where
         (keyword_where)
-        expression: (unary_expression
+        predicate: (unary_expression
           operator: (keyword_not)
           operand: (field
             table_alias: (identifier)
@@ -285,7 +285,7 @@ WHERE !m.is_deleted;
         table_alias: (identifier))
       (where
         (keyword_where)
-        expression: (unary_expression
+        predicate: (unary_expression
           operator: (bang)
           operand: (field
             table_alias: (identifier)
@@ -316,7 +316,7 @@ WHERE NOT m.is_deleted
         table_alias: (identifier))
       (where
         (keyword_where)
-        expression: (binary_expression
+        predicate: (binary_expression
           left: (unary_expression
             operator: (keyword_not)
             operand: (field
@@ -352,7 +352,7 @@ WHERE col IS DISTINCT FROM NULL;
           name: (identifier)))
       (where
         (keyword_where)
-        expression: (binary_expression
+        predicate: (binary_expression
           left: (field
             name: (identifier))
           operator: (distinct_from
@@ -385,7 +385,7 @@ WHERE col IS NOT DISTINCT FROM NULL;
           name: (identifier)))
       (where
         (keyword_where)
-        expression: (binary_expression
+        predicate: (binary_expression
           left: (field
             name: (identifier))
           operator: (not_distinct_from
@@ -420,7 +420,7 @@ WHERE id IS NOT NULL
           name: (identifier)))
       (where
         (keyword_where)
-        expression: (binary_expression
+        predicate: (binary_expression
           left: (binary_expression
             left: (field
               name: (identifier))
@@ -463,7 +463,7 @@ WHERE m.id > 4 AND id < 3;
         table_alias: (identifier))
       (where
         (keyword_where)
-        expression: (binary_expression
+        predicate: (binary_expression
           left: (binary_expression
             left: (field
               table_alias: (identifier)
@@ -505,7 +505,7 @@ WHERE
           name: (identifier)))
       (where
         (keyword_where)
-        expression: (binary_expression
+        predicate: (binary_expression
           left: (binary_expression
             left: (binary_expression
               left: (binary_expression

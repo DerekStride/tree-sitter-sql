@@ -1207,7 +1207,7 @@ module.exports = grammar({
       choice(
         seq(
           $.keyword_on,
-          field("expression", $._expression),
+          field("predicate", $._expression),
         ),
         seq(
           $.keyword_using,
@@ -1251,7 +1251,7 @@ module.exports = grammar({
 
     where: $ => seq(
       $.keyword_where,
-      field("expression", $._expression),
+      field("predicate", $._expression),
     ),
 
     group_by: $ => seq(

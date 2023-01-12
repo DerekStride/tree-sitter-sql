@@ -103,7 +103,7 @@ WHERE id = 9;
         name: (identifier))
       (where
         (keyword_where)
-        expression: (binary_expression
+        predicate: (binary_expression
           left: (field
             name: (identifier))
           right: (literal))))))
