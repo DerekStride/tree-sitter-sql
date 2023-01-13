@@ -483,26 +483,22 @@
       "type": "PATTERN",
       "value": "similar|SIMILAR"
     },
-    "_is": {
-      "type": "PREC_RIGHT",
+    "is_not": {
+      "type": "PREC_LEFT",
       "value": 0,
       "content": {
-        "type": "SYMBOL",
-        "name": "keyword_is"
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "keyword_is"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "keyword_not"
+          }
+        ]
       }
-    },
-    "is_not": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "keyword_is"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "keyword_not"
-        }
-      ]
     },
     "not_like": {
       "type": "SEQ",
@@ -6219,7 +6215,7 @@
         },
         {
           "type": "PREC_LEFT",
-          "value": "binary_in",
+          "value": "binary_is",
           "content": {
             "type": "SEQ",
             "members": [
@@ -6236,7 +6232,7 @@
                 "name": "operator",
                 "content": {
                   "type": "SYMBOL",
-                  "name": "_is"
+                  "name": "keyword_is"
                 }
               },
               {
@@ -6252,7 +6248,7 @@
         },
         {
           "type": "PREC_LEFT",
-          "value": "binary_in",
+          "value": "binary_is",
           "content": {
             "type": "SEQ",
             "members": [
@@ -6450,7 +6446,7 @@
         },
         {
           "type": "PREC_LEFT",
-          "value": "binary_relation",
+          "value": "binary_is",
           "content": {
             "type": "SEQ",
             "members": [
@@ -6483,7 +6479,7 @@
         },
         {
           "type": "PREC_LEFT",
-          "value": "binary_relation",
+          "value": "binary_is",
           "content": {
             "type": "SEQ",
             "members": [
@@ -6583,63 +6579,59 @@
       ]
     },
     "unary_expression": {
-      "type": "PREC",
-      "value": "unary_not",
-      "content": {
-        "type": "CHOICE",
-        "members": [
-          {
-            "type": "PREC_LEFT",
-            "value": "unary_not",
-            "content": {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "FIELD",
-                  "name": "operator",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "keyword_not"
-                  }
-                },
-                {
-                  "type": "FIELD",
-                  "name": "operand",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "_expression"
-                  }
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "PREC_LEFT",
+          "value": "unary_not",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "FIELD",
+                "name": "operator",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "keyword_not"
                 }
-              ]
-            }
-          },
-          {
-            "type": "PREC_LEFT",
-            "value": "unary_not",
-            "content": {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "FIELD",
-                  "name": "operator",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "bang"
-                  }
-                },
-                {
-                  "type": "FIELD",
-                  "name": "operand",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "_expression"
-                  }
+              },
+              {
+                "type": "FIELD",
+                "name": "operand",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_expression"
                 }
-              ]
-            }
+              }
+            ]
           }
-        ]
-      }
+        },
+        {
+          "type": "PREC_LEFT",
+          "value": "unary_not",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "FIELD",
+                "name": "operator",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "bang"
+                }
+              },
+              {
+                "type": "FIELD",
+                "name": "operand",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_expression"
+                }
+              }
+            ]
+          }
+        }
+      ]
     },
     "subquery": {
       "type": "SEQ",
