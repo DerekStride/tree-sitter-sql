@@ -152,8 +152,7 @@ module.exports = grammar({
     keyword_similar: _ => make_keyword("similar"),
 
     // Operators
-    _is: $ => prec.right($.keyword_is),
-    is_not: $ => seq($.keyword_is, $.keyword_not),
+    is_not: $ => prec.left(seq($.keyword_is, $.keyword_not)),
     not_like: $ => seq($.keyword_not, $.keyword_like),
     similar_to: $ => seq($.keyword_similar, $.keyword_to),
     not_similar_to: $ => seq($.keyword_not, $.keyword_similar, $.keyword_to),
@@ -1346,15 +1345,17 @@ module.exports = grammar({
         ['!=', 'binary_relation'],
         ['>=', 'binary_relation'],
         ['>', 'binary_relation'],
-        [$._is, 'binary_in'],
-        [$.is_not, 'binary_in'],
+        [$.keyword_is, 'binary_is'],
+        [$.is_not, 'binary_is'],
         [$.keyword_in, 'binary_in'],
         [$.keyword_like, 'pattern_matching'],
         [$.not_like, 'pattern_matching'],
         [$.similar_to, 'pattern_matching'],
         [$.not_similar_to, 'pattern_matching'],
-        [$.distinct_from, 'binary_relation'],
-        [$.not_distinct_from, 'binary_relation'],
+        // binary_is precedence disambiguates `(is not distinct from)` from an
+        // `is (not distinct from)` with a unary `not`
+        [$.distinct_from, 'binary_is'],
+        [$.not_distinct_from, 'binary_is'],
       ].map(([operator, precedence]) =>
         prec.left(precedence, seq(
           field('left', $._expression),
@@ -1374,7 +1375,7 @@ module.exports = grammar({
       ),
     ),
 
-    unary_expression: $ => prec("unary_not", choice(
+    unary_expression: $ => choice(
       ...[
         [$.keyword_not, 'unary_not'],
         [$.bang, 'unary_not'],
@@ -1383,7 +1384,7 @@ module.exports = grammar({
           field('operator', operator),
           field('operand', $._expression)
         ))
-      )),
+      ),
     ),
 
     subquery: $ => seq(
