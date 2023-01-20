@@ -135,3 +135,77 @@ select col_has_check(
                 (literal)
                 (keyword_name)))
             parameter: (literal)))))))
+
+================================================================================
+GROUP CONCAT
+================================================================================
+
+SELECT GROUP_CONCAT(uid SEPARATOR ",")
+FROM some_table
+GROUP BY some_field;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (group_concat
+            (keyword_group_concat)
+            (field
+              (identifier))
+            (keyword_separator)
+            (literal)))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          (identifier))) (group_by
+        (keyword_group)
+        (keyword_by)
+        (field
+          (identifier))))))
+
+================================================================================
+GROUP CONCAT with all optional fields
+================================================================================
+
+SELECT GROUP_CONCAT(DISTINCT uid ORDER BY uid DESC SEPARATOR ",")
+FROM some_table
+GROUP BY some_field;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (group_concat
+            (keyword_group_concat)
+            (keyword_distinct)
+            (field
+              (identifier))
+            (order_by
+              (keyword_order)
+              (keyword_by)
+              (order_target
+                (field
+                  (identifier))
+                (direction
+                  (keyword_desc))))
+            (keyword_separator)
+            (literal)))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          (identifier)))
+      (group_by
+        (keyword_group)
+        (keyword_by)
+        (field
+          (identifier))))))

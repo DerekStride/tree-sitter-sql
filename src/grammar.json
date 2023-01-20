@@ -190,6 +190,14 @@
       "type": "PATTERN",
       "value": "count|COUNT"
     },
+    "keyword_group_concat": {
+      "type": "PATTERN",
+      "value": "group_concat|GROUP_CONCAT"
+    },
+    "keyword_separator": {
+      "type": "PATTERN",
+      "value": "separator|SEPARATOR"
+    },
     "keyword_max": {
       "type": "PATTERN",
       "value": "max|MAX"
@@ -4482,6 +4490,19 @@
         }
       ]
     },
+    "_aggregate_function": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "group_concat"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "count"
+        }
+      ]
+    },
     "count": {
       "type": "SEQ",
       "members": [
@@ -4533,6 +4554,90 @@
                   }
                 ]
               }
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
+    },
+    "group_concat": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "keyword_group_concat"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "keyword_distinct"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "FIELD",
+          "name": "parameter",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_expression"
+              }
+            ]
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "order_by"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_separator"
+                },
+                {
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "_literal_string"
+                  },
+                  "named": true,
+                  "value": "literal"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
             }
           ]
         },
@@ -5833,7 +5938,7 @@
           },
           {
             "type": "SYMBOL",
-            "name": "count"
+            "name": "_aggregate_function"
           },
           {
             "type": "SYMBOL",

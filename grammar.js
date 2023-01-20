@@ -79,6 +79,8 @@ module.exports = grammar({
     keyword_constraint: _ => make_keyword("constraint"),
     keyword_cast: _ => make_keyword("cast"),
     keyword_count: _ => make_keyword("count"),
+    keyword_group_concat: _ => make_keyword("group_concat"),
+    keyword_separator: _ => make_keyword("separator"),
     keyword_max: _ => make_keyword("max"),
     keyword_min: _ => make_keyword("min"),
     keyword_avg: _ => make_keyword("avg"),
@@ -1012,6 +1014,11 @@ module.exports = grammar({
       ')',
     ),
 
+    _aggregate_function: $ => choice(
+      $.group_concat,
+      $.count,
+    ),
+
     count: $ => seq(
       field('name', alias($.keyword_count, $.identifier)),
       '(',
@@ -1019,6 +1026,16 @@ module.exports = grammar({
         optional($.keyword_distinct),
         field('parameter', choice($._expression, $.all_fields)),
       ),
+      ')',
+    ),
+
+    group_concat: $ => seq(
+      field('name', $.keyword_group_concat),
+      '(',
+      optional($.keyword_distinct),
+      field('parameter', choice($._expression)),
+      optional($.order_by),
+      optional(seq($.keyword_separator, alias($._literal_string, $.literal))),
       ')',
     ),
 
@@ -1334,7 +1351,7 @@ module.exports = grammar({
         $.subquery,
         $.cast,
         alias($.implicit_cast, $.cast),
-        $.count,
+        $._aggregate_function,
         $.invocation,
         $.binary_expression,
         $.unary_expression,
