@@ -4151,6 +4151,10 @@
           "named": true
         },
         {
+          "type": "join",
+          "named": true
+        },
+        {
           "type": "keyword_only",
           "named": true
         },
@@ -4163,15 +4167,7 @@
           "named": true
         },
         {
-          "type": "limit",
-          "named": true
-        },
-        {
-          "type": "order_by",
-          "named": true
-        },
-        {
-          "type": "table_reference",
+          "type": "relation",
           "named": true
         },
         {

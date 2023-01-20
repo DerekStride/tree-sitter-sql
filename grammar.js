@@ -801,36 +801,12 @@ module.exports = grammar({
 
     update: $ => seq(
       $.keyword_update,
-      choice(
-        $._single_table_update,
-        $._multi_table_update,
-      ),
-    ),
-
-    _single_table_update: $ => seq(
-      optional(
-        $.keyword_only,
-      ),
-      $.table_reference,
+      optional($.keyword_only),
+      comma_list($.relation, true),
+      repeat($.join),
       $.keyword_set,
       comma_list($.assignment, true),
       optional($.where),
-      optional($.order_by),
-      optional($.limit),
-    ),
-
-    _multi_table_update: $ => seq(
-      $._table_references,
-      $.keyword_set,
-      comma_list($.assignment, true),
-      optional($.where),
-    ),
-
-    _table_references: $ => seq(
-      $.table_reference,
-      repeat1(
-        seq(',', $.table_reference),
-      ),
     ),
 
     assignment: $ => seq(

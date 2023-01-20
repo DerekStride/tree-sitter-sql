@@ -43,8 +43,9 @@ COMMIT;
   (statement
    (update
     (keyword_update)
-    (table_reference
-     name: (identifier))
+    (relation
+     (table_reference
+      name: (identifier)))
     (keyword_set)
     (assignment
       left: (field
