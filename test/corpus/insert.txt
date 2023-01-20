@@ -181,3 +181,53 @@ RETURNING id, val1, val2;
         (term
           value: (field
             name: (identifier)))))))
+
+================================================================================
+Insert with multple values
+================================================================================
+
+INSERT INTO some_table
+  (field)
+VALUES
+  ("String value"),
+  ("String value");
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (insert
+      (keyword_insert)
+      (keyword_into)
+      (table_reference
+        (identifier))
+      (list
+        (column
+          (identifier)))
+      (keyword_values)
+      (list
+        (literal))
+      (list
+        (literal)))))
+
+================================================================================
+Insert with field name
+================================================================================
+
+INSERT INTO some_table
+  SET field = "String does not get highlight in INSERT SET syntax";
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (insert
+      (keyword_insert)
+      (keyword_into)
+      (table_reference
+        name: (identifier))
+      (keyword_set)
+      (assignment
+        left: (field
+          name: (identifier))
+        right: (literal)))))

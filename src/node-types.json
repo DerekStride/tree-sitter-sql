@@ -2463,6 +2463,10 @@
       "required": true,
       "types": [
         {
+          "type": "assignment",
+          "named": true
+        },
+        {
           "type": "from",
           "named": true
         },
@@ -2488,6 +2492,10 @@
         },
         {
           "type": "keyword_replace",
+          "named": true
+        },
+        {
+          "type": "keyword_set",
           "named": true
         },
         {

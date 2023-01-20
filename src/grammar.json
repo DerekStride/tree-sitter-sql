@@ -3362,6 +3362,24 @@
           "type": "CHOICE",
           "members": [
             {
+              "type": "SYMBOL",
+              "name": "_insert_values"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_insert_set"
+            }
+          ]
+        }
+      ]
+    },
+    "_insert_values": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
               "type": "ALIAS",
               "content": {
                 "type": "SYMBOL",
@@ -3386,14 +3404,69 @@
                   "name": "keyword_values"
                 },
                 {
-                  "type": "SYMBOL",
-                  "name": "list"
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "list"
+                    },
+                    {
+                      "type": "REPEAT",
+                      "content": {
+                        "type": "SEQ",
+                        "members": [
+                          {
+                            "type": "STRING",
+                            "value": ","
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "list"
+                          }
+                        ]
+                      }
+                    }
+                  ]
                 }
               ]
             },
             {
               "type": "SYMBOL",
               "name": "_select_statement"
+            }
+          ]
+        }
+      ]
+    },
+    "_insert_set": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_set"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "assignment"
+            },
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": ","
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "assignment"
+                  }
+                ]
+              }
             }
           ]
         }

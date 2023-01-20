@@ -767,14 +767,26 @@ module.exports = grammar({
       choice($.keyword_insert, $.keyword_replace),
       $.keyword_into,
       $.table_reference,
+      choice(
+        $._insert_values,
+        $._insert_set,
+      ),
+    ),
+
+    _insert_values: $ => seq(
       optional(alias($._column_list, $.list)),
       choice(
         seq(
           $.keyword_values,
-          $.list,
+          comma_list($.list, true),
         ),
         $._select_statement,
       ),
+    ),
+
+    _insert_set: $ => seq(
+      $.keyword_set,
+      comma_list($.assignment, true),
     ),
 
     _column_list: $ => paren_list(alias($._column, $.column), true),
