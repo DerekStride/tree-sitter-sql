@@ -1661,11 +1661,15 @@
       }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": false,
       "types": [
         {
           "type": "keyword_distinct",
+          "named": true
+        },
+        {
+          "type": "order_by",
           "named": true
         }
       ]
@@ -2461,6 +2465,10 @@
         "multiple": false,
         "required": true,
         "types": [
+          {
+            "type": "all_fields",
+            "named": true
+          },
           {
             "type": "array",
             "named": true

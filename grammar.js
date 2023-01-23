@@ -1016,21 +1016,22 @@ module.exports = grammar({
     count: $ => seq(
       field('name', alias($.keyword_count, $.identifier)),
       '(',
-      seq(
-        optional($.keyword_distinct),
-        field('parameter', choice($._expression, $.all_fields)),
-      ),
+      $._aggregate_expression,
       ')',
     ),
 
     group_concat: $ => seq(
       field('name', $.keyword_group_concat),
       '(',
-      optional($.keyword_distinct),
-      field('parameter', choice($._expression)),
-      optional($.order_by),
+      $._aggregate_expression,
       optional(seq($.keyword_separator, alias($._literal_string, $.literal))),
       ')',
+    ),
+
+    _aggregate_expression: $ => seq(
+      optional($.keyword_distinct),
+      field('parameter', choice($._expression, $.all_fields)),
+      optional($.order_by),
     ),
 
     invocation: $ => seq(
