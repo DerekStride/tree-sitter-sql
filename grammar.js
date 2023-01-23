@@ -79,6 +79,8 @@ module.exports = grammar({
     keyword_constraint: _ => make_keyword("constraint"),
     keyword_cast: _ => make_keyword("cast"),
     keyword_count: _ => make_keyword("count"),
+    keyword_group_concat: _ => make_keyword("group_concat"),
+    keyword_separator: _ => make_keyword("separator"),
     keyword_max: _ => make_keyword("max"),
     keyword_min: _ => make_keyword("min"),
     keyword_avg: _ => make_keyword("avg"),
@@ -767,14 +769,26 @@ module.exports = grammar({
       choice($.keyword_insert, $.keyword_replace),
       $.keyword_into,
       $.table_reference,
+      choice(
+        $._insert_values,
+        $._insert_set,
+      ),
+    ),
+
+    _insert_values: $ => seq(
       optional(alias($._column_list, $.list)),
       choice(
         seq(
           $.keyword_values,
-          $.list,
+          comma_list($.list, true),
         ),
         $._select_statement,
       ),
+    ),
+
+    _insert_set: $ => seq(
+      $.keyword_set,
+      comma_list($.assignment, true),
     ),
 
     _column_list: $ => paren_list(alias($._column, $.column), true),
@@ -787,35 +801,29 @@ module.exports = grammar({
 
     update: $ => seq(
       $.keyword_update,
+      optional($.keyword_only),
       choice(
-        $._single_table_update,
-        $._multi_table_update,
+        $._mysql_update_statement,
+        $._postgres_update_statement,
       ),
     ),
 
-    _single_table_update: $ => seq(
-      optional(
-        $.keyword_only,
+    _mysql_update_statement: $ => prec(0,
+      seq(
+        comma_list($.relation, true),
+        repeat($.join),
+        $.keyword_set,
+        comma_list($.assignment, true),
+        optional($.where),
       ),
-      $.table_reference,
-      $.keyword_set,
-      comma_list($.assignment, true),
-      optional($.where),
-      optional($.order_by),
-      optional($.limit),
     ),
 
-    _multi_table_update: $ => seq(
-      $._table_references,
-      $.keyword_set,
-      comma_list($.assignment, true),
-      optional($.where),
-    ),
-
-    _table_references: $ => seq(
-      $.table_reference,
-      repeat1(
-        seq(',', $.table_reference),
+    _postgres_update_statement: $ => prec(1,
+      seq(
+        $.relation,
+        $.keyword_set,
+        comma_list($.assignment, true),
+        optional($.from),
       ),
     ),
 
@@ -1000,14 +1008,30 @@ module.exports = grammar({
       ')',
     ),
 
+    _aggregate_function: $ => choice(
+      $.group_concat,
+      $.count,
+    ),
+
     count: $ => seq(
       field('name', alias($.keyword_count, $.identifier)),
       '(',
-      seq(
-        optional($.keyword_distinct),
-        field('parameter', choice($._expression, $.all_fields)),
-      ),
+      $._aggregate_expression,
       ')',
+    ),
+
+    group_concat: $ => seq(
+      field('name', $.keyword_group_concat),
+      '(',
+      $._aggregate_expression,
+      optional(seq($.keyword_separator, alias($._literal_string, $.literal))),
+      ')',
+    ),
+
+    _aggregate_expression: $ => seq(
+      optional($.keyword_distinct),
+      field('parameter', choice($._expression, $.all_fields)),
+      optional($.order_by),
     ),
 
     invocation: $ => seq(
@@ -1322,7 +1346,7 @@ module.exports = grammar({
         $.subquery,
         $.cast,
         alias($.implicit_cast, $.cast),
-        $.count,
+        $._aggregate_function,
         $.invocation,
         $.binary_expression,
         $.unary_expression,

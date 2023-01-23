@@ -11,8 +11,9 @@ SET for = foo + 1;
   (statement
     (update
       (keyword_update)
-      (table_reference
-        name: (identifier))
+      (relation
+        (table_reference
+          name: (identifier)))
       (keyword_set)
       (assignment
         left: (field
@@ -36,8 +37,9 @@ SET for = foo + 1;
     (update
       (keyword_update)
       (keyword_only)
-      (table_reference
-        name: (identifier))
+      (relation
+        (table_reference
+          name: (identifier)))
       (keyword_set)
       (assignment
         left: (field
@@ -60,8 +62,9 @@ SET for = foo + 1, col2 = col1;
   (statement
     (update
       (keyword_update)
-      (table_reference
-        name: (identifier))
+      (relation
+        (table_reference
+          name: (identifier)))
       (keyword_set)
       (assignment
         left: (field
@@ -90,10 +93,12 @@ WHERE items.id=month.item_id;
   (statement
     (update
       (keyword_update)
-      (table_reference
-        name: (identifier))
-      (table_reference
-        name: (identifier))
+      (relation
+        (table_reference
+          name: (identifier)))
+      (relation
+        (table_reference
+          name: (identifier)))
       (keyword_set)
       (assignment
         left: (field
@@ -125,11 +130,160 @@ SET ts = now();
   (statement
     (update
       (keyword_update)
-      (table_reference
-        name: (identifier))
+      (relation
+        (table_reference
+          name: (identifier)))
       (keyword_set)
       (assignment
         left: (field
           name: (identifier))
         right: (invocation
           name: (identifier))))))
+
+================================================================================
+Update with a JOIN
+================================================================================
+
+UPDATE table_a a
+INNER JOIN table_b b ON b.a = a.uid
+INNER JOIN table_c c ON c.b = b.uid
+SET
+a.d = 5;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (update
+      (keyword_update)
+      (relation
+        (table_reference
+          (identifier))
+        (identifier))
+      (join
+        (keyword_inner)
+        (keyword_join)
+        (relation
+          (table_reference
+            (identifier))
+          (identifier))
+        (keyword_on)
+        (binary_expression
+          (field
+            (identifier)
+            (identifier))
+          (field
+            (identifier)
+            (identifier))))
+      (join
+        (keyword_inner)
+        (keyword_join)
+        (relation
+          (table_reference
+            (identifier))
+          (identifier))
+        (keyword_on)
+        (binary_expression
+          (field
+            (identifier)
+            (identifier))
+          (field
+            (identifier)
+            (identifier))))
+      (keyword_set)
+      (assignment
+        (field
+          (identifier)
+          (identifier))
+        (literal)))))
+
+================================================================================
+Postgres style update
+================================================================================
+
+UPDATE table_a as a
+SET d = 5
+WHERE b.a = a.uid;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (update
+      (keyword_update)
+      (relation
+        (table_reference
+          (identifier))
+        (keyword_as)
+        (identifier))
+      (keyword_set)
+      (assignment
+        (field
+          (identifier))
+        (literal))
+      (where
+        (keyword_where)
+        (binary_expression
+          (field
+            (identifier)
+            (identifier))
+          (field
+            (identifier)
+            (identifier)))))))
+
+================================================================================
+Postgres style update w/ join
+================================================================================
+
+UPDATE table_a as a
+SET d = 5
+FROM table_b b
+INNER JOIN table_c c ON c.b = b.uid
+WHERE b.a = a.uid;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (update
+      (keyword_update)
+      (relation
+        (table_reference
+          (identifier))
+        (keyword_as)
+        (identifier))
+      (keyword_set)
+      (assignment
+        (field
+          (identifier))
+        (literal))
+      (from
+        (keyword_from)
+        (relation
+          (table_reference
+            (identifier))
+          (identifier))
+        (join
+          (keyword_inner)
+          (keyword_join)
+          (relation
+            (table_reference
+              (identifier))
+            (identifier))
+          (keyword_on)
+          (binary_expression
+            (field
+              (identifier)
+              (identifier))
+            (field
+              (identifier)
+              (identifier))))
+        (where
+          (keyword_where)
+          (binary_expression
+            (field
+              (identifier)
+              (identifier))
+            (field
+              (identifier)
+              (identifier))))))))
