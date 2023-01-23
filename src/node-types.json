@@ -4151,6 +4151,10 @@
           "named": true
         },
         {
+          "type": "from",
+          "named": true
+        },
+        {
           "type": "join",
           "named": true
         },

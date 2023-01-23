@@ -196,3 +196,94 @@ a.d = 5;
           (identifier)
           (identifier))
         (literal)))))
+
+================================================================================
+Postgres style update
+================================================================================
+
+UPDATE table_a as a
+SET d = 5
+WHERE b.a = a.uid;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (update
+      (keyword_update)
+      (relation
+        (table_reference
+          (identifier))
+        (keyword_as)
+        (identifier))
+      (keyword_set)
+      (assignment
+        (field
+          (identifier))
+        (literal))
+      (where
+        (keyword_where)
+        (binary_expression
+          (field
+            (identifier)
+            (identifier))
+          (field
+            (identifier)
+            (identifier)))))))
+
+================================================================================
+Postgres style update w/ join
+================================================================================
+
+UPDATE table_a as a
+SET d = 5
+FROM table_b b
+INNER JOIN table_c c ON c.b = b.uid
+WHERE b.a = a.uid;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (update
+      (keyword_update)
+      (relation
+        (table_reference
+          (identifier))
+        (keyword_as)
+        (identifier))
+      (keyword_set)
+      (assignment
+        (field
+          (identifier))
+        (literal))
+      (from
+        (keyword_from)
+        (relation
+          (table_reference
+            (identifier))
+          (identifier))
+        (join
+          (keyword_inner)
+          (keyword_join)
+          (relation
+            (table_reference
+              (identifier))
+            (identifier))
+          (keyword_on)
+          (binary_expression
+            (field
+              (identifier)
+              (identifier))
+            (field
+              (identifier)
+              (identifier))))
+        (where
+          (keyword_where)
+          (binary_expression
+            (field
+              (identifier)
+              (identifier))
+            (field
+              (identifier)
+              (identifier))))))))

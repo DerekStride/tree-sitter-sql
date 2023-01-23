@@ -802,11 +802,29 @@ module.exports = grammar({
     update: $ => seq(
       $.keyword_update,
       optional($.keyword_only),
-      comma_list($.relation, true),
-      repeat($.join),
-      $.keyword_set,
-      comma_list($.assignment, true),
-      optional($.where),
+      choice(
+        $._mysql_update_statement,
+        $._postgres_update_statement,
+      ),
+    ),
+
+    _mysql_update_statement: $ => prec(0,
+      seq(
+        comma_list($.relation, true),
+        repeat($.join),
+        $.keyword_set,
+        comma_list($.assignment, true),
+        optional($.where),
+      ),
+    ),
+
+    _postgres_update_statement: $ => prec(1,
+      seq(
+        $.relation,
+        $.keyword_set,
+        comma_list($.assignment, true),
+        optional($.from),
+      ),
     ),
 
     assignment: $ => seq(
