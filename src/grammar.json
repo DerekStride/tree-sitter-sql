@@ -495,29 +495,9 @@
       "type": "PATTERN",
       "value": "similar|SIMILAR"
     },
-    "keyword_stored": {
+    "keyword_preserve": {
       "type": "PATTERN",
-      "value": "stored|STORED"
-    },
-    "keyword_parquet": {
-      "type": "PATTERN",
-      "value": "parquet|PARQUET"
-    },
-    "keyword_csv": {
-      "type": "PATTERN",
-      "value": "csv|CSV"
-    },
-    "keyword_compute": {
-      "type": "PATTERN",
-      "value": "compute|COMPUTE"
-    },
-    "keyword_statistics": {
-      "type": "PATTERN",
-      "value": "statistics|STATISTICS"
-    },
-    "keyword_external": {
-      "type": "PATTERN",
-      "value": "external|EXTERNAL"
+      "value": "preserve|PRESERVE"
     },
     "is_not": {
       "type": "PREC_LEFT",
@@ -2405,32 +2385,6 @@
         }
       ]
     },
-    "store_options": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "keyword_stored"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "keyword_as"
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "keyword_parquet"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "keyword_csv"
-            }
-          ]
-        }
-      ]
-    },
     "create_table": {
       "type": "SEQ",
       "members": [
@@ -2497,18 +2451,6 @@
             {
               "type": "SYMBOL",
               "name": "table_options"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "store_options"
             },
             {
               "type": "BLANK"
@@ -3901,6 +3843,54 @@
                 "type": "SYMBOL",
                 "name": "identifier"
               }
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "keyword_on"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "keyword_commit"
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_drop"
+                },
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "keyword_delete"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "keyword_rows"
+                    }
+                  ]
+                },
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "keyword_preserve"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "keyword_rows"
+                    }
+                  ]
+                }
+              ]
             }
           ]
         }

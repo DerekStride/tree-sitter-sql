@@ -153,6 +153,7 @@ module.exports = grammar({
     keyword_brin: _ => make_keyword("brin"),
     keyword_like: _ => choice(make_keyword("like"),make_keyword("ilike")),
     keyword_similar: _ => make_keyword("similar"),
+    keyword_preserve: _ => make_keyword("preserve"),
 
     // Operators
     is_not: $ => prec.left(seq($.keyword_is, $.keyword_not)),
@@ -851,6 +852,14 @@ module.exports = grammar({
         '=',
         field('value', $.identifier),
       ),
+      seq(
+          $.keyword_on,
+          $.keyword_commit,
+          choice(
+              $.keyword_drop,
+              seq($.keyword_delete, $.keyword_rows),
+              seq($.keyword_preserve, $.keyword_rows)
+          )),
     ),
 
     column_definitions: $ => seq(
