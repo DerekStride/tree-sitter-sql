@@ -683,3 +683,28 @@ CREATE TABLE tableName (
           (varchar
             (keyword_varchar))
           (keyword_null))))))
+
+==================
+Create unlogged table
+==================
+
+CREATE UNLOGGED TABLE tableName (
+    id NUMERIC
+);
+
+---
+
+(program
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_unlogged)
+      (keyword_table)
+      (table_reference
+        (identifier))
+      (column_definitions
+        (column_definition
+          (identifier)
+          (numeric
+            (keyword_numeric))
+          )))))

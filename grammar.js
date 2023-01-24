@@ -115,6 +115,7 @@ module.exports = grammar({
     keyword_owner: _ => make_keyword("owner"),
     keyword_temp: _ => make_keyword("temp"),
     keyword_temporary: _ => make_keyword("temporary"),
+    keyword_unlogged: _ => make_keyword("unlogged"),
     keyword_union: _ => make_keyword("union"),
     keyword_all: _ => make_keyword("all"),
     keyword_except: _ => make_keyword("except"),
@@ -514,7 +515,12 @@ module.exports = grammar({
 
     create_table: $ => seq(
       $.keyword_create,
-      optional($._temporary),
+      optional(
+          choice(
+              $._temporary,
+              $.keyword_unlogged
+          )
+      ),
       $.keyword_table,
       optional($._if_not_exists),
       $.table_reference,
