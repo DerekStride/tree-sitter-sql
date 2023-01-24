@@ -697,12 +697,10 @@ CREATE TABLE type_test (
           type: (keyword_bigserial))
         (column_definition
           name: (identifier)
-          type: (int
-            (keyword_int)))
+          type: (int (keyword_int)))
         (column_definition
           name: (identifier)
-          type: (int
-            (keyword_int)))
+          type: (int (keyword_int)))
         (column_definition
           name: (identifier)
           type: (bigint
@@ -965,3 +963,67 @@ CREATE TABLE tableName AS SELECT * FROM otherTable;
         (relation
           (table_reference
             name: (identifier)))))))
+
+================================================================================
+Create hive table
+================================================================================
+
+CREATE EXTERNAL TABLE tab (col int)
+PARTITIONED BY (col int)
+SORT BY (col)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ';' ESCAPED BY '"'
+LINES TERMINATED BY '\n'
+STORED AS PARQUET
+LOCATION '/path/data'
+CACHED IN 'pool1' WITH REPLICATION = 2
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_external)
+      (keyword_table)
+      (table_reference
+        name: (identifier))
+      (column_definitions
+        (column_definition
+          name: (identifier)
+          type: (int (keyword_int))))
+      (table_partition
+        (keyword_partitioned)
+        (keyword_by)
+        (column_definitions
+          (column_definition
+            name: (identifier)
+            type: (int (keyword_int)))))
+      (table_sort
+        (keyword_sort)
+        (keyword_by)
+        (identifier))
+      (row_format
+        (keyword_row)
+        (keyword_format)
+        (keyword_delimited)
+        (keyword_fields)
+        (keyword_terminated)
+        (keyword_by)
+        (keyword_escaped)
+        (keyword_by)
+        (keyword_lines)
+        (keyword_terminated)
+        (keyword_by))
+      (stored_as
+        (keyword_stored)
+        (keyword_as)
+        (keyword_parquet))
+      (storage_location
+        (keyword_location)
+        path: (identifier)
+        (keyword_cached)
+        (keyword_in)
+        pool: (identifier)
+        (keyword_with)
+        (keyword_replication)
+        value: (literal)))))
