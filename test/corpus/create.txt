@@ -708,3 +708,31 @@ CREATE UNLOGGED TABLE tableName (
           (numeric
             (keyword_numeric))
           )))))
+
+
+==================
+Create table as select
+==================
+
+CREATE TABLE tableName AS SELECT * FROM otherTable;
+
+---
+
+(program
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (table_reference
+        name: (identifier))
+      (keyword_as)
+      (select
+        (keyword_select)
+        (select_expression
+          (all_fields)))
+        (from
+          (keyword_from)
+          (relation
+            (table_reference
+              name: (identifier))
+          )))))
