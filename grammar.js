@@ -525,12 +525,19 @@ module.exports = grammar({
       $.keyword_table,
       optional($._if_not_exists),
       $.table_reference,
-      optional($.column_definitions),
-      optional($.table_options),
-      optional(seq(
-          $.keyword_as,
-          $._select_statement,
-      )),
+      choice(
+          seq(
+              optional($.column_definitions),
+              optional($.table_options),
+          ),
+          seq(
+              optional($.table_options),
+              optional(seq(
+                  $.keyword_as,
+                  $._select_statement,
+              )),
+          ),
+      )
     ),
 
     create_view: $ => seq(
