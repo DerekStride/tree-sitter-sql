@@ -82,33 +82,6 @@ CREATE TEMP TABLE my_table (id BIGINT NOT NULL PRIMARY KEY);
       (keyword_primary)
       (keyword_key))))))
 
-==================
-Create temp table with commit behaviour
-==================
-
-CREATE TEMP TABLE my_table (id BIGINT)
-ON COMMIT PRESERVE ROWS;
-
----
-
-(program
- (statement
-  (create_table
-   (keyword_create)
-   (keyword_temp)
-   (keyword_table)
-   (table_reference
-    name: (identifier))
-   (column_definitions
-    (column_definition
-      name: (identifier)
-      type: (bigint (keyword_bigint))))
-   (table_options
-     (table_option
-       (keyword_on)
-       (keyword_commit)
-       (keyword_preserve)
-       (keyword_rows))))))
 
 ==================
 Create table with constraint

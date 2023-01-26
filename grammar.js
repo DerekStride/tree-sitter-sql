@@ -865,14 +865,6 @@ module.exports = grammar({
         '=',
         field('value', $.identifier),
       ),
-      seq(
-          $.keyword_on,
-          $.keyword_commit,
-          choice(
-              $.keyword_drop,
-              seq($.keyword_delete, $.keyword_rows),
-              seq($.keyword_preserve, $.keyword_rows)
-          )),
     ),
 
     column_definitions: $ => seq(

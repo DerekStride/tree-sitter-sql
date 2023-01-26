@@ -3948,7 +3948,7 @@
     "fields": {
       "name": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
             "type": "identifier",
@@ -3966,36 +3966,6 @@
           }
         ]
       }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "keyword_commit",
-          "named": true
-        },
-        {
-          "type": "keyword_delete",
-          "named": true
-        },
-        {
-          "type": "keyword_drop",
-          "named": true
-        },
-        {
-          "type": "keyword_on",
-          "named": true
-        },
-        {
-          "type": "keyword_preserve",
-          "named": true
-        },
-        {
-          "type": "keyword_rows",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -5028,10 +4998,6 @@
   },
   {
     "type": "keyword_preceding",
-    "named": true
-  },
-  {
-    "type": "keyword_preserve",
     "named": true
   },
   {

@@ -3877,54 +3877,6 @@
               }
             }
           ]
-        },
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "keyword_on"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "keyword_commit"
-            },
-            {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "keyword_drop"
-                },
-                {
-                  "type": "SEQ",
-                  "members": [
-                    {
-                      "type": "SYMBOL",
-                      "name": "keyword_delete"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "keyword_rows"
-                    }
-                  ]
-                },
-                {
-                  "type": "SEQ",
-                  "members": [
-                    {
-                      "type": "SYMBOL",
-                      "name": "keyword_preserve"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "keyword_rows"
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
         }
       ]
     },
