@@ -527,15 +527,21 @@ module.exports = grammar({
       $.table_reference,
       choice(
           seq(
-              optional($.column_definitions),
+              $.column_definitions,
               optional($.table_options),
+              optional(
+                  seq(
+                      $.keyword_as,
+                      $._select_statement,
+                  ),
+              )
           ),
           seq(
               optional($.table_options),
-              optional(seq(
+              seq(
                   $.keyword_as,
                   $._select_statement,
-              )),
+              ),
           ),
       )
     ),
