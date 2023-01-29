@@ -868,7 +868,13 @@ module.exports = grammar({
     ),
     _inner_default_expression: $ => choice(
         $.literal,
+        $.list,
+        $.cast,
+        $.binary_expression,
+        $.unary_expression,
+        $.array,
         $.invocation,
+        alias($.implicit_cast, $.cast),
     ),
 
     column_definition: $ => seq(
