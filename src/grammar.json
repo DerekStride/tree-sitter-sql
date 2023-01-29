@@ -1704,7 +1704,7 @@
         },
         {
           "type": "PATTERN",
-          "value": ".*\\n"
+          "value": ".*?\\n"
         }
       ]
     },
@@ -6780,6 +6780,53 @@
         }
       ]
     },
+    "_dollar_quote_tag": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "$"
+        },
+        {
+          "type": "PATTERN",
+          "value": "[^\\$]*"
+        },
+        {
+          "type": "STRING",
+          "value": "$"
+        }
+      ]
+    },
+    "_dollar_quoted_string": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_start_dollar_quote"
+          },
+          "named": true,
+          "value": "dollar_quote"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "statement"
+          }
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_end_dollar_quote"
+          },
+          "named": true,
+          "value": "dollar_quote"
+        }
+      ]
+    },
     "_number": {
       "type": "PATTERN",
       "value": "\\d+"
@@ -6890,7 +6937,16 @@
       }
     ]
   ],
-  "externals": [],
+  "externals": [
+    {
+      "type": "SYMBOL",
+      "name": "_start_dollar_quote"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_end_dollar_quote"
+    }
+  ],
   "inline": [],
   "supertypes": []
 }

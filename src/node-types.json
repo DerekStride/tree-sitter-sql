@@ -4373,6 +4373,10 @@
     "named": true
   },
   {
+    "type": "dollar_quote",
+    "named": true
+  },
+  {
     "type": "keyword_add",
     "named": true
   },

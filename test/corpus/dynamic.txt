@@ -1,0 +1,17 @@
+================================================================================
+Dollar quoting
+================================================================================
+
+select format($$hello %1$I %2$L %3$s$$, 'world', 'galaxy', 'universe');
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (invocation
+            name: (identifier)
+            parameter: (field
+              name: (identifier))))))))

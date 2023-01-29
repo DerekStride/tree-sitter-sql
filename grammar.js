@@ -8,6 +8,11 @@ module.exports = grammar({
     $.marginalia,
   ],
 
+  externals: $ => [
+    $._start_dollar_quote,
+    $._end_dollar_quote,
+  ],
+
   precedences: $ => [
     [
       'binary_is',
@@ -1410,6 +1415,14 @@ module.exports = grammar({
       seq("'", /[^']*/, "'"),
       $._double_quote_string,
     ),
+
+    _dollar_quote_tag: _ => seq('$', /[^\$]*/, '$'),
+    _dollar_quoted_string: $ => seq(
+      alias($._start_dollar_quote, $.dollar_quote),
+      repeat($.statement),
+      alias($._end_dollar_quote, $.dollar_quote),
+    ),
+
     _number: _ => /\d+/,
     bang: _ => '!',
 

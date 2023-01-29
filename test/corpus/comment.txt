@@ -243,3 +243,22 @@ SELECT '/* foo */' FROM bar;
       (relation
         (table_reference
           (identifier))))))
+
+================================================================================
+Empty comments
+================================================================================
+
+--
+SELECT 1;
+
+--------------------------------------------------------------------------------
+
+(program
+  (comment)
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (literal))))))
+
