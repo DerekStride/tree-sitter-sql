@@ -1453,6 +1453,10 @@
           "named": true
         },
         {
+          "type": "invocation",
+          "named": true
+        },
+        {
           "type": "keyword_auto_increment",
           "named": true
         },
@@ -1474,6 +1478,10 @@
         },
         {
           "type": "keyword_primary",
+          "named": true
+        },
+        {
+          "type": "literal",
           "named": true
         }
       ]

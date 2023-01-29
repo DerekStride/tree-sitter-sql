@@ -853,13 +853,31 @@ module.exports = grammar({
       ')',
     ),
 
+
+
+    _default_expression: $ => seq(
+        $.keyword_default,
+            choice(
+            seq(
+                '(',
+                    $._inner_default_expression,
+                ')',
+            ),
+            $._inner_default_expression,
+        )
+    ),
+    _inner_default_expression: $ => choice(
+        $.literal,
+        $.invocation,
+    ),
+
     column_definition: $ => seq(
       field('name', $.identifier),
       field('type', $._type),
+      optional($._default_expression),
       choice(
         optional($.keyword_null),
         optional($._not_null),
-        optional($._default_null),
       ),
       optional($.keyword_auto_increment),
       optional($._primary_key),
