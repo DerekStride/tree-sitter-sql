@@ -53,7 +53,8 @@ CREATE TABLE my_table (
       name: (identifier)
       type: (keyword_date)
       (keyword_default)
-      (keyword_null)
+      (literal
+        (keyword_null))
       (direction (keyword_asc)))))))
 
 ==================
@@ -135,6 +136,8 @@ Create table with constraint on multiple columns
 CREATE TABLE my_table (
   host CHAR(50) NOT NULL,
   created_date DATE NOT NULL,
+  random FLOAT DEFAULT RAND(),
+  random TEXT DEFAULT 'test',
   KEY `idx` (`host`, `created_date`)
 );
 
@@ -161,6 +164,18 @@ CREATE TABLE my_table (
      type: (keyword_date)
      (keyword_not)
      (keyword_null))
+    (column_definition
+      name: (identifier)
+      type: (float
+        (keyword_float))
+      (keyword_default)
+      (invocation
+        name: (identifier)))
+    (column_definition
+      name: (identifier)
+      type: (keyword_text)
+      (keyword_default)
+      (literal))
     (constraints
      (constraint
       (keyword_key)
@@ -292,7 +307,8 @@ CREATE TABLE IF NOT EXISTS `addresses` (
         (keyword_bigint)
         size: (literal))
       (keyword_default)
-      (keyword_null))
+      (literal
+        (keyword_null)))
     (column_definition
       name: (identifier)
       type:
@@ -300,12 +316,14 @@ CREATE TABLE IF NOT EXISTS `addresses` (
         (keyword_varchar)
         size: (literal))
       (keyword_default)
-      (keyword_null))
+      (literal
+        (keyword_null)))
     (column_definition
       name: (identifier)
       type: (keyword_datetime)
       (keyword_default)
-      (keyword_null))
+      (literal
+        (keyword_null)))
     (constraints
      (constraint
       (keyword_primary)
@@ -373,7 +391,8 @@ CREATE TABLE IF NOT EXISTS `addresses` (
         (keyword_bigint)
         size: (literal))
       (keyword_default)
-      (keyword_null))
+      (literal
+        (keyword_null)))
     (column_definition
       name: (identifier)
       type:
@@ -381,7 +400,8 @@ CREATE TABLE IF NOT EXISTS `addresses` (
         (keyword_varchar)
         size: (literal))
       (keyword_default)
-      (keyword_null))))))
+      (literal
+        (keyword_null)))))))
 
 ==================
 Create table with table options
@@ -414,7 +434,8 @@ CREATE TABLE my_table (
       name: (identifier)
       type: (keyword_date)
       (keyword_default)
-      (keyword_null)
+      (literal
+        (keyword_null))
       (direction (keyword_asc))))
    (table_options
     (table_option

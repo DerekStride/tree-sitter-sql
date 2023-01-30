@@ -856,14 +856,40 @@ module.exports = grammar({
     column_definition: $ => seq(
       field('name', $.identifier),
       field('type', $._type),
-      choice(
-        optional($.keyword_null),
-        optional($._not_null),
-        optional($._default_null),
-      ),
-      optional($.keyword_auto_increment),
-      optional($._primary_key),
-      optional($.direction),
+      repeat($._column_constraint),
+    ),
+
+    _column_constraint: $ => choice(
+        choice(
+            $.keyword_null,
+            $._not_null,
+        ),
+        $._default_expression,
+        $._primary_key,
+        $.keyword_auto_increment,
+        $.direction,
+    ),
+
+    _default_expression: $ => seq(
+        $.keyword_default,
+            choice(
+            seq(
+                '(',
+                    $._inner_default_expression,
+                ')',
+            ),
+            $._inner_default_expression,
+        )
+    ),
+    _inner_default_expression: $ => choice(
+        $.literal,
+        $.list,
+        $.cast,
+        $.binary_expression,
+        $.unary_expression,
+        $.array,
+        $.invocation,
+        alias($.implicit_cast, $.cast),
     ),
 
     constraints: $ => seq(

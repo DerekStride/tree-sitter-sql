@@ -1449,7 +1449,23 @@
       "required": false,
       "types": [
         {
+          "type": "array",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "cast",
+          "named": true
+        },
+        {
           "type": "direction",
+          "named": true
+        },
+        {
+          "type": "invocation",
           "named": true
         },
         {
@@ -1474,6 +1490,18 @@
         },
         {
           "type": "keyword_primary",
+          "named": true
+        },
+        {
+          "type": "list",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
           "named": true
         }
       ]
