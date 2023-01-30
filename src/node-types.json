@@ -1954,10 +1954,6 @@
           "named": true
         },
         {
-          "type": "store_options",
-          "named": true
-        },
-        {
           "type": "table_options",
           "named": true
         },
@@ -3928,33 +3924,6 @@
     }
   },
   {
-    "type": "store_options",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "keyword_as",
-          "named": true
-        },
-        {
-          "type": "keyword_csv",
-          "named": true
-        },
-        {
-          "type": "keyword_parquet",
-          "named": true
-        },
-        {
-          "type": "keyword_stored",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "subquery",
     "named": true,
     "fields": {},
@@ -4760,10 +4729,6 @@
     "named": true
   },
   {
-    "type": "keyword_csv",
-    "named": true
-  },
-  {
     "type": "keyword_current",
     "named": true
   },
@@ -5028,10 +4993,6 @@
     "named": true
   },
   {
-    "type": "keyword_parquet",
-    "named": true
-  },
-  {
     "type": "keyword_partition",
     "named": true
   },
@@ -5113,10 +5074,6 @@
   },
   {
     "type": "keyword_spgist",
-    "named": true
-  },
-  {
-    "type": "keyword_stored",
     "named": true
   },
   {
