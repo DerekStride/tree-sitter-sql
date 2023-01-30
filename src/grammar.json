@@ -1712,7 +1712,7 @@
         },
         {
           "type": "PATTERN",
-          "value": ".*\\n"
+          "value": ".*"
         }
       ]
     },
@@ -7083,3 +7083,4 @@
   "inline": [],
   "supertypes": []
 }
+

@@ -328,7 +328,7 @@ module.exports = grammar({
       "]"
     ),
 
-    comment: _ => seq('--', /.*\n/),
+    comment: _ => seq('--', /.*/),
     // https://stackoverflow.com/questions/13014947/regex-to-match-a-c-style-multiline-comment
     marginalia: _ => seq('/*', /[^*]*\*+(?:[^/*][^*]*\*+)*/, '/' ),
 
