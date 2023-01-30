@@ -1253,6 +1253,7 @@ module.exports = grammar({
       $.keyword_join,
       $.relation,
       optional($.index_hint),
+      optional($.join),
       choice(
         seq(
           $.keyword_on,
