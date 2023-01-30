@@ -1225,7 +1225,11 @@ FROM my_table a
 JOIN my_other_table b
 ON a.id = b.a_id
 JOIN table_three c
-ON a.id = c.a_id;
+ON a.id = c.a_id
+LEFT JOIN table_four d
+JOIN table_five e
+ON d.e_id = e.id
+ON c.id = d.c_id;
 
 --------------------------------------------------------------------------------
 
@@ -1279,6 +1283,35 @@ ON a.id = c.a_id;
             name: (identifier))
           right: (field
             table_alias: (identifier)
+                name: (identifier))))
+          (join
+            (keyword_left)
+            (keyword_join)
+            (relation
+              (table_reference
+                name: (identifier))
+              table_alias: (identifier))
+            (join
+              (keyword_join)
+              (relation
+                (table_reference
+                  name: (identifier))
+                table_alias: (identifier))
+              (keyword_on)
+              predicate: (binary_expression
+                left: (field
+                  table_alias: (identifier)
+                  name: (identifier))
+                right: (field
+                  table_alias: (identifier)
+                  name: (identifier))))
+            (keyword_on)
+            predicate: (binary_expression
+              left: (field
+                table_alias: (identifier)
+                name: (identifier))
+              right: (field
+                table_alias: (identifier)
             name: (identifier)))))))
 
 ================================================================================
