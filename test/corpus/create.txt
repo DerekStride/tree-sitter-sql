@@ -82,6 +82,7 @@ CREATE TEMP TABLE my_table (id BIGINT NOT NULL PRIMARY KEY);
       (keyword_primary)
       (keyword_key))))))
 
+
 ==================
 Create table with constraint
 ==================
@@ -683,3 +684,56 @@ CREATE TABLE tableName (
           (varchar
             (keyword_varchar))
           (keyword_null))))))
+
+==================
+Create unlogged table
+==================
+
+CREATE UNLOGGED TABLE tableName (
+    id NUMERIC
+);
+
+---
+
+(program
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_unlogged)
+      (keyword_table)
+      (table_reference
+        (identifier))
+      (column_definitions
+        (column_definition
+          (identifier)
+          (numeric
+            (keyword_numeric))
+          )))))
+
+
+==================
+Create table as select
+==================
+
+CREATE TABLE tableName AS SELECT * FROM otherTable;
+
+---
+
+(program
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (table_reference
+        name: (identifier))
+      (keyword_as)
+      (select
+        (keyword_select)
+        (select_expression
+          (all_fields)))
+        (from
+          (keyword_from)
+          (relation
+            (table_reference
+              name: (identifier))
+          )))))

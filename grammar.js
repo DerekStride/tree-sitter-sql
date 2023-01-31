@@ -115,6 +115,7 @@ module.exports = grammar({
     keyword_owner: _ => make_keyword("owner"),
     keyword_temp: _ => make_keyword("temp"),
     keyword_temporary: _ => make_keyword("temporary"),
+    keyword_unlogged: _ => make_keyword("unlogged"),
     keyword_union: _ => make_keyword("union"),
     keyword_all: _ => make_keyword("all"),
     keyword_except: _ => make_keyword("except"),
@@ -152,6 +153,7 @@ module.exports = grammar({
     keyword_brin: _ => make_keyword("brin"),
     keyword_like: _ => choice(make_keyword("like"),make_keyword("ilike")),
     keyword_similar: _ => make_keyword("similar"),
+    keyword_preserve: _ => make_keyword("preserve"),
 
     // Operators
     is_not: $ => prec.left(seq($.keyword_is, $.keyword_not)),
@@ -514,12 +516,34 @@ module.exports = grammar({
 
     create_table: $ => seq(
       $.keyword_create,
-      optional($._temporary),
+      optional(
+          choice(
+              $._temporary,
+              $.keyword_unlogged
+          )
+      ),
       $.keyword_table,
       optional($._if_not_exists),
       $.table_reference,
-      $.column_definitions,
-      optional($.table_options),
+      choice(
+          seq(
+              $.column_definitions,
+              optional($.table_options),
+              optional(
+                  seq(
+                      $.keyword_as,
+                      $._select_statement,
+                  ),
+              )
+          ),
+          seq(
+              optional($.table_options),
+              seq(
+                  $.keyword_as,
+                  $._select_statement,
+              ),
+          ),
+      )
     ),
 
     create_view: $ => seq(

@@ -1894,7 +1894,23 @@
           "named": true
         },
         {
+          "type": "from",
+          "named": true
+        },
+        {
+          "type": "keyword_all",
+          "named": true
+        },
+        {
+          "type": "keyword_as",
+          "named": true
+        },
+        {
           "type": "keyword_create",
+          "named": true
+        },
+        {
+          "type": "keyword_except",
           "named": true
         },
         {
@@ -1903,6 +1919,10 @@
         },
         {
           "type": "keyword_if",
+          "named": true
+        },
+        {
+          "type": "keyword_intersect",
           "named": true
         },
         {
@@ -1919,6 +1939,18 @@
         },
         {
           "type": "keyword_temporary",
+          "named": true
+        },
+        {
+          "type": "keyword_union",
+          "named": true
+        },
+        {
+          "type": "keyword_unlogged",
+          "named": true
+        },
+        {
+          "type": "select",
           "named": true
         },
         {
@@ -5094,6 +5126,10 @@
   },
   {
     "type": "keyword_unique",
+    "named": true
+  },
+  {
+    "type": "keyword_unlogged",
     "named": true
   },
   {
