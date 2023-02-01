@@ -435,10 +435,10 @@ CREATE TABLE my_table (
             (keyword_asc))))
       (table_options
         (table_option
-          name: (identifier)
+          name: (keyword_engine)
           value: (identifier))
         (table_option
-          name: (identifier))
+          name: (keyword_default))
         (table_option
           name: (identifier)
           value: (identifier))
@@ -807,6 +807,70 @@ CREATE UNLOGGED TABLE tableName (
           (numeric
             (keyword_numeric)))))))
 
+================================================================================
+Create table with index
+================================================================================
+
+CREATE TABLE some_table(
+    `id` bigint(20) NOT NULL AUTO_INCREMENT,
+    `s_id` bigint(20) DEFAULT NULL,
+    INDEX `parent`(pid),
+    INDEX `range`(publication, published_at)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (table_reference
+        name: (identifier))
+      (column_definitions
+        (column_definition
+          name: (identifier)
+          type: (bigint
+            (keyword_bigint)
+            size: (literal))
+          (keyword_not)
+          (keyword_null)
+          (keyword_auto_increment))
+        (column_definition
+          name: (identifier)
+          type: (bigint
+            (keyword_bigint)
+            size: (literal))
+          (keyword_default)
+          (literal
+            (keyword_null)))
+        (constraints
+          (constraint
+            (keyword_index)
+            name: (identifier)
+            (ordered_columns
+              (column
+                name: (identifier))))
+          (constraint
+            (keyword_index)
+            name: (identifier)
+            (ordered_columns
+              (column
+                name: (identifier))
+              (column
+                name: (identifier))))))
+      (table_options
+        (table_option
+          (keyword_default)
+          (keyword_character)
+          (keyword_set)
+          (identifier))
+        (table_option
+          (keyword_collate)
+          (identifier))
+        (table_option
+          name: (keyword_engine)
+          value: (identifier))))))
 
 ================================================================================
 Create table as select

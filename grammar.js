@@ -103,6 +103,9 @@ module.exports = grammar({
     keyword_if: _ => make_keyword("if"),
     keyword_exists: _ => make_keyword("exists"),
     keyword_auto_increment: _ => make_keyword("auto_increment"),
+    keyword_collate: _ => make_keyword("collate"),
+    keyword_character: _ => make_keyword("character"),
+    keyword_engine: _ => make_keyword("engine"),
     keyword_default: _ => make_keyword("default"),
     keyword_cascade: _ => make_keyword("cascade"),
     keyword_with: _ => make_keyword("with"),
@@ -859,9 +862,11 @@ module.exports = grammar({
 
     table_options: $ => repeat1($.table_option),
     table_option: $ => choice(
-      field('name', alias($.keyword_default, $.identifier)),
+      seq($.keyword_default, $.keyword_character, $.keyword_set, $.identifier),
+      seq($.keyword_collate, $.identifier),
+      field('name', $.keyword_default),
       seq(
-        field('name', $.identifier),
+        field('name', choice($.keyword_engine, $.identifier)),
         '=',
         field('value', $.identifier),
       ),
@@ -943,7 +948,7 @@ module.exports = grammar({
     ),
 
     _key_constraint: $ => seq(
-      $.keyword_key,
+      choice($.keyword_key, $.keyword_index),
       field('name', $.identifier),
       $.ordered_columns,
     ),
