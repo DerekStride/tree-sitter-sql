@@ -660,7 +660,9 @@ module.exports = grammar({
 
     add_column: $ => seq(
       $.keyword_add,
-      $.keyword_column,
+      optional(
+        $.keyword_column,
+      ),
       optional($._if_not_exists),
       $.column_definition,
     ),
@@ -668,7 +670,9 @@ module.exports = grammar({
     alter_column: $ => seq(
       // TODO constraint management
       $.keyword_alter,
-      $.keyword_column,
+      optional(
+        $.keyword_column,
+      ),
       field('name', $.identifier),
       choice(
         seq(
@@ -703,7 +707,9 @@ module.exports = grammar({
 
     drop_column: $ => seq(
       $.keyword_drop,
-      $.keyword_column,
+      optional(
+        $.keyword_column,
+      ),
       optional($._if_exists),
       field('name', $.identifier),
     ),

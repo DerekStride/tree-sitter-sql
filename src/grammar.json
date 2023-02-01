@@ -2953,8 +2953,16 @@
           "name": "keyword_add"
         },
         {
-          "type": "SYMBOL",
-          "name": "keyword_column"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "keyword_column"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         },
         {
           "type": "CHOICE",
@@ -2982,8 +2990,16 @@
           "name": "keyword_alter"
         },
         {
-          "type": "SYMBOL",
-          "name": "keyword_column"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "keyword_column"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         },
         {
           "type": "FIELD",
@@ -3102,8 +3118,16 @@
           "name": "keyword_drop"
         },
         {
-          "type": "SYMBOL",
-          "name": "keyword_column"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "keyword_column"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         },
         {
           "type": "CHOICE",
