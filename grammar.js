@@ -197,6 +197,7 @@ module.exports = grammar({
     keyword_numeric: _ => make_keyword("numeric"),
     keyword_real: _ => choice(make_keyword("real"),make_keyword("float4")),
     keyword_float: _ => make_keyword("float"),
+    unsigned_integer: _ => seq(make_keyword("unsigned"), make_keyword("integer")),
     double: _ => choice(
         seq(make_keyword("double"), make_keyword("precision")),
         make_keyword("float8")
@@ -274,6 +275,7 @@ module.exports = grammar({
       $.keyword_real,
       $.double,
       $.float,
+      $.unsigned_integer,
 
       $.keyword_money,
 

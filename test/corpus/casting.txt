@@ -129,3 +129,23 @@ CAST (100 AS NUMERIC(32)),
           value: (cast
             (literal)
             (double)))))))
+
+================================================================================
+SELECT AS UNSIGNED //(MariaDB)
+================================================================================
+
+SELECT CAST ("1" AS UNSIGNED INTEGER);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (cast
+            name: (identifier)
+            parameter: (literal)
+            (keyword_as)
+            (unsigned_integer)))))))
