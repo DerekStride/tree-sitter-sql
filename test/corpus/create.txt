@@ -1,91 +1,94 @@
-==================
+================================================================================
 Create table
-==================
+================================================================================
 
 CREATE TABLE my_schema.my_table (id BIGINT NOT NULL PRIMARY KEY);
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (create_table
-   (keyword_create)
-   (keyword_table)
-   (table_reference
-    schema: (identifier)
-    name: (identifier))
-   (column_definitions
-    (column_definition
-      name: (identifier)
-      type: (bigint (keyword_bigint))
-      (keyword_not)
-      (keyword_null)
-      (keyword_primary)
-      (keyword_key))))))
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (table_reference
+        schema: (identifier)
+        name: (identifier))
+      (column_definitions
+        (column_definition
+          name: (identifier)
+          type: (bigint
+            (keyword_bigint))
+          (keyword_not)
+          (keyword_null)
+          (keyword_primary)
+          (keyword_key))))))
 
-==================
+================================================================================
 Create table multiple columns
-==================
+================================================================================
 
 CREATE TABLE my_table (
   id BIGINT NOT NULL PRIMARY KEY,
   date DATE DEFAULT NULL ASC
 );
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (create_table
-   (keyword_create)
-   (keyword_table)
-   (table_reference
-    name: (identifier))
-   (column_definitions
-    (column_definition
-      name: (identifier)
-      type: (bigint (keyword_bigint))
-      (keyword_not)
-      (keyword_null)
-      (keyword_primary)
-      (keyword_key))
-    (column_definition
-      name: (identifier)
-      type: (keyword_date)
-      (keyword_default)
-      (literal
-        (keyword_null))
-      (direction (keyword_asc)))))))
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (table_reference
+        name: (identifier))
+      (column_definitions
+        (column_definition
+          name: (identifier)
+          type: (bigint
+            (keyword_bigint))
+          (keyword_not)
+          (keyword_null)
+          (keyword_primary)
+          (keyword_key))
+        (column_definition
+          name: (identifier)
+          type: (keyword_date)
+          (keyword_default)
+          (literal
+            (keyword_null))
+          (direction
+            (keyword_asc)))))))
 
-==================
+================================================================================
 Create temp table
-==================
+================================================================================
 
 CREATE TEMP TABLE my_table (id BIGINT NOT NULL PRIMARY KEY);
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (create_table
-   (keyword_create)
-   (keyword_temp)
-   (keyword_table)
-   (table_reference
-    name: (identifier))
-   (column_definitions
-    (column_definition
-      name: (identifier)
-      type: (bigint (keyword_bigint))
-      (keyword_not)
-      (keyword_null)
-      (keyword_primary)
-      (keyword_key))))))
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_temp)
+      (keyword_table)
+      (table_reference
+        name: (identifier))
+      (column_definitions
+        (column_definition
+          name: (identifier)
+          type: (bigint
+            (keyword_bigint))
+          (keyword_not)
+          (keyword_null)
+          (keyword_primary)
+          (keyword_key))))))
 
-
-==================
+================================================================================
 Create table with constraint
-==================
+================================================================================
 
 CREATE TABLE my_table (
   host CHAR(50) NOT NULL,
@@ -93,46 +96,47 @@ CREATE TABLE my_table (
   CONSTRAINT pk PRIMARY KEY (host ASC, created_date DESC)
 );
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (create_table
-   (keyword_create)
-   (keyword_table)
-   (table_reference
-    name: (identifier))
-   (column_definitions
-    (column_definition
-     name: (identifier)
-     type:
-     (char
-      (keyword_char)
-      size: (literal))
-     (keyword_not)
-     (keyword_null))
-    (column_definition
-     name: (identifier)
-     type: (keyword_date)
-     (keyword_not)
-     (keyword_null))
-    (constraints
-     (constraint
-      (keyword_constraint)
-      name: (identifier)
-      (keyword_primary)
-      (keyword_key)
-      (ordered_columns
-       (column
-        name: (identifier)
-        (direction (keyword_asc)))
-       (column
-        name: (identifier)
-        (direction (keyword_desc))))))))))
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (table_reference
+        name: (identifier))
+      (column_definitions
+        (column_definition
+          name: (identifier)
+          type: (char
+            (keyword_char)
+            size: (literal))
+          (keyword_not)
+          (keyword_null))
+        (column_definition
+          name: (identifier)
+          type: (keyword_date)
+          (keyword_not)
+          (keyword_null))
+        (constraints
+          (constraint
+            (keyword_constraint)
+            name: (identifier)
+            (keyword_primary)
+            (keyword_key)
+            (ordered_columns
+              (column
+                name: (identifier)
+                (direction
+                  (keyword_asc)))
+              (column
+                name: (identifier)
+                (direction
+                  (keyword_desc))))))))))
 
-==================
+================================================================================
 Create table with constraint on multiple columns
-==================
+================================================================================
 
 CREATE TABLE my_table (
   host CHAR(50) NOT NULL,
@@ -142,85 +146,83 @@ CREATE TABLE my_table (
   KEY `idx` (`host`, `created_date`)
 );
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (create_table
-   (keyword_create)
-   (keyword_table)
-   (table_reference
-    name: (identifier))
-   (column_definitions
-    (column_definition
-     name: (identifier)
-     type:
-     (char
-      (keyword_char)
-      size: (literal))
-     (keyword_not)
-     (keyword_null))
-    (column_definition
-     name: (identifier)
-     type: (keyword_date)
-     (keyword_not)
-     (keyword_null))
-    (column_definition
-      name: (identifier)
-      type: (float
-        (keyword_float))
-      (keyword_default)
-      (invocation
-        name: (identifier)))
-    (column_definition
-      name: (identifier)
-      type: (keyword_text)
-      (keyword_default)
-      (literal))
-    (constraints
-     (constraint
-      (keyword_key)
-      name: (identifier)
-      (ordered_columns
-       (column
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (table_reference
         name: (identifier))
-       (column
-        name: (identifier)))))))))
+      (column_definitions
+        (column_definition
+          name: (identifier)
+          type: (char
+            (keyword_char)
+            size: (literal))
+          (keyword_not)
+          (keyword_null))
+        (column_definition
+          name: (identifier)
+          type: (keyword_date)
+          (keyword_not)
+          (keyword_null))
+        (column_definition
+          name: (identifier)
+          type: (float
+            (keyword_float))
+          (keyword_default)
+          (invocation
+            name: (identifier)))
+        (column_definition
+          name: (identifier)
+          type: (keyword_text)
+          (keyword_default)
+          (literal))
+        (constraints
+          (constraint
+            (keyword_key)
+            name: (identifier)
+            (ordered_columns
+              (column
+                name: (identifier))
+              (column
+                name: (identifier)))))))))
 
-==================
+================================================================================
 Create table if not exists
-==================
+================================================================================
 
 CREATE TABLE IF NOT EXISTS `addresses` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT
 );
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (create_table
-   (keyword_create)
-   (keyword_table)
-   (keyword_if)
-   (keyword_not)
-   (keyword_exists)
-   (table_reference
-    name: (identifier))
-   (column_definitions
-    (column_definition
-      name: (identifier)
-      type:
-       (bigint
-        (keyword_bigint)
-        size: (literal))
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (keyword_if)
       (keyword_not)
-      (keyword_null)
-      (keyword_auto_increment))))))
+      (keyword_exists)
+      (table_reference
+        name: (identifier))
+      (column_definitions
+        (column_definition
+          name: (identifier)
+          type: (bigint
+            (keyword_bigint)
+            size: (literal))
+          (keyword_not)
+          (keyword_null)
+          (keyword_auto_increment))))))
 
-==================
+================================================================================
 Create table with auto increment
-==================
+================================================================================
 
 CREATE TABLE IF NOT EXISTS `addresses` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -228,45 +230,44 @@ CREATE TABLE IF NOT EXISTS `addresses` (
   KEY `addresses_s_id_index` (`s_id`)
 );
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (create_table
-   (keyword_create)
-   (keyword_table)
-   (keyword_if)
-   (keyword_not)
-   (keyword_exists)
-   (table_reference
-    name: (identifier))
-   (column_definitions
-    (column_definition
-      name: (identifier)
-      type:
-       (bigint
-        (keyword_bigint)
-        size: (literal))
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (keyword_if)
       (keyword_not)
-      (keyword_null)
-      (keyword_auto_increment))
-    (constraints
-     (constraint
-      (keyword_primary)
-      (keyword_key)
-      (ordered_columns
-       (column
-        name: (identifier))))
-     (constraint
-      (keyword_key)
-      name: (identifier)
-      (ordered_columns
-       (column
-        name: (identifier)))))))))
+      (keyword_exists)
+      (table_reference
+        name: (identifier))
+      (column_definitions
+        (column_definition
+          name: (identifier)
+          type: (bigint
+            (keyword_bigint)
+            size: (literal))
+          (keyword_not)
+          (keyword_null)
+          (keyword_auto_increment))
+        (constraints
+          (constraint
+            (keyword_primary)
+            (keyword_key)
+            (ordered_columns
+              (column
+                name: (identifier))))
+          (constraint
+            (keyword_key)
+            name: (identifier)
+            (ordered_columns
+              (column
+                name: (identifier)))))))))
 
-==================
+================================================================================
 Create table with multiple constraints
-==================
+================================================================================
 
 CREATE TABLE IF NOT EXISTS `addresses` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -279,83 +280,80 @@ CREATE TABLE IF NOT EXISTS `addresses` (
   KEY `index_addresses_on_s_id_and_id` (`s_id`, `id`)
 );
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (create_table
-   (keyword_create)
-   (keyword_table)
-   (keyword_if)
-   (keyword_not)
-   (keyword_exists)
-   (table_reference
-    name: (identifier))
-   (column_definitions
-    (column_definition
-      name: (identifier)
-      type:
-       (bigint
-        (keyword_bigint)
-        size: (literal))
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (keyword_if)
       (keyword_not)
-      (keyword_null)
-      (keyword_auto_increment))
-    (column_definition
-      name: (identifier)
-      type:
-       (bigint
-        (keyword_bigint)
-        size: (literal))
-      (keyword_default)
-      (literal
-        (keyword_null)))
-    (column_definition
-      name: (identifier)
-      type:
-       (varchar
-        (keyword_varchar)
-        size: (literal))
-      (keyword_default)
-      (literal
-        (keyword_null)))
-    (column_definition
-      name: (identifier)
-      type: (keyword_datetime)
-      (keyword_default)
-      (literal
-        (keyword_null)))
-    (constraints
-     (constraint
-      (keyword_primary)
-      (keyword_key)
-      (ordered_columns
-       (column
-        name: (identifier))))
-     (constraint
-      (keyword_key)
-      name: (identifier)
-      (ordered_columns
-       (column
-        name: (identifier))))
-     (constraint
-      (keyword_key)
-      name: (identifier)
-      (ordered_columns
-       (column
-        name: (identifier))))
-     (constraint
-      (keyword_key)
-      name: (identifier)
-      (ordered_columns
-       (column
+      (keyword_exists)
+      (table_reference
         name: (identifier))
-       (column
-        name: (identifier)))))))))
+      (column_definitions
+        (column_definition
+          name: (identifier)
+          type: (bigint
+            (keyword_bigint)
+            size: (literal))
+          (keyword_not)
+          (keyword_null)
+          (keyword_auto_increment))
+        (column_definition
+          name: (identifier)
+          type: (bigint
+            (keyword_bigint)
+            size: (literal))
+          (keyword_default)
+          (literal
+            (keyword_null)))
+        (column_definition
+          name: (identifier)
+          type: (varchar
+            (keyword_varchar)
+            size: (literal))
+          (keyword_default)
+          (literal
+            (keyword_null)))
+        (column_definition
+          name: (identifier)
+          type: (keyword_datetime)
+          (keyword_default)
+          (literal
+            (keyword_null)))
+        (constraints
+          (constraint
+            (keyword_primary)
+            (keyword_key)
+            (ordered_columns
+              (column
+                name: (identifier))))
+          (constraint
+            (keyword_key)
+            name: (identifier)
+            (ordered_columns
+              (column
+                name: (identifier))))
+          (constraint
+            (keyword_key)
+            name: (identifier)
+            (ordered_columns
+              (column
+                name: (identifier))))
+          (constraint
+            (keyword_key)
+            name: (identifier)
+            (ordered_columns
+              (column
+                name: (identifier))
+              (column
+                name: (identifier)))))))))
 
-==================
+================================================================================
 Debugging
-==================
+================================================================================
 
 CREATE TABLE IF NOT EXISTS `addresses` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -363,207 +361,214 @@ CREATE TABLE IF NOT EXISTS `addresses` (
   `first_name` varchar(255) DEFAULT NULL
 );
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (create_table
-   (keyword_create)
-   (keyword_table)
-   (keyword_if)
-   (keyword_not)
-   (keyword_exists)
-   (table_reference
-    name: (identifier))
-   (column_definitions
-    (column_definition
-      name: (identifier)
-      type:
-       (bigint
-        (keyword_bigint)
-        size: (literal))
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (keyword_if)
       (keyword_not)
-      (keyword_null)
-      (keyword_auto_increment))
-    (column_definition
-      name: (identifier)
-      type:
-       (bigint
-        (keyword_bigint)
-        size: (literal))
-      (keyword_default)
-      (literal
-        (keyword_null)))
-    (column_definition
-      name: (identifier)
-      type:
-       (varchar
-        (keyword_varchar)
-        size: (literal))
-      (keyword_default)
-      (literal
-        (keyword_null)))))))
+      (keyword_exists)
+      (table_reference
+        name: (identifier))
+      (column_definitions
+        (column_definition
+          name: (identifier)
+          type: (bigint
+            (keyword_bigint)
+            size: (literal))
+          (keyword_not)
+          (keyword_null)
+          (keyword_auto_increment))
+        (column_definition
+          name: (identifier)
+          type: (bigint
+            (keyword_bigint)
+            size: (literal))
+          (keyword_default)
+          (literal
+            (keyword_null)))
+        (column_definition
+          name: (identifier)
+          type: (varchar
+            (keyword_varchar)
+            size: (literal))
+          (keyword_default)
+          (literal
+            (keyword_null)))))))
 
-==================
+================================================================================
 Create table with table options
-==================
+================================================================================
 
 CREATE TABLE my_table (
   id BIGINT(20) NOT NULL,
   date DATE DEFAULT NULL ASC
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (create_table
-   (keyword_create)
-   (keyword_table)
-   (table_reference
-    name: (identifier))
-   (column_definitions
-    (column_definition
-      name: (identifier)
-      type:
-       (bigint
-        (keyword_bigint)
-        size: (literal))
-      (keyword_not)
-      (keyword_null))
-    (column_definition
-      name: (identifier)
-      type: (keyword_date)
-      (keyword_default)
-      (literal
-        (keyword_null))
-      (direction (keyword_asc))))
-   (table_options
-    (table_option
-     name: (identifier)
-     value: (identifier))
-    (table_option
-     name: (identifier))
-    (table_option
-     name: (identifier)
-     value: (identifier))
-    (table_option
-     name: (identifier)
-     value: (identifier))))))
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (table_reference
+        name: (identifier))
+      (column_definitions
+        (column_definition
+          name: (identifier)
+          type: (bigint
+            (keyword_bigint)
+            size: (literal))
+          (keyword_not)
+          (keyword_null))
+        (column_definition
+          name: (identifier)
+          type: (keyword_date)
+          (keyword_default)
+          (literal
+            (keyword_null))
+          (direction
+            (keyword_asc))))
+      (table_options
+        (table_option
+          name: (keyword_engine)
+          value: (identifier))
+        (table_option
+          name: (keyword_default))
+        (table_option
+          name: (identifier)
+          value: (identifier))
+        (table_option
+          name: (identifier)
+          value: (identifier))))))
 
-==================
+================================================================================
 Create view
-==================
+================================================================================
 
 CREATE VIEW my_view AS
 SELECT * FROM my_table;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (create_view
-   (keyword_create)
-   (keyword_view)
-   (table_reference name: (identifier))
-   (keyword_as)
-   (select
-    (keyword_select)
-    (select_expression (all_fields)))
-   (from
-    (keyword_from)
-      (relation
-        (table_reference name: (identifier)))
-   ))))
+  (statement
+    (create_view
+      (keyword_create)
+      (keyword_view)
+      (table_reference
+        name: (identifier))
+      (keyword_as)
+      (select
+        (keyword_select)
+        (select_expression
+          (all_fields)))
+      (from
+        (keyword_from)
+        (relation
+          (table_reference
+            name: (identifier)))))))
 
-==================
+================================================================================
 Create or replace view
-==================
+================================================================================
 
 CREATE OR REPLACE VIEW my_view AS
 SELECT * FROM my_table;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (create_view
-   (keyword_create)
-   (keyword_or)
-   (keyword_replace)
-   (keyword_view)
-   (table_reference name: (identifier))
-   (keyword_as)
-   (select
-    (keyword_select)
-    (select_expression (all_fields)))
-   (from
-    (keyword_from)
-      (relation
-        (table_reference name: (identifier)))
-   ))))
+  (statement
+    (create_view
+      (keyword_create)
+      (keyword_or)
+      (keyword_replace)
+      (keyword_view)
+      (table_reference
+        name: (identifier))
+      (keyword_as)
+      (select
+        (keyword_select)
+        (select_expression
+          (all_fields)))
+      (from
+        (keyword_from)
+        (relation
+          (table_reference
+            name: (identifier)))))))
 
-==================
+================================================================================
 Create matview
-==================
+================================================================================
 
 CREATE MATERIALIZED VIEW my_view AS
 SELECT * FROM my_table
 WITH NO DATA;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (create_materialized_view
-   (keyword_create)
-   (keyword_materialized)
-   (keyword_view)
-   (table_reference name: (identifier))
-   (keyword_as)
-   (select
-    (keyword_select)
-    (select_expression (all_fields)))
-   (from
-    (keyword_from)
-      (relation
-        (table_reference name: (identifier)))
-   )
-   (keyword_with) (keyword_no) (keyword_data)
-  )))
+  (statement
+    (create_materialized_view
+      (keyword_create)
+      (keyword_materialized)
+      (keyword_view)
+      (table_reference
+        name: (identifier))
+      (keyword_as)
+      (select
+        (keyword_select)
+        (select_expression
+          (all_fields)))
+      (from
+        (keyword_from)
+        (relation
+          (table_reference
+            name: (identifier))))
+      (keyword_with)
+      (keyword_no)
+      (keyword_data))))
 
-==================
+================================================================================
 Create matview with ambiguous grammar
-==================
+================================================================================
 
 CREATE MATERIALIZED VIEW my_view AS
 SELECT * FROM my_table
 WITH NO DATA
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (create_materialized_view
-   (keyword_create)
-   (keyword_materialized)
-   (keyword_view)
-   (table_reference name: (identifier))
-   (keyword_as)
-   (select
-    (keyword_select)
-    (select_expression (all_fields)))
-   (from
-    (keyword_from)
-      (relation
-        (table_reference name: (identifier)))
-   )
-   (keyword_with) (keyword_no) (keyword_data)
-  )))
+  (statement
+    (create_materialized_view
+      (keyword_create)
+      (keyword_materialized)
+      (keyword_view)
+      (table_reference
+        name: (identifier))
+      (keyword_as)
+      (select
+        (keyword_select)
+        (select_expression
+          (all_fields)))
+      (from
+        (keyword_from)
+        (relation
+          (table_reference
+            name: (identifier))))
+      (keyword_with)
+      (keyword_no)
+      (keyword_data))))
 
-==================
+================================================================================
 Create table with all types
-==================
+================================================================================
 
 CREATE TABLE type_test (
   a_bool BOOLEAN,
@@ -605,66 +610,159 @@ CREATE TABLE type_test (
   a_uuid UUID
 );
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (create_table
-   (keyword_create)
-   (keyword_table)
-   (table_reference
-    name: (identifier))
-   (column_definitions
-    (column_definition name: (identifier) type: (keyword_boolean))
-    (column_definition name: (identifier) type: (keyword_smallserial))
-    (column_definition name: (identifier) type: (keyword_serial))
-    (column_definition name: (identifier) type: (keyword_bigserial))
-    (column_definition name: (identifier) type: (keyword_int))
-    (column_definition name: (identifier) type: (keyword_int))
-    (column_definition name: (identifier) type: (bigint (keyword_bigint)))
-    (column_definition name: (identifier) type: (decimal (keyword_decimal)))
-    (column_definition name: (identifier) type: (decimal (keyword_decimal) precision: (literal)))
-    (column_definition name: (identifier) type: (decimal (keyword_decimal) precision: (literal) scale: (literal)))
-    (column_definition name: (identifier) type: (numeric (keyword_numeric)))
-    (column_definition name: (identifier) type: (numeric (keyword_numeric) precision: (literal)))
-    (column_definition name: (identifier) type: (numeric (keyword_numeric) precision: (literal) scale: (literal)))
-    (column_definition name: (identifier) type: (keyword_real))
-    (column_definition name: (identifier) type: (double))
-    (column_definition name: (identifier) type: (keyword_money))
-    (column_definition name: (identifier) type: (char (keyword_char)))
-    (column_definition name: (identifier) type: (char (keyword_char)))
-    (column_definition name: (identifier) type: (char (keyword_char) size: (literal)))
-    (column_definition name: (identifier) type: (varchar (keyword_varchar) size: (literal)))
-    (column_definition name: (identifier) type: (varchar (keyword_varchar) size: (literal)))
-    (column_definition name: (identifier) type: (keyword_text))
-    (column_definition name: (identifier) type: (keyword_json))
-    (column_definition name: (identifier) type: (keyword_jsonb))
-    (column_definition name: (identifier) type: (keyword_xml))
-    (column_definition name: (identifier) type: (keyword_bytea))
-    (column_definition name: (identifier) type: (keyword_date))
-    (column_definition name: (identifier) type: (keyword_datetime))
-    (column_definition name: (identifier) type: (keyword_timestamp))
-    (column_definition name: (identifier) type: (keyword_timestamp))
-    (column_definition name: (identifier) type: (keyword_timestamptz))
-    (column_definition name: (identifier) type: (keyword_timestamptz))
-    (column_definition name: (identifier) type: (keyword_geometry))
-    (column_definition name: (identifier) type: (keyword_geography))
-    (column_definition name: (identifier) type: (keyword_box2d))
-    (column_definition name: (identifier) type: (keyword_box3d))
-    (column_definition name: (identifier) type: (keyword_uuid))
-   ))))
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (table_reference
+        name: (identifier))
+      (column_definitions
+        (column_definition
+          name: (identifier)
+          type: (keyword_boolean))
+        (column_definition
+          name: (identifier)
+          type: (keyword_smallserial))
+        (column_definition
+          name: (identifier)
+          type: (keyword_serial))
+        (column_definition
+          name: (identifier)
+          type: (keyword_bigserial))
+        (column_definition
+          name: (identifier)
+          type: (keyword_int))
+        (column_definition
+          name: (identifier)
+          type: (keyword_int))
+        (column_definition
+          name: (identifier)
+          type: (bigint
+            (keyword_bigint)))
+        (column_definition
+          name: (identifier)
+          type: (decimal
+            (keyword_decimal)))
+        (column_definition
+          name: (identifier)
+          type: (decimal
+            (keyword_decimal)
+            precision: (literal)))
+        (column_definition
+          name: (identifier)
+          type: (decimal
+            (keyword_decimal)
+            precision: (literal)
+            scale: (literal)))
+        (column_definition
+          name: (identifier)
+          type: (numeric
+            (keyword_numeric)))
+        (column_definition
+          name: (identifier)
+          type: (numeric
+            (keyword_numeric)
+            precision: (literal)))
+        (column_definition
+          name: (identifier)
+          type: (numeric
+            (keyword_numeric)
+            precision: (literal)
+            scale: (literal)))
+        (column_definition
+          name: (identifier)
+          type: (keyword_real))
+        (column_definition
+          name: (identifier)
+          type: (double))
+        (column_definition
+          name: (identifier)
+          type: (keyword_money))
+        (column_definition
+          name: (identifier)
+          type: (char
+            (keyword_char)))
+        (column_definition
+          name: (identifier)
+          type: (char
+            (keyword_char)))
+        (column_definition
+          name: (identifier)
+          type: (char
+            (keyword_char)
+            size: (literal)))
+        (column_definition
+          name: (identifier)
+          type: (varchar
+            (keyword_varchar)
+            size: (literal)))
+        (column_definition
+          name: (identifier)
+          type: (varchar
+            (keyword_varchar)
+            size: (literal)))
+        (column_definition
+          name: (identifier)
+          type: (keyword_text))
+        (column_definition
+          name: (identifier)
+          type: (keyword_json))
+        (column_definition
+          name: (identifier)
+          type: (keyword_jsonb))
+        (column_definition
+          name: (identifier)
+          type: (keyword_xml))
+        (column_definition
+          name: (identifier)
+          type: (keyword_bytea))
+        (column_definition
+          name: (identifier)
+          type: (keyword_date))
+        (column_definition
+          name: (identifier)
+          type: (keyword_datetime))
+        (column_definition
+          name: (identifier)
+          type: (keyword_timestamp))
+        (column_definition
+          name: (identifier)
+          type: (keyword_timestamp))
+        (column_definition
+          name: (identifier)
+          type: (keyword_timestamptz))
+        (column_definition
+          name: (identifier)
+          type: (keyword_timestamptz))
+        (column_definition
+          name: (identifier)
+          type: (keyword_geometry))
+        (column_definition
+          name: (identifier)
+          type: (keyword_geography))
+        (column_definition
+          name: (identifier)
+          type: (keyword_box2d))
+        (column_definition
+          name: (identifier)
+          type: (keyword_box3d))
+        (column_definition
+          name: (identifier)
+          type: (keyword_uuid))))))
 
-
-==================
+================================================================================
 Create table with nullable columns
-==================
+================================================================================
 
 CREATE TABLE tableName (
     id NUMERIC NULL,
     name VARCHAR NULL
 );
 
----
+--------------------------------------------------------------------------------
 
 (program
   (statement
@@ -685,15 +783,15 @@ CREATE TABLE tableName (
             (keyword_varchar))
           (keyword_null))))))
 
-==================
+================================================================================
 Create unlogged table
-==================
+================================================================================
 
 CREATE UNLOGGED TABLE tableName (
     id NUMERIC
 );
 
----
+--------------------------------------------------------------------------------
 
 (program
   (statement
@@ -707,17 +805,80 @@ CREATE UNLOGGED TABLE tableName (
         (column_definition
           (identifier)
           (numeric
-            (keyword_numeric))
-          )))))
+            (keyword_numeric)))))))
 
+================================================================================
+Create table with index
+================================================================================
 
-==================
+CREATE TABLE some_table(
+    `id` bigint(20) NOT NULL AUTO_INCREMENT,
+    `s_id` bigint(20) DEFAULT NULL,
+    INDEX `parent`(pid),
+    INDEX `range`(publication, published_at)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (table_reference
+        name: (identifier))
+      (column_definitions
+        (column_definition
+          name: (identifier)
+          type: (bigint
+            (keyword_bigint)
+            size: (literal))
+          (keyword_not)
+          (keyword_null)
+          (keyword_auto_increment))
+        (column_definition
+          name: (identifier)
+          type: (bigint
+            (keyword_bigint)
+            size: (literal))
+          (keyword_default)
+          (literal
+            (keyword_null)))
+        (constraints
+          (constraint
+            (keyword_index)
+            name: (identifier)
+            (ordered_columns
+              (column
+                name: (identifier))))
+          (constraint
+            (keyword_index)
+            name: (identifier)
+            (ordered_columns
+              (column
+                name: (identifier))
+              (column
+                name: (identifier))))))
+      (table_options
+        (table_option
+          (keyword_default)
+          (keyword_character)
+          (keyword_set)
+          (identifier))
+        (table_option
+          (keyword_collate)
+          (identifier))
+        (table_option
+          name: (keyword_engine)
+          value: (identifier))))))
+
+================================================================================
 Create table as select
-==================
+================================================================================
 
 CREATE TABLE tableName AS SELECT * FROM otherTable;
 
----
+--------------------------------------------------------------------------------
 
 (program
   (statement
@@ -731,9 +892,8 @@ CREATE TABLE tableName AS SELECT * FROM otherTable;
         (keyword_select)
         (select_expression
           (all_fields)))
-        (from
-          (keyword_from)
-          (relation
-            (table_reference
-              name: (identifier))
-          )))))
+      (from
+        (keyword_from)
+        (relation
+          (table_reference
+            name: (identifier)))))))

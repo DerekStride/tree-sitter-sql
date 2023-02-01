@@ -1578,6 +1578,10 @@
           "named": true
         },
         {
+          "type": "keyword_index",
+          "named": true
+        },
+        {
           "type": "keyword_key",
           "named": true
         },
@@ -2964,6 +2968,11 @@
     "fields": {}
   },
   {
+    "type": "keyword_character",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "keyword_int",
     "named": true,
     "fields": {}
@@ -3948,10 +3957,18 @@
     "fields": {
       "name": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "keyword_default",
+            "named": true
+          },
+          {
+            "type": "keyword_engine",
             "named": true
           }
         ]
@@ -3966,6 +3983,32 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "keyword_character",
+          "named": true
+        },
+        {
+          "type": "keyword_collate",
+          "named": true
+        },
+        {
+          "type": "keyword_default",
+          "named": true
+        },
+        {
+          "type": "keyword_set",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -4705,6 +4748,10 @@
     "named": true
   },
   {
+    "type": "keyword_collate",
+    "named": true
+  },
+  {
     "type": "keyword_column",
     "named": true
   },
@@ -4774,6 +4821,10 @@
   },
   {
     "type": "keyword_end",
+    "named": true
+  },
+  {
+    "type": "keyword_engine",
     "named": true
   },
   {

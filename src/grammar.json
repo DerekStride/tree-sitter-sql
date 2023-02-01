@@ -286,6 +286,18 @@
       "type": "PATTERN",
       "value": "auto_increment|AUTO_INCREMENT"
     },
+    "keyword_collate": {
+      "type": "PATTERN",
+      "value": "collate|COLLATE"
+    },
+    "keyword_character": {
+      "type": "PATTERN",
+      "value": "character|CHARACTER"
+    },
+    "keyword_engine": {
+      "type": "PATTERN",
+      "value": "engine|ENGINE"
+    },
     "keyword_default": {
       "type": "PATTERN",
       "value": "default|DEFAULT"
@@ -3841,16 +3853,45 @@
       "type": "CHOICE",
       "members": [
         {
-          "type": "FIELD",
-          "name": "name",
-          "content": {
-            "type": "ALIAS",
-            "content": {
+          "type": "SEQ",
+          "members": [
+            {
               "type": "SYMBOL",
               "name": "keyword_default"
             },
-            "named": true,
-            "value": "identifier"
+            {
+              "type": "SYMBOL",
+              "name": "keyword_character"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "keyword_set"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "identifier"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "keyword_collate"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "identifier"
+            }
+          ]
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "keyword_default"
           }
         },
         {
@@ -3860,8 +3901,17 @@
               "type": "FIELD",
               "name": "name",
               "content": {
-                "type": "SYMBOL",
-                "name": "identifier"
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "keyword_engine"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "identifier"
+                  }
+                ]
               }
             },
             {
@@ -4152,8 +4202,17 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "keyword_key"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "keyword_key"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "keyword_index"
+            }
+          ]
         },
         {
           "type": "FIELD",
@@ -7173,3 +7232,4 @@
   "inline": [],
   "supertypes": []
 }
+
