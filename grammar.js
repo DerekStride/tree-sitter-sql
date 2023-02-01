@@ -197,7 +197,13 @@ module.exports = grammar({
     keyword_numeric: _ => make_keyword("numeric"),
     keyword_real: _ => choice(make_keyword("real"),make_keyword("float4")),
     keyword_float: _ => make_keyword("float"),
-    unsigned_integer: _ => seq(make_keyword("unsigned"), make_keyword("integer")),
+    unsigned_integer: _ => seq(
+        make_keyword("unsigned"),
+        choice(
+            make_keyword("integer"),
+            make_keyword("int")
+        )
+    ),
     double: _ => choice(
         seq(make_keyword("double"), make_keyword("precision")),
         make_keyword("float8")

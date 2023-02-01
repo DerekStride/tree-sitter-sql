@@ -921,8 +921,17 @@
           "value": "unsigned|UNSIGNED"
         },
         {
-          "type": "PATTERN",
-          "value": "integer|INTEGER"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "PATTERN",
+              "value": "integer|INTEGER"
+            },
+            {
+              "type": "PATTERN",
+              "value": "int|INT"
+            }
+          ]
         }
       ]
     },
