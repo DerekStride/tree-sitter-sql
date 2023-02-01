@@ -19,5 +19,4 @@ For a complete list of features see the the [tests](test/corpus)
 
 * https://github.com/m-novikov/tree-sitter-sql
 * https://github.com/tjdevries/tree-sitter-sql
-* https://github.com/tk-shirasaka/tree-sitter-sql
 * https://github.com/dhcmrlchtdj/tree-sitter-sqlite
