@@ -215,6 +215,10 @@
             "named": true
           },
           {
+            "type": "unsigned_integer",
+            "named": true
+          },
+          {
             "type": "varchar",
             "named": true
           }
@@ -1198,6 +1202,10 @@
           "named": true
         },
         {
+          "type": "unsigned_integer",
+          "named": true
+        },
+        {
           "type": "varchar",
           "named": true
         },
@@ -1435,6 +1443,10 @@
           },
           {
             "type": "numeric",
+            "named": true
+          },
+          {
+            "type": "unsigned_integer",
             "named": true
           },
           {
@@ -4252,6 +4264,11 @@
         ]
       }
     }
+  },
+  {
+    "type": "unsigned_integer",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "update",

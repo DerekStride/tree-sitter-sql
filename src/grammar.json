@@ -913,6 +913,19 @@
       "type": "PATTERN",
       "value": "float|FLOAT"
     },
+    "unsigned_integer": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "unsigned|UNSIGNED"
+        },
+        {
+          "type": "PATTERN",
+          "value": "integer|INTEGER"
+        }
+      ]
+    },
     "double": {
       "type": "CHOICE",
       "members": [
@@ -1168,6 +1181,10 @@
         {
           "type": "SYMBOL",
           "name": "float"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "unsigned_integer"
         },
         {
           "type": "SYMBOL",
