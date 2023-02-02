@@ -511,6 +511,14 @@
       "type": "PATTERN",
       "value": "preserve|PRESERVE"
     },
+    "keyword_unsigned": {
+      "type": "PATTERN",
+      "value": "unsigned|UNSIGNED"
+    },
+    "keyword_integer": {
+      "type": "PATTERN",
+      "value": "integer|INTEGER"
+    },
     "is_not": {
       "type": "PREC_LEFT",
       "value": 0,
@@ -917,21 +925,12 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "PATTERN",
-          "value": "unsigned|UNSIGNED"
+          "type": "SYMBOL",
+          "name": "keyword_unsigned"
         },
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "PATTERN",
-              "value": "integer|INTEGER"
-            },
-            {
-              "type": "PATTERN",
-              "value": "int|INT"
-            }
-          ]
+          "type": "SYMBOL",
+          "name": "keyword_integer"
         }
       ]
     },
