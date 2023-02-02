@@ -2180,6 +2180,7 @@ SELECT array[1, 2, 3 + 4, '5'::int, int_please()];
               (literal))
             (cast
               (literal)
-              (keyword_int))
+              (int
+                (keyword_int)))
             (invocation
               (identifier))))))))

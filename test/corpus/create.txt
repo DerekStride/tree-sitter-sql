@@ -634,10 +634,12 @@ CREATE TABLE type_test (
           type: (keyword_bigserial))
         (column_definition
           name: (identifier)
-          type: (keyword_int))
+          type: (int
+            (keyword_int)))
         (column_definition
           name: (identifier)
-          type: (keyword_int))
+          type: (int
+            (keyword_int)))
         (column_definition
           name: (identifier)
           type: (bigint

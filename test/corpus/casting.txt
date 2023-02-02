@@ -62,7 +62,8 @@ SELECT
         (term
           (cast
             (literal)
-            (keyword_int)))))))
+            (int
+              (keyword_int))))))))
 
 ================================================================================
 Multiple casts
@@ -85,11 +86,13 @@ SELECT
             name: (identifier)
             parameter: (literal)
             (keyword_as)
-            (keyword_int)))
+            (int
+              (keyword_int))))
         (term
           value: (cast
             (literal)
-            (keyword_int)))
+            (int
+              (keyword_int))))
         (term
           value: (cast
             (literal)
