@@ -159,10 +159,6 @@
             "named": true
           },
           {
-            "type": "keyword_real",
-            "named": true
-          },
-          {
             "type": "keyword_regclass",
             "named": true
           },
@@ -1138,10 +1134,6 @@
           "named": true
         },
         {
-          "type": "keyword_real",
-          "named": true
-        },
-        {
           "type": "keyword_regclass",
           "named": true
         },
@@ -1403,10 +1395,6 @@
           },
           {
             "type": "keyword_oid",
-            "named": true
-          },
-          {
-            "type": "keyword_real",
             "named": true
           },
           {
@@ -2202,7 +2190,54 @@
   {
     "type": "double",
     "named": true,
-    "fields": {}
+    "fields": {
+      "precision": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "literal",
+            "named": true
+          }
+        ]
+      },
+      "scale": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "literal",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "keyword_double",
+          "named": true
+        },
+        {
+          "type": "keyword_precision",
+          "named": true
+        },
+        {
+          "type": "keyword_real",
+          "named": true
+        },
+        {
+          "type": "keyword_unsigned",
+          "named": true
+        },
+        {
+          "type": "keyword_zerofill",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "drop_column",
@@ -2361,14 +2396,32 @@
             "named": true
           }
         ]
+      },
+      "scale": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "literal",
+            "named": true
+          }
+        ]
       }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
           "type": "keyword_float",
+          "named": true
+        },
+        {
+          "type": "keyword_unsigned",
+          "named": true
+        },
+        {
+          "type": "keyword_zerofill",
           "named": true
         }
       ]
@@ -4990,6 +5043,10 @@
     "named": true
   },
   {
+    "type": "keyword_double",
+    "named": true
+  },
+  {
     "type": "keyword_drop",
     "named": true
   },
@@ -5227,6 +5284,10 @@
   },
   {
     "type": "keyword_preceding",
+    "named": true
+  },
+  {
+    "type": "keyword_precision",
     "named": true
   },
   {
