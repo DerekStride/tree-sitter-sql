@@ -221,6 +221,53 @@ CREATE TABLE IF NOT EXISTS `addresses` (
           (keyword_auto_increment))))))
 
 ================================================================================
+Create table with unsigned zerofill types
+================================================================================
+
+CREATE TABLE `addresses` (
+  `id` bigint(20) UNSIGNED ZEROFILL,
+  `id2` int4(20) ZEROFILL,
+  `id3` UNSIGNED tinyint(20),
+  `id4` mediumint(20) UNSIGNED
+);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (table_reference
+        name: (identifier))
+      (column_definitions
+        (column_definition
+          name: (identifier)
+          type: (bigint
+            (keyword_bigint)
+            size: (literal)
+            (keyword_unsigned)
+            (keyword_zerofill)))
+        (column_definition
+          name: (identifier)
+          type: (int
+            (keyword_int)
+            size: (literal)
+            (keyword_zerofill)))
+        (column_definition
+          name: (identifier)
+          type: (tinyint
+            (keyword_unsigned)
+            (keyword_tinyint)
+            size: (literal)))
+        (column_definition
+          name: (identifier)
+          type: (mediumint
+            (keyword_mediumint)
+            size: (literal)
+            (keyword_unsigned)))))))
+
+================================================================================
 Create table with auto increment
 ================================================================================
 

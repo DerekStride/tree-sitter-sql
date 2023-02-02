@@ -99,6 +99,10 @@
             "named": true
           },
           {
+            "type": "int",
+            "named": true
+          },
+          {
             "type": "keyword_bigserial",
             "named": true
           },
@@ -132,10 +136,6 @@
           },
           {
             "type": "keyword_geometry",
-            "named": true
-          },
-          {
-            "type": "keyword_int",
             "named": true
           },
           {
@@ -183,10 +183,6 @@
             "named": true
           },
           {
-            "type": "keyword_smallint",
-            "named": true
-          },
-          {
             "type": "keyword_smallserial",
             "named": true
           },
@@ -211,11 +207,19 @@
             "named": true
           },
           {
+            "type": "mediumint",
+            "named": true
+          },
+          {
             "type": "numeric",
             "named": true
           },
           {
-            "type": "unsigned_integer",
+            "type": "smallint",
+            "named": true
+          },
+          {
+            "type": "tinyint",
             "named": true
           },
           {
@@ -595,11 +599,19 @@
       }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
           "type": "keyword_bigint",
+          "named": true
+        },
+        {
+          "type": "keyword_unsigned",
+          "named": true
+        },
+        {
+          "type": "keyword_zerofill",
           "named": true
         }
       ]
@@ -1058,6 +1070,10 @@
           "named": true
         },
         {
+          "type": "int",
+          "named": true
+        },
+        {
           "type": "invocation",
           "named": true
         },
@@ -1099,10 +1115,6 @@
         },
         {
           "type": "keyword_geometry",
-          "named": true
-        },
-        {
-          "type": "keyword_int",
           "named": true
         },
         {
@@ -1150,10 +1162,6 @@
           "named": true
         },
         {
-          "type": "keyword_smallint",
-          "named": true
-        },
-        {
           "type": "keyword_smallserial",
           "named": true
         },
@@ -1186,6 +1194,10 @@
           "named": true
         },
         {
+          "type": "mediumint",
+          "named": true
+        },
+        {
           "type": "numeric",
           "named": true
         },
@@ -1194,15 +1206,19 @@
           "named": true
         },
         {
+          "type": "smallint",
+          "named": true
+        },
+        {
           "type": "subquery",
           "named": true
         },
         {
-          "type": "unary_expression",
+          "type": "tinyint",
           "named": true
         },
         {
-          "type": "unsigned_integer",
+          "type": "unary_expression",
           "named": true
         },
         {
@@ -1330,6 +1346,10 @@
             "named": true
           },
           {
+            "type": "int",
+            "named": true
+          },
+          {
             "type": "keyword_bigserial",
             "named": true
           },
@@ -1363,10 +1383,6 @@
           },
           {
             "type": "keyword_geometry",
-            "named": true
-          },
-          {
-            "type": "keyword_int",
             "named": true
           },
           {
@@ -1414,10 +1430,6 @@
             "named": true
           },
           {
-            "type": "keyword_smallint",
-            "named": true
-          },
-          {
             "type": "keyword_smallserial",
             "named": true
           },
@@ -1442,11 +1454,19 @@
             "named": true
           },
           {
+            "type": "mediumint",
+            "named": true
+          },
+          {
             "type": "numeric",
             "named": true
           },
           {
-            "type": "unsigned_integer",
+            "type": "smallint",
+            "named": true
+          },
+          {
+            "type": "tinyint",
             "named": true
           },
           {
@@ -2746,6 +2766,40 @@
     }
   },
   {
+    "type": "int",
+    "named": true,
+    "fields": {
+      "size": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "literal",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_int",
+          "named": true
+        },
+        {
+          "type": "keyword_unsigned",
+          "named": true
+        },
+        {
+          "type": "keyword_zerofill",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "invocation",
     "named": true,
     "fields": {
@@ -2990,12 +3044,12 @@
     "fields": {}
   },
   {
-    "type": "keyword_integer",
+    "type": "keyword_like",
     "named": true,
     "fields": {}
   },
   {
-    "type": "keyword_like",
+    "type": "keyword_mediumint",
     "named": true,
     "fields": {}
   },
@@ -3026,6 +3080,11 @@
   },
   {
     "type": "keyword_timestamptz",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "keyword_tinyint",
     "named": true,
     "fields": {}
   },
@@ -3278,6 +3337,40 @@
     "type": "marginalia",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "mediumint",
+    "named": true,
+    "fields": {
+      "size": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "literal",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_mediumint",
+          "named": true
+        },
+        {
+          "type": "keyword_unsigned",
+          "named": true
+        },
+        {
+          "type": "keyword_zerofill",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "not_distinct_from",
@@ -3855,6 +3948,40 @@
     }
   },
   {
+    "type": "smallint",
+    "named": true,
+    "fields": {
+      "size": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "literal",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_smallint",
+          "named": true
+        },
+        {
+          "type": "keyword_unsigned",
+          "named": true
+        },
+        {
+          "type": "keyword_zerofill",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "statement",
     "named": true,
     "fields": {},
@@ -4158,6 +4285,40 @@
     }
   },
   {
+    "type": "tinyint",
+    "named": true,
+    "fields": {
+      "size": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "literal",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_tinyint",
+          "named": true
+        },
+        {
+          "type": "keyword_unsigned",
+          "named": true
+        },
+        {
+          "type": "keyword_zerofill",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "transaction",
     "named": true,
     "fields": {},
@@ -4268,25 +4429,6 @@
           }
         ]
       }
-    }
-  },
-  {
-    "type": "unsigned_integer",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "keyword_integer",
-          "named": true
-        },
-        {
-          "type": "keyword_unsigned",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -5261,6 +5403,10 @@
   },
   {
     "type": "keyword_xml",
+    "named": true
+  },
+  {
+    "type": "keyword_zerofill",
     "named": true
   },
   {
