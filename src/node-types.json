@@ -2990,6 +2990,11 @@
     "fields": {}
   },
   {
+    "type": "keyword_integer",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "keyword_like",
     "named": true,
     "fields": {}
@@ -4268,7 +4273,21 @@
   {
     "type": "unsigned_integer",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_integer",
+          "named": true
+        },
+        {
+          "type": "keyword_unsigned",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "update",
@@ -5198,6 +5217,10 @@
   },
   {
     "type": "keyword_unlogged",
+    "named": true
+  },
+  {
+    "type": "keyword_unsigned",
     "named": true
   },
   {

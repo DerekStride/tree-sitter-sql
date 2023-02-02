@@ -148,4 +148,6 @@ SELECT CAST ("1" AS UNSIGNED INTEGER);
             name: (identifier)
             parameter: (literal)
             (keyword_as)
-            (unsigned_integer)))))))
+            (unsigned_integer
+              (keyword_unsigned)
+              (keyword_integer))))))))

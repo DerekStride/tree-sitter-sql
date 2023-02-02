@@ -157,6 +157,8 @@ module.exports = grammar({
     keyword_like: _ => choice(make_keyword("like"),make_keyword("ilike")),
     keyword_similar: _ => make_keyword("similar"),
     keyword_preserve: _ => make_keyword("preserve"),
+    keyword_unsigned: _ => make_keyword("unsigned"),
+    keyword_integer: _ => make_keyword("integer"),
 
     // Operators
     is_not: $ => prec.left(seq($.keyword_is, $.keyword_not)),
@@ -197,12 +199,9 @@ module.exports = grammar({
     keyword_numeric: _ => make_keyword("numeric"),
     keyword_real: _ => choice(make_keyword("real"),make_keyword("float4")),
     keyword_float: _ => make_keyword("float"),
-    unsigned_integer: _ => seq(
-        make_keyword("unsigned"),
-        choice(
-            make_keyword("integer"),
-            make_keyword("int")
-        )
+    unsigned_integer: $ => seq(
+        $.keyword_unsigned,
+        $.keyword_integer,
     ),
     double: _ => choice(
         seq(make_keyword("double"), make_keyword("precision")),
