@@ -13,7 +13,35 @@ ALTER TABLE my_table
    (keyword_alter)
    (keyword_table)
    (table_reference name: (identifier))
-   (add_column (keyword_add) (keyword_column)
+   (add_column
+    (keyword_add)
+    (keyword_column)
+    (column_definition
+     name: (identifier)
+     type: (varchar
+      (keyword_varchar)
+      size: (literal))
+     (keyword_not)
+     (keyword_null))
+   ))))
+
+==================
+Alter table and add column, eliding column keyword
+==================
+
+ALTER TABLE my_table
+  ADD val3 VARCHAR(100) NOT NULL;
+
+---
+
+(program
+ (statement
+  (alter_table
+   (keyword_alter)
+   (keyword_table)
+   (table_reference name: (identifier))
+   (add_column
+    (keyword_add)
     (column_definition
      name: (identifier)
      type: (varchar
@@ -94,6 +122,28 @@ ALTER TABLE my_table
   )))
 
 ==================
+Alter table and alter column changing type, eliding column keyword
+==================
+
+ALTER TABLE my_table
+  ALTER val3 TYPE VARCHAR(255);
+
+---
+
+(program
+ (statement
+  (alter_table
+   (keyword_alter)
+   (keyword_table)
+   (table_reference name: (identifier))
+   (alter_column
+    (keyword_alter)
+    name: (identifier)
+    (keyword_type)
+    type: (varchar (keyword_varchar) size: (literal)))
+  )))
+
+==================
 Alter table and alter column dropping not-null constraint
 ==================
 
@@ -137,6 +187,25 @@ ALTER TABLE my_table
     name: (identifier))
   )))
 
+==================
+Alter table and drop column, eliding column keyword
+==================
+
+ALTER TABLE my_table
+  DROP val3;
+
+---
+
+(program
+ (statement
+  (alter_table
+   (keyword_alter)
+   (keyword_table)
+   (table_reference name: (identifier))
+   (drop_column
+    (keyword_drop)
+    name: (identifier))
+  )))
 
 ==================
 Alter table and rename column
