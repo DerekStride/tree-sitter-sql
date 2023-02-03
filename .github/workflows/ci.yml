@@ -2,7 +2,7 @@ name: Build/test
 on:
   push:
     branches:
-      - "ci_autogenerate_parser"
+      - "main"
   pull_request:
     types: [opened, synchronize, reopened, ready_for_review]
     branches:
