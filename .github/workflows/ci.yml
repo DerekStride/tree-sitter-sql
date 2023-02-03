@@ -26,7 +26,6 @@ jobs:
     needs: test
     if: github.ref == 'refs/heads/main'
     steps:
-      - name: Generate parser.c
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
