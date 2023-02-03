@@ -13,8 +13,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        os: [ubuntu-latest]
-        # os: [macos-latest, ubuntu-latest, windows-2019]
+        os: [macos-latest, ubuntu-latest, windows-2019]
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
@@ -25,7 +24,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: test
-    # if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
@@ -35,8 +34,6 @@ jobs:
       - run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          # git add src/parser.c
-          touch testfile
-          git add testfile
+          git add src/parser.c
           git commit -m "[skip ci] auto generate parser.c"
           git push
