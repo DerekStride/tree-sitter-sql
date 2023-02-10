@@ -62,7 +62,8 @@ SELECT
         (term
           (cast
             (literal)
-            (keyword_int)))))))
+            (int
+              (keyword_int))))))))
 
 ================================================================================
 Multiple casts
@@ -85,11 +86,13 @@ SELECT
             name: (identifier)
             parameter: (literal)
             (keyword_as)
-            (keyword_int)))
+            (int
+              (keyword_int))))
         (term
           value: (cast
             (literal)
-            (keyword_int)))
+            (int
+              (keyword_int))))
         (term
           value: (cast
             (literal)
@@ -129,3 +132,25 @@ CAST (100 AS NUMERIC(32)),
           value: (cast
             (literal)
             (double)))))))
+
+================================================================================
+SELECT AS UNSIGNED
+================================================================================
+
+SELECT CAST ("1" AS UNSIGNED INTEGER);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (cast
+            name: (identifier)
+            parameter: (literal)
+            (keyword_as)
+            (int
+              (keyword_unsigned)
+              (keyword_int))))))))

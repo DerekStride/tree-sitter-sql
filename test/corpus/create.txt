@@ -221,6 +221,69 @@ CREATE TABLE IF NOT EXISTS `addresses` (
           (keyword_auto_increment))))))
 
 ================================================================================
+Create table with unsigned zerofill types
+================================================================================
+
+CREATE TABLE `addresses` (
+  `id` bigint(20) UNSIGNED ZEROFILL,
+  `id2` int4(20) ZEROFILL,
+  `id3` UNSIGNED tinyint(20),
+  `id4` mediumint(20) UNSIGNED,
+  `id5` float(20, 3) UNSIGNED,
+  `id6` double(20,3) UNSIGNED
+);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (table_reference
+        name: (identifier))
+      (column_definitions
+        (column_definition
+          name: (identifier)
+          type: (bigint
+            (keyword_bigint)
+            size: (literal)
+            (keyword_unsigned)
+            (keyword_zerofill)))
+        (column_definition
+          name: (identifier)
+          type: (int
+            (keyword_int)
+            size: (literal)
+            (keyword_zerofill)))
+        (column_definition
+          name: (identifier)
+          type: (tinyint
+            (keyword_unsigned)
+            (keyword_tinyint)
+            size: (literal)))
+        (column_definition
+          name: (identifier)
+          type: (mediumint
+            (keyword_mediumint)
+            size: (literal)
+            (keyword_unsigned)))
+        (column_definition
+          name: (identifier)
+          type: (float
+            (keyword_float)
+            precision: (literal)
+            scale: (literal)
+            (keyword_unsigned)))
+        (column_definition
+          name: (identifier)
+          type: (double
+            (keyword_double)
+            precision: (literal)
+            scale: (literal)
+            (keyword_unsigned)))))))
+
+================================================================================
 Create table with auto increment
 ================================================================================
 
@@ -634,10 +697,12 @@ CREATE TABLE type_test (
           type: (keyword_bigserial))
         (column_definition
           name: (identifier)
-          type: (keyword_int))
+          type: (int
+            (keyword_int)))
         (column_definition
           name: (identifier)
-          type: (keyword_int))
+          type: (int
+            (keyword_int)))
         (column_definition
           name: (identifier)
           type: (bigint
@@ -674,10 +739,13 @@ CREATE TABLE type_test (
             scale: (literal)))
         (column_definition
           name: (identifier)
-          type: (keyword_real))
+          type: (double
+            (keyword_real)))
         (column_definition
           name: (identifier)
-          type: (double))
+          type: (double
+            (keyword_double)
+            (keyword_precision)))
         (column_definition
           name: (identifier)
           type: (keyword_money))

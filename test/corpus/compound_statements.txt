@@ -20,5 +20,6 @@ END;
         (column_definitions
           (column_definition
             (identifier)
-            (keyword_int)))))
+            (int
+              (keyword_int))))))
     (keyword_end)))

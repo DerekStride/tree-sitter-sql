@@ -157,6 +157,8 @@ module.exports = grammar({
     keyword_like: _ => choice(make_keyword("like"),make_keyword("ilike")),
     keyword_similar: _ => make_keyword("similar"),
     keyword_preserve: _ => make_keyword("preserve"),
+    keyword_unsigned: _ => make_keyword("unsigned"),
+    keyword_zerofill: _ => make_keyword("zerofill"),
 
     // Operators
     is_not: $ => prec.left(seq($.keyword_is, $.keyword_not)),
@@ -190,17 +192,17 @@ module.exports = grammar({
     keyword_smallserial: _ => choice(make_keyword("smallserial"),make_keyword("serial2")),
     keyword_serial: _ => choice(make_keyword("serial"),make_keyword("serial4")),
     keyword_bigserial: _ => choice(make_keyword("bigserial"),make_keyword("serial8")),
+    keyword_tinyint: _ => choice(make_keyword("tinyint"),make_keyword("int1")),
     keyword_smallint: _ => choice(make_keyword("smallint"),make_keyword("int2")),
+    keyword_mediumint: _ => choice(make_keyword("mediumint"),make_keyword("int3")),
     keyword_int: _ => choice(make_keyword("int"), make_keyword("integer"), make_keyword("int4")),
     keyword_bigint: _ => choice(make_keyword("bigint"),make_keyword("int8")),
     keyword_decimal: _ => make_keyword("decimal"),
     keyword_numeric: _ => make_keyword("numeric"),
     keyword_real: _ => choice(make_keyword("real"),make_keyword("float4")),
     keyword_float: _ => make_keyword("float"),
-    double: _ => choice(
-        seq(make_keyword("double"), make_keyword("precision")),
-        make_keyword("float8")
-    ),
+    keyword_double: _ => make_keyword("double"),
+    keyword_precision: _ => make_keyword("precision"),
 
     keyword_money: _ => make_keyword("money"),
 
@@ -265,13 +267,14 @@ module.exports = grammar({
       $.keyword_smallserial,
       $.keyword_serial,
       $.keyword_bigserial,
-      $.keyword_smallint,
-      $.keyword_int,
 
+      $.tinyint,
+      $.smallint,
+      $.mediumint,
+      $.int,
       $.bigint,
       $.decimal,
       $.numeric,
-      $.keyword_real,
       $.double,
       $.float,
 
@@ -311,10 +314,25 @@ module.exports = grammar({
       $.keyword_regtype,
     ),
 
-    bigint: $ => parametric_type($, $.keyword_bigint),
+    tinyint: $ => unsigned_type($, parametric_type($, $.keyword_tinyint)),
+    smallint: $ => unsigned_type($, parametric_type($, $.keyword_smallint)),
+    mediumint: $ => unsigned_type($, parametric_type($, $.keyword_mediumint)),
+    int: $ => unsigned_type($, parametric_type($, $.keyword_int)),
+    bigint: $ => unsigned_type($, parametric_type($, $.keyword_bigint)),
 
     // TODO: should qualify against /\\b(0?[1-9]|[1-4][0-9]|5[0-4])\\b/g
-    float: $  => parametric_type($, $.keyword_float, ['precision']),
+    float: $  => choice(
+      prec(0, parametric_type($, $.keyword_float, ['precision'])),
+      prec(1, unsigned_type($, parametric_type($, $.keyword_float, ['precision', 'scale']))),
+    ),
+
+    double: $ => choice(
+      make_keyword("float8"),
+      unsigned_type($, parametric_type($, $.keyword_double, ['precision', 'scale'])),
+      unsigned_type($, parametric_type($, seq($.keyword_double, $.keyword_precision), ['precision', 'scale'])),
+      unsigned_type($, parametric_type($, $.keyword_real, ['precision', 'scale'])),
+    ),
+
     decimal: $ => choice(
       parametric_type($, $.keyword_decimal, ['precision']),
       parametric_type($, $.keyword_decimal, ['precision', 'scale']),
@@ -1507,6 +1525,17 @@ module.exports = grammar({
   }
 
 });
+
+function unsigned_type($, type) {
+  return choice(
+    seq($.keyword_unsigned, type),
+    seq(
+      type,
+      optional($.keyword_unsigned),
+      optional($.keyword_zerofill),
+    ),
+  )
+}
 
 function parametric_type($, type, params = ['size']) {
   return prec.right(

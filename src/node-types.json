@@ -99,6 +99,10 @@
             "named": true
           },
           {
+            "type": "int",
+            "named": true
+          },
+          {
             "type": "keyword_bigserial",
             "named": true
           },
@@ -135,10 +139,6 @@
             "named": true
           },
           {
-            "type": "keyword_int",
-            "named": true
-          },
-          {
             "type": "keyword_json",
             "named": true
           },
@@ -159,10 +159,6 @@
             "named": true
           },
           {
-            "type": "keyword_real",
-            "named": true
-          },
-          {
             "type": "keyword_regclass",
             "named": true
           },
@@ -180,10 +176,6 @@
           },
           {
             "type": "keyword_serial",
-            "named": true
-          },
-          {
-            "type": "keyword_smallint",
             "named": true
           },
           {
@@ -211,7 +203,19 @@
             "named": true
           },
           {
+            "type": "mediumint",
+            "named": true
+          },
+          {
             "type": "numeric",
+            "named": true
+          },
+          {
+            "type": "smallint",
+            "named": true
+          },
+          {
+            "type": "tinyint",
             "named": true
           },
           {
@@ -591,11 +595,19 @@
       }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
           "type": "keyword_bigint",
+          "named": true
+        },
+        {
+          "type": "keyword_unsigned",
+          "named": true
+        },
+        {
+          "type": "keyword_zerofill",
           "named": true
         }
       ]
@@ -1054,6 +1066,10 @@
           "named": true
         },
         {
+          "type": "int",
+          "named": true
+        },
+        {
           "type": "invocation",
           "named": true
         },
@@ -1098,10 +1114,6 @@
           "named": true
         },
         {
-          "type": "keyword_int",
-          "named": true
-        },
-        {
           "type": "keyword_json",
           "named": true
         },
@@ -1122,10 +1134,6 @@
           "named": true
         },
         {
-          "type": "keyword_real",
-          "named": true
-        },
-        {
           "type": "keyword_regclass",
           "named": true
         },
@@ -1143,10 +1151,6 @@
         },
         {
           "type": "keyword_serial",
-          "named": true
-        },
-        {
-          "type": "keyword_smallint",
           "named": true
         },
         {
@@ -1182,6 +1186,10 @@
           "named": true
         },
         {
+          "type": "mediumint",
+          "named": true
+        },
+        {
           "type": "numeric",
           "named": true
         },
@@ -1190,7 +1198,15 @@
           "named": true
         },
         {
+          "type": "smallint",
+          "named": true
+        },
+        {
           "type": "subquery",
+          "named": true
+        },
+        {
+          "type": "tinyint",
           "named": true
         },
         {
@@ -1322,6 +1338,10 @@
             "named": true
           },
           {
+            "type": "int",
+            "named": true
+          },
+          {
             "type": "keyword_bigserial",
             "named": true
           },
@@ -1358,10 +1378,6 @@
             "named": true
           },
           {
-            "type": "keyword_int",
-            "named": true
-          },
-          {
             "type": "keyword_json",
             "named": true
           },
@@ -1382,10 +1398,6 @@
             "named": true
           },
           {
-            "type": "keyword_real",
-            "named": true
-          },
-          {
             "type": "keyword_regclass",
             "named": true
           },
@@ -1403,10 +1415,6 @@
           },
           {
             "type": "keyword_serial",
-            "named": true
-          },
-          {
-            "type": "keyword_smallint",
             "named": true
           },
           {
@@ -1434,7 +1442,19 @@
             "named": true
           },
           {
+            "type": "mediumint",
+            "named": true
+          },
+          {
             "type": "numeric",
+            "named": true
+          },
+          {
+            "type": "smallint",
+            "named": true
+          },
+          {
+            "type": "tinyint",
             "named": true
           },
           {
@@ -2170,7 +2190,54 @@
   {
     "type": "double",
     "named": true,
-    "fields": {}
+    "fields": {
+      "precision": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "literal",
+            "named": true
+          }
+        ]
+      },
+      "scale": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "literal",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "keyword_double",
+          "named": true
+        },
+        {
+          "type": "keyword_precision",
+          "named": true
+        },
+        {
+          "type": "keyword_real",
+          "named": true
+        },
+        {
+          "type": "keyword_unsigned",
+          "named": true
+        },
+        {
+          "type": "keyword_zerofill",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "drop_column",
@@ -2329,14 +2396,32 @@
             "named": true
           }
         ]
+      },
+      "scale": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "literal",
+            "named": true
+          }
+        ]
       }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
           "type": "keyword_float",
+          "named": true
+        },
+        {
+          "type": "keyword_unsigned",
+          "named": true
+        },
+        {
+          "type": "keyword_zerofill",
           "named": true
         }
       ]
@@ -2734,6 +2819,40 @@
     }
   },
   {
+    "type": "int",
+    "named": true,
+    "fields": {
+      "size": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "literal",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_int",
+          "named": true
+        },
+        {
+          "type": "keyword_unsigned",
+          "named": true
+        },
+        {
+          "type": "keyword_zerofill",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "invocation",
     "named": true,
     "fields": {
@@ -2983,6 +3102,11 @@
     "fields": {}
   },
   {
+    "type": "keyword_mediumint",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "keyword_real",
     "named": true,
     "fields": {}
@@ -3009,6 +3133,11 @@
   },
   {
     "type": "keyword_timestamptz",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "keyword_tinyint",
     "named": true,
     "fields": {}
   },
@@ -3261,6 +3390,40 @@
     "type": "marginalia",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "mediumint",
+    "named": true,
+    "fields": {
+      "size": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "literal",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_mediumint",
+          "named": true
+        },
+        {
+          "type": "keyword_unsigned",
+          "named": true
+        },
+        {
+          "type": "keyword_zerofill",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "not_distinct_from",
@@ -3838,6 +4001,40 @@
     }
   },
   {
+    "type": "smallint",
+    "named": true,
+    "fields": {
+      "size": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "literal",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_smallint",
+          "named": true
+        },
+        {
+          "type": "keyword_unsigned",
+          "named": true
+        },
+        {
+          "type": "keyword_zerofill",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "statement",
     "named": true,
     "fields": {},
@@ -4135,6 +4332,40 @@
       "types": [
         {
           "type": "keyword_as",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "tinyint",
+    "named": true,
+    "fields": {
+      "size": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "literal",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_tinyint",
+          "named": true
+        },
+        {
+          "type": "keyword_unsigned",
+          "named": true
+        },
+        {
+          "type": "keyword_zerofill",
           "named": true
         }
       ]
@@ -4812,6 +5043,10 @@
     "named": true
   },
   {
+    "type": "keyword_double",
+    "named": true
+  },
+  {
     "type": "keyword_drop",
     "named": true
   },
@@ -5052,6 +5287,10 @@
     "named": true
   },
   {
+    "type": "keyword_precision",
+    "named": true
+  },
+  {
     "type": "keyword_primary",
     "named": true
   },
@@ -5184,6 +5423,10 @@
     "named": true
   },
   {
+    "type": "keyword_unsigned",
+    "named": true
+  },
+  {
     "type": "keyword_update",
     "named": true
   },
@@ -5221,6 +5464,10 @@
   },
   {
     "type": "keyword_xml",
+    "named": true
+  },
+  {
+    "type": "keyword_zerofill",
     "named": true
   },
   {
