@@ -160,6 +160,37 @@ module.exports = grammar({
     keyword_unsigned: _ => make_keyword("unsigned"),
     keyword_zerofill: _ => make_keyword("zerofill"),
 
+    // Hive Keywords
+    keyword_external: _ => make_keyword("external"),
+    keyword_stored: _ => make_keyword("stored"),
+    keyword_cached: _ => make_keyword("cached"),
+    keyword_uncached: _ => make_keyword("uncached"),
+    keyword_replication: _ => make_keyword("replication"),
+    keyword_tblproperties: _ => make_keyword("tblproperties"),
+    keyword_compute: _ => make_keyword("compute"),
+    keyword_stats: _ => make_keyword("stats"),
+    keyword_location: _ => make_keyword("location"),
+    keyword_partitioned: _ => make_keyword("partitioned"),
+    keyword_comment: _ => make_keyword("comment"),
+    keyword_sort: _ => make_keyword("sort"),
+    keyword_format: _ => make_keyword("format"),
+    keyword_delimited: _ => make_keyword("delimited"),
+    keyword_fields: _ => make_keyword("fields"),
+    keyword_terminated: _ => make_keyword("terminated"),
+    keyword_escaped: _ => make_keyword("escaped"),
+    keyword_lines: _ => make_keyword("lines"),
+
+    // Hive file formats
+    keyword_parquet: _ => make_keyword("parquet"),
+    keyword_rcfile: _ => make_keyword("rcfile"),
+    keyword_csv: _ => make_keyword("csv"),
+    keyword_textfile: _ => make_keyword("textfile"),
+    keyword_avro: _ => make_keyword("avro"),
+    keyword_sequencefile: _ => make_keyword("sequencefile"),
+    keyword_orc: _ => make_keyword("orc"),
+    keyword_avro: _ => make_keyword("avro"),
+    keyword_jsonfile: _ => make_keyword("jsonfile"),
+
     // Operators
     is_not: $ => prec.left(seq($.keyword_is, $.keyword_not)),
     not_like: $ => seq($.keyword_not, $.keyword_like),
@@ -535,12 +566,22 @@ module.exports = grammar({
       ),
     ),
 
+    _table_settings: $ => choice(
+        $.table_partition,
+        $.stored_as,
+        $.storage_location,
+        $.table_sort,
+        $.row_format,
+    ),
+
+
     create_table: $ => seq(
       $.keyword_create,
       optional(
           choice(
               $._temporary,
-              $.keyword_unlogged
+              $.keyword_unlogged,
+              $.keyword_external,
           )
       ),
       $.keyword_table,
@@ -549,6 +590,7 @@ module.exports = grammar({
       choice(
           seq(
               $.column_definitions,
+              repeat($._table_settings),
               optional($.table_options),
               optional(
                   seq(
@@ -558,13 +600,14 @@ module.exports = grammar({
               )
           ),
           seq(
+              repeat($._table_settings),
               optional($.table_options),
               seq(
                   $.keyword_as,
                   $._select_statement,
               ),
           ),
-      )
+       ),
     ),
 
     create_view: $ => seq(
@@ -878,21 +921,133 @@ module.exports = grammar({
       ),
     ),
 
+    storage_location: $ => prec.right(
+        seq(
+            $.keyword_location,
+            field('path', alias($._literal_string, $.identifier)),
+            optional(
+                seq(
+                    $.keyword_cached,
+                    $.keyword_in,
+                    field('pool', alias($._literal_string, $.identifier)),
+                    optional(
+                        choice(
+                            $.keyword_uncached,
+                            seq(
+                                $.keyword_with,
+                                $.keyword_replication,
+                                '=',
+                                field('value', alias($._number, $.literal)),
+                            ),
+                        ),
+                    ),
+                )
+            )
+        ),
+    ),
+
+    row_format: $ => seq(
+        $.keyword_row,
+        $.keyword_format,
+        $.keyword_delimited,
+        optional(
+            seq(
+                $.keyword_fields,
+                $.keyword_terminated,
+                $.keyword_by,
+                $._literal_string,
+                optional(
+                    seq(
+                        $.keyword_escaped,
+                        $.keyword_by,
+                        $._literal_string,
+                    )
+                )
+            )
+        ),
+        optional(
+            seq(
+                $.keyword_lines,
+                $.keyword_terminated,
+                $.keyword_by,
+                $._literal_string,
+            )
+        )
+    ),
+
+    table_sort: $ => seq(
+        $.keyword_sort,
+        $.keyword_by,
+        '(',
+            $.identifier,
+            repeat(seq(',', ($.identifier))),
+        ')',
+    ),
+
+    table_partition: $ => seq(
+        choice(
+            // Postgres/MySQL style
+            seq(
+                $.keyword_partition,
+                $.keyword_by,
+                choice(
+                    $.keyword_range,
+                    $.keyword_hash,
+                )
+            ),
+            // Hive style
+            seq(
+                $.keyword_partitioned,
+                $.keyword_by,
+            ),
+        ),
+        choice(
+            seq('(', $.identifier, ')'), // postgres
+            $.column_definitions // impala/hive
+        )
+    ),
+
+    stored_as: $ => seq(
+        $.keyword_stored,
+        $.keyword_as,
+        choice(
+            $.keyword_parquet,
+            $.keyword_csv,
+            $.keyword_sequencefile,
+            $.keyword_textfile,
+            $.keyword_rcfile,
+            $.keyword_orc,
+            $.keyword_avro,
+            $.keyword_jsonfile,
+        ),
+    ),
+
     assignment: $ => seq(
       field('left', $.field),
       '=',
       field('right', $._expression),
     ),
 
-    table_options: $ => repeat1($.table_option),
+
+    table_options: $ => choice(
+        seq(
+            $.keyword_tblproperties,
+            '(',
+            $.table_option,
+            repeat(seq(',', $.table_option)),
+            ')',
+        ),
+        repeat1($.table_option)
+    ),
+
     table_option: $ => choice(
       seq($.keyword_default, $.keyword_character, $.keyword_set, $.identifier),
       seq($.keyword_collate, $.identifier),
       field('name', $.keyword_default),
       seq(
-        field('name', choice($.keyword_engine, $.identifier)),
+        field('name', choice($.keyword_engine, $.identifier, $._literal_string)),
         '=',
-        field('value', $.identifier),
+        field('value', choice($.identifier, $._literal_string)),
       ),
     ),
 

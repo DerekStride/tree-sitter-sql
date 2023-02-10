@@ -1942,6 +1942,10 @@
           "named": true
         },
         {
+          "type": "keyword_external",
+          "named": true
+        },
+        {
           "type": "keyword_if",
           "named": true
         },
@@ -1974,7 +1978,19 @@
           "named": true
         },
         {
+          "type": "row_format",
+          "named": true
+        },
+        {
           "type": "select",
+          "named": true
+        },
+        {
+          "type": "storage_location",
+          "named": true
+        },
+        {
+          "type": "stored_as",
           "named": true
         },
         {
@@ -1982,7 +1998,15 @@
           "named": true
         },
         {
+          "type": "table_partition",
+          "named": true
+        },
+        {
           "type": "table_reference",
+          "named": true
+        },
+        {
+          "type": "table_sort",
           "named": true
         }
       ]
@@ -3910,6 +3934,49 @@
     }
   },
   {
+    "type": "row_format",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_by",
+          "named": true
+        },
+        {
+          "type": "keyword_delimited",
+          "named": true
+        },
+        {
+          "type": "keyword_escaped",
+          "named": true
+        },
+        {
+          "type": "keyword_fields",
+          "named": true
+        },
+        {
+          "type": "keyword_format",
+          "named": true
+        },
+        {
+          "type": "keyword_lines",
+          "named": true
+        },
+        {
+          "type": "keyword_row",
+          "named": true
+        },
+        {
+          "type": "keyword_terminated",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "select",
     "named": true,
     "fields": {},
@@ -4130,6 +4197,123 @@
     }
   },
   {
+    "type": "storage_location",
+    "named": true,
+    "fields": {
+      "path": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "pool": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "literal",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_cached",
+          "named": true
+        },
+        {
+          "type": "keyword_in",
+          "named": true
+        },
+        {
+          "type": "keyword_location",
+          "named": true
+        },
+        {
+          "type": "keyword_replication",
+          "named": true
+        },
+        {
+          "type": "keyword_uncached",
+          "named": true
+        },
+        {
+          "type": "keyword_with",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "stored_as",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_as",
+          "named": true
+        },
+        {
+          "type": "keyword_avro",
+          "named": true
+        },
+        {
+          "type": "keyword_csv",
+          "named": true
+        },
+        {
+          "type": "keyword_jsonfile",
+          "named": true
+        },
+        {
+          "type": "keyword_orc",
+          "named": true
+        },
+        {
+          "type": "keyword_parquet",
+          "named": true
+        },
+        {
+          "type": "keyword_rcfile",
+          "named": true
+        },
+        {
+          "type": "keyword_sequencefile",
+          "named": true
+        },
+        {
+          "type": "keyword_stored",
+          "named": true
+        },
+        {
+          "type": "keyword_textfile",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "subquery",
     "named": true,
     "fields": {},
@@ -4153,9 +4337,17 @@
     "named": true,
     "fields": {
       "name": {
-        "multiple": false,
+        "multiple": true,
         "required": false,
         "types": [
+          {
+            "type": "\"",
+            "named": false
+          },
+          {
+            "type": "'",
+            "named": false
+          },
           {
             "type": "identifier",
             "named": true
@@ -4171,9 +4363,17 @@
         ]
       },
       "value": {
-        "multiple": false,
+        "multiple": true,
         "required": false,
         "types": [
+          {
+            "type": "\"",
+            "named": false
+          },
+          {
+            "type": "'",
+            "named": false
+          },
           {
             "type": "identifier",
             "named": true
@@ -4217,7 +4417,50 @@
       "required": true,
       "types": [
         {
+          "type": "keyword_tblproperties",
+          "named": true
+        },
+        {
           "type": "table_option",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "table_partition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "column_definitions",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "keyword_by",
+          "named": true
+        },
+        {
+          "type": "keyword_hash",
+          "named": true
+        },
+        {
+          "type": "keyword_partition",
+          "named": true
+        },
+        {
+          "type": "keyword_partitioned",
+          "named": true
+        },
+        {
+          "type": "keyword_range",
           "named": true
         }
       ]
@@ -4247,6 +4490,29 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "table_sort",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "keyword_by",
+          "named": true
+        },
+        {
+          "type": "keyword_sort",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -4935,6 +5201,10 @@
     "named": true
   },
   {
+    "type": "keyword_avro",
+    "named": true
+  },
+  {
     "type": "keyword_begin",
     "named": true
   },
@@ -4968,6 +5238,10 @@
   },
   {
     "type": "keyword_bytea",
+    "named": true
+  },
+  {
+    "type": "keyword_cached",
     "named": true
   },
   {
@@ -5007,6 +5281,10 @@
     "named": true
   },
   {
+    "type": "keyword_csv",
+    "named": true
+  },
+  {
     "type": "keyword_current",
     "named": true
   },
@@ -5032,6 +5310,10 @@
   },
   {
     "type": "keyword_delete",
+    "named": true
+  },
+  {
+    "type": "keyword_delimited",
     "named": true
   },
   {
@@ -5063,6 +5345,10 @@
     "named": true
   },
   {
+    "type": "keyword_escaped",
+    "named": true
+  },
+  {
     "type": "keyword_except",
     "named": true
   },
@@ -5075,7 +5361,15 @@
     "named": true
   },
   {
+    "type": "keyword_external",
+    "named": true
+  },
+  {
     "type": "keyword_false",
+    "named": true
+  },
+  {
+    "type": "keyword_fields",
     "named": true
   },
   {
@@ -5096,6 +5390,10 @@
   },
   {
     "type": "keyword_force",
+    "named": true
+  },
+  {
+    "type": "keyword_format",
     "named": true
   },
   {
@@ -5187,6 +5485,10 @@
     "named": true
   },
   {
+    "type": "keyword_jsonfile",
+    "named": true
+  },
+  {
     "type": "keyword_key",
     "named": true
   },
@@ -5204,6 +5506,14 @@
   },
   {
     "type": "keyword_limit",
+    "named": true
+  },
+  {
+    "type": "keyword_lines",
+    "named": true
+  },
+  {
+    "type": "keyword_location",
     "named": true
   },
   {
@@ -5259,6 +5569,10 @@
     "named": true
   },
   {
+    "type": "keyword_orc",
+    "named": true
+  },
+  {
     "type": "keyword_order",
     "named": true
   },
@@ -5279,7 +5593,15 @@
     "named": true
   },
   {
+    "type": "keyword_parquet",
+    "named": true
+  },
+  {
     "type": "keyword_partition",
+    "named": true
+  },
+  {
+    "type": "keyword_partitioned",
     "named": true
   },
   {
@@ -5296,6 +5618,10 @@
   },
   {
     "type": "keyword_range",
+    "named": true
+  },
+  {
+    "type": "keyword_rcfile",
     "named": true
   },
   {
@@ -5320,6 +5646,10 @@
   },
   {
     "type": "keyword_replace",
+    "named": true
+  },
+  {
+    "type": "keyword_replication",
     "named": true
   },
   {
@@ -5355,6 +5685,10 @@
     "named": true
   },
   {
+    "type": "keyword_sequencefile",
+    "named": true
+  },
+  {
     "type": "keyword_set",
     "named": true
   },
@@ -5363,11 +5697,23 @@
     "named": true
   },
   {
+    "type": "keyword_sort",
+    "named": true
+  },
+  {
     "type": "keyword_spgist",
     "named": true
   },
   {
+    "type": "keyword_stored",
+    "named": true
+  },
+  {
     "type": "keyword_table",
+    "named": true
+  },
+  {
+    "type": "keyword_tblproperties",
     "named": true
   },
   {
@@ -5379,7 +5725,15 @@
     "named": true
   },
   {
+    "type": "keyword_terminated",
+    "named": true
+  },
+  {
     "type": "keyword_text",
+    "named": true
+  },
+  {
+    "type": "keyword_textfile",
     "named": true
   },
   {
@@ -5408,6 +5762,10 @@
   },
   {
     "type": "keyword_unbounded",
+    "named": true
+  },
+  {
+    "type": "keyword_uncached",
     "named": true
   },
   {
