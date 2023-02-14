@@ -1670,6 +1670,7 @@ module.exports = grammar({
       $._double_quote_string,
     ),
     _number: _ => /\d+/,
+    _decimal_number: _ => /\d*[.]?\d*/,
     bang: _ => '!',
 
     identifier: $ => choice(
