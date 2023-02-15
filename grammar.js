@@ -1672,9 +1672,9 @@ module.exports = grammar({
     ),
     _number: _ => /\d+/,
     _decimal_number: $ => choice(
-        seq(".", $._number),
-        seq($._number, ".", $._number),
-        seq($._number, "."),
+        seq(optional("-"), ".", $._number),
+        seq(optional("-"), $._number, ".", $._number),
+        seq(optional("-"), $._number, "."),
     ),
 
     bang: _ => '!',
