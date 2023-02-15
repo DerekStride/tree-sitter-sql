@@ -139,6 +139,10 @@
             "named": true
           },
           {
+            "type": "keyword_interval",
+            "named": true
+          },
+          {
             "type": "keyword_json",
             "named": true
           },
@@ -255,6 +259,10 @@
         },
         {
           "type": "group_concat",
+          "named": true
+        },
+        {
+          "type": "interval",
           "named": true
         },
         {
@@ -467,6 +475,10 @@
           "named": true
         },
         {
+          "type": "interval",
+          "named": true
+        },
+        {
           "type": "invocation",
           "named": true
         },
@@ -545,6 +557,10 @@
           },
           {
             "type": "group_concat",
+            "named": true
+          },
+          {
+            "type": "interval",
             "named": true
           },
           {
@@ -647,6 +663,10 @@
           },
           {
             "type": "group_concat",
+            "named": true
+          },
+          {
+            "type": "interval",
             "named": true
           },
           {
@@ -814,6 +834,10 @@
             "named": true
           },
           {
+            "type": "interval",
+            "named": true
+          },
+          {
             "type": "invocation",
             "named": true
           },
@@ -883,6 +907,10 @@
         },
         {
           "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "interval",
           "named": true
         },
         {
@@ -983,6 +1011,10 @@
             "named": true
           },
           {
+            "type": "interval",
+            "named": true
+          },
+          {
             "type": "invocation",
             "named": true
           },
@@ -1070,6 +1102,10 @@
           "named": true
         },
         {
+          "type": "interval",
+          "named": true
+        },
+        {
           "type": "invocation",
           "named": true
         },
@@ -1111,6 +1147,10 @@
         },
         {
           "type": "keyword_geometry",
+          "named": true
+        },
+        {
+          "type": "keyword_interval",
           "named": true
         },
         {
@@ -1375,6 +1415,10 @@
           },
           {
             "type": "keyword_geometry",
+            "named": true
+          },
+          {
+            "type": "keyword_interval",
             "named": true
           },
           {
@@ -1679,6 +1723,10 @@
           },
           {
             "type": "group_concat",
+            "named": true
+          },
+          {
+            "type": "interval",
             "named": true
           },
           {
@@ -2578,6 +2626,10 @@
           "named": true
         },
         {
+          "type": "interval",
+          "named": true
+        },
+        {
           "type": "invocation",
           "named": true
         },
@@ -2668,6 +2720,10 @@
           },
           {
             "type": "group_concat",
+            "named": true
+          },
+          {
+            "type": "interval",
             "named": true
           },
           {
@@ -2877,6 +2933,21 @@
     }
   },
   {
+    "type": "interval",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_interval",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "invocation",
     "named": true,
     "fields": {
@@ -2920,6 +2991,10 @@
           },
           {
             "type": "group_concat",
+            "named": true
+          },
+          {
+            "type": "interval",
             "named": true
           },
           {
@@ -3007,6 +3082,10 @@
           },
           {
             "type": "group_concat",
+            "named": true
+          },
+          {
+            "type": "interval",
             "named": true
           },
           {
@@ -3223,6 +3302,10 @@
           "named": true
         },
         {
+          "type": "interval",
+          "named": true
+        },
+        {
           "type": "invocation",
           "named": true
         },
@@ -3354,6 +3437,10 @@
         },
         {
           "type": "group_concat",
+          "named": true
+        },
+        {
+          "type": "interval",
           "named": true
         },
         {
@@ -3637,6 +3724,10 @@
           "named": true
         },
         {
+          "type": "interval",
+          "named": true
+        },
+        {
           "type": "invocation",
           "named": true
         },
@@ -3737,6 +3828,10 @@
         },
         {
           "type": "group_concat",
+          "named": true
+        },
+        {
+          "type": "interval",
           "named": true
         },
         {
@@ -4562,6 +4657,10 @@
             "named": true
           },
           {
+            "type": "interval",
+            "named": true
+          },
+          {
             "type": "invocation",
             "named": true
           },
@@ -4702,6 +4801,10 @@
           },
           {
             "type": "group_concat",
+            "named": true
+          },
+          {
+            "type": "interval",
             "named": true
           },
           {
@@ -4872,6 +4975,10 @@
           },
           {
             "type": "group_concat",
+            "named": true
+          },
+          {
+            "type": "interval",
             "named": true
           },
           {
@@ -5149,6 +5256,18 @@
     "named": false
   },
   {
+    "type": "H",
+    "named": false
+  },
+  {
+    "type": "M",
+    "named": false
+  },
+  {
+    "type": "S",
+    "named": false
+  },
+  {
     "type": "[",
     "named": false
   },
@@ -5167,6 +5286,34 @@
   {
     "type": "bang",
     "named": true
+  },
+  {
+    "type": "century",
+    "named": false
+  },
+  {
+    "type": "d",
+    "named": false
+  },
+  {
+    "type": "day",
+    "named": false
+  },
+  {
+    "type": "days",
+    "named": false
+  },
+  {
+    "type": "decade",
+    "named": false
+  },
+  {
+    "type": "hour",
+    "named": false
+  },
+  {
+    "type": "hours",
+    "named": false
   },
   {
     "type": "keyword_add",
@@ -5462,6 +5609,10 @@
   },
   {
     "type": "keyword_intersect",
+    "named": true
+  },
+  {
+    "type": "keyword_interval",
     "named": true
   },
   {
@@ -5827,6 +5978,66 @@
   {
     "type": "keyword_zerofill",
     "named": true
+  },
+  {
+    "type": "m",
+    "named": false
+  },
+  {
+    "type": "microsecond",
+    "named": false
+  },
+  {
+    "type": "millennium",
+    "named": false
+  },
+  {
+    "type": "millisecond",
+    "named": false
+  },
+  {
+    "type": "minute",
+    "named": false
+  },
+  {
+    "type": "minutes",
+    "named": false
+  },
+  {
+    "type": "month",
+    "named": false
+  },
+  {
+    "type": "months",
+    "named": false
+  },
+  {
+    "type": "second",
+    "named": false
+  },
+  {
+    "type": "seconds",
+    "named": false
+  },
+  {
+    "type": "week",
+    "named": false
+  },
+  {
+    "type": "weeks",
+    "named": false
+  },
+  {
+    "type": "y",
+    "named": false
+  },
+  {
+    "type": "year",
+    "named": false
+  },
+  {
+    "type": "years",
+    "named": false
   },
   {
     "type": "||",
