@@ -5284,6 +5284,10 @@
     "named": false
   },
   {
+    "type": "ago",
+    "named": false
+  },
+  {
     "type": "bang",
     "named": true
   },

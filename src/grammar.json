@@ -6709,6 +6709,18 @@
               "value": "seconds"
             }
           ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "ago"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },

@@ -1267,6 +1267,9 @@ module.exports = grammar({
             "minutes",
             "seconds",
         ),
+        optional(
+            "ago",
+        ),
     ),
 
     // Postgres syntax for intervals
