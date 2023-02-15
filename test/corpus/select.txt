@@ -2184,3 +2184,32 @@ SELECT array[1, 2, 3 + 4, '5'::int, int_please()];
                 (keyword_int)))
             (invocation
               (identifier))))))))
+
+================================================================================
+Select with floats
+================================================================================
+
+SELECT a + 3.1415 from b where a >= 3.14
+
+--------------------------------------------------------------------------------
+(program
+  (statement
+  (select
+    (keyword_select)
+    (select_expression
+      (term
+        value: (binary_expression
+          left: (field
+            name: (identifier))
+          right: (literal)))))
+  (from
+    (keyword_from)
+    (relation
+      (table_reference
+        name: (identifier)))
+    (where
+      (keyword_where)
+      predicate: (binary_expression
+        left: (field
+          name: (identifier))
+        right: (literal))))))

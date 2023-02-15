@@ -1658,6 +1658,7 @@ module.exports = grammar({
     literal: $ => prec(2,
       choice(
         $._number,
+        $._decimal_number,
         $._literal_string,
         $.keyword_true,
         $.keyword_false,
@@ -1670,7 +1671,12 @@ module.exports = grammar({
       $._double_quote_string,
     ),
     _number: _ => /\d+/,
-    _decimal_number: _ => /\d*[.]?\d*/,
+    _decimal_number: $ => choice(
+        seq(".", $._number),
+        seq($._number, ".", $._number),
+        seq($._number, "."),
+    ),
+
     bang: _ => '!',
 
     identifier: $ => choice(

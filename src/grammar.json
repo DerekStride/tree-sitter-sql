@@ -9033,6 +9033,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "_decimal_number"
+          },
+          {
+            "type": "SYMBOL",
             "name": "_literal_string"
           },
           {
@@ -9098,8 +9102,52 @@
       "value": "\\d+"
     },
     "_decimal_number": {
-      "type": "PATTERN",
-      "value": "\\d*[.]?\\d*"
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "."
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_number"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_number"
+            },
+            {
+              "type": "STRING",
+              "value": "."
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_number"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_number"
+            },
+            {
+              "type": "STRING",
+              "value": "."
+            }
+          ]
+        }
+      ]
     },
     "bang": {
       "type": "STRING",
