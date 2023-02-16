@@ -154,3 +154,27 @@ SELECT CAST ("1" AS UNSIGNED INTEGER);
             (int
               (keyword_unsigned)
               (keyword_int))))))))
+
+================================================================================
+Cast intervals
+================================================================================
+
+SELECT '1 day 10 seconds'::INTERVAL, CAST('1 month' AS INTERVAL)
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (cast
+            (literal)
+            (keyword_interval)))
+        (term
+          value: (cast
+            name: (identifier)
+            parameter: (literal)
+            (keyword_as)
+            (keyword_interval)))))))

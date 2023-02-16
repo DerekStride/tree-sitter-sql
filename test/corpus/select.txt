@@ -2213,3 +2213,20 @@ SELECT a + 3.1415 from b where a >= 3.14
         left: (field
           name: (identifier))
         right: (literal))))))
+
+================================================================================
+Select intervals
+================================================================================
+
+SELECT interval '1m'
+
+--------------------------------------------------------------------------------
+(program
+  (statement
+  (select
+    (keyword_select)
+    (select_expression
+      (term
+        value: (interval
+          (keyword_interval)
+          (interval_definitions)))))))

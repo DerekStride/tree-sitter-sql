@@ -1198,6 +1198,10 @@
         }
       ]
     },
+    "keyword_interval": {
+      "type": "PATTERN",
+      "value": "interval|INTERVAL"
+    },
     "keyword_geometry": {
       "type": "PATTERN",
       "value": "geometry|GEOMETRY"
@@ -1348,6 +1352,10 @@
         {
           "type": "SYMBOL",
           "name": "keyword_timestamptz"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_interval"
         },
         {
           "type": "SYMBOL",
@@ -6583,6 +6591,165 @@
         }
       ]
     },
+    "interval_definitions": {
+      "type": "REPEAT1",
+      "content": {
+        "type": "SYMBOL",
+        "name": "_interval_definition"
+      }
+    },
+    "_interval_definition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_number"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "millennium"
+            },
+            {
+              "type": "STRING",
+              "value": "century"
+            },
+            {
+              "type": "STRING",
+              "value": "decade"
+            },
+            {
+              "type": "STRING",
+              "value": "year"
+            },
+            {
+              "type": "STRING",
+              "value": "month"
+            },
+            {
+              "type": "STRING",
+              "value": "week"
+            },
+            {
+              "type": "STRING",
+              "value": "day"
+            },
+            {
+              "type": "STRING",
+              "value": "hour"
+            },
+            {
+              "type": "STRING",
+              "value": "minute"
+            },
+            {
+              "type": "STRING",
+              "value": "second"
+            },
+            {
+              "type": "STRING",
+              "value": "millisecond"
+            },
+            {
+              "type": "STRING",
+              "value": "microsecond"
+            },
+            {
+              "type": "STRING",
+              "value": "y"
+            },
+            {
+              "type": "STRING",
+              "value": "m"
+            },
+            {
+              "type": "STRING",
+              "value": "d"
+            },
+            {
+              "type": "STRING",
+              "value": "H"
+            },
+            {
+              "type": "STRING",
+              "value": "M"
+            },
+            {
+              "type": "STRING",
+              "value": "S"
+            },
+            {
+              "type": "STRING",
+              "value": "years"
+            },
+            {
+              "type": "STRING",
+              "value": "months"
+            },
+            {
+              "type": "STRING",
+              "value": "weeks"
+            },
+            {
+              "type": "STRING",
+              "value": "days"
+            },
+            {
+              "type": "STRING",
+              "value": "hours"
+            },
+            {
+              "type": "STRING",
+              "value": "minutes"
+            },
+            {
+              "type": "STRING",
+              "value": "seconds"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "ago"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "interval": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_interval"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "'"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "interval_definitions"
+            },
+            {
+              "type": "STRING",
+              "value": "'"
+            }
+          ]
+        }
+      ]
+    },
     "cast": {
       "type": "SEQ",
       "members": [
@@ -8090,6 +8257,10 @@
           {
             "type": "SYMBOL",
             "name": "array"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "interval"
           }
         ]
       }

@@ -277,6 +277,7 @@ module.exports = grammar({
         make_keyword('zone')
       ),
     ),
+    keyword_interval: _ => make_keyword("interval"),
 
     keyword_geometry: _ => make_keyword("geometry"),
     keyword_geography: _ => make_keyword("geography"),
@@ -327,6 +328,7 @@ module.exports = grammar({
       $.keyword_datetime,
       $.keyword_timestamp,
       $.keyword_timestamptz,
+      $.keyword_interval,
 
       $.keyword_geometry,
       $.keyword_geography,
@@ -1231,6 +1233,54 @@ module.exports = grammar({
       $._type,
     ),
 
+    interval_definitions: $ => repeat1(
+         $._interval_definition
+    ),
+
+    _interval_definition: $ => seq(
+        $._number,
+        choice(
+            "millennium",
+            "century",
+            "decade",
+            "year",
+            "month",
+            "week",
+            "day",
+            "hour",
+            "minute",
+            "second",
+            "millisecond",
+            "microsecond",
+            "y",
+            "m",
+            "d",
+            "H",
+            "M",
+            "S",
+            "years",
+            "months",
+            "weeks",
+            "days",
+            "hours",
+            "minutes",
+            "seconds",
+        ),
+        optional(
+            "ago",
+        ),
+    ),
+
+    // Postgres syntax for intervals
+    interval: $ => seq(
+        $.keyword_interval,
+        seq(
+            "'",
+            $.interval_definitions,
+            "'",
+        ),
+    ),
+
     cast: $ => seq(
       field('name', alias($.keyword_cast, $.identifier)),
       '(',
@@ -1586,6 +1636,7 @@ module.exports = grammar({
         $.binary_expression,
         $.unary_expression,
         $.array,
+        $.interval,
       )
     ),
 
