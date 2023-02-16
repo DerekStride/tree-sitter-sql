@@ -1245,7 +1245,10 @@ module.exports = grammar({
             '.',
           ),
         ),
-        field('name', $.identifier),
+        choice(
+            field('name', $.identifier),
+            field('name', alias($._double_quote_string, $.identifier)),
+        ),
       ),
     ),
 
@@ -1739,9 +1742,11 @@ module.exports = grammar({
       ),
     ),
     _double_quote_string: _ => seq('"', /[^"]*/, '"'),
-    _literal_string: $ => choice(
-      seq("'", /[^']*/, "'"),
-      $._double_quote_string,
+    _literal_string: $ => prec(1,
+        choice(
+            seq("'", /[^']*/, "'"),
+            $._double_quote_string,
+        ),
     ),
     _number: _ => /\d+/,
     _decimal_number: $ => choice(
