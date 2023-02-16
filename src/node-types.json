@@ -2937,15 +2937,24 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "interval_definitions",
+          "named": true
+        },
         {
           "type": "keyword_interval",
           "named": true
         }
       ]
     }
+  },
+  {
+    "type": "interval_definitions",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "invocation",

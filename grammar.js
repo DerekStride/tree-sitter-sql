@@ -1233,8 +1233,7 @@ module.exports = grammar({
       $._type,
     ),
 
-
-    _interval_definitions: $ => repeat1(
+    interval_definitions: $ => repeat1(
          $._interval_definition
     ),
 
@@ -1277,7 +1276,7 @@ module.exports = grammar({
         $.keyword_interval,
         seq(
             "'",
-            $._interval_definitions,
+            $.interval_definitions,
             "'",
         ),
     ),

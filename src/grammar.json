@@ -6591,7 +6591,7 @@
         }
       ]
     },
-    "_interval_definitions": {
+    "interval_definitions": {
       "type": "REPEAT1",
       "content": {
         "type": "SYMBOL",
@@ -6740,7 +6740,7 @@
             },
             {
               "type": "SYMBOL",
-              "name": "_interval_definitions"
+              "name": "interval_definitions"
             },
             {
               "type": "STRING",
