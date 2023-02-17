@@ -9,3 +9,4 @@ build
 package-lock.json
 /target/
 /.build/
+/src/
