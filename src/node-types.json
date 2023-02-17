@@ -377,6 +377,10 @@
           "named": true
         },
         {
+          "type": "modify_column",
+          "named": true
+        },
+        {
           "type": "rename_column",
           "named": true
         },
@@ -3650,6 +3654,37 @@
     }
   },
   {
+    "type": "modify_column",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "column_definition",
+          "named": true
+        },
+        {
+          "type": "keyword_column",
+          "named": true
+        },
+        {
+          "type": "keyword_exists",
+          "named": true
+        },
+        {
+          "type": "keyword_if",
+          "named": true
+        },
+        {
+          "type": "keyword_modify",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "not_distinct_from",
     "named": true,
     "fields": {},
@@ -5794,6 +5829,10 @@
   },
   {
     "type": "keyword_materialized",
+    "named": true
+  },
+  {
+    "type": "keyword_modify",
     "named": true
   },
   {

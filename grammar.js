@@ -68,6 +68,7 @@ module.exports = grammar({
     keyword_create: _ => make_keyword("create"),
     keyword_alter: _ => make_keyword("alter"),
     keyword_change: _ => make_keyword("change"),
+    keyword_modify: _ => make_keyword("modify"),
     keyword_drop: _ => make_keyword("drop"),
     keyword_add: _ => make_keyword("add"),
     keyword_table: _ => make_keyword("table"),
@@ -710,9 +711,10 @@ module.exports = grammar({
       ),
     ),
 
-    _alter_specifications: $ =>  choice(
+    _alter_specifications: $ => choice(
       $.add_column,
       $.alter_column,
+      $.modify_column,
       $.change_column,
       $.drop_column,
       $.rename_object,
@@ -766,6 +768,16 @@ module.exports = grammar({
           $.keyword_default,
         ),
       ),
+    ),
+
+    modify_column: $ => seq(
+      $.keyword_modify,
+      optional(
+        $.keyword_column,
+      ),
+      optional($._if_exists),
+      $.column_definition
+      // TODO: FIRST | AFTER col_name
     ),
 
     change_column: $ => seq(

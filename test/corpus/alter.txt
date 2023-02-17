@@ -122,6 +122,35 @@ ALTER TABLE my_table
   )))
 
 ==================
+Alter table and modify column changing type
+==================
+
+ALTER TABLE my_table
+  MODIFY COLUMN IF EXISTS val6 INT UNSIGNED NOT NULL;
+
+---
+
+(program
+ (statement
+  (alter_table
+   (keyword_alter)
+   (keyword_table)
+   (table_reference
+    name: (identifier))
+   (modify_column
+    (keyword_modify)
+    (keyword_column)
+    (keyword_if)
+    (keyword_exists)
+    (column_definition
+     name: (identifier)
+     type: (int 
+      (keyword_int)
+      (keyword_unsigned))
+     (keyword_not)
+     (keyword_null))))))
+
+==================
 Alter table and change column renaming and changing type
 ==================
 
