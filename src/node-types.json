@@ -12,6 +12,10 @@
           "named": true
         },
         {
+          "type": "column_position",
+          "named": true
+        },
+        {
           "type": "keyword_add",
           "named": true
         },
@@ -1296,6 +1300,10 @@
           "named": true
         },
         {
+          "type": "column_position",
+          "named": true
+        },
+        {
           "type": "keyword_change",
           "named": true
         },
@@ -1635,6 +1643,36 @@
         },
         {
           "type": "constraints",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "column_position",
+    "named": true,
+    "fields": {
+      "col_name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_after",
+          "named": true
+        },
+        {
+          "type": "keyword_first",
           "named": true
         }
       ]
@@ -3666,6 +3704,10 @@
           "named": true
         },
         {
+          "type": "column_position",
+          "named": true
+        },
+        {
           "type": "keyword_column",
           "named": true
         },
@@ -5473,6 +5515,10 @@
   },
   {
     "type": "keyword_add",
+    "named": true
+  },
+  {
+    "type": "keyword_after",
     "named": true
   },
   {

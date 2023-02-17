@@ -134,6 +134,7 @@ module.exports = grammar({
     keyword_over: _ => make_keyword("over"),
     keyword_nulls: _ => make_keyword("nulls"),
     keyword_first: _ => make_keyword("first"),
+    keyword_after: _ => make_keyword("after"),
     keyword_last: _ => make_keyword("last"),
     keyword_window: _ => make_keyword("window"),
     keyword_range: _ => make_keyword("range"),
@@ -730,6 +731,7 @@ module.exports = grammar({
       ),
       optional($._if_not_exists),
       $.column_definition,
+      optional($.column_position),
     ),
 
     alter_column: $ => seq(
@@ -776,8 +778,8 @@ module.exports = grammar({
         $.keyword_column,
       ),
       optional($._if_exists),
-      $.column_definition
-      // TODO: FIRST | AFTER col_name
+      $.column_definition,
+      optional($.column_position),
     ),
 
     change_column: $ => seq(
@@ -787,8 +789,16 @@ module.exports = grammar({
       ),
       optional($._if_exists),
       field('old_name', $.identifier),
-      $.column_definition
-      // TODO: FIRST | AFTER col_name
+      $.column_definition,
+      optional($.column_position),
+    ),
+
+    column_position: $ => choice(
+      $.keyword_first,
+      seq(
+        $.keyword_after,
+        field('col_name', $.identifier),
+      ),
     ),
 
     drop_column: $ => seq(

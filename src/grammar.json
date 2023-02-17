@@ -410,6 +410,10 @@
       "type": "PATTERN",
       "value": "first|FIRST"
     },
+    "keyword_after": {
+      "type": "PATTERN",
+      "value": "after|AFTER"
+    },
     "keyword_last": {
       "type": "PATTERN",
       "value": "last|LAST"
@@ -4521,6 +4525,18 @@
         {
           "type": "SYMBOL",
           "name": "column_definition"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "column_position"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
@@ -4686,6 +4702,18 @@
         {
           "type": "SYMBOL",
           "name": "column_definition"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "column_position"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
@@ -4731,6 +4759,44 @@
         {
           "type": "SYMBOL",
           "name": "column_definition"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "column_position"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "column_position": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_first"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "keyword_after"
+            },
+            {
+              "type": "FIELD",
+              "name": "col_name",
+              "content": {
+                "type": "SYMBOL",
+                "name": "identifier"
+              }
+            }
+          ]
         }
       ]
     },

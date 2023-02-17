@@ -52,6 +52,61 @@ ALTER TABLE my_table
    ))))
 
 ==================
+Alter table and add column first
+==================
+
+ALTER TABLE my_table
+  ADD val3 VARCHAR(100) NOT NULL FIRST;
+
+---
+
+(program
+ (statement
+  (alter_table
+   (keyword_alter)
+   (keyword_table)
+   (table_reference name: (identifier))
+   (add_column
+    (keyword_add)
+    (column_definition
+     name: (identifier)
+     type: (varchar
+      (keyword_varchar)
+      size: (literal))
+     (keyword_not)
+     (keyword_null))
+    (column_position
+     (keyword_first))))))
+
+==================
+Alter table and add column after column
+==================
+
+ALTER TABLE my_table
+  ADD val3 VARCHAR(100) NOT NULL AFTER val2;
+
+---
+
+(program
+ (statement
+  (alter_table
+   (keyword_alter)
+   (keyword_table)
+   (table_reference name: (identifier))
+   (add_column
+    (keyword_add)
+    (column_definition
+     name: (identifier)
+     type: (varchar
+      (keyword_varchar)
+      size: (literal))
+     (keyword_not)
+     (keyword_null))
+    (column_position
+     (keyword_after)
+     col_name: (identifier))))))
+
+==================
 Alter table and alter column setting default
 ==================
 
@@ -122,11 +177,11 @@ ALTER TABLE my_table
   )))
 
 ==================
-Alter table and modify column changing type
+Alter table and modify column changing type and position
 ==================
 
 ALTER TABLE my_table
-  MODIFY COLUMN IF EXISTS val6 INT UNSIGNED NOT NULL;
+  MODIFY COLUMN IF EXISTS val6 INT UNSIGNED NOT NULL AFTER val3;
 
 ---
 
@@ -148,7 +203,10 @@ ALTER TABLE my_table
       (keyword_int)
       (keyword_unsigned))
      (keyword_not)
-     (keyword_null))))))
+     (keyword_null))
+    (column_position
+     (keyword_after)
+     col_name: (identifier))))))
 
 ==================
 Alter table and change column renaming and changing type
