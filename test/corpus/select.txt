@@ -245,6 +245,30 @@ FROM my_table "My Table";
         table_alias: (identifier)))))
 
 ================================================================================
+Select with quoted column
+================================================================================
+
+SELECT tab."COL" FROM tab;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            table_alias: (identifier)
+            name: (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier))))))
+
+
+================================================================================
 Simple select with where
 ================================================================================
 
