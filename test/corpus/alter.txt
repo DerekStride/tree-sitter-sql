@@ -299,7 +299,8 @@ Alter table and multiple
 ALTER TABLE IF EXISTS my_table
   ADD COLUMN IF NOT EXISTS val4 DATE,
   ALTER COLUMN val5 DROP NOT NULL, -- comment, ignore me!
-  DROP COLUMN IF EXISTS val6;
+  RENAME COLUMN val6 TO val7,
+  DROP COLUMN IF EXISTS val8;
 
 ---
 
@@ -326,6 +327,12 @@ ALTER TABLE IF EXISTS my_table
     (keyword_not)
     (keyword_null))
    (comment)
+   (rename_column
+    (keyword_rename)
+    (keyword_column)
+    old_name: (identifier)
+    (keyword_to)
+    new_name: (identifier))
    (drop_column
     (keyword_drop)
     (keyword_column)

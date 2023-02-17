@@ -4413,21 +4413,8 @@
               "type": "SEQ",
               "members": [
                 {
-                  "type": "CHOICE",
-                  "members": [
-                    {
-                      "type": "SYMBOL",
-                      "name": "add_column"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "alter_column"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "drop_column"
-                    }
-                  ]
+                  "type": "SYMBOL",
+                  "name": "_alter_specifications"
                 },
                 {
                   "type": "REPEAT",
@@ -4439,44 +4426,48 @@
                         "value": ","
                       },
                       {
-                        "type": "CHOICE",
-                        "members": [
-                          {
-                            "type": "SYMBOL",
-                            "name": "add_column"
-                          },
-                          {
-                            "type": "SYMBOL",
-                            "name": "alter_column"
-                          },
-                          {
-                            "type": "SYMBOL",
-                            "name": "drop_column"
-                          }
-                        ]
+                        "type": "SYMBOL",
+                        "name": "_alter_specifications"
                       }
                     ]
                   }
                 }
               ]
-            },
-            {
-              "type": "SYMBOL",
-              "name": "rename_object"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "rename_column"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "set_schema"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "change_ownership"
             }
           ]
+        }
+      ]
+    },
+    "_alter_specifications": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "add_column"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "alter_column"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "drop_column"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "rename_object"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "rename_column"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "set_schema"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "change_ownership"
         }
       ]
     },

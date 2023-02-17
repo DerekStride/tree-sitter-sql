@@ -698,28 +698,25 @@ module.exports = grammar({
       $.table_reference,
       choice(
         seq(
-          choice(
-            $.add_column,
-            $.alter_column,
-            $.drop_column,
-          ),
+          $._alter_specifications,
           repeat(
             seq(
               ",",
-              choice(
-                $.add_column,
-                $.alter_column,
-                $.drop_column,
-              )
+              $._alter_specifications
             )
           )
         ),
-        // some operations may not be chained to others
-        $.rename_object,
-        $.rename_column,
-        $.set_schema,
-        $.change_ownership,
       ),
+    ),
+
+    _alter_specifications: $ =>  choice(
+      $.add_column,
+      $.alter_column,
+      $.drop_column,
+      $.rename_object,
+      $.rename_column,
+      $.set_schema,
+      $.change_ownership,
     ),
 
     add_column: $ => seq(
