@@ -349,6 +349,10 @@
           "named": true
         },
         {
+          "type": "change_column",
+          "named": true
+        },
+        {
           "type": "change_ownership",
           "named": true
         },
@@ -1259,6 +1263,48 @@
         },
         {
           "type": "window_function",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "change_column",
+    "named": true,
+    "fields": {
+      "old_name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "column_definition",
+          "named": true
+        },
+        {
+          "type": "keyword_change",
+          "named": true
+        },
+        {
+          "type": "keyword_column",
+          "named": true
+        },
+        {
+          "type": "keyword_exists",
+          "named": true
+        },
+        {
+          "type": "keyword_if",
           "named": true
         }
       ]
@@ -5472,6 +5518,10 @@
   },
   {
     "type": "keyword_case",
+    "named": true
+  },
+  {
+    "type": "keyword_change",
     "named": true
   },
   {

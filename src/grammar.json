@@ -142,6 +142,10 @@
       "type": "PATTERN",
       "value": "alter|ALTER"
     },
+    "keyword_change": {
+      "type": "PATTERN",
+      "value": "change|CHANGE"
+    },
     "keyword_drop": {
       "type": "PATTERN",
       "value": "drop|DROP"
@@ -4451,6 +4455,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "change_column"
+        },
+        {
+          "type": "SYMBOL",
           "name": "drop_column"
         },
         {
@@ -4633,6 +4641,51 @@
               ]
             }
           ]
+        }
+      ]
+    },
+    "change_column": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_change"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "keyword_column"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_if_exists"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "FIELD",
+          "name": "old_name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "column_definition"
         }
       ]
     },
