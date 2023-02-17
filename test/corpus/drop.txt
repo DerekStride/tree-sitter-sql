@@ -46,3 +46,18 @@ DROP VIEW my_view;
    (keyword_view)
    (table_reference name: (identifier))
   )))
+
+==================
+Drop index
+==================
+
+DROP INDEX idx;
+
+---
+
+(program
+ (statement
+  (drop_index
+   (keyword_drop)
+   (keyword_index)
+    name: (identifier))))

@@ -306,6 +306,10 @@
       "type": "PATTERN",
       "value": "cascade|CASCADE"
     },
+    "keyword_restrict": {
+      "type": "PATTERN",
+      "value": "restrict|RESTRICT"
+    },
     "keyword_with": {
       "type": "PATTERN",
       "value": "with|WITH"
@@ -4786,6 +4790,10 @@
             {
               "type": "SYMBOL",
               "name": "drop_view"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "drop_index"
             }
           ]
         }
@@ -4865,6 +4873,93 @@
             {
               "type": "SYMBOL",
               "name": "keyword_cascade"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "drop_index": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_drop"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_index"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "keyword_concurrently"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_if_exists"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_cascade"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_restrict"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_on"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "table_reference"
+                }
+              ]
             },
             {
               "type": "BLANK"
