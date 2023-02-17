@@ -2350,6 +2350,64 @@
     }
   },
   {
+    "type": "drop_index",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_cascade",
+          "named": true
+        },
+        {
+          "type": "keyword_concurrently",
+          "named": true
+        },
+        {
+          "type": "keyword_drop",
+          "named": true
+        },
+        {
+          "type": "keyword_exists",
+          "named": true
+        },
+        {
+          "type": "keyword_if",
+          "named": true
+        },
+        {
+          "type": "keyword_index",
+          "named": true
+        },
+        {
+          "type": "keyword_on",
+          "named": true
+        },
+        {
+          "type": "keyword_restrict",
+          "named": true
+        },
+        {
+          "type": "table_reference",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "drop_table",
     "named": true,
     "fields": {},
@@ -4246,6 +4304,10 @@
           "named": true
         },
         {
+          "type": "drop_index",
+          "named": true
+        },
+        {
           "type": "drop_table",
           "named": true
         },
@@ -5814,6 +5876,10 @@
   },
   {
     "type": "keyword_replication",
+    "named": true
+  },
+  {
+    "type": "keyword_restrict",
     "named": true
   },
   {

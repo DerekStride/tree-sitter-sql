@@ -108,6 +108,7 @@ module.exports = grammar({
     keyword_engine: _ => make_keyword("engine"),
     keyword_default: _ => make_keyword("default"),
     keyword_cascade: _ => make_keyword("cascade"),
+    keyword_restrict: _ => make_keyword("restrict"),
     keyword_with: _ => make_keyword("with"),
     keyword_no: _ => make_keyword("no"),
     keyword_data: _ => make_keyword("data"),
@@ -805,6 +806,7 @@ module.exports = grammar({
       choice(
         $.drop_table,
         $.drop_view,
+        $.drop_index,
       ),
     ),
 
@@ -825,6 +827,26 @@ module.exports = grammar({
       $.table_reference,
       optional(
         $.keyword_cascade,
+      ),
+    ),
+
+    drop_index: $ => seq(
+      $.keyword_drop,
+      $.keyword_index,
+      optional($.keyword_concurrently),
+      optional($._if_exists),
+      field("name", $.identifier),
+      optional(
+        choice(
+            $.keyword_cascade,
+            $.keyword_restrict,
+        ),
+      ),
+      optional(
+        seq(
+            $.keyword_on,
+            $.table_reference,
+        ),
       ),
     ),
 
