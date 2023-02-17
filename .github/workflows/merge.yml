@@ -1,0 +1,44 @@
+name: Merge
+on:
+  pull_request:
+    types: [labeled]
+    paths:
+      - 'grammar.js'
+jobs:
+  rebuild:
+    if: github.event.label.name == 'merge'
+    runs-on: 'ubuntu-latest'
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: merge main
+        shell: bash
+        run: |
+          git fetch origin main:main
+          # prepare the merge, and make sure conflicts don't abort the whole workflow
+          git merge main --no-commit --no-ff || true
+          # overwrite src with the main version
+          git checkout main -- src
+      - run: npm install
+      - run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -a -m "build auto generated files"
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.head_ref }}
+          force: true
+
+  unlabel:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Cleanup label
+        env:
+          PR: ${{ github.event.number }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh pr edit "$PR" --remove-label "merge"
