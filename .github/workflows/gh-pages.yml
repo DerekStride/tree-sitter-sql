@@ -1,0 +1,33 @@
+name: Deploy GitHub Pages
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  jekyll:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - run: npm install
+      - name: Publish parser on GitHub Pages
+        run: cp -r src docs
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2.0
+      - uses: limjh16/jekyll-action-ts@v2
+        env:
+          NODE_ENV: "production"
+        with:
+          enable_cache: true
+      - name: 🚀 deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./_site
+          publish_branch: gh-pages
