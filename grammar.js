@@ -1011,12 +1011,12 @@ module.exports = grammar({
                 $.keyword_fields,
                 $.keyword_terminated,
                 $.keyword_by,
-                $._literal_string,
+                field('fields_terminated_char', alias($._literal_string, $.literal)),
                 optional(
                     seq(
                         $.keyword_escaped,
                         $.keyword_by,
-                        $._literal_string,
+                        field('escaped_char', alias($._literal_string, $.literal)),
                     )
                 )
             )
@@ -1026,7 +1026,7 @@ module.exports = grammar({
                 $.keyword_lines,
                 $.keyword_terminated,
                 $.keyword_by,
-                $._literal_string,
+                field('row_terminated_char', alias($._literal_string, $.literal)),
             )
         )
     ),
