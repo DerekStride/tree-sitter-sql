@@ -151,22 +151,22 @@ FROM table_a;
       (keyword_select)
       (select_expression
         (term
-          (count
-            (identifier)
+          value: (count
+            name: (keyword_count)
             (keyword_distinct)
-            (field
-              (identifier))
+            parameter: (field
+              name: (identifier))
             (order_by
               (keyword_order)
               (keyword_by)
               (order_target
                 (field
-                  (identifier))))))))
+                  name: (identifier))))))))
     (from
       (keyword_from)
       (relation
         (table_reference
-          (identifier))))))
+          name: (identifier))))))
 
 ================================================================================
 GROUP CONCAT

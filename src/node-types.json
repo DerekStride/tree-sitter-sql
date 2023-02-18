@@ -1772,7 +1772,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "keyword_count",
             "named": true
           }
         ]
@@ -5654,6 +5654,10 @@
   },
   {
     "type": "keyword_constraint",
+    "named": true
+  },
+  {
+    "type": "keyword_count",
     "named": true
   },
   {

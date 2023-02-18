@@ -1355,7 +1355,7 @@ module.exports = grammar({
     ),
 
     count: $ => seq(
-      field('name', alias($.keyword_count, $.identifier)),
+      field('name', $.keyword_count),
       '(',
       $._aggregate_expression,
       ')',

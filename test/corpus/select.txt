@@ -468,7 +468,7 @@ FROM my_table;
       (select_expression
         (term
           value: (count
-            name: (identifier)
+            name: (keyword_count)
             (keyword_distinct)
             parameter: (field
               name: (identifier)))
@@ -721,7 +721,7 @@ FROM my_table;
       (select_expression
         (term
           value: (count
-            name: (identifier)
+            name: (keyword_count)
             (keyword_distinct)
             parameter: (list
               (field
@@ -747,7 +747,7 @@ FROM my_table;
       (select_expression
         (term
           value: (count
-            name: (identifier)
+            name: (keyword_count)
             parameter: (all_fields)))))
     (from
       (keyword_from)
@@ -770,7 +770,7 @@ FROM my_table;
       (select_expression
         (term
           value: (count
-            name: (identifier)
+            name: (keyword_count)
             (keyword_distinct)
             parameter: (field
               name: (identifier))))))
