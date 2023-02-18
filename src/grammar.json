@@ -5642,7 +5642,7 @@
                 "name": "_literal_string"
               },
               "named": true,
-              "value": "identifier"
+              "value": "literal"
             }
           },
           {
@@ -5669,7 +5669,7 @@
                         "name": "_literal_string"
                       },
                       "named": true,
-                      "value": "identifier"
+                      "value": "literal"
                     }
                   },
                   {

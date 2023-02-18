@@ -1020,10 +1020,10 @@ CACHED IN 'pool1' WITH REPLICATION = 2
         (keyword_parquet))
       (storage_location
         (keyword_location)
-        path: (identifier)
+        path: (literal)
         (keyword_cached)
         (keyword_in)
-        pool: (identifier)
+        pool: (literal)
         (keyword_with)
         (keyword_replication)
         value: (literal)))))

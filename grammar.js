@@ -980,12 +980,12 @@ module.exports = grammar({
     storage_location: $ => prec.right(
         seq(
             $.keyword_location,
-            field('path', alias($._literal_string, $.identifier)),
+            field('path', alias($._literal_string, $.literal)),
             optional(
                 seq(
                     $.keyword_cached,
                     $.keyword_in,
-                    field('pool', alias($._literal_string, $.identifier)),
+                    field('pool', alias($._literal_string, $.literal)),
                     optional(
                         choice(
                             $.keyword_uncached,
