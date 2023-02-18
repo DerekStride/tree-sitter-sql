@@ -993,7 +993,7 @@ module.exports = grammar({
                                 $.keyword_with,
                                 $.keyword_replication,
                                 '=',
-                                field('value', alias($._number, $.literal)),
+                                field('value', alias($._natural_number, $.literal)),
                             ),
                         ),
                     ),
@@ -1295,7 +1295,7 @@ module.exports = grammar({
     ),
 
     _interval_definition: $ => seq(
-        $._number,
+        $._natural_number,
         choice(
             "millennium",
             "century",
@@ -1393,12 +1393,12 @@ module.exports = grammar({
             $.keyword_preceding,
           ),
           seq(
-              alias($._number, $.literal),
+              alias($._natural_number, $.literal),
               $.keyword_preceding,
           ),
           $._current_row,
           seq(
-              alias($._number, $.literal),
+              alias($._natural_number, $.literal),
               $.keyword_following,
           ),
           seq(
@@ -1765,7 +1765,7 @@ module.exports = grammar({
 
     literal: $ => prec(2,
       choice(
-        $._number,
+        $._integer,
         $._decimal_number,
         $._literal_string,
         $.keyword_true,
@@ -1780,11 +1780,12 @@ module.exports = grammar({
             $._double_quote_string,
         ),
     ),
-    _number: _ => /\d+/,
+    _natural_number: _ => /\d+/,
+    _integer: $ => seq(optional("-"), $._natural_number),
     _decimal_number: $ => choice(
-        seq(optional("-"), ".", $._number),
-        seq(optional("-"), $._number, ".", $._number),
-        seq(optional("-"), $._number, "."),
+        seq(optional("-"), ".", $._natural_number),
+        seq($._integer, ".", $._natural_number),
+        seq($._integer, "."),
     ),
 
     bang: _ => '!',
@@ -1817,9 +1818,9 @@ function parametric_type($, type, params = ['size']) {
         type,
         '(',
         // first parameter is guaranteed, shift it out of the array
-        field(params.shift(), alias($._number, $.literal)),
+        field(params.shift(), alias($._natural_number, $.literal)),
         // then, fill in the ", next" until done
-        ...params.map(p => seq(',', field(p, alias($._number, $.literal)))),
+        ...params.map(p => seq(',', field(p, alias($._natural_number, $.literal)))),
         ')',
       ),
     ),
