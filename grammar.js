@@ -67,6 +67,8 @@ module.exports = grammar({
     keyword_primary: _ => make_keyword("primary"),
     keyword_create: _ => make_keyword("create"),
     keyword_alter: _ => make_keyword("alter"),
+    keyword_change: _ => make_keyword("change"),
+    keyword_modify: _ => make_keyword("modify"),
     keyword_drop: _ => make_keyword("drop"),
     keyword_add: _ => make_keyword("add"),
     keyword_table: _ => make_keyword("table"),
@@ -132,6 +134,7 @@ module.exports = grammar({
     keyword_over: _ => make_keyword("over"),
     keyword_nulls: _ => make_keyword("nulls"),
     keyword_first: _ => make_keyword("first"),
+    keyword_after: _ => make_keyword("after"),
     keyword_last: _ => make_keyword("last"),
     keyword_window: _ => make_keyword("window"),
     keyword_range: _ => make_keyword("range"),
@@ -698,28 +701,27 @@ module.exports = grammar({
       $.table_reference,
       choice(
         seq(
-          choice(
-            $.add_column,
-            $.alter_column,
-            $.drop_column,
-          ),
+          $._alter_specifications,
           repeat(
             seq(
               ",",
-              choice(
-                $.add_column,
-                $.alter_column,
-                $.drop_column,
-              )
+              $._alter_specifications
             )
           )
         ),
-        // some operations may not be chained to others
-        $.rename_object,
-        $.rename_column,
-        $.set_schema,
-        $.change_ownership,
       ),
+    ),
+
+    _alter_specifications: $ => choice(
+      $.add_column,
+      $.alter_column,
+      $.modify_column,
+      $.change_column,
+      $.drop_column,
+      $.rename_object,
+      $.rename_column,
+      $.set_schema,
+      $.change_ownership,
     ),
 
     add_column: $ => seq(
@@ -729,6 +731,7 @@ module.exports = grammar({
       ),
       optional($._if_not_exists),
       $.column_definition,
+      optional($.column_position),
     ),
 
     alter_column: $ => seq(
@@ -766,6 +769,35 @@ module.exports = grammar({
           $.keyword_drop,
           $.keyword_default,
         ),
+      ),
+    ),
+
+    modify_column: $ => seq(
+      $.keyword_modify,
+      optional(
+        $.keyword_column,
+      ),
+      optional($._if_exists),
+      $.column_definition,
+      optional($.column_position),
+    ),
+
+    change_column: $ => seq(
+      $.keyword_change,
+      optional(
+        $.keyword_column,
+      ),
+      optional($._if_exists),
+      field('old_name', $.identifier),
+      $.column_definition,
+      optional($.column_position),
+    ),
+
+    column_position: $ => choice(
+      $.keyword_first,
+      seq(
+        $.keyword_after,
+        field('col_name', $.identifier),
       ),
     ),
 
