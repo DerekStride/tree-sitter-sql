@@ -7052,13 +7052,8 @@
           "type": "FIELD",
           "name": "name",
           "content": {
-            "type": "ALIAS",
-            "content": {
-              "type": "SYMBOL",
-              "name": "keyword_cast"
-            },
-            "named": true,
-            "value": "identifier"
+            "type": "SYMBOL",
+            "name": "keyword_cast"
           }
         },
         {

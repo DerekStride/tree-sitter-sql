@@ -565,7 +565,7 @@ FROM
                     (keyword_false))
                   (keyword_end))
                 (cast
-                  (identifier)
+                  (keyword_cast)
                   (field
                     (identifier))
                   (keyword_as)
@@ -622,7 +622,7 @@ FROM
                     (keyword_end)))
                 (order_target
                   (cast
-                    (identifier)
+                    (keyword_cast)
                     (field
                       (identifier))
                     (keyword_as)

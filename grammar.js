@@ -1339,7 +1339,7 @@ module.exports = grammar({
     ),
 
     cast: $ => seq(
-      field('name', alias($.keyword_cast, $.identifier)),
+      field('name', $.keyword_cast),
       '(',
       seq(
         field('parameter', $._expression),
