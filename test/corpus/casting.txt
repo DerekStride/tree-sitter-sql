@@ -13,7 +13,7 @@ SELECT CAST(1 AS TEXT);
       (select_expression
         (term
           (cast
-            (identifier)
+            (keyword_cast)
             (literal)
             (keyword_as)
             (keyword_text)))))))
@@ -33,7 +33,7 @@ SELECT CAST(1 AS TEXT) AS fieldname;
       (select_expression
         (term
           value: (cast
-            name: (identifier)
+            name: (keyword_cast)
             parameter: (literal)
             (keyword_as)
             (keyword_text))
@@ -83,7 +83,7 @@ SELECT
       (select_expression
         (term
           value: (cast
-            name: (identifier)
+            name: (keyword_cast)
             parameter: (literal)
             (keyword_as)
             (int
@@ -116,7 +116,7 @@ CAST (100 AS NUMERIC(32)),
       (select_expression
         (term
           value: (cast
-            name: (identifier)
+            name: (keyword_cast)
             parameter: (literal)
             (keyword_as)
             (numeric
@@ -148,7 +148,7 @@ SELECT CAST ("1" AS UNSIGNED INTEGER);
       (select_expression
         (term
           value: (cast
-            name: (identifier)
+            name: (keyword_cast)
             parameter: (literal)
             (keyword_as)
             (int
@@ -174,7 +174,7 @@ SELECT '1 day 10 seconds'::INTERVAL, CAST('1 month' AS INTERVAL)
             (keyword_interval)))
         (term
           value: (cast
-            name: (identifier)
+            name: (keyword_cast)
             parameter: (literal)
             (keyword_as)
             (keyword_interval)))))))

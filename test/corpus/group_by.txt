@@ -19,7 +19,7 @@ HAVING other_id > 10;
             name: (identifier)))
         (term
           value: (count
-            name: (identifier)
+            name: (keyword_count)
             parameter: (field
               name: (identifier))))))
     (from
@@ -58,7 +58,7 @@ HAVING other_id > 10;
             name: (identifier)))
         (term
           value: (count
-            name: (identifier)
+            name: (keyword_count)
             parameter: (field
               name: (identifier))))))
     (from
@@ -99,7 +99,7 @@ HAVING other_id > 10;
             name: (identifier)))
         (term
           value: (count
-            name: (identifier)
+            name: (keyword_count)
             parameter: (field
               name: (identifier))))))
     (from
@@ -140,7 +140,7 @@ HAVING COUNT(*) = 2;
             name: (identifier)))
         (term
           value: (count
-            name: (identifier)
+            name: (keyword_count)
             parameter: (field
               name: (identifier))))))
     (from
@@ -156,6 +156,6 @@ HAVING COUNT(*) = 2;
         (keyword_having)
         (binary_expression
           left: (count
-            name: (identifier)
+            name: (keyword_count)
             parameter: (all_fields))
           right: (literal))))))
