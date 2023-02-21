@@ -3336,6 +3336,35 @@
         }
       ]
     },
+    "_cte": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_with"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "cte"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": ","
+              },
+              {
+                "type": "SYMBOL",
+                "name": "cte"
+              }
+            ]
+          }
+        }
+      ]
+    },
     "_dml_statement": {
       "type": "SEQ",
       "members": [
@@ -3343,33 +3372,8 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "keyword_with"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "cte"
-                },
-                {
-                  "type": "REPEAT",
-                  "content": {
-                    "type": "SEQ",
-                    "members": [
-                      {
-                        "type": "STRING",
-                        "value": ","
-                      },
-                      {
-                        "type": "SYMBOL",
-                        "name": "cte"
-                      }
-                    ]
-                  }
-                }
-              ]
+              "type": "SYMBOL",
+              "name": "_cte"
             },
             {
               "type": "BLANK"
@@ -4060,8 +4064,26 @@
                       "name": "keyword_as"
                     },
                     {
-                      "type": "SYMBOL",
-                      "name": "_select_statement"
+                      "type": "CHOICE",
+                      "members": [
+                        {
+                          "type": "SYMBOL",
+                          "name": "_select_statement"
+                        },
+                        {
+                          "type": "SEQ",
+                          "members": [
+                            {
+                              "type": "SYMBOL",
+                              "name": "_cte"
+                            },
+                            {
+                              "type": "SYMBOL",
+                              "name": "_select_statement"
+                            }
+                          ]
+                        }
+                      ]
                     }
                   ]
                 }
@@ -4115,8 +4137,26 @@
           "name": "keyword_as"
         },
         {
-          "type": "SYMBOL",
-          "name": "_select_statement"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_select_statement"
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_cte"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_select_statement"
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -4171,8 +4211,26 @@
             "name": "keyword_as"
           },
           {
-            "type": "SYMBOL",
-            "name": "_select_statement"
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_select_statement"
+              },
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "_cte"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "_select_statement"
+                  }
+                ]
+              }
+            ]
           },
           {
             "type": "CHOICE",
@@ -9752,4 +9810,3 @@
   "inline": [],
   "supertypes": []
 }
-

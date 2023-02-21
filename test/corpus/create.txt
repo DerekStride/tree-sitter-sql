@@ -697,10 +697,12 @@ CREATE TABLE type_test (
           type: (keyword_bigserial))
         (column_definition
           name: (identifier)
-          type: (int (keyword_int)))
+          type: (int
+            (keyword_int)))
         (column_definition
           name: (identifier)
-          type: (int (keyword_int)))
+          type: (int
+            (keyword_int)))
         (column_definition
           name: (identifier)
           type: (bigint
@@ -965,6 +967,142 @@ CREATE TABLE tableName AS SELECT * FROM otherTable;
             name: (identifier)))))))
 
 ================================================================================
+Create table as select with cte
+================================================================================
+
+CREATE TABLE tableName AS WITH _cte AS (
+    SELECT a FROM b
+)
+SELECT * FROM _cte
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (table_reference
+        (identifier))
+      (keyword_as)
+      (keyword_with)
+      (cte
+        (identifier)
+        (keyword_as)
+        (statement
+          (select
+            (keyword_select)
+            (select_expression
+              (term
+                (field
+                  (identifier)))))
+          (from
+            (keyword_from)
+            (relation
+              (table_reference
+                (identifier))))))
+      (select
+        (keyword_select)
+        (select_expression
+          (all_fields)))
+      (from
+        (keyword_from)
+        (relation
+          (table_reference
+            (identifier)))))))
+
+================================================================================
+Create view as select with cte
+================================================================================
+
+CREATE VIEW tableName AS WITH _cte AS (
+    SELECT a FROM b
+)
+SELECT * FROM _cte
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_view
+      (keyword_create)
+      (keyword_view)
+      (table_reference
+        (identifier))
+      (keyword_as)
+      (keyword_with)
+      (cte
+        (identifier)
+        (keyword_as)
+        (statement
+          (select
+            (keyword_select)
+            (select_expression
+              (term
+                (field
+                  (identifier)))))
+          (from
+            (keyword_from)
+            (relation
+              (table_reference
+                (identifier))))))
+      (select
+        (keyword_select)
+        (select_expression
+          (all_fields)))
+      (from
+        (keyword_from)
+        (relation
+          (table_reference
+            (identifier)))))))
+
+================================================================================
+Create materialized view as select with cte
+================================================================================
+
+CREATE MATERIALIZED VIEW tableName AS WITH _cte AS (
+    SELECT a FROM b
+)
+SELECT * FROM _cte
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_materialized_view
+      (keyword_create)
+      (keyword_materialized)
+      (keyword_view)
+      (table_reference
+        (identifier))
+      (keyword_as)
+      (keyword_with)
+      (cte
+        (identifier)
+        (keyword_as)
+        (statement
+          (select
+            (keyword_select)
+            (select_expression
+              (term
+                (field
+                  (identifier)))))
+          (from
+            (keyword_from)
+            (relation
+              (table_reference
+                (identifier))))))
+      (select
+        (keyword_select)
+        (select_expression
+          (all_fields)))
+      (from
+        (keyword_from)
+        (relation
+          (table_reference
+            (identifier)))))))
+
+================================================================================
 Create hive table
 ================================================================================
 
@@ -990,14 +1128,16 @@ CACHED IN 'pool1' WITH REPLICATION = 2
       (column_definitions
         (column_definition
           name: (identifier)
-          type: (int (keyword_int))))
+          type: (int
+            (keyword_int))))
       (table_partition
         (keyword_partitioned)
         (keyword_by)
         (column_definitions
           (column_definition
             name: (identifier)
-            type: (int (keyword_int)))))
+            type: (int
+              (keyword_int)))))
       (table_sort
         (keyword_sort)
         (keyword_by)
