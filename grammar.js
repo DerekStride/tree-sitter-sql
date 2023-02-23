@@ -415,18 +415,20 @@ module.exports = grammar({
       $._drop_statement,
     ),
 
-    _dml_statement: $ => seq(
-      optional(
-        seq(
-          $.keyword_with,
-          $.cte,
-          repeat(
+    _cte: $ => seq(
+        $.keyword_with,
+        $.cte,
+        repeat(
             seq(
               ',',
               $.cte,
             ),
-          ),
         ),
+    ),
+
+    _dml_statement: $ => seq(
+      optional(
+          $._cte
       ),
       choice(
         $._select_statement,
@@ -610,7 +612,13 @@ module.exports = grammar({
               optional($.table_options),
               seq(
                   $.keyword_as,
-                  $._select_statement,
+                  choice(
+                      $._select_statement,
+                      seq(
+                          $._cte,
+                          $._select_statement,
+                      ),
+                  ),
               ),
           ),
        ),
@@ -623,7 +631,13 @@ module.exports = grammar({
       optional($._if_not_exists),
       $.table_reference,
       $.keyword_as,
-      $._select_statement,
+      choice(
+          $._select_statement,
+          seq(
+              $._cte,
+              $._select_statement,
+          ),
+      ),
     ),
 
     create_materialized_view: $ => prec.right(
@@ -635,7 +649,13 @@ module.exports = grammar({
         optional($._if_not_exists),
         $.table_reference,
         $.keyword_as,
-        $._select_statement,
+        choice(
+          $._select_statement,
+          seq(
+              $._cte,
+              $._select_statement,
+          ),
+        ),
         optional(
           choice(
             seq(

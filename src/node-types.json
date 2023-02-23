@@ -1963,6 +1963,10 @@
       "required": true,
       "types": [
         {
+          "type": "cte",
+          "named": true
+        },
+        {
           "type": "from",
           "named": true
         },
@@ -2054,6 +2058,10 @@
           "named": true
         },
         {
+          "type": "cte",
+          "named": true
+        },
+        {
           "type": "from",
           "named": true
         },
@@ -2114,6 +2122,10 @@
           "named": true
         },
         {
+          "type": "keyword_with",
+          "named": true
+        },
+        {
           "type": "row_format",
           "named": true
         },
@@ -2156,6 +2168,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "cte",
+          "named": true
+        },
         {
           "type": "from",
           "named": true
@@ -2206,6 +2222,10 @@
         },
         {
           "type": "keyword_view",
+          "named": true
+        },
+        {
+          "type": "keyword_with",
           "named": true
         },
         {
