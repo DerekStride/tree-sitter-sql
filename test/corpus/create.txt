@@ -635,6 +635,7 @@ Create table with all types
 
 CREATE TABLE type_test (
   a_bool BOOLEAN,
+  a_bit BIT,
   a_smallser SMALLSERIAL,
   a_serial SERIAL,
   a_bigser BIGSERIAL,
@@ -686,6 +687,9 @@ CREATE TABLE type_test (
         (column_definition
           name: (identifier)
           type: (keyword_boolean))
+        (column_definition
+          name: (identifier)
+          type: (keyword_bit))
         (column_definition
           name: (identifier)
           type: (keyword_smallserial))

@@ -111,6 +111,10 @@
             "named": true
           },
           {
+            "type": "keyword_bit",
+            "named": true
+          },
+          {
             "type": "keyword_boolean",
             "named": true
           },
@@ -1130,6 +1134,10 @@
           "named": true
         },
         {
+          "type": "keyword_bit",
+          "named": true
+        },
+        {
           "type": "keyword_boolean",
           "named": true
         },
@@ -1441,6 +1449,10 @@
           },
           {
             "type": "keyword_bigserial",
+            "named": true
+          },
+          {
+            "type": "keyword_bit",
             "named": true
           },
           {
@@ -5590,6 +5602,10 @@
   },
   {
     "type": "keyword_between",
+    "named": true
+  },
+  {
+    "type": "keyword_bit",
     "named": true
   },
   {

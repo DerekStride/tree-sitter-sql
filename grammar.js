@@ -223,6 +223,7 @@ module.exports = grammar({
     keyword_false: _ => make_keyword("false"),
 
     keyword_boolean: _ => make_keyword("boolean"),
+    keyword_bit: _ => make_keyword("bit"),
 
     keyword_smallserial: _ => choice(make_keyword("smallserial"),make_keyword("serial2")),
     keyword_serial: _ => choice(make_keyword("serial"),make_keyword("serial4")),
@@ -299,6 +300,7 @@ module.exports = grammar({
 
     _type: $ => choice(
       $.keyword_boolean,
+      $.keyword_bit,
 
       $.keyword_smallserial,
       $.keyword_serial,

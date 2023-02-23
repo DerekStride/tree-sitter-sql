@@ -934,6 +934,10 @@
       "type": "PATTERN",
       "value": "boolean|BOOLEAN"
     },
+    "keyword_bit": {
+      "type": "PATTERN",
+      "value": "bit|BIT"
+    },
     "keyword_smallserial": {
       "type": "CHOICE",
       "members": [
@@ -1268,6 +1272,10 @@
         {
           "type": "SYMBOL",
           "name": "keyword_boolean"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_bit"
         },
         {
           "type": "SYMBOL",
