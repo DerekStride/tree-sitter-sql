@@ -2283,3 +2283,51 @@ SELECT interval '1m'
         value: (interval
           (keyword_interval)
           (interval_definitions)))))))
+
+================================================================================
+Select with string literals containing single quotes
+================================================================================
+
+SELECT 'foo''bar';
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (literal))))))
+
+================================================================================
+Select with string literals starting/ending with single quotes
+================================================================================
+
+SELECT '''foo''';
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (literal))))))
+
+================================================================================
+Select with string literals containing consecutive single quotes
+================================================================================
+
+SELECT 'foo''''''bar';
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (literal))))))

@@ -1796,7 +1796,7 @@ module.exports = grammar({
     _double_quote_string: _ => seq('"', /[^"]*/, '"'),
     _literal_string: $ => prec(1,
         choice(
-            seq("'", /[^']*/, "'"),
+            seq("'", /([^']|'')*/, "'"),
             $._double_quote_string,
         ),
     ),
