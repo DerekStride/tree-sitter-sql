@@ -1889,5 +1889,9 @@ function paren_list(field, requireFirst) {
 }
 
 function make_keyword(word) {
-  return new RegExp(word + "|" + word.toUpperCase());
+  str = "";
+  for (var i = 0; i < word.length; i++) {
+    str = str + "[" + word.charAt(i).toLowerCase() + word.charAt(i).toUpperCase() + "]";
+  }
+  return new RegExp(str);
 }
