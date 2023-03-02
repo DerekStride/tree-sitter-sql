@@ -1732,6 +1732,7 @@ module.exports = grammar({
         ['!=', 'binary_relation'],
         ['>=', 'binary_relation'],
         ['>', 'binary_relation'],
+        ['<>', 'binary_relation'],
         [$.keyword_is, 'binary_is'],
         [$.is_not, 'binary_is'],
         [$.keyword_in, 'binary_in'],
