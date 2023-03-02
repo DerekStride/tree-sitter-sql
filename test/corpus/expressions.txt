@@ -538,3 +538,34 @@ WHERE
               (keyword_similar)
               (keyword_to))
             right: (literal)))))))
+
+================================================================================
+NOT EQUAL <> OPERATOR
+================================================================================
+
+SELECT
+    *
+FROM
+    a
+WHERE
+    a <> '%a'
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (all_fields)))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier)))
+      (where
+        (keyword_where)
+        predicate: (binary_expression
+          left: (field
+            name: (identifier))
+          right: (literal))))))
