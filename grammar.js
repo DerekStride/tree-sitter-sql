@@ -1698,23 +1698,26 @@ module.exports = grammar({
     ),
 
     _expression: $ => prec(1,
-      choice(
-        $.literal,
-        $.field,
-        $.parameter,
-        $.list,
-        $.case,
-        $.window_function,
-        $.subquery,
-        $.cast,
-        alias($.implicit_cast, $.cast),
-        $._aggregate_function,
-        $.invocation,
-        $.binary_expression,
-        $.unary_expression,
-        $.array,
-        $.interval,
-      )
+        prec.left(
+            choice(
+                $.literal,
+                $.field,
+                $.parameter,
+                $.list,
+                $.case,
+                $.window_function,
+                $.subquery,
+                $.cast,
+                alias($.implicit_cast, $.cast),
+                $._aggregate_function,
+                $.invocation,
+                $.binary_expression,
+                parens($.binary_expression),
+                $.unary_expression,
+                $.array,
+                $.interval,
+            )
+        ),
     ),
 
     binary_expression: $ => choice(
@@ -1781,7 +1784,21 @@ module.exports = grammar({
       ')',
     ),
 
-    list: $ => paren_list($._expression),
+    list: $ => prec(1,
+        paren_list(
+            choice(
+                $.literal,
+                $.field,
+                $.parameter,
+                $.cast,
+                $._aggregate_function,
+                $.invocation,
+                $.implicit_cast,
+                $.array,
+                $.interval,
+            )
+        ),
+    ),
 
     literal: $ => prec(2,
       choice(
@@ -1865,6 +1882,14 @@ function comma_list(field, requireFirst) {
       ),
     ),
   );
+}
+
+function parens(field) {
+    return seq(
+        '(',
+        field,
+        ')'
+    )
 }
 
 function paren_list(field, requireFirst) {
