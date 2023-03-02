@@ -24,620 +24,620 @@
     },
     "keyword_select": {
       "type": "PATTERN",
-      "value": "select|SELECT"
+      "value": "[sS][eE][lL][eE][cC][tT]"
     },
     "keyword_delete": {
       "type": "PATTERN",
-      "value": "delete|DELETE"
+      "value": "[dD][eE][lL][eE][tT][eE]"
     },
     "keyword_insert": {
       "type": "PATTERN",
-      "value": "insert|INSERT"
+      "value": "[iI][nN][sS][eE][rR][tT]"
     },
     "keyword_replace": {
       "type": "PATTERN",
-      "value": "replace|REPLACE"
+      "value": "[rR][eE][pP][lL][aA][cC][eE]"
     },
     "keyword_update": {
       "type": "PATTERN",
-      "value": "update|UPDATE"
+      "value": "[uU][pP][dD][aA][tT][eE]"
     },
     "keyword_into": {
       "type": "PATTERN",
-      "value": "into|INTO"
+      "value": "[iI][nN][tT][oO]"
     },
     "keyword_values": {
       "type": "PATTERN",
-      "value": "values|VALUES"
+      "value": "[vV][aA][lL][uU][eE][sS]"
     },
     "keyword_set": {
       "type": "PATTERN",
-      "value": "set|SET"
+      "value": "[sS][eE][tT]"
     },
     "keyword_from": {
       "type": "PATTERN",
-      "value": "from|FROM"
+      "value": "[fF][rR][oO][mM]"
     },
     "keyword_left": {
       "type": "PATTERN",
-      "value": "left|LEFT"
+      "value": "[lL][eE][fF][tT]"
     },
     "keyword_right": {
       "type": "PATTERN",
-      "value": "right|RIGHT"
+      "value": "[rR][iI][gG][hH][tT]"
     },
     "keyword_inner": {
       "type": "PATTERN",
-      "value": "inner|INNER"
+      "value": "[iI][nN][nN][eE][rR]"
     },
     "keyword_outer": {
       "type": "PATTERN",
-      "value": "outer|OUTER"
+      "value": "[oO][uU][tT][eE][rR]"
     },
     "keyword_cross": {
       "type": "PATTERN",
-      "value": "cross|CROSS"
+      "value": "[cC][rR][oO][sS][sS]"
     },
     "keyword_join": {
       "type": "PATTERN",
-      "value": "join|JOIN"
+      "value": "[jJ][oO][iI][nN]"
     },
     "keyword_lateral": {
       "type": "PATTERN",
-      "value": "lateral|LATERAL"
+      "value": "[lL][aA][tT][eE][rR][aA][lL]"
     },
     "keyword_on": {
       "type": "PATTERN",
-      "value": "on|ON"
+      "value": "[oO][nN]"
     },
     "keyword_where": {
       "type": "PATTERN",
-      "value": "where|WHERE"
+      "value": "[wW][hH][eE][rR][eE]"
     },
     "keyword_order": {
       "type": "PATTERN",
-      "value": "order|ORDER"
+      "value": "[oO][rR][dD][eE][rR]"
     },
     "keyword_group": {
       "type": "PATTERN",
-      "value": "group|GROUP"
+      "value": "[gG][rR][oO][uU][pP]"
     },
     "keyword_partition": {
       "type": "PATTERN",
-      "value": "partition|PARTITION"
+      "value": "[pP][aA][rR][tT][iI][tT][iI][oO][nN]"
     },
     "keyword_by": {
       "type": "PATTERN",
-      "value": "by|BY"
+      "value": "[bB][yY]"
     },
     "keyword_having": {
       "type": "PATTERN",
-      "value": "having|HAVING"
+      "value": "[hH][aA][vV][iI][nN][gG]"
     },
     "keyword_desc": {
       "type": "PATTERN",
-      "value": "desc|DESC"
+      "value": "[dD][eE][sS][cC]"
     },
     "keyword_asc": {
       "type": "PATTERN",
-      "value": "asc|ASC"
+      "value": "[aA][sS][cC]"
     },
     "keyword_limit": {
       "type": "PATTERN",
-      "value": "limit|LIMIT"
+      "value": "[lL][iI][mM][iI][tT]"
     },
     "keyword_offset": {
       "type": "PATTERN",
-      "value": "offset|OFFSET"
+      "value": "[oO][fF][fF][sS][eE][tT]"
     },
     "keyword_primary": {
       "type": "PATTERN",
-      "value": "primary|PRIMARY"
+      "value": "[pP][rR][iI][mM][aA][rR][yY]"
     },
     "keyword_create": {
       "type": "PATTERN",
-      "value": "create|CREATE"
+      "value": "[cC][rR][eE][aA][tT][eE]"
     },
     "keyword_alter": {
       "type": "PATTERN",
-      "value": "alter|ALTER"
+      "value": "[aA][lL][tT][eE][rR]"
     },
     "keyword_change": {
       "type": "PATTERN",
-      "value": "change|CHANGE"
+      "value": "[cC][hH][aA][nN][gG][eE]"
     },
     "keyword_modify": {
       "type": "PATTERN",
-      "value": "modify|MODIFY"
+      "value": "[mM][oO][dD][iI][fF][yY]"
     },
     "keyword_drop": {
       "type": "PATTERN",
-      "value": "drop|DROP"
+      "value": "[dD][rR][oO][pP]"
     },
     "keyword_add": {
       "type": "PATTERN",
-      "value": "add|ADD"
+      "value": "[aA][dD][dD]"
     },
     "keyword_table": {
       "type": "PATTERN",
-      "value": "table|TABLE"
+      "value": "[tT][aA][bB][lL][eE]"
     },
     "keyword_view": {
       "type": "PATTERN",
-      "value": "view|VIEW"
+      "value": "[vV][iI][eE][wW]"
     },
     "keyword_materialized": {
       "type": "PATTERN",
-      "value": "materialized|MATERIALIZED"
+      "value": "[mM][aA][tT][eE][rR][iI][aA][lL][iI][zZ][eE][dD]"
     },
     "keyword_column": {
       "type": "PATTERN",
-      "value": "column|COLUMN"
+      "value": "[cC][oO][lL][uU][mM][nN]"
     },
     "keyword_key": {
       "type": "PATTERN",
-      "value": "key|KEY"
+      "value": "[kK][eE][yY]"
     },
     "keyword_as": {
       "type": "PATTERN",
-      "value": "as|AS"
+      "value": "[aA][sS]"
     },
     "keyword_distinct": {
       "type": "PATTERN",
-      "value": "distinct|DISTINCT"
+      "value": "[dD][iI][sS][tT][iI][nN][cC][tT]"
     },
     "keyword_constraint": {
       "type": "PATTERN",
-      "value": "constraint|CONSTRAINT"
+      "value": "[cC][oO][nN][sS][tT][rR][aA][iI][nN][tT]"
     },
     "keyword_cast": {
       "type": "PATTERN",
-      "value": "cast|CAST"
+      "value": "[cC][aA][sS][tT]"
     },
     "keyword_count": {
       "type": "PATTERN",
-      "value": "count|COUNT"
+      "value": "[cC][oO][uU][nN][tT]"
     },
     "keyword_group_concat": {
       "type": "PATTERN",
-      "value": "group_concat|GROUP_CONCAT"
+      "value": "[gG][rR][oO][uU][pP][__][cC][oO][nN][cC][aA][tT]"
     },
     "keyword_separator": {
       "type": "PATTERN",
-      "value": "separator|SEPARATOR"
+      "value": "[sS][eE][pP][aA][rR][aA][tT][oO][rR]"
     },
     "keyword_max": {
       "type": "PATTERN",
-      "value": "max|MAX"
+      "value": "[mM][aA][xX]"
     },
     "keyword_min": {
       "type": "PATTERN",
-      "value": "min|MIN"
+      "value": "[mM][iI][nN]"
     },
     "keyword_avg": {
       "type": "PATTERN",
-      "value": "avg|AVG"
+      "value": "[aA][vV][gG]"
     },
     "keyword_case": {
       "type": "PATTERN",
-      "value": "case|CASE"
+      "value": "[cC][aA][sS][eE]"
     },
     "keyword_when": {
       "type": "PATTERN",
-      "value": "when|WHEN"
+      "value": "[wW][hH][eE][nN]"
     },
     "keyword_then": {
       "type": "PATTERN",
-      "value": "then|THEN"
+      "value": "[tT][hH][eE][nN]"
     },
     "keyword_else": {
       "type": "PATTERN",
-      "value": "else|ELSE"
+      "value": "[eE][lL][sS][eE]"
     },
     "keyword_end": {
       "type": "PATTERN",
-      "value": "end|END"
+      "value": "[eE][nN][dD]"
     },
     "keyword_in": {
       "type": "PATTERN",
-      "value": "in|IN"
+      "value": "[iI][nN]"
     },
     "keyword_and": {
       "type": "PATTERN",
-      "value": "and|AND"
+      "value": "[aA][nN][dD]"
     },
     "keyword_or": {
       "type": "PATTERN",
-      "value": "or|OR"
+      "value": "[oO][rR]"
     },
     "keyword_is": {
       "type": "PATTERN",
-      "value": "is|IS"
+      "value": "[iI][sS]"
     },
     "keyword_not": {
       "type": "PATTERN",
-      "value": "not|NOT"
+      "value": "[nN][oO][tT]"
     },
     "keyword_force": {
       "type": "PATTERN",
-      "value": "force|FORCE"
+      "value": "[fF][oO][rR][cC][eE]"
     },
     "keyword_ignore": {
       "type": "PATTERN",
-      "value": "ignore|IGNORE"
+      "value": "[iI][gG][nN][oO][rR][eE]"
     },
     "keyword_using": {
       "type": "PATTERN",
-      "value": "using|USING"
+      "value": "[uU][sS][iI][nN][gG]"
     },
     "keyword_use": {
       "type": "PATTERN",
-      "value": "use|USE"
+      "value": "[uU][sS][eE]"
     },
     "keyword_index": {
       "type": "PATTERN",
-      "value": "index|INDEX"
+      "value": "[iI][nN][dD][eE][xX]"
     },
     "keyword_for": {
       "type": "PATTERN",
-      "value": "for|FOR"
+      "value": "[fF][oO][rR]"
     },
     "keyword_if": {
       "type": "PATTERN",
-      "value": "if|IF"
+      "value": "[iI][fF]"
     },
     "keyword_exists": {
       "type": "PATTERN",
-      "value": "exists|EXISTS"
+      "value": "[eE][xX][iI][sS][tT][sS]"
     },
     "keyword_auto_increment": {
       "type": "PATTERN",
-      "value": "auto_increment|AUTO_INCREMENT"
+      "value": "[aA][uU][tT][oO][__][iI][nN][cC][rR][eE][mM][eE][nN][tT]"
     },
     "keyword_collate": {
       "type": "PATTERN",
-      "value": "collate|COLLATE"
+      "value": "[cC][oO][lL][lL][aA][tT][eE]"
     },
     "keyword_character": {
       "type": "PATTERN",
-      "value": "character|CHARACTER"
+      "value": "[cC][hH][aA][rR][aA][cC][tT][eE][rR]"
     },
     "keyword_engine": {
       "type": "PATTERN",
-      "value": "engine|ENGINE"
+      "value": "[eE][nN][gG][iI][nN][eE]"
     },
     "keyword_default": {
       "type": "PATTERN",
-      "value": "default|DEFAULT"
+      "value": "[dD][eE][fF][aA][uU][lL][tT]"
     },
     "keyword_cascade": {
       "type": "PATTERN",
-      "value": "cascade|CASCADE"
+      "value": "[cC][aA][sS][cC][aA][dD][eE]"
     },
     "keyword_restrict": {
       "type": "PATTERN",
-      "value": "restrict|RESTRICT"
+      "value": "[rR][eE][sS][tT][rR][iI][cC][tT]"
     },
     "keyword_with": {
       "type": "PATTERN",
-      "value": "with|WITH"
+      "value": "[wW][iI][tT][hH]"
     },
     "keyword_no": {
       "type": "PATTERN",
-      "value": "no|NO"
+      "value": "[nN][oO]"
     },
     "keyword_data": {
       "type": "PATTERN",
-      "value": "data|DATA"
+      "value": "[dD][aA][tT][aA]"
     },
     "keyword_type": {
       "type": "PATTERN",
-      "value": "type|TYPE"
+      "value": "[tT][yY][pP][eE]"
     },
     "keyword_rename": {
       "type": "PATTERN",
-      "value": "rename|RENAME"
+      "value": "[rR][eE][nN][aA][mM][eE]"
     },
     "keyword_to": {
       "type": "PATTERN",
-      "value": "to|TO"
+      "value": "[tT][oO]"
     },
     "keyword_schema": {
       "type": "PATTERN",
-      "value": "schema|SCHEMA"
+      "value": "[sS][cC][hH][eE][mM][aA]"
     },
     "keyword_owner": {
       "type": "PATTERN",
-      "value": "owner|OWNER"
+      "value": "[oO][wW][nN][eE][rR]"
     },
     "keyword_temp": {
       "type": "PATTERN",
-      "value": "temp|TEMP"
+      "value": "[tT][eE][mM][pP]"
     },
     "keyword_temporary": {
       "type": "PATTERN",
-      "value": "temporary|TEMPORARY"
+      "value": "[tT][eE][mM][pP][oO][rR][aA][rR][yY]"
     },
     "keyword_unlogged": {
       "type": "PATTERN",
-      "value": "unlogged|UNLOGGED"
+      "value": "[uU][nN][lL][oO][gG][gG][eE][dD]"
     },
     "keyword_union": {
       "type": "PATTERN",
-      "value": "union|UNION"
+      "value": "[uU][nN][iI][oO][nN]"
     },
     "keyword_all": {
       "type": "PATTERN",
-      "value": "all|ALL"
+      "value": "[aA][lL][lL]"
     },
     "keyword_except": {
       "type": "PATTERN",
-      "value": "except|EXCEPT"
+      "value": "[eE][xX][cC][eE][pP][tT]"
     },
     "keyword_intersect": {
       "type": "PATTERN",
-      "value": "intersect|INTERSECT"
+      "value": "[iI][nN][tT][eE][rR][sS][eE][cC][tT]"
     },
     "keyword_returning": {
       "type": "PATTERN",
-      "value": "returning|RETURNING"
+      "value": "[rR][eE][tT][uU][rR][nN][iI][nN][gG]"
     },
     "keyword_begin": {
       "type": "PATTERN",
-      "value": "begin|BEGIN"
+      "value": "[bB][eE][gG][iI][nN]"
     },
     "keyword_commit": {
       "type": "PATTERN",
-      "value": "commit|COMMIT"
+      "value": "[cC][oO][mM][mM][iI][tT]"
     },
     "keyword_rollback": {
       "type": "PATTERN",
-      "value": "rollback|ROLLBACK"
+      "value": "[rR][oO][lL][lL][bB][aA][cC][kK]"
     },
     "keyword_transaction": {
       "type": "PATTERN",
-      "value": "transaction|TRANSACTION"
+      "value": "[tT][rR][aA][nN][sS][aA][cC][tT][iI][oO][nN]"
     },
     "keyword_over": {
       "type": "PATTERN",
-      "value": "over|OVER"
+      "value": "[oO][vV][eE][rR]"
     },
     "keyword_nulls": {
       "type": "PATTERN",
-      "value": "nulls|NULLS"
+      "value": "[nN][uU][lL][lL][sS]"
     },
     "keyword_first": {
       "type": "PATTERN",
-      "value": "first|FIRST"
+      "value": "[fF][iI][rR][sS][tT]"
     },
     "keyword_after": {
       "type": "PATTERN",
-      "value": "after|AFTER"
+      "value": "[aA][fF][tT][eE][rR]"
     },
     "keyword_last": {
       "type": "PATTERN",
-      "value": "last|LAST"
+      "value": "[lL][aA][sS][tT]"
     },
     "keyword_window": {
       "type": "PATTERN",
-      "value": "window|WINDOW"
+      "value": "[wW][iI][nN][dD][oO][wW]"
     },
     "keyword_range": {
       "type": "PATTERN",
-      "value": "range|RANGE"
+      "value": "[rR][aA][nN][gG][eE]"
     },
     "keyword_rows": {
       "type": "PATTERN",
-      "value": "rows|ROWS"
+      "value": "[rR][oO][wW][sS]"
     },
     "keyword_groups": {
       "type": "PATTERN",
-      "value": "groups|GROUPS"
+      "value": "[gG][rR][oO][uU][pP][sS]"
     },
     "keyword_between": {
       "type": "PATTERN",
-      "value": "between|BETWEEN"
+      "value": "[bB][eE][tT][wW][eE][eE][nN]"
     },
     "keyword_unbounded": {
       "type": "PATTERN",
-      "value": "unbounded|UNBOUNDED"
+      "value": "[uU][nN][bB][oO][uU][nN][dD][eE][dD]"
     },
     "keyword_preceding": {
       "type": "PATTERN",
-      "value": "preceding|PRECEDING"
+      "value": "[pP][rR][eE][cC][eE][dD][iI][nN][gG]"
     },
     "keyword_following": {
       "type": "PATTERN",
-      "value": "following|FOLLOWING"
+      "value": "[fF][oO][lL][lL][oO][wW][iI][nN][gG]"
     },
     "keyword_exclude": {
       "type": "PATTERN",
-      "value": "exclude|EXCLUDE"
+      "value": "[eE][xX][cC][lL][uU][dD][eE]"
     },
     "keyword_current": {
       "type": "PATTERN",
-      "value": "current|CURRENT"
+      "value": "[cC][uU][rR][rR][eE][nN][tT]"
     },
     "keyword_row": {
       "type": "PATTERN",
-      "value": "row|ROW"
+      "value": "[rR][oO][wW]"
     },
     "keyword_ties": {
       "type": "PATTERN",
-      "value": "ties|TIES"
+      "value": "[tT][iI][eE][sS]"
     },
     "keyword_others": {
       "type": "PATTERN",
-      "value": "others|OTHERS"
+      "value": "[oO][tT][hH][eE][rR][sS]"
     },
     "keyword_only": {
       "type": "PATTERN",
-      "value": "only|ONLY"
+      "value": "[oO][nN][lL][yY]"
     },
     "keyword_unique": {
       "type": "PATTERN",
-      "value": "unique|UNIQUE"
+      "value": "[uU][nN][iI][qQ][uU][eE]"
     },
     "keyword_concurrently": {
       "type": "PATTERN",
-      "value": "concurrently|CONCURRENTLY"
+      "value": "[cC][oO][nN][cC][uU][rR][rR][eE][nN][tT][lL][yY]"
     },
     "keyword_btree": {
       "type": "PATTERN",
-      "value": "btree|BTREE"
+      "value": "[bB][tT][rR][eE][eE]"
     },
     "keyword_hash": {
       "type": "PATTERN",
-      "value": "hash|HASH"
+      "value": "[hH][aA][sS][hH]"
     },
     "keyword_gist": {
       "type": "PATTERN",
-      "value": "gist|GIST"
+      "value": "[gG][iI][sS][tT]"
     },
     "keyword_spgist": {
       "type": "PATTERN",
-      "value": "spgist|SPGIST"
+      "value": "[sS][pP][gG][iI][sS][tT]"
     },
     "keyword_gin": {
       "type": "PATTERN",
-      "value": "gin|GIN"
+      "value": "[gG][iI][nN]"
     },
     "keyword_brin": {
       "type": "PATTERN",
-      "value": "brin|BRIN"
+      "value": "[bB][rR][iI][nN]"
     },
     "keyword_like": {
       "type": "CHOICE",
       "members": [
         {
           "type": "PATTERN",
-          "value": "like|LIKE"
+          "value": "[lL][iI][kK][eE]"
         },
         {
           "type": "PATTERN",
-          "value": "ilike|ILIKE"
+          "value": "[iI][lL][iI][kK][eE]"
         }
       ]
     },
     "keyword_similar": {
       "type": "PATTERN",
-      "value": "similar|SIMILAR"
+      "value": "[sS][iI][mM][iI][lL][aA][rR]"
     },
     "keyword_preserve": {
       "type": "PATTERN",
-      "value": "preserve|PRESERVE"
+      "value": "[pP][rR][eE][sS][eE][rR][vV][eE]"
     },
     "keyword_unsigned": {
       "type": "PATTERN",
-      "value": "unsigned|UNSIGNED"
+      "value": "[uU][nN][sS][iI][gG][nN][eE][dD]"
     },
     "keyword_zerofill": {
       "type": "PATTERN",
-      "value": "zerofill|ZEROFILL"
+      "value": "[zZ][eE][rR][oO][fF][iI][lL][lL]"
     },
     "keyword_external": {
       "type": "PATTERN",
-      "value": "external|EXTERNAL"
+      "value": "[eE][xX][tT][eE][rR][nN][aA][lL]"
     },
     "keyword_stored": {
       "type": "PATTERN",
-      "value": "stored|STORED"
+      "value": "[sS][tT][oO][rR][eE][dD]"
     },
     "keyword_cached": {
       "type": "PATTERN",
-      "value": "cached|CACHED"
+      "value": "[cC][aA][cC][hH][eE][dD]"
     },
     "keyword_uncached": {
       "type": "PATTERN",
-      "value": "uncached|UNCACHED"
+      "value": "[uU][nN][cC][aA][cC][hH][eE][dD]"
     },
     "keyword_replication": {
       "type": "PATTERN",
-      "value": "replication|REPLICATION"
+      "value": "[rR][eE][pP][lL][iI][cC][aA][tT][iI][oO][nN]"
     },
     "keyword_tblproperties": {
       "type": "PATTERN",
-      "value": "tblproperties|TBLPROPERTIES"
+      "value": "[tT][bB][lL][pP][rR][oO][pP][eE][rR][tT][iI][eE][sS]"
     },
     "keyword_compute": {
       "type": "PATTERN",
-      "value": "compute|COMPUTE"
+      "value": "[cC][oO][mM][pP][uU][tT][eE]"
     },
     "keyword_stats": {
       "type": "PATTERN",
-      "value": "stats|STATS"
+      "value": "[sS][tT][aA][tT][sS]"
     },
     "keyword_location": {
       "type": "PATTERN",
-      "value": "location|LOCATION"
+      "value": "[lL][oO][cC][aA][tT][iI][oO][nN]"
     },
     "keyword_partitioned": {
       "type": "PATTERN",
-      "value": "partitioned|PARTITIONED"
+      "value": "[pP][aA][rR][tT][iI][tT][iI][oO][nN][eE][dD]"
     },
     "keyword_comment": {
       "type": "PATTERN",
-      "value": "comment|COMMENT"
+      "value": "[cC][oO][mM][mM][eE][nN][tT]"
     },
     "keyword_sort": {
       "type": "PATTERN",
-      "value": "sort|SORT"
+      "value": "[sS][oO][rR][tT]"
     },
     "keyword_format": {
       "type": "PATTERN",
-      "value": "format|FORMAT"
+      "value": "[fF][oO][rR][mM][aA][tT]"
     },
     "keyword_delimited": {
       "type": "PATTERN",
-      "value": "delimited|DELIMITED"
+      "value": "[dD][eE][lL][iI][mM][iI][tT][eE][dD]"
     },
     "keyword_fields": {
       "type": "PATTERN",
-      "value": "fields|FIELDS"
+      "value": "[fF][iI][eE][lL][dD][sS]"
     },
     "keyword_terminated": {
       "type": "PATTERN",
-      "value": "terminated|TERMINATED"
+      "value": "[tT][eE][rR][mM][iI][nN][aA][tT][eE][dD]"
     },
     "keyword_escaped": {
       "type": "PATTERN",
-      "value": "escaped|ESCAPED"
+      "value": "[eE][sS][cC][aA][pP][eE][dD]"
     },
     "keyword_lines": {
       "type": "PATTERN",
-      "value": "lines|LINES"
+      "value": "[lL][iI][nN][eE][sS]"
     },
     "keyword_parquet": {
       "type": "PATTERN",
-      "value": "parquet|PARQUET"
+      "value": "[pP][aA][rR][qQ][uU][eE][tT]"
     },
     "keyword_rcfile": {
       "type": "PATTERN",
-      "value": "rcfile|RCFILE"
+      "value": "[rR][cC][fF][iI][lL][eE]"
     },
     "keyword_csv": {
       "type": "PATTERN",
-      "value": "csv|CSV"
+      "value": "[cC][sS][vV]"
     },
     "keyword_textfile": {
       "type": "PATTERN",
-      "value": "textfile|TEXTFILE"
+      "value": "[tT][eE][xX][tT][fF][iI][lL][eE]"
     },
     "keyword_avro": {
       "type": "PATTERN",
-      "value": "avro|AVRO"
+      "value": "[aA][vV][rR][oO]"
     },
     "keyword_sequencefile": {
       "type": "PATTERN",
-      "value": "sequencefile|SEQUENCEFILE"
+      "value": "[sS][eE][qQ][uU][eE][nN][cC][eE][fF][iI][lL][eE]"
     },
     "keyword_orc": {
       "type": "PATTERN",
-      "value": "orc|ORC"
+      "value": "[oO][rR][cC]"
     },
     "keyword_jsonfile": {
       "type": "PATTERN",
-      "value": "jsonfile|JSONFILE"
+      "value": "[jJ][sS][oO][nN][fF][iI][lL][eE]"
     },
     "is_not": {
       "type": "PREC_LEFT",
@@ -920,34 +920,34 @@
     },
     "keyword_null": {
       "type": "PATTERN",
-      "value": "null|NULL"
+      "value": "[nN][uU][lL][lL]"
     },
     "keyword_true": {
       "type": "PATTERN",
-      "value": "true|TRUE"
+      "value": "[tT][rR][uU][eE]"
     },
     "keyword_false": {
       "type": "PATTERN",
-      "value": "false|FALSE"
+      "value": "[fF][aA][lL][sS][eE]"
     },
     "keyword_boolean": {
       "type": "PATTERN",
-      "value": "boolean|BOOLEAN"
+      "value": "[bB][oO][oO][lL][eE][aA][nN]"
     },
     "keyword_bit": {
       "type": "PATTERN",
-      "value": "bit|BIT"
+      "value": "[bB][iI][tT]"
     },
     "keyword_smallserial": {
       "type": "CHOICE",
       "members": [
         {
           "type": "PATTERN",
-          "value": "smallserial|SMALLSERIAL"
+          "value": "[sS][mM][aA][lL][lL][sS][eE][rR][iI][aA][lL]"
         },
         {
           "type": "PATTERN",
-          "value": "serial2|SERIAL2"
+          "value": "[sS][eE][rR][iI][aA][lL][22]"
         }
       ]
     },
@@ -956,11 +956,11 @@
       "members": [
         {
           "type": "PATTERN",
-          "value": "serial|SERIAL"
+          "value": "[sS][eE][rR][iI][aA][lL]"
         },
         {
           "type": "PATTERN",
-          "value": "serial4|SERIAL4"
+          "value": "[sS][eE][rR][iI][aA][lL][44]"
         }
       ]
     },
@@ -969,11 +969,11 @@
       "members": [
         {
           "type": "PATTERN",
-          "value": "bigserial|BIGSERIAL"
+          "value": "[bB][iI][gG][sS][eE][rR][iI][aA][lL]"
         },
         {
           "type": "PATTERN",
-          "value": "serial8|SERIAL8"
+          "value": "[sS][eE][rR][iI][aA][lL][88]"
         }
       ]
     },
@@ -982,11 +982,11 @@
       "members": [
         {
           "type": "PATTERN",
-          "value": "tinyint|TINYINT"
+          "value": "[tT][iI][nN][yY][iI][nN][tT]"
         },
         {
           "type": "PATTERN",
-          "value": "int1|INT1"
+          "value": "[iI][nN][tT][11]"
         }
       ]
     },
@@ -995,11 +995,11 @@
       "members": [
         {
           "type": "PATTERN",
-          "value": "smallint|SMALLINT"
+          "value": "[sS][mM][aA][lL][lL][iI][nN][tT]"
         },
         {
           "type": "PATTERN",
-          "value": "int2|INT2"
+          "value": "[iI][nN][tT][22]"
         }
       ]
     },
@@ -1008,11 +1008,11 @@
       "members": [
         {
           "type": "PATTERN",
-          "value": "mediumint|MEDIUMINT"
+          "value": "[mM][eE][dD][iI][uU][mM][iI][nN][tT]"
         },
         {
           "type": "PATTERN",
-          "value": "int3|INT3"
+          "value": "[iI][nN][tT][33]"
         }
       ]
     },
@@ -1021,15 +1021,15 @@
       "members": [
         {
           "type": "PATTERN",
-          "value": "int|INT"
+          "value": "[iI][nN][tT]"
         },
         {
           "type": "PATTERN",
-          "value": "integer|INTEGER"
+          "value": "[iI][nN][tT][eE][gG][eE][rR]"
         },
         {
           "type": "PATTERN",
-          "value": "int4|INT4"
+          "value": "[iI][nN][tT][44]"
         }
       ]
     },
@@ -1038,65 +1038,65 @@
       "members": [
         {
           "type": "PATTERN",
-          "value": "bigint|BIGINT"
+          "value": "[bB][iI][gG][iI][nN][tT]"
         },
         {
           "type": "PATTERN",
-          "value": "int8|INT8"
+          "value": "[iI][nN][tT][88]"
         }
       ]
     },
     "keyword_decimal": {
       "type": "PATTERN",
-      "value": "decimal|DECIMAL"
+      "value": "[dD][eE][cC][iI][mM][aA][lL]"
     },
     "keyword_numeric": {
       "type": "PATTERN",
-      "value": "numeric|NUMERIC"
+      "value": "[nN][uU][mM][eE][rR][iI][cC]"
     },
     "keyword_real": {
       "type": "CHOICE",
       "members": [
         {
           "type": "PATTERN",
-          "value": "real|REAL"
+          "value": "[rR][eE][aA][lL]"
         },
         {
           "type": "PATTERN",
-          "value": "float4|FLOAT4"
+          "value": "[fF][lL][oO][aA][tT][44]"
         }
       ]
     },
     "keyword_float": {
       "type": "PATTERN",
-      "value": "float|FLOAT"
+      "value": "[fF][lL][oO][aA][tT]"
     },
     "keyword_double": {
       "type": "PATTERN",
-      "value": "double|DOUBLE"
+      "value": "[dD][oO][uU][bB][lL][eE]"
     },
     "keyword_precision": {
       "type": "PATTERN",
-      "value": "precision|PRECISION"
+      "value": "[pP][rR][eE][cC][iI][sS][iI][oO][nN]"
     },
     "keyword_money": {
       "type": "PATTERN",
-      "value": "money|MONEY"
+      "value": "[mM][oO][nN][eE][yY]"
     },
     "keyword_varying": {
       "type": "PATTERN",
-      "value": "varying|VARYING"
+      "value": "[vV][aA][rR][yY][iI][nN][gG]"
     },
     "keyword_char": {
       "type": "CHOICE",
       "members": [
         {
           "type": "PATTERN",
-          "value": "char|CHAR"
+          "value": "[cC][hH][aA][rR]"
         },
         {
           "type": "PATTERN",
-          "value": "character|CHARACTER"
+          "value": "[cC][hH][aA][rR][aA][cC][tT][eE][rR]"
         }
       ]
     },
@@ -1105,14 +1105,14 @@
       "members": [
         {
           "type": "PATTERN",
-          "value": "varchar|VARCHAR"
+          "value": "[vV][aA][rR][cC][hH][aA][rR]"
         },
         {
           "type": "SEQ",
           "members": [
             {
               "type": "PATTERN",
-              "value": "character|CHARACTER"
+              "value": "[cC][hH][aA][rR][aA][cC][tT][eE][rR]"
             },
             {
               "type": "SYMBOL",
@@ -1124,35 +1124,35 @@
     },
     "keyword_text": {
       "type": "PATTERN",
-      "value": "text|TEXT"
+      "value": "[tT][eE][xX][tT]"
     },
     "keyword_uuid": {
       "type": "PATTERN",
-      "value": "uuid|UUID"
+      "value": "[uU][uU][iI][dD]"
     },
     "keyword_json": {
       "type": "PATTERN",
-      "value": "json|JSON"
+      "value": "[jJ][sS][oO][nN]"
     },
     "keyword_jsonb": {
       "type": "PATTERN",
-      "value": "jsonb|JSONB"
+      "value": "[jJ][sS][oO][nN][bB]"
     },
     "keyword_xml": {
       "type": "PATTERN",
-      "value": "xml|XML"
+      "value": "[xX][mM][lL]"
     },
     "keyword_bytea": {
       "type": "PATTERN",
-      "value": "bytea|BYTEA"
+      "value": "[bB][yY][tT][eE][aA]"
     },
     "keyword_date": {
       "type": "PATTERN",
-      "value": "date|DATE"
+      "value": "[dD][aA][tT][eE]"
     },
     "keyword_datetime": {
       "type": "PATTERN",
-      "value": "datetime|DATETIME"
+      "value": "[dD][aA][tT][eE][tT][iI][mM][eE]"
     },
     "keyword_timestamp": {
       "type": "PREC_RIGHT",
@@ -1162,7 +1162,7 @@
         "members": [
           {
             "type": "PATTERN",
-            "value": "timestamp|TIMESTAMP"
+            "value": "[tT][iI][mM][eE][sS][tT][aA][mM][pP]"
           },
           {
             "type": "CHOICE",
@@ -1172,15 +1172,15 @@
                 "members": [
                   {
                     "type": "PATTERN",
-                    "value": "without|WITHOUT"
+                    "value": "[wW][iI][tT][hH][oO][uU][tT]"
                   },
                   {
                     "type": "PATTERN",
-                    "value": "time|TIME"
+                    "value": "[tT][iI][mM][eE]"
                   },
                   {
                     "type": "PATTERN",
-                    "value": "zone|ZONE"
+                    "value": "[zZ][oO][nN][eE]"
                   }
                 ]
               },
@@ -1197,26 +1197,26 @@
       "members": [
         {
           "type": "PATTERN",
-          "value": "timestamptz|TIMESTAMPTZ"
+          "value": "[tT][iI][mM][eE][sS][tT][aA][mM][pP][tT][zZ]"
         },
         {
           "type": "SEQ",
           "members": [
             {
               "type": "PATTERN",
-              "value": "timestamp|TIMESTAMP"
+              "value": "[tT][iI][mM][eE][sS][tT][aA][mM][pP]"
             },
             {
               "type": "PATTERN",
-              "value": "with|WITH"
+              "value": "[wW][iI][tT][hH]"
             },
             {
               "type": "PATTERN",
-              "value": "time|TIME"
+              "value": "[tT][iI][mM][eE]"
             },
             {
               "type": "PATTERN",
-              "value": "zone|ZONE"
+              "value": "[zZ][oO][nN][eE]"
             }
           ]
         }
@@ -1224,51 +1224,51 @@
     },
     "keyword_interval": {
       "type": "PATTERN",
-      "value": "interval|INTERVAL"
+      "value": "[iI][nN][tT][eE][rR][vV][aA][lL]"
     },
     "keyword_geometry": {
       "type": "PATTERN",
-      "value": "geometry|GEOMETRY"
+      "value": "[gG][eE][oO][mM][eE][tT][rR][yY]"
     },
     "keyword_geography": {
       "type": "PATTERN",
-      "value": "geography|GEOGRAPHY"
+      "value": "[gG][eE][oO][gG][rR][aA][pP][hH][yY]"
     },
     "keyword_box2d": {
       "type": "PATTERN",
-      "value": "box2d|BOX2D"
+      "value": "[bB][oO][xX][22][dD]"
     },
     "keyword_box3d": {
       "type": "PATTERN",
-      "value": "box3d|BOX3D"
+      "value": "[bB][oO][xX][33][dD]"
     },
     "keyword_oid": {
       "type": "PATTERN",
-      "value": "oid|OID"
+      "value": "[oO][iI][dD]"
     },
     "keyword_name": {
       "type": "PATTERN",
-      "value": "name|NAME"
+      "value": "[nN][aA][mM][eE]"
     },
     "keyword_regclass": {
       "type": "PATTERN",
-      "value": "regclass|REGCLASS"
+      "value": "[rR][eE][gG][cC][lL][aA][sS][sS]"
     },
     "keyword_regnamespace": {
       "type": "PATTERN",
-      "value": "regnamespace|REGNAMESPACE"
+      "value": "[rR][eE][gG][nN][aA][mM][eE][sS][pP][aA][cC][eE]"
     },
     "keyword_regproc": {
       "type": "PATTERN",
-      "value": "regproc|REGPROC"
+      "value": "[rR][eE][gG][pP][rR][oO][cC]"
     },
     "keyword_regtype": {
       "type": "PATTERN",
-      "value": "regtype|REGTYPE"
+      "value": "[rR][eE][gG][tT][yY][pP][eE]"
     },
     "keyword_array": {
       "type": "PATTERN",
-      "value": "array|ARRAY"
+      "value": "[aA][rR][rR][aA][yY]"
     },
     "_type": {
       "type": "CHOICE",
@@ -2430,7 +2430,7 @@
       "members": [
         {
           "type": "PATTERN",
-          "value": "float8|FLOAT8"
+          "value": "[fF][lL][oO][aA][tT][88]"
         },
         {
           "type": "CHOICE",
