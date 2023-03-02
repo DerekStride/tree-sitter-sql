@@ -223,6 +223,7 @@ module.exports = grammar({
     keyword_false: _ => make_keyword("false"),
 
     keyword_boolean: _ => make_keyword("boolean"),
+    keyword_bit: _ => make_keyword("bit"),
 
     keyword_smallserial: _ => choice(make_keyword("smallserial"),make_keyword("serial2")),
     keyword_serial: _ => choice(make_keyword("serial"),make_keyword("serial4")),
@@ -240,13 +241,14 @@ module.exports = grammar({
     keyword_precision: _ => make_keyword("precision"),
 
     keyword_money: _ => make_keyword("money"),
+    keyword_varying: _ => make_keyword("varying"),
 
     keyword_char: _ => choice(make_keyword("char"), make_keyword("character")),
-    keyword_varchar: _ => choice(
+    keyword_varchar: $ => choice(
       make_keyword("varchar"),
       seq(
         make_keyword("character"),
-        make_keyword("varying"),
+        $.keyword_varying,
       )
     ),
     keyword_text: _ => make_keyword("text"),
@@ -299,6 +301,7 @@ module.exports = grammar({
 
     _type: $ => choice(
       $.keyword_boolean,
+      $.bit,
 
       $.keyword_smallserial,
       $.keyword_serial,
@@ -356,6 +359,15 @@ module.exports = grammar({
     mediumint: $ => unsigned_type($, parametric_type($, $.keyword_mediumint)),
     int: $ => unsigned_type($, parametric_type($, $.keyword_int)),
     bigint: $ => unsigned_type($, parametric_type($, $.keyword_bigint)),
+
+    bit: $ => choice(
+        $.keyword_bit,
+        seq(
+            $.keyword_bit,
+            prec(0, parametric_type($, $.keyword_varying, ['precision'])),
+        ),
+        prec(1, parametric_type($, $.keyword_bit, ['precision'])),
+    ),
 
     // TODO: should qualify against /\\b(0?[1-9]|[1-4][0-9]|5[0-4])\\b/g
     float: $  => choice(
