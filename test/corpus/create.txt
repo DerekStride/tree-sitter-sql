@@ -635,6 +635,9 @@ Create table with all types
 
 CREATE TABLE type_test (
   a_bool BOOLEAN,
+  a_bit BIT,
+  a_bit2 BIT(2),
+  a_bit3 BIT VARYING(2),
   a_smallser SMALLSERIAL,
   a_serial SERIAL,
   a_bigser BIGSERIAL,
@@ -686,6 +689,21 @@ CREATE TABLE type_test (
         (column_definition
           name: (identifier)
           type: (keyword_boolean))
+        (column_definition
+          name: (identifier)
+          type: (bit
+            (keyword_bit)))
+        (column_definition
+          name: (identifier)
+          type: (bit
+            (keyword_bit)
+            precision: (literal)))
+        (column_definition
+          name: (identifier)
+          type: (bit
+            (keyword_bit)
+            (keyword_varying)
+            precision: (literal)))
         (column_definition
           name: (identifier)
           type: (keyword_smallserial))
@@ -770,7 +788,8 @@ CREATE TABLE type_test (
         (column_definition
           name: (identifier)
           type: (varchar
-            (keyword_varchar)
+            (keyword_varchar
+              (keyword_varying))
             size: (literal)))
         (column_definition
           name: (identifier)

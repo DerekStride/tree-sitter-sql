@@ -934,6 +934,10 @@
       "type": "PATTERN",
       "value": "boolean|BOOLEAN"
     },
+    "keyword_bit": {
+      "type": "PATTERN",
+      "value": "bit|BIT"
+    },
     "keyword_smallserial": {
       "type": "CHOICE",
       "members": [
@@ -1079,6 +1083,10 @@
       "type": "PATTERN",
       "value": "money|MONEY"
     },
+    "keyword_varying": {
+      "type": "PATTERN",
+      "value": "varying|VARYING"
+    },
     "keyword_char": {
       "type": "CHOICE",
       "members": [
@@ -1107,8 +1115,8 @@
               "value": "character|CHARACTER"
             },
             {
-              "type": "PATTERN",
-              "value": "varying|VARYING"
+              "type": "SYMBOL",
+              "name": "keyword_varying"
             }
           ]
         }
@@ -1268,6 +1276,10 @@
         {
           "type": "SYMBOL",
           "name": "keyword_boolean"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "bit"
         },
         {
           "type": "SYMBOL",
@@ -2069,6 +2081,118 @@
               ]
             }
           ]
+        }
+      ]
+    },
+    "bit": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_bit"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "keyword_bit"
+            },
+            {
+              "type": "PREC",
+              "value": 0,
+              "content": {
+                "type": "PREC_RIGHT",
+                "value": 0,
+                "content": {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "keyword_varying"
+                    },
+                    {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "SYMBOL",
+                          "name": "keyword_varying"
+                        },
+                        {
+                          "type": "STRING",
+                          "value": "("
+                        },
+                        {
+                          "type": "FIELD",
+                          "name": "precision",
+                          "content": {
+                            "type": "ALIAS",
+                            "content": {
+                              "type": "SYMBOL",
+                              "name": "_natural_number"
+                            },
+                            "named": true,
+                            "value": "literal"
+                          }
+                        },
+                        {
+                          "type": "STRING",
+                          "value": ")"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "PREC",
+          "value": 1,
+          "content": {
+            "type": "PREC_RIGHT",
+            "value": 0,
+            "content": {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_bit"
+                },
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "keyword_bit"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "("
+                    },
+                    {
+                      "type": "FIELD",
+                      "name": "precision",
+                      "content": {
+                        "type": "ALIAS",
+                        "content": {
+                          "type": "SYMBOL",
+                          "name": "_natural_number"
+                        },
+                        "named": true,
+                        "value": "literal"
+                      }
+                    },
+                    {
+                      "type": "STRING",
+                      "value": ")"
+                    }
+                  ]
+                }
+              ]
+            }
+          }
         }
       ]
     },
