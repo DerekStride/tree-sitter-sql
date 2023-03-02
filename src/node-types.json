@@ -3046,7 +3046,18 @@
   {
     "type": "insert",
     "named": true,
-    "fields": {},
+    "fields": {
+      "table_alias": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": true,
@@ -3061,6 +3072,10 @@
         },
         {
           "type": "keyword_all",
+          "named": true
+        },
+        {
+          "type": "keyword_as",
           "named": true
         },
         {

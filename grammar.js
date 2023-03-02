@@ -951,6 +951,12 @@ module.exports = grammar({
       choice($.keyword_insert, $.keyword_replace),
       $.keyword_into,
       $.table_reference,
+      optional(
+        seq(
+          $.keyword_as,
+          field('table_alias', $._alias_identifier)
+        )
+      ),
       choice(
         $._insert_values,
         $._insert_set,

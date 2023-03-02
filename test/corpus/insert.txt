@@ -21,6 +21,30 @@ VALUES('foo','bar', 3);
         (literal)))))
 
 ================================================================================
+Simple insert with alias
+================================================================================
+
+INSERT INTO my_table AS x
+VALUES('foo','bar', 3);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (insert
+      (keyword_insert)
+      (keyword_into)
+      (table_reference
+        name: (identifier))
+      (keyword_as)
+       table_alias: (identifier)
+      (keyword_values)
+      (list
+        (literal)
+        (literal)
+        (literal)))))
+
+================================================================================
 Simple insert with column ordering
 ================================================================================
 

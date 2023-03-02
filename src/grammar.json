@@ -5447,6 +5447,31 @@
           "type": "CHOICE",
           "members": [
             {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_as"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "table_alias",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "_alias_identifier"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
               "type": "SYMBOL",
               "name": "_insert_values"
             },
