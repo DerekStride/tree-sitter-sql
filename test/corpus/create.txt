@@ -1125,7 +1125,8 @@ SELECT * FROM _cte
 Create hive table
 ================================================================================
 
-CREATE EXTERNAL TABLE tab (col int)
+CREATE EXTERNAL TABLE tab
+(col int, col2 string, col3 binary)
 PARTITIONED BY (col int)
 SORT BY (col)
 ROW FORMAT DELIMITED FIELDS TERMINATED BY ';' ESCAPED BY '"'
@@ -1148,7 +1149,13 @@ CACHED IN 'pool1' WITH REPLICATION = 2
         (column_definition
           name: (identifier)
           type: (int
-            (keyword_int))))
+            (keyword_int)))
+        (column_definition
+          name: (identifier)
+          type: (keyword_string))
+        (column_definition
+          name: (identifier)
+          type: (keyword_binary)))
       (table_partition
         (keyword_partitioned)
         (keyword_by)

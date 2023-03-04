@@ -115,6 +115,10 @@
             "named": true
           },
           {
+            "type": "keyword_binary",
+            "named": true
+          },
+          {
             "type": "keyword_boolean",
             "named": true
           },
@@ -192,6 +196,10 @@
           },
           {
             "type": "keyword_smallserial",
+            "named": true
+          },
+          {
+            "type": "keyword_string",
             "named": true
           },
           {
@@ -1172,6 +1180,10 @@
           "named": true
         },
         {
+          "type": "keyword_binary",
+          "named": true
+        },
+        {
           "type": "keyword_boolean",
           "named": true
         },
@@ -1249,6 +1261,10 @@
         },
         {
           "type": "keyword_smallserial",
+          "named": true
+        },
+        {
+          "type": "keyword_string",
           "named": true
         },
         {
@@ -1490,6 +1506,10 @@
             "named": true
           },
           {
+            "type": "keyword_binary",
+            "named": true
+          },
+          {
             "type": "keyword_boolean",
             "named": true
           },
@@ -1567,6 +1587,10 @@
           },
           {
             "type": "keyword_smallserial",
+            "named": true
+          },
+          {
+            "type": "keyword_string",
             "named": true
           },
           {
@@ -5728,6 +5752,10 @@
     "named": true
   },
   {
+    "type": "keyword_binary",
+    "named": true
+  },
+  {
     "type": "keyword_bit",
     "named": true
   },
@@ -6273,6 +6301,10 @@
   },
   {
     "type": "keyword_stored",
+    "named": true
+  },
+  {
+    "type": "keyword_string",
     "named": true
   },
   {
