@@ -737,6 +737,19 @@
         }
       ]
     },
+    "not_between": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_not"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_between"
+        }
+      ]
+    },
     "_temporary": {
       "type": "CHOICE",
       "members": [
@@ -9584,6 +9597,96 @@
               }
             ]
           }
+        },
+        {
+          "type": "PREC_LEFT",
+          "value": "binary_between",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "FIELD",
+                "name": "left",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "identifier"
+                }
+              },
+              {
+                "type": "FIELD",
+                "name": "operator",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "keyword_between"
+                }
+              },
+              {
+                "type": "FIELD",
+                "name": "low",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "literal"
+                }
+              },
+              {
+                "type": "SYMBOL",
+                "name": "keyword_and"
+              },
+              {
+                "type": "FIELD",
+                "name": "high",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "literal"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "PREC_LEFT",
+          "value": "binary_between",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "FIELD",
+                "name": "left",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "identifier"
+                }
+              },
+              {
+                "type": "FIELD",
+                "name": "operator",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "not_between"
+                }
+              },
+              {
+                "type": "FIELD",
+                "name": "low",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "literal"
+                }
+              },
+              {
+                "type": "SYMBOL",
+                "name": "keyword_and"
+              },
+              {
+                "type": "FIELD",
+                "name": "high",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "literal"
+                }
+              }
+            ]
+          }
         }
       ]
     },
@@ -9976,6 +10079,10 @@
       },
       {
         "type": "STRING",
+        "value": "binary_between"
+      },
+      {
+        "type": "STRING",
         "value": "pattern_matching"
       },
       {
@@ -9992,4 +10099,3 @@
   "inline": [],
   "supertypes": []
 }
-

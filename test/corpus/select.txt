@@ -267,7 +267,6 @@ SELECT tab."COL" FROM tab;
         (table_reference
           name: (identifier))))))
 
-
 ================================================================================
 Simple select with where
 ================================================================================
@@ -1307,35 +1306,35 @@ ON c.id = d.c_id;
             name: (identifier))
           right: (field
             table_alias: (identifier)
-                name: (identifier))))
-          (join
-            (keyword_left)
-            (keyword_join)
-            (relation
-              (table_reference
-                name: (identifier))
-              table_alias: (identifier))
-            (join
-              (keyword_join)
-              (relation
-                (table_reference
-                  name: (identifier))
-                table_alias: (identifier))
-              (keyword_on)
-              predicate: (binary_expression
-                left: (field
-                  table_alias: (identifier)
-                  name: (identifier))
-                right: (field
-                  table_alias: (identifier)
-                  name: (identifier))))
-            (keyword_on)
-            predicate: (binary_expression
-              left: (field
-                table_alias: (identifier)
-                name: (identifier))
-              right: (field
-                table_alias: (identifier)
+            name: (identifier))))
+      (join
+        (keyword_left)
+        (keyword_join)
+        (relation
+          (table_reference
+            name: (identifier))
+          table_alias: (identifier))
+        (join
+          (keyword_join)
+          (relation
+            (table_reference
+              name: (identifier))
+            table_alias: (identifier))
+          (keyword_on)
+          predicate: (binary_expression
+            left: (field
+              table_alias: (identifier)
+              name: (identifier))
+            right: (field
+              table_alias: (identifier)
+              name: (identifier))))
+        (keyword_on)
+        predicate: (binary_expression
+          left: (field
+            table_alias: (identifier)
+            name: (identifier))
+          right: (field
+            table_alias: (identifier)
             name: (identifier)))))))
 
 ================================================================================
@@ -2216,27 +2215,28 @@ Select with positive and negative integers
 SELECT a + 3 from b where a >= -14
 
 --------------------------------------------------------------------------------
+
 (program
   (statement
-  (select
-    (keyword_select)
-    (select_expression
-      (term
-        value: (binary_expression
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (binary_expression
+            left: (field
+              name: (identifier))
+            right: (literal)))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier)))
+      (where
+        (keyword_where)
+        predicate: (binary_expression
           left: (field
             name: (identifier))
-          right: (literal)))))
-  (from
-    (keyword_from)
-    (relation
-      (table_reference
-        name: (identifier)))
-    (where
-      (keyword_where)
-      predicate: (binary_expression
-        left: (field
-          name: (identifier))
-        right: (literal))))))
+          right: (literal))))))
 
 ================================================================================
 Select with positive and negative floats
@@ -2245,27 +2245,28 @@ Select with positive and negative floats
 SELECT a + 3.1415 from b where a >= -3.14
 
 --------------------------------------------------------------------------------
+
 (program
   (statement
-  (select
-    (keyword_select)
-    (select_expression
-      (term
-        value: (binary_expression
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (binary_expression
+            left: (field
+              name: (identifier))
+            right: (literal)))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier)))
+      (where
+        (keyword_where)
+        predicate: (binary_expression
           left: (field
             name: (identifier))
-          right: (literal)))))
-  (from
-    (keyword_from)
-    (relation
-      (table_reference
-        name: (identifier)))
-    (where
-      (keyword_where)
-      predicate: (binary_expression
-        left: (field
-          name: (identifier))
-        right: (literal))))))
+          right: (literal))))))
 
 ================================================================================
 Select intervals
@@ -2274,15 +2275,16 @@ Select intervals
 SELECT interval '1m'
 
 --------------------------------------------------------------------------------
+
 (program
   (statement
-  (select
-    (keyword_select)
-    (select_expression
-      (term
-        value: (interval
-          (keyword_interval)
-          (interval_definitions)))))))
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (interval
+            (keyword_interval)
+            (interval_definitions)))))))
 
 ================================================================================
 Select with string literals containing single quotes
@@ -2331,3 +2333,47 @@ SELECT 'foo''''''bar';
       (select_expression
         (term
           (literal))))))
+
+================================================================================
+Select between timestamps
+================================================================================
+
+select
+    a
+from b
+where a between '2022-01-01' and '2023-01-01'
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (field
+            (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          (identifier)))
+      (where
+        (keyword_where)
+        (binary_expression
+          (identifier)
+          (keyword_between)
+          (literal)
+          (keyword_and)
+          (literal))))))
+
+================================================================================
+Select not between range
+================================================================================
+
+select
+    a
+from b
+where a not between 1 and 3
+
+--------------------------------------------------------------------------------

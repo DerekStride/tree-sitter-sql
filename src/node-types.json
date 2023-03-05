@@ -649,6 +649,16 @@
     "type": "binary_expression",
     "named": true,
     "fields": {
+      "high": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "literal",
+            "named": true
+          }
+        ]
+      },
       "left": {
         "multiple": false,
         "required": true,
@@ -682,6 +692,10 @@
             "named": true
           },
           {
+            "type": "identifier",
+            "named": true
+          },
+          {
             "type": "interval",
             "named": true
           },
@@ -711,6 +725,16 @@
           },
           {
             "type": "window_function",
+            "named": true
+          }
+        ]
+      },
+      "low": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "literal",
             "named": true
           }
         ]
@@ -784,6 +808,10 @@
             "named": true
           },
           {
+            "type": "keyword_between",
+            "named": true
+          },
+          {
             "type": "keyword_in",
             "named": true
           },
@@ -797,6 +825,10 @@
           },
           {
             "type": "keyword_or",
+            "named": true
+          },
+          {
+            "type": "not_between",
             "named": true
           },
           {
@@ -823,7 +855,7 @@
       },
       "right": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "array",
@@ -887,6 +919,16 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "keyword_and",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -3812,6 +3854,25 @@
         },
         {
           "type": "keyword_modify",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "not_between",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_between",
+          "named": true
+        },
+        {
+          "type": "keyword_not",
           "named": true
         }
       ]
