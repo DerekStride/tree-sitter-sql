@@ -3079,7 +3079,27 @@
           "named": true
         },
         {
+          "type": "keyword_conflict",
+          "named": true
+        },
+        {
+          "type": "keyword_delayed",
+          "named": true
+        },
+        {
+          "type": "keyword_do",
+          "named": true
+        },
+        {
           "type": "keyword_except",
+          "named": true
+        },
+        {
+          "type": "keyword_high_priority",
+          "named": true
+        },
+        {
+          "type": "keyword_ignore",
           "named": true
         },
         {
@@ -3095,6 +3115,18 @@
           "named": true
         },
         {
+          "type": "keyword_low_priority",
+          "named": true
+        },
+        {
+          "type": "keyword_nothing",
+          "named": true
+        },
+        {
+          "type": "keyword_on",
+          "named": true
+        },
+        {
           "type": "keyword_replace",
           "named": true
         },
@@ -3104,6 +3136,10 @@
         },
         {
           "type": "keyword_union",
+          "named": true
+        },
+        {
+          "type": "keyword_update",
           "named": true
         },
         {
@@ -3120,6 +3156,10 @@
         },
         {
           "type": "table_reference",
+          "named": true
+        },
+        {
+          "type": "where",
           "named": true
         }
       ]
@@ -5756,6 +5796,10 @@
     "named": true
   },
   {
+    "type": "keyword_conflict",
+    "named": true
+  },
+  {
     "type": "keyword_constraint",
     "named": true
   },
@@ -5800,6 +5844,10 @@
     "named": true
   },
   {
+    "type": "keyword_delayed",
+    "named": true
+  },
+  {
     "type": "keyword_delete",
     "named": true
   },
@@ -5813,6 +5861,10 @@
   },
   {
     "type": "keyword_distinct",
+    "named": true
+  },
+  {
+    "type": "keyword_do",
     "named": true
   },
   {
@@ -5928,6 +5980,10 @@
     "named": true
   },
   {
+    "type": "keyword_high_priority",
+    "named": true
+  },
+  {
     "type": "keyword_if",
     "named": true
   },
@@ -6012,6 +6068,10 @@
     "named": true
   },
   {
+    "type": "keyword_low_priority",
+    "named": true
+  },
+  {
     "type": "keyword_materialized",
     "named": true
   },
@@ -6033,6 +6093,10 @@
   },
   {
     "type": "keyword_not",
+    "named": true
+  },
+  {
+    "type": "keyword_nothing",
     "named": true
   },
   {
