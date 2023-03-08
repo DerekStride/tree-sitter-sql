@@ -2,7 +2,7 @@
 Simple insert
 ================================================================================
 
-iNSERT INTO my_table
+INSERT INTO my_table
 VALUES('foo','bar', 3);
 
 --------------------------------------------------------------------------------
@@ -255,3 +255,153 @@ INSERT INTO some_table
         left: (field
           name: (identifier))
         right: (literal)))))
+
+================================================================================
+Simple insert with on conflict do nothing
+================================================================================
+
+INSERT INTO my_table
+VALUES('foo','bar', 3)
+ON CONFLICT DO NOTHING;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (insert
+      (keyword_insert)
+      (keyword_into)
+      (table_reference
+        name: (identifier))
+      (keyword_values)
+      (list
+        (literal)
+        (literal)
+        (literal))
+      (keyword_on)
+      (keyword_conflict)
+      (keyword_do)
+      (keyword_nothing))))
+
+================================================================================
+Simple insert with on conflict do update
+================================================================================
+
+INSERT INTO my_table
+VALUES('foo','bar', 3)
+ON CONFLICT DO UPDATE SET dname = EXCLUDED.dname;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (insert
+      (keyword_insert)
+      (keyword_into)
+      (table_reference
+        name: (identifier))
+      (keyword_values)
+      (list
+        (literal)
+        (literal)
+        (literal))
+      (keyword_on)
+      (keyword_conflict)
+      (keyword_do)
+      (keyword_update)
+      (keyword_set)
+      (assignment
+        left: (field
+          name: (identifier))
+        right: (field
+          table_alias: (identifier)
+          name: (identifier))))))
+
+================================================================================
+Simple insert with low priority
+================================================================================
+
+INSERT LOW_PRIORITY my_table
+VALUES('foo','bar', 3);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (insert
+      (keyword_insert)
+      (keyword_low_priority)
+      (table_reference
+        name: (identifier))
+      (keyword_values)
+      (list
+        (literal)
+        (literal)
+        (literal)))))
+
+================================================================================
+Simple insert with delayed
+================================================================================
+
+INSERT DELAYED my_table
+VALUES('foo','bar', 3);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (insert
+      (keyword_insert)
+      (keyword_delayed)
+      (table_reference
+        name: (identifier))
+      (keyword_values)
+      (list
+        (literal)
+        (literal)
+        (literal)))))
+
+================================================================================
+Simple insert with high priority
+================================================================================
+
+INSERT HIGH_PRIORITY my_table
+VALUES('foo','bar', 3);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (insert
+      (keyword_insert)
+      (keyword_high_priority)
+      (table_reference
+        name: (identifier))
+      (keyword_values)
+      (list
+        (literal)
+        (literal)
+        (literal)))))
+
+================================================================================
+Simple insert with ignore
+================================================================================
+
+INSERT IGNORE my_table
+VALUES('foo','bar', 3);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (insert
+      (keyword_insert)
+      (keyword_ignore)
+      (table_reference
+        name: (identifier))
+      (keyword_values)
+      (list
+        (literal)
+        (literal)
+        (literal)))))
+

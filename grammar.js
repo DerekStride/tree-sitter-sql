@@ -163,6 +163,12 @@ module.exports = grammar({
     keyword_preserve: _ => make_keyword("preserve"),
     keyword_unsigned: _ => make_keyword("unsigned"),
     keyword_zerofill: _ => make_keyword("zerofill"),
+    keyword_conflict: _ => make_keyword("conflict"),
+    keyword_do: _ => make_keyword("do"),
+    keyword_nothing: _ => make_keyword("nothing"),
+    keyword_high_priority: _ => make_keyword("high_priority"),
+    keyword_low_priority: _ => make_keyword("low_priority"),
+    keyword_delayed: _ => make_keyword("delayed"),
 
     // Hive Keywords
     keyword_external: _ => make_keyword("external"),
@@ -948,18 +954,46 @@ module.exports = grammar({
     ),
 
     insert: $ => seq(
-      choice($.keyword_insert, $.keyword_replace),
-      $.keyword_into,
+      choice(
+        $.keyword_insert,
+        $.keyword_replace
+      ),
+      optional(
+        choice(
+          $.keyword_low_priority,
+          $.keyword_delayed,
+          $.keyword_high_priority,
+        ),
+      ),
+      optional($.keyword_ignore),
+      optional($.keyword_into),
       $.table_reference,
       optional(
         seq(
           $.keyword_as,
           field('table_alias', $._alias_identifier)
-        )
+        ),
       ),
       choice(
         $._insert_values,
-        $._insert_set,
+        $._set_values,
+      ),
+      optional(
+        seq(
+          $.keyword_on,
+          $.keyword_conflict,
+          seq(
+            $.keyword_do,
+            choice(
+              $.keyword_nothing,
+              seq(
+                $.keyword_update,
+                $._set_values,
+                optional($.where),
+              ),
+            ),
+          ),
+        ),
       ),
     ),
 
@@ -974,7 +1008,7 @@ module.exports = grammar({
       ),
     ),
 
-    _insert_set: $ => seq(
+    _set_values: $ => seq(
       $.keyword_set,
       comma_list($.assignment, true),
     ),
@@ -1000,8 +1034,7 @@ module.exports = grammar({
       seq(
         comma_list($.relation, true),
         repeat($.join),
-        $.keyword_set,
-        comma_list($.assignment, true),
+        $._set_values,
         optional($.where),
       ),
     ),
@@ -1009,8 +1042,7 @@ module.exports = grammar({
     _postgres_update_statement: $ => prec(1,
       seq(
         $.relation,
-        $.keyword_set,
-        comma_list($.assignment, true),
+        $._set_values,
         optional($.from),
       ),
     ),
