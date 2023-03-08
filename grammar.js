@@ -19,10 +19,11 @@ module.exports = grammar({
       'binary_compare',
       'binary_relation',
       'binary_concat',
-      'binary_between',
       'pattern_matching',
       'clause_connective',
       'clause_disjunctive',
+      'between',
+      'not_between',
     ],
   ],
 
@@ -203,7 +204,6 @@ module.exports = grammar({
     not_similar_to: $ => seq($.keyword_not, $.keyword_similar, $.keyword_to),
     distinct_from: $ => seq($.keyword_is, $.keyword_distinct, $.keyword_from),
     not_distinct_from: $ => seq($.keyword_is, $.keyword_not, $.keyword_distinct, $.keyword_from),
-    not_between: $ => seq($.keyword_not, $.keyword_between),
 
     _temporary: $ => choice($.keyword_temp, $.keyword_temporary),
     _not_null: $ => seq($.keyword_not, $.keyword_null),
@@ -1734,6 +1734,7 @@ module.exports = grammar({
         $.unary_expression,
         $.array,
         $.interval,
+        $.between_expression,
       )
     ),
 
@@ -1781,18 +1782,6 @@ module.exports = grammar({
           field('right', $._expression)
         ))
       ),
-      ...[
-        [$.keyword_between, 'binary_between'],
-        [$.not_between, 'binary_between'],
-      ].map(([operator, precendence]) =>
-        prec.left(precendence, seq(
-          field('left', $.identifier),
-          field('operator', operator),
-          field('low', $.literal),
-          $.keyword_and,
-          field('high', $.literal)
-        ))
-      )
     ),
 
     unary_expression: $ => choice(
@@ -1805,6 +1794,21 @@ module.exports = grammar({
           field('operand', $._expression)
         ))
       ),
+    ),
+
+    between_expression: $ => choice(
+      ...[
+            [$.keyword_between, 'between'],
+            [seq($.keyword_not, $.keyword_between), 'not_between'],
+        ].map(([operator, precedence]) =>
+                prec.left(precedence, seq(
+                field('left', $.identifier),
+                field('operator', operator),
+                field('low', $._expression),
+                $.keyword_and,
+                field('high', $._expression)
+            ))
+        ),
     ),
 
     subquery: $ => seq(

@@ -246,6 +246,10 @@
           "named": true
         },
         {
+          "type": "between_expression",
+          "named": true
+        },
+        {
           "type": "binary_expression",
           "named": true
         },
@@ -467,6 +471,10 @@
           "named": true
         },
         {
+          "type": "between_expression",
+          "named": true
+        },
+        {
           "type": "binary_expression",
           "named": true
         },
@@ -552,6 +560,10 @@
             "named": true
           },
           {
+            "type": "between_expression",
+            "named": true
+          },
+          {
             "type": "binary_expression",
             "named": true
           },
@@ -609,6 +621,186 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "between_expression",
+    "named": true,
+    "fields": {
+      "high": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "array",
+            "named": true
+          },
+          {
+            "type": "between_expression",
+            "named": true
+          },
+          {
+            "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "case",
+            "named": true
+          },
+          {
+            "type": "cast",
+            "named": true
+          },
+          {
+            "type": "count",
+            "named": true
+          },
+          {
+            "type": "field",
+            "named": true
+          },
+          {
+            "type": "group_concat",
+            "named": true
+          },
+          {
+            "type": "interval",
+            "named": true
+          },
+          {
+            "type": "invocation",
+            "named": true
+          },
+          {
+            "type": "list",
+            "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "parameter",
+            "named": true
+          },
+          {
+            "type": "subquery",
+            "named": true
+          },
+          {
+            "type": "unary_expression",
+            "named": true
+          },
+          {
+            "type": "window_function",
+            "named": true
+          }
+        ]
+      },
+      "left": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "low": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "array",
+            "named": true
+          },
+          {
+            "type": "between_expression",
+            "named": true
+          },
+          {
+            "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "case",
+            "named": true
+          },
+          {
+            "type": "cast",
+            "named": true
+          },
+          {
+            "type": "count",
+            "named": true
+          },
+          {
+            "type": "field",
+            "named": true
+          },
+          {
+            "type": "group_concat",
+            "named": true
+          },
+          {
+            "type": "interval",
+            "named": true
+          },
+          {
+            "type": "invocation",
+            "named": true
+          },
+          {
+            "type": "list",
+            "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "parameter",
+            "named": true
+          },
+          {
+            "type": "subquery",
+            "named": true
+          },
+          {
+            "type": "unary_expression",
+            "named": true
+          },
+          {
+            "type": "window_function",
+            "named": true
+          }
+        ]
+      },
+      "operator": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "keyword_between",
+            "named": true
+          },
+          {
+            "type": "keyword_not",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_and",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -649,22 +841,16 @@
     "type": "binary_expression",
     "named": true,
     "fields": {
-      "high": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "literal",
-            "named": true
-          }
-        ]
-      },
       "left": {
         "multiple": false,
         "required": true,
         "types": [
           {
             "type": "array",
+            "named": true
+          },
+          {
+            "type": "between_expression",
             "named": true
           },
           {
@@ -689,10 +875,6 @@
           },
           {
             "type": "group_concat",
-            "named": true
-          },
-          {
-            "type": "identifier",
             "named": true
           },
           {
@@ -725,16 +907,6 @@
           },
           {
             "type": "window_function",
-            "named": true
-          }
-        ]
-      },
-      "low": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "literal",
             "named": true
           }
         ]
@@ -808,10 +980,6 @@
             "named": true
           },
           {
-            "type": "keyword_between",
-            "named": true
-          },
-          {
             "type": "keyword_in",
             "named": true
           },
@@ -825,10 +993,6 @@
           },
           {
             "type": "keyword_or",
-            "named": true
-          },
-          {
-            "type": "not_between",
             "named": true
           },
           {
@@ -855,10 +1019,14 @@
       },
       "right": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
             "type": "array",
+            "named": true
+          },
+          {
+            "type": "between_expression",
             "named": true
           },
           {
@@ -919,16 +1087,6 @@
           }
         ]
       }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "keyword_and",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -971,6 +1129,10 @@
       "types": [
         {
           "type": "array",
+          "named": true
+        },
+        {
+          "type": "between_expression",
           "named": true
         },
         {
@@ -1079,6 +1241,10 @@
             "named": true
           },
           {
+            "type": "between_expression",
+            "named": true
+          },
+          {
             "type": "binary_expression",
             "named": true
           },
@@ -1143,6 +1309,10 @@
       "types": [
         {
           "type": "array",
+          "named": true
+        },
+        {
+          "type": "between_expression",
           "named": true
         },
         {
@@ -1875,6 +2045,10 @@
           },
           {
             "type": "array",
+            "named": true
+          },
+          {
+            "type": "between_expression",
             "named": true
           },
           {
@@ -2856,6 +3030,10 @@
           "named": true
         },
         {
+          "type": "between_expression",
+          "named": true
+        },
+        {
           "type": "binary_expression",
           "named": true
         },
@@ -2950,6 +3128,10 @@
           },
           {
             "type": "array",
+            "named": true
+          },
+          {
+            "type": "between_expression",
             "named": true
           },
           {
@@ -3248,6 +3430,10 @@
             "named": true
           },
           {
+            "type": "between_expression",
+            "named": true
+          },
+          {
             "type": "binary_expression",
             "named": true
           },
@@ -3336,6 +3522,10 @@
         "types": [
           {
             "type": "array",
+            "named": true
+          },
+          {
+            "type": "between_expression",
             "named": true
           },
           {
@@ -3566,6 +3756,10 @@
           "named": true
         },
         {
+          "type": "between_expression",
+          "named": true
+        },
+        {
           "type": "binary_expression",
           "named": true
         },
@@ -3697,6 +3891,10 @@
       "types": [
         {
           "type": "array",
+          "named": true
+        },
+        {
+          "type": "between_expression",
           "named": true
         },
         {
@@ -3854,25 +4052,6 @@
         },
         {
           "type": "keyword_modify",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "not_between",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "keyword_between",
-          "named": true
-        },
-        {
-          "type": "keyword_not",
           "named": true
         }
       ]
@@ -4038,6 +4217,10 @@
           "named": true
         },
         {
+          "type": "between_expression",
+          "named": true
+        },
+        {
           "type": "binary_expression",
           "named": true
         },
@@ -4146,6 +4329,10 @@
       "types": [
         {
           "type": "array",
+          "named": true
+        },
+        {
+          "type": "between_expression",
           "named": true
         },
         {
@@ -5010,6 +5197,10 @@
             "named": true
           },
           {
+            "type": "between_expression",
+            "named": true
+          },
+          {
             "type": "binary_expression",
             "named": true
           },
@@ -5154,6 +5345,10 @@
         "types": [
           {
             "type": "array",
+            "named": true
+          },
+          {
+            "type": "between_expression",
             "named": true
           },
           {
@@ -5328,6 +5523,10 @@
         "types": [
           {
             "type": "array",
+            "named": true
+          },
+          {
+            "type": "between_expression",
             "named": true
           },
           {

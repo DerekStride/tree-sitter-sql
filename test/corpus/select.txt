@@ -2360,7 +2360,7 @@ where a between '2022-01-01' and '2023-01-01'
           (identifier)))
       (where
         (keyword_where)
-        (binary_expression
+        (between_expression
           (identifier)
           (keyword_between)
           (literal)
@@ -2377,3 +2377,5 @@ from b
 where a not between 1 and 3
 
 --------------------------------------------------------------------------------
+
+)
