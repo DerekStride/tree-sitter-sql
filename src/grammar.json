@@ -962,6 +962,10 @@
       "type": "PATTERN",
       "value": "[bB][iI][tT]"
     },
+    "keyword_binary": {
+      "type": "PATTERN",
+      "value": "[bB][iI][nN][aA][rR][yY]"
+    },
     "keyword_smallserial": {
       "type": "CHOICE",
       "members": [
@@ -1150,6 +1154,10 @@
       "type": "PATTERN",
       "value": "[tT][eE][xX][tT]"
     },
+    "keyword_string": {
+      "type": "PATTERN",
+      "value": "[sS][tT][rR][iI][nN][gG]"
+    },
     "keyword_uuid": {
       "type": "PATTERN",
       "value": "[uU][uU][iI][dD]"
@@ -1307,6 +1315,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "keyword_binary"
+        },
+        {
+          "type": "SYMBOL",
           "name": "keyword_smallserial"
         },
         {
@@ -1367,6 +1379,14 @@
         },
         {
           "type": "SYMBOL",
+          "name": "numeric"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_string"
+        },
+        {
+          "type": "SYMBOL",
           "name": "keyword_text"
         },
         {
@@ -1424,18 +1444,6 @@
         {
           "type": "SYMBOL",
           "name": "keyword_box3d"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "char"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "varchar"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "numeric"
         },
         {
           "type": "SYMBOL",

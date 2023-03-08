@@ -230,6 +230,7 @@ module.exports = grammar({
 
     keyword_boolean: _ => make_keyword("boolean"),
     keyword_bit: _ => make_keyword("bit"),
+    keyword_binary: _ => make_keyword("binary"),
 
     keyword_smallserial: _ => choice(make_keyword("smallserial"),make_keyword("serial2")),
     keyword_serial: _ => choice(make_keyword("serial"),make_keyword("serial4")),
@@ -258,6 +259,7 @@ module.exports = grammar({
       )
     ),
     keyword_text: _ => make_keyword("text"),
+    keyword_string: _ => make_keyword("string"),
     keyword_uuid: _ => make_keyword("uuid"),
 
     keyword_json: _ => make_keyword("json"),
@@ -308,6 +310,7 @@ module.exports = grammar({
     _type: $ => choice(
       $.keyword_boolean,
       $.bit,
+      $.keyword_binary,
 
       $.keyword_smallserial,
       $.keyword_serial,
@@ -327,6 +330,8 @@ module.exports = grammar({
 
       $.char,
       $.varchar,
+      $.numeric,
+      $.keyword_string,
       $.keyword_text,
 
       $.keyword_uuid,
@@ -347,10 +352,6 @@ module.exports = grammar({
       $.keyword_geography,
       $.keyword_box2d,
       $.keyword_box3d,
-
-      $.char,
-      $.varchar,
-      $.numeric,
 
       $.keyword_oid,
       $.keyword_name,
