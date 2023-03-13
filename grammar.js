@@ -20,10 +20,9 @@ module.exports = grammar({
       'binary_relation',
       'binary_concat',
       'pattern_matching',
+      'between',
       'clause_connective',
       'clause_disjunctive',
-      'between',
-      'not_between',
     ],
   ],
 
@@ -1799,10 +1798,10 @@ module.exports = grammar({
     between_expression: $ => choice(
       ...[
             [$.keyword_between, 'between'],
-            [seq($.keyword_not, $.keyword_between), 'not_between'],
+            [seq($.keyword_not, $.keyword_between), 'between'],
         ].map(([operator, precedence]) =>
                 prec.left(precedence, seq(
-                field('left', $.identifier),
+                field('left', $._expression),
                 field('operator', operator),
                 field('low', $._expression),
                 $.keyword_and,

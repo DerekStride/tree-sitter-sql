@@ -2351,21 +2351,22 @@ where a between '2022-01-01' and '2023-01-01'
       (keyword_select)
       (select_expression
         (term
-          (field
-            (identifier)))))
+          value: (field
+            name: (identifier)))))
     (from
       (keyword_from)
       (relation
         (table_reference
-          (identifier)))
+          name: (identifier)))
       (where
         (keyword_where)
-        (between_expression
-          (identifier)
-          (keyword_between)
-          (literal)
+        predicate: (between_expression
+          left: (field
+            name: (identifier))
+          operator: (keyword_between)
+          low: (literal)
           (keyword_and)
-          (literal))))))
+          high: (literal))))))
 
 ================================================================================
 Select not between range
@@ -2378,4 +2379,26 @@ where a not between 1 and 3
 
 --------------------------------------------------------------------------------
 
-)
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            name: (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier)))
+      (where
+        (keyword_where)
+        predicate: (between_expression
+          left: (field
+            name: (identifier))
+          operator: (keyword_not)
+          operator: (keyword_between)
+          low: (literal)
+          (keyword_and)
+          high: (literal))))))

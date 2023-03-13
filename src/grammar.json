@@ -9660,7 +9660,7 @@
                 "name": "left",
                 "content": {
                   "type": "SYMBOL",
-                  "name": "identifier"
+                  "name": "_expression"
                 }
               },
               {
@@ -9696,7 +9696,7 @@
         },
         {
           "type": "PREC_LEFT",
-          "value": "not_between",
+          "value": "between",
           "content": {
             "type": "SEQ",
             "members": [
@@ -9705,7 +9705,7 @@
                 "name": "left",
                 "content": {
                   "type": "SYMBOL",
-                  "name": "identifier"
+                  "name": "_expression"
                 }
               },
               {
@@ -10088,19 +10088,15 @@
       },
       {
         "type": "STRING",
+        "value": "between"
+      },
+      {
+        "type": "STRING",
         "value": "clause_connective"
       },
       {
         "type": "STRING",
         "value": "clause_disjunctive"
-      },
-      {
-        "type": "STRING",
-        "value": "between"
-      },
-      {
-        "type": "STRING",
-        "value": "not_between"
       }
     ]
   ],
@@ -10108,3 +10104,4 @@
   "inline": [],
   "supertypes": []
 }
+
