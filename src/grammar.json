@@ -8844,6 +8844,10 @@
           {
             "type": "SYMBOL",
             "name": "interval"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "between_expression"
           }
         ]
       }
@@ -9733,6 +9737,110 @@
         }
       ]
     },
+    "between_expression": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "PREC_LEFT",
+          "value": "between",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "FIELD",
+                "name": "left",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_expression"
+                }
+              },
+              {
+                "type": "FIELD",
+                "name": "operator",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "keyword_between"
+                }
+              },
+              {
+                "type": "FIELD",
+                "name": "low",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_expression"
+                }
+              },
+              {
+                "type": "SYMBOL",
+                "name": "keyword_and"
+              },
+              {
+                "type": "FIELD",
+                "name": "high",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_expression"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "PREC_LEFT",
+          "value": "between",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "FIELD",
+                "name": "left",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_expression"
+                }
+              },
+              {
+                "type": "FIELD",
+                "name": "operator",
+                "content": {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "keyword_not"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "keyword_between"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "FIELD",
+                "name": "low",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_expression"
+                }
+              },
+              {
+                "type": "SYMBOL",
+                "name": "keyword_and"
+              },
+              {
+                "type": "FIELD",
+                "name": "high",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_expression"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
     "subquery": {
       "type": "SEQ",
       "members": [
@@ -10068,6 +10176,10 @@
       {
         "type": "STRING",
         "value": "pattern_matching"
+      },
+      {
+        "type": "STRING",
+        "value": "between"
       },
       {
         "type": "STRING",
