@@ -785,6 +785,7 @@ CREATE TABLE type_test (
   a_timestamp TIMESTAMP,
   a_verbose_timestamp TIMESTAMP WITHOUT TIME ZONE,
   a_tstz TIMESTAMPTZ,
+  a_date_with_default_ts DATETIME DEFAULT CURRENT_TIMESTAMP,
   a_verbose_tstz TIMESTAMP WITH TIME ZONE,
   a_geometry GEOMETRY,
   a_geography GEOGRAPHY,
@@ -938,6 +939,11 @@ CREATE TABLE type_test (
         (column_definition
           name: (identifier)
           type: (keyword_timestamptz))
+        (column_definition
+          name: (identifier)
+          type: (keyword_datetime)
+          (keyword_default)
+          (keyword_current_timestamp))
         (column_definition
           name: (identifier)
           type: (keyword_timestamptz))
