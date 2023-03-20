@@ -170,6 +170,9 @@ module.exports = grammar({
     keyword_high_priority: _ => make_keyword("high_priority"),
     keyword_low_priority: _ => make_keyword("low_priority"),
     keyword_delayed: _ => make_keyword("delayed"),
+    keyword_recursive: _ => make_keyword("recursive"),
+    keyword_cascaded: _ => make_keyword("cascaded"),
+    keyword_local: _ => make_keyword("local"),
 
     // Hive Keywords
     keyword_external: _ => make_keyword("external"),
@@ -222,6 +225,7 @@ module.exports = grammar({
     _exclude_group: $ => seq($.keyword_exclude, $.keyword_group),
     _exclude_no_others: $ => seq($.keyword_exclude, $.keyword_no, $.keyword_others),
     _exclude_ties: $ => seq($.keyword_exclude, $.keyword_ties),
+    _check_option: $ => seq(make_keyword("check"), make_keyword("option")),
     direction: $ => choice($.keyword_desc, $.keyword_asc),
 
     // Types
@@ -644,19 +648,41 @@ module.exports = grammar({
        ),
     ),
 
-    create_view: $ => seq(
-      $.keyword_create,
-      optional($._or_replace),
-      $.keyword_view,
-      optional($._if_not_exists),
-      $.table_reference,
-      $.keyword_as,
-      choice(
+    create_view: $ => prec.right(
+      seq(
+        $.keyword_create,
+        optional($._or_replace),
+        optional($._temporary),
+        optional($.keyword_recursive),
+        $.keyword_view,
+        optional($._if_not_exists),
+        $.table_reference,
+        optional(paren_list($.identifier)),
+        $.keyword_as,
+        choice(
           $._select_statement,
           seq(
-              $._cte,
-              $._select_statement,
+            $._cte,
+            $._select_statement,
           ),
+          seq(
+            '(',
+            $._select_statement,
+            ')',
+          ),
+        ),
+        optional(
+          seq(
+            $.keyword_with,
+            optional(
+              choice(
+                $.keyword_local,
+                $.keyword_cascaded,
+              )
+            ),
+            $._check_option,
+          ),
+        ),
       ),
     ),
 

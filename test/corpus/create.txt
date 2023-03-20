@@ -566,6 +566,123 @@ SELECT * FROM my_table;
             name: (identifier)))))))
 
 ================================================================================
+Create temp view
+================================================================================
+
+CREATE TEMPORARY VIEW foo AS SELECT 1;
+CREATE TEMP VIEW foo AS SELECT 1;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_view
+      (keyword_create)
+      (keyword_temporary)
+      (keyword_view)
+      (table_reference
+        (identifier))
+      (keyword_as)
+      (select
+        (keyword_select)
+        (select_expression
+          (term
+            (literal))))))
+  (statement
+    (create_view
+      (keyword_create)
+      (keyword_temp)
+      (keyword_view)
+      (table_reference
+        (identifier))
+      (keyword_as)
+      (select
+        (keyword_select)
+        (select_expression
+          (term
+            (literal)))))))
+
+================================================================================
+Create view with columns
+================================================================================
+
+CREATE VIEW foo(a, b) AS SELECT 1 a, 2 b;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_view
+      (keyword_create)
+      (keyword_view)
+      (table_reference
+        (identifier))
+      (identifier)
+      (identifier)
+      (keyword_as)
+      (select
+        (keyword_select)
+        (select_expression
+          (term
+            (literal)
+            (identifier))
+          (term
+            (literal)
+            (identifier)))))))
+
+================================================================================
+Create view with check option
+================================================================================
+
+CREATE VIEW foo AS SELECT 1 WITH CHECK OPTION;
+CREATE VIEW foo AS SELECT 1 WITH LOCAL CHECK OPTION;
+CREATE VIEW foo AS SELECT 1 WITH CASCADED CHECK OPTION;
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_view
+      (keyword_create)
+      (keyword_view)
+      (table_reference
+        (identifier))
+      (keyword_as)
+      (select
+        (keyword_select)
+        (select_expression
+          (term
+            (literal))))
+      (keyword_with)))
+  (statement
+    (create_view
+      (keyword_create)
+      (keyword_view)
+      (table_reference
+        (identifier))
+      (keyword_as)
+      (select
+        (keyword_select)
+        (select_expression
+          (term
+            (literal))))
+      (keyword_with)
+      (keyword_local)))
+  (statement
+    (create_view
+      (keyword_create)
+      (keyword_view)
+      (table_reference
+        (identifier))
+      (keyword_as)
+      (select
+        (keyword_select)
+        (select_expression
+          (term
+            (literal))))
+      (keyword_with)
+      (keyword_cascaded))))
+
+================================================================================
 Create matview
 ================================================================================
 
