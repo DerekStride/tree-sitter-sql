@@ -1937,6 +1937,10 @@
           "named": true
         },
         {
+          "type": "keyword_current_timestamp",
+          "named": true
+        },
+        {
           "type": "keyword_default",
           "named": true
         },
@@ -6197,6 +6201,10 @@
   },
   {
     "type": "keyword_current",
+    "named": true
+  },
+  {
+    "type": "keyword_current_timestamp",
     "named": true
   },
   {

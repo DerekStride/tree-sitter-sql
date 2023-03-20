@@ -571,6 +571,10 @@
       "type": "PATTERN",
       "value": "[lL][oO][cC][aA][lL]"
     },
+    "keyword_current_timestamp": {
+      "type": "PATTERN",
+      "value": "[cC][uU][rR][rR][eE][nN][tT][__][tT][iI][mM][eE][sS][tT][aA][mM][pP]"
+    },
     "keyword_external": {
       "type": "PATTERN",
       "value": "[eE][xX][tT][eE][rR][nN][aA][lL]"
@@ -6826,6 +6830,10 @@
         {
           "type": "SYMBOL",
           "name": "invocation"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_current_timestamp"
         },
         {
           "type": "ALIAS",
