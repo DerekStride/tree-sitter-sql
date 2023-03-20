@@ -173,6 +173,7 @@ module.exports = grammar({
     keyword_recursive: _ => make_keyword("recursive"),
     keyword_cascaded: _ => make_keyword("cascaded"),
     keyword_local: _ => make_keyword("local"),
+    keyword_current_timestamp: _ => make_keyword("current_timestamp"),
 
     // Hive Keywords
     keyword_external: _ => make_keyword("external"),
@@ -1251,6 +1252,7 @@ module.exports = grammar({
         $.unary_expression,
         $.array,
         $.invocation,
+        $.keyword_current_timestamp,
         alias($.implicit_cast, $.cast),
     ),
 
