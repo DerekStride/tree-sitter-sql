@@ -174,6 +174,8 @@ module.exports = grammar({
     keyword_cascaded: _ => make_keyword("cascaded"),
     keyword_local: _ => make_keyword("local"),
     keyword_current_timestamp: _ => make_keyword("current_timestamp"),
+    keyword_check: _ => make_keyword("check"),
+    keyword_option: _ => make_keyword("option"),
 
     // Hive Keywords
     keyword_external: _ => make_keyword("external"),
@@ -226,7 +228,7 @@ module.exports = grammar({
     _exclude_group: $ => seq($.keyword_exclude, $.keyword_group),
     _exclude_no_others: $ => seq($.keyword_exclude, $.keyword_no, $.keyword_others),
     _exclude_ties: $ => seq($.keyword_exclude, $.keyword_ties),
-    _check_option: $ => seq(make_keyword("check"), make_keyword("option")),
+    _check_option: $ => seq($.keyword_check, $.keyword_option),
     direction: $ => choice($.keyword_desc, $.keyword_asc),
 
     // Types

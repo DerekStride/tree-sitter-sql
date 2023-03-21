@@ -652,7 +652,9 @@ CREATE VIEW foo AS SELECT 1 WITH CASCADED CHECK OPTION;
         (select_expression
           (term
             (literal))))
-      (keyword_with)))
+      (keyword_with)
+      (keyword_check)
+      (keyword_option)))
   (statement
     (create_view
       (keyword_create)
@@ -666,7 +668,9 @@ CREATE VIEW foo AS SELECT 1 WITH CASCADED CHECK OPTION;
           (term
             (literal))))
       (keyword_with)
-      (keyword_local)))
+      (keyword_local)
+      (keyword_check)
+      (keyword_option)))
   (statement
     (create_view
       (keyword_create)
@@ -680,7 +684,9 @@ CREATE VIEW foo AS SELECT 1 WITH CASCADED CHECK OPTION;
           (term
             (literal))))
       (keyword_with)
-      (keyword_cascaded))))
+      (keyword_cascaded)
+      (keyword_check)
+      (keyword_option))))
 
 ================================================================================
 Create matview
