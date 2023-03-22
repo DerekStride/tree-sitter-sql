@@ -1797,6 +1797,7 @@ module.exports = grammar({
         $.array,
         $.interval,
         $.between_expression,
+        seq("(", $._expression, ")"),
       )
     ),
 
@@ -1818,7 +1819,6 @@ module.exports = grammar({
         ['<>', 'binary_relation'],
         [$.keyword_is, 'binary_is'],
         [$.is_not, 'binary_is'],
-        [$.keyword_in, 'binary_in'],
         [$.keyword_like, 'pattern_matching'],
         [$.not_like, 'pattern_matching'],
         [$.similar_to, 'pattern_matching'],
@@ -1844,6 +1844,11 @@ module.exports = grammar({
           field('right', $._expression)
         ))
       ),
+      prec.left('binary_in', seq(
+        field('left', $._expression),
+        field('operator', $.keyword_in),
+        field('right', $.list)
+      )),
     ),
 
     unary_expression: $ => choice(
