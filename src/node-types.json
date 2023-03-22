@@ -2543,6 +2543,10 @@
           "named": true
         },
         {
+          "type": "keyword_check",
+          "named": true
+        },
+        {
           "type": "keyword_create",
           "named": true
         },
@@ -2568,6 +2572,10 @@
         },
         {
           "type": "keyword_not",
+          "named": true
+        },
+        {
+          "type": "keyword_option",
           "named": true
         },
         {
@@ -6160,6 +6168,10 @@
     "named": true
   },
   {
+    "type": "keyword_check",
+    "named": true
+  },
+  {
     "type": "keyword_collate",
     "named": true
   },
@@ -6513,6 +6525,10 @@
   },
   {
     "type": "keyword_only",
+    "named": true
+  },
+  {
+    "type": "keyword_option",
     "named": true
   },
   {

@@ -575,6 +575,14 @@
       "type": "PATTERN",
       "value": "[cC][uU][rR][rR][eE][nN][tT][__][tT][iI][mM][eE][sS][tT][aA][mM][pP]"
     },
+    "keyword_check": {
+      "type": "PATTERN",
+      "value": "[cC][hH][eE][cC][kK]"
+    },
+    "keyword_option": {
+      "type": "PATTERN",
+      "value": "[oO][pP][tT][iI][oO][nN]"
+    },
     "keyword_external": {
       "type": "PATTERN",
       "value": "[eE][xX][tT][eE][rR][nN][aA][lL]"
@@ -949,12 +957,12 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "PATTERN",
-          "value": "[cC][hH][eE][cC][kK]"
+          "type": "SYMBOL",
+          "name": "keyword_check"
         },
         {
-          "type": "PATTERN",
-          "value": "[oO][pP][tT][iI][oO][nN]"
+          "type": "SYMBOL",
+          "name": "keyword_option"
         }
       ]
     },
