@@ -5,12 +5,43 @@
 
 A general/permissive SQL grammar for [tree-sitter](https://github.com/tree-sitter/tree-sitter).
 
-## Notes
+## Installation
 
-We don't commit the generated parser files to the main branch. Instead, you can find them on the
-[gh-pages](https://github.com/DerekStride/tree-sitter-sql/tree/gh-pages) branch. They are also hosted on the [GitHub
-pages site](https://derek.stride.host/tree-sitter-sql/). We're open to feedback & encourage you to [open an
-issue](https://github.com/DerekStride/tree-sitter-sql/issues/new) to discuss any problems.
+**We don't commit the generated parser files to the `main` branch.** Instead, you can find them on the
+[gh-pages](https://github.com/DerekStride/tree-sitter-sql/tree/gh-pages) branch. We're open to feedback & encourage you
+to [open an issue](https://github.com/DerekStride/tree-sitter-sql/issues/new) to discuss any problems.
+
+They are also hosted on the [GitHub pages site](https://derek.stride.host/tree-sitter-sql/) and available for download
+here:
+[github://derekstride/tree-sitter-sql/gh-pages.tar.gz](https://github.com/DerekStride/tree-sitter-sql/archive/refs/heads/gh-pages.tar.gz).
+
+*Plugin maintainers ensure you specify to specify the `HEAD` (or a specific revision) of the `gh-pages` branch when integrating
+with this project.*
+
+### Step 1: Download the parser files
+
+**Using `git`**
+```bash
+git clone https://github.com/DerekStride/tree-sitter-sql.git
+cd tree-sitter-sql
+git checkout gh-pages
+```
+
+**Using `curl`**
+```bash
+curl -LO https://github.com/DerekStride/tree-sitter-sql/archive/refs/heads/gh-pages.tar.gz
+tar -xzf gh-pages.tar.gz
+cd tree-sitter-sql-gh-pages
+```
+
+### Step 2: Compile the Parser
+
+Tree-sitter parsers need to be compiled as a shared-object / dynamic-library, you can enable this by passing the
+`-shared` & `-fPIC` flags to your compiler.
+
+```bash
+cc -shared -fPIC -I./src src/parser.c -o sql.so
+```
 
 ## Features
 
