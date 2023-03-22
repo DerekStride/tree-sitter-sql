@@ -1482,6 +1482,11 @@ module.exports = grammar({
       paren_list(field('parameter', $._expression)),
     ),
 
+    exists: $ => seq(
+      $.keyword_exists,
+      $.subquery,
+    ),
+
     partition_by: $ => seq(
         $.keyword_partition,
         $.keyword_by,
@@ -1791,6 +1796,7 @@ module.exports = grammar({
         $.cast,
         alias($.implicit_cast, $.cast),
         $._aggregate_function,
+        $.exists,
         $.invocation,
         $.binary_expression,
         $.unary_expression,
@@ -1844,11 +1850,17 @@ module.exports = grammar({
           field('right', $._expression)
         ))
       ),
-      prec.left('binary_in', seq(
-        field('left', $._expression),
-        field('operator', $.keyword_in),
-        field('right', $.list)
-      )),
+      ...[
+        [$.keyword_in, 'binary_in'],
+        // @TODO: there's an unclear precedence issue here
+        // [$.not_in, 'binary_in'],
+      ].map(([operator, precedence]) =>
+        prec.left(precedence, seq(
+          field('left', $._expression),
+          field('operator', operator),
+          field('right', choice($.list, $.subquery))
+        ))
+      ),
     ),
 
     unary_expression: $ => choice(
@@ -1882,6 +1894,7 @@ module.exports = grammar({
       '(',
       $.select,
       optional($.from),
+      optional(";"),
       ')',
     ),
 
