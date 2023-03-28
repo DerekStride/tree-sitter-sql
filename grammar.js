@@ -125,6 +125,8 @@ module.exports = grammar({
     keyword_unlogged: _ => make_keyword("unlogged"),
     keyword_union: _ => make_keyword("union"),
     keyword_all: _ => make_keyword("all"),
+    keyword_any: _ => make_keyword("any"),
+    keyword_some: _ => make_keyword("some"),
     keyword_except: _ => make_keyword("except"),
     keyword_intersect: _ => make_keyword("intersect"),
     keyword_returning: _ => make_keyword("returning"),
@@ -1867,6 +1869,9 @@ module.exports = grammar({
       ...[
         [$.keyword_not, 'unary_not'],
         [$.bang, 'unary_not'],
+        [$.keyword_any, 'unary_not'],
+        [$.keyword_some, 'unary_not'],
+        [$.keyword_all, 'unary_not'],
       ].map(([operator, precedence]) =>
         prec.left(precedence, seq(
           field('operator', operator),
