@@ -274,6 +274,10 @@
           "named": true
         },
         {
+          "type": "exists",
+          "named": true
+        },
+        {
           "type": "field",
           "named": true
         },
@@ -499,6 +503,10 @@
           "named": true
         },
         {
+          "type": "exists",
+          "named": true
+        },
+        {
           "type": "field",
           "named": true
         },
@@ -560,9 +568,17 @@
         ]
       },
       "right": {
-        "multiple": false,
+        "multiple": true,
         "required": true,
         "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
           {
             "type": "array",
             "named": true
@@ -585,6 +601,10 @@
           },
           {
             "type": "count",
+            "named": true
+          },
+          {
+            "type": "exists",
             "named": true
           },
           {
@@ -636,9 +656,17 @@
     "named": true,
     "fields": {
       "high": {
-        "multiple": false,
+        "multiple": true,
         "required": true,
         "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
           {
             "type": "array",
             "named": true
@@ -661,6 +689,10 @@
           },
           {
             "type": "count",
+            "named": true
+          },
+          {
+            "type": "exists",
             "named": true
           },
           {
@@ -706,9 +738,17 @@
         ]
       },
       "left": {
-        "multiple": false,
+        "multiple": true,
         "required": true,
         "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
           {
             "type": "array",
             "named": true
@@ -731,6 +771,10 @@
           },
           {
             "type": "count",
+            "named": true
+          },
+          {
+            "type": "exists",
             "named": true
           },
           {
@@ -776,9 +820,17 @@
         ]
       },
       "low": {
-        "multiple": false,
+        "multiple": true,
         "required": true,
         "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
           {
             "type": "array",
             "named": true
@@ -801,6 +853,10 @@
           },
           {
             "type": "count",
+            "named": true
+          },
+          {
+            "type": "exists",
             "named": true
           },
           {
@@ -910,9 +966,17 @@
     "named": true,
     "fields": {
       "left": {
-        "multiple": false,
+        "multiple": true,
         "required": true,
         "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
           {
             "type": "array",
             "named": true
@@ -935,6 +999,10 @@
           },
           {
             "type": "count",
+            "named": true
+          },
+          {
+            "type": "exists",
             "named": true
           },
           {
@@ -1086,9 +1154,17 @@
         ]
       },
       "right": {
-        "multiple": false,
+        "multiple": true,
         "required": true,
         "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
           {
             "type": "array",
             "named": true
@@ -1111,6 +1187,10 @@
           },
           {
             "type": "count",
+            "named": true
+          },
+          {
+            "type": "exists",
             "named": true
           },
           {
@@ -1220,6 +1300,10 @@
           "named": true
         },
         {
+          "type": "exists",
+          "named": true
+        },
+        {
           "type": "field",
           "named": true
         },
@@ -1301,9 +1385,17 @@
         ]
       },
       "parameter": {
-        "multiple": false,
+        "multiple": true,
         "required": false,
         "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
           {
             "type": "array",
             "named": true
@@ -1326,6 +1418,10 @@
           },
           {
             "type": "count",
+            "named": true
+          },
+          {
+            "type": "exists",
             "named": true
           },
           {
@@ -1417,6 +1513,10 @@
         },
         {
           "type": "double",
+          "named": true
+        },
+        {
+          "type": "exists",
           "named": true
         },
         {
@@ -2124,9 +2224,17 @@
         ]
       },
       "parameter": {
-        "multiple": false,
+        "multiple": true,
         "required": true,
         "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
           {
             "type": "all_fields",
             "named": true
@@ -2153,6 +2261,10 @@
           },
           {
             "type": "count",
+            "named": true
+          },
+          {
+            "type": "exists",
             "named": true
           },
           {
@@ -2968,6 +3080,25 @@
     }
   },
   {
+    "type": "exists",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_exists",
+          "named": true
+        },
+        {
+          "type": "subquery",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "field",
     "named": true,
     "fields": {
@@ -3170,6 +3301,10 @@
           "named": true
         },
         {
+          "type": "exists",
+          "named": true
+        },
+        {
           "type": "field",
           "named": true
         },
@@ -3239,9 +3374,17 @@
         ]
       },
       "parameter": {
-        "multiple": false,
+        "multiple": true,
         "required": true,
         "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
           {
             "type": "all_fields",
             "named": true
@@ -3268,6 +3411,10 @@
           },
           {
             "type": "count",
+            "named": true
+          },
+          {
+            "type": "exists",
             "named": true
           },
           {
@@ -3586,6 +3733,14 @@
         "required": false,
         "types": [
           {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
             "type": "array",
             "named": true
           },
@@ -3607,6 +3762,10 @@
           },
           {
             "type": "count",
+            "named": true
+          },
+          {
+            "type": "exists",
             "named": true
           },
           {
@@ -3677,9 +3836,17 @@
     "named": true,
     "fields": {
       "predicate": {
-        "multiple": false,
+        "multiple": true,
         "required": false,
         "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
           {
             "type": "array",
             "named": true
@@ -3702,6 +3869,10 @@
           },
           {
             "type": "count",
+            "named": true
+          },
+          {
+            "type": "exists",
             "named": true
           },
           {
@@ -3936,6 +4107,10 @@
           "named": true
         },
         {
+          "type": "exists",
+          "named": true
+        },
+        {
           "type": "field",
           "named": true
         },
@@ -4075,6 +4250,10 @@
         },
         {
           "type": "count",
+          "named": true
+        },
+        {
+          "type": "exists",
           "named": true
         },
         {
@@ -4401,6 +4580,10 @@
           "named": true
         },
         {
+          "type": "exists",
+          "named": true
+        },
+        {
           "type": "field",
           "named": true
         },
@@ -4509,6 +4692,10 @@
         },
         {
           "type": "count",
+          "named": true
+        },
+        {
+          "type": "exists",
           "named": true
         },
         {
@@ -5349,9 +5536,17 @@
         ]
       },
       "value": {
-        "multiple": false,
+        "multiple": true,
         "required": true,
         "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
           {
             "type": "array",
             "named": true
@@ -5374,6 +5569,10 @@
           },
           {
             "type": "count",
+            "named": true
+          },
+          {
+            "type": "exists",
             "named": true
           },
           {
@@ -5500,9 +5699,17 @@
     "named": true,
     "fields": {
       "operand": {
-        "multiple": false,
+        "multiple": true,
         "required": true,
         "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
           {
             "type": "array",
             "named": true
@@ -5525,6 +5732,10 @@
           },
           {
             "type": "count",
+            "named": true
+          },
+          {
+            "type": "exists",
             "named": true
           },
           {
@@ -5578,7 +5789,19 @@
             "named": true
           },
           {
+            "type": "keyword_all",
+            "named": true
+          },
+          {
+            "type": "keyword_any",
+            "named": true
+          },
+          {
             "type": "keyword_not",
+            "named": true
+          },
+          {
+            "type": "keyword_some",
             "named": true
           }
         ]
@@ -5678,9 +5901,17 @@
     "named": true,
     "fields": {
       "predicate": {
-        "multiple": false,
+        "multiple": true,
         "required": true,
         "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
           {
             "type": "array",
             "named": true
@@ -5703,6 +5934,10 @@
           },
           {
             "type": "count",
+            "named": true
+          },
+          {
+            "type": "exists",
             "named": true
           },
           {
@@ -6077,6 +6312,10 @@
   },
   {
     "type": "keyword_and",
+    "named": true
+  },
+  {
+    "type": "keyword_any",
     "named": true
   },
   {
@@ -6669,6 +6908,10 @@
   },
   {
     "type": "keyword_similar",
+    "named": true
+  },
+  {
+    "type": "keyword_some",
     "named": true
   },
   {
