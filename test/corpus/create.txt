@@ -786,6 +786,7 @@ CREATE TABLE type_test (
   a_jsonb JSONB,
   an_xml XML,
   a_bytea BYTEA,
+  a_enum ENUM('one','two','three'),
   a_date DATE,
   a_datetime DATETIME,
   a_timestamp TIMESTAMP,
@@ -930,6 +931,13 @@ CREATE TABLE type_test (
         (column_definition
           name: (identifier)
           type: (keyword_bytea))
+        (column_definition
+          name: (identifier)
+          type: (enum 
+                  (keyword_enum)
+                  value: (literal)
+                  value: (literal)
+                  value: (literal)))
         (column_definition
           name: (identifier)
           type: (keyword_date))

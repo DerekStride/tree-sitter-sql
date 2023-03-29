@@ -278,6 +278,8 @@ module.exports = grammar({
 
     keyword_bytea: _ => make_keyword("bytea"),
 
+    keyword_enum: _ => make_keyword("enum"),
+
     keyword_date: _ => make_keyword("date"),
     keyword_datetime: _ => make_keyword("datetime"),
     keyword_timestamp: _ => prec.right(
@@ -352,6 +354,8 @@ module.exports = grammar({
 
       $.keyword_bytea,
 
+      $.enum,
+
       $.keyword_date,
       $.keyword_datetime,
       $.keyword_timestamp,
@@ -409,6 +413,11 @@ module.exports = grammar({
     ),
     char: $ => parametric_type($, $.keyword_char),
     varchar: $ => parametric_type($, $.keyword_varchar),
+
+    enum: $ => seq(
+      $.keyword_enum,
+      paren_list(field("value", alias($._literal_string, $.literal)), true)
+    ),
 
     array: $ => seq(
       $.keyword_array,
