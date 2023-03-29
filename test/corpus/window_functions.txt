@@ -431,7 +431,7 @@ FROM
               (window_frame
                 (keyword_range)
                 (frame_definition
-                  (binary_expression
+                  start: (binary_expression
                     left: (field
                       name: (identifier))
                     right: (literal))
@@ -500,11 +500,11 @@ FROM
                 (keyword_rows)
                 (keyword_between)
                 (frame_definition
-                  (literal)
+                  start: (literal)
                   (keyword_preceding))
                 (keyword_and)
                 (frame_definition
-                  (literal)
+                  end: (literal)
                   (keyword_following))
                 (keyword_exclude)
                 (keyword_current)

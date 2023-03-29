@@ -1511,12 +1511,26 @@ module.exports = grammar({
             $.keyword_preceding,
           ),
           seq(
-              $._expression,
+              field("start",
+                choice(
+                  $.identifier,
+                  $.binary_expression,
+                  alias($._literal_string, $.literal),
+                  alias($._integer, $.literal)
+                )
+              ),
               $.keyword_preceding,
           ),
           $._current_row,
           seq(
-              $._expression,
+              field("end",
+                choice(
+                  $.identifier,
+                  $.binary_expression,
+                  alias($._literal_string, $.literal),
+                  alias($._integer, $.literal)
+                )
+              ),
               $.keyword_following,
           ),
           seq(
@@ -1533,23 +1547,20 @@ module.exports = grammar({
             $.keyword_groups,
         ),
 
-        optional(
-            choice(
-                seq(
-                    $.keyword_between,
+        choice(
+            seq(
+                $.keyword_between,
+                $.frame_definition,
+                optional(
+                  seq(
+                    $.keyword_and,
                     $.frame_definition,
-                    optional(
-                      seq(
-                        $.keyword_and,
-                        $.frame_definition,
-                      )
-                    )
-                ),
-                seq(
-                    $.frame_definition,
-                    // $.frame_definition,
+                  )
                 )
             ),
+            seq(
+                $.frame_definition,
+            )
         ),
         optional(
             choice(
