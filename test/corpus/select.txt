@@ -1056,7 +1056,11 @@ ON a.id = d.d_id
 RIGHT OUTER JOIN table_d d
 ON a.id = d.d_id
 INNER JOIN table_e e
-ON a.id = e.e_id;
+ON a.id = e.e_id
+FULL OUTER JOIN table_f f
+ON a.id = f.f_id
+FULL JOIN table_g g
+ON a.id = g.g_id;
 
 --------------------------------------------------------------------------------
 
@@ -1139,6 +1143,37 @@ ON a.id = e.e_id;
             name: (identifier))))
       (join
         (keyword_inner)
+        (keyword_join)
+        (relation
+          (table_reference
+            name: (identifier))
+          table_alias: (identifier))
+        (keyword_on)
+        predicate: (binary_expression
+          left: (field
+            table_alias: (identifier)
+            name: (identifier))
+          right: (field
+            table_alias: (identifier)
+            name: (identifier))))
+      (join
+        (keyword_full)
+        (keyword_outer)
+        (keyword_join)
+        (relation
+          (table_reference
+            name: (identifier))
+          table_alias: (identifier))
+        (keyword_on)
+        predicate: (binary_expression
+          left: (field
+            table_alias: (identifier)
+            name: (identifier))
+          right: (field
+            table_alias: (identifier)
+            name: (identifier))))
+      (join
+        (keyword_full)
         (keyword_join)
         (relation
           (table_reference
