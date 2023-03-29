@@ -1223,6 +1223,10 @@
       "type": "PATTERN",
       "value": "[bB][yY][tT][eE][aA]"
     },
+    "keyword_enum": {
+      "type": "PATTERN",
+      "value": "[eE][nN][uU][mM]"
+    },
     "keyword_date": {
       "type": "PATTERN",
       "value": "[dD][aA][tT][eE]"
@@ -1453,6 +1457,10 @@
         {
           "type": "SYMBOL",
           "name": "keyword_bytea"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "enum"
         },
         {
           "type": "SYMBOL",
@@ -3377,6 +3385,71 @@
           }
         ]
       }
+    },
+    "enum": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_enum"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "("
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "FIELD",
+                  "name": "value",
+                  "content": {
+                    "type": "ALIAS",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "_literal_string"
+                    },
+                    "named": true,
+                    "value": "literal"
+                  }
+                },
+                {
+                  "type": "REPEAT",
+                  "content": {
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "STRING",
+                        "value": ","
+                      },
+                      {
+                        "type": "FIELD",
+                        "name": "value",
+                        "content": {
+                          "type": "ALIAS",
+                          "content": {
+                            "type": "SYMBOL",
+                            "name": "_literal_string"
+                          },
+                          "named": true,
+                          "value": "literal"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "type": "STRING",
+              "value": ")"
+            }
+          ]
+        }
+      ]
     },
     "array": {
       "type": "SEQ",
