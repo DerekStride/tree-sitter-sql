@@ -1511,12 +1511,12 @@ module.exports = grammar({
             $.keyword_preceding,
           ),
           seq(
-              alias($._natural_number, $.literal),
+              $._expression,
               $.keyword_preceding,
           ),
           $._current_row,
           seq(
-              alias($._natural_number, $.literal),
+              $._expression,
               $.keyword_following,
           ),
           seq(
@@ -1538,12 +1538,16 @@ module.exports = grammar({
                 seq(
                     $.keyword_between,
                     $.frame_definition,
-                    $.keyword_and,
-                    $.frame_definition,
+                    optional(
+                      seq(
+                        $.keyword_and,
+                        $.frame_definition,
+                      )
+                    )
                 ),
                 seq(
                     $.frame_definition,
-                    $.frame_definition,
+                    // $.frame_definition,
                 )
             ),
         ),

@@ -365,6 +365,10 @@ SELECT
         ORDER BY a
         RANGE BETWEEN UNBOUNDED PRECEDING
         AND UNBOUNDED FOLLOWING
+    ),
+    MAX(c) OVER (
+        PARTITION BY a
+        RANGE a + 1 PRECEDING
     )
 FROM
     tab;
@@ -410,7 +414,28 @@ FROM
                 (keyword_and)
                 (frame_definition
                   (keyword_unbounded)
-                  (keyword_following))))))))
+                  (keyword_following))))))
+        (term
+          value: (window_function
+            (invocation
+              name: (identifier)
+              parameter: (field
+                name: (identifier)))
+            (keyword_over)
+            (window_specification
+              (partition_by
+                (keyword_partition)
+                (keyword_by)
+                (field
+                  name: (identifier)))
+              (window_frame
+                (keyword_range)
+                (frame_definition
+                  (binary_expression
+                    left: (field
+                      name: (identifier))
+                    right: (literal))
+                  (keyword_preceding))))))))
     (from
       (keyword_from)
       (relation
