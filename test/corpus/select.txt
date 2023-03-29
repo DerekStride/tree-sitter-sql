@@ -673,9 +673,8 @@ FROM my_table;
       (keyword_distinct)
       (select_expression
         (term
-          value: (list
-            (field
-              name: (identifier))))))
+          value: (field
+            name: (identifier)))))
     (from
       (keyword_from)
       (relation
@@ -722,9 +721,8 @@ FROM my_table;
           value: (count
             name: (keyword_count)
             (keyword_distinct)
-            parameter: (list
-              (field
-                name: (identifier)))))))
+            parameter: (field
+              name: (identifier))))))
     (from
       (keyword_from)
       (relation
@@ -2402,3 +2400,38 @@ where a not between 1 and 3
           (literal)
           (keyword_and)
           (literal))))))
+
+================================================================================
+parameterized expressions
+================================================================================
+
+SELECT 1
+FROM foo
+WHERE (foo OR bar) AND baz
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (literal))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier)))
+      (where
+        (keyword_where)
+        predicate: (binary_expression
+          left: (binary_expression
+            left: (field
+              name: (identifier))
+            operator: (keyword_or)
+            right: (field
+              name: (identifier)))
+          operator: (keyword_and)
+          right: (field
+            name: (identifier)))))))

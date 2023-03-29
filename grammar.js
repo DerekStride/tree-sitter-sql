@@ -125,6 +125,8 @@ module.exports = grammar({
     keyword_unlogged: _ => make_keyword("unlogged"),
     keyword_union: _ => make_keyword("union"),
     keyword_all: _ => make_keyword("all"),
+    keyword_any: _ => make_keyword("any"),
+    keyword_some: _ => make_keyword("some"),
     keyword_except: _ => make_keyword("except"),
     keyword_intersect: _ => make_keyword("intersect"),
     keyword_returning: _ => make_keyword("returning"),
@@ -1482,6 +1484,11 @@ module.exports = grammar({
       paren_list(field('parameter', $._expression)),
     ),
 
+    exists: $ => seq(
+      $.keyword_exists,
+      $.subquery,
+    ),
+
     partition_by: $ => seq(
         $.keyword_partition,
         $.keyword_by,
@@ -1791,12 +1798,14 @@ module.exports = grammar({
         $.cast,
         alias($.implicit_cast, $.cast),
         $._aggregate_function,
+        $.exists,
         $.invocation,
         $.binary_expression,
         $.unary_expression,
         $.array,
         $.interval,
         $.between_expression,
+        seq("(", $._expression, ")"),
       )
     ),
 
@@ -1818,7 +1827,6 @@ module.exports = grammar({
         ['<>', 'binary_relation'],
         [$.keyword_is, 'binary_is'],
         [$.is_not, 'binary_is'],
-        [$.keyword_in, 'binary_in'],
         [$.keyword_like, 'pattern_matching'],
         [$.not_like, 'pattern_matching'],
         [$.similar_to, 'pattern_matching'],
@@ -1844,12 +1852,26 @@ module.exports = grammar({
           field('right', $._expression)
         ))
       ),
+      ...[
+        [$.keyword_in, 'binary_in'],
+        // @TODO: there's an unclear precedence issue here
+        // [$.not_in, 'binary_in'],
+      ].map(([operator, precedence]) =>
+        prec.left(precedence, seq(
+          field('left', $._expression),
+          field('operator', operator),
+          field('right', choice($.list, $.subquery))
+        ))
+      ),
     ),
 
     unary_expression: $ => choice(
       ...[
         [$.keyword_not, 'unary_not'],
         [$.bang, 'unary_not'],
+        [$.keyword_any, 'unary_not'],
+        [$.keyword_some, 'unary_not'],
+        [$.keyword_all, 'unary_not'],
       ].map(([operator, precedence]) =>
         prec.left(precedence, seq(
           field('operator', operator),
@@ -1877,6 +1899,7 @@ module.exports = grammar({
       '(',
       $.select,
       optional($.from),
+      optional(";"),
       ')',
     ),
 

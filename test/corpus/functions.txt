@@ -242,3 +242,152 @@ GROUP BY some_field;
         (keyword_by)
         (field
           (identifier))))))
+
+================================================================================
+Unary ANY, ALL, SOME
+================================================================================
+
+SELECT *
+FROM foo
+WHERE id = ANY (
+  SELECT 1
+)
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (all_fields)))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier)))
+      (where
+        (keyword_where)
+        predicate: (binary_expression
+          left: (field
+            name: (identifier))
+          right: (unary_expression
+            operator: (keyword_any)
+            operand: (subquery
+              (select
+                (keyword_select)
+                (select_expression
+                  (term
+                    value: (literal)))))))))))
+
+================================================================================
+In with subquery
+================================================================================
+
+SELECT *
+FROM foo
+WHERE id IN (
+  SELECT 1
+  FROM bar;
+)
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (all_fields)))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier)))
+      (where
+        (keyword_where)
+        predicate: (binary_expression
+          left: (field
+            name: (identifier))
+          operator: (keyword_in)
+          right: (subquery
+            (select
+              (keyword_select)
+              (select_expression
+                (term
+                  value: (literal))))
+            (from
+              (keyword_from)
+              (relation
+                (table_reference
+                  name: (identifier))))))))))
+
+================================================================================
+exists & not exists
+================================================================================
+
+SELECT *
+FROM foo
+WHERE (
+  NOT EXISTS (
+    SELECT 1
+    FROM bar
+    WHERE 0;
+  ) OR EXISTS (
+    SELECT 1
+    FROM baz
+    WHERE 1;
+  )
+)
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (all_fields)))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          name: (identifier)))
+      (where
+        (keyword_where)
+        predicate: (binary_expression
+          left: (unary_expression
+            operator: (keyword_not)
+            operand: (exists
+              (keyword_exists)
+              (subquery
+                (select
+                  (keyword_select)
+                  (select_expression
+                    (term
+                      value: (literal))))
+                (from
+                  (keyword_from)
+                  (relation
+                    (table_reference
+                      name: (identifier)))
+                  (where
+                    (keyword_where)
+                    predicate: (literal))))))
+          operator: (keyword_or)
+          right: (exists
+            (keyword_exists)
+            (subquery
+              (select
+                (keyword_select)
+                (select_expression
+                  (term
+                    value: (literal))))
+              (from
+                (keyword_from)
+                (relation
+                  (table_reference
+                    name: (identifier)))
+                (where
+                  (keyword_where)
+                  predicate: (literal))))))))))
