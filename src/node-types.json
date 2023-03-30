@@ -3973,6 +3973,10 @@
           "named": true
         },
         {
+          "type": "keyword_full",
+          "named": true
+        },
+        {
           "type": "keyword_inner",
           "named": true
         },
@@ -6618,6 +6622,10 @@
   },
   {
     "type": "keyword_from",
+    "named": true
+  },
+  {
+    "type": "keyword_full",
     "named": true
   },
   {

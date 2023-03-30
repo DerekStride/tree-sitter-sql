@@ -70,6 +70,10 @@
       "type": "PATTERN",
       "value": "[iI][nN][nN][eE][rR]"
     },
+    "keyword_full": {
+      "type": "PATTERN",
+      "value": "[fF][uU][lL][lL]"
+    },
     "keyword_outer": {
       "type": "PATTERN",
       "value": "[oO][uU][tT][eE][rR]"
@@ -8557,6 +8561,19 @@
                   "members": [
                     {
                       "type": "SYMBOL",
+                      "name": "keyword_full"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "keyword_outer"
+                    }
+                  ]
+                },
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
                       "name": "keyword_left"
                     },
                     {
@@ -8585,6 +8602,10 @@
                 {
                   "type": "SYMBOL",
                   "name": "keyword_inner"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_full"
                 }
               ]
             },
