@@ -15,7 +15,7 @@ They are also hosted on the [GitHub pages site](https://derek.stride.host/tree-s
 here:
 [github://derekstride/tree-sitter-sql/gh-pages.tar.gz](https://github.com/DerekStride/tree-sitter-sql/archive/refs/heads/gh-pages.tar.gz).
 
-*Plugin maintainers ensure you specify to specify the `HEAD` (or a specific revision) of the `gh-pages` branch when integrating
+*Plugin maintainers ensure to specify the `HEAD` (or a specific revision) of the `gh-pages` branch when integrating
 with this project.*
 
 ### Step 1: Download the parser files
