@@ -143,6 +143,8 @@ CREATE TABLE my_table (
   created_date DATE NOT NULL,
   random FLOAT DEFAULT RAND(),
   random TEXT DEFAULT 'test',
+  with_comment TEXT COMMENT 'this column has a comment',
+  with_comment_and_constraint TEXT DEFAULT 'test' COMMENT 'this column also has a comment',
   KEY `idx` (`host`, `created_date`)
 );
 
@@ -179,6 +181,18 @@ CREATE TABLE my_table (
           name: (identifier)
           type: (keyword_text)
           (keyword_default)
+          (literal))
+        (column_definition
+          name: (identifier)
+          type: (keyword_text)
+          (keyword_comment)
+          (literal))
+        (column_definition
+          name: (identifier)
+          type: (keyword_text)
+          (keyword_default)
+          (literal)
+          (keyword_comment)
           (literal))
         (constraints
           (constraint
