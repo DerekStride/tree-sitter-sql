@@ -1236,6 +1236,11 @@ module.exports = grammar({
       repeat($._column_constraint),
     ),
 
+    _column_comment: $ => seq(
+      $.keyword_comment,
+      alias($._literal_string, $.literal)
+    ),
+
     _column_constraint: $ => choice(
         choice(
             $.keyword_null,
@@ -1245,6 +1250,7 @@ module.exports = grammar({
         $._primary_key,
         $.keyword_auto_increment,
         $.direction,
+        $._column_comment,
     ),
 
     _default_expression: $ => seq(
