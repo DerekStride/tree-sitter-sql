@@ -6824,6 +6824,24 @@
         }
       ]
     },
+    "_column_comment": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_comment"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_literal_string"
+          },
+          "named": true,
+          "value": "literal"
+        }
+      ]
+    },
     "_column_constraint": {
       "type": "CHOICE",
       "members": [
@@ -6855,6 +6873,10 @@
         {
           "type": "SYMBOL",
           "name": "direction"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_column_comment"
         }
       ]
     },

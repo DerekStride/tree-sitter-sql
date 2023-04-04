@@ -2049,6 +2049,10 @@
           "named": true
         },
         {
+          "type": "keyword_comment",
+          "named": true
+        },
+        {
           "type": "keyword_current_timestamp",
           "named": true
         },
@@ -6491,6 +6495,10 @@
   },
   {
     "type": "keyword_column",
+    "named": true
+  },
+  {
+    "type": "keyword_comment",
     "named": true
   },
   {
