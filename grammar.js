@@ -1303,6 +1303,7 @@ module.exports = grammar({
     ),
 
     _key_constraint: $ => seq(
+      optional($.keyword_unique),
       choice($.keyword_key, $.keyword_index),
       field('name', $.identifier),
       $.ordered_columns,
