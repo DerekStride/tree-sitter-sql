@@ -1316,10 +1316,6 @@
           "named": true
         },
         {
-          "type": "identifier",
-          "named": true
-        },
-        {
           "type": "interval",
           "named": true
         },

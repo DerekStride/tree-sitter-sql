@@ -7296,17 +7296,8 @@
                   "name": "keyword_when"
                 },
                 {
-                  "type": "CHOICE",
-                  "members": [
-                    {
-                      "type": "SYMBOL",
-                      "name": "binary_expression"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "identifier"
-                    }
-                  ]
+                  "type": "SYMBOL",
+                  "name": "_expression"
                 },
                 {
                   "type": "SYMBOL",
@@ -7327,7 +7318,7 @@
                       },
                       {
                         "type": "SYMBOL",
-                        "name": "binary_expression"
+                        "name": "_expression"
                       },
                       {
                         "type": "SYMBOL",
