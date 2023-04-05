@@ -1633,7 +1633,15 @@ FROM my_table;
 Standard CASE
 ================================================================================
 
-SELECT a, CASE WHEN b = 1 THEN 'yes' ELSE 'no' END AS is_b
+SELECT
+    a,
+    CASE
+        WHEN b BETWEEN 0 AND 1 THEN 'small'
+        WHEN (b < 100) THEN 'lower_hundered'
+        WHEN ((b < 1000) and (b>300)) THEN 'middle'
+        WHEN b > 1 THEN 'yes'
+        ELSE 'no'
+    END AS is_b
 FROM my_table;
 
 --------------------------------------------------------------------------------
@@ -1649,6 +1657,36 @@ FROM my_table;
         (term
           (case
             (keyword_case)
+            (keyword_when)
+            (between_expression
+              (field
+                (identifier))
+              (keyword_between)
+              (literal)
+              (keyword_and)
+              (literal))
+            (keyword_then)
+            (literal)
+            (keyword_when)
+            (binary_expression
+              (field
+                (identifier))
+              (literal))
+            (keyword_then)
+            (literal)
+            (keyword_when)
+            (binary_expression
+              (binary_expression
+                (field
+                  (identifier))
+                (literal))
+              (keyword_and)
+              (binary_expression
+                (field
+                  (identifier))
+                (literal)))
+            (keyword_then)
+            (literal)
             (keyword_when)
             (binary_expression
               (field
@@ -2113,7 +2151,8 @@ FROM test_data;
           (case
             (keyword_case)
             (keyword_when)
-            (identifier)
+            (field
+              (identifier))
             (keyword_then)
             (literal)
             (keyword_end))
