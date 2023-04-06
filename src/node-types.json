@@ -2200,6 +2200,10 @@
           "named": true
         },
         {
+          "type": "keyword_unique",
+          "named": true
+        },
+        {
           "type": "ordered_columns",
           "named": true
         }

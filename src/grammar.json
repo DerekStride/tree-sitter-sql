@@ -7053,6 +7053,18 @@
           "members": [
             {
               "type": "SYMBOL",
+              "name": "keyword_unique"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
               "name": "keyword_key"
             },
             {
