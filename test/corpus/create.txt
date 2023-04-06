@@ -145,7 +145,8 @@ CREATE TABLE my_table (
   random TEXT DEFAULT 'test',
   with_comment TEXT COMMENT 'this column has a comment',
   with_comment_and_constraint TEXT DEFAULT 'test' COMMENT 'this column also has a comment',
-  KEY `idx` (`host`, `created_date`)
+  KEY `idx` (`host`, `created_date`),
+  UNIQUE KEY `unique_idx` (`host`,`with_comment`)
 );
 
 --------------------------------------------------------------------------------
@@ -196,6 +197,15 @@ CREATE TABLE my_table (
           (literal))
         (constraints
           (constraint
+            (keyword_key)
+            name: (identifier)
+            (ordered_columns
+              (column
+                name: (identifier))
+              (column
+                name: (identifier))))
+          (constraint
+            (keyword_unique)
             (keyword_key)
             name: (identifier)
             (ordered_columns
