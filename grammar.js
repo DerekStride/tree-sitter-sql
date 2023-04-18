@@ -157,6 +157,8 @@ module.exports = grammar({
     keyword_others: _ => make_keyword("others"),
     keyword_only: _ => make_keyword("only"),
     keyword_unique: _ => make_keyword("unique"),
+    keyword_foreign: _ => make_keyword("foreign"),
+    keyword_references: _ => make_keyword("references"),
     keyword_concurrently: _ => make_keyword("concurrently"),
     keyword_btree: _ => make_keyword("btree"),
     keyword_hash: _ => make_keyword("hash"),
@@ -259,6 +261,7 @@ module.exports = grammar({
     keyword_float: _ => make_keyword("float"),
     keyword_double: _ => make_keyword("double"),
     keyword_precision: _ => make_keyword("precision"),
+    keyword_inet: _ => make_keyword("inet"),
 
     keyword_money: _ => make_keyword("money"),
     keyword_varying: _ => make_keyword("varying"),
@@ -356,6 +359,7 @@ module.exports = grammar({
       $.keyword_xml,
 
       $.keyword_bytea,
+      $.keyword_inet,
 
       $.enum,
 
@@ -1327,10 +1331,29 @@ module.exports = grammar({
     ),
 
     _key_constraint: $ => seq(
-      optional($.keyword_unique),
+      optional(
+        choice(
+          $.keyword_unique,
+          $.keyword_foreign,
+        ),
+      ),
       choice($.keyword_key, $.keyword_index),
-      field('name', $.identifier),
+      optional(field('name', $.identifier)),
       $.ordered_columns,
+      optional(
+        seq(
+          $.keyword_references,
+          $.table_reference,
+          $.ordered_columns,
+          optional(
+            seq(
+              $.keyword_on,
+              $.keyword_delete,
+              $.keyword_cascade,
+            ),
+          ),
+        ),
+      ),
     ),
 
     ordered_columns: $ => paren_list(alias($.ordered_column, $.column), true),

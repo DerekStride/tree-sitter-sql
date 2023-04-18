@@ -562,3 +562,40 @@ CREATE UNIQUE INDEX "akRoleName" ON "Role" ("name");
       (ordered_columns
         (column
           (identifier))))))
+
+================================================================================
+Add foreign key constraint
+================================================================================
+
+ALTER TABLE "AccountRole" ADD CONSTRAINT "fkAccountRoleAccount"
+FOREIGN KEY ("accountId") REFERENCES "Account" ("accountId") ON DELETE CASCADE;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_table
+      (keyword_alter)
+      (keyword_table)
+      (table_reference
+        name: (identifier))
+      (add_constraint
+        (keyword_add)
+        (keyword_constraint)
+        (field
+          name: (identifier))
+        (constraint
+          (keyword_foreign)
+          (keyword_key)
+          (ordered_columns
+            (column
+              name: (identifier)))
+          (keyword_references)
+          (table_reference
+            name: (identifier))
+          (ordered_columns
+            (column
+              name: (identifier)))
+          (keyword_on)
+          (keyword_delete)
+          (keyword_cascade))))))

@@ -1416,3 +1416,27 @@ CREATE TABLE "Role" (
             (keyword_varchar))
           (keyword_not)
           (keyword_null))))))
+
+================================================================================
+Inet type
+================================================================================
+
+CREATE TABLE "Session" (
+  "ip" inet NOT NULL
+);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (table_reference
+        name: (identifier))
+      (column_definitions
+        (column_definition
+          name: (identifier)
+          type: (keyword_inet)
+          (keyword_not)
+          (keyword_null))))))
