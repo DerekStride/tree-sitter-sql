@@ -107,6 +107,8 @@ module.exports = grammar({
     keyword_if: _ => make_keyword("if"),
     keyword_exists: _ => make_keyword("exists"),
     keyword_auto_increment: _ => make_keyword("auto_increment"),
+    keyword_generated: _ => make_keyword("generated"),
+    keyword_always: _ => make_keyword("always"),
     keyword_collate: _ => make_keyword("collate"),
     keyword_character: _ => make_keyword("character"),
     keyword_engine: _ => make_keyword("engine"),
@@ -741,7 +743,10 @@ module.exports = grammar({
       optional(
         seq(
           optional($._if_not_exists),
-          $.identifier,
+          choice(
+            $.identifier,
+            alias($._literal_string, $.literal),
+          ),
         ),
       ),
       $.keyword_on,
@@ -795,6 +800,7 @@ module.exports = grammar({
 
     _alter_specifications: $ => choice(
       $.add_column,
+      $.add_constraint,
       $.alter_column,
       $.modify_column,
       $.change_column,
@@ -813,6 +819,13 @@ module.exports = grammar({
       optional($._if_not_exists),
       $.column_definition,
       optional($.column_position),
+    ),
+
+    add_constraint: $ => seq(
+      $.keyword_add,
+      $.keyword_constraint,
+      $.field,
+      $.constraint,
     ),
 
     alter_column: $ => seq(
@@ -988,7 +1001,10 @@ module.exports = grammar({
           '.',
         ),
       ),
-      field('name', $.identifier),
+      choice(
+        field('name', $.identifier),
+        field('name', alias($._literal_string, $.identifier)),
+      ),
     ),
 
     _insert_statement: $ => seq(
@@ -1231,7 +1247,10 @@ module.exports = grammar({
     ),
 
     column_definition: $ => seq(
-      field('name', $.identifier),
+      choice(
+        field('name', $.identifier),
+        field('name', alias($._literal_string, $.identifier)),
+      ),
       field('type', $._type),
       repeat($._column_constraint),
     ),
@@ -1251,6 +1270,11 @@ module.exports = grammar({
         $.keyword_auto_increment,
         $.direction,
         $._column_comment,
+        seq(
+          optional(seq($.keyword_generated, $.keyword_always)),
+          $.keyword_as,
+          $.identifier,
+        ),
     ),
 
     _default_expression: $ => seq(
@@ -1312,7 +1336,10 @@ module.exports = grammar({
     ordered_columns: $ => paren_list(alias($.ordered_column, $.column), true),
 
     ordered_column: $ => seq(
-      field('name', $.identifier),
+      choice(
+        field('name', $.identifier),
+        field('name', alias($._literal_string, $.identifier)),
+      ),
       optional($.direction),
     ),
 

@@ -1,416 +1,426 @@
-==================
+================================================================================
 Alter table and add column
-==================
+================================================================================
 
 ALTER TABLE my_table
   ADD COLUMN val3 VARCHAR(100) NOT NULL;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (alter_table
-   (keyword_alter)
-   (keyword_table)
-   (table_reference name: (identifier))
-   (add_column
-    (keyword_add)
-    (keyword_column)
-    (column_definition
-     name: (identifier)
-     type: (varchar
-      (keyword_varchar)
-      size: (literal))
-     (keyword_not)
-     (keyword_null))
-   ))))
+  (statement
+    (alter_table
+      (keyword_alter)
+      (keyword_table)
+      (table_reference
+        name: (identifier))
+      (add_column
+        (keyword_add)
+        (keyword_column)
+        (column_definition
+          name: (identifier)
+          type: (varchar
+            (keyword_varchar)
+            size: (literal))
+          (keyword_not)
+          (keyword_null))))))
 
-==================
+================================================================================
 Alter table and add column, eliding column keyword
-==================
+================================================================================
 
 ALTER TABLE my_table
   ADD val3 VARCHAR(100) NOT NULL;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (alter_table
-   (keyword_alter)
-   (keyword_table)
-   (table_reference name: (identifier))
-   (add_column
-    (keyword_add)
-    (column_definition
-     name: (identifier)
-     type: (varchar
-      (keyword_varchar)
-      size: (literal))
-     (keyword_not)
-     (keyword_null))
-   ))))
+  (statement
+    (alter_table
+      (keyword_alter)
+      (keyword_table)
+      (table_reference
+        name: (identifier))
+      (add_column
+        (keyword_add)
+        (column_definition
+          name: (identifier)
+          type: (varchar
+            (keyword_varchar)
+            size: (literal))
+          (keyword_not)
+          (keyword_null))))))
 
-==================
+================================================================================
 Alter table and add column first
-==================
+================================================================================
 
 ALTER TABLE my_table
   ADD val3 VARCHAR(100) NOT NULL FIRST;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (alter_table
-   (keyword_alter)
-   (keyword_table)
-   (table_reference name: (identifier))
-   (add_column
-    (keyword_add)
-    (column_definition
-     name: (identifier)
-     type: (varchar
-      (keyword_varchar)
-      size: (literal))
-     (keyword_not)
-     (keyword_null))
-    (column_position
-     (keyword_first))))))
+  (statement
+    (alter_table
+      (keyword_alter)
+      (keyword_table)
+      (table_reference
+        name: (identifier))
+      (add_column
+        (keyword_add)
+        (column_definition
+          name: (identifier)
+          type: (varchar
+            (keyword_varchar)
+            size: (literal))
+          (keyword_not)
+          (keyword_null))
+        (column_position
+          (keyword_first))))))
 
-==================
+================================================================================
 Alter table and add column after column
-==================
+================================================================================
 
 ALTER TABLE my_table
   ADD val3 VARCHAR(100) NOT NULL AFTER val2;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (alter_table
-   (keyword_alter)
-   (keyword_table)
-   (table_reference name: (identifier))
-   (add_column
-    (keyword_add)
-    (column_definition
-     name: (identifier)
-     type: (varchar
-      (keyword_varchar)
-      size: (literal))
-     (keyword_not)
-     (keyword_null))
-    (column_position
-     (keyword_after)
-     col_name: (identifier))))))
+  (statement
+    (alter_table
+      (keyword_alter)
+      (keyword_table)
+      (table_reference
+        name: (identifier))
+      (add_column
+        (keyword_add)
+        (column_definition
+          name: (identifier)
+          type: (varchar
+            (keyword_varchar)
+            size: (literal))
+          (keyword_not)
+          (keyword_null))
+        (column_position
+          (keyword_after)
+          col_name: (identifier))))))
 
-==================
+================================================================================
 Alter table and alter column setting default
-==================
+================================================================================
 
 ALTER TABLE my_table
   ALTER COLUMN val3 SET DEFAULT 'hi';
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (alter_table
-   (keyword_alter)
-   (keyword_table)
-   (table_reference name: (identifier))
-   (alter_column
-    (keyword_alter)
-    (keyword_column)
-    name: (identifier)
-    (keyword_set)
-    (keyword_default)
-    (literal)
-  ))))
+  (statement
+    (alter_table
+      (keyword_alter)
+      (keyword_table)
+      (table_reference
+        name: (identifier))
+      (alter_column
+        (keyword_alter)
+        (keyword_column)
+        name: (identifier)
+        (keyword_set)
+        (keyword_default)
+        (literal)))))
 
-==================
+================================================================================
 Alter table and alter column dropping default
-==================
+================================================================================
 
 ALTER TABLE my_table
   ALTER COLUMN val3 DROP DEFAULT;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (alter_table
-   (keyword_alter)
-   (keyword_table)
-   (table_reference name: (identifier))
-   (alter_column
-    (keyword_alter)
-    (keyword_column)
-    name: (identifier)
-    (keyword_drop)
-    (keyword_default)
-  ))))
+  (statement
+    (alter_table
+      (keyword_alter)
+      (keyword_table)
+      (table_reference
+        name: (identifier))
+      (alter_column
+        (keyword_alter)
+        (keyword_column)
+        name: (identifier)
+        (keyword_drop)
+        (keyword_default)))))
 
-==================
+================================================================================
 Alter table and alter column changing type
-==================
+================================================================================
 
 ALTER TABLE my_table
   ALTER COLUMN val3 TYPE VARCHAR(255);
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (alter_table
-   (keyword_alter)
-   (keyword_table)
-   (table_reference name: (identifier))
-   (alter_column
-    (keyword_alter)
-    (keyword_column)
-    name: (identifier)
-    (keyword_type)
-    type: (varchar (keyword_varchar) size: (literal)))
-  )))
+  (statement
+    (alter_table
+      (keyword_alter)
+      (keyword_table)
+      (table_reference
+        name: (identifier))
+      (alter_column
+        (keyword_alter)
+        (keyword_column)
+        name: (identifier)
+        (keyword_type)
+        type: (varchar
+          (keyword_varchar)
+          size: (literal))))))
 
-==================
+================================================================================
 Alter table and modify column changing type and position
-==================
+================================================================================
 
 ALTER TABLE my_table
   MODIFY COLUMN IF EXISTS val6 INT UNSIGNED NOT NULL AFTER val3;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (alter_table
-   (keyword_alter)
-   (keyword_table)
-   (table_reference
-    name: (identifier))
-   (modify_column
-    (keyword_modify)
-    (keyword_column)
-    (keyword_if)
-    (keyword_exists)
-    (column_definition
-     name: (identifier)
-     type: (int 
-      (keyword_int)
-      (keyword_unsigned))
-     (keyword_not)
-     (keyword_null))
-    (column_position
-     (keyword_after)
-     col_name: (identifier))))))
+  (statement
+    (alter_table
+      (keyword_alter)
+      (keyword_table)
+      (table_reference
+        name: (identifier))
+      (modify_column
+        (keyword_modify)
+        (keyword_column)
+        (keyword_if)
+        (keyword_exists)
+        (column_definition
+          name: (identifier)
+          type: (int
+            (keyword_int)
+            (keyword_unsigned))
+          (keyword_not)
+          (keyword_null))
+        (column_position
+          (keyword_after)
+          col_name: (identifier))))))
 
-==================
+================================================================================
 Alter table and change column renaming and changing type
-==================
+================================================================================
 
 ALTER TABLE my_table
   CHANGE COLUMN IF EXISTS val3 val4 INT UNSIGNED NOT NULL;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (alter_table
-   (keyword_alter)
-   (keyword_table)
-   (table_reference name: (identifier))
-   (change_column
-    (keyword_change)
-    (keyword_column)
-    (keyword_if)
-    (keyword_exists)
-    old_name: (identifier)
-    (column_definition
-     name: (identifier)
-     type: (int 
-      (keyword_int)
-      (keyword_unsigned))
-     (keyword_not)
-     (keyword_null))))))
+  (statement
+    (alter_table
+      (keyword_alter)
+      (keyword_table)
+      (table_reference
+        name: (identifier))
+      (change_column
+        (keyword_change)
+        (keyword_column)
+        (keyword_if)
+        (keyword_exists)
+        old_name: (identifier)
+        (column_definition
+          name: (identifier)
+          type: (int
+            (keyword_int)
+            (keyword_unsigned))
+          (keyword_not)
+          (keyword_null))))))
 
-==================
+================================================================================
 Alter table and alter column changing type, eliding column keyword
-==================
+================================================================================
 
 ALTER TABLE my_table
   ALTER val3 TYPE VARCHAR(255);
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (alter_table
-   (keyword_alter)
-   (keyword_table)
-   (table_reference name: (identifier))
-   (alter_column
-    (keyword_alter)
-    name: (identifier)
-    (keyword_type)
-    type: (varchar (keyword_varchar) size: (literal)))
-  )))
+  (statement
+    (alter_table
+      (keyword_alter)
+      (keyword_table)
+      (table_reference
+        name: (identifier))
+      (alter_column
+        (keyword_alter)
+        name: (identifier)
+        (keyword_type)
+        type: (varchar
+          (keyword_varchar)
+          size: (literal))))))
 
-==================
+================================================================================
 Alter table and alter column dropping not-null constraint
-==================
+================================================================================
 
 ALTER TABLE my_table
   ALTER COLUMN val3 DROP NOT NULL;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (alter_table
-   (keyword_alter)
-   (keyword_table)
-   (table_reference name: (identifier))
-   (alter_column
-    (keyword_alter)
-    (keyword_column)
-    name: (identifier)
-    (keyword_drop)
-    (keyword_not)
-    (keyword_null)))))
+  (statement
+    (alter_table
+      (keyword_alter)
+      (keyword_table)
+      (table_reference
+        name: (identifier))
+      (alter_column
+        (keyword_alter)
+        (keyword_column)
+        name: (identifier)
+        (keyword_drop)
+        (keyword_not)
+        (keyword_null)))))
 
-==================
+================================================================================
 Alter table and drop column
-==================
+================================================================================
 
 ALTER TABLE my_table
   DROP COLUMN val3;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (alter_table
-   (keyword_alter)
-   (keyword_table)
-   (table_reference name: (identifier))
-   (drop_column
-    (keyword_drop)
-    (keyword_column)
-    name: (identifier))
-  )))
+  (statement
+    (alter_table
+      (keyword_alter)
+      (keyword_table)
+      (table_reference
+        name: (identifier))
+      (drop_column
+        (keyword_drop)
+        (keyword_column)
+        name: (identifier)))))
 
-==================
+================================================================================
 Alter table and drop column, eliding column keyword
-==================
+================================================================================
 
 ALTER TABLE my_table
   DROP val3;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (alter_table
-   (keyword_alter)
-   (keyword_table)
-   (table_reference name: (identifier))
-   (drop_column
-    (keyword_drop)
-    name: (identifier))
-  )))
+  (statement
+    (alter_table
+      (keyword_alter)
+      (keyword_table)
+      (table_reference
+        name: (identifier))
+      (drop_column
+        (keyword_drop)
+        name: (identifier)))))
 
-==================
+================================================================================
 Alter table and rename column
-==================
+================================================================================
 
 ALTER TABLE my_table
   RENAME COLUMN val3 TO valthree;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (alter_table
-   (keyword_alter)
-   (keyword_table)
-   (table_reference name: (identifier))
-   (rename_column
-    (keyword_rename)
-    (keyword_column)
-    old_name: (identifier)
-    (keyword_to)
-    new_name: (identifier)))))
+  (statement
+    (alter_table
+      (keyword_alter)
+      (keyword_table)
+      (table_reference
+        name: (identifier))
+      (rename_column
+        (keyword_rename)
+        (keyword_column)
+        old_name: (identifier)
+        (keyword_to)
+        new_name: (identifier)))))
 
-==================
+================================================================================
 Alter and rename table
-==================
+================================================================================
 
 ALTER TABLE my_table
   RENAME TO my_new_and_improved_table;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (alter_table
-   (keyword_alter)
-   (keyword_table)
-   (table_reference name: (identifier))
-   (rename_object
-    (keyword_rename)
-    (keyword_to)
-    (table_reference name: (identifier))
-   ))))
+  (statement
+    (alter_table
+      (keyword_alter)
+      (keyword_table)
+      (table_reference
+        name: (identifier))
+      (rename_object
+        (keyword_rename)
+        (keyword_to)
+        (table_reference
+          name: (identifier))))))
 
-==================
+================================================================================
 Alter table and set schema
-==================
+================================================================================
 
 ALTER TABLE my_table
   SET SCHEMA new_schema;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (alter_table
-   (keyword_alter)
-   (keyword_table)
-   (table_reference name: (identifier))
-   (set_schema
-    (keyword_set)
-    (keyword_schema)
-    schema: (identifier)
-   ))))
+  (statement
+    (alter_table
+      (keyword_alter)
+      (keyword_table)
+      (table_reference
+        name: (identifier))
+      (set_schema
+        (keyword_set)
+        (keyword_schema)
+        schema: (identifier)))))
 
-==================
+================================================================================
 Alter table and change owner
-==================
+================================================================================
 
 ALTER TABLE my_table
   OWNER TO someone_else;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (alter_table
-   (keyword_alter)
-   (keyword_table)
-   (table_reference name: (identifier))
-   (change_ownership
-    (keyword_owner)
-    (keyword_to)
-    (identifier)
-   ))))
+  (statement
+    (alter_table
+      (keyword_alter)
+      (keyword_table)
+      (table_reference
+        name: (identifier))
+      (change_ownership
+        (keyword_owner)
+        (keyword_to)
+        (identifier)))))
 
-==================
+================================================================================
 Alter table and multiple
-==================
+================================================================================
 
 ALTER TABLE IF EXISTS my_table
   ADD COLUMN IF NOT EXISTS val4 DATE,
@@ -418,85 +428,137 @@ ALTER TABLE IF EXISTS my_table
   RENAME COLUMN val6 TO val7,
   DROP COLUMN IF EXISTS val8;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (alter_table
-   (keyword_alter)
-   (keyword_table)
-   (keyword_if)
-   (keyword_exists)
-   (table_reference name: (identifier))
-   (add_column
-    (keyword_add)
-    (keyword_column)
-    (keyword_if)
-    (keyword_not)
-    (keyword_exists)
-    (column_definition name: (identifier) type: (keyword_date)))
-   (alter_column
-    (keyword_alter)
-    (keyword_column)
-    name: (identifier)
-    (keyword_drop)
-    (keyword_not)
-    (keyword_null))
-   (comment)
-   (rename_column
-    (keyword_rename)
-    (keyword_column)
-    old_name: (identifier)
-    (keyword_to)
-    new_name: (identifier))
-   (drop_column
-    (keyword_drop)
-    (keyword_column)
-    (keyword_if)
-    (keyword_exists)
-    name: (identifier))
-  )))
+  (statement
+    (alter_table
+      (keyword_alter)
+      (keyword_table)
+      (keyword_if)
+      (keyword_exists)
+      (table_reference
+        name: (identifier))
+      (add_column
+        (keyword_add)
+        (keyword_column)
+        (keyword_if)
+        (keyword_not)
+        (keyword_exists)
+        (column_definition
+          name: (identifier)
+          type: (keyword_date)))
+      (alter_column
+        (keyword_alter)
+        (keyword_column)
+        name: (identifier)
+        (keyword_drop)
+        (keyword_not)
+        (keyword_null))
+      (comment)
+      (rename_column
+        (keyword_rename)
+        (keyword_column)
+        old_name: (identifier)
+        (keyword_to)
+        new_name: (identifier))
+      (drop_column
+        (keyword_drop)
+        (keyword_column)
+        (keyword_if)
+        (keyword_exists)
+        name: (identifier)))))
 
-==================
+================================================================================
 Alter view and change owner
-==================
+================================================================================
 
 ALTER VIEW my_view
   OWNER TO someone_else;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (alter_view
-   (keyword_alter)
-   (keyword_view)
-   (table_reference name: (identifier))
-   (change_ownership
-    (keyword_owner)
-    (keyword_to)
-    (identifier)
-   ))))
+  (statement
+    (alter_view
+      (keyword_alter)
+      (keyword_view)
+      (table_reference
+        name: (identifier))
+      (change_ownership
+        (keyword_owner)
+        (keyword_to)
+        (identifier)))))
 
-==================
+================================================================================
 Alter view and rename
-==================
+================================================================================
 
 ALTER VIEW IF EXISTS my_view
   RENAME TO my_other_view;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (alter_view
-   (keyword_alter)
-   (keyword_view)
-   (keyword_if)
-   (keyword_exists)
-   (table_reference name: (identifier))
-   (rename_object
-    (keyword_rename)
-    (keyword_to)
-    (table_reference name: (identifier))
-   ))))
+  (statement
+    (alter_view
+      (keyword_alter)
+      (keyword_view)
+      (keyword_if)
+      (keyword_exists)
+      (table_reference
+        name: (identifier))
+      (rename_object
+        (keyword_rename)
+        (keyword_to)
+        (table_reference
+          name: (identifier))))))
+
+================================================================================
+alter with constraint
+================================================================================
+
+ALTER TABLE "Role" ADD CONSTRAINT "pkRole" PRIMARY KEY ("roleId");
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_table
+      (keyword_alter)
+      (keyword_table)
+      (table_reference
+        name: (identifier))
+      (add_constraint
+        (keyword_add)
+        (keyword_constraint)
+        (field
+          name: (identifier))
+        (constraint
+          (keyword_primary)
+          (keyword_key)
+          (ordered_columns
+            (column
+              name: (identifier))))))))
+
+================================================================================
+CREATE UNIQUE INDEX
+================================================================================
+
+CREATE UNIQUE INDEX "akRoleName" ON "Role" ("name");
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_index
+      (keyword_create)
+      (keyword_unique)
+      (keyword_index)
+      (literal)
+      (keyword_on)
+      (table_reference
+        (identifier))
+      (ordered_columns
+        (column
+          (identifier))))))

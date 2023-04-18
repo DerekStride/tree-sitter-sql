@@ -957,11 +957,11 @@ CREATE TABLE type_test (
           type: (keyword_bytea))
         (column_definition
           name: (identifier)
-          type: (enum 
-                  (keyword_enum)
-                  value: (literal)
-                  value: (literal)
-                  value: (literal)))
+          type: (enum
+            (keyword_enum)
+            value: (literal)
+            value: (literal)
+            value: (literal)))
         (column_definition
           name: (identifier)
           type: (keyword_date))
@@ -1357,3 +1357,62 @@ CACHED IN 'pool1' WITH REPLICATION = 2
         (keyword_with)
         (keyword_replication)
         value: (literal)))))
+
+================================================================================
+Create table with string name
+================================================================================
+
+CREATE TABLE "Role" (
+    id BIGINT NOT NULL
+);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (table_reference
+        name: (identifier))
+      (column_definitions
+        (column_definition
+          name: (identifier)
+          type: (bigint
+            (keyword_bigint))
+          (keyword_not)
+          (keyword_null))))))
+
+================================================================================
+Create table with generated always
+================================================================================
+
+CREATE TABLE "Role" (
+  "roleId" bigint generated always as identity,
+  "name" varchar NOT NULL
+);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (table_reference
+        name: (identifier))
+      (column_definitions
+        (column_definition
+          name: (identifier)
+          type: (bigint
+            (keyword_bigint))
+          (keyword_generated)
+          (keyword_always)
+          (keyword_as)
+          (identifier))
+        (column_definition
+          name: (identifier)
+          type: (varchar
+            (keyword_varchar))
+          (keyword_not)
+          (keyword_null))))))
