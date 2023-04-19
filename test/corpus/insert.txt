@@ -37,7 +37,7 @@ VALUES('foo','bar', 3);
       (table_reference
         name: (identifier))
       (keyword_as)
-       table_alias: (identifier)
+      table_alias: (identifier)
       (keyword_values)
       (list
         (literal)
@@ -62,11 +62,11 @@ VALUES ('foo', 123, '2020');
         name: (identifier))
       (list
         (column
-          name: (identifier))
+          (identifier))
         (column
-          name: (identifier))
+          (identifier))
         (column
-          name: (identifier)))
+          (identifier)))
       (keyword_values)
       (list
         (literal)
@@ -92,11 +92,11 @@ FROM my_other_table;
         name: (identifier))
       (list
         (column
-          name: (identifier))
+          (identifier))
         (column
-          name: (identifier))
+          (identifier))
         (column
-          name: (identifier)))
+          (identifier)))
       (select
         (keyword_select)
         (select_expression
@@ -404,4 +404,3 @@ VALUES('foo','bar', 3);
         (literal)
         (literal)
         (literal)))))
-

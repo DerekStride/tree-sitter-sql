@@ -994,9 +994,9 @@ JOIN my_other_table b USING (q, w);
         (keyword_using)
         (list
           (column
-            name: (identifier))
+            (identifier))
           (column
-            name: (identifier)))))))
+            (identifier)))))))
 
 ================================================================================
 Join a VALUES clause
@@ -1034,9 +1034,9 @@ JOIN (VALUES (1, 2), (3, 4)) AS v (col1, col2) ON TRUE;
           table_alias: (identifier)
           (list
             (column
-              name: (identifier))
+              (identifier))
             (column
-              name: (identifier))))
+              (identifier))))
         (keyword_on)
         predicate: (literal
           (keyword_true))))))

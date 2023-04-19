@@ -1077,7 +1077,10 @@ module.exports = grammar({
     ),
 
     _column_list: $ => paren_list(alias($._column, $.column), true),
-    _column: $ => field('name', $.identifier),
+    _column: $ => choice(
+      $.identifier,
+      alias($._literal_string, $.literal),
+    ),
 
     _update_statement: $ => seq(
       $.update,

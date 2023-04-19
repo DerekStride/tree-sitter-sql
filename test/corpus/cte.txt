@@ -73,9 +73,9 @@ FROM second;
             name: (identifier))
           (list
             (column
-              name: (identifier))
+              (identifier))
             (column
-              name: (identifier)))
+              (identifier)))
           (keyword_values)
           (list
             (literal)
