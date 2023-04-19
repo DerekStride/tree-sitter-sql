@@ -539,7 +539,7 @@ ALTER TABLE "Role" ADD CONSTRAINT "pkRole" PRIMARY KEY ("roleId");
           (keyword_key)
           (ordered_columns
             (column
-              name: (identifier))))))))
+              name: (literal))))))))
 
 ================================================================================
 CREATE UNIQUE INDEX
@@ -561,7 +561,7 @@ CREATE UNIQUE INDEX "akRoleName" ON "Role" ("name");
         (identifier))
       (ordered_columns
         (column
-          (identifier))))))
+          (literal))))))
 
 ================================================================================
 Add foreign key constraint
@@ -589,13 +589,13 @@ FOREIGN KEY ("accountId") REFERENCES "Account" ("accountId") ON DELETE CASCADE;
           (keyword_key)
           (ordered_columns
             (column
-              name: (identifier)))
+              name: (literal)))
           (keyword_references)
           (table_reference
             name: (identifier))
           (ordered_columns
             (column
-              name: (identifier)))
+              name: (literal)))
           (keyword_on)
           (keyword_delete)
           (keyword_cascade))))))

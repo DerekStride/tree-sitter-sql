@@ -1403,7 +1403,7 @@ CREATE TABLE "Role" (
         name: (identifier))
       (column_definitions
         (column_definition
-          name: (identifier)
+          name: (literal)
           type: (bigint
             (keyword_bigint))
           (keyword_generated)
@@ -1411,7 +1411,7 @@ CREATE TABLE "Role" (
           (keyword_as)
           (identifier))
         (column_definition
-          name: (identifier)
+          name: (literal)
           type: (varchar
             (keyword_varchar))
           (keyword_not)
@@ -1436,7 +1436,7 @@ CREATE TABLE "Session" (
         name: (identifier))
       (column_definitions
         (column_definition
-          name: (identifier)
+          name: (literal)
           type: (keyword_inet)
           (keyword_not)
           (keyword_null))))))
