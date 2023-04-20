@@ -39,6 +39,33 @@
     }
   },
   {
+    "type": "add_constraint",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "constraint",
+          "named": true
+        },
+        {
+          "type": "field",
+          "named": true
+        },
+        {
+          "type": "keyword_add",
+          "named": true
+        },
+        {
+          "type": "keyword_constraint",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "all_fields",
     "named": true,
     "fields": {
@@ -152,6 +179,10 @@
           },
           {
             "type": "keyword_geometry",
+            "named": true
+          },
+          {
+            "type": "keyword_inet",
             "named": true
           },
           {
@@ -370,6 +401,10 @@
       "types": [
         {
           "type": "add_column",
+          "named": true
+        },
+        {
+          "type": "add_constraint",
           "named": true
         },
         {
@@ -1592,6 +1627,10 @@
           "named": true
         },
         {
+          "type": "keyword_inet",
+          "named": true
+        },
+        {
           "type": "keyword_interval",
           "named": true
         },
@@ -1811,10 +1850,14 @@
     "fields": {
       "name": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "literal",
             "named": true
           }
         ]
@@ -1826,6 +1869,14 @@
       "types": [
         {
           "type": "direction",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "literal",
           "named": true
         }
       ]
@@ -1841,6 +1892,10 @@
         "types": [
           {
             "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "literal",
             "named": true
           }
         ]
@@ -1919,6 +1974,10 @@
           },
           {
             "type": "keyword_geometry",
+            "named": true
+          },
+          {
+            "type": "keyword_inet",
             "named": true
           },
           {
@@ -2037,7 +2096,19 @@
           "named": true
         },
         {
+          "type": "identifier",
+          "named": true
+        },
+        {
           "type": "invocation",
+          "named": true
+        },
+        {
+          "type": "keyword_always",
+          "named": true
+        },
+        {
+          "type": "keyword_as",
           "named": true
         },
         {
@@ -2054,6 +2125,10 @@
         },
         {
           "type": "keyword_default",
+          "named": true
+        },
+        {
+          "type": "keyword_generated",
           "named": true
         },
         {
@@ -2184,7 +2259,19 @@
       "required": true,
       "types": [
         {
+          "type": "keyword_cascade",
+          "named": true
+        },
+        {
           "type": "keyword_constraint",
+          "named": true
+        },
+        {
+          "type": "keyword_delete",
+          "named": true
+        },
+        {
+          "type": "keyword_foreign",
           "named": true
         },
         {
@@ -2196,7 +2283,15 @@
           "named": true
         },
         {
+          "type": "keyword_on",
+          "named": true
+        },
+        {
           "type": "keyword_primary",
+          "named": true
+        },
+        {
+          "type": "keyword_references",
           "named": true
         },
         {
@@ -2205,6 +2300,10 @@
         },
         {
           "type": "ordered_columns",
+          "named": true
+        },
+        {
+          "type": "table_reference",
           "named": true
         }
       ]
@@ -2344,15 +2443,26 @@
   {
     "type": "create_index",
     "named": true,
-    "fields": {},
+    "fields": {
+      "column": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": true,
       "types": [
-        {
-          "type": "identifier",
-          "named": true
-        },
         {
           "type": "keyword_brin",
           "named": true
@@ -6390,6 +6500,10 @@
     "named": true
   },
   {
+    "type": "keyword_always",
+    "named": true
+  },
+  {
     "type": "keyword_and",
     "named": true
   },
@@ -6658,6 +6772,10 @@
     "named": true
   },
   {
+    "type": "keyword_foreign",
+    "named": true
+  },
+  {
     "type": "keyword_format",
     "named": true
   },
@@ -6667,6 +6785,10 @@
   },
   {
     "type": "keyword_full",
+    "named": true
+  },
+  {
+    "type": "keyword_generated",
     "named": true
   },
   {
@@ -6723,6 +6845,10 @@
   },
   {
     "type": "keyword_index",
+    "named": true
+  },
+  {
+    "type": "keyword_inet",
     "named": true
   },
   {
@@ -6923,6 +7049,10 @@
   },
   {
     "type": "keyword_recursive",
+    "named": true
+  },
+  {
+    "type": "keyword_references",
     "named": true
   },
   {
