@@ -107,6 +107,8 @@ module.exports = grammar({
     keyword_if: _ => make_keyword("if"),
     keyword_exists: _ => make_keyword("exists"),
     keyword_auto_increment: _ => make_keyword("auto_increment"),
+    keyword_generated: _ => make_keyword("generated"),
+    keyword_always: _ => make_keyword("always"),
     keyword_collate: _ => make_keyword("collate"),
     keyword_character: _ => make_keyword("character"),
     keyword_engine: _ => make_keyword("engine"),
@@ -155,6 +157,8 @@ module.exports = grammar({
     keyword_others: _ => make_keyword("others"),
     keyword_only: _ => make_keyword("only"),
     keyword_unique: _ => make_keyword("unique"),
+    keyword_foreign: _ => make_keyword("foreign"),
+    keyword_references: _ => make_keyword("references"),
     keyword_concurrently: _ => make_keyword("concurrently"),
     keyword_btree: _ => make_keyword("btree"),
     keyword_hash: _ => make_keyword("hash"),
@@ -257,6 +261,7 @@ module.exports = grammar({
     keyword_float: _ => make_keyword("float"),
     keyword_double: _ => make_keyword("double"),
     keyword_precision: _ => make_keyword("precision"),
+    keyword_inet: _ => make_keyword("inet"),
 
     keyword_money: _ => make_keyword("money"),
     keyword_varying: _ => make_keyword("varying"),
@@ -354,6 +359,7 @@ module.exports = grammar({
       $.keyword_xml,
 
       $.keyword_bytea,
+      $.keyword_inet,
 
       $.enum,
 
@@ -741,7 +747,7 @@ module.exports = grammar({
       optional(
         seq(
           optional($._if_not_exists),
-          $.identifier,
+          field("column", $._column),
         ),
       ),
       $.keyword_on,
@@ -795,6 +801,7 @@ module.exports = grammar({
 
     _alter_specifications: $ => choice(
       $.add_column,
+      $.add_constraint,
       $.alter_column,
       $.modify_column,
       $.change_column,
@@ -813,6 +820,13 @@ module.exports = grammar({
       optional($._if_not_exists),
       $.column_definition,
       optional($.column_position),
+    ),
+
+    add_constraint: $ => seq(
+      $.keyword_add,
+      $.keyword_constraint,
+      $.field,
+      $.constraint,
     ),
 
     alter_column: $ => seq(
@@ -988,7 +1002,10 @@ module.exports = grammar({
           '.',
         ),
       ),
-      field('name', $.identifier),
+      choice(
+        field('name', $.identifier),
+        field('name', alias($._literal_string, $.identifier)),
+      ),
     ),
 
     _insert_statement: $ => seq(
@@ -1057,7 +1074,10 @@ module.exports = grammar({
     ),
 
     _column_list: $ => paren_list(alias($._column, $.column), true),
-    _column: $ => field('name', $.identifier),
+    _column: $ => choice(
+      $.identifier,
+      alias($._literal_string, $.literal),
+    ),
 
     _update_statement: $ => seq(
       $.update,
@@ -1231,7 +1251,7 @@ module.exports = grammar({
     ),
 
     column_definition: $ => seq(
-      field('name', $.identifier),
+      field('name', $._column),
       field('type', $._type),
       repeat($._column_constraint),
     ),
@@ -1251,6 +1271,11 @@ module.exports = grammar({
         $.keyword_auto_increment,
         $.direction,
         $._column_comment,
+        seq(
+          optional(seq($.keyword_generated, $.keyword_always)),
+          $.keyword_as,
+          $.identifier,
+        ),
     ),
 
     _default_expression: $ => seq(
@@ -1303,16 +1328,35 @@ module.exports = grammar({
     ),
 
     _key_constraint: $ => seq(
-      optional($.keyword_unique),
+      optional(
+        choice(
+          $.keyword_unique,
+          $.keyword_foreign,
+        ),
+      ),
       choice($.keyword_key, $.keyword_index),
-      field('name', $.identifier),
+      optional(field('name', $.identifier)),
       $.ordered_columns,
+      optional(
+        seq(
+          $.keyword_references,
+          $.table_reference,
+          $.ordered_columns,
+          optional(
+            seq(
+              $.keyword_on,
+              $.keyword_delete,
+              $.keyword_cascade,
+            ),
+          ),
+        ),
+      ),
     ),
 
     ordered_columns: $ => paren_list(alias($.ordered_column, $.column), true),
 
     ordered_column: $ => seq(
-      field('name', $.identifier),
+      field('name', $._column),
       optional($.direction),
     ),
 
