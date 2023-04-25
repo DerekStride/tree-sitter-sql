@@ -686,3 +686,39 @@ FROM
       (relation
         (table_reference
           (identifier))))))
+
+================================================================================
+Window function with empty count as aggregation
+================================================================================
+
+SELECT
+  count(*) OVER (PARTITION BY c) AS w1
+FROM tab1
+;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (window_function
+            (count
+              (keyword_count)
+              (all_fields))
+            (keyword_over)
+            (window_specification
+              (partition_by
+                (keyword_partition)
+                (keyword_by)
+                (field
+                  (identifier)))))
+          (keyword_as)
+          (identifier))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          (identifier))))))

@@ -1645,7 +1645,10 @@ module.exports = grammar({
     ),
 
     window_function: $ => seq(
-        $.invocation,
+        choice(
+          $.invocation,
+          $.count,
+        ),
         $.keyword_over,
         choice(
             $.identifier,
