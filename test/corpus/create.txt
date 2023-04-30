@@ -520,7 +520,6 @@ CREATE TABLE my_table (
             (keyword_null))
           (direction
             (keyword_asc))))
-      (table_options
         (table_option
           name: (keyword_engine)
           value: (identifier))
@@ -531,7 +530,7 @@ CREATE TABLE my_table (
           value: (identifier))
         (table_option
           name: (identifier)
-          value: (identifier))))))
+          value: (identifier)))))
 
 ================================================================================
 Create view
@@ -1107,7 +1106,6 @@ CREATE TABLE some_table(
                 name: (identifier))
               (column
                 name: (identifier))))))
-      (table_options
         (table_option
           (keyword_default)
           (keyword_character)
@@ -1118,7 +1116,7 @@ CREATE TABLE some_table(
           (identifier))
         (table_option
           name: (keyword_engine)
-          value: (identifier))))))
+          value: (identifier)))))
 
 ================================================================================
 Create table as select

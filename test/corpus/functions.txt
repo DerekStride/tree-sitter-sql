@@ -414,7 +414,7 @@ return 1;
    (identifier)
    (keyword_returns)
    (int (keyword_int))
-   (function_language)
+   (function_language (keyword_sql))
    (function_body
     (keyword_return)
     (literal)))))
@@ -449,7 +449,7 @@ return 1;
      (keyword_text)))
    (keyword_returns)
    (int (keyword_int))
-   (function_language)
+   (function_language (keyword_sql))
    (function_body
     (keyword_return)
     (literal)))))
@@ -459,13 +459,14 @@ Function details
 ================================================================================
 
 create or replace function public.fn()
- returns int
- language sql
- immutable
- parallel safe
- strict
- cost 100
- rows 1
+  returns int
+  language sql
+  immutable
+  parallel safe
+  leakproof
+  strict
+  cost 100
+  rows 1
 return 1;
 
 --------------------------------------------------------------------------------
@@ -481,23 +482,140 @@ return 1;
    (identifier)
    (keyword_returns)
    (int (keyword_int))
-   (function_language)
-   (function_volatility)
-   (function_safety)
-   (function_strictness)
-   (function_cost)
-   (function_rows)
+   (function_language (keyword_sql))
+   (function_volatility (keyword_immutable))
+   (function_safety (keyword_parallel) (keyword_safe))
+   (function_leakproof (keyword_leakproof))
+   (function_strictness (keyword_strict))
+   (function_cost (keyword_cost))
+   (function_rows (keyword_rows))
    (function_body
     (keyword_return)
     (literal)))))
+
+================================================================================
+Function details, specified after string body
+================================================================================
+
+create or replace function public.fn()
+  returns int
+  as $$select 1$$
+  language sql
+  volatile
+  parallel restricted
+  not leakproof
+  returns null on null input
+  cost 100
+  rows 1;
+
+--------------------------------------------------------------------------------
+
+(program
+ (statement
+  (create_function
+   (keyword_create)
+   (keyword_or)
+   (keyword_replace)
+   (keyword_function)
+   schema: (identifier)
+   name: (identifier)
+   (keyword_returns)
+   (int (keyword_int))
+   (function_body
+    (keyword_as)
+    (dollar_quote)
+    (statement
+     (select
+      (keyword_select)
+      (select_expression
+       (term
+        value: (literal)))))
+    (dollar_quote))
+   (function_language (keyword_sql))
+   (function_volatility (keyword_volatile))
+  (function_safety (keyword_parallel) (keyword_restricted))
+  (function_leakproof (keyword_not) (keyword_leakproof))
+  (function_strictness (keyword_returns) (keyword_null) (keyword_on) (keyword_null) (keyword_input))
+  (function_cost (keyword_cost))
+(function_rows (keyword_rows)))))
+
+================================================================================
+With a string body
+================================================================================
+
+create or replace function public.fn()
+  returns int
+  language sql
+as 'select 1;';
+
+--------------------------------------------------------------------------------
+
+(program
+ (statement
+  (create_function
+   (keyword_create)
+   (keyword_or)
+   (keyword_replace)
+   (keyword_function)
+   (identifier)
+   (identifier)
+   (keyword_returns)
+   (int (keyword_int))
+   (function_language (keyword_sql))
+   (function_body
+    (keyword_as)
+    (statement
+     (select
+      (keyword_select)
+      (select_expression
+       (term
+        (literal)))))))))
+
+================================================================================
+Precedence between string body and `create table` with string options
+================================================================================
+
+create or replace function public.fn()
+  returns int
+  language sql
+as 'create table x (id int) row_format=dynamic';
+
+--------------------------------------------------------------------------------
+
+(program
+ (statement
+  (create_function
+   (keyword_create)
+   (keyword_or)
+   (keyword_replace)
+   (keyword_function)
+   (identifier)
+   (identifier)
+   (keyword_returns)
+   (int (keyword_int))
+   (function_language (keyword_sql))
+   (function_body
+    (keyword_as)
+    (statement
+     (create_table
+      (keyword_create)
+      (keyword_table)
+      (table_reference
+       (identifier))
+      (column_definitions
+       (column_definition
+        (identifier)
+        (int
+         (keyword_int))))
+      (table_option (identifier) (identifier))))))))
 
 ================================================================================
 With `begin atomic`
 ================================================================================
 
 create or replace function public.fn()
- returns int
- language sql
+  returns int
+  language sql
 begin atomic
   return 1;
 end;
@@ -515,7 +633,7 @@ end;
    (identifier)
    (keyword_returns)
    (int (keyword_int))
-   (function_language)
+   (function_language (keyword_sql))
    (function_body
     (keyword_begin)
     (keyword_atomic)
@@ -528,8 +646,8 @@ Dollar quoting a simple PLPGSQL body
 ================================================================================
 
 create or replace function public.fn()
- returns int
- language plpgsql
+  returns int
+  language plpgsql
 as $function$
 begin
   return 1;
@@ -549,7 +667,7 @@ $function$;
    (identifier)
    (keyword_returns)
    (int (keyword_int))
-   (function_language)
+   (function_language (keyword_plpgsql))
    (function_body
     (keyword_as)
     (dollar_quote)
@@ -564,8 +682,8 @@ Variable declarations
 ================================================================================
 
 create or replace function public.fn()
- returns int
- language plpgsql
+  returns int
+  language plpgsql
 as $function$
 declare
   one int;
@@ -589,7 +707,7 @@ $function$;
    (identifier)
    (keyword_returns)
    (int (keyword_int))
-   (function_language)
+   (function_language (keyword_plpgsql))
    (function_body
     (keyword_as)
     (dollar_quote)
@@ -621,8 +739,8 @@ More complex function body
 ================================================================================
 
 create or replace function public.do_stuff()
- returns trigger
- language plpgsql
+  returns trigger
+  language plpgsql
 as $function$
 begin
 
@@ -666,7 +784,7 @@ $function$
    (identifier)
    (keyword_returns)
    (keyword_trigger)
-   (function_language)
+   (function_language (keyword_plpgsql))
    (function_body
     (keyword_as)
     (dollar_quote)

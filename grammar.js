@@ -191,6 +191,24 @@ module.exports = grammar({
     keyword_setof: _ => make_keyword("setof"),
     keyword_atomic: _ => make_keyword("atomic"),
     keyword_declare: _ => make_keyword("declare"),
+    keyword_language: _ => make_keyword("language"),
+    keyword_sql: _ => make_keyword("sql"),
+    keyword_plpgsql: _ => make_keyword("plpgsql"),
+    keyword_immutable: _ => make_keyword("immutable"),
+    keyword_stable: _ => make_keyword("stable"),
+    keyword_volatile: _ => make_keyword("volatile"),
+    keyword_leakproof: _ => make_keyword("leakproof"),
+    keyword_parallel: _ => make_keyword("parallel"),
+    keyword_safe: _ => make_keyword("safe"),
+    keyword_unsafe: _ => make_keyword("unsafe"),
+    keyword_restricted: _ => make_keyword("restricted"),
+    keyword_called: _ => make_keyword("called"),
+    keyword_returns: _ => make_keyword("returns"),
+    keyword_input: _ => make_keyword("input"),
+    keyword_strict: _ => make_keyword("strict"),
+    keyword_cost: _ => make_keyword("cost"),
+    keyword_rows: _ => make_keyword("rows"),
+    keyword_support: _ => make_keyword("support"),
 
     // Hive Keywords
     keyword_external: _ => make_keyword("external"),
@@ -199,6 +217,7 @@ module.exports = grammar({
     keyword_uncached: _ => make_keyword("uncached"),
     keyword_replication: _ => make_keyword("replication"),
     keyword_tblproperties: _ => make_keyword("tblproperties"),
+    keyword_options: _ => make_keyword("options"),
     keyword_compute: _ => make_keyword("compute"),
     keyword_stats: _ => make_keyword("stats"),
     keyword_location: _ => make_keyword("location"),
@@ -629,53 +648,64 @@ module.exports = grammar({
     ),
 
     _table_settings: $ => choice(
-        $.table_partition,
-        $.stored_as,
-        $.storage_location,
-        $.table_sort,
-        $.row_format,
+      $.table_partition,
+      $.stored_as,
+      $.storage_location,
+      $.table_sort,
+      $.row_format,
+      seq(
+        $.keyword_tblproperties,
+        '(',
+        $.table_option,
+        repeat(seq(',', $.table_option)),
+        ')',
+      ),
+      $.table_option,
     ),
 
-
-    create_table: $ => seq(
-      $.keyword_create,
-      optional(
+    // left precedence because 'quoted' table options otherwise conflict with
+    // `create function` string bodies; if you remove this precedence you will
+    // have to also disable the `_literal_string` choice for the `name` field
+    // in =-assigned `table_option`s
+    create_table: $ => prec.left(
+      seq(
+        $.keyword_create,
+        optional(
           choice(
-              $._temporary,
-              $.keyword_unlogged,
-              $.keyword_external,
+            $._temporary,
+            $.keyword_unlogged,
+            $.keyword_external,
           )
-      ),
-      $.keyword_table,
-      optional($._if_not_exists),
-      $.table_reference,
-      choice(
+        ),
+        $.keyword_table,
+        optional($._if_not_exists),
+        $.table_reference,
+        choice(
           seq(
-              $.column_definitions,
-              repeat($._table_settings),
-              optional($.table_options),
-              optional(
-                  seq(
-                      $.keyword_as,
-                      $._select_statement,
-                  ),
-              )
-          ),
-          seq(
-              repeat($._table_settings),
-              optional($.table_options),
+            $.column_definitions,
+            repeat($._table_settings),
+            optional(
               seq(
-                  $.keyword_as,
-                  choice(
-                      $._select_statement,
-                      seq(
-                          $._cte,
-                          $._select_statement,
-                      ),
-                  ),
+                $.keyword_as,
+                $._select_statement,
               ),
+            )
           ),
-       ),
+          seq(
+            repeat($._table_settings),
+            seq(
+              $.keyword_as,
+              choice(
+                $._select_statement,
+                seq(
+                  $._cte,
+                  $._select_statement,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
     ),
 
     create_view: $ => prec.right(
@@ -783,8 +813,7 @@ module.exports = grammar({
         choice(
           $.function_language,
           $.function_volatility,
-          // TODO `not leakproof` conflicts with SQL expressions
-          // $.function_leakproof,
+          $.function_leakproof,
           $.function_safety,
           $.function_strictness,
           $.function_cost,
@@ -799,8 +828,7 @@ module.exports = grammar({
         choice(
           $.function_language,
           $.function_volatility,
-          // TODO `not leakproof` conflicts with SQL expressions
-          // $.function_leakproof,
+          $.function_leakproof,
           $.function_safety,
           $.function_strictness,
           $.function_cost,
@@ -872,62 +900,82 @@ module.exports = grammar({
         optional(';'),
         $.dollar_quote,
       ),
-    ),
-
-    function_language: () => seq(
-      make_keyword('language'),
-      choice(
-        make_keyword('sql'),
-        make_keyword('plpgsql'),
+      seq(
+        $.keyword_as,
+        '\'',
+        choice(
+          $.statement,
+          $._function_return,
+        ),
+        '\'',
+      ),
+      seq(
+        $.keyword_as,
+        $.dollar_quote,
+        choice(
+          $.statement,
+          $._function_return,
+        ),
+        $.dollar_quote,
       ),
     ),
 
-    function_volatility: () => choice(
-      make_keyword('immutable'),
-      make_keyword('stable'),
-      make_keyword('volatile'),
+    function_language: $ => seq(
+      make_keyword('language'),
+      choice(
+        $.keyword_sql,
+        $.keyword_plpgsql,
+      ),
+    ),
+
+    function_volatility: $ => choice(
+      $.keyword_immutable,
+      $.keyword_stable,
+      $.keyword_volatile,
     ),
 
     function_leakproof: $ => seq(
       optional($.keyword_not),
-      make_keyword('leakproof'),
+      $.keyword_leakproof,
     ),
 
-    function_safety: () => seq(
-      make_keyword('parallel'),
+    function_safety: $ => seq(
+      $.keyword_parallel,
       choice(
-        make_keyword('safe'),
-        make_keyword('unsafe'),
-        make_keyword('restricted'),
+        $.keyword_safe,
+        $.keyword_unsafe,
+        $.keyword_restricted,
       ),
     ),
 
     function_strictness: $ => choice(
       seq(
-        make_keyword('called'),
-        seq(
-          make_keyword('returns'),
-          $.keyword_null,
+        choice(
+          $.keyword_called,
+          seq(
+            $.keyword_returns,
+            $.keyword_null,
+          ),
         ),
-        make_keyword('on'),
-        make_keyword('null'),
-        make_keyword('input'),
+        $.keyword_on,
+        $.keyword_null,
+        $.keyword_input,
       ),
-      make_keyword('strict'),
+      $.keyword_strict,
     ),
 
     function_cost: $ => seq(
-      make_keyword('cost'),
+      $.keyword_cost,
       $._natural_number,
     ),
 
     function_rows: $ => seq(
-      make_keyword('rows'),
+      $.keyword_rows,
       $._natural_number,
     ),
 
     function_support: $ => seq(
-      make_keyword('support'),
+      $.keyword_support,
       alias($._literal_string, $.literal),
     ),
 
@@ -1407,18 +1455,6 @@ module.exports = grammar({
       field('left', $.field),
       '=',
       field('right', $._expression),
-    ),
-
-
-    table_options: $ => choice(
-        seq(
-            $.keyword_tblproperties,
-            '(',
-            $.table_option,
-            repeat(seq(',', $.table_option)),
-            ')',
-        ),
-        repeat1($.table_option)
     ),
 
     table_option: $ => choice(
