@@ -184,6 +184,14 @@ module.exports = grammar({
     keyword_check: _ => make_keyword("check"),
     keyword_option: _ => make_keyword("option"),
 
+    keyword_trigger: _ => make_keyword('trigger'),
+    keyword_function: _ => make_keyword("function"),
+    keyword_returns: _ => make_keyword("returns"),
+    keyword_return: _ => make_keyword("return"),
+    keyword_setof: _ => make_keyword("setof"),
+    keyword_atomic: _ => make_keyword("atomic"),
+    keyword_declare: _ => make_keyword("declare"),
+
     // Hive Keywords
     keyword_external: _ => make_keyword("external"),
     keyword_stored: _ => make_keyword("stored"),
@@ -615,7 +623,8 @@ module.exports = grammar({
         $.create_view,
         $.create_materialized_view,
         $.create_index,
-        // TODO function, sequence
+        $.create_function,
+        // TODO sequence
       ),
     ),
 
@@ -737,6 +746,189 @@ module.exports = grammar({
           )
         )
       ),
+    ),
+
+    // TODO arbitrary dollar quoting, mostly ensuring that the initial and terminal quote
+    // delimiters match, will require an external scanner
+    // https://tree-sitter.github.io/tree-sitter/creating-parsers#external-scanners
+    dollar_quote: () => choice(
+      '$$',
+      '$function$',
+      '$body$'
+    ),
+
+    create_function: $ => seq(
+      $.keyword_create,
+      optional($._or_replace),
+      $.keyword_function,
+      optional(
+        seq(
+          field('schema', $.identifier),
+          '.',
+        ),
+      ),
+      field('name', $.identifier),
+      choice(
+        $.column_definitions, // TODO `default` will require own node type
+        seq('(', ')'),
+      ),
+      $.keyword_returns,
+      choice(
+        $._type,
+        seq($.keyword_setof, $._type),
+        seq($.keyword_table, $.column_definitions),
+        $.keyword_trigger,
+      ),
+      repeat(
+        choice(
+          $.function_language,
+          $.function_volatility,
+          // TODO `not leakproof` conflicts with SQL expressions
+          // $.function_leakproof,
+          $.function_safety,
+          $.function_strictness,
+          $.function_cost,
+          $.function_rows,
+          $.function_support,
+        ),
+      ),
+      // ensure that there's only one function body -- other specifiers are less
+      // variable but the body can have all manner of conflicting stuff
+      $.function_body,
+      repeat(
+        choice(
+          $.function_language,
+          $.function_volatility,
+          // TODO `not leakproof` conflicts with SQL expressions
+          // $.function_leakproof,
+          $.function_safety,
+          $.function_strictness,
+          $.function_cost,
+          $.function_rows,
+          $.function_support,
+        ),
+      ),
+    ),
+
+    _function_return: $ => seq(
+      $.keyword_return,
+      $._expression,
+      ';',
+    ),
+
+    function_declaration: $ => seq(
+      $.identifier,
+      $._type,
+      optional(
+        seq(
+          ':=',
+          choice(
+            seq(
+              '(',
+              $.statement,
+              ')',
+            ),
+            // TODO are there more possibilities here? We can't use `_expression` since
+            // that includes subqueries
+            $.literal,
+          ),
+        ),
+      ),
+      ';',
+    ),
+
+    function_body: $ => choice(
+      $._function_return,
+      seq(
+        $.keyword_begin,
+        $.keyword_atomic,
+        repeat1(
+          choice(
+            $.statement,
+            $._function_return,
+          ),
+        ),
+        $.keyword_end,
+      ),
+      seq(
+        $.keyword_as,
+        $.dollar_quote,
+        optional(
+          seq(
+            $.keyword_declare,
+            repeat1(
+              $.function_declaration,
+            ),
+          ),
+        ),
+        $.keyword_begin,
+        repeat1(
+          choice(
+            $.statement,
+            $._function_return,
+          ),
+        ),
+        $.keyword_end,
+        optional(';'),
+        $.dollar_quote,
+      ),
+    ),
+
+    function_language: () => seq(
+      make_keyword('language'),
+      choice(
+        make_keyword('sql'),
+        make_keyword('plpgsql'),
+      ),
+    ),
+
+    function_volatility: () => choice(
+      make_keyword('immutable'),
+      make_keyword('stable'),
+      make_keyword('volatile'),
+    ),
+
+    function_leakproof: $ => seq(
+      optional($.keyword_not),
+      make_keyword('leakproof'),
+    ),
+
+    function_safety: () => seq(
+      make_keyword('parallel'),
+      choice(
+        make_keyword('safe'),
+        make_keyword('unsafe'),
+        make_keyword('restricted'),
+      ),
+    ),
+
+    function_strictness: $ => choice(
+      seq(
+        make_keyword('called'),
+        seq(
+          make_keyword('returns'),
+          $.keyword_null,
+        ),
+        make_keyword('on'),
+        make_keyword('null'),
+        make_keyword('input'),
+      ),
+      make_keyword('strict'),
+    ),
+
+    function_cost: $ => seq(
+      make_keyword('cost'),
+      $._natural_number,
+    ),
+
+    function_rows: $ => seq(
+      make_keyword('rows'),
+      $._natural_number,
+    ),
+
+    function_support: $ => seq(
+      make_keyword('support'),
+      alias($._literal_string, $.literal),
     ),
 
     create_index: $ => seq(
@@ -1679,7 +1871,9 @@ module.exports = grammar({
       repeat(
         choice(
           $.join,
+          $.cross_join,
           $.lateral_join,
+          $.lateral_cross_join,
         ),
       ),
       optional($.where),
@@ -1742,7 +1936,6 @@ module.exports = grammar({
     join: $ => seq(
       optional(
         choice(
-          $.keyword_cross,
           $.keyword_left,
           seq($.keyword_full, $.keyword_outer),
           seq($.keyword_left, $.keyword_outer),
@@ -1768,11 +1961,16 @@ module.exports = grammar({
       )
     ),
 
+    cross_join: $ => seq(
+      $.keyword_cross,
+      $.keyword_join,
+      $.relation,
+    ),
+
     lateral_join: $ => seq(
       optional(
         choice(
           // lateral joins cannot be right!
-          $.keyword_cross,
           $.keyword_left,
           seq($.keyword_left, $.keyword_outer),
           $.keyword_inner,
@@ -1798,6 +1996,25 @@ module.exports = grammar({
         $._expression,
         $.keyword_true,
         $.keyword_false,
+      ),
+    ),
+
+    lateral_cross_join: $ => seq(
+      $.keyword_cross,
+      $.keyword_join,
+      $.keyword_lateral,
+      choice(
+        $.invocation,
+        $.subquery,
+      ),
+      optional(
+        choice(
+          seq(
+            $.keyword_as,
+            field('alias', $.identifier),
+          ),
+          field('alias', $.identifier),
+        ),
       ),
     ),
 
