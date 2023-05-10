@@ -391,3 +391,499 @@ WHERE (
                 (where
                   (keyword_where)
                   predicate: (literal))))))))))
+
+================================================================================
+Basic SQL function creation
+================================================================================
+
+create or replace function public.fn()
+ returns int
+ language sql
+return 1;
+
+--------------------------------------------------------------------------------
+
+(program
+ (statement
+  (create_function
+   (keyword_create)
+   (keyword_or)
+   (keyword_replace)
+   (keyword_function)
+   (identifier)
+   (identifier)
+   (keyword_returns)
+   (int (keyword_int))
+   (function_language (keyword_sql))
+   (function_body
+    (keyword_return)
+    (literal)))))
+
+================================================================================
+With arguments
+================================================================================
+
+create or replace function public.fn(one int, two text)
+ returns int
+ language sql
+return 1;
+
+--------------------------------------------------------------------------------
+
+(program
+ (statement
+  (create_function
+   (keyword_create)
+   (keyword_or)
+   (keyword_replace)
+   (keyword_function)
+   (identifier)
+   (identifier)
+   (column_definitions
+    (column_definition
+     (identifier)
+     (int
+      (keyword_int)))
+    (column_definition
+     (identifier)
+     (keyword_text)))
+   (keyword_returns)
+   (int (keyword_int))
+   (function_language (keyword_sql))
+   (function_body
+    (keyword_return)
+    (literal)))))
+
+================================================================================
+Function details
+================================================================================
+
+create or replace function public.fn()
+  returns int
+  language sql
+  immutable
+  parallel safe
+  leakproof
+  strict
+  cost 100
+  rows 1
+return 1;
+
+--------------------------------------------------------------------------------
+
+(program
+ (statement
+  (create_function
+   (keyword_create)
+   (keyword_or)
+   (keyword_replace)
+   (keyword_function)
+   (identifier)
+   (identifier)
+   (keyword_returns)
+   (int (keyword_int))
+   (function_language (keyword_sql))
+   (function_volatility (keyword_immutable))
+   (function_safety (keyword_parallel) (keyword_safe))
+   (function_leakproof (keyword_leakproof))
+   (function_strictness (keyword_strict))
+   (function_cost (keyword_cost))
+   (function_rows (keyword_rows))
+   (function_body
+    (keyword_return)
+    (literal)))))
+
+================================================================================
+Function details, specified after string body
+================================================================================
+
+create or replace function public.fn()
+  returns int
+  as $$select 1$$
+  language sql
+  volatile
+  parallel restricted
+  not leakproof
+  returns null on null input
+  cost 100
+  rows 1;
+
+--------------------------------------------------------------------------------
+
+(program
+ (statement
+  (create_function
+   (keyword_create)
+   (keyword_or)
+   (keyword_replace)
+   (keyword_function)
+   schema: (identifier)
+   name: (identifier)
+   (keyword_returns)
+   (int (keyword_int))
+   (function_body
+    (keyword_as)
+    (dollar_quote)
+    (statement
+     (select
+      (keyword_select)
+      (select_expression
+       (term
+        value: (literal)))))
+    (dollar_quote))
+   (function_language (keyword_sql))
+   (function_volatility (keyword_volatile))
+  (function_safety (keyword_parallel) (keyword_restricted))
+  (function_leakproof (keyword_not) (keyword_leakproof))
+  (function_strictness (keyword_returns) (keyword_null) (keyword_on) (keyword_null) (keyword_input))
+  (function_cost (keyword_cost))
+(function_rows (keyword_rows)))))
+
+================================================================================
+With a string body
+================================================================================
+
+create or replace function public.fn()
+  returns int
+  language sql
+as 'select 1;';
+
+--------------------------------------------------------------------------------
+
+(program
+ (statement
+  (create_function
+   (keyword_create)
+   (keyword_or)
+   (keyword_replace)
+   (keyword_function)
+   (identifier)
+   (identifier)
+   (keyword_returns)
+   (int (keyword_int))
+   (function_language (keyword_sql))
+   (function_body
+    (keyword_as)
+    (statement
+     (select
+      (keyword_select)
+      (select_expression
+       (term
+        (literal)))))))))
+
+================================================================================
+Precedence between string body and `create table` with string options
+================================================================================
+
+create or replace function public.fn()
+  returns int
+  language sql
+as 'create table x (id int) row_format=dynamic';
+
+--------------------------------------------------------------------------------
+
+(program
+ (statement
+  (create_function
+   (keyword_create)
+   (keyword_or)
+   (keyword_replace)
+   (keyword_function)
+   (identifier)
+   (identifier)
+   (keyword_returns)
+   (int (keyword_int))
+   (function_language (keyword_sql))
+   (function_body
+    (keyword_as)
+    (statement
+     (create_table
+      (keyword_create)
+      (keyword_table)
+      (table_reference
+       (identifier))
+      (column_definitions
+       (column_definition
+        (identifier)
+        (int
+         (keyword_int))))
+      (table_option (identifier) (identifier))))))))
+
+================================================================================
+With `begin atomic`
+================================================================================
+
+create or replace function public.fn()
+  returns int
+  language sql
+begin atomic
+  return 1;
+end;
+
+--------------------------------------------------------------------------------
+
+(program
+ (statement
+  (create_function
+   (keyword_create)
+   (keyword_or)
+   (keyword_replace)
+   (keyword_function)
+   (identifier)
+   (identifier)
+   (keyword_returns)
+   (int (keyword_int))
+   (function_language (keyword_sql))
+   (function_body
+    (keyword_begin)
+    (keyword_atomic)
+    (keyword_return)
+    (literal)
+    (keyword_end)))))
+
+================================================================================
+Dollar quoting a simple PLPGSQL body
+================================================================================
+
+create or replace function public.fn()
+  returns int
+  language plpgsql
+as $function$
+begin
+  return 1;
+end;
+$function$;
+
+--------------------------------------------------------------------------------
+
+(program
+ (statement
+  (create_function
+   (keyword_create)
+   (keyword_or)
+   (keyword_replace)
+   (keyword_function)
+   (identifier)
+   (identifier)
+   (keyword_returns)
+   (int (keyword_int))
+   (function_language (keyword_plpgsql))
+   (function_body
+    (keyword_as)
+    (dollar_quote)
+    (keyword_begin)
+    (keyword_return)
+    (literal)
+    (keyword_end)
+    (dollar_quote)))))
+
+================================================================================
+Variable declarations
+================================================================================
+
+create or replace function public.fn()
+  returns int
+  language plpgsql
+as $function$
+declare
+  one int;
+  two text := (select 'hello');
+  three text := 'world';
+begin
+  return 1;
+end;
+$function$;
+
+--------------------------------------------------------------------------------
+
+(program
+ (statement
+  (create_function
+   (keyword_create)
+   (keyword_or)
+   (keyword_replace)
+   (keyword_function)
+   (identifier)
+   (identifier)
+   (keyword_returns)
+   (int (keyword_int))
+   (function_language (keyword_plpgsql))
+   (function_body
+    (keyword_as)
+    (dollar_quote)
+    (keyword_declare)
+    (function_declaration
+     (identifier)
+     (int (keyword_int)))
+    (function_declaration
+     (identifier)
+     (keyword_text)
+     (statement
+      (select
+       (keyword_select)
+       (select_expression
+        (term
+         (literal))))))
+    (function_declaration
+     (identifier)
+     (keyword_text)
+     (literal))
+    (keyword_begin)
+  (keyword_return)
+  (literal)
+  (keyword_end)
+(dollar_quote)))))
+
+================================================================================
+More complex function body
+================================================================================
+
+create or replace function public.do_stuff()
+  returns trigger
+  language plpgsql
+as $function$
+begin
+
+  -- comment!
+  with knn as (
+    select
+      h.alpha,
+      -- TODO factor in distance
+      avg(e.beta) as e_beta
+    from htable h
+    cross join lateral (
+      select
+        id,
+        gamma,
+        delta,
+        centroid
+      from ftable
+      limit 3
+    ) as e
+    group by h.alpha
+  )
+  update htable set epsilon = epsilon + e_beta
+  from knn
+  where knn.alpha = htable.alpha;
+
+  return new;
+
+end;
+$function$
+
+--------------------------------------------------------------------------------
+
+(program
+ (statement
+  (create_function
+   (keyword_create)
+   (keyword_or)
+   (keyword_replace)
+   (keyword_function)
+   (identifier)
+   (identifier)
+   (keyword_returns)
+   (keyword_trigger)
+   (function_language (keyword_plpgsql))
+   (function_body
+    (keyword_as)
+    (dollar_quote)
+    (keyword_begin)
+    (comment)
+    (statement
+     (keyword_with)
+     (cte
+      (identifier)
+      (keyword_as)
+      (statement
+       (select
+        (keyword_select)
+        (select_expression
+         (term
+          (field
+           (identifier)
+           (identifier)))
+         (comment)
+         (term
+          (invocation
+           (identifier)
+           (field
+            (identifier)
+            (identifier)))
+          (keyword_as)
+          (identifier))))
+       (from
+        (keyword_from)
+        (relation
+         (table_reference
+          (identifier))
+         (identifier))
+        (lateral_cross_join
+         (keyword_cross)
+         (keyword_join)
+         (keyword_lateral)
+         (subquery
+          (select
+           (keyword_select)
+           (select_expression
+            (term
+             (field
+              (identifier)))
+            (term
+             (field
+              (identifier)))
+            (term
+             (field
+              (identifier)))
+            (term
+             (field
+              (identifier)))))
+          (from
+           (keyword_from)
+           (relation
+            (table_reference
+             (identifier)))
+           (limit
+            (keyword_limit)
+            (literal))))
+  (keyword_as)
+(identifier))
+  (group_by
+   (keyword_group)
+   (keyword_by)
+   (field
+    (identifier)
+    (identifier))))))
+  (update
+   (keyword_update)
+   (relation
+    (table_reference
+     (identifier)))
+   (keyword_set)
+   (assignment
+    (field
+     (identifier))
+    (binary_expression
+     (field
+      (identifier))
+     (field
+      (identifier))))
+   (from
+    (keyword_from)
+    (relation
+     (table_reference
+      (identifier)))
+    (where
+     (keyword_where)
+     (binary_expression
+      (field
+       (identifier)
+       (identifier))
+      (field
+       (identifier)
+       (identifier)))))))
+(keyword_return)
+  (field
+   (identifier))
+  (keyword_end)
+(dollar_quote)))))

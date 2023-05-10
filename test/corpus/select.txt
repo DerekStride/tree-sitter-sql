@@ -1235,7 +1235,7 @@ Lateral join subquery
 
 SELECT a.id, b.*
 FROM my_table a
-CROSS JOIN LATERAL (SELECT 1) AS b ON TRUE;
+CROSS JOIN LATERAL (SELECT 1) AS b;
 
 --------------------------------------------------------------------------------
 
@@ -1256,7 +1256,7 @@ CROSS JOIN LATERAL (SELECT 1) AS b ON TRUE;
         (table_reference
           name: (identifier))
         table_alias: (identifier))
-      (lateral_join
+      (lateral_cross_join
         (keyword_cross)
         (keyword_join)
         (keyword_lateral)
@@ -1267,10 +1267,7 @@ CROSS JOIN LATERAL (SELECT 1) AS b ON TRUE;
               (term
                 value: (literal)))))
         (keyword_as)
-        alias: (identifier)
-        (keyword_on)
-        (literal
-          (keyword_true))))))
+        alias: (identifier)))))
 
 ================================================================================
 Multiple joins
