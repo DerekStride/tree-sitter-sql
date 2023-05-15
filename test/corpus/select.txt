@@ -377,11 +377,14 @@ FROM my_table m;
         (term
           value: (invocation
             name: (identifier)
-            parameter: (field
-              table_alias: (identifier)
-              name: (identifier))
-            parameter: (literal)
-            parameter: (literal))
+            parameter: (term
+              value: (field
+                table_alias: (identifier)
+                name: (identifier)))
+            parameter: (term
+              value: (literal))
+            parameter: (term
+              value: (literal)))
           (keyword_as)
           alias: (identifier))))
     (from
@@ -412,13 +415,16 @@ FROM my_table m;
         (term
           value: (invocation
             name: (identifier)
-            parameter: (binary_expression
-              left: (field
-                table_alias: (identifier)
-                name: (identifier))
-              right: (literal))
-            parameter: (literal)
-            parameter: (literal))
+            parameter: (term
+              value: (binary_expression
+                left: (field
+                  table_alias: (identifier)
+                  name: (identifier))
+                right: (literal)))
+            parameter: (term
+              value: (literal))
+            parameter: (term
+              value: (literal)))
           alias: (identifier))))
     (from
       (keyword_from)
@@ -466,11 +472,12 @@ FROM my_table;
       (keyword_select)
       (select_expression
         (term
-          value: (count
-            name: (keyword_count)
-            (keyword_distinct)
-            parameter: (field
-              name: (identifier)))
+          value: (invocation
+            name: (identifier)
+            parameter: (term
+              value: (field
+                name: (identifier))
+              alias: (identifier)))
           (keyword_as)
           alias: (identifier))))
     (from
@@ -718,11 +725,14 @@ FROM my_table;
       (keyword_select)
       (select_expression
         (term
-          value: (count
-            name: (keyword_count)
-            (keyword_distinct)
-            parameter: (field
-              name: (identifier))))))
+          value: (invocation
+            name: (identifier)
+            parameter: (term
+              value: (invocation
+                name: (identifier)
+                parameter: (term
+                  value: (field
+                    name: (identifier)))))))))
     (from
       (keyword_from)
       (relation
@@ -743,8 +753,8 @@ FROM my_table;
       (keyword_select)
       (select_expression
         (term
-          value: (count
-            name: (keyword_count)
+          value: (invocation
+            name: (identifier)
             parameter: (all_fields)))))
     (from
       (keyword_from)
@@ -766,11 +776,12 @@ FROM my_table;
       (keyword_select)
       (select_expression
         (term
-          value: (count
-            name: (keyword_count)
-            (keyword_distinct)
-            parameter: (field
-              name: (identifier))))))
+          value: (invocation
+            name: (identifier)
+            parameter: (term
+              value: (field
+                name: (identifier))
+              alias: (identifier))))))
     (from
       (keyword_from)
       (relation
@@ -1220,9 +1231,10 @@ JOIN LATERAL unnest(a.arr) AS arr ON TRUE;
         (keyword_lateral)
         (invocation
           name: (identifier)
-          parameter: (field
-            table_alias: (identifier)
-            name: (identifier)))
+          parameter: (term
+            value: (field
+              table_alias: (identifier)
+              name: (identifier))))
         (keyword_as)
         alias: (identifier)
         (keyword_on)

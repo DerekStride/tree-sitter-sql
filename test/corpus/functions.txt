@@ -14,8 +14,9 @@ FROM my_table;
         (term
           value: (invocation
             name: (identifier)
-            parameter: (field
-              name: (identifier))))))
+            parameter: (term
+              value: (field
+                name: (identifier)))))))
     (from
       (keyword_from)
       (relation
@@ -61,31 +62,41 @@ FROM my_table AS t;
         (term
           value: (invocation
             name: (identifier)
-            parameter: (field
-              name: (identifier))
-            parameter: (literal)
-            parameter: (invocation
-              name: (identifier)
-              parameter: (field
-                name: (identifier))
-              parameter: (literal))
-            parameter: (binary_expression
-              left: (binary_expression
-                left: (field
-                  name: (identifier))
-                right: (literal))
-              right: (literal)))
+            parameter: (term
+              value: (field
+                name: (identifier)))
+            parameter: (term
+              value: (literal))
+            parameter: (term
+              value: (invocation
+                name: (identifier)
+                parameter: (term
+                  value: (field
+                    name: (identifier)))
+                parameter: (term
+                  value: (literal))))
+            parameter: (term
+              value: (binary_expression
+                left: (binary_expression
+                  left: (field
+                    name: (identifier))
+                  right: (literal))
+                right: (literal))))
           (keyword_as)
           alias: (identifier))
         (term
           value: (invocation
             name: (identifier)
-            parameter: (field
-              table_alias: (identifier)
-              name: (identifier))
-            parameter: (literal)
-            parameter: (literal)
-            parameter: (literal))
+            parameter: (term
+              value: (field
+                table_alias: (identifier)
+                name: (identifier)))
+            parameter: (term
+              value: (literal))
+            parameter: (term
+              value: (literal))
+            parameter: (term
+              value: (literal)))
           (keyword_as)
           alias: (identifier))
         (term
@@ -120,21 +131,25 @@ select col_has_check(
         (term
           value: (invocation
             name: (identifier)
-            parameter: (cast
-              (literal)
-              (keyword_name))
-            parameter: (cast
-              (literal)
-              (keyword_name))
-            parameter: (array
-              (keyword_array)
-              (cast
-                (literal)
-                (keyword_name))
-              (cast
+            parameter: (term
+              value: (cast
                 (literal)
                 (keyword_name)))
-            parameter: (literal)))))))
+            parameter: (term
+              value: (cast
+                (literal)
+                (keyword_name)))
+            parameter: (term
+              value: (array
+                (keyword_array)
+                (cast
+                  (literal)
+                  (keyword_name))
+                (cast
+                  (literal)
+                  (keyword_name))))
+            parameter: (term
+              value: (literal))))))))
 
 ================================================================================
 Count with postgres style aggregate expression
@@ -151,17 +166,14 @@ FROM table_a;
       (keyword_select)
       (select_expression
         (term
-          value: (count
-            name: (keyword_count)
-            (keyword_distinct)
-            parameter: (field
-              name: (identifier))
-            (order_by
-              (keyword_order)
-              (keyword_by)
-              (order_target
-                (field
-                  name: (identifier))))))))
+          value: (invocation
+            name: (identifier)
+            parameter: (term
+              value: (field
+                name: (identifier))
+              alias: (identifier))
+            (ERROR
+              (keyword_by))))))
     (from
       (keyword_from)
       (relation
@@ -404,20 +416,22 @@ return 1;
 --------------------------------------------------------------------------------
 
 (program
- (statement
-  (create_function
-   (keyword_create)
-   (keyword_or)
-   (keyword_replace)
-   (keyword_function)
-   (identifier)
-   (identifier)
-   (keyword_returns)
-   (int (keyword_int))
-   (function_language (keyword_sql))
-   (function_body
-    (keyword_return)
-    (literal)))))
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_or)
+      (keyword_replace)
+      (keyword_function)
+      (identifier)
+      (identifier)
+      (keyword_returns)
+      (int
+        (keyword_int))
+      (function_language
+        (keyword_sql))
+      (function_body
+        (keyword_return)
+        (literal)))))
 
 ================================================================================
 With arguments
@@ -431,28 +445,30 @@ return 1;
 --------------------------------------------------------------------------------
 
 (program
- (statement
-  (create_function
-   (keyword_create)
-   (keyword_or)
-   (keyword_replace)
-   (keyword_function)
-   (identifier)
-   (identifier)
-   (column_definitions
-    (column_definition
-     (identifier)
-     (int
-      (keyword_int)))
-    (column_definition
-     (identifier)
-     (keyword_text)))
-   (keyword_returns)
-   (int (keyword_int))
-   (function_language (keyword_sql))
-   (function_body
-    (keyword_return)
-    (literal)))))
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_or)
+      (keyword_replace)
+      (keyword_function)
+      (identifier)
+      (identifier)
+      (column_definitions
+        (column_definition
+          (identifier)
+          (int
+            (keyword_int)))
+        (column_definition
+          (identifier)
+          (keyword_text)))
+      (keyword_returns)
+      (int
+        (keyword_int))
+      (function_language
+        (keyword_sql))
+      (function_body
+        (keyword_return)
+        (literal)))))
 
 ================================================================================
 Function details
@@ -472,26 +488,35 @@ return 1;
 --------------------------------------------------------------------------------
 
 (program
- (statement
-  (create_function
-   (keyword_create)
-   (keyword_or)
-   (keyword_replace)
-   (keyword_function)
-   (identifier)
-   (identifier)
-   (keyword_returns)
-   (int (keyword_int))
-   (function_language (keyword_sql))
-   (function_volatility (keyword_immutable))
-   (function_safety (keyword_parallel) (keyword_safe))
-   (function_leakproof (keyword_leakproof))
-   (function_strictness (keyword_strict))
-   (function_cost (keyword_cost))
-   (function_rows (keyword_rows))
-   (function_body
-    (keyword_return)
-    (literal)))))
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_or)
+      (keyword_replace)
+      (keyword_function)
+      (identifier)
+      (identifier)
+      (keyword_returns)
+      (int
+        (keyword_int))
+      (function_language
+        (keyword_sql))
+      (function_volatility
+        (keyword_immutable))
+      (function_safety
+        (keyword_parallel)
+        (keyword_safe))
+      (function_leakproof
+        (keyword_leakproof))
+      (function_strictness
+        (keyword_strict))
+      (function_cost
+        (keyword_cost))
+      (function_rows
+        (keyword_rows))
+      (function_body
+        (keyword_return)
+        (literal)))))
 
 ================================================================================
 Function details, specified after string body
@@ -511,33 +536,47 @@ create or replace function public.fn()
 --------------------------------------------------------------------------------
 
 (program
- (statement
-  (create_function
-   (keyword_create)
-   (keyword_or)
-   (keyword_replace)
-   (keyword_function)
-   schema: (identifier)
-   name: (identifier)
-   (keyword_returns)
-   (int (keyword_int))
-   (function_body
-    (keyword_as)
-    (dollar_quote)
-    (statement
-     (select
-      (keyword_select)
-      (select_expression
-       (term
-        value: (literal)))))
-    (dollar_quote))
-   (function_language (keyword_sql))
-   (function_volatility (keyword_volatile))
-  (function_safety (keyword_parallel) (keyword_restricted))
-  (function_leakproof (keyword_not) (keyword_leakproof))
-  (function_strictness (keyword_returns) (keyword_null) (keyword_on) (keyword_null) (keyword_input))
-  (function_cost (keyword_cost))
-(function_rows (keyword_rows)))))
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_or)
+      (keyword_replace)
+      (keyword_function)
+      schema: (identifier)
+      name: (identifier)
+      (keyword_returns)
+      (int
+        (keyword_int))
+      (function_body
+        (keyword_as)
+        (dollar_quote)
+        (statement
+          (select
+            (keyword_select)
+            (select_expression
+              (term
+                value: (literal)))))
+        (dollar_quote))
+      (function_language
+        (keyword_sql))
+      (function_volatility
+        (keyword_volatile))
+      (function_safety
+        (keyword_parallel)
+        (keyword_restricted))
+      (function_leakproof
+        (keyword_not)
+        (keyword_leakproof))
+      (function_strictness
+        (keyword_returns)
+        (keyword_null)
+        (keyword_on)
+        (keyword_null)
+        (keyword_input))
+      (function_cost
+        (keyword_cost))
+      (function_rows
+        (keyword_rows)))))
 
 ================================================================================
 With a string body
@@ -551,25 +590,27 @@ as 'select 1;';
 --------------------------------------------------------------------------------
 
 (program
- (statement
-  (create_function
-   (keyword_create)
-   (keyword_or)
-   (keyword_replace)
-   (keyword_function)
-   (identifier)
-   (identifier)
-   (keyword_returns)
-   (int (keyword_int))
-   (function_language (keyword_sql))
-   (function_body
-    (keyword_as)
-    (statement
-     (select
-      (keyword_select)
-      (select_expression
-       (term
-        (literal)))))))))
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_or)
+      (keyword_replace)
+      (keyword_function)
+      (identifier)
+      (identifier)
+      (keyword_returns)
+      (int
+        (keyword_int))
+      (function_language
+        (keyword_sql))
+      (function_body
+        (keyword_as)
+        (statement
+          (select
+            (keyword_select)
+            (select_expression
+              (term
+                (literal)))))))))
 
 ================================================================================
 Precedence between string body and `create table` with string options
@@ -583,31 +624,35 @@ as 'create table x (id int) row_format=dynamic';
 --------------------------------------------------------------------------------
 
 (program
- (statement
-  (create_function
-   (keyword_create)
-   (keyword_or)
-   (keyword_replace)
-   (keyword_function)
-   (identifier)
-   (identifier)
-   (keyword_returns)
-   (int (keyword_int))
-   (function_language (keyword_sql))
-   (function_body
-    (keyword_as)
-    (statement
-     (create_table
+  (statement
+    (create_function
       (keyword_create)
-      (keyword_table)
-      (table_reference
-       (identifier))
-      (column_definitions
-       (column_definition
-        (identifier)
-        (int
-         (keyword_int))))
-      (table_option (identifier) (identifier))))))))
+      (keyword_or)
+      (keyword_replace)
+      (keyword_function)
+      (identifier)
+      (identifier)
+      (keyword_returns)
+      (int
+        (keyword_int))
+      (function_language
+        (keyword_sql))
+      (function_body
+        (keyword_as)
+        (statement
+          (create_table
+            (keyword_create)
+            (keyword_table)
+            (table_reference
+              (identifier))
+            (column_definitions
+              (column_definition
+                (identifier)
+                (int
+                  (keyword_int))))
+            (table_option
+              (identifier)
+              (identifier))))))))
 
 ================================================================================
 With `begin atomic`
@@ -623,23 +668,25 @@ end;
 --------------------------------------------------------------------------------
 
 (program
- (statement
-  (create_function
-   (keyword_create)
-   (keyword_or)
-   (keyword_replace)
-   (keyword_function)
-   (identifier)
-   (identifier)
-   (keyword_returns)
-   (int (keyword_int))
-   (function_language (keyword_sql))
-   (function_body
-    (keyword_begin)
-    (keyword_atomic)
-    (keyword_return)
-    (literal)
-    (keyword_end)))))
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_or)
+      (keyword_replace)
+      (keyword_function)
+      (identifier)
+      (identifier)
+      (keyword_returns)
+      (int
+        (keyword_int))
+      (function_language
+        (keyword_sql))
+      (function_body
+        (keyword_begin)
+        (keyword_atomic)
+        (keyword_return)
+        (literal)
+        (keyword_end)))))
 
 ================================================================================
 Dollar quoting a simple PLPGSQL body
@@ -657,25 +704,27 @@ $function$;
 --------------------------------------------------------------------------------
 
 (program
- (statement
-  (create_function
-   (keyword_create)
-   (keyword_or)
-   (keyword_replace)
-   (keyword_function)
-   (identifier)
-   (identifier)
-   (keyword_returns)
-   (int (keyword_int))
-   (function_language (keyword_plpgsql))
-   (function_body
-    (keyword_as)
-    (dollar_quote)
-    (keyword_begin)
-    (keyword_return)
-    (literal)
-    (keyword_end)
-    (dollar_quote)))))
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_or)
+      (keyword_replace)
+      (keyword_function)
+      (identifier)
+      (identifier)
+      (keyword_returns)
+      (int
+        (keyword_int))
+      (function_language
+        (keyword_plpgsql))
+      (function_body
+        (keyword_as)
+        (dollar_quote)
+        (keyword_begin)
+        (keyword_return)
+        (literal)
+        (keyword_end)
+        (dollar_quote)))))
 
 ================================================================================
 Variable declarations
@@ -697,42 +746,45 @@ $function$;
 --------------------------------------------------------------------------------
 
 (program
- (statement
-  (create_function
-   (keyword_create)
-   (keyword_or)
-   (keyword_replace)
-   (keyword_function)
-   (identifier)
-   (identifier)
-   (keyword_returns)
-   (int (keyword_int))
-   (function_language (keyword_plpgsql))
-   (function_body
-    (keyword_as)
-    (dollar_quote)
-    (keyword_declare)
-    (function_declaration
-     (identifier)
-     (int (keyword_int)))
-    (function_declaration
-     (identifier)
-     (keyword_text)
-     (statement
-      (select
-       (keyword_select)
-       (select_expression
-        (term
-         (literal))))))
-    (function_declaration
-     (identifier)
-     (keyword_text)
-     (literal))
-    (keyword_begin)
-  (keyword_return)
-  (literal)
-  (keyword_end)
-(dollar_quote)))))
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_or)
+      (keyword_replace)
+      (keyword_function)
+      (identifier)
+      (identifier)
+      (keyword_returns)
+      (int
+        (keyword_int))
+      (function_language
+        (keyword_plpgsql))
+      (function_body
+        (keyword_as)
+        (dollar_quote)
+        (keyword_declare)
+        (function_declaration
+          (identifier)
+          (int
+            (keyword_int)))
+        (function_declaration
+          (identifier)
+          (keyword_text)
+          (statement
+            (select
+              (keyword_select)
+              (select_expression
+                (term
+                  (literal))))))
+        (function_declaration
+          (identifier)
+          (keyword_text)
+          (literal))
+        (keyword_begin)
+        (keyword_return)
+        (literal)
+        (keyword_end)
+        (dollar_quote)))))
 
 ================================================================================
 More complex function body
@@ -774,116 +826,118 @@ $function$
 --------------------------------------------------------------------------------
 
 (program
- (statement
-  (create_function
-   (keyword_create)
-   (keyword_or)
-   (keyword_replace)
-   (keyword_function)
-   (identifier)
-   (identifier)
-   (keyword_returns)
-   (keyword_trigger)
-   (function_language (keyword_plpgsql))
-   (function_body
-    (keyword_as)
-    (dollar_quote)
-    (keyword_begin)
-    (comment)
-    (statement
-     (keyword_with)
-     (cte
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_or)
+      (keyword_replace)
+      (keyword_function)
       (identifier)
-      (keyword_as)
-      (statement
-       (select
-        (keyword_select)
-        (select_expression
-         (term
-          (field
-           (identifier)
-           (identifier)))
-         (comment)
-         (term
-          (invocation
-           (identifier)
-           (field
+      (identifier)
+      (keyword_returns)
+      (keyword_trigger)
+      (function_language
+        (keyword_plpgsql))
+      (function_body
+        (keyword_as)
+        (dollar_quote)
+        (keyword_begin)
+        (comment)
+        (statement
+          (keyword_with)
+          (cte
             (identifier)
-            (identifier)))
-          (keyword_as)
-          (identifier))))
-       (from
-        (keyword_from)
-        (relation
-         (table_reference
+            (keyword_as)
+            (statement
+              (select
+                (keyword_select)
+                (select_expression
+                  (term
+                    (field
+                      (identifier)
+                      (identifier)))
+                  (comment)
+                  (term
+                    (invocation
+                      (identifier)
+                      (term
+                        (field
+                          (identifier)
+                          (identifier))))
+                    (keyword_as)
+                    (identifier))))
+              (from
+                (keyword_from)
+                (relation
+                  (table_reference
+                    (identifier))
+                  (identifier))
+                (lateral_cross_join
+                  (keyword_cross)
+                  (keyword_join)
+                  (keyword_lateral)
+                  (subquery
+                    (select
+                      (keyword_select)
+                      (select_expression
+                        (term
+                          (field
+                            (identifier)))
+                        (term
+                          (field
+                            (identifier)))
+                        (term
+                          (field
+                            (identifier)))
+                        (term
+                          (field
+                            (identifier)))))
+                    (from
+                      (keyword_from)
+                      (relation
+                        (table_reference
+                          (identifier)))
+                      (limit
+                        (keyword_limit)
+                        (literal))))
+                  (keyword_as)
+                  (identifier))
+                (group_by
+                  (keyword_group)
+                  (keyword_by)
+                  (field
+                    (identifier)
+                    (identifier))))))
+          (update
+            (keyword_update)
+            (relation
+              (table_reference
+                (identifier)))
+            (keyword_set)
+            (assignment
+              (field
+                (identifier))
+              (binary_expression
+                (field
+                  (identifier))
+                (field
+                  (identifier))))
+            (from
+              (keyword_from)
+              (relation
+                (table_reference
+                  (identifier)))
+              (where
+                (keyword_where)
+                (binary_expression
+                  (field
+                    (identifier)
+                    (identifier))
+                  (field
+                    (identifier)
+                    (identifier)))))))
+        (keyword_return)
+        (field
           (identifier))
-         (identifier))
-        (lateral_cross_join
-         (keyword_cross)
-         (keyword_join)
-         (keyword_lateral)
-         (subquery
-          (select
-           (keyword_select)
-           (select_expression
-            (term
-             (field
-              (identifier)))
-            (term
-             (field
-              (identifier)))
-            (term
-             (field
-              (identifier)))
-            (term
-             (field
-              (identifier)))))
-          (from
-           (keyword_from)
-           (relation
-            (table_reference
-             (identifier)))
-           (limit
-            (keyword_limit)
-            (literal))))
-  (keyword_as)
-(identifier))
-  (group_by
-   (keyword_group)
-   (keyword_by)
-   (field
-    (identifier)
-    (identifier))))))
-  (update
-   (keyword_update)
-   (relation
-    (table_reference
-     (identifier)))
-   (keyword_set)
-   (assignment
-    (field
-     (identifier))
-    (binary_expression
-     (field
-      (identifier))
-     (field
-      (identifier))))
-   (from
-    (keyword_from)
-    (relation
-     (table_reference
-      (identifier)))
-    (where
-     (keyword_where)
-     (binary_expression
-      (field
-       (identifier)
-       (identifier))
-      (field
-       (identifier)
-       (identifier)))))))
-(keyword_return)
-  (field
-   (identifier))
-  (keyword_end)
-(dollar_quote)))))
+        (keyword_end)
+        (dollar_quote)))))

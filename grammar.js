@@ -82,7 +82,6 @@ module.exports = grammar({
     keyword_distinct: _ => make_keyword("distinct"),
     keyword_constraint: _ => make_keyword("constraint"),
     keyword_cast: _ => make_keyword("cast"),
-    keyword_count: _ => make_keyword("count"),
     keyword_group_concat: _ => make_keyword("group_concat"),
     keyword_separator: _ => make_keyword("separator"),
     keyword_max: _ => make_keyword("max"),
@@ -1741,14 +1740,6 @@ module.exports = grammar({
 
     _aggregate_function: $ => choice(
       $.group_concat,
-      $.count,
-    ),
-
-    count: $ => seq(
-      field('name', $.keyword_count),
-      '(',
-      $._aggregate_expression,
-      ')',
     ),
 
     group_concat: $ => seq(
@@ -1767,7 +1758,7 @@ module.exports = grammar({
 
     invocation: $ => seq(
       field('name', $.identifier),
-      paren_list(field('parameter', $._expression)),
+      paren_list(field('parameter', $._select_expression)),
     ),
 
     exists: $ => seq(
@@ -1873,10 +1864,7 @@ module.exports = grammar({
     ),
 
     window_function: $ => seq(
-        choice(
-          $.invocation,
-          $.count,
-        ),
+        $.invocation,
         $.keyword_over,
         choice(
             $.identifier,

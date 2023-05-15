@@ -29,8 +29,9 @@ FROM tab1;
           value: (window_function
             (invocation
               name: (identifier)
-              parameter: (field
-                name: (identifier)))
+              parameter: (term
+                value: (field
+                  name: (identifier))))
             (keyword_over)
             (window_specification
               (partition_by
@@ -75,8 +76,9 @@ FROM tab1;
           value: (window_function
             (invocation
               name: (identifier)
-              parameter: (field
-                name: (identifier)))
+              parameter: (term
+                value: (field
+                  name: (identifier))))
             (keyword_over)
             (window_specification
               (order_by
@@ -126,8 +128,9 @@ FROM tab1;
           value: (window_function
             (invocation
               name: (identifier)
-              parameter: (field
-                name: (identifier)))
+              parameter: (term
+                value: (field
+                  name: (identifier))))
             (keyword_over)
             (window_specification
               (partition_by
@@ -174,8 +177,9 @@ FROM tab1;
           (window_function
             (invocation
               (identifier)
-              (field
-                (identifier)))
+              (term
+                (field
+                  (identifier))))
             (keyword_over)
             (window_specification))
           (keyword_as)
@@ -210,8 +214,9 @@ FROM tab1;
           value: (window_function
             (invocation
               name: (identifier)
-              parameter: (field
-                name: (identifier)))
+              parameter: (term
+                value: (field
+                  name: (identifier))))
             (keyword_over)
             (window_specification
               (partition_by
@@ -225,8 +230,9 @@ FROM tab1;
           value: (window_function
             (invocation
               name: (identifier)
-              parameter: (field
-                name: (identifier)))
+              parameter: (term
+                value: (field
+                  name: (identifier))))
             (keyword_over)
             (window_specification
               (order_by
@@ -270,8 +276,9 @@ WINDOW window_def AS (PARTITION BY y);
           value: (window_function
             (invocation
               name: (identifier)
-              parameter: (field
-                name: (identifier)))
+              parameter: (term
+                value: (field
+                  name: (identifier))))
             (keyword_over)
             (identifier)))))
     (from
@@ -316,8 +323,9 @@ WINDOW win AS (ORDER BY d)
           value: (window_function
             (invocation
               name: (identifier)
-              parameter: (field
-                name: (identifier)))
+              parameter: (term
+                value: (field
+                  name: (identifier))))
             (keyword_over)
             (window_specification
               (partition_by
@@ -331,8 +339,9 @@ WINDOW win AS (ORDER BY d)
           value: (window_function
             (invocation
               name: (identifier)
-              parameter: (field
-                name: (identifier)))
+              parameter: (term
+                value: (field
+                  name: (identifier))))
             (keyword_over)
             (identifier))
           (keyword_as)
@@ -390,8 +399,9 @@ FROM
           value: (window_function
             (invocation
               name: (identifier)
-              parameter: (field
-                name: (identifier)))
+              parameter: (term
+                value: (field
+                  name: (identifier))))
             (keyword_over)
             (window_specification
               (partition_by
@@ -419,8 +429,9 @@ FROM
           value: (window_function
             (invocation
               name: (identifier)
-              parameter: (field
-                name: (identifier)))
+              parameter: (term
+                value: (field
+                  name: (identifier))))
             (keyword_over)
             (window_specification
               (partition_by
@@ -475,8 +486,9 @@ FROM
           value: (window_function
             (invocation
               name: (identifier)
-              parameter: (field
-                name: (identifier)))
+              parameter: (term
+                value: (field
+                  name: (identifier))))
             (keyword_over)
             (window_specification
               (partition_by
@@ -564,8 +576,9 @@ FROM
           (window_function
             (invocation
               (identifier)
-              (field
-                (identifier)))
+              (term
+                (field
+                  (identifier))))
             (keyword_over)
             (window_specification
               (partition_by
@@ -613,8 +626,9 @@ FROM
                         (identifier)))))
                 (invocation
                   (identifier)
-                  (field
-                    (identifier)))
+                  (term
+                    (field
+                      (identifier))))
                 (binary_expression
                   (field
                     (identifier))
@@ -673,8 +687,9 @@ FROM
                 (order_target
                   (invocation
                     (identifier)
-                    (field
-                      (identifier))))
+                    (term
+                      (field
+                        (identifier)))))
                 (order_target
                   (binary_expression
                     (field
@@ -705,8 +720,8 @@ FROM tab1
       (select_expression
         (term
           (window_function
-            (count
-              (keyword_count)
+            (invocation
+              (identifier)
               (all_fields))
             (keyword_over)
             (window_specification
