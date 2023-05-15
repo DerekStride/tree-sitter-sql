@@ -18,10 +18,11 @@ HAVING other_id > 10;
           value: (field
             name: (identifier)))
         (term
-          value: (count
-            name: (keyword_count)
-            parameter: (field
-              name: (identifier))))))
+          value: (invocation
+            name: (identifier)
+            parameter: (term
+              value: (field
+                name: (identifier)))))))
     (from
       (keyword_from)
       (relation
@@ -57,10 +58,11 @@ HAVING other_id > 10;
           value: (field
             name: (identifier)))
         (term
-          value: (count
-            name: (keyword_count)
-            parameter: (field
-              name: (identifier))))))
+          value: (invocation
+            name: (identifier)
+            parameter: (term
+              value: (field
+                name: (identifier)))))))
     (from
       (keyword_from)
       (relation
@@ -98,10 +100,11 @@ HAVING other_id > 10;
           value: (field
             name: (identifier)))
         (term
-          value: (count
-            name: (keyword_count)
-            parameter: (field
-              name: (identifier))))))
+          value: (invocation
+            name: (identifier)
+            parameter: (term
+              value: (field
+                name: (identifier)))))))
     (from
       (keyword_from)
       (relation
@@ -139,10 +142,11 @@ HAVING COUNT(*) = 2;
           value: (field
             name: (identifier)))
         (term
-          value: (count
-            name: (keyword_count)
-            parameter: (field
-              name: (identifier))))))
+          value: (invocation
+            name: (identifier)
+            parameter: (term
+              value: (field
+                name: (identifier)))))))
     (from
       (keyword_from)
       (relation
@@ -155,7 +159,7 @@ HAVING COUNT(*) = 2;
           name: (identifier))
         (keyword_having)
         (binary_expression
-          left: (count
-            name: (keyword_count)
+          left: (invocation
+            name: (identifier)
             parameter: (all_fields))
           right: (literal))))))
