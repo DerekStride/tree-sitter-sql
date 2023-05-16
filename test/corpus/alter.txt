@@ -599,3 +599,44 @@ FOREIGN KEY ("accountId") REFERENCES "Account" ("accountId") ON DELETE CASCADE;
           (keyword_on)
           (keyword_delete)
           (keyword_cascade))))))
+
+================================================================================
+T-SQL: alter table add multiple columns at once
+================================================================================
+
+ALTER TABLE tab
+ADD
+col1 VARCHAR(255) NOT NULL DEFAULT('EMPTY'),
+col2 VARCHAR(255) NOT NULL DEFAULT('EMPTY');
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_table
+      (keyword_alter)
+      (keyword_table)
+      (table_reference
+        (identifier))
+      (add_column
+        (keyword_add)
+        (column_definition
+          (identifier)
+          (varchar
+            (keyword_varchar)
+            (literal))
+          (keyword_not)
+          (keyword_null)
+          (keyword_default)
+          (list
+            (literal)))
+        (column_definition
+          (identifier)
+          (varchar
+            (keyword_varchar)
+            (literal))
+          (keyword_not)
+          (keyword_null)
+          (keyword_default)
+          (list
+            (literal)))))))

@@ -1032,8 +1032,8 @@ module.exports = grammar({
             seq(
               ",",
               $._alter_specifications
-            )
-          )
+            ),
+          ),
         ),
       ),
     ),
@@ -1051,14 +1051,26 @@ module.exports = grammar({
       $.change_ownership,
     ),
 
-    add_column: $ => seq(
-      $.keyword_add,
+    _inner_add_column: $ => seq(
       optional(
         $.keyword_column,
       ),
       optional($._if_not_exists),
       $.column_definition,
       optional($.column_position),
+    ),
+
+    add_column: $ => prec.right(
+      seq(
+        $.keyword_add,
+        $._inner_add_column,
+        repeat(
+          seq(
+            ',',
+            $._inner_add_column,
+          )
+        )
+      ),
     ),
 
     add_constraint: $ => seq(
