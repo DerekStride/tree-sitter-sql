@@ -520,17 +520,17 @@ CREATE TABLE my_table (
             (keyword_null))
           (direction
             (keyword_asc))))
-        (table_option
-          name: (keyword_engine)
-          value: (identifier))
-        (table_option
-          name: (keyword_default))
-        (table_option
-          name: (identifier)
-          value: (identifier))
-        (table_option
-          name: (identifier)
-          value: (identifier)))))
+      (table_option
+        name: (keyword_engine)
+        value: (identifier))
+      (table_option
+        name: (keyword_default))
+      (table_option
+        name: (identifier)
+        value: (identifier))
+      (table_option
+        name: (identifier)
+        value: (identifier)))))
 
 ================================================================================
 Create view
@@ -549,15 +549,16 @@ SELECT * FROM my_table;
       (table_reference
         name: (identifier))
       (keyword_as)
-      (select
-        (keyword_select)
-        (select_expression
-          (all_fields)))
-      (from
-        (keyword_from)
-        (relation
-          (table_reference
-            name: (identifier)))))))
+      (create_query
+        (select
+          (keyword_select)
+          (select_expression
+            (all_fields)))
+        (from
+          (keyword_from)
+          (relation
+            (table_reference
+              name: (identifier))))))))
 
 ================================================================================
 Create or replace view
@@ -578,15 +579,16 @@ SELECT * FROM my_table;
       (table_reference
         name: (identifier))
       (keyword_as)
-      (select
-        (keyword_select)
-        (select_expression
-          (all_fields)))
-      (from
-        (keyword_from)
-        (relation
-          (table_reference
-            name: (identifier)))))))
+      (create_query
+        (select
+          (keyword_select)
+          (select_expression
+            (all_fields)))
+        (from
+          (keyword_from)
+          (relation
+            (table_reference
+              name: (identifier))))))))
 
 ================================================================================
 Create temp view
@@ -606,11 +608,12 @@ CREATE TEMP VIEW foo AS SELECT 1;
       (table_reference
         (identifier))
       (keyword_as)
-      (select
-        (keyword_select)
-        (select_expression
-          (term
-            (literal))))))
+      (create_query
+        (select
+          (keyword_select)
+          (select_expression
+            (term
+              (literal)))))))
   (statement
     (create_view
       (keyword_create)
@@ -619,11 +622,12 @@ CREATE TEMP VIEW foo AS SELECT 1;
       (table_reference
         (identifier))
       (keyword_as)
-      (select
-        (keyword_select)
-        (select_expression
-          (term
-            (literal)))))))
+      (create_query
+        (select
+          (keyword_select)
+          (select_expression
+            (term
+              (literal))))))))
 
 ================================================================================
 Create view with columns
@@ -643,15 +647,16 @@ CREATE VIEW foo(a, b) AS SELECT 1 a, 2 b;
       (identifier)
       (identifier)
       (keyword_as)
-      (select
-        (keyword_select)
-        (select_expression
-          (term
-            (literal)
-            (identifier))
-          (term
-            (literal)
-            (identifier)))))))
+      (create_query
+        (select
+          (keyword_select)
+          (select_expression
+            (term
+              (literal)
+              (identifier))
+            (term
+              (literal)
+              (identifier))))))))
 
 ================================================================================
 Create view with check option
@@ -670,11 +675,12 @@ CREATE VIEW foo AS SELECT 1 WITH CASCADED CHECK OPTION;
       (table_reference
         (identifier))
       (keyword_as)
-      (select
-        (keyword_select)
-        (select_expression
-          (term
-            (literal))))
+      (create_query
+        (select
+          (keyword_select)
+          (select_expression
+            (term
+              (literal)))))
       (keyword_with)
       (keyword_check)
       (keyword_option)))
@@ -685,11 +691,12 @@ CREATE VIEW foo AS SELECT 1 WITH CASCADED CHECK OPTION;
       (table_reference
         (identifier))
       (keyword_as)
-      (select
-        (keyword_select)
-        (select_expression
-          (term
-            (literal))))
+      (create_query
+        (select
+          (keyword_select)
+          (select_expression
+            (term
+              (literal)))))
       (keyword_with)
       (keyword_local)
       (keyword_check)
@@ -701,11 +708,12 @@ CREATE VIEW foo AS SELECT 1 WITH CASCADED CHECK OPTION;
       (table_reference
         (identifier))
       (keyword_as)
-      (select
-        (keyword_select)
-        (select_expression
-          (term
-            (literal))))
+      (create_query
+        (select
+          (keyword_select)
+          (select_expression
+            (term
+              (literal)))))
       (keyword_with)
       (keyword_cascaded)
       (keyword_check)
@@ -730,15 +738,16 @@ WITH NO DATA;
       (table_reference
         name: (identifier))
       (keyword_as)
-      (select
-        (keyword_select)
-        (select_expression
-          (all_fields)))
-      (from
-        (keyword_from)
-        (relation
-          (table_reference
-            name: (identifier))))
+      (create_query
+        (select
+          (keyword_select)
+          (select_expression
+            (all_fields)))
+        (from
+          (keyword_from)
+          (relation
+            (table_reference
+              name: (identifier)))))
       (keyword_with)
       (keyword_no)
       (keyword_data))))
@@ -762,15 +771,16 @@ WITH NO DATA
       (table_reference
         name: (identifier))
       (keyword_as)
-      (select
-        (keyword_select)
-        (select_expression
-          (all_fields)))
-      (from
-        (keyword_from)
-        (relation
-          (table_reference
-            name: (identifier))))
+      (create_query
+        (select
+          (keyword_select)
+          (select_expression
+            (all_fields)))
+        (from
+          (keyword_from)
+          (relation
+            (table_reference
+              name: (identifier)))))
       (keyword_with)
       (keyword_no)
       (keyword_data))))
@@ -1106,17 +1116,17 @@ CREATE TABLE some_table(
                 name: (identifier))
               (column
                 name: (identifier))))))
-        (table_option
-          (keyword_default)
-          (keyword_character)
-          (keyword_set)
-          (identifier))
-        (table_option
-          (keyword_collate)
-          (identifier))
-        (table_option
-          name: (keyword_engine)
-          value: (identifier)))))
+      (table_option
+        (keyword_default)
+        (keyword_character)
+        (keyword_set)
+        (identifier))
+      (table_option
+        (keyword_collate)
+        (identifier))
+      (table_option
+        name: (keyword_engine)
+        value: (identifier)))))
 
 ================================================================================
 Create table as select
@@ -1134,15 +1144,16 @@ CREATE TABLE tableName AS SELECT * FROM otherTable;
       (table_reference
         name: (identifier))
       (keyword_as)
-      (select
-        (keyword_select)
-        (select_expression
-          (all_fields)))
-      (from
-        (keyword_from)
-        (relation
-          (table_reference
-            name: (identifier)))))))
+      (create_query
+        (select
+          (keyword_select)
+          (select_expression
+            (all_fields)))
+        (from
+          (keyword_from)
+          (relation
+            (table_reference
+              name: (identifier))))))))
 
 ================================================================================
 Create table as select with cte
@@ -1163,31 +1174,73 @@ SELECT * FROM _cte
       (table_reference
         (identifier))
       (keyword_as)
-      (keyword_with)
-      (cte
-        (identifier)
-        (keyword_as)
-        (statement
-          (select
-            (keyword_select)
-            (select_expression
-              (term
-                (field
-                  (identifier)))))
-          (from
-            (keyword_from)
-            (relation
-              (table_reference
-                (identifier))))))
-      (select
-        (keyword_select)
-        (select_expression
-          (all_fields)))
-      (from
-        (keyword_from)
-        (relation
-          (table_reference
-            (identifier)))))))
+      (create_query
+        (keyword_with)
+        (cte
+          (identifier)
+          (keyword_as)
+          (statement
+            (select
+              (keyword_select)
+              (select_expression
+                (term
+                  (field
+                    (identifier)))))
+            (from
+              (keyword_from)
+              (relation
+                (table_reference
+                  (identifier))))))
+        (select
+          (keyword_select)
+          (select_expression
+            (all_fields)))
+        (from
+          (keyword_from)
+          (relation
+            (table_reference
+              (identifier))))))))
+
+================================================================================
+Create table from select statement with parenthesis
+================================================================================
+
+CREATE TABLE tb AS
+(
+  SELECT 1 as col
+)
+UNION ALL
+(
+  SELECT 2 as col
+);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (table_reference
+        (identifier))
+      (keyword_as)
+      (create_query
+        (select
+          (keyword_select)
+          (select_expression
+            (term
+              (literal)
+              (keyword_as)
+              (identifier))))
+        (keyword_union)
+        (keyword_all)
+        (select
+          (keyword_select)
+          (select_expression
+            (term
+              (literal)
+              (keyword_as)
+              (identifier))))))))
 
 ================================================================================
 Create view as select with cte
@@ -1208,31 +1261,32 @@ SELECT * FROM _cte
       (table_reference
         (identifier))
       (keyword_as)
-      (keyword_with)
-      (cte
-        (identifier)
-        (keyword_as)
-        (statement
-          (select
-            (keyword_select)
-            (select_expression
-              (term
-                (field
-                  (identifier)))))
-          (from
-            (keyword_from)
-            (relation
-              (table_reference
-                (identifier))))))
-      (select
-        (keyword_select)
-        (select_expression
-          (all_fields)))
-      (from
-        (keyword_from)
-        (relation
-          (table_reference
-            (identifier)))))))
+      (create_query
+        (keyword_with)
+        (cte
+          (identifier)
+          (keyword_as)
+          (statement
+            (select
+              (keyword_select)
+              (select_expression
+                (term
+                  (field
+                    (identifier)))))
+            (from
+              (keyword_from)
+              (relation
+                (table_reference
+                  (identifier))))))
+        (select
+          (keyword_select)
+          (select_expression
+            (all_fields)))
+        (from
+          (keyword_from)
+          (relation
+            (table_reference
+              (identifier))))))))
 
 ================================================================================
 Create materialized view as select with cte
@@ -1254,31 +1308,32 @@ SELECT * FROM _cte
       (table_reference
         (identifier))
       (keyword_as)
-      (keyword_with)
-      (cte
-        (identifier)
-        (keyword_as)
-        (statement
-          (select
-            (keyword_select)
-            (select_expression
-              (term
-                (field
-                  (identifier)))))
-          (from
-            (keyword_from)
-            (relation
-              (table_reference
-                (identifier))))))
-      (select
-        (keyword_select)
-        (select_expression
-          (all_fields)))
-      (from
-        (keyword_from)
-        (relation
-          (table_reference
-            (identifier)))))))
+      (create_query
+        (keyword_with)
+        (cte
+          (identifier)
+          (keyword_as)
+          (statement
+            (select
+              (keyword_select)
+              (select_expression
+                (term
+                  (field
+                    (identifier)))))
+            (from
+              (keyword_from)
+              (relation
+                (table_reference
+                  (identifier))))))
+        (select
+          (keyword_select)
+          (select_expression
+            (all_fields)))
+        (from
+          (keyword_from)
+          (relation
+            (table_reference
+              (identifier))))))))
 
 ================================================================================
 Create hive table

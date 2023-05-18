@@ -694,16 +694,38 @@ module.exports = grammar({
             repeat($._table_settings),
             seq(
               $.keyword_as,
-              choice(
-                $._select_statement,
-                seq(
-                  $._cte,
-                  $._select_statement,
-                ),
-              ),
+              $.create_query,
             ),
           ),
         ),
+      ),
+    ),
+
+    create_query: $ => choice(
+      $._select_statement,
+      seq(
+        $._cte,
+        $._select_statement,
+      ),
+      seq(
+        $._inner_create_query,
+        repeat(
+          seq(
+            $.keyword_union,
+            optional($.keyword_all),
+            $._inner_create_query,
+          ),
+        )
+      ),
+    ),
+
+    _inner_create_query: $ => choice(
+      seq( '(', $._select_statement, ')'),
+      seq(
+        '(',
+        $._cte,
+        $._select_statement,
+        ')',
       ),
     ),
 
@@ -718,18 +740,7 @@ module.exports = grammar({
         $.table_reference,
         optional(paren_list($.identifier)),
         $.keyword_as,
-        choice(
-          $._select_statement,
-          seq(
-            $._cte,
-            $._select_statement,
-          ),
-          seq(
-            '(',
-            $._select_statement,
-            ')',
-          ),
-        ),
+        $.create_query,
         optional(
           seq(
             $.keyword_with,
@@ -754,13 +765,7 @@ module.exports = grammar({
         optional($._if_not_exists),
         $.table_reference,
         $.keyword_as,
-        choice(
-          $._select_statement,
-          seq(
-              $._cte,
-              $._select_statement,
-          ),
-        ),
+        $.create_query,
         optional(
           choice(
             seq(
