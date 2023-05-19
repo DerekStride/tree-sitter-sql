@@ -2663,15 +2663,7 @@
       "required": true,
       "types": [
         {
-          "type": "cte",
-          "named": true
-        },
-        {
-          "type": "from",
-          "named": true
-        },
-        {
-          "type": "keyword_all",
+          "type": "create_query",
           "named": true
         },
         {
@@ -2687,19 +2679,11 @@
           "named": true
         },
         {
-          "type": "keyword_except",
-          "named": true
-        },
-        {
           "type": "keyword_exists",
           "named": true
         },
         {
           "type": "keyword_if",
-          "named": true
-        },
-        {
-          "type": "keyword_intersect",
           "named": true
         },
         {
@@ -2723,10 +2707,6 @@
           "named": true
         },
         {
-          "type": "keyword_union",
-          "named": true
-        },
-        {
           "type": "keyword_view",
           "named": true
         },
@@ -2735,11 +2715,50 @@
           "named": true
         },
         {
-          "type": "select",
+          "type": "table_reference",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "create_query",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "cte",
           "named": true
         },
         {
-          "type": "table_reference",
+          "type": "from",
+          "named": true
+        },
+        {
+          "type": "keyword_all",
+          "named": true
+        },
+        {
+          "type": "keyword_except",
+          "named": true
+        },
+        {
+          "type": "keyword_intersect",
+          "named": true
+        },
+        {
+          "type": "keyword_union",
+          "named": true
+        },
+        {
+          "type": "keyword_with",
+          "named": true
+        },
+        {
+          "type": "select",
           "named": true
         }
       ]
@@ -2758,7 +2777,7 @@
           "named": true
         },
         {
-          "type": "cte",
+          "type": "create_query",
           "named": true
         },
         {
@@ -2826,10 +2845,6 @@
           "named": true
         },
         {
-          "type": "keyword_with",
-          "named": true
-        },
-        {
           "type": "row_format",
           "named": true
         },
@@ -2873,19 +2888,11 @@
       "required": true,
       "types": [
         {
-          "type": "cte",
-          "named": true
-        },
-        {
-          "type": "from",
+          "type": "create_query",
           "named": true
         },
         {
           "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "keyword_all",
           "named": true
         },
         {
@@ -2905,19 +2912,11 @@
           "named": true
         },
         {
-          "type": "keyword_except",
-          "named": true
-        },
-        {
           "type": "keyword_exists",
           "named": true
         },
         {
           "type": "keyword_if",
-          "named": true
-        },
-        {
-          "type": "keyword_intersect",
           "named": true
         },
         {
@@ -2953,19 +2952,11 @@
           "named": true
         },
         {
-          "type": "keyword_union",
-          "named": true
-        },
-        {
           "type": "keyword_view",
           "named": true
         },
         {
           "type": "keyword_with",
-          "named": true
-        },
-        {
-          "type": "select",
           "named": true
         },
         {
