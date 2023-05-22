@@ -404,3 +404,124 @@ VALUES('foo','bar', 3);
         (literal)
         (literal)
         (literal)))))
+
+================================================================================
+Insert overwrite
+================================================================================
+
+INSERT OVERWRITE tab1
+SELECT
+  col1,
+  col2
+FROM
+(
+  SELECT
+    *
+  FROM
+    tab2
+  WHERE
+    key1 >= 'val'
+) a1;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (insert
+      (keyword_insert)
+      (keyword_overwrite)
+      (table_reference
+        (identifier))
+      (select
+        (keyword_select)
+        (select_expression
+          (term
+            (field
+              (identifier)))
+          (term
+            (field
+              (identifier)))))
+      (from
+        (keyword_from)
+        (relation
+          (subquery
+            (select
+              (keyword_select)
+              (select_expression
+                (all_fields)))
+            (from
+              (keyword_from)
+              (relation
+                (table_reference
+                  (identifier)))
+              (where
+                (keyword_where)
+                (binary_expression
+                  (field
+                    (identifier))
+                  (literal)))))
+          (identifier))))))
+
+================================================================================
+Insert overwrite with partition
+================================================================================
+
+INSERT OVERWRITE tab1
+PARTITION (key1 = 'val1', key2 = 'val2')
+SELECT
+  col1,
+  col2
+FROM
+(
+  SELECT
+    *
+  FROM
+    tab2
+  WHERE
+    key1 >= 'val'
+) a1;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (insert
+      (keyword_insert)
+      (keyword_overwrite)
+      (table_reference
+        (identifier))
+      (table_partition
+        (keyword_partition)
+        (identifier)
+        (literal)
+        (identifier)
+        (literal))
+      (select
+        (keyword_select)
+        (select_expression
+          (term
+            (field
+              (identifier)))
+          (term
+            (field
+              (identifier)))))
+      (from
+        (keyword_from)
+        (relation
+          (subquery
+            (select
+              (keyword_select)
+              (select_expression
+                (all_fields)))
+            (from
+              (keyword_from)
+              (relation
+                (table_reference
+                  (identifier)))
+              (where
+                (keyword_where)
+                (binary_expression
+                  (field
+                    (identifier))
+                  (literal)))))
+          (identifier))))))

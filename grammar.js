@@ -44,6 +44,7 @@ module.exports = grammar({
     keyword_replace: _ => make_keyword("replace"),
     keyword_update: _ => make_keyword("update"),
     keyword_into: _ => make_keyword("into"),
+    keyword_overwrite: _ => make_keyword("overwrite"),
     keyword_values: _ => make_keyword("values"),
     keyword_set: _ => make_keyword("set"),
     keyword_from: _ => make_keyword("from"),
@@ -1270,8 +1271,14 @@ module.exports = grammar({
         ),
       ),
       optional($.keyword_ignore),
-      optional($.keyword_into),
+      optional(
+        choice(
+          $.keyword_into,
+          $.keyword_overwrite, // Spark SQL
+        ),
+      ),
       $.table_reference,
+      optional($.table_partition), // Spark SQL
       optional(
         seq(
           $.keyword_as,
@@ -1418,26 +1425,35 @@ module.exports = grammar({
     ),
 
     table_partition: $ => seq(
-        choice(
-            // Postgres/MySQL style
-            seq(
-                $.keyword_partition,
-                $.keyword_by,
-                choice(
-                    $.keyword_range,
-                    $.keyword_hash,
-                )
-            ),
-            // Hive style
-            seq(
-                $.keyword_partitioned,
-                $.keyword_by,
-            ),
+      choice(
+        // Postgres/MySQL style
+        seq(
+          $.keyword_partition,
+          $.keyword_by,
+          choice(
+            $.keyword_range,
+            $.keyword_hash,
+          )
         ),
-        choice(
-            seq('(', $.identifier, ')'), // postgres
-            $.column_definitions // impala/hive
-        )
+        // Hive style
+        seq(
+          $.keyword_partitioned,
+          $.keyword_by,
+        ),
+        // Spark SQL
+        $.keyword_partition,
+      ),
+      choice(
+        seq('(', $.identifier, ')'), // postgres
+        $.column_definitions, // impala/hive
+        seq('(', $._key_value_pair, repeat(seq(',', $._key_value_pair)), ')',), // Spark SQL
+      )
+    ),
+
+    _key_value_pair: $ => seq(
+      field('key',$.identifier),
+      '=',
+      field('value', alias($._literal_string, $.literal)),
     ),
 
     stored_as: $ => seq(
