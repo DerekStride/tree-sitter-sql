@@ -4412,6 +4412,10 @@
           "named": true
         },
         {
+          "type": "keyword_overwrite",
+          "named": true
+        },
+        {
           "type": "keyword_replace",
           "named": true
         },
@@ -4437,6 +4441,10 @@
         },
         {
           "type": "select",
+          "named": true
+        },
+        {
+          "type": "table_partition",
           "named": true
         },
         {
@@ -6169,7 +6177,28 @@
   {
     "type": "table_partition",
     "named": true,
-    "fields": {},
+    "fields": {
+      "key": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "literal",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": true,
@@ -7585,6 +7614,10 @@
   },
   {
     "type": "keyword_over",
+    "named": true
+  },
+  {
+    "type": "keyword_overwrite",
     "named": true
   },
   {
