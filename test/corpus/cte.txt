@@ -175,3 +175,41 @@ FROM second;
       (relation
         (table_reference
           (identifier))))))
+
+================================================================================
+Parenthesized CTE
+================================================================================
+
+(
+  WITH data AS (
+    SELECT 1 AS col
+  )
+  SELECT *
+  FROM data
+)
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (keyword_with)
+    (cte
+      (identifier)
+      (keyword_as)
+      (statement
+        (select
+          (keyword_select)
+          (select_expression
+            (term
+              (literal)
+              (keyword_as)
+              (identifier))))))
+    (select
+      (keyword_select)
+      (select_expression
+        (all_fields)))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          (identifier))))))

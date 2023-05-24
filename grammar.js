@@ -409,11 +409,11 @@ module.exports = grammar({
       $.keyword_regtype,
     ),
 
-    tinyint: $ => unsigned_type($, parametric_type($, $.keyword_tinyint)),
-    smallint: $ => unsigned_type($, parametric_type($, $.keyword_smallint)),
-    mediumint: $ => unsigned_type($, parametric_type($, $.keyword_mediumint)),
-    int: $ => unsigned_type($, parametric_type($, $.keyword_int)),
-    bigint: $ => unsigned_type($, parametric_type($, $.keyword_bigint)),
+    tinyint: $ => prec.left(unsigned_type($, parametric_type($, $.keyword_tinyint))),
+    smallint: $ => prec.left(unsigned_type($, parametric_type($, $.keyword_smallint))),
+    mediumint: $ => prec.left(unsigned_type($, parametric_type($, $.keyword_mediumint))),
+    int: $ => prec.left(unsigned_type($, parametric_type($, $.keyword_int))),
+    bigint: $ => prec.left(unsigned_type($, parametric_type($, $.keyword_bigint))),
 
     bit: $ => choice(
         $.keyword_bit,
@@ -426,15 +426,17 @@ module.exports = grammar({
 
     // TODO: should qualify against /\\b(0?[1-9]|[1-4][0-9]|5[0-4])\\b/g
     float: $  => choice(
-      prec(0, parametric_type($, $.keyword_float, ['precision'])),
-      prec(1, unsigned_type($, parametric_type($, $.keyword_float, ['precision', 'scale']))),
+      prec.right(parametric_type($, $.keyword_float, ['precision'])),
+      prec.right(unsigned_type($, parametric_type($, $.keyword_float, ['precision', 'scale']))),
     ),
 
-    double: $ => choice(
-      make_keyword("float8"),
-      unsigned_type($, parametric_type($, $.keyword_double, ['precision', 'scale'])),
-      unsigned_type($, parametric_type($, seq($.keyword_double, $.keyword_precision), ['precision', 'scale'])),
-      unsigned_type($, parametric_type($, $.keyword_real, ['precision', 'scale'])),
+    double: $ => prec.left(
+      choice(
+        make_keyword("float8"),
+        unsigned_type($, parametric_type($, $.keyword_double, ['precision', 'scale'])),
+        unsigned_type($, parametric_type($, seq($.keyword_double, $.keyword_precision), ['precision', 'scale'])),
+        unsigned_type($, parametric_type($, $.keyword_real, ['precision', 'scale'])),
+      ),
     ),
 
     decimal: $ => choice(
@@ -499,16 +501,32 @@ module.exports = grammar({
     ),
 
     _dml_statement: $ => seq(
+      choice(
+        $._cte_select_variants,
+        seq('(', $._cte_select_variants,')'),
+        seq(
+          optional(
+            $._cte
+          ),
+          choice(
+            $._delete_statement,
+            $._insert_statement,
+            $._update_statement,
+          ),
+        ),
+      ),
+      optional($.window_clause),
+    ),
+
+    _cte_select_variants: $ => prec.left(seq(
       optional(
-          $._cte
+        $._cte
       ),
       choice(
         $._select_statement,
-        $._delete_statement,
-        $._insert_statement,
-        $._update_statement,
-      ),
-      optional($.window_clause),
+        seq('(', $._select_statement, ')'),
+      )
+    ),
     ),
 
     cte: $ => seq(
@@ -1777,9 +1795,11 @@ module.exports = grammar({
       optional($.order_by),
     ),
 
-    invocation: $ => seq(
-      field('name', $.identifier),
-      paren_list(field('parameter', $._select_expression)),
+    invocation: $ => prec(1,
+      seq(
+        field('name', $.identifier),
+        paren_list(field('parameter', $._select_expression)),
+      ),
     ),
 
     exists: $ => seq(
@@ -1927,22 +1947,24 @@ module.exports = grammar({
       optional($.limit),
     ),
 
-    relation: $ => seq(
-      choice(
-        $.subquery,
-        $.invocation,
-        $.table_reference,
-        seq(
-          '(',
-          $.values,
-          ')',
+    relation: $ => prec.right(
+      seq(
+        choice(
+          $.subquery,
+          $.invocation,
+          $.table_reference,
+          seq(
+            '(',
+            $.values,
+            ')',
+          ),
         ),
-      ),
-      optional(
-        seq(
-          optional($.keyword_as),
-          field('table_alias', $._alias_identifier),
-          optional(alias($._column_list, $.list)),
+        optional(
+          seq(
+            optional($.keyword_as),
+            field('table_alias', $._alias_identifier),
+            optional(alias($._column_list, $.list)),
+          ),
         ),
       ),
     ),
