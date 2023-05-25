@@ -1921,6 +1921,7 @@ module.exports = grammar({
       ),
       optional($.where),
       optional($.group_by),
+      optional($.window_clause),
       optional($.order_by),
       optional($.limit),
     ),
