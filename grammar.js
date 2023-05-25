@@ -476,7 +476,13 @@ module.exports = grammar({
     statement: $ => seq(
       choice(
         $._ddl_statement,
-        $._dml_statement,
+        $._dml_read,
+        $._dml_write,
+        seq(
+          '(',
+          $._dml_read,
+          ')',
+        ),
       ),
       optional(';'),
     ),
@@ -498,33 +504,28 @@ module.exports = grammar({
         ),
     ),
 
-    _dml_statement: $ => seq(
+    _dml_write: $ => seq(
+      seq(
+        optional(
+          $._cte,
+        ),
+        choice(
+          $._delete_statement,
+          $._insert_statement,
+          $._update_statement,
+        ),
+      ),
+    ),
+
+    _dml_read: $ => seq(
       choice(
-        $._cte_select_variants,
-        seq('(', $._cte_select_variants,')'),
         seq(
           optional(
             $._cte
           ),
-          choice(
-            $._delete_statement,
-            $._insert_statement,
-            $._update_statement,
-          ),
+          $._select_statement,
         ),
       ),
-      optional($.window_clause),
-    ),
-
-    _cte_select_variants: $ => prec.left(seq(
-      optional(
-        $._cte
-      ),
-      choice(
-        $._select_statement,
-        seq('(', $._select_statement, ')'),
-      )
-    ),
     ),
 
     cte: $ => seq(
