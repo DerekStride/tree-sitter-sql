@@ -19,14 +19,15 @@ HAVING other_id > 10;
             name: (identifier)))
         (term
           value: (invocation
-            name: (identifier)
+            (object_reference
+              name: (identifier))
             parameter: (term
               value: (field
                 name: (identifier)))))))
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier)))
       (group_by
         (keyword_group)
@@ -59,14 +60,15 @@ HAVING other_id > 10;
             name: (identifier)))
         (term
           value: (invocation
-            name: (identifier)
+            (object_reference
+              name: (identifier))
             parameter: (term
               value: (field
                 name: (identifier)))))))
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier)))
       (group_by
         (keyword_group)
@@ -101,14 +103,15 @@ HAVING other_id > 10;
             name: (identifier)))
         (term
           value: (invocation
-            name: (identifier)
+            (object_reference
+              name: (identifier))
             parameter: (term
               value: (field
                 name: (identifier)))))))
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier)))
       (group_by
         (keyword_group)
@@ -143,14 +146,15 @@ HAVING COUNT(*) = 2;
             name: (identifier)))
         (term
           value: (invocation
-            name: (identifier)
+            (object_reference
+              name: (identifier))
             parameter: (term
               value: (field
                 name: (identifier)))))))
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier)))
       (group_by
         (keyword_group)
@@ -160,6 +164,7 @@ HAVING COUNT(*) = 2;
         (keyword_having)
         (binary_expression
           left: (invocation
-            name: (identifier)
+            (object_reference
+              name: (identifier))
             parameter: (all_fields))
           right: (literal))))))

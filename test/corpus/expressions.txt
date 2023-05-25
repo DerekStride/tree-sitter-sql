@@ -17,13 +17,14 @@ WHERE m.is_not_deleted;
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier))
-        table_alias: (identifier))
+        alias: (identifier))
       (where
         (keyword_where)
         predicate: (field
-          table_alias: (identifier)
+          (object_reference
+            name: (identifier))
           name: (identifier))))))
 
 ================================================================================
@@ -45,18 +46,20 @@ WHERE m.is_not_deleted AND m.is_visible;
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier))
-        table_alias: (identifier))
+        alias: (identifier))
       (where
         (keyword_where)
         predicate: (binary_expression
           left: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier))
           operator: (keyword_and)
           right: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier)))))))
 
 ================================================================================
@@ -78,15 +81,16 @@ WHERE NOT m.is_not_deleted;
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier))
-        table_alias: (identifier))
+        alias: (identifier))
       (where
         (keyword_where)
         predicate: (unary_expression
           operator: (keyword_not)
           operand: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier)))))))
 
 ================================================================================
@@ -109,22 +113,24 @@ WHERE NOT m.is_not_deleted
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier))
-        table_alias: (identifier))
+        alias: (identifier))
       (where
         (keyword_where)
         predicate: (binary_expression
           left: (unary_expression
             operator: (keyword_not)
             operand: (field
-              table_alias: (identifier)
+              (object_reference
+                name: (identifier))
               name: (identifier)))
           operator: (keyword_and)
           right: (unary_expression
             operator: (keyword_not)
             operand: (field
-              table_alias: (identifier)
+              (object_reference
+                name: (identifier))
               name: (identifier))))))))
 
 ================================================================================
@@ -149,9 +155,9 @@ WHERE m.status = "success"
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier))
-        table_alias: (identifier))
+        alias: (identifier))
       (where
         (keyword_where)
         predicate: (binary_expression
@@ -159,24 +165,28 @@ WHERE m.status = "success"
             left: (binary_expression
               left: (binary_expression
                 left: (field
-                  table_alias: (identifier)
+                  (object_reference
+                    name: (identifier))
                   name: (identifier))
                 right: (literal))
               operator: (keyword_and)
               right: (binary_expression
                 left: (field
-                  table_alias: (identifier)
+                  (object_reference
+                    name: (identifier))
                   name: (identifier))
                 right: (literal)))
             operator: (keyword_and)
             right: (binary_expression
               left: (field
-                table_alias: (identifier)
+                (object_reference
+                  name: (identifier))
                 name: (identifier))
               right: (literal)))
           operator: (keyword_and)
           right: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier)))))))
 
 ================================================================================
@@ -201,34 +211,38 @@ WHERE m.status = "success"
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier))
-        table_alias: (identifier))
+        alias: (identifier))
       (where
         (keyword_where)
         predicate: (binary_expression
           left: (binary_expression
             left: (binary_expression
               left: (field
-                table_alias: (identifier)
+                (object_reference
+                  name: (identifier))
                 name: (identifier))
               right: (literal))
             operator: (keyword_and)
             right: (binary_expression
               left: (field
-                table_alias: (identifier)
+                (object_reference
+                  name: (identifier))
                 name: (identifier))
               right: (literal)))
           operator: (keyword_or)
           right: (binary_expression
             left: (binary_expression
               left: (field
-                table_alias: (identifier)
+                (object_reference
+                  name: (identifier))
                 name: (identifier))
               right: (literal))
             operator: (keyword_and)
             right: (field
-              table_alias: (identifier)
+              (object_reference
+                name: (identifier))
               name: (identifier))))))))
 
 ================================================================================
@@ -250,15 +264,16 @@ WHERE NOT m.is_deleted;
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier))
-        table_alias: (identifier))
+        alias: (identifier))
       (where
         (keyword_where)
         predicate: (unary_expression
           operator: (keyword_not)
           operand: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier)))))))
 
 ================================================================================
@@ -280,15 +295,16 @@ WHERE !m.is_deleted;
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier))
-        table_alias: (identifier))
+        alias: (identifier))
       (where
         (keyword_where)
         predicate: (unary_expression
           operator: (bang)
           operand: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier)))))))
 
 ================================================================================
@@ -311,22 +327,24 @@ WHERE NOT m.is_deleted
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier))
-        table_alias: (identifier))
+        alias: (identifier))
       (where
         (keyword_where)
         predicate: (binary_expression
           left: (unary_expression
             operator: (keyword_not)
             operand: (field
-              table_alias: (identifier)
+              (object_reference
+                name: (identifier))
               name: (identifier)))
           operator: (keyword_and)
           right: (unary_expression
             operator: (keyword_not)
             operand: (field
-              table_alias: (identifier)
+              (object_reference
+                name: (identifier))
               name: (identifier))))))))
 
 ================================================================================
@@ -348,7 +366,7 @@ WHERE col IS DISTINCT FROM NULL;
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier)))
       (where
         (keyword_where)
@@ -381,7 +399,7 @@ WHERE col IS NOT DISTINCT FROM NULL;
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier)))
       (where
         (keyword_where)
@@ -416,7 +434,7 @@ WHERE id IS NOT NULL
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier)))
       (where
         (keyword_where)
@@ -458,15 +476,16 @@ WHERE m.id > 4 AND id < 3;
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier))
-        table_alias: (identifier))
+        alias: (identifier))
       (where
         (keyword_where)
         predicate: (binary_expression
           left: (binary_expression
             left: (field
-              table_alias: (identifier)
+              (object_reference
+                name: (identifier))
               name: (identifier))
             right: (literal))
           operator: (keyword_and)
@@ -501,7 +520,7 @@ WHERE
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier)))
       (where
         (keyword_where)
@@ -561,7 +580,7 @@ WHERE
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier)))
       (where
         (keyword_where)

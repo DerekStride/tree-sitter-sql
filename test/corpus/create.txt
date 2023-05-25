@@ -11,7 +11,7 @@ CREATE TABLE my_schema.my_table (id BIGINT NOT NULL PRIMARY KEY);
     (create_table
       (keyword_create)
       (keyword_table)
-      (table_reference
+      (object_reference
         schema: (identifier)
         name: (identifier))
       (column_definitions
@@ -40,7 +40,7 @@ CREATE TABLE my_table (
     (create_table
       (keyword_create)
       (keyword_table)
-      (table_reference
+      (object_reference
         name: (identifier))
       (column_definitions
         (column_definition
@@ -74,7 +74,7 @@ CREATE TEMP TABLE my_table (id BIGINT NOT NULL PRIMARY KEY);
       (keyword_create)
       (keyword_temp)
       (keyword_table)
-      (table_reference
+      (object_reference
         name: (identifier))
       (column_definitions
         (column_definition
@@ -103,7 +103,7 @@ CREATE TABLE my_table (
     (create_table
       (keyword_create)
       (keyword_table)
-      (table_reference
+      (object_reference
         name: (identifier))
       (column_definitions
         (column_definition
@@ -156,7 +156,7 @@ CREATE TABLE my_table (
     (create_table
       (keyword_create)
       (keyword_table)
-      (table_reference
+      (object_reference
         name: (identifier))
       (column_definitions
         (column_definition
@@ -177,7 +177,8 @@ CREATE TABLE my_table (
             (keyword_float))
           (keyword_default)
           (invocation
-            name: (identifier)))
+            (object_reference
+              name: (identifier))))
         (column_definition
           name: (identifier)
           type: (keyword_text)
@@ -232,7 +233,7 @@ CREATE TABLE IF NOT EXISTS `addresses` (
       (keyword_if)
       (keyword_not)
       (keyword_exists)
-      (table_reference
+      (object_reference
         name: (identifier))
       (column_definitions
         (column_definition
@@ -264,7 +265,7 @@ CREATE TABLE `addresses` (
     (create_table
       (keyword_create)
       (keyword_table)
-      (table_reference
+      (object_reference
         name: (identifier))
       (column_definitions
         (column_definition
@@ -327,7 +328,7 @@ CREATE TABLE IF NOT EXISTS `addresses` (
       (keyword_if)
       (keyword_not)
       (keyword_exists)
-      (table_reference
+      (object_reference
         name: (identifier))
       (column_definitions
         (column_definition
@@ -377,7 +378,7 @@ CREATE TABLE IF NOT EXISTS `addresses` (
       (keyword_if)
       (keyword_not)
       (keyword_exists)
-      (table_reference
+      (object_reference
         name: (identifier))
       (column_definitions
         (column_definition
@@ -458,7 +459,7 @@ CREATE TABLE IF NOT EXISTS `addresses` (
       (keyword_if)
       (keyword_not)
       (keyword_exists)
-      (table_reference
+      (object_reference
         name: (identifier))
       (column_definitions
         (column_definition
@@ -502,7 +503,7 @@ CREATE TABLE my_table (
     (create_table
       (keyword_create)
       (keyword_table)
-      (table_reference
+      (object_reference
         name: (identifier))
       (column_definitions
         (column_definition
@@ -546,7 +547,7 @@ SELECT * FROM my_table;
     (create_view
       (keyword_create)
       (keyword_view)
-      (table_reference
+      (object_reference
         name: (identifier))
       (keyword_as)
       (create_query
@@ -557,7 +558,7 @@ SELECT * FROM my_table;
         (from
           (keyword_from)
           (relation
-            (table_reference
+            (object_reference
               name: (identifier))))))))
 
 ================================================================================
@@ -576,7 +577,7 @@ SELECT * FROM my_table;
       (keyword_or)
       (keyword_replace)
       (keyword_view)
-      (table_reference
+      (object_reference
         name: (identifier))
       (keyword_as)
       (create_query
@@ -587,7 +588,7 @@ SELECT * FROM my_table;
         (from
           (keyword_from)
           (relation
-            (table_reference
+            (object_reference
               name: (identifier))))))))
 
 ================================================================================
@@ -605,7 +606,7 @@ CREATE TEMP VIEW foo AS SELECT 1;
       (keyword_create)
       (keyword_temporary)
       (keyword_view)
-      (table_reference
+      (object_reference
         (identifier))
       (keyword_as)
       (create_query
@@ -619,7 +620,7 @@ CREATE TEMP VIEW foo AS SELECT 1;
       (keyword_create)
       (keyword_temp)
       (keyword_view)
-      (table_reference
+      (object_reference
         (identifier))
       (keyword_as)
       (create_query
@@ -642,7 +643,7 @@ CREATE VIEW foo(a, b) AS SELECT 1 a, 2 b;
     (create_view
       (keyword_create)
       (keyword_view)
-      (table_reference
+      (object_reference
         (identifier))
       (identifier)
       (identifier)
@@ -672,7 +673,7 @@ CREATE VIEW foo AS SELECT 1 WITH CASCADED CHECK OPTION;
     (create_view
       (keyword_create)
       (keyword_view)
-      (table_reference
+      (object_reference
         (identifier))
       (keyword_as)
       (create_query
@@ -688,7 +689,7 @@ CREATE VIEW foo AS SELECT 1 WITH CASCADED CHECK OPTION;
     (create_view
       (keyword_create)
       (keyword_view)
-      (table_reference
+      (object_reference
         (identifier))
       (keyword_as)
       (create_query
@@ -705,7 +706,7 @@ CREATE VIEW foo AS SELECT 1 WITH CASCADED CHECK OPTION;
     (create_view
       (keyword_create)
       (keyword_view)
-      (table_reference
+      (object_reference
         (identifier))
       (keyword_as)
       (create_query
@@ -735,7 +736,7 @@ WITH NO DATA;
       (keyword_create)
       (keyword_materialized)
       (keyword_view)
-      (table_reference
+      (object_reference
         name: (identifier))
       (keyword_as)
       (create_query
@@ -746,7 +747,7 @@ WITH NO DATA;
         (from
           (keyword_from)
           (relation
-            (table_reference
+            (object_reference
               name: (identifier)))))
       (keyword_with)
       (keyword_no)
@@ -768,7 +769,7 @@ WITH NO DATA
       (keyword_create)
       (keyword_materialized)
       (keyword_view)
-      (table_reference
+      (object_reference
         name: (identifier))
       (keyword_as)
       (create_query
@@ -779,7 +780,7 @@ WITH NO DATA
         (from
           (keyword_from)
           (relation
-            (table_reference
+            (object_reference
               name: (identifier)))))
       (keyword_with)
       (keyword_no)
@@ -841,7 +842,7 @@ CREATE TABLE type_test (
     (create_table
       (keyword_create)
       (keyword_table)
-      (table_reference
+      (object_reference
         name: (identifier))
       (column_definitions
         (column_definition
@@ -1026,7 +1027,7 @@ CREATE TABLE tableName (
     (create_table
       (keyword_create)
       (keyword_table)
-      (table_reference
+      (object_reference
         (identifier))
       (column_definitions
         (column_definition
@@ -1056,7 +1057,7 @@ CREATE UNLOGGED TABLE tableName (
       (keyword_create)
       (keyword_unlogged)
       (keyword_table)
-      (table_reference
+      (object_reference
         (identifier))
       (column_definitions
         (column_definition
@@ -1082,7 +1083,7 @@ CREATE TABLE some_table(
     (create_table
       (keyword_create)
       (keyword_table)
-      (table_reference
+      (object_reference
         name: (identifier))
       (column_definitions
         (column_definition
@@ -1141,7 +1142,7 @@ CREATE TABLE tableName AS SELECT * FROM otherTable;
     (create_table
       (keyword_create)
       (keyword_table)
-      (table_reference
+      (object_reference
         name: (identifier))
       (keyword_as)
       (create_query
@@ -1152,7 +1153,7 @@ CREATE TABLE tableName AS SELECT * FROM otherTable;
         (from
           (keyword_from)
           (relation
-            (table_reference
+            (object_reference
               name: (identifier))))))))
 
 ================================================================================
@@ -1171,7 +1172,7 @@ SELECT * FROM _cte
     (create_table
       (keyword_create)
       (keyword_table)
-      (table_reference
+      (object_reference
         (identifier))
       (keyword_as)
       (create_query
@@ -1189,7 +1190,7 @@ SELECT * FROM _cte
             (from
               (keyword_from)
               (relation
-                (table_reference
+                (object_reference
                   (identifier))))))
         (select
           (keyword_select)
@@ -1198,7 +1199,7 @@ SELECT * FROM _cte
         (from
           (keyword_from)
           (relation
-            (table_reference
+            (object_reference
               (identifier))))))))
 
 ================================================================================
@@ -1221,7 +1222,7 @@ UNION ALL
     (create_table
       (keyword_create)
       (keyword_table)
-      (table_reference
+      (object_reference
         (identifier))
       (keyword_as)
       (create_query
@@ -1258,7 +1259,7 @@ SELECT * FROM _cte
     (create_view
       (keyword_create)
       (keyword_view)
-      (table_reference
+      (object_reference
         (identifier))
       (keyword_as)
       (create_query
@@ -1276,7 +1277,7 @@ SELECT * FROM _cte
             (from
               (keyword_from)
               (relation
-                (table_reference
+                (object_reference
                   (identifier))))))
         (select
           (keyword_select)
@@ -1285,7 +1286,7 @@ SELECT * FROM _cte
         (from
           (keyword_from)
           (relation
-            (table_reference
+            (object_reference
               (identifier))))))))
 
 ================================================================================
@@ -1305,7 +1306,7 @@ SELECT * FROM _cte
       (keyword_create)
       (keyword_materialized)
       (keyword_view)
-      (table_reference
+      (object_reference
         (identifier))
       (keyword_as)
       (create_query
@@ -1323,7 +1324,7 @@ SELECT * FROM _cte
             (from
               (keyword_from)
               (relation
-                (table_reference
+                (object_reference
                   (identifier))))))
         (select
           (keyword_select)
@@ -1332,7 +1333,7 @@ SELECT * FROM _cte
         (from
           (keyword_from)
           (relation
-            (table_reference
+            (object_reference
               (identifier))))))))
 
 ================================================================================
@@ -1357,7 +1358,7 @@ CACHED IN 'pool1' WITH REPLICATION = 2
       (keyword_create)
       (keyword_external)
       (keyword_table)
-      (table_reference
+      (object_reference
         name: (identifier))
       (column_definitions
         (column_definition
@@ -1426,7 +1427,7 @@ CREATE TABLE "Role" (
     (create_table
       (keyword_create)
       (keyword_table)
-      (table_reference
+      (object_reference
         name: (identifier))
       (column_definitions
         (column_definition
@@ -1452,7 +1453,7 @@ CREATE TABLE "Role" (
     (create_table
       (keyword_create)
       (keyword_table)
-      (table_reference
+      (object_reference
         name: (identifier))
       (column_definitions
         (column_definition
@@ -1485,7 +1486,7 @@ CREATE TABLE "Session" (
     (create_table
       (keyword_create)
       (keyword_table)
-      (table_reference
+      (object_reference
         name: (identifier))
       (column_definitions
         (column_definition

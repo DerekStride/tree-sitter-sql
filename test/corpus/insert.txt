@@ -12,7 +12,7 @@ VALUES('foo','bar', 3);
     (insert
       (keyword_insert)
       (keyword_into)
-      (table_reference
+      (object_reference
         name: (identifier))
       (keyword_values)
       (list
@@ -34,10 +34,10 @@ VALUES('foo','bar', 3);
     (insert
       (keyword_insert)
       (keyword_into)
-      (table_reference
+      (object_reference
         name: (identifier))
       (keyword_as)
-      table_alias: (identifier)
+      alias: (identifier)
       (keyword_values)
       (list
         (literal)
@@ -58,7 +58,7 @@ VALUES ('foo', 123, '2020');
     (insert
       (keyword_replace)
       (keyword_into)
-      (table_reference
+      (object_reference
         name: (identifier))
       (list
         (column
@@ -88,7 +88,7 @@ FROM my_other_table;
     (insert
       (keyword_insert)
       (keyword_into)
-      (table_reference
+      (object_reference
         name: (identifier))
       (list
         (column
@@ -112,7 +112,7 @@ FROM my_other_table;
       (from
         (keyword_from)
         (relation
-          (table_reference
+          (object_reference
             name: (identifier)))))))
 
 ================================================================================
@@ -130,7 +130,7 @@ RETURNING *;
     (insert
       (keyword_insert)
       (keyword_into)
-      (table_reference
+      (object_reference
         name: (identifier))
       (keyword_values)
       (list
@@ -157,7 +157,7 @@ RETURNING id;
     (insert
       (keyword_insert)
       (keyword_into)
-      (table_reference
+      (object_reference
         name: (identifier))
       (keyword_values)
       (list
@@ -186,7 +186,7 @@ RETURNING id, val1, val2;
     (insert
       (keyword_insert)
       (keyword_into)
-      (table_reference
+      (object_reference
         name: (identifier))
       (keyword_values)
       (list
@@ -223,7 +223,7 @@ VALUES
     (insert
       (keyword_insert)
       (keyword_into)
-      (table_reference
+      (object_reference
         (identifier))
       (list
         (column
@@ -248,7 +248,7 @@ INSERT INTO some_table
     (insert
       (keyword_insert)
       (keyword_into)
-      (table_reference
+      (object_reference
         name: (identifier))
       (keyword_set)
       (assignment
@@ -271,7 +271,7 @@ ON CONFLICT DO NOTHING;
     (insert
       (keyword_insert)
       (keyword_into)
-      (table_reference
+      (object_reference
         name: (identifier))
       (keyword_values)
       (list
@@ -298,7 +298,7 @@ ON CONFLICT DO UPDATE SET dname = EXCLUDED.dname;
     (insert
       (keyword_insert)
       (keyword_into)
-      (table_reference
+      (object_reference
         name: (identifier))
       (keyword_values)
       (list
@@ -311,10 +311,10 @@ ON CONFLICT DO UPDATE SET dname = EXCLUDED.dname;
       (keyword_update)
       (keyword_set)
       (assignment
-        left: (field
-          name: (identifier))
+        left: (identifier)
         right: (field
-          table_alias: (identifier)
+          (object_reference
+            name: (identifier))
           name: (identifier))))))
 
 ================================================================================
@@ -331,7 +331,7 @@ VALUES('foo','bar', 3);
     (insert
       (keyword_insert)
       (keyword_low_priority)
-      (table_reference
+      (object_reference
         name: (identifier))
       (keyword_values)
       (list
@@ -353,7 +353,7 @@ VALUES('foo','bar', 3);
     (insert
       (keyword_insert)
       (keyword_delayed)
-      (table_reference
+      (object_reference
         name: (identifier))
       (keyword_values)
       (list
@@ -375,7 +375,7 @@ VALUES('foo','bar', 3);
     (insert
       (keyword_insert)
       (keyword_high_priority)
-      (table_reference
+      (object_reference
         name: (identifier))
       (keyword_values)
       (list
@@ -397,7 +397,7 @@ VALUES('foo','bar', 3);
     (insert
       (keyword_insert)
       (keyword_ignore)
-      (table_reference
+      (object_reference
         name: (identifier))
       (keyword_values)
       (list
@@ -430,7 +430,7 @@ FROM
     (insert
       (keyword_insert)
       (keyword_overwrite)
-      (table_reference
+      (object_reference
         (identifier))
       (select
         (keyword_select)
@@ -452,7 +452,7 @@ FROM
             (from
               (keyword_from)
               (relation
-                (table_reference
+                (object_reference
                   (identifier)))
               (where
                 (keyword_where)
@@ -488,7 +488,7 @@ FROM
     (insert
       (keyword_insert)
       (keyword_overwrite)
-      (table_reference
+      (object_reference
         (identifier))
       (table_partition
         (keyword_partition)
@@ -516,7 +516,7 @@ FROM
             (from
               (keyword_from)
               (relation
-                (table_reference
+                (object_reference
                   (identifier)))
               (where
                 (keyword_where)

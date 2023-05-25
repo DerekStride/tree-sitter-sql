@@ -12,12 +12,11 @@ SET for = foo + 1;
     (update
       (keyword_update)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier)))
       (keyword_set)
       (assignment
-        left: (field
-          name: (identifier))
+        left: (identifier)
         right: (binary_expression
           left: (field
             name: (identifier))
@@ -38,12 +37,11 @@ SET for = foo + 1;
       (keyword_update)
       (keyword_only)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier)))
       (keyword_set)
       (assignment
-        left: (field
-          name: (identifier))
+        left: (identifier)
         right: (binary_expression
           left: (field
             name: (identifier))
@@ -63,19 +61,17 @@ SET for = foo + 1, col2 = col1;
     (update
       (keyword_update)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier)))
       (keyword_set)
       (assignment
-        left: (field
-          name: (identifier))
+        left: (identifier)
         right: (binary_expression
           left: (field
             name: (identifier))
           right: (literal)))
       (assignment
-        left: (field
-          name: (identifier))
+        left: (identifier)
         right: (field
           name: (identifier))))))
 
@@ -94,27 +90,31 @@ WHERE items.id=month.item_id;
     (update
       (keyword_update)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier)))
       (relation
-        (table_reference
+        (object_reference
           name: (identifier)))
       (keyword_set)
       (assignment
         left: (field
-          table_alias: (identifier)
+          (object_reference
+            name: (identifier))
           name: (identifier))
         right: (field
-          table_alias: (identifier)
+          (object_reference
+            name: (identifier))
           name: (identifier)))
       (where
         (keyword_where)
         predicate: (binary_expression
           left: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier))
           right: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier)))))))
 
 ================================================================================
@@ -131,14 +131,14 @@ SET ts = now();
     (update
       (keyword_update)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier)))
       (keyword_set)
       (assignment
-        left: (field
-          name: (identifier))
+        left: (identifier)
         right: (invocation
-          name: (identifier))))))
+          (object_reference
+            name: (identifier)))))))
 
 ================================================================================
 Update with a JOIN
@@ -157,14 +157,14 @@ a.d = 5;
     (update
       (keyword_update)
       (relation
-        (table_reference
+        (object_reference
           (identifier))
         (identifier))
       (join
         (keyword_inner)
         (keyword_join)
         (relation
-          (table_reference
+          (object_reference
             (identifier))
           (identifier))
         (keyword_on)
@@ -179,7 +179,7 @@ a.d = 5;
         (keyword_inner)
         (keyword_join)
         (relation
-          (table_reference
+          (object_reference
             (identifier))
           (identifier))
         (keyword_on)
@@ -212,23 +212,24 @@ WHERE b.a = a.uid;
     (update
       (keyword_update)
       (relation
-        (table_reference
+        (object_reference
           (identifier))
         (keyword_as)
         (identifier))
       (keyword_set)
       (assignment
-        (field
-          (identifier))
+        (identifier)
         (literal))
       (where
         (keyword_where)
         (binary_expression
           (field
-            (identifier)
+            (object_reference
+              (identifier))
             (identifier))
           (field
-            (identifier)
+            (object_reference
+              (identifier))
             (identifier)))))))
 
 ================================================================================
@@ -248,42 +249,45 @@ WHERE b.a = a.uid;
     (update
       (keyword_update)
       (relation
-        (table_reference
+        (object_reference
           (identifier))
         (keyword_as)
         (identifier))
       (keyword_set)
       (assignment
-        (field
-          (identifier))
+        (identifier)
         (literal))
       (from
         (keyword_from)
         (relation
-          (table_reference
+          (object_reference
             (identifier))
           (identifier))
         (join
           (keyword_inner)
           (keyword_join)
           (relation
-            (table_reference
+            (object_reference
               (identifier))
             (identifier))
           (keyword_on)
           (binary_expression
             (field
-              (identifier)
+              (object_reference
+                (identifier))
               (identifier))
             (field
-              (identifier)
+              (object_reference
+                (identifier))
               (identifier))))
         (where
           (keyword_where)
           (binary_expression
             (field
-              (identifier)
+              (object_reference
+                (identifier))
               (identifier))
             (field
-              (identifier)
+              (object_reference
+                (identifier))
               (identifier))))))))

@@ -31,7 +31,7 @@ COMMIT;
    (alter_table
     (keyword_alter)
     (keyword_table)
-    (table_reference name: (identifier))
+    (object_reference name: (identifier))
     (add_column (keyword_add) (keyword_column)
      (column_definition
       name: (identifier)
@@ -44,12 +44,11 @@ COMMIT;
    (update
     (keyword_update)
     (relation
-     (table_reference
+     (object_reference
       name: (identifier)))
     (keyword_set)
     (assignment
-      left: (field
-        name: (identifier))
+      left: (identifier)
       right: (literal))))
  (keyword_commit)))
 
@@ -71,7 +70,7 @@ ROLLBACK;
    (alter_table
     (keyword_alter)
     (keyword_table)
-    (table_reference name: (identifier))
+    (object_reference name: (identifier))
     (add_column (keyword_add) (keyword_column)
      (column_definition
       name: (identifier)
@@ -101,7 +100,7 @@ ROLLBACK TRANSACTION;
    (alter_table
     (keyword_alter)
     (keyword_table)
-    (table_reference name: (identifier))
+    (object_reference name: (identifier))
     (add_column (keyword_add) (keyword_column)
      (column_definition
       name: (identifier)

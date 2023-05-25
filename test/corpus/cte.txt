@@ -30,7 +30,7 @@ FROM my_cte;
         (from
           (keyword_from)
           (relation
-            (table_reference
+            (object_reference
               name: (identifier))))))
     (select
       (keyword_select)
@@ -39,7 +39,7 @@ FROM my_cte;
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier))))))
 
 ================================================================================
@@ -69,7 +69,7 @@ FROM second;
         (insert
           (keyword_insert)
           (keyword_into)
-          (table_reference
+          (object_reference
             name: (identifier))
           (list
             (column
@@ -100,7 +100,7 @@ FROM second;
         (from
           (keyword_from)
           (relation
-            (table_reference
+            (object_reference
               name: (identifier))))))
     (select
       (keyword_select)
@@ -109,7 +109,7 @@ FROM second;
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier))))))
 
 ================================================================================
@@ -145,7 +145,7 @@ FROM second;
         (from
           (keyword_from)
           (relation
-            (table_reference
+            (object_reference
               (identifier))))))
     (cte
       (identifier)
@@ -164,7 +164,7 @@ FROM second;
         (from
           (keyword_from)
           (relation
-            (table_reference
+            (object_reference
               (identifier))))))
     (select
       (keyword_select)
@@ -173,7 +173,7 @@ FROM second;
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           (identifier))))))
 
 ================================================================================
@@ -211,5 +211,5 @@ Parenthesized CTE
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           (identifier))))))

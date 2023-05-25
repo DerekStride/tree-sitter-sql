@@ -22,7 +22,7 @@ WHERE id < (
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           (identifier)))
       (where
         (keyword_where)
@@ -39,7 +39,7 @@ WHERE id < (
             (from
               (keyword_from)
               (relation
-                (table_reference
+                (object_reference
                   (identifier)))
               (limit
                 (keyword_limit)

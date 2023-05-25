@@ -409,11 +409,11 @@ module.exports = grammar({
       $.keyword_regtype,
     ),
 
-    tinyint: $ => prec.left(unsigned_type($, parametric_type($, $.keyword_tinyint))),
-    smallint: $ => prec.left(unsigned_type($, parametric_type($, $.keyword_smallint))),
-    mediumint: $ => prec.left(unsigned_type($, parametric_type($, $.keyword_mediumint))),
-    int: $ => prec.left(unsigned_type($, parametric_type($, $.keyword_int))),
-    bigint: $ => prec.left(unsigned_type($, parametric_type($, $.keyword_bigint))),
+    tinyint: $ => unsigned_type($, parametric_type($, $.keyword_tinyint)),
+    smallint: $ => unsigned_type($, parametric_type($, $.keyword_smallint)),
+    mediumint: $ => unsigned_type($, parametric_type($, $.keyword_mediumint)),
+    int: $ => unsigned_type($, parametric_type($, $.keyword_int)),
+    bigint: $ => unsigned_type($, parametric_type($, $.keyword_bigint)),
 
     bit: $ => choice(
         $.keyword_bit,
@@ -426,17 +426,15 @@ module.exports = grammar({
 
     // TODO: should qualify against /\\b(0?[1-9]|[1-4][0-9]|5[0-4])\\b/g
     float: $  => choice(
-      prec.right(parametric_type($, $.keyword_float, ['precision'])),
-      prec.right(unsigned_type($, parametric_type($, $.keyword_float, ['precision', 'scale']))),
+      parametric_type($, $.keyword_float, ['precision']),
+      unsigned_type($, parametric_type($, $.keyword_float, ['precision', 'scale'])),
     ),
 
-    double: $ => prec.left(
-      choice(
-        make_keyword("float8"),
-        unsigned_type($, parametric_type($, $.keyword_double, ['precision', 'scale'])),
-        unsigned_type($, parametric_type($, seq($.keyword_double, $.keyword_precision), ['precision', 'scale'])),
-        unsigned_type($, parametric_type($, $.keyword_real, ['precision', 'scale'])),
-      ),
+    double: $ => choice(
+      make_keyword("float8"),
+      unsigned_type($, parametric_type($, $.keyword_double, ['precision', 'scale'])),
+      unsigned_type($, parametric_type($, seq($.keyword_double, $.keyword_precision), ['precision', 'scale'])),
+      unsigned_type($, parametric_type($, $.keyword_real, ['precision', 'scale'])),
     ),
 
     decimal: $ => choice(
@@ -643,7 +641,7 @@ module.exports = grammar({
       optional(
         $.keyword_only,
       ),
-      $.table_reference,
+      $.object_reference,
       optional($.where),
       optional($.order_by),
       optional($.limit),
@@ -697,7 +695,7 @@ module.exports = grammar({
         ),
         $.keyword_table,
         optional($._if_not_exists),
-        $.table_reference,
+        $.object_reference,
         choice(
           seq(
             $.column_definitions,
@@ -756,7 +754,7 @@ module.exports = grammar({
         optional($.keyword_recursive),
         $.keyword_view,
         optional($._if_not_exists),
-        $.table_reference,
+        $.object_reference,
         optional(paren_list($.identifier)),
         $.keyword_as,
         $.create_query,
@@ -782,7 +780,7 @@ module.exports = grammar({
         $.keyword_materialized,
         $.keyword_view,
         optional($._if_not_exists),
-        $.table_reference,
+        $.object_reference,
         $.keyword_as,
         $.create_query,
         optional(
@@ -1016,7 +1014,7 @@ module.exports = grammar({
       $.keyword_on,
       optional($.keyword_only),
       seq(
-        $.table_reference,
+        $.object_reference,
         optional(
           seq(
             $.keyword_using,
@@ -1048,7 +1046,7 @@ module.exports = grammar({
       $.keyword_alter,
       $.keyword_table,
       optional($._if_exists),
-      $.table_reference,
+      $.object_reference,
       choice(
         seq(
           $._alter_specifications,
@@ -1088,7 +1086,7 @@ module.exports = grammar({
     add_constraint: $ => seq(
       $.keyword_add,
       $.keyword_constraint,
-      $.field,
+      $.identifier,
       $.constraint,
     ),
 
@@ -1182,7 +1180,7 @@ module.exports = grammar({
       $.keyword_alter,
       $.keyword_view,
       optional($._if_exists),
-      $.table_reference,
+      $.object_reference,
       choice(
         // TODO Postgres allows a single "alter column" to set or drop default
         $.rename_object,
@@ -1204,7 +1202,7 @@ module.exports = grammar({
       $.keyword_drop,
       $.keyword_table,
       optional($._if_exists),
-      $.table_reference,
+      $.object_reference,
       optional(
         $.keyword_cascade,
       ),
@@ -1214,7 +1212,7 @@ module.exports = grammar({
       $.keyword_drop,
       $.keyword_view,
       optional($._if_exists),
-      $.table_reference,
+      $.object_reference,
       optional(
         $.keyword_cascade,
       ),
@@ -1235,7 +1233,7 @@ module.exports = grammar({
       optional(
         seq(
             $.keyword_on,
-            $.table_reference,
+            $.object_reference,
         ),
       ),
     ),
@@ -1243,7 +1241,7 @@ module.exports = grammar({
     rename_object: $ => seq(
       $.keyword_rename,
       $.keyword_to,
-      $.table_reference,
+      $.object_reference,
     ),
 
     set_schema: $ => seq(
@@ -1258,16 +1256,17 @@ module.exports = grammar({
       $.identifier,
     ),
 
-    table_reference: $ => seq(
-      optional(
-        seq(
-          field('schema', $.identifier),
-          '.',
+    object_reference: $ => prec.left(2,
+      seq(
+        optional(
+          seq(
+            field('schema', $.identifier),
+            '.',
+          ),
         ),
-      ),
-      choice(
-        field('name', $.identifier),
-        field('name', alias($._literal_string, $.identifier)),
+        choice(
+          field('name', $.identifier),
+        ),
       ),
     ),
 
@@ -1295,18 +1294,20 @@ module.exports = grammar({
           $.keyword_overwrite, // Spark SQL
         ),
       ),
-      $.table_reference,
+      $.object_reference,
       optional($.table_partition), // Spark SQL
       optional(
         seq(
           $.keyword_as,
-          field('table_alias', $._alias_identifier)
+          field('alias', $.identifier)
         ),
       ),
-      choice(
+      // TODO i don't think we have a test for `insert into tbl set ....` and
+      // it's no dialect i can think of
+      // choice(
         $._insert_values,
-        $._set_values,
-      ),
+        // $._set_values,
+      // ),
       optional(
         seq(
           $.keyword_on,
@@ -1490,7 +1491,7 @@ module.exports = grammar({
     ),
 
     assignment: $ => seq(
-      field('left', $.field),
+      field('left', $.identifier), // column name only, no schema/table qualifiers
       '=',
       field('right', $._expression),
     ),
@@ -1606,7 +1607,7 @@ module.exports = grammar({
       optional(
         seq(
           $.keyword_references,
-          $.table_reference,
+          $.object_reference,
           $.ordered_columns,
           optional(
             seq(
@@ -1629,13 +1630,7 @@ module.exports = grammar({
     all_fields: $ => seq(
       optional(
         seq(
-          optional(
-            seq(
-              field('schema', $._alias_identifier),
-              '.',
-            ),
-          ),
-          field('table_alias', $._alias_identifier),
+          $.object_reference,
           '.',
         ),
       ),
@@ -1691,24 +1686,15 @@ module.exports = grammar({
       $.keyword_end,
     ),
 
-    field: $ => prec.left(
+    field: $ => prec.right(
       seq(
         optional(
           seq(
-            optional(
-              seq(
-                field('schema', $._alias_identifier),
-                '.',
-              ),
-            ),
-            field('table_alias', $._alias_identifier),
+            $.object_reference,
             '.',
           ),
         ),
-        choice(
-            field('name', $.identifier),
-            field('name', alias($._double_quote_string, $.identifier)),
-        ),
+        field('name', $.identifier),
       ),
     ),
 
@@ -1797,7 +1783,7 @@ module.exports = grammar({
 
     invocation: $ => prec(1,
       seq(
-        field('name', $.identifier),
+        $.object_reference,
         paren_list(field('parameter', $._select_expression)),
       ),
     ),
@@ -1913,17 +1899,9 @@ module.exports = grammar({
         ),
     ),
 
-    _alias_identifier : $ => choice(
-      $.identifier,
-      alias($._double_quote_string, $.identifier),
-    ),
-
-    _alias: $ => choice(
-      field('alias', $._alias_identifier),
-      seq(
-        $.keyword_as,
-        field('alias', $._alias_identifier),
-      ),
+    _alias: $ => seq(
+      optional($.keyword_as),
+      field('alias', $.identifier),
     ),
 
     from: $ => seq(
@@ -1952,7 +1930,8 @@ module.exports = grammar({
         choice(
           $.subquery,
           $.invocation,
-          $.table_reference,
+          // TODO already has an optional alias
+          $.object_reference,
           seq(
             '(',
             $.values,
@@ -1961,8 +1940,7 @@ module.exports = grammar({
         ),
         optional(
           seq(
-            optional($.keyword_as),
-            field('table_alias', $._alias_identifier),
+            $._alias,
             optional(alias($._column_list, $.list)),
           ),
         ),
@@ -2296,6 +2274,7 @@ module.exports = grammar({
 
     identifier: $ => choice(
       $._identifier,
+      $._double_quote_string,
       seq('`', $._identifier, '`'),
     ),
     _identifier: _ => /([a-zA-Z_][0-9a-zA-Z_]*)/,
@@ -2315,7 +2294,7 @@ function unsigned_type($, type) {
 }
 
 function parametric_type($, type, params = ['size']) {
-  return prec.right(
+  return prec.right(1,
     choice(
       type,
       seq(

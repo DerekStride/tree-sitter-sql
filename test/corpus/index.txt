@@ -12,7 +12,7 @@ CREATE INDEX ON tab(col);
       (keyword_create)
       (keyword_index)
       (keyword_on)
-      (table_reference
+      (object_reference
         (identifier))
       (ordered_columns
         (column
@@ -41,7 +41,7 @@ WHERE tab.col > 10;
       (keyword_exists)
       (identifier)
       (keyword_on)
-      (table_reference
+      (object_reference
         (identifier))
       (keyword_using)
       (keyword_hash)
@@ -54,6 +54,7 @@ WHERE tab.col > 10;
         (keyword_where)
         (binary_expression
           (field
-            (identifier)
+            (object_reference
+              (identifier))
             (identifier))
           (literal))))))
