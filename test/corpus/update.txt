@@ -170,10 +170,12 @@ a.d = 5;
         (keyword_on)
         (binary_expression
           (field
-            (identifier)
+            (object_reference
+              (identifier))
             (identifier))
           (field
-            (identifier)
+            (object_reference
+              (identifier))
             (identifier))))
       (join
         (keyword_inner)
@@ -185,16 +187,16 @@ a.d = 5;
         (keyword_on)
         (binary_expression
           (field
-            (identifier)
+            (object_reference
+              (identifier))
             (identifier))
           (field
-            (identifier)
+            (object_reference
+              (identifier))
             (identifier))))
       (keyword_set)
       (assignment
-        (field
-          (identifier)
-          (identifier))
+        (identifier)
         (literal)))))
 
 ================================================================================
