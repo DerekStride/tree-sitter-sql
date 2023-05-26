@@ -1303,10 +1303,10 @@ module.exports = grammar({
       ),
       // TODO i don't think we have a test for `insert into tbl set ....` and
       // it's no dialect i can think of
-      // choice(
+      choice(
         $._insert_values,
-        // $._set_values,
-      // ),
+        $._set_values,
+      ),
       optional(
         seq(
           $.keyword_on,
