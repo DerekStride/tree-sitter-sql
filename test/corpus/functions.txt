@@ -927,7 +927,8 @@ $function$
                 (identifier)))
             (keyword_set)
             (assignment
-              (identifier)
+              (field
+                (identifier))
               (binary_expression
                 (field
                   (identifier))

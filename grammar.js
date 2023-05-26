@@ -1265,9 +1265,7 @@ module.exports = grammar({
             '.',
           ),
         ),
-        choice(
-          field('name', $.identifier),
-        ),
+        field('name', $.identifier),
       ),
     ),
 
@@ -1492,7 +1490,7 @@ module.exports = grammar({
     ),
 
     assignment: $ => seq(
-      field('left', $.identifier), // column name only, no schema/table qualifiers
+      field('left', $.field), // column name only, no schema/table qualifiers
       '=',
       field('right', $._expression),
     ),

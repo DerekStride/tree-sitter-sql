@@ -16,7 +16,8 @@ SET for = foo + 1;
           name: (identifier)))
       (keyword_set)
       (assignment
-        left: (identifier)
+        left: (field
+          name: (identifier))
         right: (binary_expression
           left: (field
             name: (identifier))
@@ -41,7 +42,8 @@ SET for = foo + 1;
           name: (identifier)))
       (keyword_set)
       (assignment
-        left: (identifier)
+        left: (field
+          name: (identifier))
         right: (binary_expression
           left: (field
             name: (identifier))
@@ -65,13 +67,15 @@ SET for = foo + 1, col2 = col1;
           name: (identifier)))
       (keyword_set)
       (assignment
-        left: (identifier)
+        left: (field
+          name: (identifier))
         right: (binary_expression
           left: (field
             name: (identifier))
           right: (literal)))
       (assignment
-        left: (identifier)
+        left: (field
+          name: (identifier))
         right: (field
           name: (identifier))))))
 
@@ -135,7 +139,8 @@ SET ts = now();
           name: (identifier)))
       (keyword_set)
       (assignment
-        left: (identifier)
+        left: (field
+          name: (identifier))
         right: (invocation
           (object_reference
             name: (identifier)))))))
@@ -196,7 +201,10 @@ a.d = 5;
             (identifier))))
       (keyword_set)
       (assignment
-        (identifier)
+        (field
+          (object_reference
+            (identifier))
+          (identifier))
         (literal)))))
 
 ================================================================================
@@ -220,7 +228,8 @@ WHERE b.a = a.uid;
         (identifier))
       (keyword_set)
       (assignment
-        (identifier)
+        (field
+          (identifier))
         (literal))
       (where
         (keyword_where)
@@ -257,7 +266,8 @@ WHERE b.a = a.uid;
         (identifier))
       (keyword_set)
       (assignment
-        (identifier)
+        (field
+          (identifier))
         (literal))
       (from
         (keyword_from)

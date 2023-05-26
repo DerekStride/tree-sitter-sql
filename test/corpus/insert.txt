@@ -311,7 +311,8 @@ ON CONFLICT DO UPDATE SET dname = EXCLUDED.dname;
       (keyword_update)
       (keyword_set)
       (assignment
-        left: (identifier)
+        left: (field
+          name: (identifier))
         right: (field
           (object_reference
             name: (identifier))
