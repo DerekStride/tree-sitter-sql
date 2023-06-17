@@ -71,6 +71,7 @@ module.exports = grammar({
     keyword_create: _ => make_keyword("create"),
     keyword_alter: _ => make_keyword("alter"),
     keyword_change: _ => make_keyword("change"),
+    keyword_analyze: _ => make_keyword("analyze"),
     keyword_modify: _ => make_keyword("modify"),
     keyword_drop: _ => make_keyword("drop"),
     keyword_add: _ => make_keyword("add"),
@@ -78,6 +79,7 @@ module.exports = grammar({
     keyword_view: _ => make_keyword("view"),
     keyword_materialized: _ => make_keyword("materialized"),
     keyword_column: _ => make_keyword("column"),
+    keyword_columns: _ => make_keyword("columns"),
     keyword_key: _ => make_keyword("key"),
     keyword_as: _ => make_keyword("as"),
     keyword_distinct: _ => make_keyword("distinct"),
@@ -220,6 +222,8 @@ module.exports = grammar({
     keyword_options: _ => make_keyword("options"),
     keyword_compute: _ => make_keyword("compute"),
     keyword_stats: _ => make_keyword("stats"),
+    keyword_statistics: _ => make_keyword("statistics"),
+    keyword_incremental: _ => make_keyword("incremental"),
     keyword_location: _ => make_keyword("location"),
     keyword_partitioned: _ => make_keyword("partitioned"),
     keyword_comment: _ => make_keyword("comment"),
@@ -230,6 +234,9 @@ module.exports = grammar({
     keyword_terminated: _ => make_keyword("terminated"),
     keyword_escaped: _ => make_keyword("escaped"),
     keyword_lines: _ => make_keyword("lines"),
+    keyword_cache: _ => make_keyword("cache"),
+    keyword_metadata: _ => make_keyword("metadata"),
+    keyword_noscan: _ => make_keyword("noscan"),
 
     // Hive file formats
     keyword_parquet: _ => make_keyword("parquet"),
@@ -507,6 +514,7 @@ module.exports = grammar({
         $._delete_statement,
         $._insert_statement,
         $._update_statement,
+        $._optimize_statement,
       ),
       optional($.window_clause),
     ),
@@ -1333,6 +1341,60 @@ module.exports = grammar({
     _update_statement: $ => seq(
       $.update,
       optional($.returning),
+    ),
+
+    _optimize_statement: $ => choice(
+      $._compute_stats,
+    ),
+
+    // Compute stats for Impala and Hive
+    _compute_stats: $ => choice(
+      seq(
+        $.keyword_analyze,
+        $.keyword_table,
+        $.table_reference,
+        optional($._partition_spec),
+        $.keyword_compute,
+        $.keyword_statistics,
+        optional(
+          seq(
+            $.keyword_for,
+            $.keyword_columns
+          )
+        ),
+        optional(
+          seq(
+            $.keyword_cache,
+            $.keyword_metadata
+          )
+        ),
+        optional($.keyword_noscan),
+      ),
+      seq(
+        $.keyword_compute,
+        optional(
+          $.keyword_incremental,
+        ),
+        $.keyword_stats,
+        $.table_reference,
+        optional(
+          choice(
+            paren_list(repeat1($.field)),
+            $._partition_spec,
+          )
+        )
+      ),
+    ),
+
+    // TODO: this does not account for partitions specs like
+    // (partcol1='2022-01-01', hr=11)
+    // the second argument is not a $.table_option
+    _partition_spec: $ => seq(
+      $.keyword_partition,
+      '(',
+        $.table_option,
+        repeat(seq(',', $.table_option)),
+      ')',
     ),
 
     update: $ => seq(
