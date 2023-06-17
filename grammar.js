@@ -75,6 +75,7 @@ module.exports = grammar({
     keyword_drop: _ => make_keyword("drop"),
     keyword_add: _ => make_keyword("add"),
     keyword_table: _ => make_keyword("table"),
+    keyword_tables: _ => make_keyword("tables"),
     keyword_view: _ => make_keyword("view"),
     keyword_materialized: _ => make_keyword("materialized"),
     keyword_column: _ => make_keyword("column"),
@@ -183,6 +184,8 @@ module.exports = grammar({
     keyword_current_timestamp: _ => make_keyword("current_timestamp"),
     keyword_check: _ => make_keyword("check"),
     keyword_option: _ => make_keyword("option"),
+    keyword_wait: _ => make_keyword("wait"),
+    keyword_nowait: _ => make_keyword("nowait"),
 
     keyword_trigger: _ => make_keyword('trigger'),
     keyword_function: _ => make_keyword("function"),
@@ -485,6 +488,7 @@ module.exports = grammar({
       $._create_statement,
       $._alter_statement,
       $._drop_statement,
+      $._rename_statement,
     ),
 
     _cte: $ => seq(
@@ -1024,6 +1028,39 @@ module.exports = grammar({
         $.alter_table,
         $.alter_view,
       ),
+    ),
+
+    _rename_statement: $ => seq(
+      $.keyword_rename,
+      choice(
+        $.keyword_table,
+        $.keyword_tables,
+      ),
+      optional($._if_exists),
+      $.table_reference,
+      optional(
+        choice(
+          $.keyword_nowait,
+          seq(
+            $.keyword_wait,
+            field('timeout', alias($._natural_number, $.literal))
+          )
+        )
+      ),
+      $.keyword_to,
+      $.table_reference,
+      repeat(
+        seq(
+          ',',
+          $._rename_table_names,
+        )
+      ),
+    ),
+
+    _rename_table_names: $ => seq(
+      $.table_reference,
+      $.keyword_to,
+      $.table_reference,
     ),
 
     alter_table: $ => seq(
