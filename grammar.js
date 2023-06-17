@@ -1349,6 +1349,8 @@ module.exports = grammar({
 
     _optimize_statement: $ => choice(
       $._compute_stats,
+      $._vacuum_table,
+      $._optimize_table,
     ),
 
     // Compute stats for Impala and Hive
@@ -1390,6 +1392,9 @@ module.exports = grammar({
           )
         )
       ),
+    ),
+
+    _optimize_table: $ => choice(
       // Athena/Iceberg
       seq(
         $.keyword_optimize,
@@ -1401,19 +1406,6 @@ module.exports = grammar({
         optional(
           $.where,
         )
-      ),
-      // Vacuum
-      seq(
-        $.keyword_vacuum,
-        optional($._vacuum_option),
-        $.table_reference,
-        optional(
-          seq(
-            optional(
-              paren_list($.field)
-            )
-          )
-        ),
       ),
       // MariaDB Optimize
       seq(
@@ -1427,6 +1419,19 @@ module.exports = grammar({
         $.keyword_table,
         $.table_reference,
         repeat(seq(',', $.table_reference)),
+      ),
+    ),
+
+    _vacuum_table: $ => seq(
+      $.keyword_vacuum,
+      optional($._vacuum_option),
+      $.table_reference,
+      optional(
+        seq(
+          optional(
+            paren_list($.field)
+          )
+        )
       ),
     ),
 
