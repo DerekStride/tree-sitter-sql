@@ -185,6 +185,7 @@ module.exports = grammar({
     keyword_current_timestamp: _ => make_keyword("current_timestamp"),
     keyword_check: _ => make_keyword("check"),
     keyword_option: _ => make_keyword("option"),
+    keyword_vacuum: _ => make_keyword("vacuum"),
 
     keyword_trigger: _ => make_keyword('trigger'),
     keyword_function: _ => make_keyword("function"),
@@ -1401,6 +1402,44 @@ module.exports = grammar({
           $.where,
         )
       ),
+      // Vacuum
+      seq(
+        $.keyword_vacuum,
+        optional($._vacuum_option),
+        $.table_reference,
+        optional(
+          seq(
+            optional(
+              paren_list($.field)
+            )
+          )
+        ),
+      ),
+      // MariaDB Optimize
+      seq(
+        $.keyword_optimize,
+        optional(
+          choice(
+            $.keyword_local,
+            //$.keyword_no_write_to_binlog,
+          )
+        ),
+        $.keyword_table,
+        $.table_reference,
+        repeat(seq(',', $.table_reference)),
+      ),
+    ),
+
+    _vacuum_option: $ => choice(
+      seq($.keyword_full, optional(choice($.keyword_true, $.keyword_false))),
+      seq($.keyword_parallel, optional(choice($.keyword_true, $.keyword_false))),
+      seq($.keyword_analyze, optional(choice($.keyword_true, $.keyword_false))),
+      // seq($.keyword_freeze, choice($.keyword_true, $.keyword_false)),
+      // seq($.keyword_skip_locked, choice($.keyword_true, $.keyword_false)),
+      // seq($.keyword_truncate, choice($.keyword_true, $.keyword_false)),
+      // seq($.keyword_disable_page_skipping, choice($.keyword_true, $.keyword_false)),
+      // seq($.keyword_process_toast, choice($.keyword_true, $.keyword_false)),
+      // seq($.keyword_index_cleanup, choice($.keyword_auto, $.keyword_on, $.keyword_off)),
     ),
 
     // TODO: this does not account for partitions specs like

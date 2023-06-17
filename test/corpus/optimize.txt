@@ -96,3 +96,55 @@ OPTIMIZE mytable REWRITE DATA USING BIN_PACK
           (keyword_not))
         (literal
           (keyword_null))))))
+
+================================================================================
+Vacuum
+================================================================================
+
+VACUUM my_table;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (keyword_vacuum)
+    (table_reference
+      (identifier))))
+
+================================================================================
+Vacuum Postgres with options
+================================================================================
+
+VACUUM FULL true my_table (col1, col2);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (keyword_vacuum)
+    (keyword_full)
+    (keyword_true)
+    (table_reference
+      (identifier))
+    (field
+      (identifier))
+    (field
+      (identifier))))
+
+================================================================================
+MariaDB Optimize Table
+================================================================================
+
+OPTIMIZE LOCAL TABLE my_table1, my_table2
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (keyword_optimize)
+    (keyword_local)
+    (keyword_table)
+    (table_reference
+      (identifier))
+    (table_reference
+      (identifier))))
