@@ -223,6 +223,9 @@ module.exports = grammar({
     keyword_compute: _ => make_keyword("compute"),
     keyword_stats: _ => make_keyword("stats"),
     keyword_statistics: _ => make_keyword("statistics"),
+    keyword_optimize: _ => make_keyword("optimize"),
+    keyword_rewrite: _ => make_keyword("rewrite"),
+    keyword_bin_pack: _ => make_keyword("bin_pack"),
     keyword_incremental: _ => make_keyword("incremental"),
     keyword_location: _ => make_keyword("location"),
     keyword_partitioned: _ => make_keyword("partitioned"),
@@ -1349,6 +1352,7 @@ module.exports = grammar({
 
     // Compute stats for Impala and Hive
     _compute_stats: $ => choice(
+      // Hive
       seq(
         $.keyword_analyze,
         $.keyword_table,
@@ -1370,6 +1374,7 @@ module.exports = grammar({
         ),
         optional($.keyword_noscan),
       ),
+      // Impala
       seq(
         $.keyword_compute,
         optional(
@@ -1382,6 +1387,18 @@ module.exports = grammar({
             paren_list(repeat1($.field)),
             $._partition_spec,
           )
+        )
+      ),
+      // Athena/Iceberg
+      seq(
+        $.keyword_optimize,
+        $.table_reference,
+        $.keyword_rewrite,
+        $.keyword_data,
+        $.keyword_using,
+        $.keyword_bin_pack,
+        optional(
+          $.where,
         )
       ),
     ),

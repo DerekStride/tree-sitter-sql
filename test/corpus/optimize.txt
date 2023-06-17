@@ -68,3 +68,31 @@ NOSCAN
     (keyword_cache)
     (keyword_metadata)
     (keyword_noscan)))
+
+================================================================================
+Athena/Iceberg: Optimize table
+================================================================================
+
+OPTIMIZE mytable REWRITE DATA USING BIN_PACK
+  WHERE col1 is not null
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (keyword_optimize)
+    (table_reference
+      (identifier))
+    (keyword_rewrite)
+    (keyword_data)
+    (keyword_using)
+    (keyword_bin_pack)
+    (where
+      (keyword_where)
+      (binary_expression
+        (field
+          (identifier))
+        (is_not
+          (keyword_is)
+          (keyword_not))
+        (literal
+          (keyword_null))))))
