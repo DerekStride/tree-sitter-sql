@@ -5862,7 +5862,18 @@
   {
     "type": "statement",
     "named": true,
-    "fields": {},
+    "fields": {
+      "timeout": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "literal",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": false,
@@ -5932,11 +5943,43 @@
           "named": true
         },
         {
+          "type": "keyword_exists",
+          "named": true
+        },
+        {
+          "type": "keyword_if",
+          "named": true
+        },
+        {
           "type": "keyword_intersect",
           "named": true
         },
         {
+          "type": "keyword_nowait",
+          "named": true
+        },
+        {
+          "type": "keyword_rename",
+          "named": true
+        },
+        {
+          "type": "keyword_table",
+          "named": true
+        },
+        {
+          "type": "keyword_tables",
+          "named": true
+        },
+        {
+          "type": "keyword_to",
+          "named": true
+        },
+        {
           "type": "keyword_union",
+          "named": true
+        },
+        {
+          "type": "keyword_wait",
           "named": true
         },
         {
@@ -5949,6 +5992,10 @@
         },
         {
           "type": "select",
+          "named": true
+        },
+        {
+          "type": "table_reference",
           "named": true
         },
         {
@@ -7561,6 +7608,10 @@
     "named": true
   },
   {
+    "type": "keyword_nowait",
+    "named": true
+  },
+  {
     "type": "keyword_null",
     "named": true
   },
@@ -7809,6 +7860,10 @@
     "named": true
   },
   {
+    "type": "keyword_tables",
+    "named": true
+  },
+  {
     "type": "keyword_tblproperties",
     "named": true
   },
@@ -7918,6 +7973,10 @@
   },
   {
     "type": "keyword_volatile",
+    "named": true
+  },
+  {
+    "type": "keyword_wait",
     "named": true
   },
   {
