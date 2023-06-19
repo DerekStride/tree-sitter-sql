@@ -1503,8 +1503,12 @@ module.exports = grammar({
     ),
 
     assignment: $ => seq(
-      optional($.object_reference), // TODO move into seq in field
-      field('left', $.field),
+      field('left',
+        alias(
+          $._qualified_field,
+          $.field,
+        ),
+      ),
       '=',
       field('right', $._expression),
     ),
