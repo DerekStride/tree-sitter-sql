@@ -1940,7 +1940,15 @@ module.exports = grammar({
 
     invocation: $ => seq(
       field('name', $.identifier),
-      paren_list(field('parameter', $._select_expression)),
+      paren_list(
+        seq(
+          optional($.keyword_distinct),
+          field(
+            'parameter',
+            $._select_expression,
+          ),
+          optional($.order_by)
+        )),
     ),
 
     exists: $ => seq(
@@ -2241,11 +2249,11 @@ module.exports = grammar({
       $._expression,
     ),
 
-    order_by: $ => seq(
+    order_by: $ => prec.right(seq(
       $.keyword_order,
       $.keyword_by,
       comma_list($.order_target, true),
-    ),
+    )),
 
     order_target: $ => seq(
       $._expression,
