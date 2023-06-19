@@ -491,10 +491,10 @@ FROM my_table;
           value: (invocation
             (object_reference
               name: (identifier))
+            (keyword_distinct)
             parameter: (term
               value: (field
-                name: (identifier))
-              alias: (identifier)))
+                name: (identifier))))
           (keyword_as)
           alias: (identifier))))
     (from
@@ -776,13 +776,10 @@ FROM my_table;
           value: (invocation
             (object_reference
               name: (identifier))
+            (keyword_distinct)
             parameter: (term
-              value: (invocation
-                (object_reference
-                  name: (identifier))
-                parameter: (term
                   value: (field
-                    name: (identifier)))))))))
+                    name: (identifier)))))))
     (from
       (keyword_from)
       (relation
@@ -830,10 +827,10 @@ FROM my_table;
           value: (invocation
             (object_reference
               name: (identifier))
+            (keyword_distinct)
             parameter: (term
               value: (field
-                name: (identifier))
-              alias: (identifier))))))
+                name: (identifier)))))))
     (from
       (keyword_from)
       (relation

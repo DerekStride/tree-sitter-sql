@@ -1,0 +1,150 @@
+================================================================================
+Impala: Compute stats
+================================================================================
+
+COMPUTE STATS my_table (col1);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (keyword_compute)
+    (keyword_stats)
+    (object_reference
+      (identifier))
+    (field
+      (identifier))))
+
+================================================================================
+Impala: Compute incremental stats
+================================================================================
+
+COMPUTE INCREMENTAL STATS my_table PARTITION (partition_col=col1);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (keyword_compute)
+    (keyword_incremental)
+    (keyword_stats)
+    (object_reference
+      (identifier))
+    (keyword_partition)
+    (table_option
+      (identifier)
+      (identifier))))
+
+================================================================================
+Hive: Analyze and Compute stats
+================================================================================
+
+ANALYZE TABLE mytable
+PARTITION (partcol1=col1, partcol2=col2)
+COMPUTE STATISTICS
+FOR COLUMNS
+CACHE METADATA
+NOSCAN
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (keyword_analyze)
+    (keyword_table)
+    (object_reference
+      (identifier))
+    (keyword_partition)
+    (table_option
+      (identifier)
+      (identifier))
+    (table_option
+      (identifier)
+      (identifier))
+    (keyword_compute)
+    (keyword_statistics)
+    (keyword_for)
+    (keyword_columns)
+    (keyword_cache)
+    (keyword_metadata)
+    (keyword_noscan)))
+
+================================================================================
+Athena/Iceberg: Optimize table
+================================================================================
+
+OPTIMIZE mytable REWRITE DATA USING BIN_PACK
+  WHERE col1 is not null
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (keyword_optimize)
+    (object_reference
+      (identifier))
+    (keyword_rewrite)
+    (keyword_data)
+    (keyword_using)
+    (keyword_bin_pack)
+    (where
+      (keyword_where)
+      (binary_expression
+        (field
+          (identifier))
+        (is_not
+          (keyword_is)
+          (keyword_not))
+        (literal
+          (keyword_null))))))
+
+================================================================================
+Vacuum
+================================================================================
+
+VACUUM my_table;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (keyword_vacuum)
+    (object_reference
+      (identifier))))
+
+================================================================================
+Vacuum Postgres with options
+================================================================================
+
+VACUUM FULL true my_table (col1, col2);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (keyword_vacuum)
+    (keyword_full)
+    (keyword_true)
+    (object_reference
+      (identifier))
+    (field
+      (identifier))
+    (field
+      (identifier))))
+
+================================================================================
+MariaDB Optimize Table
+================================================================================
+
+OPTIMIZE LOCAL TABLE my_table1, my_table2
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (keyword_optimize)
+    (keyword_local)
+    (keyword_table)
+    (object_reference
+      (identifier))
+    (object_reference
+      (identifier))))

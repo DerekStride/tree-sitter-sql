@@ -76,13 +76,16 @@ module.exports = grammar({
     keyword_create: _ => make_keyword("create"),
     keyword_alter: _ => make_keyword("alter"),
     keyword_change: _ => make_keyword("change"),
+    keyword_analyze: _ => make_keyword("analyze"),
     keyword_modify: _ => make_keyword("modify"),
     keyword_drop: _ => make_keyword("drop"),
     keyword_add: _ => make_keyword("add"),
     keyword_table: _ => make_keyword("table"),
+    keyword_tables: _ => make_keyword("tables"),
     keyword_view: _ => make_keyword("view"),
     keyword_materialized: _ => make_keyword("materialized"),
     keyword_column: _ => make_keyword("column"),
+    keyword_columns: _ => make_keyword("columns"),
     keyword_key: _ => make_keyword("key"),
     keyword_as: _ => make_keyword("as"),
     keyword_distinct: _ => make_keyword("distinct"),
@@ -188,6 +191,10 @@ module.exports = grammar({
     keyword_current_timestamp: _ => make_keyword("current_timestamp"),
     keyword_check: _ => make_keyword("check"),
     keyword_option: _ => make_keyword("option"),
+    keyword_vacuum: _ => make_keyword("vacuum"),
+    keyword_wait: _ => make_keyword("wait"),
+    keyword_nowait: _ => make_keyword("nowait"),
+
 
     keyword_trigger: _ => make_keyword('trigger'),
     keyword_function: _ => make_keyword("function"),
@@ -225,6 +232,11 @@ module.exports = grammar({
     keyword_options: _ => make_keyword("options"),
     keyword_compute: _ => make_keyword("compute"),
     keyword_stats: _ => make_keyword("stats"),
+    keyword_statistics: _ => make_keyword("statistics"),
+    keyword_optimize: _ => make_keyword("optimize"),
+    keyword_rewrite: _ => make_keyword("rewrite"),
+    keyword_bin_pack: _ => make_keyword("bin_pack"),
+    keyword_incremental: _ => make_keyword("incremental"),
     keyword_location: _ => make_keyword("location"),
     keyword_partitioned: _ => make_keyword("partitioned"),
     keyword_comment: _ => make_keyword("comment"),
@@ -235,6 +247,9 @@ module.exports = grammar({
     keyword_terminated: _ => make_keyword("terminated"),
     keyword_escaped: _ => make_keyword("escaped"),
     keyword_lines: _ => make_keyword("lines"),
+    keyword_cache: _ => make_keyword("cache"),
+    keyword_metadata: _ => make_keyword("metadata"),
+    keyword_noscan: _ => make_keyword("noscan"),
 
     // Hive file formats
     keyword_parquet: _ => make_keyword("parquet"),
@@ -496,6 +511,8 @@ module.exports = grammar({
       $._create_statement,
       $._alter_statement,
       $._drop_statement,
+      $._rename_statement,
+      $._optimize_statement,
     ),
 
     _cte: $ => seq(
@@ -1049,6 +1066,39 @@ module.exports = grammar({
       ),
     ),
 
+    _rename_statement: $ => seq(
+      $.keyword_rename,
+      choice(
+        $.keyword_table,
+        $.keyword_tables,
+      ),
+      optional($._if_exists),
+      $.object_reference,
+      optional(
+        choice(
+          $.keyword_nowait,
+          seq(
+            $.keyword_wait,
+            field('timeout', alias($._natural_number, $.literal))
+          )
+        )
+      ),
+      $.keyword_to,
+      $.object_reference,
+      repeat(
+        seq(
+          ',',
+          $._rename_table_names,
+        )
+      ),
+    ),
+
+    _rename_table_names: $ => seq(
+      $.object_reference,
+      $.keyword_to,
+      $.object_reference,
+    ),
+
     alter_table: $ => seq(
       $.keyword_alter,
       $.keyword_table,
@@ -1355,6 +1405,113 @@ module.exports = grammar({
     _update_statement: $ => seq(
       $.update,
       optional($.returning),
+    ),
+
+    _optimize_statement: $ => choice(
+      $._compute_stats,
+      $._vacuum_table,
+      $._optimize_table,
+    ),
+
+    // Compute stats for Impala and Hive
+    _compute_stats: $ => choice(
+      // Hive
+      seq(
+        $.keyword_analyze,
+        $.keyword_table,
+        $.object_reference,
+        optional($._partition_spec),
+        $.keyword_compute,
+        $.keyword_statistics,
+        optional(
+          seq(
+            $.keyword_for,
+            $.keyword_columns
+          )
+        ),
+        optional(
+          seq(
+            $.keyword_cache,
+            $.keyword_metadata
+          )
+        ),
+        optional($.keyword_noscan),
+      ),
+      // Impala
+      seq(
+        $.keyword_compute,
+        optional(
+          $.keyword_incremental,
+        ),
+        $.keyword_stats,
+        $.object_reference,
+        optional(
+          choice(
+            paren_list(repeat1($.field)),
+            $._partition_spec,
+          )
+        )
+      ),
+    ),
+
+    _optimize_table: $ => choice(
+      // Athena/Iceberg
+      seq(
+        $.keyword_optimize,
+        $.object_reference,
+        $.keyword_rewrite,
+        $.keyword_data,
+        $.keyword_using,
+        $.keyword_bin_pack,
+        optional(
+          $.where,
+        )
+      ),
+      // MariaDB Optimize
+      seq(
+        $.keyword_optimize,
+        optional(
+          choice(
+            $.keyword_local,
+            //$.keyword_no_write_to_binlog,
+          )
+        ),
+        $.keyword_table,
+        $.object_reference,
+        repeat(seq(',', $.object_reference)),
+      ),
+    ),
+
+    _vacuum_table: $ => seq(
+      $.keyword_vacuum,
+      optional($._vacuum_option),
+      $.object_reference,
+      optional(
+        paren_list($.field)
+      ),
+    ),
+
+    _vacuum_option: $ => choice(
+      seq($.keyword_full, optional(choice($.keyword_true, $.keyword_false))),
+      seq($.keyword_parallel, optional(choice($.keyword_true, $.keyword_false))),
+      seq($.keyword_analyze, optional(choice($.keyword_true, $.keyword_false))),
+      // seq($.keyword_freeze, choice($.keyword_true, $.keyword_false)),
+      // seq($.keyword_skip_locked, choice($.keyword_true, $.keyword_false)),
+      // seq($.keyword_truncate, choice($.keyword_true, $.keyword_false)),
+      // seq($.keyword_disable_page_skipping, choice($.keyword_true, $.keyword_false)),
+      // seq($.keyword_process_toast, choice($.keyword_true, $.keyword_false)),
+      // seq($.keyword_index_cleanup, choice($.keyword_auto, $.keyword_on, $.keyword_off)),
+    ),
+
+    // TODO: this does not account for partitions specs like
+    // (partcol1='2022-01-01', hr=11)
+    // the second argument is not a $.table_option
+    _partition_spec: $ => seq(
+      $.keyword_partition,
+      '(',
+        $.table_option,
+        repeat(seq(',', $.table_option)),
+      ')',
     ),
 
     update: $ => seq(
@@ -1792,7 +1949,16 @@ module.exports = grammar({
     invocation: $ => prec(1,
       seq(
         $.object_reference,
-        paren_list(field('parameter', $.term)),
+        paren_list(
+          seq(
+            optional($.keyword_distinct),
+            field(
+              'parameter',
+              $.term,
+            ),
+            optional($.order_by)
+          )
+        ),
       ),
     ),
 
@@ -2089,11 +2255,11 @@ module.exports = grammar({
       $._expression,
     ),
 
-    order_by: $ => seq(
+    order_by: $ => prec.right(seq(
       $.keyword_order,
       $.keyword_by,
       comma_list($.order_target, true),
-    ),
+    )),
 
     order_target: $ => seq(
       $._expression,

@@ -176,12 +176,16 @@ FROM table_a;
           value: (invocation
             (object_reference
               name: (identifier))
+            (keyword_distinct)
             parameter: (term
               value: (field
-                name: (identifier))
-              alias: (identifier))
-            (ERROR
-              (keyword_by))))))
+                name: (identifier)))
+            (order_by
+              (keyword_order)
+              (keyword_by)
+              (order_target
+                (field
+                  name: (identifier))))))))
     (from
       (keyword_from)
       (relation
