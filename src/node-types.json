@@ -5927,6 +5927,10 @@
           "named": true
         },
         {
+          "type": "field",
+          "named": true
+        },
+        {
           "type": "from",
           "named": true
         },
@@ -5939,6 +5943,30 @@
           "named": true
         },
         {
+          "type": "keyword_analyze",
+          "named": true
+        },
+        {
+          "type": "keyword_bin_pack",
+          "named": true
+        },
+        {
+          "type": "keyword_cache",
+          "named": true
+        },
+        {
+          "type": "keyword_columns",
+          "named": true
+        },
+        {
+          "type": "keyword_compute",
+          "named": true
+        },
+        {
+          "type": "keyword_data",
+          "named": true
+        },
+        {
           "type": "keyword_except",
           "named": true
         },
@@ -5947,7 +5975,23 @@
           "named": true
         },
         {
+          "type": "keyword_false",
+          "named": true
+        },
+        {
+          "type": "keyword_for",
+          "named": true
+        },
+        {
+          "type": "keyword_full",
+          "named": true
+        },
+        {
           "type": "keyword_if",
+          "named": true
+        },
+        {
+          "type": "keyword_incremental",
           "named": true
         },
         {
@@ -5955,11 +5999,47 @@
           "named": true
         },
         {
+          "type": "keyword_local",
+          "named": true
+        },
+        {
+          "type": "keyword_metadata",
+          "named": true
+        },
+        {
+          "type": "keyword_noscan",
+          "named": true
+        },
+        {
           "type": "keyword_nowait",
           "named": true
         },
         {
+          "type": "keyword_optimize",
+          "named": true
+        },
+        {
+          "type": "keyword_parallel",
+          "named": true
+        },
+        {
+          "type": "keyword_partition",
+          "named": true
+        },
+        {
           "type": "keyword_rename",
+          "named": true
+        },
+        {
+          "type": "keyword_rewrite",
+          "named": true
+        },
+        {
+          "type": "keyword_statistics",
+          "named": true
+        },
+        {
+          "type": "keyword_stats",
           "named": true
         },
         {
@@ -5975,7 +6055,19 @@
           "named": true
         },
         {
+          "type": "keyword_true",
+          "named": true
+        },
+        {
           "type": "keyword_union",
+          "named": true
+        },
+        {
+          "type": "keyword_using",
+          "named": true
+        },
+        {
+          "type": "keyword_vacuum",
           "named": true
         },
         {
@@ -5995,11 +6087,19 @@
           "named": true
         },
         {
+          "type": "table_option",
+          "named": true
+        },
+        {
           "type": "table_reference",
           "named": true
         },
         {
           "type": "update",
+          "named": true
+        },
+        {
+          "type": "where",
           "named": true
         },
         {
@@ -7128,6 +7228,10 @@
     "named": true
   },
   {
+    "type": "keyword_analyze",
+    "named": true
+  },
+  {
     "type": "keyword_and",
     "named": true
   },
@@ -7168,6 +7272,10 @@
     "named": true
   },
   {
+    "type": "keyword_bin_pack",
+    "named": true
+  },
+  {
     "type": "keyword_binary",
     "named": true
   },
@@ -7201,6 +7309,10 @@
   },
   {
     "type": "keyword_bytea",
+    "named": true
+  },
+  {
+    "type": "keyword_cache",
     "named": true
   },
   {
@@ -7244,11 +7356,19 @@
     "named": true
   },
   {
+    "type": "keyword_columns",
+    "named": true
+  },
+  {
     "type": "keyword_comment",
     "named": true
   },
   {
     "type": "keyword_commit",
+    "named": true
+  },
+  {
+    "type": "keyword_compute",
     "named": true
   },
   {
@@ -7488,6 +7608,10 @@
     "named": true
   },
   {
+    "type": "keyword_incremental",
+    "named": true
+  },
+  {
     "type": "keyword_index",
     "named": true
   },
@@ -7584,6 +7708,10 @@
     "named": true
   },
   {
+    "type": "keyword_metadata",
+    "named": true
+  },
+  {
     "type": "keyword_modify",
     "named": true
   },
@@ -7597,6 +7725,10 @@
   },
   {
     "type": "keyword_no",
+    "named": true
+  },
+  {
+    "type": "keyword_noscan",
     "named": true
   },
   {
@@ -7637,6 +7769,10 @@
   },
   {
     "type": "keyword_only",
+    "named": true
+  },
+  {
+    "type": "keyword_optimize",
     "named": true
   },
   {
@@ -7772,6 +7908,10 @@
     "named": true
   },
   {
+    "type": "keyword_rewrite",
+    "named": true
+  },
+  {
     "type": "keyword_right",
     "named": true
   },
@@ -7837,6 +7977,14 @@
   },
   {
     "type": "keyword_stable",
+    "named": true
+  },
+  {
+    "type": "keyword_statistics",
+    "named": true
+  },
+  {
+    "type": "keyword_stats",
     "named": true
   },
   {
@@ -7957,6 +8105,10 @@
   },
   {
     "type": "keyword_uuid",
+    "named": true
+  },
+  {
+    "type": "keyword_vacuum",
     "named": true
   },
   {
