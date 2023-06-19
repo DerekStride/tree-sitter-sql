@@ -9,7 +9,7 @@ module.exports = grammar({
   ],
 
   conflicts: $ => [
-    [$.object_reference, $.field],
+    [$.object_reference, $._qualified_field],
     [$.object_reference],
   ],
 
@@ -630,6 +630,7 @@ module.exports = grammar({
       field(
         'value',
         choice(
+          $._qualified_field,
           seq(
             optional(
               seq(
@@ -637,10 +638,7 @@ module.exports = grammar({
                 '.',
               ),
             ),
-            choice(
-              $.all_fields,
-              $.field,
-            ),
+            $.all_fields,
           ),
           $._expression,
         ),
@@ -1695,6 +1693,16 @@ module.exports = grammar({
 
     field: $ => field('name', $.identifier),
 
+    _qualified_field: $ => seq(
+      optional(
+        seq(
+          $.object_reference,
+          '.',
+        ),
+      ),
+      field('name', $.identifier),
+    ),
+
     implicit_cast: $ => seq(
       $._expression,
       '::',
@@ -2127,13 +2135,8 @@ module.exports = grammar({
     _expression: $ => prec(1,
       choice(
         $.literal,
-        seq(
-          optional(
-            seq(
-              $.object_reference,
-              '.',
-            ),
-          ),
+        alias(
+          $._qualified_field,
           $.field,
         ),
         $.parameter,
