@@ -35,7 +35,7 @@ FROM my_cte;
     (select
       (keyword_select)
       (select_expression
-        (all_fields)))
+        (term value: (all_fields))))
     (from
       (keyword_from)
       (relation
@@ -83,7 +83,7 @@ FROM second;
         (returning
           (keyword_returning)
           (select_expression
-            (all_fields)))))
+            (term value: (all_fields))))))
     (cte
       (identifier)
       (keyword_as)
@@ -105,7 +105,7 @@ FROM second;
     (select
       (keyword_select)
       (select_expression
-        (all_fields)))
+        (term value: (all_fields))))
     (from
       (keyword_from)
       (relation
@@ -169,7 +169,7 @@ FROM second;
     (select
       (keyword_select)
       (select_expression
-        (all_fields)))
+        (term (all_fields))))
     (from
       (keyword_from)
       (relation
@@ -207,7 +207,7 @@ Parenthesized CTE
     (select
       (keyword_select)
       (select_expression
-        (all_fields)))
+        (term (all_fields))))
     (from
       (keyword_from)
       (relation

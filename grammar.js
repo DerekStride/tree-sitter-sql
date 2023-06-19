@@ -8,6 +8,11 @@ module.exports = grammar({
     $.marginalia,
   ],
 
+  conflicts: $ => [
+    [$.object_reference, $.field],
+    [$.object_reference],
+  ],
+
   precedences: $ => [
     [
       'binary_is',
@@ -612,22 +617,34 @@ module.exports = grammar({
     ),
 
     select_expression: $ => seq(
-      $._select_expression,
+      $.term,
       repeat(
         seq(
           ',',
-          $._select_expression,
+          $.term,
         ),
       ),
     ),
 
-    _select_expression: $ => choice(
-      $.all_fields,
-      $.term,
-    ),
-
     term: $ => seq(
-      field("value", $._expression),
+      field(
+        'value',
+        choice(
+          seq(
+            optional(
+              seq(
+                $.object_reference,
+                '.',
+              ),
+            ),
+            choice(
+              $.all_fields,
+              $.field,
+            ),
+          ),
+          $._expression,
+        ),
+      ),
       optional($._alias),
     ),
 
@@ -1257,16 +1274,14 @@ module.exports = grammar({
       $.identifier,
     ),
 
-    object_reference: $ => prec.left(2,
-      seq(
-        optional(
-          seq(
-            field('schema', $.identifier),
-            '.',
-          ),
+    object_reference: $ => seq(
+      optional(
+        seq(
+          field('schema', $.identifier),
+          '.',
         ),
-        field('name', $.identifier),
       ),
+      field('name', $.identifier),
     ),
 
     _insert_statement: $ => seq(
@@ -1490,7 +1505,8 @@ module.exports = grammar({
     ),
 
     assignment: $ => seq(
-      field('left', $.field), // column name only, no schema/table qualifiers
+      optional($.object_reference), // TODO move into seq in field
+      field('left', $.field),
       '=',
       field('right', $._expression),
     ),
@@ -1626,15 +1642,7 @@ module.exports = grammar({
       optional($.direction),
     ),
 
-    all_fields: $ => seq(
-      optional(
-        seq(
-          $.object_reference,
-          '.',
-        ),
-      ),
-      '*',
-    ),
+    all_fields: _ => '*',
 
     parameter: $ => choice(
       "?",
@@ -1685,17 +1693,7 @@ module.exports = grammar({
       $.keyword_end,
     ),
 
-    field: $ => prec.right(
-      seq(
-        optional(
-          seq(
-            $.object_reference,
-            '.',
-          ),
-        ),
-        field('name', $.identifier),
-      ),
-    ),
+    field: $ => field('name', $.identifier),
 
     implicit_cast: $ => seq(
       $._expression,
@@ -1783,7 +1781,7 @@ module.exports = grammar({
     invocation: $ => prec(1,
       seq(
         $.object_reference,
-        paren_list(field('parameter', $._select_expression)),
+        paren_list(field('parameter', $.term)),
       ),
     ),
 
@@ -2129,7 +2127,15 @@ module.exports = grammar({
     _expression: $ => prec(1,
       choice(
         $.literal,
-        $.field,
+        seq(
+          optional(
+            seq(
+              $.object_reference,
+              '.',
+            ),
+          ),
+          $.field,
+        ),
         $.parameter,
         $.list,
         $.case,

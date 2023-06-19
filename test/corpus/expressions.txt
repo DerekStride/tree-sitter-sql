@@ -13,7 +13,7 @@ WHERE m.is_not_deleted;
     (select
       (keyword_select)
       (select_expression
-        (all_fields)))
+        (term value: (all_fields))))
     (from
       (keyword_from)
       (relation
@@ -42,7 +42,7 @@ WHERE m.is_not_deleted AND m.is_visible;
     (select
       (keyword_select)
       (select_expression
-        (all_fields)))
+        (term value: (all_fields))))
     (from
       (keyword_from)
       (relation
@@ -77,7 +77,7 @@ WHERE NOT m.is_not_deleted;
     (select
       (keyword_select)
       (select_expression
-        (all_fields)))
+        (term value: (all_fields))))
     (from
       (keyword_from)
       (relation
@@ -109,7 +109,7 @@ WHERE NOT m.is_not_deleted
     (select
       (keyword_select)
       (select_expression
-        (all_fields)))
+        (term value: (all_fields))))
     (from
       (keyword_from)
       (relation
@@ -151,7 +151,7 @@ WHERE m.status = "success"
     (select
       (keyword_select)
       (select_expression
-        (all_fields)))
+        (term value: (all_fields))))
     (from
       (keyword_from)
       (relation
@@ -207,7 +207,7 @@ WHERE m.status = "success"
     (select
       (keyword_select)
       (select_expression
-        (all_fields)))
+        (term value: (all_fields))))
     (from
       (keyword_from)
       (relation
@@ -260,7 +260,7 @@ WHERE NOT m.is_deleted;
     (select
       (keyword_select)
       (select_expression
-        (all_fields)))
+        (term value: (all_fields))))
     (from
       (keyword_from)
       (relation
@@ -291,7 +291,7 @@ WHERE !m.is_deleted;
     (select
       (keyword_select)
       (select_expression
-        (all_fields)))
+        (term value: (all_fields))))
     (from
       (keyword_from)
       (relation
@@ -323,7 +323,7 @@ WHERE NOT m.is_deleted
     (select
       (keyword_select)
       (select_expression
-        (all_fields)))
+        (term value: (all_fields))))
     (from
       (keyword_from)
       (relation
@@ -362,7 +362,7 @@ WHERE col IS DISTINCT FROM NULL;
     (select
       (keyword_select)
       (select_expression
-        (all_fields)))
+        (term value: (all_fields))))
     (from
       (keyword_from)
       (relation
@@ -395,7 +395,7 @@ WHERE col IS NOT DISTINCT FROM NULL;
     (select
       (keyword_select)
       (select_expression
-        (all_fields)))
+        (term value: (all_fields))))
     (from
       (keyword_from)
       (relation
@@ -430,7 +430,7 @@ WHERE id IS NOT NULL
     (select
       (keyword_select)
       (select_expression
-        (all_fields)))
+        (term value: (all_fields))))
     (from
       (keyword_from)
       (relation
@@ -516,7 +516,7 @@ WHERE
     (select
       (keyword_select)
       (select_expression
-        (all_fields)))
+        (term value: (all_fields))))
     (from
       (keyword_from)
       (relation
@@ -576,7 +576,7 @@ WHERE
     (select
       (keyword_select)
       (select_expression
-        (all_fields)))
+        (term value: (all_fields))))
     (from
       (keyword_from)
       (relation

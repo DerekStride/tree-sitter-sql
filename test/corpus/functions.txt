@@ -280,7 +280,7 @@ WHERE id = ANY (
     (select
       (keyword_select)
       (select_expression
-        (all_fields)))
+        (term value: (all_fields))))
     (from
       (keyword_from)
       (relation
@@ -318,7 +318,7 @@ WHERE id IN (
     (select
       (keyword_select)
       (select_expression
-        (all_fields)))
+        (term value: (all_fields))))
     (from
       (keyword_from)
       (relation
@@ -367,7 +367,7 @@ WHERE (
     (select
       (keyword_select)
       (select_expression
-        (all_fields)))
+        (term value: (all_fields))))
     (from
       (keyword_from)
       (relation
