@@ -599,3 +599,32 @@ FOREIGN KEY ("accountId") REFERENCES "Account" ("accountId") ON DELETE CASCADE;
           (keyword_on)
           (keyword_delete)
           (keyword_cascade))))))
+
+================================================================================
+MySQL: Rename table
+================================================================================
+
+RENAME TABLES IF EXISTS old_table
+NOWAIT
+TO backup_table,
+new_table TO old_table;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (keyword_rename)
+    (keyword_tables)
+    (keyword_if)
+    (keyword_exists)
+    (table_reference
+      (identifier))
+    (keyword_nowait)
+    (keyword_to)
+    (table_reference
+      (identifier))
+    (table_reference
+      (identifier))
+    (keyword_to)
+    (table_reference
+      (identifier))))
