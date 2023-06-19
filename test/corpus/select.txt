@@ -675,6 +675,7 @@ FROM
         (term
           value: (field
             (object_reference
+              schema: (identifier)
               name: (identifier))
             name: (identifier)))))
     (from
@@ -777,7 +778,7 @@ FROM my_table;
           value: (invocation
             (object_reference
               name: (identifier))
-            parameter: (all_fields)))))
+            parameter: (term value: (all_fields))))))
     (from
       (keyword_from)
       (relation

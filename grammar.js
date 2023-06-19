@@ -630,16 +630,7 @@ module.exports = grammar({
       field(
         'value',
         choice(
-          $._qualified_field,
-          seq(
-            optional(
-              seq(
-                $.object_reference,
-                '.',
-              ),
-            ),
-            $.all_fields,
-          ),
+          $.all_fields,
           $._expression,
         ),
       ),
@@ -1644,7 +1635,15 @@ module.exports = grammar({
       optional($.direction),
     ),
 
-    all_fields: _ => '*',
+    all_fields: $ => seq(
+      optional(
+        seq(
+          $.object_reference,
+          '.',
+        ),
+      ),
+      '*',
+    ),
 
     parameter: $ => choice(
       "?",
