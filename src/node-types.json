@@ -4544,6 +4544,20 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "keyword_distinct",
+          "named": true
+        },
+        {
+          "type": "order_by",
+          "named": true
+        }
+      ]
     }
   },
   {
