@@ -21,3 +21,20 @@ jobs:
           node-version: 18
       - run: npm install
       - run: npm test
+  validate_tests:
+    runs-on: ["ubuntu-latest"]
+    strategy:
+      fail-fast: true
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - run: |
+          if [[ $(grep -rn --exclude=errors.txt ERROR test/ | wc -l) -gt 0 ]]; then
+              echo "Found 'ERROR' in tests: "
+              grep -rn --exclude=errors.txt ERROR test/ | cut -f1,2 -d:
+              exit 1
+          else
+              exit 0
+          fi
