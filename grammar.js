@@ -11,6 +11,12 @@ module.exports = grammar({
   conflicts: $ => [
     [$.object_reference, $._qualified_field],
     [$.object_reference],
+    // TODO these two have internal conflicts because of optional parenthesized
+    // settings which can be interpreted as _subsequent statements_ due to our
+    // current handling of statement delimiters in program nodes. Remove once
+    // we have expressed programs as delimited sequences of statements.
+    [$._vacuum_table],
+    [$._compute_stats],
   ],
 
   precedences: $ => [
