@@ -1361,8 +1361,7 @@ module.exports = grammar({
           field('alias', $.identifier)
         ),
       ),
-      // TODO i don't think we have a test for `insert into tbl set ....` and
-      // it's no dialect i can think of
+      // TODO we need a test for `insert...set`
       choice(
         $._insert_values,
         $._set_values,
