@@ -11,7 +11,7 @@ DROP TABLE my_table;
   (drop_table
    (keyword_drop)
    (keyword_table)
-   (table_reference name: (identifier))
+   (object_reference name: (identifier))
   )))
 
 ==================
@@ -27,7 +27,7 @@ DROP TABLE my_table CASCADE;
   (drop_table
    (keyword_drop)
    (keyword_table)
-   (table_reference name: (identifier))
+   (object_reference name: (identifier))
    (keyword_cascade)
   )))
 
@@ -44,7 +44,7 @@ DROP VIEW my_view;
   (drop_view
    (keyword_drop)
    (keyword_view)
-   (table_reference name: (identifier))
+   (object_reference name: (identifier))
   )))
 
 ==================
@@ -77,7 +77,7 @@ DROP INDEX idx ON tbl;
    (keyword_index)
    name: (identifier)
    (keyword_on)
-   (table_reference
+   (object_reference
      name: (identifier)))))
 
 ==================
@@ -99,7 +99,7 @@ DROP INDEX CONCURRENTLY IF EXISTS idx CASCADE ON tbl;
    name: (identifier)
    (keyword_cascade)
    (keyword_on)
-   (table_reference
+   (object_reference
     name: (identifier)))))
 
 ==================
@@ -121,6 +121,6 @@ DROP INDEX CONCURRENTLY IF EXISTS idx RESTRICT ON tbl;
    name: (identifier)
    (keyword_restrict)
    (keyword_on)
-   (table_reference
+   (object_reference
     name: (identifier)))))
 

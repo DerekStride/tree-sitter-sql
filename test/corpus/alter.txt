@@ -12,7 +12,7 @@ ALTER TABLE my_table
     (alter_table
       (keyword_alter)
       (keyword_table)
-      (table_reference
+      (object_reference
         name: (identifier))
       (add_column
         (keyword_add)
@@ -39,7 +39,7 @@ ALTER TABLE my_table
     (alter_table
       (keyword_alter)
       (keyword_table)
-      (table_reference
+      (object_reference
         name: (identifier))
       (add_column
         (keyword_add)
@@ -65,7 +65,7 @@ ALTER TABLE my_table
     (alter_table
       (keyword_alter)
       (keyword_table)
-      (table_reference
+      (object_reference
         name: (identifier))
       (add_column
         (keyword_add)
@@ -93,7 +93,7 @@ ALTER TABLE my_table
     (alter_table
       (keyword_alter)
       (keyword_table)
-      (table_reference
+      (object_reference
         name: (identifier))
       (add_column
         (keyword_add)
@@ -122,7 +122,7 @@ ALTER TABLE my_table
     (alter_table
       (keyword_alter)
       (keyword_table)
-      (table_reference
+      (object_reference
         name: (identifier))
       (alter_column
         (keyword_alter)
@@ -146,7 +146,7 @@ ALTER TABLE my_table
     (alter_table
       (keyword_alter)
       (keyword_table)
-      (table_reference
+      (object_reference
         name: (identifier))
       (alter_column
         (keyword_alter)
@@ -169,7 +169,7 @@ ALTER TABLE my_table
     (alter_table
       (keyword_alter)
       (keyword_table)
-      (table_reference
+      (object_reference
         name: (identifier))
       (alter_column
         (keyword_alter)
@@ -194,7 +194,7 @@ ALTER TABLE my_table
     (alter_table
       (keyword_alter)
       (keyword_table)
-      (table_reference
+      (object_reference
         name: (identifier))
       (modify_column
         (keyword_modify)
@@ -226,7 +226,7 @@ ALTER TABLE my_table
     (alter_table
       (keyword_alter)
       (keyword_table)
-      (table_reference
+      (object_reference
         name: (identifier))
       (change_column
         (keyword_change)
@@ -256,7 +256,7 @@ ALTER TABLE my_table
     (alter_table
       (keyword_alter)
       (keyword_table)
-      (table_reference
+      (object_reference
         name: (identifier))
       (alter_column
         (keyword_alter)
@@ -280,7 +280,7 @@ ALTER TABLE my_table
     (alter_table
       (keyword_alter)
       (keyword_table)
-      (table_reference
+      (object_reference
         name: (identifier))
       (alter_column
         (keyword_alter)
@@ -304,7 +304,7 @@ ALTER TABLE my_table
     (alter_table
       (keyword_alter)
       (keyword_table)
-      (table_reference
+      (object_reference
         name: (identifier))
       (drop_column
         (keyword_drop)
@@ -325,7 +325,7 @@ ALTER TABLE my_table
     (alter_table
       (keyword_alter)
       (keyword_table)
-      (table_reference
+      (object_reference
         name: (identifier))
       (drop_column
         (keyword_drop)
@@ -345,7 +345,7 @@ ALTER TABLE my_table
     (alter_table
       (keyword_alter)
       (keyword_table)
-      (table_reference
+      (object_reference
         name: (identifier))
       (rename_column
         (keyword_rename)
@@ -368,12 +368,12 @@ ALTER TABLE my_table
     (alter_table
       (keyword_alter)
       (keyword_table)
-      (table_reference
+      (object_reference
         name: (identifier))
       (rename_object
         (keyword_rename)
         (keyword_to)
-        (table_reference
+        (object_reference
           name: (identifier))))))
 
 ================================================================================
@@ -390,7 +390,7 @@ ALTER TABLE my_table
     (alter_table
       (keyword_alter)
       (keyword_table)
-      (table_reference
+      (object_reference
         name: (identifier))
       (set_schema
         (keyword_set)
@@ -411,7 +411,7 @@ ALTER TABLE my_table
     (alter_table
       (keyword_alter)
       (keyword_table)
-      (table_reference
+      (object_reference
         name: (identifier))
       (change_ownership
         (keyword_owner)
@@ -437,7 +437,7 @@ ALTER TABLE IF EXISTS my_table
       (keyword_table)
       (keyword_if)
       (keyword_exists)
-      (table_reference
+      (object_reference
         name: (identifier))
       (add_column
         (keyword_add)
@@ -483,7 +483,7 @@ ALTER VIEW my_view
     (alter_view
       (keyword_alter)
       (keyword_view)
-      (table_reference
+      (object_reference
         name: (identifier))
       (change_ownership
         (keyword_owner)
@@ -506,12 +506,12 @@ ALTER VIEW IF EXISTS my_view
       (keyword_view)
       (keyword_if)
       (keyword_exists)
-      (table_reference
+      (object_reference
         name: (identifier))
       (rename_object
         (keyword_rename)
         (keyword_to)
-        (table_reference
+        (object_reference
           name: (identifier))))))
 
 ================================================================================
@@ -527,13 +527,12 @@ ALTER TABLE "Role" ADD CONSTRAINT "pkRole" PRIMARY KEY ("roleId");
     (alter_table
       (keyword_alter)
       (keyword_table)
-      (table_reference
+      (object_reference
         name: (identifier))
       (add_constraint
         (keyword_add)
         (keyword_constraint)
-        (field
-          name: (identifier))
+        (identifier)
         (constraint
           (keyword_primary)
           (keyword_key)
@@ -555,13 +554,13 @@ CREATE UNIQUE INDEX "akRoleName" ON "Role" ("name");
       (keyword_create)
       (keyword_unique)
       (keyword_index)
-      (literal)
+      column: (literal)
       (keyword_on)
-      (table_reference
-        (identifier))
+      (object_reference
+        name: (identifier))
       (ordered_columns
         (column
-          (literal))))))
+          name: (literal))))))
 
 ================================================================================
 Add foreign key constraint
@@ -577,13 +576,12 @@ FOREIGN KEY ("accountId") REFERENCES "Account" ("accountId") ON DELETE CASCADE;
     (alter_table
       (keyword_alter)
       (keyword_table)
-      (table_reference
+      (object_reference
         name: (identifier))
       (add_constraint
         (keyword_add)
         (keyword_constraint)
-        (field
-          name: (identifier))
+        (identifier)
         (constraint
           (keyword_foreign)
           (keyword_key)
@@ -591,7 +589,7 @@ FOREIGN KEY ("accountId") REFERENCES "Account" ("accountId") ON DELETE CASCADE;
             (column
               name: (literal)))
           (keyword_references)
-          (table_reference
+          (object_reference
             name: (identifier))
           (ordered_columns
             (column
@@ -617,14 +615,14 @@ new_table TO old_table;
     (keyword_tables)
     (keyword_if)
     (keyword_exists)
-    (table_reference
+    (object_reference
       (identifier))
     (keyword_nowait)
     (keyword_to)
-    (table_reference
+    (object_reference
       (identifier))
-    (table_reference
+    (object_reference
       (identifier))
     (keyword_to)
-    (table_reference
+    (object_reference
       (identifier))))

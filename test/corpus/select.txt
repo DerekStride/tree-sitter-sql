@@ -57,11 +57,11 @@ SELECT * FROM my_table;
     (select
       (keyword_select)
       (select_expression
-        (all_fields)))
+        (term value: (all_fields))))
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier))))))
 
 ================================================================================
@@ -77,12 +77,12 @@ SELECT * FROM ONLY my_table;
     (select
       (keyword_select)
       (select_expression
-        (all_fields)))
+        (term value: (all_fields))))
     (from
       (keyword_from)
       (keyword_only)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier))))))
 
 ================================================================================
@@ -98,12 +98,14 @@ SELECT my_table.* FROM my_table;
     (select
       (keyword_select)
       (select_expression
-        (all_fields
-          table_alias: (identifier))))
+        (term
+          value: (all_fields
+            (object_reference
+              name: (identifier))))))
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier))))))
 
 ================================================================================
@@ -119,15 +121,17 @@ SELECT t.* FROM my_table AS t;
     (select
       (keyword_select)
       (select_expression
-        (all_fields
-          table_alias: (identifier))))
+        (term
+          value: (all_fields
+            (object_reference
+              name: (identifier))))))
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier))
         (keyword_as)
-        table_alias: (identifier)))))
+        alias: (identifier)))))
 
 ================================================================================
 Simple select with fields
@@ -151,7 +155,7 @@ SELECT id, name FROM my_table;
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier))))))
 
 ================================================================================
@@ -170,23 +174,26 @@ FROM join_something_on AS where_this_like_that;
       (select_expression
         (term
           value: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier)))
         (term
           value: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier)))
         (term
           value: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier)))))
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier))
         (keyword_as)
-        table_alias: (identifier)))))
+        alias: (identifier)))))
 
 ================================================================================
 Simple select with fields field table alias
@@ -204,18 +211,20 @@ FROM my_table m;
       (select_expression
         (term
           value: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier)))
         (term
           value: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier)))))
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier))
-        table_alias: (identifier)))))
+        alias: (identifier)))))
 
 ================================================================================
 Simple select with aliased table and column name using double quotes
@@ -233,16 +242,17 @@ FROM my_table "My Table";
       (select_expression
         (term
           value: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier))
           (keyword_as)
           alias: (identifier))))
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier))
-        table_alias: (identifier)))))
+        alias: (identifier)))))
 
 ================================================================================
 Select with quoted column
@@ -259,12 +269,13 @@ SELECT tab."COL" FROM tab;
       (select_expression
         (term
           value: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier)))))
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier))))))
 
 ================================================================================
@@ -288,7 +299,7 @@ WHERE id = 4;
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier)))
       (where
         (keyword_where)
@@ -318,7 +329,7 @@ WHERE id = "abc";
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier)))
       (where
         (keyword_where)
@@ -348,7 +359,7 @@ WHERE id IN(1,2);
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier)))
       (where
         (keyword_where)
@@ -376,10 +387,12 @@ FROM my_table m;
       (select_expression
         (term
           value: (invocation
-            name: (identifier)
+            (object_reference
+              name: (identifier))
             parameter: (term
               value: (field
-                table_alias: (identifier)
+                (object_reference
+                  name: (identifier))
                 name: (identifier)))
             parameter: (term
               value: (literal))
@@ -390,9 +403,9 @@ FROM my_table m;
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier))
-        table_alias: (identifier)))))
+        alias: (identifier)))))
 
 ================================================================================
 Select with complex IF
@@ -410,15 +423,18 @@ FROM my_table m;
       (select_expression
         (term
           value: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier)))
         (term
           value: (invocation
-            name: (identifier)
+            (object_reference
+              name: (identifier))
             parameter: (term
               value: (binary_expression
                 left: (field
-                  table_alias: (identifier)
+                  (object_reference
+                    name: (identifier))
                   name: (identifier))
                 right: (literal)))
             parameter: (term
@@ -429,9 +445,9 @@ FROM my_table m;
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier))
-        table_alias: (identifier)))))
+        alias: (identifier)))))
 
 ================================================================================
 Select with distinct without parenthesis
@@ -454,7 +470,7 @@ FROM my_table;
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier))))))
 
 ================================================================================
@@ -473,7 +489,8 @@ FROM my_table;
       (select_expression
         (term
           value: (invocation
-            name: (identifier)
+            (object_reference
+              name: (identifier))
             (keyword_distinct)
             parameter: (term
               value: (field
@@ -483,7 +500,7 @@ FROM my_table;
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier))))))
 
 ================================================================================
@@ -502,22 +519,24 @@ FROM my_table AS m;
       (select_expression
         (term
           value: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier))
           (keyword_as)
           alias: (identifier))
         (term
           value: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier))
           alias: (identifier))))
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier))
         (keyword_as)
-        table_alias: (identifier)))))
+        alias: (identifier)))))
 
 ================================================================================
 Simple select with order by
@@ -541,7 +560,7 @@ ORDER BY id DESC;
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier)))
       (where
         (keyword_where)
@@ -579,7 +598,7 @@ LIMIT 5;
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier)))
       (limit
         (keyword_limit)
@@ -607,7 +626,7 @@ OFFSET 40;
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier)))
       (limit
         (keyword_limit)
@@ -629,11 +648,39 @@ SELECT * FROM my_schema.my_table;
     (select
       (keyword_select)
       (select_expression
-        (all_fields)))
+        (term value: (all_fields))))
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
+          schema: (identifier)
+          name: (identifier))))))
+
+================================================================================
+Simple select with schema and fully-qualified *
+================================================================================
+
+SELECT
+  my_schema.my_table.*
+FROM
+  my_schema.my_table;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (all_fields
+            (object_reference
+              schema: (identifier)
+              name: (identifier))))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
           schema: (identifier)
           name: (identifier))))))
 
@@ -655,13 +702,14 @@ FROM
       (select_expression
         (term
           value: (field
-            schema: (identifier)
-            table_alias: (identifier)
+            (object_reference
+              schema: (identifier)
+              name: (identifier))
             name: (identifier)))))
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           schema: (identifier)
           name: (identifier))))))
 
@@ -685,7 +733,7 @@ FROM my_table;
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier))))))
 
 ================================================================================
@@ -708,7 +756,7 @@ FROM my_table;
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier))))))
 
 ================================================================================
@@ -726,15 +774,16 @@ FROM my_table;
       (select_expression
         (term
           value: (invocation
-            name: (identifier)
+            (object_reference
+              name: (identifier))
             (keyword_distinct)
             parameter: (term
-              value: (field
-                name: (identifier)))))))
+                  value: (field
+                    name: (identifier)))))))
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier))))))
 
 ================================================================================
@@ -752,12 +801,13 @@ FROM my_table;
       (select_expression
         (term
           value: (invocation
-            name: (identifier)
-            parameter: (all_fields)))))
+            (object_reference
+              name: (identifier))
+            parameter: (term value: (all_fields))))))
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier))))))
 
 ================================================================================
@@ -775,7 +825,8 @@ FROM my_table;
       (select_expression
         (term
           value: (invocation
-            name: (identifier)
+            (object_reference
+              name: (identifier))
             (keyword_distinct)
             parameter: (term
               value: (field
@@ -783,7 +834,7 @@ FROM my_table;
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier))))))
 
 ================================================================================
@@ -805,37 +856,42 @@ WHERE b.c_id = 4;
       (select_expression
         (term
           value: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier)))
         (term
           value: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier)))))
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier))
-        table_alias: (identifier))
+        alias: (identifier))
       (join
         (keyword_join)
         (relation
-          (table_reference
+          (object_reference
             name: (identifier))
-          table_alias: (identifier))
+          alias: (identifier))
         (keyword_on)
         predicate: (binary_expression
           left: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier))
           right: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier))))
       (where
         (keyword_where)
         predicate: (binary_expression
           left: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier))
           right: (literal))))))
 
@@ -854,16 +910,16 @@ JOIN my_other_table ON TRUE;
     (select
       (keyword_select)
       (select_expression
-        (all_fields)))
+        (term value: (all_fields))))
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier)))
       (join
         (keyword_join)
         (relation
-          (table_reference
+          (object_reference
             name: (identifier)))
         (keyword_on)
         predicate: (literal
@@ -887,24 +943,26 @@ ON a.id = b.a_id;
       (select_expression
         (term
           value: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier)))
         (term
           value: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier)))))
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier))
-        table_alias: (identifier))
+        alias: (identifier))
       (join
         (keyword_join)
         (relation
-          (table_reference
+          (object_reference
             name: (identifier))
-          table_alias: (identifier))
+          alias: (identifier))
         (index_hint
           (keyword_use)
           (keyword_index)
@@ -914,10 +972,12 @@ ON a.id = b.a_id;
         (keyword_on)
         predicate: (binary_expression
           left: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier))
           right: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier)))))))
 
 ================================================================================
@@ -941,15 +1001,15 @@ ON a.id = b.a_id;
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier))
-        table_alias: (identifier))
+        alias: (identifier))
       (join
         (keyword_join)
         (relation
-          (table_reference
+          (object_reference
             name: (identifier))
-          table_alias: (identifier))
+          alias: (identifier))
         (index_hint
           (keyword_ignore)
           (keyword_index)
@@ -959,10 +1019,12 @@ ON a.id = b.a_id;
         (keyword_on)
         predicate: (binary_expression
           left: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier))
           right: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier)))))))
 
 ================================================================================
@@ -982,24 +1044,26 @@ JOIN my_other_table b USING (q, w);
       (select_expression
         (term
           value: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier)))
         (term
           value: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier)))))
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier))
-        table_alias: (identifier))
+        alias: (identifier))
       (join
         (keyword_join)
         (relation
-          (table_reference
+          (object_reference
             name: (identifier))
-          table_alias: (identifier))
+          alias: (identifier))
         (keyword_using)
         (list
           (column
@@ -1022,11 +1086,11 @@ JOIN (VALUES (1, 2), (3, 4)) AS v (col1, col2) ON TRUE;
     (select
       (keyword_select)
       (select_expression
-        (all_fields)))
+        (term value: (all_fields))))
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier)))
       (join
         (keyword_join)
@@ -1040,7 +1104,7 @@ JOIN (VALUES (1, 2), (3, 4)) AS v (col1, col2) ON TRUE;
               (literal)
               (literal)))
           (keyword_as)
-          table_alias: (identifier)
+          alias: (identifier)
           (list
             (column
               (identifier))
@@ -1080,121 +1144,136 @@ ON a.id = g.g_id;
       (select_expression
         (term
           value: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier)))))
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier))
-        table_alias: (identifier))
+        alias: (identifier))
       (join
         (keyword_left)
         (keyword_join)
         (relation
-          (table_reference
+          (object_reference
             name: (identifier))
-          table_alias: (identifier))
+          alias: (identifier))
         (keyword_on)
         predicate: (binary_expression
           left: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier))
           right: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier))))
       (join
         (keyword_left)
         (keyword_outer)
         (keyword_join)
         (relation
-          (table_reference
+          (object_reference
             name: (identifier))
-          table_alias: (identifier))
+          alias: (identifier))
         (keyword_on)
         predicate: (binary_expression
           left: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier))
           right: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier))))
       (join
         (keyword_right)
         (keyword_join)
         (relation
-          (table_reference
+          (object_reference
             name: (identifier))
-          table_alias: (identifier))
+          alias: (identifier))
         (keyword_on)
         predicate: (binary_expression
           left: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier))
           right: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier))))
       (join
         (keyword_right)
         (keyword_outer)
         (keyword_join)
         (relation
-          (table_reference
+          (object_reference
             name: (identifier))
-          table_alias: (identifier))
+          alias: (identifier))
         (keyword_on)
         predicate: (binary_expression
           left: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier))
           right: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier))))
       (join
         (keyword_inner)
         (keyword_join)
         (relation
-          (table_reference
+          (object_reference
             name: (identifier))
-          table_alias: (identifier))
+          alias: (identifier))
         (keyword_on)
         predicate: (binary_expression
           left: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier))
           right: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier))))
       (join
         (keyword_full)
         (keyword_outer)
         (keyword_join)
         (relation
-          (table_reference
+          (object_reference
             name: (identifier))
-          table_alias: (identifier))
+          alias: (identifier))
         (keyword_on)
         predicate: (binary_expression
           left: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier))
           right: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier))))
       (join
         (keyword_full)
         (keyword_join)
         (relation
-          (table_reference
+          (object_reference
             name: (identifier))
-          table_alias: (identifier))
+          alias: (identifier))
         (keyword_on)
         predicate: (binary_expression
           left: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier))
           right: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier)))))))
 
 ================================================================================
@@ -1214,24 +1293,29 @@ JOIN LATERAL unnest(a.arr) AS arr ON TRUE;
       (select_expression
         (term
           value: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier)))
-        (all_fields
-          table_alias: (identifier))))
+        (term
+          value: (all_fields
+            (object_reference
+              name: (identifier))))))
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier))
-        table_alias: (identifier))
+        alias: (identifier))
       (lateral_join
         (keyword_join)
         (keyword_lateral)
         (invocation
-          name: (identifier)
+          (object_reference
+            name: (identifier))
           parameter: (term
             value: (field
-              table_alias: (identifier)
+            (object_reference
+              name: (identifier))
               name: (identifier))))
         (keyword_as)
         alias: (identifier)
@@ -1256,16 +1340,19 @@ CROSS JOIN LATERAL (SELECT 1) AS b;
       (select_expression
         (term
           value: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier)))
-        (all_fields
-          table_alias: (identifier))))
+        (term
+          value: (all_fields
+            (object_reference
+              name: (identifier))))))
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier))
-        table_alias: (identifier))
+        alias: (identifier))
       (lateral_cross_join
         (keyword_cross)
         (keyword_join)
@@ -1303,78 +1390,89 @@ ON c.id = d.c_id;
       (select_expression
         (term
           value: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier)))
         (term
           value: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier)))
         (term
           value: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier)))))
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier))
-        table_alias: (identifier))
+        alias: (identifier))
       (join
         (keyword_join)
         (relation
-          (table_reference
+          (object_reference
             name: (identifier))
-          table_alias: (identifier))
+          alias: (identifier))
         (keyword_on)
         predicate: (binary_expression
           left: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier))
           right: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier))))
       (join
         (keyword_join)
         (relation
-          (table_reference
+          (object_reference
             name: (identifier))
-          table_alias: (identifier))
+          alias: (identifier))
         (keyword_on)
         predicate: (binary_expression
           left: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier))
           right: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier))))
       (join
         (keyword_left)
         (keyword_join)
         (relation
-          (table_reference
+          (object_reference
             name: (identifier))
-          table_alias: (identifier))
+          alias: (identifier))
         (join
           (keyword_join)
           (relation
-            (table_reference
+            (object_reference
               name: (identifier))
-            table_alias: (identifier))
+            alias: (identifier))
           (keyword_on)
           predicate: (binary_expression
             left: (field
-              table_alias: (identifier)
+            (object_reference
+              name: (identifier))
               name: (identifier))
             right: (field
-              table_alias: (identifier)
+            (object_reference
+              name: (identifier))
               name: (identifier))))
         (keyword_on)
         predicate: (binary_expression
           left: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier))
           right: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier)))))))
 
 ================================================================================
@@ -1402,15 +1500,16 @@ ORDER BY m.title, id ASC;
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier))
-        table_alias: (identifier))
+        alias: (identifier))
       (where
         (keyword_where)
         predicate: (binary_expression
           left: (binary_expression
             left: (field
-              table_alias: (identifier)
+            (object_reference
+              name: (identifier))
               name: (identifier))
             right: (literal))
           operator: (keyword_and)
@@ -1423,7 +1522,8 @@ ORDER BY m.title, id ASC;
         (keyword_by)
         (order_target
           (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier)))
         (order_target
           (field
@@ -1453,7 +1553,7 @@ ORDER BY id DESC NULLS LAST, val USING < NULLS FIRST;
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier)))
       (where
         (keyword_where)
@@ -1499,7 +1599,7 @@ LIMIT 1;
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier)))
       (index_hint
         (keyword_force)
@@ -1530,7 +1630,7 @@ LIMIT 1;
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier)))
       (index_hint
         (keyword_use)
@@ -1584,7 +1684,7 @@ SELECT b FROM two;
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           (identifier))))
     (keyword_intersect)
     (select
@@ -1596,7 +1696,7 @@ SELECT b FROM two;
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           (identifier))))))
 
 ================================================================================
@@ -1633,7 +1733,7 @@ FROM my_table;
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           (identifier))))))
 
 ================================================================================
@@ -1709,7 +1809,7 @@ FROM my_table;
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           (identifier))))))
 
 ================================================================================
@@ -1777,7 +1877,7 @@ FROM my_table;
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           (identifier))))))
 
 ================================================================================
@@ -1804,7 +1904,7 @@ SELECT id || '-' || name FROM my_table;
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier))))))
 
 ================================================================================
@@ -1835,18 +1935,20 @@ ORDER BY my_table.title, my_table.id;
       (select_expression
         (term
           value: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier)))
         (term
           value: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier)))))
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier))
-        table_alias: (identifier))
+        alias: (identifier))
       (index_hint
         (keyword_force)
         (keyword_index)
@@ -1854,30 +1956,34 @@ ORDER BY my_table.title, my_table.id;
       (join
         (keyword_join)
         (relation
-          (table_reference
+          (object_reference
             name: (identifier))
-          table_alias: (identifier))
+          alias: (identifier))
         (keyword_on)
         predicate: (binary_expression
           left: (binary_expression
             left: (field
-              table_alias: (identifier)
+              (object_reference
+                name: (identifier))
               name: (identifier))
             right: (field
-              table_alias: (identifier)
+              (object_reference
+                name: (identifier))
               name: (identifier)))
           operator: (keyword_and)
           right: (binary_expression
             left: (field
-              table_alias: (identifier)
+              (object_reference
+                name: (identifier))
               name: (identifier))
             right: (field
-              table_alias: (identifier)
+              (object_reference
+                name: (identifier))
               name: (identifier)))))
       (join
         (keyword_join)
         (relation
-          (table_reference
+          (object_reference
             name: (identifier)))
         (index_hint
           (keyword_use)
@@ -1889,18 +1995,22 @@ ORDER BY my_table.title, my_table.id;
         predicate: (binary_expression
           left: (binary_expression
             left: (field
-              table_alias: (identifier)
+              (object_reference
+                name: (identifier))
               name: (identifier))
             right: (field
-              table_alias: (identifier)
+              (object_reference
+                name: (identifier))
               name: (identifier)))
           operator: (keyword_and)
           right: (binary_expression
             left: (field
-              table_alias: (identifier)
+              (object_reference
+                name: (identifier))
               name: (identifier))
             right: (field
-              table_alias: (identifier)
+              (object_reference
+                name: (identifier))
               name: (identifier)))))
       (where
         (keyword_where)
@@ -1909,13 +2019,15 @@ ORDER BY my_table.title, my_table.id;
             left: (binary_expression
               left: (binary_expression
                 left: (field
-                  table_alias: (identifier)
+                  (object_reference
+                    name: (identifier))
                   name: (identifier))
                 right: (literal))
               operator: (keyword_and)
               right: (binary_expression
                 left: (field
-                  table_alias: (identifier)
+                  (object_reference
+                    name: (identifier))
                   name: (identifier))
                 operator: (keyword_in)
                 right: (list
@@ -1923,13 +2035,15 @@ ORDER BY my_table.title, my_table.id;
             operator: (keyword_and)
             right: (binary_expression
               left: (field
-                table_alias: (identifier)
+                (object_reference
+                  name: (identifier))
                 name: (identifier))
               right: (literal)))
           operator: (keyword_and)
           right: (binary_expression
             left: (field
-              table_alias: (identifier)
+              (object_reference
+                name: (identifier))
               name: (identifier))
             right: (literal
               (keyword_true)))))
@@ -1938,11 +2052,13 @@ ORDER BY my_table.title, my_table.id;
         (keyword_by)
         (order_target
           (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier)))
         (order_target
           (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier)))))))
 
 ================================================================================
@@ -1963,25 +2079,25 @@ FROM
     (select
       (keyword_select)
       (select_expression
-        (all_fields)))
+        (term value: (all_fields))))
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier))
-        table_alias: (identifier))
+        alias: (identifier))
       (relation
-        (table_reference
+        (object_reference
           name: (identifier))
-        table_alias: (identifier))
+        alias: (identifier))
       (relation
-        (table_reference
+        (object_reference
           name: (identifier))
-        table_alias: (identifier))
+        alias: (identifier))
       (relation
-        (table_reference
+        (object_reference
           name: (identifier))
-        table_alias: (identifier)))))
+        alias: (identifier)))))
 
 ================================================================================
 Parameterized Queries
@@ -1998,11 +2114,11 @@ WHERE id = ?;
     (select
       (keyword_select)
       (select_expression
-        (all_fields)))
+        (term value: (all_fields))))
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier)))
       (where
         (keyword_where)
@@ -2026,11 +2142,11 @@ WHERE id = $12;
     (select
       (keyword_select)
       (select_expression
-        (all_fields)))
+        (term value: (all_fields))))
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier)))
       (where
         (keyword_where)
@@ -2064,14 +2180,14 @@ FROM
           (select
             (keyword_select)
             (select_expression
-              (all_fields)))
+              (term value: (all_fields))))
           (from
             (keyword_from)
             (relation
-              (table_reference
+              (object_reference
                 name: (identifier)))))
         (keyword_as)
-        table_alias: (identifier)))))
+        alias: (identifier)))))
 
 ================================================================================
 Select from inplace values insert
@@ -2089,7 +2205,7 @@ FROM
     (select
       (keyword_select)
       (select_expression
-        (all_fields)))
+        (term value: (all_fields))))
     (from
       (keyword_from)
       (relation
@@ -2102,7 +2218,7 @@ FROM
             (literal)
             (literal)))
         (keyword_as)
-        (identifier)
+        alias: (identifier)
         (list
           (column
             (identifier))
@@ -2137,7 +2253,7 @@ FROM test_data;
         (select
           (keyword_select)
           (select_expression
-            (all_fields)))
+            (term value: (all_fields))))
         (from
           (keyword_from)
           (relation
@@ -2147,7 +2263,7 @@ FROM test_data;
                 (literal
                   (keyword_true))))
             (keyword_as)
-            (identifier)
+            alias: (identifier)
             (list
               (column
                 (identifier)))))))
@@ -2155,21 +2271,21 @@ FROM test_data;
       (keyword_select)
       (select_expression
         (term
-          (case
+          value: (case
             (keyword_case)
             (keyword_when)
             (field
-              (identifier))
+              name: (identifier))
             (keyword_then)
             (literal)
             (keyword_end))
           (keyword_as)
-          (identifier))))
+          alias: (identifier))))
     (from
       (keyword_from)
       (relation
-        (table_reference
-          (identifier))))))
+        (object_reference
+          name: (identifier))))))
 
 ================================================================================
 No semi-colon
@@ -2185,13 +2301,13 @@ FROM some_table s
     (select
       (keyword_select)
       (select_expression
-        (all_fields)))
+        (term value: (all_fields))))
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier))
-        table_alias: (identifier)))))
+        alias: (identifier)))))
 
 ================================================================================
 Aliases everywhere
@@ -2217,45 +2333,51 @@ WHERE
       (select_expression
         (term
           value: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier)))
         (term
           value: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier))
           (keyword_as)
           alias: (identifier))
         (comment)
         (term
           value: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier)))))
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier))
-        table_alias: (identifier))
+        alias: (identifier))
       (join
         (keyword_left)
         (keyword_join)
         (relation
-          (table_reference
+          (object_reference
             name: (identifier))
-          table_alias: (identifier))
+          alias: (identifier))
         (keyword_on)
         predicate: (binary_expression
           left: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier))
           right: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier))))
       (where
         (keyword_where)
         predicate: (binary_expression
           left: (field
-            table_alias: (identifier)
+            (object_reference
+              name: (identifier))
             name: (identifier))
           right: (literal))))))
 
@@ -2273,19 +2395,20 @@ SELECT array[1, 2, 3 + 4, '5'::int, int_please()];
       (keyword_select)
       (select_expression
         (term
-          (array
+          value: (array
             (keyword_array)
             (literal)
             (literal)
             (binary_expression
-              (literal)
-              (literal))
+              left: (literal)
+              right: (literal))
             (cast
               (literal)
               (int
                 (keyword_int)))
             (invocation
-              (identifier))))))))
+              (object_reference
+                name: (identifier)))))))))
 
 ================================================================================
 Select with positive and negative integers
@@ -2308,7 +2431,7 @@ SELECT a + 3 from b where a >= -14
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier)))
       (where
         (keyword_where)
@@ -2338,7 +2461,7 @@ SELECT a + 3.1415 from b where a >= -3.14
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier)))
       (where
         (keyword_where)
@@ -2435,7 +2558,7 @@ where a between '2022-01-01' and '2023-01-01'
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           (identifier)))
       (where
         (keyword_where)
@@ -2469,7 +2592,7 @@ where a not between 1 and 3
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           (identifier)))
       (where
         (keyword_where)
@@ -2502,7 +2625,7 @@ WHERE (foo OR bar) AND baz
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier)))
       (where
         (keyword_where)
@@ -2516,3 +2639,19 @@ WHERE (foo OR bar) AND baz
           operator: (keyword_and)
           right: (field
             name: (identifier)))))))
+
+================================================================================
+parenthesized select
+================================================================================
+
+(SELECT 1)
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (literal))))))

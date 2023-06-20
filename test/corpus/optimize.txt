@@ -10,7 +10,7 @@ COMPUTE STATS my_table (col1);
   (statement
     (keyword_compute)
     (keyword_stats)
-    (table_reference
+    (object_reference
       (identifier))
     (field
       (identifier))))
@@ -28,7 +28,7 @@ COMPUTE INCREMENTAL STATS my_table PARTITION (partition_col=col1);
     (keyword_compute)
     (keyword_incremental)
     (keyword_stats)
-    (table_reference
+    (object_reference
       (identifier))
     (keyword_partition)
     (table_option
@@ -52,7 +52,7 @@ NOSCAN
   (statement
     (keyword_analyze)
     (keyword_table)
-    (table_reference
+    (object_reference
       (identifier))
     (keyword_partition)
     (table_option
@@ -80,7 +80,7 @@ OPTIMIZE mytable REWRITE DATA USING BIN_PACK
 (program
   (statement
     (keyword_optimize)
-    (table_reference
+    (object_reference
       (identifier))
     (keyword_rewrite)
     (keyword_data)
@@ -108,7 +108,7 @@ VACUUM my_table;
 (program
   (statement
     (keyword_vacuum)
-    (table_reference
+    (object_reference
       (identifier))))
 
 ================================================================================
@@ -124,7 +124,7 @@ VACUUM FULL true my_table (col1, col2);
     (keyword_vacuum)
     (keyword_full)
     (keyword_true)
-    (table_reference
+    (object_reference
       (identifier))
     (field
       (identifier))
@@ -144,7 +144,7 @@ OPTIMIZE LOCAL TABLE my_table1, my_table2
     (keyword_optimize)
     (keyword_local)
     (keyword_table)
-    (table_reference
+    (object_reference
       (identifier))
-    (table_reference
+    (object_reference
       (identifier))))

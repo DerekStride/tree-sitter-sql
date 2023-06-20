@@ -13,14 +13,15 @@ FROM my_table;
       (select_expression
         (term
           value: (invocation
-            name: (identifier)
+            (object_reference
+              name: (identifier))
             parameter: (term
               value: (field
                 name: (identifier)))))))
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier))))))
 
 ================================================================================
@@ -37,7 +38,8 @@ SELECT now();
       (select_expression
         (term
           value: (invocation
-            name: (identifier)))))))
+            (object_reference
+              name: (identifier))))))))
 
 ================================================================================
 More complex function arguments
@@ -61,7 +63,8 @@ FROM my_table AS t;
             name: (identifier)))
         (term
           value: (invocation
-            name: (identifier)
+            (object_reference
+              name: (identifier))
             parameter: (term
               value: (field
                 name: (identifier)))
@@ -69,7 +72,8 @@ FROM my_table AS t;
               value: (literal))
             parameter: (term
               value: (invocation
-                name: (identifier)
+                (object_reference
+                  name: (identifier))
                 parameter: (term
                   value: (field
                     name: (identifier)))
@@ -86,10 +90,12 @@ FROM my_table AS t;
           alias: (identifier))
         (term
           value: (invocation
-            name: (identifier)
+            (object_reference
+              name: (identifier))
             parameter: (term
               value: (field
-                table_alias: (identifier)
+                (object_reference
+                  name: (identifier))
                 name: (identifier)))
             parameter: (term
               value: (literal))
@@ -105,10 +111,10 @@ FROM my_table AS t;
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier))
         (keyword_as)
-        table_alias: (identifier)))))
+        alias: (identifier)))))
 
 ================================================================================
 Casts and arrays
@@ -130,7 +136,8 @@ select col_has_check(
       (select_expression
         (term
           value: (invocation
-            name: (identifier)
+            (object_reference
+              name: (identifier))
             parameter: (term
               value: (cast
                 (literal)
@@ -167,7 +174,8 @@ FROM table_a;
       (select_expression
         (term
           value: (invocation
-            name: (identifier)
+            (object_reference
+              name: (identifier))
             (keyword_distinct)
             parameter: (term
               value: (field
@@ -181,7 +189,7 @@ FROM table_a;
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier))))))
 
 ================================================================================
@@ -200,22 +208,22 @@ GROUP BY some_field;
       (keyword_select)
       (select_expression
         (term
-          (group_concat
-            (keyword_group_concat)
-            (field
-              (identifier))
+          value: (group_concat
+            name: (keyword_group_concat)
+            parameter: (field
+              name: (identifier))
             (keyword_separator)
             (literal)))))
     (from
       (keyword_from)
       (relation
-        (table_reference
-          (identifier)))
+        (object_reference
+          name: (identifier)))
       (group_by
         (keyword_group)
         (keyword_by)
         (field
-          (identifier))))))
+          name: (identifier))))))
 
 ================================================================================
 GROUP CONCAT with all optional fields
@@ -233,17 +241,17 @@ GROUP BY some_field;
       (keyword_select)
       (select_expression
         (term
-          (group_concat
-            (keyword_group_concat)
+          value: (group_concat
+            name: (keyword_group_concat)
             (keyword_distinct)
-            (field
-              (identifier))
+            parameter: (field
+              name: (identifier))
             (order_by
               (keyword_order)
               (keyword_by)
               (order_target
                 (field
-                  (identifier))
+                  name: (identifier))
                 (direction
                   (keyword_desc))))
             (keyword_separator)
@@ -251,13 +259,13 @@ GROUP BY some_field;
     (from
       (keyword_from)
       (relation
-        (table_reference
-          (identifier)))
+        (object_reference
+          name: (identifier)))
       (group_by
         (keyword_group)
         (keyword_by)
         (field
-          (identifier))))))
+          name: (identifier))))))
 
 ================================================================================
 Unary ANY, ALL, SOME
@@ -276,11 +284,11 @@ WHERE id = ANY (
     (select
       (keyword_select)
       (select_expression
-        (all_fields)))
+        (term value: (all_fields))))
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier)))
       (where
         (keyword_where)
@@ -314,11 +322,11 @@ WHERE id IN (
     (select
       (keyword_select)
       (select_expression
-        (all_fields)))
+        (term value: (all_fields))))
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier)))
       (where
         (keyword_where)
@@ -335,7 +343,7 @@ WHERE id IN (
             (from
               (keyword_from)
               (relation
-                (table_reference
+                (object_reference
                   name: (identifier))))))))))
 
 ================================================================================
@@ -363,11 +371,11 @@ WHERE (
     (select
       (keyword_select)
       (select_expression
-        (all_fields)))
+        (term value: (all_fields))))
     (from
       (keyword_from)
       (relation
-        (table_reference
+        (object_reference
           name: (identifier)))
       (where
         (keyword_where)
@@ -385,7 +393,7 @@ WHERE (
                 (from
                   (keyword_from)
                   (relation
-                    (table_reference
+                    (object_reference
                       name: (identifier)))
                   (where
                     (keyword_where)
@@ -402,7 +410,7 @@ WHERE (
               (from
                 (keyword_from)
                 (relation
-                  (table_reference
+                  (object_reference
                     name: (identifier)))
                 (where
                   (keyword_where)
@@ -647,7 +655,7 @@ as 'create table x (id int) row_format=dynamic';
           (create_table
             (keyword_create)
             (keyword_table)
-            (table_reference
+            (object_reference
               (identifier))
             (column_definitions
               (column_definition
@@ -858,22 +866,25 @@ $function$
                 (select_expression
                   (term
                     (field
-                      (identifier)
+                      (object_reference
+                        (identifier))
                       (identifier)))
                   (comment)
                   (term
                     (invocation
-                      (identifier)
+                      (object_reference
+                        (identifier))
                       (term
                         (field
-                          (identifier)
+                          (object_reference
+                            (identifier))
                           (identifier))))
                     (keyword_as)
                     (identifier))))
               (from
                 (keyword_from)
                 (relation
-                  (table_reference
+                  (object_reference
                     (identifier))
                   (identifier))
                 (lateral_cross_join
@@ -899,7 +910,7 @@ $function$
                     (from
                       (keyword_from)
                       (relation
-                        (table_reference
+                        (object_reference
                           (identifier)))
                       (limit
                         (keyword_limit)
@@ -910,12 +921,13 @@ $function$
                   (keyword_group)
                   (keyword_by)
                   (field
-                    (identifier)
+                    (object_reference
+                      (identifier))
                     (identifier))))))
           (update
             (keyword_update)
             (relation
-              (table_reference
+              (object_reference
                 (identifier)))
             (keyword_set)
             (assignment
@@ -929,16 +941,18 @@ $function$
             (from
               (keyword_from)
               (relation
-                (table_reference
+                (object_reference
                   (identifier)))
               (where
                 (keyword_where)
                 (binary_expression
                   (field
-                    (identifier)
+                    (object_reference
+                      (identifier))
                     (identifier))
                   (field
-                    (identifier)
+                    (object_reference
+                      (identifier))
                     (identifier)))))))
         (keyword_return)
         (field
