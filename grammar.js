@@ -1928,7 +1928,10 @@ module.exports = grammar({
       field('name', $.keyword_group_concat),
       '(',
       $._aggregate_expression,
-      optional(seq($.keyword_separator, alias($._literal_string, $.literal))),
+      optional(seq(
+        choice($.keyword_separator, ','),
+        alias($._literal_string, $.literal)
+      )),
       ')',
     ),
 

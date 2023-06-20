@@ -218,6 +218,38 @@ GROUP BY some_field;
           (identifier))))))
 
 ================================================================================
+GROUP CONCAT Impala
+================================================================================
+
+SELECT GROUP_CONCAT(uid, ",")
+FROM some_table
+GROUP BY some_field;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (group_concat
+            (keyword_group_concat)
+            (field
+              (identifier))
+            (literal)))))
+    (from
+      (keyword_from)
+      (relation
+        (table_reference
+          (identifier)))
+      (group_by
+        (keyword_group)
+        (keyword_by)
+        (field
+          (identifier))))))
+
+================================================================================
 GROUP CONCAT with all optional fields
 ================================================================================
 
