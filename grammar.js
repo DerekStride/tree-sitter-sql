@@ -2110,7 +2110,6 @@ module.exports = grammar({
         choice(
           $.subquery,
           $.invocation,
-          // TODO already has an optional alias
           $.object_reference,
           seq(
             '(',
