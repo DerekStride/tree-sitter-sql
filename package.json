@@ -26,5 +26,13 @@
   "bugs": {
     "url": "https://github.com/derekstride/tree-sitter-sql/issues"
   },
-  "homepage": "https://github.com/derekstride/tree-sitter-sql#readme"
+  "homepage": "https://github.com/derekstride/tree-sitter-sql#readme",
+  "tree-sitter": [
+    {
+      "scope": "source.sql",
+      "file-types": [
+        "sql"
+      ]
+    }
+  ]
 }
