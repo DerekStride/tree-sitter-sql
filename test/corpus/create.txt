@@ -554,7 +554,8 @@ SELECT * FROM my_table;
         (select
           (keyword_select)
           (select_expression
-            (term value: (all_fields))))
+            (term
+              value: (all_fields))))
         (from
           (keyword_from)
           (relation
@@ -584,7 +585,8 @@ SELECT * FROM my_table;
         (select
           (keyword_select)
           (select_expression
-            (term value: (all_fields))))
+            (term
+              value: (all_fields))))
         (from
           (keyword_from)
           (relation
@@ -743,7 +745,8 @@ WITH NO DATA;
         (select
           (keyword_select)
           (select_expression
-            (term value: (all_fields))))
+            (term
+              value: (all_fields))))
         (from
           (keyword_from)
           (relation
@@ -776,7 +779,8 @@ WITH NO DATA
         (select
           (keyword_select)
           (select_expression
-            (term value: (all_fields))))
+            (term
+              value: (all_fields))))
         (from
           (keyword_from)
           (relation
@@ -1149,7 +1153,8 @@ CREATE TABLE tableName AS SELECT * FROM otherTable;
         (select
           (keyword_select)
           (select_expression
-            (term value: (all_fields))))
+            (term
+              value: (all_fields))))
         (from
           (keyword_from)
           (relation
@@ -1195,7 +1200,8 @@ SELECT * FROM _cte
         (select
           (keyword_select)
           (select_expression
-            (term (all_fields))))
+            (term
+              (all_fields))))
         (from
           (keyword_from)
           (relation
@@ -1282,7 +1288,8 @@ SELECT * FROM _cte
         (select
           (keyword_select)
           (select_expression
-            (term (all_fields))))
+            (term
+              (all_fields))))
         (from
           (keyword_from)
           (relation
@@ -1329,7 +1336,8 @@ SELECT * FROM _cte
         (select
           (keyword_select)
           (select_expression
-            (term (all_fields))))
+            (term
+              (all_fields))))
         (from
           (keyword_from)
           (relation
@@ -1337,7 +1345,7 @@ SELECT * FROM _cte
               (identifier))))))))
 
 ================================================================================
-Create hive table
+Create external hive table
 ================================================================================
 
 CREATE EXTERNAL TABLE tab
@@ -1411,6 +1419,58 @@ CACHED IN 'pool1' WITH REPLICATION = 2
         (keyword_with)
         (keyword_replication)
         value: (literal)))))
+
+================================================================================
+Create table as select hive table
+================================================================================
+
+CREATE TABLE tab
+PARTITIONED BY (col1, col2)
+STORED AS PARQUET
+AS
+SELECT
+    col1,
+    col2,
+    col3
+FROM tab2
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (object_reference
+        (identifier))
+      (table_partition
+        (keyword_partitioned)
+        (keyword_by)
+        (identifier)
+        (identifier))
+      (stored_as
+        (keyword_stored)
+        (keyword_as)
+        (keyword_parquet))
+      (keyword_as)
+      (create_query
+        (select
+          (keyword_select)
+          (select_expression
+            (term
+              (field
+                (identifier)))
+            (term
+              (field
+                (identifier)))
+            (term
+              (field
+                (identifier)))))
+        (from
+          (keyword_from)
+          (relation
+            (object_reference
+              (identifier))))))))
 
 ================================================================================
 Create table with string name
