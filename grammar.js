@@ -1628,8 +1628,7 @@ module.exports = grammar({
         $.keyword_partition,
       ),
       choice(
-        // seq('(', $.identifier, ')'), // postgres
-        seq('(', $.identifier, repeat(seq(',', $.identifier)), ')'), // postgres & Impala (CTAS)
+        paren_list($.identifier),// postgres & Impala (CTAS)
         $.column_definitions, // impala/hive external tables
         seq('(', $._key_value_pair, repeat(seq(',', $._key_value_pair)), ')',), // Spark SQL
       )
