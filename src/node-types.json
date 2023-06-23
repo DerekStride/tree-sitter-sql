@@ -302,10 +302,6 @@
           "named": true
         },
         {
-          "type": "group_concat",
-          "named": true
-        },
-        {
           "type": "interval",
           "named": true
         },
@@ -531,10 +527,6 @@
           "named": true
         },
         {
-          "type": "group_concat",
-          "named": true
-        },
-        {
           "type": "interval",
           "named": true
         },
@@ -628,10 +620,6 @@
             "named": true
           },
           {
-            "type": "group_concat",
-            "named": true
-          },
-          {
             "type": "interval",
             "named": true
           },
@@ -712,10 +700,6 @@
             "named": true
           },
           {
-            "type": "group_concat",
-            "named": true
-          },
-          {
             "type": "interval",
             "named": true
           },
@@ -790,10 +774,6 @@
             "named": true
           },
           {
-            "type": "group_concat",
-            "named": true
-          },
-          {
             "type": "interval",
             "named": true
           },
@@ -865,10 +845,6 @@
           },
           {
             "type": "field",
-            "named": true
-          },
-          {
-            "type": "group_concat",
             "named": true
           },
           {
@@ -1007,10 +983,6 @@
           },
           {
             "type": "field",
-            "named": true
-          },
-          {
-            "type": "group_concat",
             "named": true
           },
           {
@@ -1194,10 +1166,6 @@
             "named": true
           },
           {
-            "type": "group_concat",
-            "named": true
-          },
-          {
             "type": "interval",
             "named": true
           },
@@ -1297,10 +1265,6 @@
         },
         {
           "type": "field",
-          "named": true
-        },
-        {
-          "type": "group_concat",
           "named": true
         },
         {
@@ -1413,10 +1377,6 @@
             "named": true
           },
           {
-            "type": "group_concat",
-            "named": true
-          },
-          {
             "type": "interval",
             "named": true
           },
@@ -1509,10 +1469,6 @@
         },
         {
           "type": "float",
-          "named": true
-        },
-        {
-          "type": "group_concat",
           "named": true
         },
         {
@@ -3624,10 +3580,6 @@
           "named": true
         },
         {
-          "type": "group_concat",
-          "named": true
-        },
-        {
           "type": "interval",
           "named": true
         },
@@ -4090,10 +4042,6 @@
           "named": true
         },
         {
-          "type": "group_concat",
-          "named": true
-        },
-        {
           "type": "interval",
           "named": true
         },
@@ -4135,126 +4083,6 @@
         },
         {
           "type": "window_function",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "group_concat",
-    "named": true,
-    "fields": {
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "keyword_group_concat",
-            "named": true
-          }
-        ]
-      },
-      "parameter": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": "(",
-            "named": false
-          },
-          {
-            "type": ")",
-            "named": false
-          },
-          {
-            "type": "all_fields",
-            "named": true
-          },
-          {
-            "type": "array",
-            "named": true
-          },
-          {
-            "type": "between_expression",
-            "named": true
-          },
-          {
-            "type": "binary_expression",
-            "named": true
-          },
-          {
-            "type": "case",
-            "named": true
-          },
-          {
-            "type": "cast",
-            "named": true
-          },
-          {
-            "type": "exists",
-            "named": true
-          },
-          {
-            "type": "field",
-            "named": true
-          },
-          {
-            "type": "group_concat",
-            "named": true
-          },
-          {
-            "type": "interval",
-            "named": true
-          },
-          {
-            "type": "invocation",
-            "named": true
-          },
-          {
-            "type": "list",
-            "named": true
-          },
-          {
-            "type": "literal",
-            "named": true
-          },
-          {
-            "type": "parameter",
-            "named": true
-          },
-          {
-            "type": "subquery",
-            "named": true
-          },
-          {
-            "type": "unary_expression",
-            "named": true
-          },
-          {
-            "type": "window_function",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "keyword_distinct",
-          "named": true
-        },
-        {
-          "type": "keyword_separator",
-          "named": true
-        },
-        {
-          "type": "literal",
-          "named": true
-        },
-        {
-          "type": "order_by",
           "named": true
         }
       ]
@@ -4523,6 +4351,18 @@
           "named": true
         },
         {
+          "type": "keyword_separator",
+          "named": true
+        },
+        {
+          "type": "limit",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
           "type": "object_reference",
           "named": true
         },
@@ -4594,10 +4434,6 @@
           },
           {
             "type": "field",
-            "named": true
-          },
-          {
-            "type": "group_concat",
             "named": true
           },
           {
@@ -4874,10 +4710,6 @@
           "named": true
         },
         {
-          "type": "group_concat",
-          "named": true
-        },
-        {
           "type": "interval",
           "named": true
         },
@@ -5009,10 +4841,6 @@
         },
         {
           "type": "field",
-          "named": true
-        },
-        {
-          "type": "group_concat",
           "named": true
         },
         {
@@ -5361,10 +5189,6 @@
           "named": true
         },
         {
-          "type": "group_concat",
-          "named": true
-        },
-        {
           "type": "interval",
           "named": true
         },
@@ -5469,10 +5293,6 @@
         },
         {
           "type": "field",
-          "named": true
-        },
-        {
-          "type": "group_concat",
           "named": true
         },
         {
@@ -6468,10 +6288,6 @@
             "named": true
           },
           {
-            "type": "group_concat",
-            "named": true
-          },
-          {
             "type": "interval",
             "named": true
           },
@@ -6624,10 +6440,6 @@
           },
           {
             "type": "field",
-            "named": true
-          },
-          {
-            "type": "group_concat",
             "named": true
           },
           {
@@ -6822,10 +6634,6 @@
           },
           {
             "type": "field",
-            "named": true
-          },
-          {
-            "type": "group_concat",
             "named": true
           },
           {
@@ -7552,10 +7360,6 @@
   },
   {
     "type": "keyword_group",
-    "named": true
-  },
-  {
-    "type": "keyword_group_concat",
     "named": true
   },
   {
