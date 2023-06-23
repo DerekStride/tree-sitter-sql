@@ -57,7 +57,8 @@ SELECT * FROM my_table;
     (select
       (keyword_select)
       (select_expression
-        (term value: (all_fields))))
+        (term
+          value: (all_fields))))
     (from
       (keyword_from)
       (relation
@@ -77,7 +78,8 @@ SELECT * FROM ONLY my_table;
     (select
       (keyword_select)
       (select_expression
-        (term value: (all_fields))))
+        (term
+          value: (all_fields))))
     (from
       (keyword_from)
       (keyword_only)
@@ -648,7 +650,8 @@ SELECT * FROM my_schema.my_table;
     (select
       (keyword_select)
       (select_expression
-        (term value: (all_fields))))
+        (term
+          value: (all_fields))))
     (from
       (keyword_from)
       (relation
@@ -778,8 +781,8 @@ FROM my_table;
               name: (identifier))
             (keyword_distinct)
             parameter: (term
-                  value: (field
-                    name: (identifier)))))))
+              value: (field
+                name: (identifier)))))))
     (from
       (keyword_from)
       (relation
@@ -803,7 +806,8 @@ FROM my_table;
           value: (invocation
             (object_reference
               name: (identifier))
-            parameter: (term value: (all_fields))))))
+            parameter: (term
+              value: (all_fields))))))
     (from
       (keyword_from)
       (relation
@@ -910,7 +914,8 @@ JOIN my_other_table ON TRUE;
     (select
       (keyword_select)
       (select_expression
-        (term value: (all_fields))))
+        (term
+          value: (all_fields))))
     (from
       (keyword_from)
       (relation
@@ -1086,7 +1091,8 @@ JOIN (VALUES (1, 2), (3, 4)) AS v (col1, col2) ON TRUE;
     (select
       (keyword_select)
       (select_expression
-        (term value: (all_fields))))
+        (term
+          value: (all_fields))))
     (from
       (keyword_from)
       (relation
@@ -1314,8 +1320,8 @@ JOIN LATERAL unnest(a.arr) AS arr ON TRUE;
             name: (identifier))
           parameter: (term
             value: (field
-            (object_reference
-              name: (identifier))
+              (object_reference
+                name: (identifier))
               name: (identifier))))
         (keyword_as)
         alias: (identifier)
@@ -1457,12 +1463,12 @@ ON c.id = d.c_id;
           (keyword_on)
           predicate: (binary_expression
             left: (field
-            (object_reference
-              name: (identifier))
+              (object_reference
+                name: (identifier))
               name: (identifier))
             right: (field
-            (object_reference
-              name: (identifier))
+              (object_reference
+                name: (identifier))
               name: (identifier))))
         (keyword_on)
         predicate: (binary_expression
@@ -1508,8 +1514,8 @@ ORDER BY m.title, id ASC;
         predicate: (binary_expression
           left: (binary_expression
             left: (field
-            (object_reference
-              name: (identifier))
+              (object_reference
+                name: (identifier))
               name: (identifier))
             right: (literal))
           operator: (keyword_and)
@@ -2079,7 +2085,8 @@ FROM
     (select
       (keyword_select)
       (select_expression
-        (term value: (all_fields))))
+        (term
+          value: (all_fields))))
     (from
       (keyword_from)
       (relation
@@ -2114,7 +2121,8 @@ WHERE id = ?;
     (select
       (keyword_select)
       (select_expression
-        (term value: (all_fields))))
+        (term
+          value: (all_fields))))
     (from
       (keyword_from)
       (relation
@@ -2142,7 +2150,8 @@ WHERE id = $12;
     (select
       (keyword_select)
       (select_expression
-        (term value: (all_fields))))
+        (term
+          value: (all_fields))))
     (from
       (keyword_from)
       (relation
@@ -2180,7 +2189,8 @@ FROM
           (select
             (keyword_select)
             (select_expression
-              (term value: (all_fields))))
+              (term
+                value: (all_fields))))
           (from
             (keyword_from)
             (relation
@@ -2205,7 +2215,8 @@ FROM
     (select
       (keyword_select)
       (select_expression
-        (term value: (all_fields))))
+        (term
+          value: (all_fields))))
     (from
       (keyword_from)
       (relation
@@ -2253,7 +2264,8 @@ FROM test_data;
         (select
           (keyword_select)
           (select_expression
-            (term value: (all_fields))))
+            (term
+              value: (all_fields))))
         (from
           (keyword_from)
           (relation
@@ -2301,7 +2313,8 @@ FROM some_table s
     (select
       (keyword_select)
       (select_expression
-        (term value: (all_fields))))
+        (term
+          value: (all_fields))))
     (from
       (keyword_from)
       (relation

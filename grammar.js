@@ -97,7 +97,6 @@ module.exports = grammar({
     keyword_distinct: _ => make_keyword("distinct"),
     keyword_constraint: _ => make_keyword("constraint"),
     keyword_cast: _ => make_keyword("cast"),
-    keyword_group_concat: _ => make_keyword("group_concat"),
     keyword_separator: _ => make_keyword("separator"),
     keyword_max: _ => make_keyword("max"),
     keyword_min: _ => make_keyword("min"),
@@ -1933,36 +1932,34 @@ module.exports = grammar({
       ')',
     ),
 
-    _aggregate_function: $ => choice(
-      $.group_concat,
-    ),
-
-    group_concat: $ => seq(
-      field('name', $.keyword_group_concat),
-      '(',
-      $._aggregate_expression,
-      optional(seq($.keyword_separator, alias($._literal_string, $.literal))),
-      ')',
-    ),
-
-    _aggregate_expression: $ => seq(
-      optional($.keyword_distinct),
-      field('parameter', choice($._expression, $.all_fields)),
-      optional($.order_by),
-    ),
-
     invocation: $ => prec(1,
       seq(
         $.object_reference,
-        paren_list(
+        choice(
+          // default invocation
+          paren_list(
+            seq(
+              optional($.keyword_distinct),
+              field(
+                'parameter',
+                $.term,
+              ),
+              optional($.order_by)
+            )
+          ),
+          // _aggregate_function, e.g. group_concat
           seq(
+            '(',
             optional($.keyword_distinct),
-            field(
-              'parameter',
-              $.term,
-            ),
-            optional($.order_by)
-          )
+            field('parameter', $.term),
+            optional($.order_by),
+            optional(seq(
+              choice($.keyword_separator, ','),
+              alias($._literal_string, $.literal)
+            )),
+            optional($.limit),
+            ')',
+          ),
         ),
       ),
     ),
@@ -2319,7 +2316,6 @@ module.exports = grammar({
         $.subquery,
         $.cast,
         alias($.implicit_cast, $.cast),
-        $._aggregate_function,
         $.exists,
         $.invocation,
         $.binary_expression,

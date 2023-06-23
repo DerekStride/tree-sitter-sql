@@ -208,10 +208,12 @@ GROUP BY some_field;
       (keyword_select)
       (select_expression
         (term
-          value: (group_concat
-            name: (keyword_group_concat)
-            parameter: (field
+          value: (invocation
+            (object_reference
               name: (identifier))
+            parameter: (term
+              value: (field
+                name: (identifier)))
             (keyword_separator)
             (literal)))))
     (from
@@ -241,11 +243,13 @@ GROUP BY some_field;
       (keyword_select)
       (select_expression
         (term
-          value: (group_concat
-            name: (keyword_group_concat)
-            (keyword_distinct)
-            parameter: (field
+          value: (invocation
+            (object_reference
               name: (identifier))
+            (keyword_distinct)
+            parameter: (term
+              value: (field
+                name: (identifier)))
             (order_by
               (keyword_order)
               (keyword_by)
@@ -256,6 +260,41 @@ GROUP BY some_field;
                   (keyword_desc))))
             (keyword_separator)
             (literal)))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier)))
+      (group_by
+        (keyword_group)
+        (keyword_by)
+        (field
+          name: (identifier))))))
+
+================================================================================
+GROUP CONCAT Impala
+================================================================================
+
+SELECT GROUP_CONCAT(uid, ",")
+FROM some_table
+GROUP BY some_field;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (invocation
+            (object_reference
+              name: (identifier))
+            parameter: (term
+              value: (field
+                name: (identifier)))
+            parameter: (term
+              value: (literal))))))
     (from
       (keyword_from)
       (relation
@@ -284,7 +323,8 @@ WHERE id = ANY (
     (select
       (keyword_select)
       (select_expression
-        (term value: (all_fields))))
+        (term
+          value: (all_fields))))
     (from
       (keyword_from)
       (relation
@@ -322,7 +362,8 @@ WHERE id IN (
     (select
       (keyword_select)
       (select_expression
-        (term value: (all_fields))))
+        (term
+          value: (all_fields))))
     (from
       (keyword_from)
       (relation
@@ -371,7 +412,8 @@ WHERE (
     (select
       (keyword_select)
       (select_expression
-        (term value: (all_fields))))
+        (term
+          value: (all_fields))))
     (from
       (keyword_from)
       (relation
