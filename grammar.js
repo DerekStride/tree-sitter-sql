@@ -1937,17 +1937,15 @@ module.exports = grammar({
         $.object_reference,
         choice(
           // default invocation
-          seq(
-            paren_list(
-              seq(
-                optional($.keyword_distinct),
-                field(
-                  'parameter',
-                  $.term,
-                ),
-                optional($.order_by)
-              )
-            ),
+          paren_list(
+            seq(
+              optional($.keyword_distinct),
+              field(
+                'parameter',
+                $.term,
+              ),
+              optional($.order_by)
+            )
           ),
           // _aggregate_function, e.g. group_concat
           seq(
@@ -1959,6 +1957,7 @@ module.exports = grammar({
               choice($.keyword_separator, ','),
               alias($._literal_string, $.literal)
             )),
+            optional($.limit),
             ')',
           ),
         ),
