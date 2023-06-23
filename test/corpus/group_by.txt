@@ -166,5 +166,6 @@ HAVING COUNT(*) = 2;
           left: (invocation
             (object_reference
               name: (identifier))
-            parameter: (term value: (all_fields)))
+            parameter: (term
+              value: (all_fields)))
           right: (literal))))))

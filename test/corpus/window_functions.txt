@@ -739,7 +739,8 @@ FROM tab1
             (invocation
               (object_reference
                 name: (identifier))
-              parameter: (term value: (all_fields)))
+              parameter: (term
+                value: (all_fields)))
             (keyword_over)
             (window_specification
               (partition_by

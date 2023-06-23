@@ -11,7 +11,6 @@
   (keyword_brin)
   (keyword_float)
   (keyword_array)
-  (keyword_group_concat)
 ] @function.call
 
 (object_reference
