@@ -9,7 +9,7 @@ END;
 --------------------------------------------------------------------------------
 
 (program
-  (compound_statement
+  (block
     (keyword_begin)
     (statement
       (create_table
