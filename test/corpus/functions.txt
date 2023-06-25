@@ -476,8 +476,9 @@ return 1;
       (keyword_or)
       (keyword_replace)
       (keyword_function)
-      (identifier)
-      (identifier)
+      (object_reference
+        (identifier)
+        (identifier))
       (keyword_returns)
       (int
         (keyword_int))
@@ -505,8 +506,9 @@ return 1;
       (keyword_or)
       (keyword_replace)
       (keyword_function)
-      (identifier)
-      (identifier)
+      (object_reference
+        (identifier)
+        (identifier))
       (column_definitions
         (column_definition
           (identifier)
@@ -548,8 +550,9 @@ return 1;
       (keyword_or)
       (keyword_replace)
       (keyword_function)
-      (identifier)
-      (identifier)
+      (object_reference
+        (identifier)
+        (identifier))
       (keyword_returns)
       (int
         (keyword_int))
@@ -596,8 +599,9 @@ create or replace function public.fn()
       (keyword_or)
       (keyword_replace)
       (keyword_function)
-      schema: (identifier)
-      name: (identifier)
+      (object_reference
+        schema: (identifier)
+        name: (identifier))
       (keyword_returns)
       (int
         (keyword_int))
@@ -650,8 +654,9 @@ as 'select 1;';
       (keyword_or)
       (keyword_replace)
       (keyword_function)
-      (identifier)
-      (identifier)
+      (object_reference
+        (identifier)
+        (identifier))
       (keyword_returns)
       (int
         (keyword_int))
@@ -659,12 +664,7 @@ as 'select 1;';
         (keyword_sql))
       (function_body
         (keyword_as)
-        (statement
-          (select
-            (keyword_select)
-            (select_expression
-              (term
-                (literal)))))))))
+        (literal)))))
 
 ================================================================================
 Precedence between string body and `create table` with string options
@@ -684,8 +684,9 @@ as 'create table x (id int) row_format=dynamic';
       (keyword_or)
       (keyword_replace)
       (keyword_function)
-      (identifier)
-      (identifier)
+      (object_reference
+        (identifier)
+        (identifier))
       (keyword_returns)
       (int
         (keyword_int))
@@ -693,20 +694,7 @@ as 'create table x (id int) row_format=dynamic';
         (keyword_sql))
       (function_body
         (keyword_as)
-        (statement
-          (create_table
-            (keyword_create)
-            (keyword_table)
-            (object_reference
-              (identifier))
-            (column_definitions
-              (column_definition
-                (identifier)
-                (int
-                  (keyword_int))))
-            (table_option
-              (identifier)
-              (identifier))))))))
+        (literal)))))
 
 ================================================================================
 With `begin atomic`
@@ -728,8 +716,9 @@ end;
       (keyword_or)
       (keyword_replace)
       (keyword_function)
-      (identifier)
-      (identifier)
+      (object_reference
+        (identifier)
+        (identifier))
       (keyword_returns)
       (int
         (keyword_int))
@@ -764,8 +753,9 @@ $function$;
       (keyword_or)
       (keyword_replace)
       (keyword_function)
-      (identifier)
-      (identifier)
+      (object_reference
+        (identifier)
+        (identifier))
       (keyword_returns)
       (int
         (keyword_int))
@@ -806,8 +796,9 @@ $function$;
       (keyword_or)
       (keyword_replace)
       (keyword_function)
-      (identifier)
-      (identifier)
+      (object_reference
+        (identifier)
+        (identifier))
       (keyword_returns)
       (int
         (keyword_int))
@@ -886,8 +877,9 @@ $function$
       (keyword_or)
       (keyword_replace)
       (keyword_function)
-      (identifier)
-      (identifier)
+      (object_reference
+        (identifier)
+        (identifier))
       (keyword_returns)
       (keyword_trigger)
       (function_language

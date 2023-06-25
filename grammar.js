@@ -11,12 +11,6 @@ module.exports = grammar({
   conflicts: $ => [
     [$.object_reference, $._qualified_field],
     [$.object_reference],
-    // TODO these two have internal conflicts because of optional parenthesized
-    // settings which can be interpreted as _subsequent statements_ due to our
-    // current handling of statement delimiters in program nodes. Remove once
-    // we have expressed programs as delimited sequences of statements.
-    [$._vacuum_table],
-    [$._compute_stats],
   ],
 
   precedences: $ => [
@@ -40,12 +34,21 @@ module.exports = grammar({
   word: $ => $._identifier,
 
   rules: {
-    program: $ => repeat(
-      // TODO: other kinds of definitions
-      choice(
-        $.transaction,
+    program: $ => seq(
+      // any number of transactions, statements, or blocks with a terminating ;
+      repeat(
+        seq(
+          choice(
+            $.transaction,
+            $.statement,
+            $.block,
+          ),
+          ';',
+        ),
+      ),
+      // optionally, a single statement without a terminating ;
+      optional(
         $.statement,
-        $.compound_statement,
       ),
     ),
 
@@ -489,13 +492,48 @@ module.exports = grammar({
     // https://stackoverflow.com/questions/13014947/regex-to-match-a-c-style-multiline-comment
     marginalia: _ => seq('/*', /[^*]*\*+(?:[^/*][^*]*\*+)*/, '/' ),
 
-    compound_statement: $ => seq(
+    transaction: $ => seq(
       $.keyword_begin,
-      repeat1(
-        $.statement,
+      optional(
+        $.keyword_transaction,
+      ),
+      optional(';'),
+      repeat(
+        seq(
+          $.statement,
+          ';'
+        ),
+      ),
+      choice(
+        $._commit,
+        $._rollback,
+      ),
+    ),
+
+    _commit: $ => seq(
+      $.keyword_commit,
+      optional(
+        $.keyword_transaction,
+      ),
+    ),
+
+    _rollback: $ => seq(
+      $.keyword_rollback,
+      optional(
+        $.keyword_transaction,
+      ),
+    ),
+
+    block: $ => seq(
+      $.keyword_begin,
+      optional(';'),
+      repeat(
+        seq(
+          $.statement,
+          ';'
+        ),
       ),
       $.keyword_end,
-      optional(';'),
     ),
 
     statement: $ => seq(
@@ -509,7 +547,6 @@ module.exports = grammar({
           ')',
         ),
       ),
-      optional(';'),
     ),
 
     _ddl_statement: $ => choice(
@@ -574,41 +611,6 @@ module.exports = grammar({
         $.statement,
       ),
       ')',
-    ),
-
-    transaction: $ => seq(
-      $._begin,
-      repeat(
-        $.statement,
-      ),
-      choice(
-        $._commit,
-        $._rollback,
-      ),
-    ),
-
-    _begin: $ => seq(
-      $.keyword_begin,
-      optional(
-        $.keyword_transaction,
-      ),
-      ';',
-    ),
-
-    _commit: $ => seq(
-      $.keyword_commit,
-      optional(
-        $.keyword_transaction,
-      ),
-      ';',
-    ),
-
-    _rollback: $ => seq(
-      $.keyword_rollback,
-      optional(
-        $.keyword_transaction,
-      ),
-      ';',
     ),
 
     _select_statement: $ => seq(
@@ -841,13 +843,7 @@ module.exports = grammar({
       $.keyword_create,
       optional($._or_replace),
       $.keyword_function,
-      optional(
-        seq(
-          field('schema', $.identifier),
-          '.',
-        ),
-      ),
-      field('name', $.identifier),
+      $.object_reference,
       choice(
         $.column_definitions, // TODO `default` will require own node type
         seq('(', ')'),
@@ -891,7 +887,6 @@ module.exports = grammar({
     _function_return: $ => seq(
       $.keyword_return,
       $._expression,
-      ';',
     ),
 
     function_declaration: $ => seq(
@@ -915,15 +910,23 @@ module.exports = grammar({
       ';',
     ),
 
-    function_body: $ => choice(
+    _function_body_statement: $ => choice(
+      $.statement,
       $._function_return,
+    ),
+
+    function_body: $ => choice(
+      seq(
+        $._function_return,
+        ';'
+      ),
       seq(
         $.keyword_begin,
         $.keyword_atomic,
         repeat1(
-          choice(
-            $.statement,
-            $._function_return,
+          seq(
+            $._function_body_statement,
+            ';',
           ),
         ),
         $.keyword_end,
@@ -941,9 +944,9 @@ module.exports = grammar({
         ),
         $.keyword_begin,
         repeat1(
-          choice(
-            $.statement,
-            $._function_return,
+          seq(
+            $._function_body_statement,
+            ';',
           ),
         ),
         $.keyword_end,
@@ -952,20 +955,12 @@ module.exports = grammar({
       ),
       seq(
         $.keyword_as,
-        '\'',
-        choice(
-          $.statement,
-          $._function_return,
-        ),
-        '\'',
+        alias($._literal_string, $.literal),
       ),
       seq(
         $.keyword_as,
         $.dollar_quote,
-        choice(
-          $.statement,
-          $._function_return,
-        ),
+        $._function_body_statement,
         $.dollar_quote,
       ),
     ),
