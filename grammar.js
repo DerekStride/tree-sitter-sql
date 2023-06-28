@@ -99,6 +99,7 @@ module.exports = grammar({
     keyword_as: _ => make_keyword("as"),
     keyword_distinct: _ => make_keyword("distinct"),
     keyword_constraint: _ => make_keyword("constraint"),
+    keyword_filter: _ => make_keyword("filter"),
     keyword_cast: _ => make_keyword("cast"),
     keyword_separator: _ => make_keyword("separator"),
     keyword_max: _ => make_keyword("max"),
@@ -1927,6 +1928,13 @@ module.exports = grammar({
       ')',
     ),
 
+    filter_expression : $ => seq(
+      $.keyword_filter,
+      '(',
+      $.where,
+      ')',
+    ),
+
     invocation: $ => prec(1,
       seq(
         $.object_reference,
@@ -1956,6 +1964,9 @@ module.exports = grammar({
             ')',
           ),
         ),
+        optional(
+          $.filter_expression
+        )
       ),
     ),
 
