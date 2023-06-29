@@ -2,7 +2,12 @@
 JSON traversal
 ================================================================================
 
-SELECT "user"->>'login' AS username FROM users;
+SELECT 
+    "user"->>'login',
+    "user"->'adress' ->> 'city',
+    "user" #> 'items',
+    "user" #>> 'more_items'
+AS username FROM users;
 
 --------------------------------------------------------------------------------
 

@@ -2325,7 +2325,12 @@ module.exports = grammar({
 
     json_traversal: $ => seq(
       $._expression,
-      '->>',
+      choice(
+        '->',
+        '->>',
+        '#>',
+        '#>>',
+      ),
       $._literal_string,
     ),
 
