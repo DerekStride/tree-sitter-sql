@@ -2,12 +2,13 @@
 JSON traversal
 ================================================================================
 
-SELECT 
-    "user"->>'login',
-    "user"->'adress' ->> 'city',
+SELECT
+    "user"->>'login' as login,
+    "user"->'address' ->> 'city',
+    "user"->'address' ->> 'state' as userstate,
     "user" #> 'items',
-    "user" #>> 'more_items'
-AS username FROM users;
+    "user" #>> 'more_items' AS more
+FROM users;
 
 --------------------------------------------------------------------------------
 
@@ -20,9 +21,27 @@ AS username FROM users;
      (json_traversal
       (literal))
      (keyword_as)
-     (identifier))))
-  (from
-   (keyword_from)
-   (relation
-    (object_reference
-     (identifier))))))
+     (identifier))
+    (term
+     (json_traversal
+      (json_traversal
+       (literal))))
+    (term
+     (json_traversal
+      (json_traversal
+       (literal)))
+     (keyword_as)
+     (identifier))
+    (term
+     (json_traversal
+      (literal)))
+    (term
+     (json_traversal
+      (literal))
+      (keyword_as)
+      (identifier))))
+    (from
+     (keyword_from)
+     (relation
+      (object_reference
+       (identifier))))))
