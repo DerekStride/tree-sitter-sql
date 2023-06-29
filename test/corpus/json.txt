@@ -1,0 +1,54 @@
+================================================================================
+JSON traversal
+================================================================================
+
+SELECT
+    "user"->>'login' as login,
+    "user"->'address' ->> 'city',
+    "user"->'address' ->> 'state' as userstate,
+    "user" #> 'items',
+    "user" #>> 'more_items' AS more
+FROM users;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (binary_expression
+            left: (literal)
+            right: (literal))
+          (keyword_as)
+          alias: (identifier))
+        (term
+          value: (binary_expression
+            left: (binary_expression
+              left: (literal)
+              right: (literal))
+            right: (literal)))
+        (term
+          value: (binary_expression
+            left: (binary_expression
+              left: (literal)
+              right: (literal))
+            right: (literal))
+          (keyword_as)
+          alias: (identifier))
+        (term
+          value: (binary_expression
+            left: (literal)
+            right: (literal)))
+        (term
+          value: (binary_expression
+            left: (literal)
+            right: (literal))
+          (keyword_as)
+          alias: (identifier))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier))))))
