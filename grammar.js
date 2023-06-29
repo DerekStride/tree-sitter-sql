@@ -2318,8 +2318,15 @@ module.exports = grammar({
         $.array,
         $.interval,
         $.between_expression,
+        $.json_traversal,
         seq("(", $._expression, ")"),
       )
+    ),
+
+    json_traversal: $ => seq(
+      $._expression,
+      '->>',
+      $._literal_string,
     ),
 
     binary_expression: $ => choice(
