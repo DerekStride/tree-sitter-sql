@@ -3340,6 +3340,25 @@
     }
   },
   {
+    "type": "filter_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_filter",
+          "named": true
+        },
+        {
+          "type": "where",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "float",
     "named": true,
     "fields": {
@@ -4329,6 +4348,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "filter_expression",
+          "named": true
+        },
         {
           "type": "keyword_distinct",
           "named": true
@@ -7279,6 +7302,10 @@
   },
   {
     "type": "keyword_fields",
+    "named": true
+  },
+  {
+    "type": "keyword_filter",
     "named": true
   },
   {

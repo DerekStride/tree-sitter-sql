@@ -236,6 +236,10 @@
       "type": "PATTERN",
       "value": "[cC][oO][nN][sS][tT][rR][aA][iI][nN][tT]"
     },
+    "keyword_filter": {
+      "type": "PATTERN",
+      "value": "[fF][iI][lL][tT][eE][rR]"
+    },
     "keyword_cast": {
       "type": "PATTERN",
       "value": "[cC][aA][sS][tT]"
@@ -9368,6 +9372,27 @@
         }
       ]
     },
+    "filter_expression": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_filter"
+        },
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "SYMBOL",
+          "name": "where"
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
+    },
     "invocation": {
       "type": "PREC",
       "value": 1,
@@ -9584,6 +9609,18 @@
                     "value": ")"
                   }
                 ]
+              }
+            ]
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "filter_expression"
+              },
+              {
+                "type": "BLANK"
               }
             ]
           }
