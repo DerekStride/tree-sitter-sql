@@ -13,35 +13,42 @@ FROM users;
 --------------------------------------------------------------------------------
 
 (program
- (statement
-  (select
-   (keyword_select)
-   (select_expression
-    (term
-     (json_traversal
-      (literal))
-     (keyword_as)
-     (identifier))
-    (term
-     (json_traversal
-      (json_traversal
-       (literal))))
-    (term
-     (json_traversal
-      (json_traversal
-       (literal)))
-     (keyword_as)
-     (identifier))
-    (term
-     (json_traversal
-      (literal)))
-    (term
-     (json_traversal
-      (literal))
-      (keyword_as)
-      (identifier))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (binary_expression
+            left: (literal)
+            right: (literal))
+          (keyword_as)
+          alias: (identifier))
+        (term
+          value: (binary_expression
+            left: (binary_expression
+              left: (literal)
+              right: (literal))
+            right: (literal)))
+        (term
+          value: (binary_expression
+            left: (binary_expression
+              left: (literal)
+              right: (literal))
+            right: (literal))
+          (keyword_as)
+          alias: (identifier))
+        (term
+          value: (binary_expression
+            left: (literal)
+            right: (literal)))
+        (term
+          value: (binary_expression
+            left: (literal)
+            right: (literal))
+          (keyword_as)
+          alias: (identifier))))
     (from
-     (keyword_from)
-     (relation
-      (object_reference
-       (identifier))))))
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier))))))
