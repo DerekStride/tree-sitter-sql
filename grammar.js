@@ -2318,20 +2318,8 @@ module.exports = grammar({
         $.array,
         $.interval,
         $.between_expression,
-        $.json_traversal,
         seq("(", $._expression, ")"),
       )
-    ),
-
-    json_traversal: $ => seq(
-      $._expression,
-      choice(
-        '->',
-        '->>',
-        '#>',
-        '#>>',
-      ),
-      $._literal_string,
     ),
 
     binary_expression: $ => choice(
@@ -2350,6 +2338,10 @@ module.exports = grammar({
         ['>=', 'binary_relation'],
         ['>', 'binary_relation'],
         ['<>', 'binary_relation'],
+        ['->', 'binary_relation'],
+        ['->>', 'binary_relation'],
+        ['#>', 'binary_relation'],
+        ['#>>', 'binary_relation'],
         [$.keyword_is, 'binary_is'],
         [$.is_not, 'binary_is'],
         [$.keyword_like, 'pattern_matching'],
