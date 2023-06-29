@@ -598,15 +598,14 @@ module.exports = grammar({
       optional(
         seq(
           optional($.keyword_not),
-          $.keyword_materialized),
+          $.keyword_materialized,
+        ),
       ),
       '(',
       alias(
         choice(
-          $._select_statement,
-          $._delete_statement,
-          $._insert_statement,
-          $._update_statement,
+          $._dml_read,
+          $._dml_write,
         ),
         $.statement,
       ),
