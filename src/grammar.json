@@ -4088,19 +4088,11 @@
             "members": [
               {
                 "type": "SYMBOL",
-                "name": "_select_statement"
+                "name": "_dml_read"
               },
               {
                 "type": "SYMBOL",
-                "name": "_delete_statement"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "_insert_statement"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "_update_statement"
+                "name": "_dml_write"
               }
             ]
           },
