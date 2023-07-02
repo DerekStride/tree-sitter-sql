@@ -1124,6 +1124,10 @@
             "named": true
           },
           {
+            "type": "not_in",
+            "named": true
+          },
+          {
             "type": "not_like",
             "named": true
           },
@@ -5015,6 +5019,25 @@
         },
         {
           "type": "keyword_is",
+          "named": true
+        },
+        {
+          "type": "keyword_not",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "not_in",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_in",
           "named": true
         },
         {

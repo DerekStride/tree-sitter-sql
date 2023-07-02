@@ -12023,6 +12023,48 @@
               }
             ]
           }
+        },
+        {
+          "type": "PREC_LEFT",
+          "value": "binary_in",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "FIELD",
+                "name": "left",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_expression"
+                }
+              },
+              {
+                "type": "FIELD",
+                "name": "operator",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "not_in"
+                }
+              },
+              {
+                "type": "FIELD",
+                "name": "right",
+                "content": {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "list"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "subquery"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
         }
       ]
     },
@@ -12257,6 +12299,19 @@
               }
             ]
           }
+        }
+      ]
+    },
+    "not_in": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_not"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_in"
         }
       ]
     },
@@ -12576,6 +12631,10 @@
     ],
     [
       "object_reference"
+    ],
+    [
+      "between_expression",
+      "binary_expression"
     ]
   ],
   "precedences": [
