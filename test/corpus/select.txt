@@ -374,6 +374,96 @@ WHERE id IN(1,2);
             (literal)))))))
 
 ================================================================================
+Simple select with NOT IN
+================================================================================
+
+SELECT id
+FROM my_table
+WHERE id NOT IN(1,2);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            name: (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier)))
+      (where
+        (keyword_where)
+        predicate: (binary_expression
+          left: (field
+            name: (identifier))
+          operator: (not_in
+              (keyword_not)
+              (keyword_in))
+          right: (list
+            (literal)
+            (literal)))))))
+
+================================================================================
+Simple select with more NOT INs
+================================================================================
+
+SELECT id
+FROM my_table
+WHERE id NOT IN(1,2) AND id NOT IN (SELECT id FROM other_table);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            name: (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier)))
+      (where
+        (keyword_where)
+        predicate: (binary_expression
+          left: (binary_expression
+            left: (field
+              name: (identifier))
+            operator: (not_in
+              (keyword_not)
+              (keyword_in))
+            right: (list
+              (literal)
+              (literal)))
+          operator: (keyword_and)
+          right: (binary_expression
+            left: (field
+              name: (identifier))
+            operator: (not_in
+              (keyword_not)
+              (keyword_in))
+            right: (subquery
+              (select
+               (keyword_select)
+               (select_expression
+                (term
+                 value: (field
+                   name: (identifier)))))
+              (from
+               (keyword_from)
+               (relation
+                (object_reference
+                 name: (identifier)))))))))))
+
+================================================================================
 Simple select with IF
 ================================================================================
 

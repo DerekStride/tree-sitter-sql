@@ -11,6 +11,7 @@ module.exports = grammar({
   conflicts: $ => [
     [$.object_reference, $._qualified_field],
     [$.object_reference],
+    [$.between_expression, $.binary_expression],
   ],
 
   precedences: $ => [
@@ -2381,8 +2382,7 @@ module.exports = grammar({
       ),
       ...[
         [$.keyword_in, 'binary_in'],
-        // @TODO: there's an unclear precedence issue here
-        // [$.not_in, 'binary_in'],
+        [$.not_in, 'binary_in'],
       ].map(([operator, precedence]) =>
         prec.left(precedence, seq(
           field('left', $._expression),
@@ -2420,6 +2420,11 @@ module.exports = grammar({
                 field('high', $._expression)
             ))
         ),
+    ),
+
+    not_in: $ => seq(
+      $.keyword_not,
+      $.keyword_in,
     ),
 
     subquery: $ => seq(
