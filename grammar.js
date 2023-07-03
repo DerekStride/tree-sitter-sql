@@ -1132,7 +1132,7 @@ module.exports = grammar({
     ),
 
     add_column: $ => seq(
-      $.keyword_add,
+      optional($.keyword_add),
       optional(
         $.keyword_column,
       ),
@@ -1143,7 +1143,7 @@ module.exports = grammar({
 
     add_constraint: $ => seq(
       $.keyword_add,
-      $.keyword_constraint,
+      optional($.keyword_constraint),
       $.identifier,
       $.constraint,
     ),
