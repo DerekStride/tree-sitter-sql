@@ -485,9 +485,18 @@ module.exports = grammar({
 
     array: $ => seq(
       $.keyword_array,
-      "[",
-      comma_list($._expression),
-      "]"
+      choice(
+        seq(
+          "[",
+          comma_list($._expression),
+          "]"
+        ),
+        seq(
+          "(",
+          $._dml_read,
+          ")",
+        )
+      )
     ),
 
     comment: _ => seq('--', /.*/),
