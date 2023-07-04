@@ -16,7 +16,7 @@ jobs:
           node-version: 18
       - run: npm install
       - name: Publish parser on GitHub Pages
-        run: cp -r src docs
+        run: cp -r src bindings Package.swift docs
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: 3.2.0
