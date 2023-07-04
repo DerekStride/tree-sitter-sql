@@ -1131,6 +1131,8 @@ module.exports = grammar({
       $.change_ownership,
     ),
 
+    // TODO: optional `keyword_add` is necessary to allow for chained alter statements in t-sql
+    // maybe needs refactoring
     add_column: $ => seq(
       optional($.keyword_add),
       optional(
