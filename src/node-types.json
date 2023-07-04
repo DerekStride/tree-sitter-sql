@@ -519,11 +519,19 @@
           "named": true
         },
         {
+          "type": "cte",
+          "named": true
+        },
+        {
           "type": "exists",
           "named": true
         },
         {
           "type": "field",
+          "named": true
+        },
+        {
+          "type": "from",
           "named": true
         },
         {
@@ -535,7 +543,27 @@
           "named": true
         },
         {
+          "type": "keyword_all",
+          "named": true
+        },
+        {
           "type": "keyword_array",
+          "named": true
+        },
+        {
+          "type": "keyword_except",
+          "named": true
+        },
+        {
+          "type": "keyword_intersect",
+          "named": true
+        },
+        {
+          "type": "keyword_union",
+          "named": true
+        },
+        {
+          "type": "keyword_with",
           "named": true
         },
         {
@@ -548,6 +576,10 @@
         },
         {
           "type": "parameter",
+          "named": true
+        },
+        {
+          "type": "select",
           "named": true
         },
         {
