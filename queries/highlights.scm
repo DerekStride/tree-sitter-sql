@@ -165,12 +165,9 @@
   (keyword_to)
   (keyword_schema)
   (keyword_owner)
-  (keyword_union)
   (keyword_all)
   (keyword_any)
   (keyword_some)
-  (keyword_except)
-  (keyword_intersect)
   (keyword_returning)
   (keyword_begin)
   (keyword_commit)
@@ -314,6 +311,9 @@
   (keyword_by)
   (keyword_on)
   (keyword_do)
+  (keyword_union)
+  (keyword_except)
+  (keyword_intersect)
 ] @keyword.operator
 
 [

@@ -593,12 +593,11 @@ module.exports = grammar({
     ),
 
     _dml_read: $ => seq(
-      choice(
-        seq(
-          optional(
-            $._cte
-          ),
+      optional($._cte),
+      optional_parenthesis(
+        choice(
           $._select_statement,
+          $.set_operation,
         ),
       ),
     ),
@@ -623,22 +622,27 @@ module.exports = grammar({
       ')',
     ),
 
-    _select_statement: $ => seq(
-      $.select,
-      optional($.from),
-      repeat(
+    set_operation: $ => seq(
+      $._select_statement,
+      repeat1(
         seq(
-          choice(
-            seq(
-              $.keyword_union,
-              optional($.keyword_all),
+          field(
+            "operation",
+            choice(
+              seq($.keyword_union, optional($.keyword_all)),
+              $.keyword_except,
+              $.keyword_intersect,
             ),
-            $.keyword_except,
-            $.keyword_intersect,
           ),
-          $.select,
-          optional($.from),
+          $._select_statement,
         ),
+      ),
+    ),
+
+    _select_statement: $ => optional_parenthesis(
+      seq(
+        $.select,
+        optional($.from),
       ),
     ),
 
@@ -759,33 +763,7 @@ module.exports = grammar({
       ),
     ),
 
-    create_query: $ => choice(
-      $._select_statement,
-      seq(
-        $._cte,
-        $._select_statement,
-      ),
-      seq(
-        $._inner_create_query,
-        repeat(
-          seq(
-            $.keyword_union,
-            optional($.keyword_all),
-            $._inner_create_query,
-          ),
-        )
-      ),
-    ),
-
-    _inner_create_query: $ => choice(
-      seq( '(', $._select_statement, ')'),
-      seq(
-        '(',
-        $._cte,
-        $._select_statement,
-        ')',
-      ),
-    ),
+    create_query: $ => $._dml_read,
 
     create_view: $ => prec.right(
       seq(
@@ -2492,6 +2470,15 @@ function unsigned_type($, type) {
       type,
       optional($.keyword_unsigned),
       optional($.keyword_zerofill),
+    ),
+  )
+}
+
+function optional_parenthesis(node) {
+  return prec.right(
+    choice(
+      node,
+      seq("(", node, ")"),
     ),
   )
 }

@@ -231,52 +231,52 @@ FROM top_cte;
 --------------------------------------------------------------------------------
 
 (program
- (statement
-  (keyword_with)
-  (cte
-   (identifier)
-   (keyword_as)
-   (statement
+  (statement
     (keyword_with)
     (cte
-     (identifier)
-     (keyword_as)
-     (statement
-      (select
-       (keyword_select)
-       (select_expression
-        (term
-         (literal)
-         (keyword_as)
-         (identifier))
-        (term
-         (literal)
-         (keyword_as)
-         (identifier))))))
+      (identifier)
+      (keyword_as)
+      (statement
+        (keyword_with)
+        (cte
+          (identifier)
+          (keyword_as)
+          (statement
+            (select
+              (keyword_select)
+              (select_expression
+                (term
+                  (literal)
+                  (keyword_as)
+                  (identifier))
+                (term
+                  (literal)
+                  (keyword_as)
+                  (identifier))))))
+        (select
+          (keyword_select)
+          (select_expression
+            (term
+              (field
+                (identifier)))
+            (term
+              (field
+                (identifier)))))
+        (from
+          (keyword_from)
+          (relation
+            (object_reference
+              (identifier))))))
     (select
-     (keyword_select)
-     (select_expression
-      (term
-       (field
-        (identifier)))
-      (term
-       (field
-        (identifier)))))
-  (from
-   (keyword_from)
-   (relation
-    (object_reference
-     (identifier))))))
-  (select
-   (keyword_select)
-   (select_expression
-    (term
-     (all_fields))))
-  (from
-   (keyword_from)
-   (relation
-    (object_reference
-     (identifier))))))
+      (keyword_select)
+      (select_expression
+        (term
+          (all_fields))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          (identifier))))))
 
 ================================================================================
 Nested deeper
@@ -298,64 +298,172 @@ FROM top_cte;
 --------------------------------------------------------------------------------
 
 (program
- (statement
-  (keyword_with)
-  (cte
-   (identifier)
-   (keyword_as)
-   (statement
+  (statement
     (keyword_with)
     (cte
-     (identifier)
-     (keyword_as)
-     (statement
-      (keyword_with)
-      (cte
-       (identifier)
-       (keyword_as)
-       (statement
+      (identifier)
+      (keyword_as)
+      (statement
+        (keyword_with)
+        (cte
+          (identifier)
+          (keyword_as)
+          (statement
+            (keyword_with)
+            (cte
+              (identifier)
+              (keyword_as)
+              (statement
+                (select
+                  (keyword_select)
+                  (select_expression
+                    (term
+                      (literal)
+                      (keyword_as)
+                      (identifier))
+                    (term
+                      (literal)
+                      (keyword_as)
+                      (identifier))))))
+            (select
+              (keyword_select)
+              (select_expression
+                (term
+                  (all_fields))))
+            (from
+              (keyword_from)
+              (relation
+                (object_reference
+                  (identifier))))))
         (select
-         (keyword_select)
-         (select_expression
-          (term
-           (literal)
-           (keyword_as)
-           (identifier))
-          (term
-           (literal)
-           (keyword_as)
-           (identifier))))))
-      (select
-       (keyword_select)
-       (select_expression
+          (keyword_select)
+          (select_expression
+            (term
+              (field
+                (identifier)))
+            (term
+              (field
+                (identifier)))))
+        (from
+          (keyword_from)
+          (relation
+            (object_reference
+              (identifier))))))
+    (select
+      (keyword_select)
+      (select_expression
         (term
-         (all_fields))))
-  (from
-   (keyword_from)
-   (relation
-    (object_reference
-     (identifier))))))
-  (select
-   (keyword_select)
-   (select_expression
-    (term
-     (field
-      (identifier)))
-    (term
-     (field
-      (identifier)))))
-  (from
-   (keyword_from)
-   (relation
-    (object_reference
-     (identifier))))))
-  (select
-   (keyword_select)
-   (select_expression
-    (term
-     (all_fields))))
-  (from
-   (keyword_from)
-   (relation
-    (object_reference
-     (identifier))))))
+          (all_fields))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          (identifier))))))
+
+================================================================================
+CTE with parenthesized unions
+================================================================================
+
+with tb2 as (
+  SELECT * FROM tb1
+)
+(
+  (SELECT * FROM tb2)
+  UNION
+  (SELECT * FROM tb2)
+)
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (keyword_with)
+    (cte
+      (identifier)
+      (keyword_as)
+      (statement
+        (select
+          (keyword_select)
+          (select_expression
+            (term
+              (all_fields))))
+        (from
+          (keyword_from)
+          (relation
+            (object_reference
+              (identifier))))))
+    (set_operation
+      (select
+        (keyword_select)
+        (select_expression
+          (term
+            (all_fields))))
+      (from
+        (keyword_from)
+        (relation
+          (object_reference
+            (identifier))))
+      (keyword_union)
+      (select
+        (keyword_select)
+        (select_expression
+          (term
+            (all_fields))))
+      (from
+        (keyword_from)
+        (relation
+          (object_reference
+            (identifier)))))))
+
+================================================================================
+CTE with unions
+================================================================================
+
+with tb2 as (
+  SELECT * FROM tb1
+)
+(SELECT * FROM tb2)
+UNION
+(SELECT * FROM tb2)
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (keyword_with)
+    (cte
+      (identifier)
+      (keyword_as)
+      (statement
+        (select
+          (keyword_select)
+          (select_expression
+            (term
+              (all_fields))))
+        (from
+          (keyword_from)
+          (relation
+            (object_reference
+              (identifier))))))
+    (set_operation
+      (select
+        (keyword_select)
+        (select_expression
+          (term
+            (all_fields))))
+      (from
+        (keyword_from)
+        (relation
+          (object_reference
+            (identifier))))
+      (keyword_union)
+      (select
+        (keyword_select)
+        (select_expression
+          (term
+            (all_fields))))
+      (from
+        (keyword_from)
+        (relation
+          (object_reference
+            (identifier)))))))
