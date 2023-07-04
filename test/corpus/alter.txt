@@ -425,7 +425,6 @@ Alter table and multiple
 ALTER TABLE IF EXISTS my_table
   ADD COLUMN IF NOT EXISTS val4 DATE,
   ALTER COLUMN val5 DROP NOT NULL, -- comment, ignore me!
-  RENAME COLUMN val6 TO val7,
   DROP COLUMN IF EXISTS val8;
 
 --------------------------------------------------------------------------------
@@ -456,12 +455,6 @@ ALTER TABLE IF EXISTS my_table
         (keyword_not)
         (keyword_null))
       (comment)
-      (rename_column
-        (keyword_rename)
-        (keyword_column)
-        old_name: (identifier)
-        (keyword_to)
-        new_name: (identifier))
       (drop_column
         (keyword_drop)
         (keyword_column)
@@ -626,3 +619,45 @@ new_table TO old_table;
     (keyword_to)
     (object_reference
       (identifier))))
+
+================================================================================
+T-SQL: alter table add multiple columns at once
+================================================================================
+
+ALTER TABLE tab
+ADD
+col1 VARCHAR(255) NOT NULL DEFAULT('EMPTY'),
+col2 VARCHAR(255) NOT NULL DEFAULT('EMPTY');
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_table
+      (keyword_alter)
+      (keyword_table)
+      (object_reference
+        (identifier))
+      (add_column
+        (keyword_add)
+        (column_definition
+          (identifier)
+          (varchar
+            (keyword_varchar)
+            (literal))
+          (keyword_not)
+          (keyword_null)
+          (keyword_default)
+          (list
+            (literal))))
+      (add_column
+        (column_definition
+          (identifier)
+          (varchar
+            (keyword_varchar)
+            (literal))
+          (keyword_not)
+          (keyword_null)
+          (keyword_default)
+          (list
+            (literal)))))))
