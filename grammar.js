@@ -550,13 +550,8 @@ module.exports = grammar({
     statement: $ => seq(
       choice(
         $._ddl_statement,
-        $._dml_read,
         $._dml_write,
-        seq(
-          '(',
-          $._dml_read,
-          ')',
-        ),
+        optional_parenthesis($._dml_read),
       ),
     ),
 
@@ -1700,15 +1695,8 @@ module.exports = grammar({
     ),
 
     _default_expression: $ => seq(
-        $.keyword_default,
-            choice(
-            seq(
-                '(',
-                    $._inner_default_expression,
-                ')',
-            ),
-            $._inner_default_expression,
-        )
+      $.keyword_default,
+      optional_parenthesis($._inner_default_expression),
     ),
     _inner_default_expression: $ => choice(
         $.literal,
