@@ -483,6 +483,7 @@ return 1;
       (int
         (keyword_int))
       (function_language
+        (keyword_language)
         (keyword_sql))
       (function_body
         (keyword_return)
@@ -521,6 +522,7 @@ return 1;
       (int
         (keyword_int))
       (function_language
+        (keyword_language)
         (keyword_sql))
       (function_body
         (keyword_return)
@@ -557,6 +559,7 @@ return 1;
       (int
         (keyword_int))
       (function_language
+        (keyword_language)
         (keyword_sql))
       (function_volatility
         (keyword_immutable))
@@ -616,6 +619,7 @@ create or replace function public.fn()
                 value: (literal)))))
         (dollar_quote))
       (function_language
+        (keyword_language)
         (keyword_sql))
       (function_volatility
         (keyword_volatile))
@@ -661,6 +665,7 @@ as 'select 1;';
       (int
         (keyword_int))
       (function_language
+        (keyword_language)
         (keyword_sql))
       (function_body
         (keyword_as)
@@ -691,6 +696,7 @@ as 'create table x (id int) row_format=dynamic';
       (int
         (keyword_int))
       (function_language
+        (keyword_language)
         (keyword_sql))
       (function_body
         (keyword_as)
@@ -723,6 +729,7 @@ end;
       (int
         (keyword_int))
       (function_language
+        (keyword_language)
         (keyword_sql))
       (function_body
         (keyword_begin)
@@ -760,6 +767,7 @@ $function$;
       (int
         (keyword_int))
       (function_language
+        (keyword_language)
         (keyword_plpgsql))
       (function_body
         (keyword_as)
@@ -803,6 +811,7 @@ $function$;
       (int
         (keyword_int))
       (function_language
+        (keyword_language)
         (keyword_plpgsql))
       (function_body
         (keyword_as)
@@ -883,6 +892,7 @@ $function$
       (keyword_returns)
       (keyword_trigger)
       (function_language
+        (keyword_language)
         (keyword_plpgsql))
       (function_body
         (keyword_as)

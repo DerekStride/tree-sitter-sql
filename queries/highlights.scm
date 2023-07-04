@@ -206,6 +206,8 @@
   (keyword_optimize)
   (keyword_vacuum)
   (keyword_cache)
+  (keyword_language)
+  (keyword_sql)
 ] @keyword
 
 [
