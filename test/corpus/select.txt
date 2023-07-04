@@ -2514,6 +2514,34 @@ SELECT array[1, 2, 3 + 4, '5'::int, int_please()];
                 name: (identifier)))))))))
 
 ================================================================================
+Select Array with nested dml_read
+================================================================================
+
+SELECT ARRAY(SELECT col FROM tab)
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (array
+            (keyword_array)
+            (select
+              (keyword_select)
+              (select_expression
+                (term
+                  (field
+                    (identifier)))))
+            (from
+              (keyword_from)
+              (relation
+                (object_reference
+                  (identifier))))))))))
+
+================================================================================
 Select with positive and negative integers
 ================================================================================
 
