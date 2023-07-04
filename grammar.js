@@ -588,7 +588,7 @@ module.exports = grammar({
     ),
 
     _dml_read: $ => seq(
-      optional($._cte),
+      optional(optional_parenthesis($._cte)),
       optional_parenthesis(
         choice(
           $._select_statement,
