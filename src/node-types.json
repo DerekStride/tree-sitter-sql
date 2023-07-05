@@ -3907,9 +3907,13 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "keyword_language",
+          "named": true
+        },
         {
           "type": "keyword_plpgsql",
           "named": true
@@ -7549,6 +7553,10 @@
   },
   {
     "type": "keyword_key",
+    "named": true
+  },
+  {
+    "type": "keyword_language",
     "named": true
   },
   {

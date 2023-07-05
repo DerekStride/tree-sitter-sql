@@ -5460,8 +5460,8 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "PATTERN",
-          "value": "[lL][aA][nN][gG][uU][aA][gG][eE]"
+          "type": "SYMBOL",
+          "name": "keyword_language"
         },
         {
           "type": "CHOICE",
