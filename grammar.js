@@ -976,7 +976,7 @@ module.exports = grammar({
     ),
 
     function_language: $ => seq(
-      make_keyword('language'),
+      $.keyword_language,
       choice(
         $.keyword_sql,
         $.keyword_plpgsql,
