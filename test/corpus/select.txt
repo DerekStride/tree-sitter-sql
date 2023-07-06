@@ -1746,18 +1746,91 @@ SELECT 1 UNION ALL SELECT 2;
 
 (program
   (statement
-    (select
-      (keyword_select)
-      (select_expression
-        (term
-          (literal))))
-    (keyword_union)
-    (keyword_all)
-    (select
-      (keyword_select)
-      (select_expression
-        (term
-          (literal))))))
+    (set_operation
+      (select
+        (keyword_select)
+        (select_expression
+          (term
+            value: (literal))))
+      operation: (keyword_union)
+      operation: (keyword_all)
+      (select
+        (keyword_select)
+        (select_expression
+          (term
+            value: (literal)))))))
+
+================================================================================
+Union with parenthesis
+================================================================================
+
+(SELECT * FROM tb2)
+UNION
+(SELECT * FROM tb2)
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (set_operation
+      (select
+        (keyword_select)
+        (select_expression
+          (term
+            value: (all_fields))))
+      (from
+        (keyword_from)
+        (relation
+          (object_reference
+            name: (identifier))))
+      operation: (keyword_union)
+      (select
+        (keyword_select)
+        (select_expression
+          (term
+            value: (all_fields))))
+      (from
+        (keyword_from)
+        (relation
+          (object_reference
+            name: (identifier)))))))
+
+================================================================================
+Union with many parenthesis
+================================================================================
+
+(
+ (SELECT * FROM tb2)
+ UNION
+ (SELECT * FROM tb2)
+)
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (set_operation
+      (select
+        (keyword_select)
+        (select_expression
+          (term
+            value: (all_fields))))
+      (from
+        (keyword_from)
+        (relation
+          (object_reference
+            name: (identifier))))
+      operation: (keyword_union)
+      (select
+        (keyword_select)
+        (select_expression
+          (term
+            value: (all_fields))))
+      (from
+        (keyword_from)
+        (relation
+          (object_reference
+            name: (identifier)))))))
 
 ================================================================================
 Intersect
@@ -1771,29 +1844,30 @@ SELECT b FROM two;
 
 (program
   (statement
-    (select
-      (keyword_select)
-      (select_expression
-        (term
-          (field
-            (identifier)))))
-    (from
-      (keyword_from)
-      (relation
-        (object_reference
-          (identifier))))
-    (keyword_intersect)
-    (select
-      (keyword_select)
-      (select_expression
-        (term
-          (field
-            (identifier)))))
-    (from
-      (keyword_from)
-      (relation
-        (object_reference
-          (identifier))))))
+    (set_operation
+      (select
+        (keyword_select)
+        (select_expression
+          (term
+            value: (field
+              name: (identifier)))))
+      (from
+        (keyword_from)
+        (relation
+          (object_reference
+            name: (identifier))))
+      operation: (keyword_intersect)
+      (select
+        (keyword_select)
+        (select_expression
+          (term
+            value: (field
+              name: (identifier)))))
+      (from
+        (keyword_from)
+        (relation
+          (object_reference
+            name: (identifier)))))))
 
 ================================================================================
 Simple CASE

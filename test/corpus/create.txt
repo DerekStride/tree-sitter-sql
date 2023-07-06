@@ -1232,22 +1232,23 @@ UNION ALL
         (identifier))
       (keyword_as)
       (create_query
-        (select
-          (keyword_select)
-          (select_expression
-            (term
-              (literal)
-              (keyword_as)
-              (identifier))))
-        (keyword_union)
-        (keyword_all)
-        (select
-          (keyword_select)
-          (select_expression
-            (term
-              (literal)
-              (keyword_as)
-              (identifier))))))))
+        (set_operation
+          (select
+            (keyword_select)
+            (select_expression
+              (term
+                (literal)
+                (keyword_as)
+                (identifier))))
+          (keyword_union)
+          (keyword_all)
+          (select
+            (keyword_select)
+            (select_expression
+              (term
+                (literal)
+                (keyword_as)
+                (identifier)))))))))
 
 ================================================================================
 Create view as select with cte

@@ -550,13 +550,8 @@ module.exports = grammar({
     statement: $ => seq(
       choice(
         $._ddl_statement,
-        $._dml_read,
         $._dml_write,
-        seq(
-          '(',
-          $._dml_read,
-          ')',
-        ),
+        optional_parenthesis($._dml_read),
       ),
     ),
 
@@ -593,12 +588,11 @@ module.exports = grammar({
     ),
 
     _dml_read: $ => seq(
-      choice(
-        seq(
-          optional(
-            $._cte
-          ),
+      optional(optional_parenthesis($._cte)),
+      optional_parenthesis(
+        choice(
           $._select_statement,
+          $.set_operation,
         ),
       ),
     ),
@@ -612,33 +606,35 @@ module.exports = grammar({
           $.keyword_materialized,
         ),
       ),
-      '(',
-      alias(
-        choice(
-          $._dml_read,
-          $._dml_write,
+      wrapped_in_parenthesis(
+        alias(
+          choice($._dml_read, $._dml_write),
+          $.statement,
         ),
-        $.statement,
       ),
-      ')',
     ),
 
-    _select_statement: $ => seq(
-      $.select,
-      optional($.from),
-      repeat(
+    set_operation: $ => seq(
+      $._select_statement,
+      repeat1(
         seq(
-          choice(
-            seq(
-              $.keyword_union,
-              optional($.keyword_all),
+          field(
+            "operation",
+            choice(
+              seq($.keyword_union, optional($.keyword_all)),
+              $.keyword_except,
+              $.keyword_intersect,
             ),
-            $.keyword_except,
-            $.keyword_intersect,
           ),
-          $.select,
-          optional($.from),
+          $._select_statement,
         ),
+      ),
+    ),
+
+    _select_statement: $ => optional_parenthesis(
+      seq(
+        $.select,
+        optional($.from),
       ),
     ),
 
@@ -712,10 +708,7 @@ module.exports = grammar({
       $.row_format,
       seq(
         $.keyword_tblproperties,
-        '(',
-        $.table_option,
-        repeat(seq(',', $.table_option)),
-        ')',
+        paren_list($.table_option, true),
       ),
       $.table_option,
     ),
@@ -759,33 +752,7 @@ module.exports = grammar({
       ),
     ),
 
-    create_query: $ => choice(
-      $._select_statement,
-      seq(
-        $._cte,
-        $._select_statement,
-      ),
-      seq(
-        $._inner_create_query,
-        repeat(
-          seq(
-            $.keyword_union,
-            optional($.keyword_all),
-            $._inner_create_query,
-          ),
-        )
-      ),
-    ),
-
-    _inner_create_query: $ => choice(
-      seq( '(', $._select_statement, ')'),
-      seq(
-        '(',
-        $._cte,
-        $._select_statement,
-        ')',
-      ),
-    ),
+    create_query: $ => $._dml_read,
 
     create_view: $ => prec.right(
       seq(
@@ -856,7 +823,7 @@ module.exports = grammar({
       $.object_reference,
       choice(
         $.column_definitions, // TODO `default` will require own node type
-        seq('(', ')'),
+        wrapped_in_parenthesis(),
       ),
       $.keyword_returns,
       choice(
@@ -906,11 +873,7 @@ module.exports = grammar({
         seq(
           ':=',
           choice(
-            seq(
-              '(',
-              $.statement,
-              ')',
-            ),
+            wrapped_in_parenthesis($.statement),
             // TODO are there more possibilities here? We can't use `_expression` since
             // that includes subqueries
             $.literal,
@@ -1519,10 +1482,7 @@ module.exports = grammar({
     // the second argument is not a $.table_option
     _partition_spec: $ => seq(
       $.keyword_partition,
-      '(',
-        $.table_option,
-        repeat(seq(',', $.table_option)),
-      ')',
+      paren_list($.table_option, true),
     ),
 
     update: $ => seq(
@@ -1608,10 +1568,7 @@ module.exports = grammar({
     table_sort: $ => seq(
         $.keyword_sort,
         $.keyword_by,
-        '(',
-            $.identifier,
-            repeat(seq(',', ($.identifier))),
-        ')',
+        paren_list($.identifier, true),
     ),
 
     table_partition: $ => seq(
@@ -1636,7 +1593,7 @@ module.exports = grammar({
       choice(
         paren_list($.identifier),// postgres & Impala (CTAS)
         $.column_definitions, // impala/hive external tables
-        seq('(', $._key_value_pair, repeat(seq(',', $._key_value_pair)), ')',), // Spark SQL
+        paren_list($._key_value_pair, true), // Spark SQL
       )
     ),
 
@@ -1685,10 +1642,7 @@ module.exports = grammar({
 
     column_definitions: $ => seq(
       '(',
-      $.column_definition,
-      repeat(
-        seq(',', $.column_definition),
-      ),
+      comma_list($.column_definition, true),
       optional($.constraints),
       ')',
     ),
@@ -1722,15 +1676,8 @@ module.exports = grammar({
     ),
 
     _default_expression: $ => seq(
-        $.keyword_default,
-            choice(
-            seq(
-                '(',
-                    $._inner_default_expression,
-                ')',
-            ),
-            $._inner_default_expression,
-        )
+      $.keyword_default,
+      optional_parenthesis($._inner_default_expression),
     ),
     _inner_default_expression: $ => choice(
         $.literal,
@@ -1930,20 +1877,18 @@ module.exports = grammar({
 
     cast: $ => seq(
       field('name', $.keyword_cast),
-      '(',
-      seq(
-        field('parameter', $._expression),
-        $.keyword_as,
-        $._type,
+      wrapped_in_parenthesis(
+        seq(
+          field('parameter', $._expression),
+          $.keyword_as,
+          $._type,
+        ),
       ),
-      ')',
     ),
 
     filter_expression : $ => seq(
       $.keyword_filter,
-      '(',
-      $.where,
-      ')',
+      wrapped_in_parenthesis($.where),
     ),
 
     invocation: $ => prec(1,
@@ -1962,17 +1907,17 @@ module.exports = grammar({
             )
           ),
           // _aggregate_function, e.g. group_concat
-          seq(
-            '(',
-            optional($.keyword_distinct),
-            field('parameter', $.term),
-            optional($.order_by),
-            optional(seq(
-              choice($.keyword_separator, ','),
-              alias($._literal_string, $.literal)
-            )),
-            optional($.limit),
-            ')',
+          wrapped_in_parenthesis(
+            seq(
+              optional($.keyword_distinct),
+              field('parameter', $.term),
+              optional($.order_by),
+              optional(seq(
+                choice($.keyword_separator, ','),
+                alias($._literal_string, $.literal)
+              )),
+              optional($.limit),
+            ),
           ),
         ),
         optional(
@@ -2067,20 +2012,12 @@ module.exports = grammar({
         $.window_specification,
     ),
 
-    window_specification: $ => seq(
-        '(',
-        seq(
-            optional(
-                $.partition_by,
-            ),
-            optional(
-                $.order_by
-            ),
-            optional(
-                $.window_frame,
-            ),
-        ),
-        ')',
+    window_specification: $ => wrapped_in_parenthesis(
+      seq(
+        optional($.partition_by),
+        optional($.order_by),
+        optional($.window_frame),
+      ),
     ),
 
     window_function: $ => seq(
@@ -2125,11 +2062,7 @@ module.exports = grammar({
           $.subquery,
           $.invocation,
           $.object_reference,
-          seq(
-            '(',
-            $.values,
-            ')',
-          ),
+          wrapped_in_parenthesis($.values),
         ),
         optional(
           seq(
@@ -2166,9 +2099,9 @@ module.exports = grammar({
           $.keyword_join,
         ),
       ),
-      '(',
-      field('index_name', $.identifier),
-      ')',
+      wrapped_in_parenthesis(
+        field('index_name', $.identifier),
+      ),
     ),
 
     join: $ => seq(
@@ -2340,7 +2273,7 @@ module.exports = grammar({
         $.array,
         $.interval,
         $.between_expression,
-        seq("(", $._expression, ")"),
+        wrapped_in_parenthesis($._expression),
       )
     ),
 
@@ -2438,12 +2371,12 @@ module.exports = grammar({
       $.keyword_in,
     ),
 
-    subquery: $ => seq(
-      '(',
-      $.select,
-      optional($.from),
-      optional(";"),
-      ')',
+    subquery: $ => wrapped_in_parenthesis(
+      seq(
+        $.select,
+        optional($.from),
+        optional(";"),
+      ),
     ),
 
     list: $ => paren_list($._expression),
@@ -2496,48 +2429,54 @@ function unsigned_type($, type) {
   )
 }
 
+function optional_parenthesis(node) {
+  return prec.right(
+    choice(
+      node,
+      wrapped_in_parenthesis(node),
+    ),
+  )
+}
+
+function wrapped_in_parenthesis(node) {
+  if (node) {
+    return seq("(", node, ")");
+  }
+  return seq("(", ")");
+}
+
 function parametric_type($, type, params = ['size']) {
   return prec.right(1,
     choice(
       type,
       seq(
         type,
-        '(',
-        // first parameter is guaranteed, shift it out of the array
-        field(params.shift(), alias($._natural_number, $.literal)),
-        // then, fill in the ", next" until done
-        ...params.map(p => seq(',', field(p, alias($._natural_number, $.literal)))),
-        ')',
+        wrapped_in_parenthesis(
+          seq(
+            // first parameter is guaranteed, shift it out of the array
+            field(params.shift(), alias($._natural_number, $.literal)),
+            // then, fill in the ", next" until done
+            ...params.map(p => seq(',', field(p, alias($._natural_number, $.literal)))),
+          ),
+        ),
       ),
     ),
   )
 }
 
 function comma_list(field, requireFirst) {
+  sequence = seq(field, repeat(seq(',', field)));
+
   if (requireFirst) {
-    return seq(
-      field,
-      repeat(
-        seq(',', field)
-      )
-    );
+    return sequence;
   }
 
-  return optional(
-    seq(
-      field,
-      repeat(
-        seq(',', field)
-      ),
-    ),
-  );
+  return optional(sequence);
 }
 
 function paren_list(field, requireFirst) {
-  return seq(
-    '(',
+  return wrapped_in_parenthesis(
     comma_list(field, requireFirst),
-    ')',
   )
 }
 
