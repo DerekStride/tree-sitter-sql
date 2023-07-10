@@ -402,8 +402,8 @@ WHERE id NOT IN(1,2);
           left: (field
             name: (identifier))
           operator: (not_in
-              (keyword_not)
-              (keyword_in))
+            (keyword_not)
+            (keyword_in))
           right: (list
             (literal)
             (literal)))))))
@@ -452,16 +452,16 @@ WHERE id NOT IN(1,2) AND id NOT IN (SELECT id FROM other_table);
               (keyword_in))
             right: (subquery
               (select
-               (keyword_select)
-               (select_expression
-                (term
-                 value: (field
-                   name: (identifier)))))
+                (keyword_select)
+                (select_expression
+                  (term
+                    value: (field
+                      name: (identifier)))))
               (from
-               (keyword_from)
-               (relation
-                (object_reference
-                 name: (identifier)))))))))))
+                (keyword_from)
+                (relation
+                  (object_reference
+                    name: (identifier)))))))))))
 
 ================================================================================
 Simple select with IF
@@ -2897,3 +2897,55 @@ FROM tab
       (relation
         (object_reference
           (identifier))))))
+
+================================================================================
+SELECT FROM SUBQUERY WITH UNION
+================================================================================
+
+SELECT
+a1.*
+FROM (
+  SELECT * FROM tb01
+  UNION ALL
+  SELECT * FROM tb01
+) a1;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (all_fields
+            (object_reference
+              (identifier))))))
+    (from
+      (keyword_from)
+      (relation
+        (subquery
+          (set_operation
+            (select
+              (keyword_select)
+              (select_expression
+                (term
+                  (all_fields))))
+            (from
+              (keyword_from)
+              (relation
+                (object_reference
+                  (identifier))))
+            (keyword_union)
+            (keyword_all)
+            (select
+              (keyword_select)
+              (select_expression
+                (term
+                  (all_fields))))
+            (from
+              (keyword_from)
+              (relation
+                (object_reference
+                  (identifier))))))
+        (identifier)))))

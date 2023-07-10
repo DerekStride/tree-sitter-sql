@@ -2372,11 +2372,7 @@ module.exports = grammar({
     ),
 
     subquery: $ => wrapped_in_parenthesis(
-      seq(
-        $.select,
-        optional($.from),
-        optional(";"),
-      ),
+      $._dml_read
     ),
 
     list: $ => paren_list($._expression),
