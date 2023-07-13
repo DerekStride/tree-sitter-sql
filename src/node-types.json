@@ -6115,11 +6115,23 @@
       "required": true,
       "types": [
         {
+          "type": "cte",
+          "named": true
+        },
+        {
           "type": "from",
           "named": true
         },
         {
+          "type": "keyword_with",
+          "named": true
+        },
+        {
           "type": "select",
+          "named": true
+        },
+        {
+          "type": "set_operation",
           "named": true
         }
       ]
