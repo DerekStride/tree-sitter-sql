@@ -352,7 +352,7 @@ SELECT *
 FROM foo
 WHERE id IN (
   SELECT 1
-  FROM bar;
+  FROM bar
 )
 
 --------------------------------------------------------------------------------
@@ -397,11 +397,11 @@ WHERE (
   NOT EXISTS (
     SELECT 1
     FROM bar
-    WHERE 0;
+    WHERE 0
   ) OR EXISTS (
     SELECT 1
     FROM baz
-    WHERE 1;
+    WHERE 1
   )
 )
 
