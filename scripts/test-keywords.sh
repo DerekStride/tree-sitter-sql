@@ -15,6 +15,6 @@ keywords=$(comm -3 tmp/tree-sitter-sql/keywords.txt tmp/tree-sitter-sql/highligh
 
 if [[ "$keywords" ]]; then
   echo "ERROR: keywords in grammar.json are not in sync with queries/highlights.scm"
-  echo $keywords
+  echo "$keywords"
   exit 1
 fi

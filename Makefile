@@ -14,3 +14,6 @@ format: generate
 
 compile: generate
 	gcc -shared -o target/parser.so -fPIC src/parser.c -I./src
+
+check_keywords:
+	$(shell bash scripts/test-keywords.sh)

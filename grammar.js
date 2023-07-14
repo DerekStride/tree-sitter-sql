@@ -58,9 +58,11 @@ module.exports = grammar({
     keyword_insert: _ => make_keyword("insert"),
     keyword_replace: _ => make_keyword("replace"),
     keyword_update: _ => make_keyword("update"),
+    keyword_merge: _ => make_keyword("merge"),
     keyword_into: _ => make_keyword("into"),
     keyword_overwrite: _ => make_keyword("overwrite"),
     keyword_values: _ => make_keyword("values"),
+    keyword_matched: _ => make_keyword("matched"),
     keyword_set: _ => make_keyword("set"),
     keyword_from: _ => make_keyword("from"),
     keyword_left: _ => make_keyword("left"),
@@ -561,6 +563,7 @@ module.exports = grammar({
       $._drop_statement,
       $._rename_statement,
       $._optimize_statement,
+      $._merge_statement,
     ),
 
     _cte: $ => seq(
@@ -1379,6 +1382,47 @@ module.exports = grammar({
     _update_statement: $ => seq(
       $.update,
       optional($.returning),
+    ),
+
+    _merge_statement: $=> seq(
+      $.keyword_merge,
+      $.keyword_into,
+      $.object_reference,
+      optional($._alias),
+      $.keyword_using,
+      choice(
+        $.subquery,
+        $.object_reference
+      ),
+      optional($._alias),
+      $.keyword_on,
+      optional_parenthesis(field("predicate", $._expression)),
+      repeat1($.when_clause)
+    ),
+
+    when_clause: $ => seq(
+      $.keyword_when,
+      optional($.keyword_not),
+      $.keyword_matched,
+      optional(
+        seq(
+          $.keyword_and,
+          optional_parenthesis(field("predicate", $._expression))
+        )
+      ),
+      $.keyword_then,
+      choice(
+        $.keyword_delete,
+        seq(
+          $.keyword_update,
+          $._set_values,
+        ),
+        seq(
+          $.keyword_insert,
+          $._insert_values
+        ),
+        optional($.where)
+      )
     ),
 
     _optimize_statement: $ => choice(
