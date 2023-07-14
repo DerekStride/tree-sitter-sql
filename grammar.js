@@ -563,7 +563,7 @@ module.exports = grammar({
       $._drop_statement,
       $._rename_statement,
       $._optimize_statement,
-      $._upsert_statement,
+      $._merge_statement,
     ),
 
     _cte: $ => seq(
@@ -1384,7 +1384,7 @@ module.exports = grammar({
       optional($.returning),
     ),
 
-    _upsert_statement: $=> seq(
+    _merge_statement: $=> seq(
       $.keyword_merge,
       $.keyword_into,
       $.object_reference,
@@ -1405,8 +1405,8 @@ module.exports = grammar({
       optional($.keyword_not),
       $.keyword_matched,
       optional(
-        seq($.
-          keyword_and,
+        seq(
+          $.keyword_and,
           optional_parenthesis(field("predicate", $._expression))
         )
       ),

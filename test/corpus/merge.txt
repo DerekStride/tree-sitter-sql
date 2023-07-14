@@ -1,0 +1,224 @@
+================================================================================
+Merge into delete
+================================================================================
+
+MERGE INTO accounts t
+USING monthly_accounts_update s
+    ON t.customer = s.customer
+    WHEN MATCHED
+        THEN DELETE
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (keyword_merge)
+    (keyword_into)
+    (object_reference
+      (identifier))
+    (identifier)
+    (keyword_using)
+    (object_reference
+      (identifier))
+    (identifier)
+    (keyword_on)
+    (binary_expression
+      (field
+        (object_reference
+          (identifier))
+        (identifier))
+      (field
+        (object_reference
+          (identifier))
+        (identifier)))
+    (when_clause
+      (keyword_when)
+      (keyword_matched)
+      (keyword_then)
+      (keyword_delete))))
+
+================================================================================
+Merge into upsert
+================================================================================
+
+MERGE INTO accounts t
+USING monthly_accounts_update s
+    ON (t.customer = s.customer)
+    WHEN MATCHED
+        THEN UPDATE SET purchases = s.purchases + t.purchases
+    WHEN NOT MATCHED
+        THEN INSERT (customer, purchases, address)
+              VALUES(s.customer, s.purchases, s.address)
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (keyword_merge)
+    (keyword_into)
+    (object_reference
+      (identifier))
+    (identifier)
+    (keyword_using)
+    (object_reference
+      (identifier))
+    (identifier)
+    (keyword_on)
+    (binary_expression
+      (field
+        (object_reference
+          (identifier))
+        (identifier))
+      (field
+        (object_reference
+          (identifier))
+        (identifier)))
+    (when_clause
+      (keyword_when)
+      (keyword_matched)
+      (keyword_then)
+      (keyword_update)
+      (keyword_set)
+      (assignment
+        (field
+          (identifier))
+        (binary_expression
+          (field
+            (object_reference
+              (identifier))
+            (identifier))
+          (field
+            (object_reference
+              (identifier))
+            (identifier)))))
+    (when_clause
+      (keyword_when)
+      (keyword_not)
+      (keyword_matched)
+      (keyword_then)
+      (keyword_insert)
+      (list
+        (column
+          (identifier))
+        (column
+          (identifier))
+        (column
+          (identifier)))
+      (keyword_values)
+      (list
+        (field
+          (object_reference
+            (identifier))
+          (identifier))
+        (field
+          (object_reference
+            (identifier))
+          (identifier))
+        (field
+          (object_reference
+            (identifier))
+          (identifier))))))
+
+================================================================================
+Merge into conditional upsert
+================================================================================
+
+MERGE INTO accounts t
+USING monthly_accounts_update s
+    ON (t.customer = s.customer)
+    WHEN MATCHED AND s.address = 'Centreville'
+        THEN DELETE
+    WHEN MATCHED
+        THEN UPDATE
+            SET purchases = s.purchases + t.purchases, address = s.address
+    WHEN NOT MATCHED
+        THEN INSERT (customer, purchases, address)
+              VALUES(s.customer, s.purchases, s.address)
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (keyword_merge)
+    (keyword_into)
+    (object_reference
+      (identifier))
+    (identifier)
+    (keyword_using)
+    (object_reference
+      (identifier))
+    (identifier)
+    (keyword_on)
+    (binary_expression
+      (field
+        (object_reference
+          (identifier))
+        (identifier))
+      (field
+        (object_reference
+          (identifier))
+        (identifier)))
+    (when_clause
+      (keyword_when)
+      (keyword_matched)
+      (keyword_and)
+      (binary_expression
+        (field
+          (object_reference
+            (identifier))
+          (identifier))
+        (literal))
+      (keyword_then)
+      (keyword_delete))
+    (when_clause
+      (keyword_when)
+      (keyword_matched)
+      (keyword_then)
+      (keyword_update)
+      (keyword_set)
+      (assignment
+        (field
+          (identifier))
+        (binary_expression
+          (field
+            (object_reference
+              (identifier))
+            (identifier))
+          (field
+            (object_reference
+              (identifier))
+            (identifier))))
+      (assignment
+        (field
+          (identifier))
+        (field
+          (object_reference
+            (identifier))
+          (identifier))))
+    (when_clause
+      (keyword_when)
+      (keyword_not)
+      (keyword_matched)
+      (keyword_then)
+      (keyword_insert)
+      (list
+        (column
+          (identifier))
+        (column
+          (identifier))
+        (column
+          (identifier)))
+      (keyword_values)
+      (list
+        (field
+          (object_reference
+            (identifier))
+          (identifier))
+        (field
+          (object_reference
+            (identifier))
+          (identifier))
+        (field
+          (object_reference
+            (identifier))
+          (identifier))))))
