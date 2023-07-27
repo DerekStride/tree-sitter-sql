@@ -384,61 +384,77 @@ module.exports = grammar({
 
     keyword_array: _ => make_keyword("array"), // not included in _type since it's a constructor literal
 
-    _type: $ => choice(
-      $.keyword_boolean,
-      $.bit,
-      $.keyword_binary,
+    _type: $ => seq(
+      choice(
+        $.keyword_boolean,
+        $.bit,
+        $.keyword_binary,
 
-      $.keyword_smallserial,
-      $.keyword_serial,
-      $.keyword_bigserial,
+        $.keyword_smallserial,
+        $.keyword_serial,
+        $.keyword_bigserial,
 
-      $.tinyint,
-      $.smallint,
-      $.mediumint,
-      $.int,
-      $.bigint,
-      $.decimal,
-      $.numeric,
-      $.double,
-      $.float,
+        $.tinyint,
+        $.smallint,
+        $.mediumint,
+        $.int,
+        $.bigint,
+        $.decimal,
+        $.numeric,
+        $.double,
+        $.float,
 
-      $.keyword_money,
+        $.keyword_money,
 
-      $.char,
-      $.varchar,
-      $.numeric,
-      $.keyword_string,
-      $.keyword_text,
+        $.char,
+        $.varchar,
+        $.numeric,
+        $.keyword_string,
+        $.keyword_text,
 
-      $.keyword_uuid,
+        $.keyword_uuid,
 
-      $.keyword_json,
-      $.keyword_jsonb,
-      $.keyword_xml,
+        $.keyword_json,
+        $.keyword_jsonb,
+        $.keyword_xml,
 
-      $.keyword_bytea,
-      $.keyword_inet,
+        $.keyword_bytea,
+        $.keyword_inet,
 
-      $.enum,
+        $.enum,
 
-      $.keyword_date,
-      $.keyword_datetime,
-      $.keyword_timestamp,
-      $.keyword_timestamptz,
-      $.keyword_interval,
+        $.keyword_date,
+        $.keyword_datetime,
+        $.keyword_timestamp,
+        $.keyword_timestamptz,
+        $.keyword_interval,
 
-      $.keyword_geometry,
-      $.keyword_geography,
-      $.keyword_box2d,
-      $.keyword_box3d,
+        $.keyword_geometry,
+        $.keyword_geography,
+        $.keyword_box2d,
+        $.keyword_box3d,
 
-      $.keyword_oid,
-      $.keyword_name,
-      $.keyword_regclass,
-      $.keyword_regnamespace,
-      $.keyword_regproc,
-      $.keyword_regtype,
+        $.keyword_oid,
+        $.keyword_name,
+        $.keyword_regclass,
+        $.keyword_regnamespace,
+        $.keyword_regproc,
+        $.keyword_regtype,
+      ),
+      optional($.array_size_definition)
+    ),
+
+    array_size_definition: $ => seq(
+      choice(
+        seq(optional($.keyword_array), $._array_size_definition),
+        seq( $._array_size_definition, $._array_size_definition),
+        $.keyword_array,
+      ),
+    ),
+    _array_size_definition: $ => seq(
+      '[',
+      optional(field("size", alias($._integer, $.literal))),
+      ']'
     ),
 
     tinyint: $ => unsigned_type($, parametric_type($, $.keyword_tinyint)),

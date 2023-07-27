@@ -1555,3 +1555,60 @@ CREATE TABLE "Session" (
           type: (keyword_inet)
           (keyword_not)
           (keyword_null))))))
+
+================================================================================
+CREATE TABLE with ARRAYS and MATRIX
+================================================================================
+
+CREATE TABLE tab (
+    name   text,
+    array2 integer[3],
+    matrix text[][],
+    square integer[3][3],
+    array4 integer ARRAY[4],
+    array_ integer ARRAY
+);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (object_reference
+        (identifier))
+      (column_definitions
+        (column_definition
+          (identifier)
+          (keyword_text))
+        (column_definition
+          (identifier)
+          (int
+            (keyword_int))
+          (array_size_definition
+            (literal)))
+        (column_definition
+          (identifier)
+          (keyword_text)
+          (array_size_definition))
+        (column_definition
+          (identifier)
+          (int
+            (keyword_int))
+          (array_size_definition
+            (literal)
+            (literal)))
+        (column_definition
+          (identifier)
+          (int
+            (keyword_int))
+          (array_size_definition
+            (keyword_array)
+            (literal)))
+        (column_definition
+          (identifier)
+          (int
+            (keyword_int))
+          (array_size_definition
+            (keyword_array)))))))
