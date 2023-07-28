@@ -12,6 +12,7 @@ module.exports = grammar({
     [$.object_reference, $._qualified_field],
     [$.object_reference],
     [$.between_expression, $.binary_expression],
+    [$.array_size_definition],
   ],
 
   precedences: $ => [
@@ -447,7 +448,7 @@ module.exports = grammar({
     array_size_definition: $ => seq(
       choice(
         seq(optional($.keyword_array), $._array_size_definition),
-        seq( $._array_size_definition, $._array_size_definition),
+        repeat1($._array_size_definition),
         $.keyword_array,
       ),
     ),

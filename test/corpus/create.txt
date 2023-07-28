@@ -1566,7 +1566,8 @@ CREATE TABLE tab (
     matrix text[][],
     square integer[3][3],
     array4 integer ARRAY[4],
-    array_ integer ARRAY
+    array_ integer ARRAY,
+    multid integer[3][3][3][3]
 );
 
 --------------------------------------------------------------------------------
@@ -1611,4 +1612,13 @@ CREATE TABLE tab (
           (int
             (keyword_int))
           (array_size_definition
-            (keyword_array)))))))
+            (keyword_array)))
+        (column_definition
+          (identifier)
+          (int
+            (keyword_int))
+          (array_size_definition
+            (literal)
+            (literal)
+            (literal)
+            (literal)))))))
