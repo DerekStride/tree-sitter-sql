@@ -1071,21 +1071,15 @@ module.exports = grammar({
             seq(
               $.keyword_as,
               $.keyword_enum,
-              paren_list(field("enum_element", alias($._literal_string, $.literal)),
-              ),
+              $.enum_elements,
             ),
             seq(
-              $.keyword_as,
-              $.keyword_range,
-              paren_list(
+              optional(
                 seq(
-                  field('name', $.identifier),
-                  '=',
-                  field('value', choice($.identifier,alias($._literal_string, $.literal))),
-                ),
+                  $.keyword_as,
+                  $.keyword_range,
+                )
               ),
-            ),
-            seq(
               paren_list(
                 seq(
                   field('name', $.identifier),
@@ -1097,6 +1091,10 @@ module.exports = grammar({
           ),
         ),
       ),
+    ),
+
+    enum_elements: $ => seq(
+      paren_list(field("enum_element", alias($._literal_string, $.literal))),
     ),
 
     _alter_statement: $ => seq(
@@ -1304,26 +1302,26 @@ module.exports = grammar({
           $.identifier,
           $.keyword_to,
           $.identifier,
-          optional($._cascade_restrict)
+          optional($._drop_bevavior)
         ),
         seq(
           $.keyword_add,
           $.keyword_value,
           optional($._if_not_exists),
-          $.identifier,
+          $.literal,
           optional(
             seq(
               choice($.keyword_before, $.keyword_after),
-              $.identifier
+              $.literal
             )
           ),
         ),
         seq(
           $.keyword_rename,
           $.keyword_value,
-          $.identifier,
+          $.literal,
           $.keyword_to,
-          $.identifier,
+          $.literal,
         ),
         seq(
           choice(
@@ -1347,12 +1345,12 @@ module.exports = grammar({
             ),
           ),
           optional(seq($.keyword_collate, $.identifier)),
-          optional($._cascade_restrict)
+          optional($._drop_bevavior)
         )
       ),
     ),
 
-    _cascade_restrict: $ => choice(
+    _drop_bevavior: $ => choice(
       $.keyword_cascade,
       $.keyword_restrict,
     ),
@@ -1372,7 +1370,7 @@ module.exports = grammar({
       optional($._if_exists),
       $.object_reference,
       optional(
-        $._cascade_restrict
+        $._drop_bevavior
       ),
     ),
 
@@ -1382,7 +1380,7 @@ module.exports = grammar({
       optional($._if_exists),
       $.object_reference,
       optional(
-        $._cascade_restrict
+        $._drop_bevavior
       ),
     ),
 
@@ -1392,7 +1390,7 @@ module.exports = grammar({
       optional($._if_exists),
       $.object_reference,
       optional(
-        $._cascade_restrict
+        $._drop_bevavior
       ),
     ),
 
@@ -1403,7 +1401,7 @@ module.exports = grammar({
       optional($._if_exists),
       field("name", $.identifier),
       optional(
-        $._cascade_restrict
+        $._drop_bevavior
       ),
       optional(
         seq(

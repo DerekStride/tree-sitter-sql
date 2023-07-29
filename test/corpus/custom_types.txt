@@ -33,9 +33,10 @@ CREATE TYPE colors as ENUM (
       (identifier)
       (keyword_as)
       (keyword_enum)
-      (literal)
-      (literal)
-      (literal))))
+      (enum_elements
+        (literal)
+        (literal)
+        (literal)))))
 
 ================================================================================
 CREATE TYPE Object
@@ -206,31 +207,11 @@ SET SCHEMA new_schema
         (identifier)))))
 
 ================================================================================
-ALTER TYPE CHANGE SCHEMA
-================================================================================
-
-ALTER TYPE boxes
-SET SCHEMA new_schema
-
---------------------------------------------------------------------------------
-
-(program
-  (statement
-    (alter_type
-      (keyword_alter)
-      (keyword_type)
-      (identifier)
-      (set_schema
-        (keyword_set)
-        (keyword_schema)
-        (identifier)))))
-
-================================================================================
 ALTER TYPE ADD VALUE
 ================================================================================
 
 ALTER TYPE boxes
-ADD VALUE  IF NOT EXISTS  color  AFTER weight
+ADD VALUE  IF NOT EXISTS 'color' AFTER 'weight'
 
 --------------------------------------------------------------------------------
 
@@ -245,16 +226,16 @@ ADD VALUE  IF NOT EXISTS  color  AFTER weight
       (keyword_if)
       (keyword_not)
       (keyword_exists)
-      (identifier)
+      (literal)
       (keyword_after)
-      (identifier))))
+      (literal))))
 
 ================================================================================
 ALTER TYPE RENAME VALUE
 ================================================================================
 
 ALTER TYPE boxes
-RENAME VALUE weight TO mass
+RENAME VALUE 'weight' TO 'mass'
 
 --------------------------------------------------------------------------------
 
@@ -266,9 +247,9 @@ RENAME VALUE weight TO mass
       (identifier)
       (keyword_rename)
       (keyword_value)
-      (identifier)
+      (literal)
       (keyword_to)
-      (identifier))))
+      (literal))))
 
 ================================================================================
 ALTER TYPE ADD ATTRIBUTE
