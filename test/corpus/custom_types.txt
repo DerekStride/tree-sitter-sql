@@ -1,0 +1,424 @@
+================================================================================
+CREATE TYPE
+================================================================================
+
+ CREATE TYPE sports
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_type
+      (keyword_create)
+      (keyword_type)
+      (identifier))))
+
+================================================================================
+CREATE TYPE ENUM
+================================================================================
+
+CREATE TYPE colors as ENUM (
+    'red',
+    'green',
+    'blue'
+);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_type
+      (keyword_create)
+      (keyword_type)
+      (identifier)
+      (keyword_as)
+      (keyword_enum)
+      (enum_elements
+        (literal)
+        (literal)
+        (literal)))))
+
+================================================================================
+CREATE TYPE Object
+================================================================================
+CREATE TYPE cities AS (
+    cityname text,
+    population INTEGER
+);
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_type
+      (keyword_create)
+      (keyword_type)
+      (identifier)
+      (keyword_as)
+      (column_definitions
+        (column_definition
+          (identifier)
+          (keyword_text))
+        (column_definition
+          (identifier)
+          (int
+            (keyword_int)))))))
+
+================================================================================
+CREATE TYPE RANGE
+================================================================================
+
+CREATE TYPE marathon AS RANGE (
+    SUBTYPE = sports
+)
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_type
+      (keyword_create)
+      (keyword_type)
+      (identifier)
+      (keyword_as)
+      (keyword_range)
+      (identifier)
+      (identifier))))
+
+================================================================================
+CREATE TYPE IO
+================================================================================
+CREATE TYPE bigobj (
+    INPUT = lo_filein, OUTPUT = lo_fileout,
+    INTERNALLENGTH = VARIABLE
+);
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_type
+      (keyword_create)
+      (keyword_type)
+      (identifier)
+      (identifier)
+      (identifier)
+      (identifier)
+      (identifier)
+      (identifier)
+      (identifier))))
+
+================================================================================
+DROP TYPE
+================================================================================
+
+DROP TYPE IF EXISTS boxes CASCADE;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (drop_type
+      (keyword_drop)
+      (keyword_type)
+      (keyword_if)
+      (keyword_exists)
+      (object_reference
+        (identifier))
+      (keyword_cascade))))
+
+================================================================================
+ALTER TYPE RENAME
+================================================================================
+
+ALTER TYPE boxes RENAME TO cubes;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_type
+      (keyword_alter)
+      (keyword_type)
+      (identifier)
+      (rename_object
+        (keyword_rename)
+        (keyword_to)
+        (object_reference
+          (identifier))))))
+
+================================================================================
+ALTER TYPE RENAME ATTRIBUTE
+================================================================================
+
+ALTER TYPE boxes
+RENAME ATTRIBUTE width TO height;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_type
+      (keyword_alter)
+      (keyword_type)
+      (identifier)
+      (keyword_rename)
+      (keyword_attribute)
+      (identifier)
+      (keyword_to)
+      (identifier))))
+
+================================================================================
+ALTER TYPE CHANGE OWNER
+================================================================================
+
+ALTER TYPE boxes
+OWNER TO user2
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_type
+      (keyword_alter)
+      (keyword_type)
+      (identifier)
+      (change_ownership
+        (keyword_owner)
+        (keyword_to)
+        (identifier)))))
+
+================================================================================
+ALTER TYPE CHANGE SCHEMA
+================================================================================
+
+ALTER TYPE boxes
+SET SCHEMA new_schema
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_type
+      (keyword_alter)
+      (keyword_type)
+      (identifier)
+      (set_schema
+        (keyword_set)
+        (keyword_schema)
+        (identifier)))))
+
+================================================================================
+ALTER TYPE ADD VALUE
+================================================================================
+
+ALTER TYPE boxes
+ADD VALUE  IF NOT EXISTS 'color' AFTER 'weight'
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_type
+      (keyword_alter)
+      (keyword_type)
+      (identifier)
+      (keyword_add)
+      (keyword_value)
+      (keyword_if)
+      (keyword_not)
+      (keyword_exists)
+      (literal)
+      (keyword_after)
+      (literal))))
+
+================================================================================
+ALTER TYPE RENAME VALUE
+================================================================================
+
+ALTER TYPE boxes
+RENAME VALUE 'weight' TO 'mass'
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_type
+      (keyword_alter)
+      (keyword_type)
+      (identifier)
+      (keyword_rename)
+      (keyword_value)
+      (literal)
+      (keyword_to)
+      (literal))))
+
+================================================================================
+ALTER TYPE ADD ATTRIBUTE
+================================================================================
+
+ALTER TYPE boxes
+ADD ATTRIBUTE label text
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_type
+      (keyword_alter)
+      (keyword_type)
+      (identifier)
+      (keyword_add)
+      (keyword_attribute)
+      (identifier)
+      (keyword_text))))
+
+================================================================================
+ALTER TYPE DROP ATTRIBUTE
+================================================================================
+
+ALTER TYPE boxes DROP ATTRIBUTE IF EXISTS label
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_type
+      (keyword_alter)
+      (keyword_type)
+      (identifier)
+      (keyword_drop)
+      (keyword_attribute)
+      (keyword_if)
+      (keyword_exists)
+      (identifier))))
+
+================================================================================
+ALTER TYPE ALTER ATTRIBUTE
+================================================================================
+
+ALTER TYPE boxes
+ADD ATTRIBUTE label varchar(255)
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_type
+      (keyword_alter)
+      (keyword_type)
+      (identifier)
+      (keyword_add)
+      (keyword_attribute)
+      (identifier)
+      (varchar
+        (keyword_varchar)
+        (literal)))))
+
+================================================================================
+CREATE TABLE WITH CUSTOM TYPE
+================================================================================
+
+CREATE TABLE shipments (
+shipment boxes
+)
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (object_reference
+        (identifier))
+      (column_definitions
+        (column_definition
+          (identifier))))))
+
+================================================================================
+INSERT INTO TABLE WITH CUSTOM TYPE
+================================================================================
+
+INSERT INTO shipments (shipment)
+VALUES (ROW(10, 500, 'Box1')),
+       (ROW(15, 800, 'Box2')),
+       (ROW(12, 600, 'Box3'));
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (insert
+      (keyword_insert)
+      (keyword_into)
+      (object_reference
+        (identifier))
+      (list
+        (column
+          (identifier)))
+      (keyword_values)
+      (list
+        (invocation
+          (object_reference
+            (identifier))
+          (term
+            (literal))
+          (term
+            (literal))
+          (term
+            (literal))))
+      (list
+        (invocation
+          (object_reference
+            (identifier))
+          (term
+            (literal))
+          (term
+            (literal))
+          (term
+            (literal))))
+      (list
+        (invocation
+          (object_reference
+            (identifier))
+          (term
+            (literal))
+          (term
+            (literal))
+          (term
+            (literal)))))))
+
+================================================================================
+SELECT FROM CUSTOM TYPE
+================================================================================
+
+SELECT
+    (boxes).height,
+    (boxes).mass,
+    (boxes).label
+FROM shipments
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (field
+            (object_reference
+              (identifier))
+            (identifier)))
+        (term
+          (field
+            (object_reference
+              (identifier))
+            (identifier)))
+        (term
+          (field
+            (object_reference
+              (identifier))
+            (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          (identifier))))))

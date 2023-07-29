@@ -62,6 +62,7 @@ module.exports = grammar({
     keyword_into: _ => make_keyword("into"),
     keyword_overwrite: _ => make_keyword("overwrite"),
     keyword_values: _ => make_keyword("values"),
+    keyword_value: _ => make_keyword("value"),
     keyword_matched: _ => make_keyword("matched"),
     keyword_set: _ => make_keyword("set"),
     keyword_from: _ => make_keyword("from"),
@@ -161,6 +162,7 @@ module.exports = grammar({
     keyword_nulls: _ => make_keyword("nulls"),
     keyword_first: _ => make_keyword("first"),
     keyword_after: _ => make_keyword("after"),
+    keyword_before: _ => make_keyword("before"),
     keyword_last: _ => make_keyword("last"),
     keyword_window: _ => make_keyword("window"),
     keyword_range: _ => make_keyword("range"),
@@ -206,7 +208,7 @@ module.exports = grammar({
     keyword_vacuum: _ => make_keyword("vacuum"),
     keyword_wait: _ => make_keyword("wait"),
     keyword_nowait: _ => make_keyword("nowait"),
-
+    keyword_attribute: _ => make_keyword("attribute"),
 
     keyword_trigger: _ => make_keyword('trigger'),
     keyword_function: _ => make_keyword("function"),
@@ -440,6 +442,8 @@ module.exports = grammar({
         $.keyword_regnamespace,
         $.keyword_regproc,
         $.keyword_regtype,
+
+        field("custom_type", $._identifier)
       ),
       optional($.array_size_definition)
     ),
@@ -715,6 +719,7 @@ module.exports = grammar({
         $.create_materialized_view,
         $.create_index,
         $.create_function,
+        $.create_type,
         // TODO sequence
       ),
     ),
@@ -1051,10 +1056,52 @@ module.exports = grammar({
       ),
     ),
 
+    create_type: $ => seq(
+      $.keyword_create,
+      $.keyword_type,
+      $.identifier,
+      optional(
+        seq(
+          choice(
+            seq(
+              $.keyword_as,
+              $.column_definitions,
+              optional(seq($.keyword_collate, $.identifier))
+            ),
+            seq(
+              $.keyword_as,
+              $.keyword_enum,
+              $.enum_elements,
+            ),
+            seq(
+              optional(
+                seq(
+                  $.keyword_as,
+                  $.keyword_range,
+                )
+              ),
+              paren_list(
+                seq(
+                  field('name', $.identifier),
+                  '=',
+                  field('value', choice($.identifier,alias($._single_quote_string, $.literal))),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    ),
+
+    enum_elements: $ => seq(
+      paren_list(field("enum_element", alias($._literal_string, $.literal))),
+    ),
+
     _alter_statement: $ => seq(
       choice(
         $.alter_table,
         $.alter_view,
+        $.alter_type,
       ),
     ),
 
@@ -1241,11 +1288,79 @@ module.exports = grammar({
       ),
     ),
 
+    alter_type: $ => seq(
+      $.keyword_alter,
+      $.keyword_type,
+      $.identifier,
+      choice(
+        $.change_ownership,
+        $.set_schema,
+        $.rename_object,
+        seq(
+          $.keyword_rename,
+          $.keyword_attribute,
+          $.identifier,
+          $.keyword_to,
+          $.identifier,
+          optional($._drop_bevavior)
+        ),
+        seq(
+          $.keyword_add,
+          $.keyword_value,
+          optional($._if_not_exists),
+            alias($._single_quote_string,$.literal),
+          optional(
+            seq(
+              choice($.keyword_before, $.keyword_after),
+              alias($._single_quote_string,$.literal),
+            )
+          ),
+        ),
+        seq(
+          $.keyword_rename,
+          $.keyword_value,
+          alias($._single_quote_string,$.literal),
+          $.keyword_to,
+          alias($._single_quote_string,$.literal),
+        ),
+        seq(
+          choice(
+            seq(
+              $.keyword_add,
+              $.keyword_attribute,
+              $.identifier,
+              $._type
+            ),
+            seq($.keyword_drop,
+              $.keyword_attribute,
+              optional($._if_exists),
+              $.identifier),
+            seq(
+              $.keyword_alter,
+              $.keyword_attribute,
+              $.identifier,
+              optional(seq($.keyword_set, $.keyword_data)),
+              $.keyword_type,
+              $._type
+            ),
+          ),
+          optional(seq($.keyword_collate, $.identifier)),
+          optional($._drop_bevavior)
+        )
+      ),
+    ),
+
+    _drop_bevavior: $ => choice(
+      $.keyword_cascade,
+      $.keyword_restrict,
+    ),
+
     _drop_statement: $ => seq(
       choice(
         $.drop_table,
         $.drop_view,
         $.drop_index,
+        $.drop_type,
       ),
     ),
 
@@ -1255,7 +1370,7 @@ module.exports = grammar({
       optional($._if_exists),
       $.object_reference,
       optional(
-        $.keyword_cascade,
+        $._drop_bevavior
       ),
     ),
 
@@ -1265,7 +1380,17 @@ module.exports = grammar({
       optional($._if_exists),
       $.object_reference,
       optional(
-        $.keyword_cascade,
+        $._drop_bevavior
+      ),
+    ),
+
+    drop_type: $ => seq(
+      $.keyword_drop,
+      $.keyword_type,
+      optional($._if_exists),
+      $.object_reference,
+      optional(
+        $._drop_bevavior
       ),
     ),
 
@@ -1276,10 +1401,7 @@ module.exports = grammar({
       optional($._if_exists),
       field("name", $.identifier),
       optional(
-        choice(
-            $.keyword_cascade,
-            $.keyword_restrict,
-        ),
+        $._drop_bevavior
       ),
       optional(
         seq(
@@ -1874,7 +1996,7 @@ module.exports = grammar({
     _qualified_field: $ => seq(
       optional(
         seq(
-          $.object_reference,
+          optional_parenthesis($.object_reference),
           '.',
         ),
       ),
@@ -2448,11 +2570,12 @@ module.exports = grammar({
       ),
     ),
     _double_quote_string: _ => seq('"', /[^"]*/, '"'),
+    _single_quote_string: _ => seq("'", /([^']|'')*/, "'"),
     _literal_string: $ => prec(1,
-        choice(
-            seq("'", /([^']|'')*/, "'"),
-            $._double_quote_string,
-        ),
+      choice(
+        $._single_quote_string,
+        $._double_quote_string,
+      ),
     ),
     _natural_number: _ => /\d+/,
     _integer: $ => seq(optional("-"), $._natural_number),
