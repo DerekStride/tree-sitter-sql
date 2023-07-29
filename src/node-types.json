@@ -95,9 +95,13 @@
         ]
       },
       "type": {
-        "multiple": false,
+        "multiple": true,
         "required": false,
         "types": [
+          {
+            "type": "array_size_definition",
+            "named": true
+          },
           {
             "type": "bigint",
             "named": true
@@ -580,6 +584,32 @@
         },
         {
           "type": "window_function",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "array_size_definition",
+    "named": true,
+    "fields": {
+      "size": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "literal",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "keyword_array",
           "named": true
         }
       ]
@@ -1483,6 +1513,10 @@
           "named": true
         },
         {
+          "type": "array_size_definition",
+          "named": true
+        },
+        {
           "type": "between_expression",
           "named": true
         },
@@ -1865,9 +1899,13 @@
         ]
       },
       "type": {
-        "multiple": false,
+        "multiple": true,
         "required": true,
         "types": [
+          {
+            "type": "array_size_definition",
+            "named": true
+          },
           {
             "type": "bigint",
             "named": true
@@ -2273,6 +2311,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "array_size_definition",
+          "named": true
+        },
         {
           "type": "bigint",
           "named": true
@@ -3679,6 +3721,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "array_size_definition",
+          "named": true
+        },
         {
           "type": "bigint",
           "named": true
