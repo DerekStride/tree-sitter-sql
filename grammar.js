@@ -1084,7 +1084,7 @@ module.exports = grammar({
                 seq(
                   field('name', $.identifier),
                   '=',
-                  field('value', choice($.identifier,alias($._literal_string, $.literal))),
+                  field('value', choice($.identifier,alias($._single_quote_string, $.literal))),
                 ),
               ),
             ),
@@ -1308,20 +1308,20 @@ module.exports = grammar({
           $.keyword_add,
           $.keyword_value,
           optional($._if_not_exists),
-          $.literal,
+            alias($._single_quote_string,$.literal),
           optional(
             seq(
               choice($.keyword_before, $.keyword_after),
-              $.literal
+              alias($._single_quote_string,$.literal),
             )
           ),
         ),
         seq(
           $.keyword_rename,
           $.keyword_value,
-          $.literal,
+          alias($._single_quote_string,$.literal),
           $.keyword_to,
-          $.literal,
+          alias($._single_quote_string,$.literal),
         ),
         seq(
           choice(
@@ -2570,11 +2570,12 @@ module.exports = grammar({
       ),
     ),
     _double_quote_string: _ => seq('"', /[^"]*/, '"'),
+    _single_quote_string: _ => seq("'", /([^']|'')*/, "'"),
     _literal_string: $ => prec(1,
-        choice(
-            seq("'", /([^']|'')*/, "'"),
-            $._double_quote_string,
-        ),
+      choice(
+        $._single_quote_string,
+        $._double_quote_string,
+      ),
     ),
     _natural_number: _ => /\d+/,
     _integer: $ => seq(optional("-"), $._natural_number),
