@@ -58,6 +58,7 @@ module.exports = grammar({
     keyword_insert: _ => make_keyword("insert"),
     keyword_replace: _ => make_keyword("replace"),
     keyword_update: _ => make_keyword("update"),
+    keyword_truncate: _ => make_keyword("truncate"),
     keyword_merge: _ => make_keyword("merge"),
     keyword_into: _ => make_keyword("into"),
     keyword_overwrite: _ => make_keyword("overwrite"),
@@ -90,6 +91,8 @@ module.exports = grammar({
     keyword_alter: _ => make_keyword("alter"),
     keyword_change: _ => make_keyword("change"),
     keyword_analyze: _ => make_keyword("analyze"),
+    keyword_explain: _ => make_keyword("explain"),
+    keyword_verbose: _ => make_keyword("verbose"),
     keyword_modify: _ => make_keyword("modify"),
     keyword_drop: _ => make_keyword("drop"),
     keyword_add: _ => make_keyword("add"),
@@ -209,6 +212,7 @@ module.exports = grammar({
     keyword_wait: _ => make_keyword("wait"),
     keyword_nowait: _ => make_keyword("nowait"),
     keyword_attribute: _ => make_keyword("attribute"),
+    keyword_authorization: _ => make_keyword("authorization"),
 
     keyword_trigger: _ => make_keyword('trigger'),
     keyword_function: _ => make_keyword("function"),
@@ -570,6 +574,7 @@ module.exports = grammar({
     ),
 
     statement: $ => seq(
+      optional($._explain_statement),
       choice(
         $._ddl_statement,
         $._dml_write,
@@ -606,6 +611,7 @@ module.exports = grammar({
           $._delete_statement,
           $._insert_statement,
           $._update_statement,
+          $._truncate_statement,
         ),
       ),
     ),
@@ -690,6 +696,14 @@ module.exports = grammar({
       optional($._alias),
     ),
 
+    _truncate_statement: $ => seq(
+      $.keyword_truncate,
+      optional($.keyword_table),
+      optional($.keyword_only),
+      comma_list($.object_reference),
+      optional($._drop_behavior),
+    ),
+
     _delete_statement: $ => seq(
       $.delete,
       alias($._delete_from, $.from),
@@ -720,6 +734,7 @@ module.exports = grammar({
         $.create_index,
         $.create_function,
         $.create_type,
+        $.create_schema,
         // TODO sequence
       ),
     ),
@@ -1056,6 +1071,23 @@ module.exports = grammar({
       ),
     ),
 
+    create_schema: $ => prec.left(seq(
+      $.keyword_create,
+      $.keyword_schema,
+      choice(
+        seq(
+          optional($._if_not_exists),
+          $.identifier,
+          optional(seq($.keyword_authorization, $.identifier)),
+        ),
+        seq(
+          $.keyword_authorization,
+          $.identifier,
+        ),
+      ),
+      repeat($._create_statement),
+    )),
+
     create_type: $ => seq(
       $.keyword_create,
       $.keyword_type,
@@ -1101,6 +1133,7 @@ module.exports = grammar({
       choice(
         $.alter_table,
         $.alter_view,
+        $.alter_schema,
         $.alter_type,
       ),
     ),
@@ -1288,6 +1321,18 @@ module.exports = grammar({
       ),
     ),
 
+    alter_schema: $ => seq(
+      $.keyword_alter,
+      $.keyword_schema,
+      $.identifier,
+      choice(
+        $.keyword_rename,
+        $.keyword_owner,
+      ),
+      $.keyword_to,
+      $.identifier,
+    ),
+
     alter_type: $ => seq(
       $.keyword_alter,
       $.keyword_type,
@@ -1302,7 +1347,7 @@ module.exports = grammar({
           $.identifier,
           $.keyword_to,
           $.identifier,
-          optional($._drop_bevavior)
+          optional($._drop_behavior)
         ),
         seq(
           $.keyword_add,
@@ -1345,12 +1390,12 @@ module.exports = grammar({
             ),
           ),
           optional(seq($.keyword_collate, $.identifier)),
-          optional($._drop_bevavior)
+          optional($._drop_behavior)
         )
       ),
     ),
 
-    _drop_bevavior: $ => choice(
+    _drop_behavior: $ => choice(
       $.keyword_cascade,
       $.keyword_restrict,
     ),
@@ -1361,6 +1406,7 @@ module.exports = grammar({
         $.drop_view,
         $.drop_index,
         $.drop_type,
+        $.drop_schema,
       ),
     ),
 
@@ -1369,9 +1415,7 @@ module.exports = grammar({
       $.keyword_table,
       optional($._if_exists),
       $.object_reference,
-      optional(
-        $._drop_bevavior
-      ),
+      optional($._drop_behavior),
     ),
 
     drop_view: $ => seq(
@@ -1379,9 +1423,15 @@ module.exports = grammar({
       $.keyword_view,
       optional($._if_exists),
       $.object_reference,
-      optional(
-        $._drop_bevavior
-      ),
+      optional($._drop_behavior),
+    ),
+
+    drop_schema: $ => seq(
+      $.keyword_drop,
+      $.keyword_schema,
+      optional($._if_exists),
+      $.identifier,
+      optional($._drop_behavior)
     ),
 
     drop_type: $ => seq(
@@ -1389,9 +1439,7 @@ module.exports = grammar({
       $.keyword_type,
       optional($._if_exists),
       $.object_reference,
-      optional(
-        $._drop_bevavior
-      ),
+      optional($._drop_behavior),
     ),
 
     drop_index: $ => seq(
@@ -1400,9 +1448,7 @@ module.exports = grammar({
       optional($.keyword_concurrently),
       optional($._if_exists),
       field("name", $.identifier),
-      optional(
-        $._drop_bevavior
-      ),
+      optional($._drop_behavior),
       optional(
         seq(
             $.keyword_on,
@@ -1521,6 +1567,12 @@ module.exports = grammar({
       $.update,
       optional($.returning),
     ),
+
+    _explain_statement:$ => prec.right(seq(
+      $.keyword_explain,
+      optional($.keyword_analyze),
+      optional($.keyword_verbose),
+    )),
 
     _merge_statement: $=> seq(
       $.keyword_merge,

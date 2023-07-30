@@ -107,3 +107,19 @@ WHERE id = 9;
           left: (field
             name: (identifier))
           right: (literal))))))
+
+================================================================================
+Truncate table
+================================================================================
+
+TRUNCATE TABLE employees CASCADE;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (keyword_truncate)
+    (keyword_table)
+    (object_reference
+      (identifier))
+    (keyword_cascade)))

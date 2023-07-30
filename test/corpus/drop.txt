@@ -1,126 +1,143 @@
-==================
+================================================================================
 Drop table
-==================
+================================================================================
 
 DROP TABLE my_table;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (drop_table
-   (keyword_drop)
-   (keyword_table)
-   (object_reference name: (identifier))
-  )))
+  (statement
+    (drop_table
+      (keyword_drop)
+      (keyword_table)
+      (object_reference
+        name: (identifier)))))
 
-==================
+================================================================================
 Drop table and cascade through
-==================
+================================================================================
 
 DROP TABLE my_table CASCADE;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (drop_table
-   (keyword_drop)
-   (keyword_table)
-   (object_reference name: (identifier))
-   (keyword_cascade)
-  )))
+  (statement
+    (drop_table
+      (keyword_drop)
+      (keyword_table)
+      (object_reference
+        name: (identifier))
+      (keyword_cascade))))
 
-==================
+================================================================================
 Drop view
-==================
+================================================================================
 
 DROP VIEW my_view;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (drop_view
-   (keyword_drop)
-   (keyword_view)
-   (object_reference name: (identifier))
-  )))
+  (statement
+    (drop_view
+      (keyword_drop)
+      (keyword_view)
+      (object_reference
+        name: (identifier)))))
 
-==================
+================================================================================
 Drop index
-==================
+================================================================================
 
 DROP INDEX idx;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (drop_index
-   (keyword_drop)
-   (keyword_index)
-    name: (identifier))))
+  (statement
+    (drop_index
+      (keyword_drop)
+      (keyword_index)
+      name: (identifier))))
 
-==================
+================================================================================
 Drop index
-==================
+================================================================================
 
 DROP INDEX idx ON tbl;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (drop_index
-   (keyword_drop)
-   (keyword_index)
-   name: (identifier)
-   (keyword_on)
-   (object_reference
-     name: (identifier)))))
+  (statement
+    (drop_index
+      (keyword_drop)
+      (keyword_index)
+      name: (identifier)
+      (keyword_on)
+      (object_reference
+        name: (identifier)))))
 
-==================
+================================================================================
 Drop index cascade full sequence
-==================
+================================================================================
 
 DROP INDEX CONCURRENTLY IF EXISTS idx CASCADE ON tbl;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (drop_index
-   (keyword_drop)
-   (keyword_index)
-   (keyword_concurrently)
-   (keyword_if)
-   (keyword_exists)
-   name: (identifier)
-   (keyword_cascade)
-   (keyword_on)
-   (object_reference
-    name: (identifier)))))
+  (statement
+    (drop_index
+      (keyword_drop)
+      (keyword_index)
+      (keyword_concurrently)
+      (keyword_if)
+      (keyword_exists)
+      name: (identifier)
+      (keyword_cascade)
+      (keyword_on)
+      (object_reference
+        name: (identifier)))))
 
-==================
+================================================================================
 Drop index restrict full sequence
-==================
+================================================================================
 
 DROP INDEX CONCURRENTLY IF EXISTS idx RESTRICT ON tbl;
 
----
+--------------------------------------------------------------------------------
 
 (program
- (statement
-  (drop_index
-   (keyword_drop)
-   (keyword_index)
-   (keyword_concurrently)
-   (keyword_if)
-   (keyword_exists)
-   name: (identifier)
-   (keyword_restrict)
-   (keyword_on)
-   (object_reference
-    name: (identifier)))))
+  (statement
+    (drop_index
+      (keyword_drop)
+      (keyword_index)
+      (keyword_concurrently)
+      (keyword_if)
+      (keyword_exists)
+      name: (identifier)
+      (keyword_restrict)
+      (keyword_on)
+      (object_reference
+        name: (identifier)))))
 
+================================================================================
+Drop schema
+================================================================================
+
+DROP SCHEMA IF EXISTS myschema CASCADE;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (drop_schema
+      (keyword_drop)
+      (keyword_schema)
+      (keyword_if)
+      (keyword_exists)
+      (identifier)
+      (keyword_cascade))))
