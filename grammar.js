@@ -574,7 +574,11 @@ module.exports = grammar({
     ),
 
     statement: $ => seq(
-      optional($._explain_statement),
+      optional(seq(
+        $.keyword_explain,
+        optional($.keyword_analyze),
+        optional($.keyword_verbose),
+      )),
       choice(
         $._ddl_statement,
         $._dml_write,
@@ -734,7 +738,10 @@ module.exports = grammar({
         $.create_index,
         $.create_function,
         $.create_type,
-        $.create_schema,
+        prec.left(seq(
+          $.create_schema,
+          repeat($._create_statement),
+        )),
         // TODO sequence
       ),
     ),
@@ -1085,7 +1092,6 @@ module.exports = grammar({
           $.identifier,
         ),
       ),
-      repeat($._create_statement),
     )),
 
     create_type: $ => seq(
@@ -1567,12 +1573,6 @@ module.exports = grammar({
       $.update,
       optional($.returning),
     ),
-
-    _explain_statement:$ => prec.right(seq(
-      $.keyword_explain,
-      optional($.keyword_analyze),
-      optional($.keyword_verbose),
-    )),
 
     _merge_statement: $=> seq(
       $.keyword_merge,
