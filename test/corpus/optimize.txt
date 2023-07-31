@@ -1,4 +1,50 @@
 ================================================================================
+EXPLAIN Statement
+================================================================================
+
+EXPLAIN SELECT * FROM tab
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (keyword_explain)
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (all_fields))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          (identifier))))))
+
+================================================================================
+EXPLAIN ANALYIZE VERBOSE Statement
+================================================================================
+
+EXPLAIN ANALYZE VERBOSE SELECT * FROM tab
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (keyword_explain)
+    (keyword_analyze)
+    (keyword_verbose)
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (all_fields))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          (identifier))))))
+
+================================================================================
 Impala: Compute stats
 ================================================================================
 

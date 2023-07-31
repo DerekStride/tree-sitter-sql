@@ -661,3 +661,39 @@ col2 VARCHAR(255) NOT NULL DEFAULT('EMPTY');
           (keyword_default)
           (list
             (literal)))))))
+
+================================================================================
+ALTER SCHEMA RENAME
+================================================================================
+
+ALTER SCHEMA sales RENAME TO mysales;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_schema
+      (keyword_alter)
+      (keyword_schema)
+      (identifier)
+      (keyword_rename)
+      (keyword_to)
+      (identifier))))
+
+================================================================================
+ALTER SCHEMA OWNER
+================================================================================
+
+ALTER SCHEMA sales OWNER TO CURRENT_USER;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_schema
+      (keyword_alter)
+      (keyword_schema)
+      (identifier)
+      (keyword_owner)
+      (keyword_to)
+      (identifier))))
