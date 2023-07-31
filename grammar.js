@@ -145,8 +145,18 @@ module.exports = grammar({
     keyword_type: _ => make_keyword("type"),
     keyword_rename: _ => make_keyword("rename"),
     keyword_to: _ => make_keyword("to"),
+    keyword_database: _ => make_keyword("database"),
     keyword_schema: _ => make_keyword("schema"),
     keyword_owner: _ => make_keyword("owner"),
+    keyword_user: _ => make_keyword("user"),
+    keyword_admin: _ => make_keyword("admin"),
+    keyword_password: _ => make_keyword("password"),
+    keyword_encrypted: _ => make_keyword("encrypted"),
+    keyword_valid: _ => make_keyword("valid"),
+    keyword_until: _ => make_keyword("until"),
+    keyword_connection: _ => make_keyword("connection"),
+    keyword_role: _ => make_keyword("role"),
+    keyword_reset: _ => make_keyword("reset"),
     keyword_temp: _ => make_keyword("temp"),
     keyword_temporary: _ => make_keyword("temporary"),
     keyword_unlogged: _ => make_keyword("unlogged"),
@@ -738,6 +748,8 @@ module.exports = grammar({
         $.create_index,
         $.create_function,
         $.create_type,
+        $.create_database,
+        $.create_role,
         prec.left(seq(
           $.create_schema,
           repeat($._create_statement),
@@ -1094,6 +1106,74 @@ module.exports = grammar({
       ),
     )),
 
+    _with_settings: $ => seq(
+          field('name', $.identifier),
+          optional('='),
+          field('value', choice($.identifier, alias($._single_quote_string, $.literal))),
+    ),
+
+    create_database: $ => seq(
+      $.keyword_create,
+      $.keyword_database,
+      $.identifier,
+      optional($.keyword_with),
+      repeat(
+        $._with_settings
+      ),
+    ),
+
+    create_role: $ => seq(
+      $.keyword_create,
+      choice(
+        $.keyword_user,
+        $.keyword_role,
+        $.keyword_group,
+      ),
+      $.identifier,
+      optional($.keyword_with),
+      repeat(
+        choice(
+          $._user_access_role_config,
+          $._role_options,
+        ),
+      ),
+    ),
+
+    _role_options: $ => choice(
+      field("option", $.identifier),
+      seq(
+        $.keyword_valid,
+        $.keyword_until,
+        field("valid_until", alias($._literal_string, $.literal))
+      ),
+      seq(
+        $.keyword_connection,
+        $.keyword_limit,
+        field("connection_limit", alias($._integer, $.literal))
+      ),
+      seq(
+        optional($.keyword_encrypted),
+        $.keyword_password,
+        choice(
+          field("password", alias($._literal_string, $.literal)),
+          $.keyword_null,
+        ),
+      ),
+    ),
+
+
+
+    _user_access_role_config: $ => prec.left(seq(
+      choice(
+        seq(optional($.keyword_in), $.keyword_role),
+        seq($.keyword_in, $.keyword_group),
+        $.keyword_admin,
+        $.keyword_user,
+      ),
+      comma_list($.identifier, true),
+    ),
+    ),
+
     create_type: $ => seq(
       $.keyword_create,
       $.keyword_type,
@@ -1119,11 +1199,7 @@ module.exports = grammar({
                 )
               ),
               paren_list(
-                seq(
-                  field('name', $.identifier),
-                  '=',
-                  field('value', choice($.identifier,alias($._single_quote_string, $.literal))),
-                ),
+                $._with_settings
               ),
             ),
           ),
@@ -1141,6 +1217,9 @@ module.exports = grammar({
         $.alter_view,
         $.alter_schema,
         $.alter_type,
+        $.alter_index,
+        $.alter_database,
+        $.alter_role,
       ),
     ),
 
@@ -1339,6 +1418,69 @@ module.exports = grammar({
       $.identifier,
     ),
 
+    // TODO more variants
+    alter_database: $ => seq(
+      $.keyword_alter,
+      $.keyword_database,
+      $.identifier,
+      optional($.keyword_with),
+      choice(
+        seq($.rename_object),
+        seq($.change_ownership),
+      ),
+    ),
+
+    alter_role: $ => seq(
+      $.keyword_alter,
+      choice(
+        $.keyword_role,
+        $.keyword_group,
+        $.keyword_user,
+      ),
+      choice($.identifier, $.keyword_all),
+      choice(
+        $.rename_object,
+        seq(optional($.keyword_with),repeat($._role_options)),
+        seq(
+          optional(seq($.keyword_in, $.keyword_database, $.identifier)),
+          choice(
+            seq(
+              $.keyword_set,
+              field("option", $.identifier),
+              choice(
+                seq($.keyword_from, $.keyword_current),
+                seq(
+                  choice($.keyword_to, "="),
+                  choice(
+                    field("parameter", $.identifier),
+                    $.literal,
+                    $.keyword_default
+                  )
+                ),
+              ),
+            ),
+            seq(
+              $.keyword_reset,
+              choice(
+                $.keyword_all,
+                field("option", $.identifier),
+              )),
+          ),
+        )
+      ),
+    ),
+
+    // TODO more variants
+    alter_index: $ => seq(
+      $.keyword_alter,
+      $.keyword_index,
+      optional($._if_exists),
+      $.identifier,
+      choice(
+        $.rename_object
+      ),
+    ),
+
     alter_type: $ => seq(
       $.keyword_alter,
       $.keyword_type,
@@ -1413,6 +1555,8 @@ module.exports = grammar({
         $.drop_index,
         $.drop_type,
         $.drop_schema,
+        $.drop_database,
+        $.drop_role,
       ),
     ),
 
@@ -1438,6 +1582,26 @@ module.exports = grammar({
       optional($._if_exists),
       $.identifier,
       optional($._drop_behavior)
+    ),
+
+    drop_database: $ => seq(
+      $.keyword_drop,
+      $.keyword_database,
+      optional($._if_exists),
+      $.identifier,
+      optional($.keyword_with),
+      optional($.keyword_force),
+    ),
+
+    drop_role: $ => seq(
+      $.keyword_drop,
+      choice(
+        $.keyword_group,
+        $.keyword_role,
+        $.keyword_user,
+      ),
+      optional($._if_exists),
+      $.identifier,
     ),
 
     drop_type: $ => seq(

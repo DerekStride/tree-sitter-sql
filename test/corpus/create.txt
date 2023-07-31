@@ -1722,3 +1722,78 @@ CREATE SCHEMA hollywood
                 (keyword_not))
               (literal
                 (keyword_null)))))))))
+
+================================================================================
+CREATE DATABASE
+================================================================================
+
+CREATE DATABASE hollywood
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_database
+      (keyword_create)
+      (keyword_database)
+      (identifier))))
+
+================================================================================
+CREATE DATABASE with settings
+================================================================================
+
+CREATE DATABASE sales OWNER operations_dept;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_database
+      (keyword_create)
+      (keyword_database)
+      (identifier)
+      (identifier)
+      (identifier))))
+
+================================================================================
+CREATE USER
+================================================================================
+
+CREATE ROLE rapunzel
+WITH ROLE hansel, gretel
+IN GROUP fairy, tale
+ADMIN grandma
+PASSWORD 'secret'
+VALID UNTIL '2022-01-01'
+CONNECTION LIMIT 42
+NOLOGIN
+INHERIT;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_role
+      (keyword_create)
+      (keyword_role)
+      (identifier)
+      (keyword_with)
+      (keyword_role)
+      (identifier)
+      (identifier)
+      (keyword_in)
+      (keyword_group)
+      (identifier)
+      (identifier)
+      (keyword_admin)
+      (identifier)
+      (keyword_password)
+      (literal)
+      (keyword_valid)
+      (keyword_until)
+      (literal)
+      (keyword_connection)
+      (keyword_limit)
+      (literal)
+      (identifier)
+      (identifier))))

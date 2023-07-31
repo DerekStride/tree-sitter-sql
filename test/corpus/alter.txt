@@ -697,3 +697,59 @@ ALTER SCHEMA sales OWNER TO CURRENT_USER;
       (keyword_owner)
       (keyword_to)
       (identifier))))
+
+================================================================================
+ALTER INDEX RENAME
+================================================================================
+
+ALTER INDEX IF EXISTS myindex RENAME TO my_index
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_index
+      (keyword_alter)
+      (keyword_index)
+      (keyword_if)
+      (keyword_exists)
+      (identifier)
+      (rename_object
+        (keyword_rename)
+        (keyword_to)
+        (object_reference
+          (identifier))))))
+
+================================================================================
+ALTER DATABASE RENAME
+================================================================================
+
+ALTER DATABASE hollywood RENAME TO bollywood;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_database
+      (keyword_alter)
+      (keyword_database)
+      (identifier)
+      (rename_object
+        (keyword_rename)
+        (keyword_to)
+        (object_reference
+          (identifier))))))
+
+================================================================================
+ALTER ROLE
+================================================================================
+
+ALTER ROLE rapunzel RENAME TO snow_white;
+ALTER ROLE rapunzel SUPERUSER NOLOGIN CONNECTION LIMIT 69;
+ALTER ROLE chris VALID UNTIL 'May 4 12:00:00 2015 +1';
+ALTER ROLE fred VALID UNTIL 'infinity';
+ALTER ROLE miriam CREATEROLE CREATEDB;
+ALTER ROLE worker_bee SET maintenance_work_mem = 100000;
+ALTER ROLE fred IN DATABASE devel SET client_min_messages = DEBUG;
+
+--------------------------------------------------------------------------------
