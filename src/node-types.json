@@ -377,6 +377,41 @@
     }
   },
   {
+    "type": "alter_schema",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "keyword_alter",
+          "named": true
+        },
+        {
+          "type": "keyword_owner",
+          "named": true
+        },
+        {
+          "type": "keyword_rename",
+          "named": true
+        },
+        {
+          "type": "keyword_schema",
+          "named": true
+        },
+        {
+          "type": "keyword_to",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "alter_table",
     "named": true,
     "fields": {},
@@ -3038,6 +3073,45 @@
     }
   },
   {
+    "type": "create_schema",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "keyword_authorization",
+          "named": true
+        },
+        {
+          "type": "keyword_create",
+          "named": true
+        },
+        {
+          "type": "keyword_exists",
+          "named": true
+        },
+        {
+          "type": "keyword_if",
+          "named": true
+        },
+        {
+          "type": "keyword_not",
+          "named": true
+        },
+        {
+          "type": "keyword_schema",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "create_table",
     "named": true,
     "fields": {},
@@ -3594,6 +3668,45 @@
         },
         {
           "type": "object_reference",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "drop_schema",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "keyword_cascade",
+          "named": true
+        },
+        {
+          "type": "keyword_drop",
+          "named": true
+        },
+        {
+          "type": "keyword_exists",
+          "named": true
+        },
+        {
+          "type": "keyword_if",
+          "named": true
+        },
+        {
+          "type": "keyword_restrict",
+          "named": true
+        },
+        {
+          "type": "keyword_schema",
           "named": true
         }
       ]
@@ -6315,6 +6428,10 @@
       "required": false,
       "types": [
         {
+          "type": "alter_schema",
+          "named": true
+        },
+        {
           "type": "alter_table",
           "named": true
         },
@@ -6339,6 +6456,10 @@
           "named": true
         },
         {
+          "type": "create_schema",
+          "named": true
+        },
+        {
           "type": "create_table",
           "named": true
         },
@@ -6360,6 +6481,10 @@
         },
         {
           "type": "drop_index",
+          "named": true
+        },
+        {
+          "type": "drop_schema",
           "named": true
         },
         {
@@ -6403,6 +6528,10 @@
           "named": true
         },
         {
+          "type": "keyword_cascade",
+          "named": true
+        },
+        {
           "type": "keyword_columns",
           "named": true
         },
@@ -6416,6 +6545,10 @@
         },
         {
           "type": "keyword_exists",
+          "named": true
+        },
+        {
+          "type": "keyword_explain",
           "named": true
         },
         {
@@ -6467,6 +6600,10 @@
           "named": true
         },
         {
+          "type": "keyword_only",
+          "named": true
+        },
+        {
           "type": "keyword_optimize",
           "named": true
         },
@@ -6480,6 +6617,10 @@
         },
         {
           "type": "keyword_rename",
+          "named": true
+        },
+        {
+          "type": "keyword_restrict",
           "named": true
         },
         {
@@ -6511,11 +6652,19 @@
           "named": true
         },
         {
+          "type": "keyword_truncate",
+          "named": true
+        },
+        {
           "type": "keyword_using",
           "named": true
         },
         {
           "type": "keyword_vacuum",
+          "named": true
+        },
+        {
+          "type": "keyword_verbose",
           "named": true
         },
         {
@@ -7856,6 +8005,10 @@
     "named": true
   },
   {
+    "type": "keyword_authorization",
+    "named": true
+  },
+  {
     "type": "keyword_auto_increment",
     "named": true
   },
@@ -8097,6 +8250,10 @@
   },
   {
     "type": "keyword_exists",
+    "named": true
+  },
+  {
+    "type": "keyword_explain",
     "named": true
   },
   {
@@ -8676,6 +8833,10 @@
     "named": true
   },
   {
+    "type": "keyword_truncate",
+    "named": true
+  },
+  {
     "type": "keyword_type",
     "named": true
   },
@@ -8737,6 +8898,10 @@
   },
   {
     "type": "keyword_varying",
+    "named": true
+  },
+  {
+    "type": "keyword_verbose",
     "named": true
   },
   {
