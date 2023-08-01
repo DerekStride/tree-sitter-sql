@@ -721,6 +721,53 @@ ALTER INDEX IF EXISTS myindex RENAME TO my_index
           (identifier))))))
 
 ================================================================================
+ALTER INDEX
+================================================================================
+
+ALTER INDEX distributors SET (fillfactor = 75);
+ALTER INDEX distributors RESET (fillfactor);
+ALTER INDEX coord_idx ALTER COLUMN 3 SET STATISTICS 1000;
+ALTER INDEX distributors SET TABLESPACE fasttablespace;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_index
+      (keyword_alter)
+      (keyword_index)
+      (identifier)
+      (keyword_set)
+      (identifier)
+      (literal)))
+  (statement
+    (alter_index
+      (keyword_alter)
+      (keyword_index)
+      (identifier)
+      (keyword_reset)
+      (identifier)))
+  (statement
+    (alter_index
+      (keyword_alter)
+      (keyword_index)
+      (identifier)
+      (keyword_alter)
+      (keyword_column)
+      (literal)
+      (keyword_set)
+      (keyword_statistics)
+      (literal)))
+  (statement
+    (alter_index
+      (keyword_alter)
+      (keyword_index)
+      (identifier)
+      (keyword_set)
+      (keyword_tablespace)
+      (identifier))))
+
+================================================================================
 ALTER DATABASE RENAME
 ================================================================================
 
@@ -741,6 +788,72 @@ ALTER DATABASE hollywood RENAME TO bollywood;
           (identifier))))))
 
 ================================================================================
+ALTER DATABASE
+================================================================================
+
+ALTER DATABASE test SET enable_indexscan TO off;
+ALTER DATABASE test SET enable_indexscan TO DEFAULT;
+ALTER DATABASE test OWNER TO me;
+ALTER DATABASE test SET TABLESPACE fasttablespace;
+ALTER DATABASE test RESET ALL;
+ALTER DATABASE test RESET enable_indexscan;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_database
+      (keyword_alter)
+      (keyword_database)
+      (identifier)
+      (keyword_set)
+      (identifier)
+      (set_configuration
+        (keyword_to)
+        (identifier))))
+  (statement
+    (alter_database
+      (keyword_alter)
+      (keyword_database)
+      (identifier)
+      (keyword_set)
+      (identifier)
+      (set_configuration
+        (keyword_to)
+        (keyword_default))))
+  (statement
+    (alter_database
+      (keyword_alter)
+      (keyword_database)
+      (identifier)
+      (change_ownership
+        (keyword_owner)
+        (keyword_to)
+        (identifier))))
+  (statement
+    (alter_database
+      (keyword_alter)
+      (keyword_database)
+      (identifier)
+      (keyword_set)
+      (keyword_tablespace)
+      (identifier)))
+  (statement
+    (alter_database
+      (keyword_alter)
+      (keyword_database)
+      (identifier)
+      (keyword_reset)
+      (keyword_all)))
+  (statement
+    (alter_database
+      (keyword_alter)
+      (keyword_database)
+      (identifier)
+      (keyword_reset)
+      (identifier))))
+
+================================================================================
 ALTER ROLE
 ================================================================================
 
@@ -753,3 +866,123 @@ ALTER ROLE worker_bee SET maintenance_work_mem = 100000;
 ALTER ROLE fred IN DATABASE devel SET client_min_messages = DEBUG;
 
 --------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_role
+      (keyword_alter)
+      (keyword_role)
+      (identifier)
+      (rename_object
+        (keyword_rename)
+        (keyword_to)
+        (object_reference
+          (identifier)))))
+  (statement
+    (alter_role
+      (keyword_alter)
+      (keyword_role)
+      (identifier)
+      (identifier)
+      (identifier)
+      (keyword_connection)
+      (keyword_limit)
+      (literal)))
+  (statement
+    (alter_role
+      (keyword_alter)
+      (keyword_role)
+      (identifier)
+      (keyword_valid)
+      (keyword_until)
+      (literal)))
+  (statement
+    (alter_role
+      (keyword_alter)
+      (keyword_role)
+      (identifier)
+      (keyword_valid)
+      (keyword_until)
+      (literal)))
+  (statement
+    (alter_role
+      (keyword_alter)
+      (keyword_role)
+      (identifier)
+      (identifier)
+      (identifier)))
+  (statement
+    (alter_role
+      (keyword_alter)
+      (keyword_role)
+      (identifier)
+      (keyword_set)
+      (identifier)
+      (set_configuration
+        (literal))))
+  (statement
+    (alter_role
+      (keyword_alter)
+      (keyword_role)
+      (identifier)
+      (keyword_in)
+      (keyword_database)
+      (identifier)
+      (keyword_set)
+      (identifier)
+      (set_configuration
+        (identifier)))))
+
+================================================================================
+ALTER SEQUENCE
+================================================================================
+
+ALTER SEQUENCE serial RESTART WITH 105;
+ALTER SEQUENCE IF EXISTS serial RENAME TO cereal;
+ALTER SEQUENCE serial SET SCHEMA serious_schema;
+ALTER SEQUENCE serial OWNER TO count_von_count;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_sequence
+      (keyword_alter)
+      (keyword_sequence)
+      (object_reference
+        (identifier))
+      (keyword_restart)
+      (keyword_with)
+      (literal)))
+  (statement
+    (alter_sequence
+      (keyword_alter)
+      (keyword_sequence)
+      (keyword_if)
+      (keyword_exists)
+      (object_reference
+        (identifier))
+      (rename_object
+        (keyword_rename)
+        (keyword_to)
+        (object_reference
+          (identifier)))))
+  (statement
+    (alter_sequence
+      (keyword_alter)
+      (keyword_sequence)
+      (object_reference
+        (identifier))
+      (keyword_set)
+      (keyword_schema)
+      (identifier)))
+  (statement
+    (alter_sequence
+      (keyword_alter)
+      (keyword_sequence)
+      (object_reference
+        (identifier))
+      (change_ownership
+        (keyword_owner)
+        (keyword_to)
+        (identifier)))))

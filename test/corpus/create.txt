@@ -1797,3 +1797,63 @@ INHERIT;
       (literal)
       (identifier)
       (identifier))))
+
+================================================================================
+CREATE SEQUENCE
+================================================================================
+
+CREATE SEQUENCE IF NOT EXISTS serial START 101;
+CREATE UNLOGGED SEQUENCE serial START 101;
+CREATE TEMP SEQUENCE serial START 101 OWNED BY sequences.serials;
+CREATE SEQUENCE serial START WITH 101 CACHE 1000 NO CYCLE;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_sequence
+      (keyword_create)
+      (keyword_sequence)
+      (keyword_if)
+      (keyword_not)
+      (keyword_exists)
+      (object_reference
+        (identifier))
+      (keyword_start)
+      (literal)))
+  (statement
+    (create_sequence
+      (keyword_create)
+      (keyword_unlogged)
+      (keyword_sequence)
+      (object_reference
+        (identifier))
+      (keyword_start)
+      (literal)))
+  (statement
+    (create_sequence
+      (keyword_create)
+      (keyword_temp)
+      (keyword_sequence)
+      (object_reference
+        (identifier))
+      (keyword_start)
+      (literal)
+      (keyword_owned)
+      (keyword_by)
+      (object_reference
+        (identifier)
+        (identifier))))
+  (statement
+    (create_sequence
+      (keyword_create)
+      (keyword_sequence)
+      (object_reference
+        (identifier))
+      (keyword_start)
+      (keyword_with)
+      (literal)
+      (keyword_cache)
+      (literal)
+      (keyword_no)
+      (keyword_cycle))))

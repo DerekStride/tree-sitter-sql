@@ -99,9 +99,16 @@ module.exports = grammar({
     keyword_table: _ => make_keyword("table"),
     keyword_tables: _ => make_keyword("tables"),
     keyword_view: _ => make_keyword("view"),
-    keyword_materialized: _ => make_keyword("materialized"),
     keyword_column: _ => make_keyword("column"),
     keyword_columns: _ => make_keyword("columns"),
+    keyword_materialized: _ => make_keyword("materialized"),
+    keyword_tablespace: _ => make_keyword("tablespace"),
+    keyword_sequence: _ => make_keyword("sequence"),
+    keyword_increment: _ => make_keyword("increment"),
+    keyword_none: _ => make_keyword("none"),
+    keyword_owned: _ => make_keyword("owned"),
+    keyword_start: _ => make_keyword("start"),
+    keyword_restart: _ => make_keyword("restart"),
     keyword_key: _ => make_keyword("key"),
     keyword_as: _ => make_keyword("as"),
     keyword_distinct: _ => make_keyword("distinct"),
@@ -160,6 +167,8 @@ module.exports = grammar({
     keyword_temp: _ => make_keyword("temp"),
     keyword_temporary: _ => make_keyword("temporary"),
     keyword_unlogged: _ => make_keyword("unlogged"),
+    keyword_logged: _ => make_keyword("logged"),
+    keyword_cycle: _ => make_keyword("cycle"),
     keyword_union: _ => make_keyword("union"),
     keyword_all: _ => make_keyword("all"),
     keyword_any: _ => make_keyword("any"),
@@ -750,11 +759,11 @@ module.exports = grammar({
         $.create_type,
         $.create_database,
         $.create_role,
+        $.create_sequence,
         prec.left(seq(
           $.create_schema,
           repeat($._create_statement),
         )),
-        // TODO sequence
       ),
     ),
 
@@ -1161,8 +1170,6 @@ module.exports = grammar({
       ),
     ),
 
-
-
     _user_access_role_config: $ => prec.left(seq(
       choice(
         seq(optional($.keyword_in), $.keyword_role),
@@ -1171,7 +1178,29 @@ module.exports = grammar({
         $.keyword_user,
       ),
       comma_list($.identifier, true),
-    ),
+    )),
+
+    create_sequence: $ => seq(
+      $.keyword_create,
+      optional(
+        choice(
+          choice($.keyword_temporary, $.keyword_temp),
+          $.keyword_unlogged,
+        )
+      ),
+      $.keyword_sequence,
+      optional($._if_not_exists),
+      $.object_reference,
+      optional(seq($.keyword_as, $._type)),
+      optional(seq($.keyword_increment, optional($.keyword_by), field("increment", alias($._integer, $.literal)))),
+      optional(seq(
+        $.keyword_start,
+        optional($.keyword_with),
+        field("start", alias($._integer, $.literal)),
+        optional(seq($.keyword_cache, field("cache", alias($._integer, $.literal)))),
+        optional(seq(optional($.keyword_no), $.keyword_cycle))
+      )),
+      optional(seq($.keyword_owned, $.keyword_by, choice($.keyword_none, $.object_reference))),
     ),
 
     create_type: $ => seq(
@@ -1220,6 +1249,7 @@ module.exports = grammar({
         $.alter_index,
         $.alter_database,
         $.alter_role,
+        $.alter_sequence,
       ),
     ),
 
@@ -1418,7 +1448,6 @@ module.exports = grammar({
       $.identifier,
     ),
 
-    // TODO more variants
     alter_database: $ => seq(
       $.keyword_alter,
       $.keyword_database,
@@ -1427,6 +1456,26 @@ module.exports = grammar({
       choice(
         seq($.rename_object),
         seq($.change_ownership),
+        seq(
+          $.keyword_reset,
+          choice(
+            $.keyword_all,
+            field("configuration_parameter", $.identifier)
+          ),
+        ),
+        seq(
+          $.keyword_set,
+          choice(
+            seq($.keyword_tablespace, $.identifier),
+            seq(
+              field("configuration_parameter", $.identifier),
+              choice(
+                seq($.keyword_from, $.keyword_current),
+                $.set_configuration,
+              )
+            ),
+          ),
+        ),
       ),
     ),
 
@@ -1449,14 +1498,7 @@ module.exports = grammar({
               field("option", $.identifier),
               choice(
                 seq($.keyword_from, $.keyword_current),
-                seq(
-                  choice($.keyword_to, "="),
-                  choice(
-                    field("parameter", $.identifier),
-                    $.literal,
-                    $.keyword_default
-                  )
-                ),
+                $.set_configuration,
               ),
             ),
             seq(
@@ -1470,14 +1512,79 @@ module.exports = grammar({
       ),
     ),
 
-    // TODO more variants
+    set_configuration: $ => seq(
+      choice($.keyword_to, "="),
+      choice(
+        field("parameter", $.identifier),
+        $.literal,
+        $.keyword_default
+      )
+    ),
+
     alter_index: $ => seq(
       $.keyword_alter,
       $.keyword_index,
       optional($._if_exists),
       $.identifier,
       choice(
-        $.rename_object
+        $.rename_object,
+        seq(
+          $.keyword_alter,
+          optional($.keyword_column),
+          alias($._natural_number, $.literal),
+          $.keyword_set,
+          $.keyword_statistics,
+          alias($._natural_number, $.literal),
+        ),
+        seq($.keyword_reset, paren_list($.identifier)),
+        seq(
+          $.keyword_set,
+          choice(
+            seq($.keyword_tablespace, $.identifier),
+            paren_list(seq($.identifier, '=', field("value", $.literal)))
+          ),
+        ),
+      ),
+    ),
+
+    alter_sequence: $ => seq(
+      $.keyword_alter,
+      $.keyword_sequence,
+      optional($._if_exists),
+      $.object_reference,
+      choice(
+        seq(
+          optional(seq(
+            $.keyword_start,
+            optional($.keyword_with),
+            field("start", alias($._integer, $.literal)),
+            optional(seq($.keyword_cache, field("cache", alias($._integer, $.literal)))),
+            optional(seq(optional($.keyword_no), $.keyword_cycle))
+          )),
+          optional(seq($.keyword_owned, $.keyword_by, choice($.keyword_none, $.object_reference))),
+          optional(seq(
+            $.keyword_start,
+            optional($.keyword_with),
+            field("start", alias($._integer, $.literal)),
+            optional(seq($.keyword_cache, field("cache", alias($._integer, $.literal)))),
+            optional(seq(optional($.keyword_no), $.keyword_cycle))
+          )),
+          optional(seq(
+            $.keyword_restart,
+            optional($.keyword_with),
+            field("restart", alias($._integer, $.literal)),
+          )),
+          optional(seq($.keyword_owned, $.keyword_by, choice($.keyword_none, $.object_reference))),
+        ),
+        $.rename_object,
+        $.change_ownership,
+        seq(
+          $.keyword_set,
+          choice(
+            choice($.keyword_logged, $.keyword_unlogged),
+            seq($.keyword_schema, $.identifier)
+          ),
+        ),
       ),
     ),
 
@@ -1557,6 +1664,7 @@ module.exports = grammar({
         $.drop_schema,
         $.drop_database,
         $.drop_role,
+        $.drop_sequence,
       ),
     ),
 
@@ -1607,6 +1715,14 @@ module.exports = grammar({
     drop_type: $ => seq(
       $.keyword_drop,
       $.keyword_type,
+      optional($._if_exists),
+      $.object_reference,
+      optional($._drop_behavior),
+    ),
+
+    drop_sequence: $ => seq(
+      $.keyword_drop,
+      $.keyword_sequence,
       optional($._if_exists),
       $.object_reference,
       optional($._drop_behavior),

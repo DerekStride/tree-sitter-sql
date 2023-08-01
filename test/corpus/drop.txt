@@ -187,3 +187,22 @@ DROP USER rapunzel;
       (keyword_drop)
       (keyword_user)
       (identifier))))
+
+================================================================================
+Drop sequence
+================================================================================
+
+DROP SEQUENCE IF EXISTS serial RESTRICT;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (drop_sequence
+      (keyword_drop)
+      (keyword_sequence)
+      (keyword_if)
+      (keyword_exists)
+      (object_reference
+        (identifier))
+      (keyword_restrict))))
