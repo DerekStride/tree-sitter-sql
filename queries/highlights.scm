@@ -285,6 +285,8 @@
  (keyword_noscan)
  (keyword_stats)
  (keyword_statistics)
+ (keyword_maxvalue)
+ (keyword_minvalue)
 ] @type.qualifier
 
 [

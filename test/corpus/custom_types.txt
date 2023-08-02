@@ -1,5 +1,5 @@
 ================================================================================
-CREATE TYPE
+Create type
 ================================================================================
 
  CREATE TYPE sports
@@ -14,7 +14,7 @@ CREATE TYPE
       (identifier))))
 
 ================================================================================
-CREATE TYPE ENUM
+Create type enum
 ================================================================================
 
 CREATE TYPE colors as ENUM (
@@ -39,7 +39,7 @@ CREATE TYPE colors as ENUM (
         (literal)))))
 
 ================================================================================
-CREATE TYPE Object
+Create type object
 ================================================================================
 CREATE TYPE cities AS (
     cityname text,
@@ -64,7 +64,7 @@ CREATE TYPE cities AS (
             (keyword_int)))))))
 
 ================================================================================
-CREATE TYPE RANGE
+Create type range
 ================================================================================
 
 CREATE TYPE marathon AS RANGE (
@@ -85,7 +85,7 @@ CREATE TYPE marathon AS RANGE (
       (identifier))))
 
 ================================================================================
-CREATE TYPE IO
+Create type io
 ================================================================================
 CREATE TYPE bigobj (
     INPUT = lo_filein, OUTPUT = lo_fileout,
@@ -107,7 +107,7 @@ CREATE TYPE bigobj (
       (identifier))))
 
 ================================================================================
-DROP TYPE
+Drop type
 ================================================================================
 
 DROP TYPE IF EXISTS boxes CASCADE;
@@ -126,7 +126,7 @@ DROP TYPE IF EXISTS boxes CASCADE;
       (keyword_cascade))))
 
 ================================================================================
-ALTER TYPE RENAME
+Alter type rename
 ================================================================================
 
 ALTER TYPE boxes RENAME TO cubes;
@@ -146,7 +146,7 @@ ALTER TYPE boxes RENAME TO cubes;
           (identifier))))))
 
 ================================================================================
-ALTER TYPE RENAME ATTRIBUTE
+Alter type rename attribute
 ================================================================================
 
 ALTER TYPE boxes
@@ -167,7 +167,7 @@ RENAME ATTRIBUTE width TO height;
       (identifier))))
 
 ================================================================================
-ALTER TYPE CHANGE OWNER
+Alter type change owner
 ================================================================================
 
 ALTER TYPE boxes
@@ -187,7 +187,7 @@ OWNER TO user2
         (identifier)))))
 
 ================================================================================
-ALTER TYPE CHANGE SCHEMA
+Alter type change schema
 ================================================================================
 
 ALTER TYPE boxes
@@ -207,7 +207,7 @@ SET SCHEMA new_schema
         (identifier)))))
 
 ================================================================================
-ALTER TYPE ADD VALUE
+Alter type add value
 ================================================================================
 
 ALTER TYPE boxes
@@ -231,7 +231,7 @@ ADD VALUE  IF NOT EXISTS 'color' AFTER 'weight'
       (literal))))
 
 ================================================================================
-ALTER TYPE RENAME VALUE
+Alter type rename value
 ================================================================================
 
 ALTER TYPE boxes
@@ -252,7 +252,7 @@ RENAME VALUE 'weight' TO 'mass'
       (literal))))
 
 ================================================================================
-ALTER TYPE ADD ATTRIBUTE
+Alter type add attribute
 ================================================================================
 
 ALTER TYPE boxes
@@ -272,7 +272,7 @@ ADD ATTRIBUTE label text
       (keyword_text))))
 
 ================================================================================
-ALTER TYPE DROP ATTRIBUTE
+Alter type drop attribute
 ================================================================================
 
 ALTER TYPE boxes DROP ATTRIBUTE IF EXISTS label
@@ -291,7 +291,7 @@ ALTER TYPE boxes DROP ATTRIBUTE IF EXISTS label
       (identifier))))
 
 ================================================================================
-ALTER TYPE ALTER ATTRIBUTE
+Alter type alter attribute
 ================================================================================
 
 ALTER TYPE boxes
@@ -313,7 +313,7 @@ ADD ATTRIBUTE label varchar(255)
         (literal)))))
 
 ================================================================================
-CREATE TABLE WITH CUSTOM TYPE
+Create table with custom type
 ================================================================================
 
 CREATE TABLE shipments (
@@ -333,7 +333,7 @@ shipment boxes
           (identifier))))))
 
 ================================================================================
-INSERT INTO TABLE WITH CUSTOM TYPE
+Insert into table with custom type
 ================================================================================
 
 INSERT INTO shipments (shipment)
@@ -386,7 +386,7 @@ VALUES (ROW(10, 500, 'Box1')),
             (literal)))))))
 
 ================================================================================
-SELECT FROM CUSTOM TYPE
+Select from custom type
 ================================================================================
 
 SELECT

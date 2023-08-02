@@ -1195,6 +1195,8 @@ module.exports = grammar({
       $.object_reference,
       optional(seq($.keyword_as, $._type)),
       optional(seq($.keyword_increment, optional($.keyword_by), field("increment", alias($._integer, $.literal)))),
+      optional(seq($.keyword_minvalue, choice($.literal, seq($.keyword_no, $.keyword_minvalue)))),
+      optional(seq($.keyword_maxvalue, choice($.literal, seq($.keyword_no, $.keyword_maxvalue)))),
       optional(seq(
         $.keyword_start,
         optional($.keyword_with),

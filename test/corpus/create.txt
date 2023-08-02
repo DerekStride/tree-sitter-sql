@@ -1134,6 +1134,28 @@ CREATE TABLE some_table(
         value: (identifier)))))
 
 ================================================================================
+Create unique index
+================================================================================
+
+CREATE UNIQUE INDEX "akRoleName" ON "Role" ("name");
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_index
+      (keyword_create)
+      (keyword_unique)
+      (keyword_index)
+      column: (literal)
+      (keyword_on)
+      (object_reference
+        name: (identifier))
+      (ordered_columns
+        (column
+          name: (literal))))))
+
+================================================================================
 Create table as select
 ================================================================================
 
@@ -1557,7 +1579,7 @@ CREATE TABLE "Session" (
           (keyword_null))))))
 
 ================================================================================
-CREATE TABLE with ARRAYS and MATRIX
+Create table with arrays and matrix
 ================================================================================
 
 CREATE TABLE tab (
@@ -1624,7 +1646,7 @@ CREATE TABLE tab (
             (literal)))))))
 
 ================================================================================
-CREATE SCHEMA
+Create schema
 ================================================================================
 
 CREATE SCHEMA myschema;
@@ -1639,7 +1661,7 @@ CREATE SCHEMA myschema;
       (identifier))))
 
 ================================================================================
-CREATE SCHEMA with authorization
+Create schema with authorization
 ================================================================================
 
 CREATE SCHEMA IF NOT EXISTS test AUTHORIZATION joe;
@@ -1659,7 +1681,7 @@ CREATE SCHEMA IF NOT EXISTS test AUTHORIZATION joe;
       (identifier))))
 
 ================================================================================
-CREATE SCHEMA with subsequent creates
+Create schema with subsequent creates
 ================================================================================
 
 CREATE SCHEMA hollywood
@@ -1724,7 +1746,7 @@ CREATE SCHEMA hollywood
                 (keyword_null)))))))))
 
 ================================================================================
-CREATE DATABASE
+Create database
 ================================================================================
 
 CREATE DATABASE hollywood
@@ -1739,7 +1761,7 @@ CREATE DATABASE hollywood
       (identifier))))
 
 ================================================================================
-CREATE DATABASE with settings
+Create database with settings
 ================================================================================
 
 CREATE DATABASE sales OWNER operations_dept;
@@ -1756,7 +1778,7 @@ CREATE DATABASE sales OWNER operations_dept;
       (identifier))))
 
 ================================================================================
-CREATE USER
+Create user
 ================================================================================
 
 CREATE ROLE rapunzel
@@ -1799,13 +1821,16 @@ INHERIT;
       (identifier))))
 
 ================================================================================
-CREATE SEQUENCE
+Create sequence
 ================================================================================
 
-CREATE SEQUENCE IF NOT EXISTS serial START 101;
-CREATE UNLOGGED SEQUENCE serial START 101;
-CREATE TEMP SEQUENCE serial START 101 OWNED BY sequences.serials;
-CREATE SEQUENCE serial START WITH 101 CACHE 1000 NO CYCLE;
+CREATE TEMP SEQUENCE IF NOT EXISTS serial
+AS BIGINT
+INCREMENT BY 3
+MINVALUE 10
+MAXVALUE 9999
+START 101 CACHE 1000 NO CYCLE
+OWNED BY numbers.number_sequences;
 
 --------------------------------------------------------------------------------
 
@@ -1813,47 +1838,31 @@ CREATE SEQUENCE serial START WITH 101 CACHE 1000 NO CYCLE;
   (statement
     (create_sequence
       (keyword_create)
+      (keyword_temp)
       (keyword_sequence)
       (keyword_if)
       (keyword_not)
       (keyword_exists)
       (object_reference
         (identifier))
-      (keyword_start)
-      (literal)))
-  (statement
-    (create_sequence
-      (keyword_create)
-      (keyword_unlogged)
-      (keyword_sequence)
-      (object_reference
-        (identifier))
-      (keyword_start)
-      (literal)))
-  (statement
-    (create_sequence
-      (keyword_create)
-      (keyword_temp)
-      (keyword_sequence)
-      (object_reference
-        (identifier))
-      (keyword_start)
-      (literal)
-      (keyword_owned)
+      (keyword_as)
+      (bigint
+        (keyword_bigint))
+      (keyword_increment)
       (keyword_by)
-      (object_reference
-        (identifier)
-        (identifier))))
-  (statement
-    (create_sequence
-      (keyword_create)
-      (keyword_sequence)
-      (object_reference
-        (identifier))
+      (literal)
+      (keyword_minvalue)
+      (literal)
+      (keyword_maxvalue)
+      (literal)
       (keyword_start)
-      (keyword_with)
       (literal)
       (keyword_cache)
       (literal)
       (keyword_no)
-      (keyword_cycle))))
+      (keyword_cycle)
+      (keyword_owned)
+      (keyword_by)
+      (object_reference
+        (identifier)
+        (identifier)))))
