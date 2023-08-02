@@ -807,8 +807,8 @@ ALTER DATABASE test RESET enable_indexscan;
       (keyword_database)
       (identifier)
       (keyword_set)
-      (identifier)
       (set_configuration
+        (identifier)
         (keyword_to)
         (identifier))))
   (statement
@@ -817,8 +817,8 @@ ALTER DATABASE test RESET enable_indexscan;
       (keyword_database)
       (identifier)
       (keyword_set)
-      (identifier)
       (set_configuration
+        (identifier)
         (keyword_to)
         (keyword_default))))
   (statement
@@ -917,8 +917,8 @@ ALTER ROLE fred IN DATABASE devel SET client_min_messages = DEBUG;
       (keyword_role)
       (identifier)
       (keyword_set)
-      (identifier)
       (set_configuration
+        (identifier)
         (literal))))
   (statement
     (alter_role
@@ -929,8 +929,8 @@ ALTER ROLE fred IN DATABASE devel SET client_min_messages = DEBUG;
       (keyword_database)
       (identifier)
       (keyword_set)
-      (identifier)
       (set_configuration
+        (identifier)
         (identifier)))))
 
 ================================================================================

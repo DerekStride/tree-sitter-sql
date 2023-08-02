@@ -105,6 +105,8 @@ module.exports = grammar({
     keyword_tablespace: _ => make_keyword("tablespace"),
     keyword_sequence: _ => make_keyword("sequence"),
     keyword_increment: _ => make_keyword("increment"),
+    keyword_minvalue: _ => make_keyword("minvalue"),
+    keyword_maxvalue: _ => make_keyword("maxvalue"),
     keyword_none: _ => make_keyword("none"),
     keyword_owned: _ => make_keyword("owned"),
     keyword_start: _ => make_keyword("start"),
@@ -1170,7 +1172,7 @@ module.exports = grammar({
       ),
     ),
 
-    _user_access_role_config: $ => prec.left(seq(
+    _user_access_role_config: $ => seq(
       choice(
         seq(optional($.keyword_in), $.keyword_role),
         seq($.keyword_in, $.keyword_group),
@@ -1178,7 +1180,7 @@ module.exports = grammar({
         $.keyword_user,
       ),
       comma_list($.identifier, true),
-    )),
+    ),
 
     create_sequence: $ => seq(
       $.keyword_create,
@@ -1467,17 +1469,11 @@ module.exports = grammar({
           $.keyword_set,
           choice(
             seq($.keyword_tablespace, $.identifier),
-            seq(
-              field("configuration_parameter", $.identifier),
-              choice(
-                seq($.keyword_from, $.keyword_current),
-                $.set_configuration,
-              )
+              $.set_configuration,
             ),
           ),
         ),
       ),
-    ),
 
     alter_role: $ => seq(
       $.keyword_alter,
@@ -1495,11 +1491,7 @@ module.exports = grammar({
           choice(
             seq(
               $.keyword_set,
-              field("option", $.identifier),
-              choice(
-                seq($.keyword_from, $.keyword_current),
-                $.set_configuration,
-              ),
+              $.set_configuration,
             ),
             seq(
               $.keyword_reset,
@@ -1513,12 +1505,18 @@ module.exports = grammar({
     ),
 
     set_configuration: $ => seq(
-      choice($.keyword_to, "="),
+      field("option", $.identifier),
       choice(
-        field("parameter", $.identifier),
-        $.literal,
-        $.keyword_default
-      )
+        seq($.keyword_from, $.keyword_current),
+        seq(
+          choice($.keyword_to, "="),
+          choice(
+            field("parameter", $.identifier),
+            $.literal,
+            $.keyword_default
+          )
+        )
+      ),
     ),
 
     alter_index: $ => seq(
@@ -1554,26 +1552,13 @@ module.exports = grammar({
       $.object_reference,
       choice(
         seq(
-          optional(seq(
-            $.keyword_start,
-            optional($.keyword_with),
-            field("start", alias($._integer, $.literal)),
-            optional(seq($.keyword_cache, field("cache", alias($._integer, $.literal)))),
-            optional(seq(optional($.keyword_no), $.keyword_cycle))
-          )),
-          optional(seq($.keyword_owned, $.keyword_by, choice($.keyword_none, $.object_reference))),
-          optional(seq(
-            $.keyword_start,
-            optional($.keyword_with),
-            field("start", alias($._integer, $.literal)),
-            optional(seq($.keyword_cache, field("cache", alias($._integer, $.literal)))),
-            optional(seq(optional($.keyword_no), $.keyword_cycle))
-          )),
-          optional(seq(
-            $.keyword_restart,
-            optional($.keyword_with),
-            field("restart", alias($._integer, $.literal)),
-          )),
+          optional(seq($.keyword_as, $._type)),
+          optional(seq($.keyword_increment, optional($.keyword_by), $.literal)),
+          optional(seq($.keyword_minvalue, choice($.literal, seq($.keyword_no, $.keyword_minvalue)))),
+          optional(seq($.keyword_maxvalue, choice($.literal, seq($.keyword_no, $.keyword_maxvalue)))),
+          optional(seq($.keyword_start, optional($.keyword_with), field("start", alias($._integer, $.literal)))),
+          optional(seq($.keyword_restart, optional($.keyword_with), field("restart", alias($._integer, $.literal)))),
+          optional(seq($.keyword_cache, field("cache", alias($._integer, $.literal)), optional(seq(optional($.keyword_no), $.keyword_cycle)))),
           optional(seq($.keyword_owned, $.keyword_by, choice($.keyword_none, $.object_reference))),
         ),
         $.rename_object,
