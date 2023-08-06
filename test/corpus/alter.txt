@@ -876,7 +876,7 @@ ALTER DATABASE test RESET enable_indexscan;
       (identifier))))
 
 ================================================================================
-ALTER DATBASE change ownership
+Alter datbase change ownership
 ================================================================================
 
 ALTER DATABASE test OWNER TO me;

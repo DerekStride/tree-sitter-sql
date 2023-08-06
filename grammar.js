@@ -1202,8 +1202,8 @@ module.exports = grammar({
         optional($.keyword_with),
         field("start", alias($._integer, $.literal)),
         optional(seq($.keyword_cache, field("cache", alias($._integer, $.literal)))),
-        optional(seq(optional($.keyword_no), $.keyword_cycle))
       )),
+      optional(seq(optional($.keyword_no), $.keyword_cycle)),
       optional(seq($.keyword_owned, $.keyword_by, choice($.keyword_none, $.object_reference))),
     ),
 
@@ -1560,7 +1560,8 @@ module.exports = grammar({
           optional(seq($.keyword_maxvalue, choice($.literal, seq($.keyword_no, $.keyword_maxvalue)))),
           optional(seq($.keyword_start, optional($.keyword_with), field("start", alias($._integer, $.literal)))),
           optional(seq($.keyword_restart, optional($.keyword_with), field("restart", alias($._integer, $.literal)))),
-          optional(seq($.keyword_cache, field("cache", alias($._integer, $.literal)), optional(seq(optional($.keyword_no), $.keyword_cycle)))),
+          optional(seq($.keyword_cache, field("cache", alias($._integer, $.literal)))),
+          optional(seq(optional($.keyword_no), $.keyword_cycle)),
           optional(seq($.keyword_owned, $.keyword_by, choice($.keyword_none, $.object_reference))),
         ),
         $.rename_object,
