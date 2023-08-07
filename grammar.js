@@ -1193,18 +1193,18 @@ module.exports = grammar({
       $.keyword_sequence,
       optional($._if_not_exists),
       $.object_reference,
-      optional(seq($.keyword_as, $._type)),
-      optional(seq($.keyword_increment, optional($.keyword_by), field("increment", alias($._integer, $.literal)))),
-      optional(seq($.keyword_minvalue, choice($.literal, seq($.keyword_no, $.keyword_minvalue)))),
-      optional(seq($.keyword_maxvalue, choice($.literal, seq($.keyword_no, $.keyword_maxvalue)))),
-      optional(seq(
-        $.keyword_start,
-        optional($.keyword_with),
-        field("start", alias($._integer, $.literal)),
-        optional(seq($.keyword_cache, field("cache", alias($._integer, $.literal)))),
-      )),
-      optional(seq(optional($.keyword_no), $.keyword_cycle)),
-      optional(seq($.keyword_owned, $.keyword_by, choice($.keyword_none, $.object_reference))),
+      repeat(
+        choice(
+          seq($.keyword_as, $._type),
+          seq($.keyword_increment, optional($.keyword_by), field("increment", alias($._integer, $.literal))),
+          seq($.keyword_minvalue, choice($.literal, seq($.keyword_no, $.keyword_minvalue))),
+          seq($.keyword_maxvalue, choice($.literal, seq($.keyword_no, $.keyword_maxvalue))),
+          seq($.keyword_start, optional($.keyword_with), field("start", alias($._integer, $.literal))),
+          seq($.keyword_cache, field("cache", alias($._integer, $.literal))),
+          seq(optional($.keyword_no), $.keyword_cycle),
+          seq($.keyword_owned, $.keyword_by, choice($.keyword_none, $.object_reference)),
+        )
+      ),
     ),
 
     create_type: $ => seq(
@@ -1553,16 +1553,18 @@ module.exports = grammar({
       optional($._if_exists),
       $.object_reference,
       choice(
-        seq(
-          optional(seq($.keyword_as, $._type)),
-          optional(seq($.keyword_increment, optional($.keyword_by), $.literal)),
-          optional(seq($.keyword_minvalue, choice($.literal, seq($.keyword_no, $.keyword_minvalue)))),
-          optional(seq($.keyword_maxvalue, choice($.literal, seq($.keyword_no, $.keyword_maxvalue)))),
-          optional(seq($.keyword_start, optional($.keyword_with), field("start", alias($._integer, $.literal)))),
-          optional(seq($.keyword_restart, optional($.keyword_with), field("restart", alias($._integer, $.literal)))),
-          optional(seq($.keyword_cache, field("cache", alias($._integer, $.literal)))),
-          optional(seq(optional($.keyword_no), $.keyword_cycle)),
-          optional(seq($.keyword_owned, $.keyword_by, choice($.keyword_none, $.object_reference))),
+        repeat1(
+          choice(
+            seq($.keyword_as, $._type),
+            seq($.keyword_increment, optional($.keyword_by), $.literal),
+            seq($.keyword_minvalue, choice($.literal, seq($.keyword_no, $.keyword_minvalue))),
+            seq($.keyword_maxvalue, choice($.literal, seq($.keyword_no, $.keyword_maxvalue))),
+            seq($.keyword_start, optional($.keyword_with), field("start", alias($._integer, $.literal))),
+            seq($.keyword_restart, optional($.keyword_with), field("restart", alias($._integer, $.literal))),
+            seq($.keyword_cache, field("cache", alias($._integer, $.literal))),
+            seq(optional($.keyword_no), $.keyword_cycle),
+            seq($.keyword_owned, $.keyword_by, choice($.keyword_none, $.object_reference)),
+          ),
         ),
         $.rename_object,
         $.change_ownership,
