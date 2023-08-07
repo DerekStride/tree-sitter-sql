@@ -141,3 +141,68 @@ DROP SCHEMA IF EXISTS myschema CASCADE;
       (keyword_exists)
       (identifier)
       (keyword_cascade))))
+
+================================================================================
+Drop Database
+================================================================================
+
+DROP DATABASE IF EXISTS hollywood WITH FORCE;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (drop_database
+      (keyword_drop)
+      (keyword_database)
+      (keyword_if)
+      (keyword_exists)
+      (identifier)
+      (keyword_with)
+      (keyword_force))))
+
+================================================================================
+Drop Role
+================================================================================
+
+DROP ROLE hansel;
+DROP GROUP fairy;
+DROP USER rapunzel;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (drop_role
+      (keyword_drop)
+      (keyword_role)
+      (identifier)))
+  (statement
+    (drop_role
+      (keyword_drop)
+      (keyword_group)
+      (identifier)))
+  (statement
+    (drop_role
+      (keyword_drop)
+      (keyword_user)
+      (identifier))))
+
+================================================================================
+Drop sequence
+================================================================================
+
+DROP SEQUENCE IF EXISTS serial RESTRICT;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (drop_sequence
+      (keyword_drop)
+      (keyword_sequence)
+      (keyword_if)
+      (keyword_exists)
+      (object_reference
+        (identifier))
+      (keyword_restrict))))

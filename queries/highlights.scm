@@ -242,6 +242,25 @@
   (keyword_tblproperties)
   (keyword_trigger)
   (keyword_unsafe)
+  (keyword_admin)
+  (keyword_connection)
+  (keyword_cycle)
+  (keyword_database)
+  (keyword_encrypted)
+  (keyword_increment)
+  (keyword_logged)
+  (keyword_none)
+  (keyword_owned)
+  (keyword_password)
+  (keyword_reset)
+  (keyword_role)
+  (keyword_sequence)
+  (keyword_start)
+  (keyword_restart)
+  (keyword_tablespace)
+  (keyword_until)
+  (keyword_user)
+  (keyword_valid)
 ] @keyword
 
 [
@@ -266,6 +285,8 @@
  (keyword_noscan)
  (keyword_stats)
  (keyword_statistics)
+ (keyword_maxvalue)
+ (keyword_minvalue)
 ] @type.qualifier
 
 [

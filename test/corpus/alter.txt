@@ -533,27 +533,6 @@ ALTER TABLE "Role" ADD CONSTRAINT "pkRole" PRIMARY KEY ("roleId");
             (column
               name: (literal))))))))
 
-================================================================================
-CREATE UNIQUE INDEX
-================================================================================
-
-CREATE UNIQUE INDEX "akRoleName" ON "Role" ("name");
-
---------------------------------------------------------------------------------
-
-(program
-  (statement
-    (create_index
-      (keyword_create)
-      (keyword_unique)
-      (keyword_index)
-      column: (literal)
-      (keyword_on)
-      (object_reference
-        name: (identifier))
-      (ordered_columns
-        (column
-          name: (literal))))))
 
 ================================================================================
 Add foreign key constraint
@@ -663,7 +642,7 @@ col2 VARCHAR(255) NOT NULL DEFAULT('EMPTY');
             (literal)))))))
 
 ================================================================================
-ALTER SCHEMA RENAME
+Alter schema rename
 ================================================================================
 
 ALTER SCHEMA sales RENAME TO mysales;
@@ -681,7 +660,7 @@ ALTER SCHEMA sales RENAME TO mysales;
       (identifier))))
 
 ================================================================================
-ALTER SCHEMA OWNER
+Alter schema owner
 ================================================================================
 
 ALTER SCHEMA sales OWNER TO CURRENT_USER;
@@ -697,3 +676,458 @@ ALTER SCHEMA sales OWNER TO CURRENT_USER;
       (keyword_owner)
       (keyword_to)
       (identifier))))
+
+================================================================================
+Alter index rename
+================================================================================
+
+ALTER INDEX IF EXISTS myindex RENAME TO my_index
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_index
+      (keyword_alter)
+      (keyword_index)
+      (keyword_if)
+      (keyword_exists)
+      (identifier)
+      (rename_object
+        (keyword_rename)
+        (keyword_to)
+        (object_reference
+          (identifier))))))
+
+================================================================================
+Alter index set
+================================================================================
+
+ALTER INDEX distributors SET (fillfactor = 75);
+ALTER INDEX distributors SET TABLESPACE fasttablespace;
+ALTER INDEX distributors RESET (fillfactor);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_index
+      (keyword_alter)
+      (keyword_index)
+      (identifier)
+      (keyword_set)
+      (identifier)
+      (literal)))
+  (statement
+    (alter_index
+      (keyword_alter)
+      (keyword_index)
+      (identifier)
+      (keyword_set)
+      (keyword_tablespace)
+      (identifier)))
+  (statement
+    (alter_index
+      (keyword_alter)
+      (keyword_index)
+      (identifier)
+      (keyword_reset)
+      (identifier))))
+
+================================================================================
+Alter index alter column
+================================================================================
+
+ALTER INDEX coord_idx ALTER COLUMN 3 SET STATISTICS 1000;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_index
+      (keyword_alter)
+      (keyword_index)
+      (identifier)
+      (keyword_alter)
+      (keyword_column)
+      (literal)
+      (keyword_set)
+      (keyword_statistics)
+      (literal))))
+
+================================================================================
+Alter index set and reset
+================================================================================
+
+ALTER INDEX distributors SET (fillfactor = 75);
+ALTER INDEX distributors SET TABLESPACE fasttablespace;
+ALTER INDEX distributors RESET (fillfactor);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_index
+      (keyword_alter)
+      (keyword_index)
+      (identifier)
+      (keyword_set)
+      (identifier)
+      (literal)))
+  (statement
+    (alter_index
+      (keyword_alter)
+      (keyword_index)
+      (identifier)
+      (keyword_set)
+      (keyword_tablespace)
+      (identifier)))
+  (statement
+    (alter_index
+      (keyword_alter)
+      (keyword_index)
+      (identifier)
+      (keyword_reset)
+      (identifier))))
+
+================================================================================
+Alter database rename
+================================================================================
+
+ALTER DATABASE hollywood RENAME TO bollywood;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_database
+      (keyword_alter)
+      (keyword_database)
+      (identifier)
+      (rename_object
+        (keyword_rename)
+        (keyword_to)
+        (object_reference
+          (identifier))))))
+
+================================================================================
+Alter database set
+================================================================================
+
+ALTER DATABASE test SET enable_indexscan TO off;
+ALTER DATABASE test SET enable_indexscan TO DEFAULT;
+ALTER DATABASE test SET TABLESPACE fasttablespace;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_database
+      (keyword_alter)
+      (keyword_database)
+      (identifier)
+      (keyword_set)
+      (set_configuration
+        (identifier)
+        (keyword_to)
+        (identifier))))
+  (statement
+    (alter_database
+      (keyword_alter)
+      (keyword_database)
+      (identifier)
+      (keyword_set)
+      (set_configuration
+        (identifier)
+        (keyword_to)
+        (keyword_default))))
+  (statement
+    (alter_database
+      (keyword_alter)
+      (keyword_database)
+      (identifier)
+      (keyword_set)
+      (keyword_tablespace)
+      (identifier))))
+
+================================================================================
+Alter datbase reset
+================================================================================
+
+ALTER DATABASE test RESET ALL;
+ALTER DATABASE test RESET enable_indexscan;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_database
+      (keyword_alter)
+      (keyword_database)
+      (identifier)
+      (keyword_reset)
+      (keyword_all)))
+  (statement
+    (alter_database
+      (keyword_alter)
+      (keyword_database)
+      (identifier)
+      (keyword_reset)
+      (identifier))))
+
+================================================================================
+Alter datbase change ownership
+================================================================================
+
+ALTER DATABASE test OWNER TO me;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_database
+      (keyword_alter)
+      (keyword_database)
+      (identifier)
+      (change_ownership
+        (keyword_owner)
+        (keyword_to)
+        (identifier)))))
+
+================================================================================
+Alter role rename
+================================================================================
+
+ALTER ROLE rapunzel RENAME TO snow_white;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_role
+      (keyword_alter)
+      (keyword_role)
+      (identifier)
+      (rename_object
+        (keyword_rename)
+        (keyword_to)
+        (object_reference
+          (identifier))))))
+
+================================================================================
+Alter role valid until
+================================================================================
+
+ALTER ROLE chris VALID UNTIL 'May 4 12:00:00 2015 +1';
+ALTER ROLE fred VALID UNTIL 'infinity';
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_role
+      (keyword_alter)
+      (keyword_role)
+      (identifier)
+      (keyword_valid)
+      (keyword_until)
+      (literal)))
+  (statement
+    (alter_role
+      (keyword_alter)
+      (keyword_role)
+      (identifier)
+      (keyword_valid)
+      (keyword_until)
+      (literal))))
+
+================================================================================
+Alter role set
+================================================================================
+
+ALTER ROLE fred IN DATABASE devel SET client_min_messages = DEBUG;
+ALTER ROLE worker_bee SET maintenance_work_mem = 100000;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_role
+      (keyword_alter)
+      (keyword_role)
+      (identifier)
+      (keyword_in)
+      (keyword_database)
+      (identifier)
+      (keyword_set)
+      (set_configuration
+        (identifier)
+        (identifier))))
+  (statement
+    (alter_role
+      (keyword_alter)
+      (keyword_role)
+      (identifier)
+      (keyword_set)
+      (set_configuration
+        (identifier)
+        (literal)))))
+
+================================================================================
+Alter role assigns
+================================================================================
+
+ALTER ROLE miriam CREATEROLE CREATEDB;
+ALTER ROLE rapunzel SUPERUSER NOLOGIN CONNECTION LIMIT 69;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_role
+      (keyword_alter)
+      (keyword_role)
+      (identifier)
+      (identifier)
+      (identifier)))
+  (statement
+    (alter_role
+      (keyword_alter)
+      (keyword_role)
+      (identifier)
+      (identifier)
+      (identifier)
+      (keyword_connection)
+      (keyword_limit)
+      (literal))))
+
+================================================================================
+Alter sequence restart
+================================================================================
+
+ALTER SEQUENCE serial RESTART WITH 105;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_sequence
+      (keyword_alter)
+      (keyword_sequence)
+      (object_reference
+        (identifier))
+      (keyword_restart)
+      (keyword_with)
+      (literal))))
+
+================================================================================
+Alter sequence rename
+================================================================================
+
+ALTER SEQUENCE IF EXISTS serial RENAME TO cereal;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_sequence
+      (keyword_alter)
+      (keyword_sequence)
+      (keyword_if)
+      (keyword_exists)
+      (object_reference
+        (identifier))
+      (rename_object
+        (keyword_rename)
+        (keyword_to)
+        (object_reference
+          (identifier))))))
+
+================================================================================
+Alter sequence change Schema
+================================================================================
+
+ALTER SEQUENCE serial SET SCHEMA serious_schema;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_sequence
+      (keyword_alter)
+      (keyword_sequence)
+      (object_reference
+        (identifier))
+      (keyword_set)
+      (keyword_schema)
+      (identifier))))
+
+================================================================================
+Alter sequence change owner
+================================================================================
+
+ALTER SEQUENCE serial OWNER TO count_von_count;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_sequence
+      (keyword_alter)
+      (keyword_sequence)
+      (object_reference
+        (identifier))
+      (change_ownership
+        (keyword_owner)
+        (keyword_to)
+        (identifier)))))
+
+================================================================================
+Alter sequence complex example
+================================================================================
+
+ALTER SEQUENCE IF EXISTS serial
+AS BIGINT
+INCREMENT BY 2
+MINVALUE 3
+MAXVALUE NO MAXVALUE
+START WITH 11
+RESTART WITH 1111
+CACHE 100
+OWNED BY numbers.number_sequences
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_sequence
+      (keyword_alter)
+      (keyword_sequence)
+      (keyword_if)
+      (keyword_exists)
+      (object_reference
+        (identifier))
+      (keyword_as)
+      (bigint
+        (keyword_bigint))
+      (keyword_increment)
+      (keyword_by)
+      (literal)
+      (keyword_minvalue)
+      (literal)
+      (keyword_maxvalue)
+      (keyword_no)
+      (keyword_maxvalue)
+      (keyword_start)
+      (keyword_with)
+      (literal)
+      (keyword_restart)
+      (keyword_with)
+      (literal)
+      (keyword_cache)
+      (literal)
+      (keyword_owned)
+      (keyword_by)
+      (object_reference
+        (identifier)
+        (identifier)))))
