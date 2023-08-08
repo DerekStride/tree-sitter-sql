@@ -618,6 +618,7 @@ module.exports = grammar({
 
     _cte: $ => seq(
         $.keyword_with,
+        optional($.keyword_recursive),
         $.cte,
         repeat(
             seq(
@@ -653,6 +654,7 @@ module.exports = grammar({
 
     cte: $ => seq(
       $.identifier,
+      optional(paren_list(field("argument", $.identifier))),
       $.keyword_as,
       optional(
         seq(
