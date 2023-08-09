@@ -1447,6 +1447,10 @@
           "named": true
         },
         {
+          "type": "keyword_recursive",
+          "named": true
+        },
+        {
           "type": "keyword_with",
           "named": true
         },
@@ -3696,6 +3700,10 @@
           "named": true
         },
         {
+          "type": "keyword_recursive",
+          "named": true
+        },
+        {
           "type": "keyword_with",
           "named": true
         },
@@ -4447,7 +4455,18 @@
   {
     "type": "cte",
     "named": true,
-    "fields": {},
+    "fields": {
+      "argument": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": true,
@@ -7877,6 +7896,10 @@
           "named": true
         },
         {
+          "type": "keyword_recursive",
+          "named": true
+        },
+        {
           "type": "keyword_rename",
           "named": true
         },
@@ -8106,6 +8129,10 @@
         },
         {
           "type": "from",
+          "named": true
+        },
+        {
+          "type": "keyword_recursive",
           "named": true
         },
         {
