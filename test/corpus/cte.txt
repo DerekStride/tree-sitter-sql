@@ -35,7 +35,8 @@ FROM my_cte;
     (select
       (keyword_select)
       (select_expression
-        (term value: (all_fields))))
+        (term
+          value: (all_fields))))
     (from
       (keyword_from)
       (relation
@@ -83,7 +84,8 @@ FROM second;
         (returning
           (keyword_returning)
           (select_expression
-            (term value: (all_fields))))))
+            (term
+              value: (all_fields))))))
     (cte
       (identifier)
       (keyword_as)
@@ -105,7 +107,8 @@ FROM second;
     (select
       (keyword_select)
       (select_expression
-        (term value: (all_fields))))
+        (term
+          value: (all_fields))))
     (from
       (keyword_from)
       (relation
@@ -169,7 +172,8 @@ FROM second;
     (select
       (keyword_select)
       (select_expression
-        (term (all_fields))))
+        (term
+          (all_fields))))
     (from
       (keyword_from)
       (relation
@@ -207,7 +211,8 @@ Parenthesized CTE
     (select
       (keyword_select)
       (select_expression
-        (term (all_fields))))
+        (term
+          (all_fields))))
     (from
       (keyword_from)
       (relation
@@ -540,6 +545,124 @@ Parenthesis around everything
       (select_expression
         (term
           (all_fields))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          (identifier))))))
+
+================================================================================
+Recursive CTE
+================================================================================
+
+WITH RECURSIVE included_parts(sub_part, part, quantity) AS (
+    SELECT sub_part, part, quantity FROM parts WHERE part = 'our_product'
+  UNION ALL
+    SELECT p.sub_part, p.part, p.quantity * pr.quantity
+    FROM included_parts pr, parts p
+    WHERE p.part = pr.sub_part
+)
+SELECT sub_part, SUM(quantity) as total_quantity
+FROM included_parts
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (keyword_with)
+    (keyword_recursive)
+    (cte
+      (identifier)
+      (identifier)
+      (identifier)
+      (identifier)
+      (keyword_as)
+      (statement
+        (set_operation
+          (select
+            (keyword_select)
+            (select_expression
+              (term
+                (field
+                  (identifier)))
+              (term
+                (field
+                  (identifier)))
+              (term
+                (field
+                  (identifier)))))
+          (from
+            (keyword_from)
+            (relation
+              (object_reference
+                (identifier)))
+            (where
+              (keyword_where)
+              (binary_expression
+                (field
+                  (identifier))
+                (literal))))
+          (keyword_union)
+          (keyword_all)
+          (select
+            (keyword_select)
+            (select_expression
+              (term
+                (field
+                  (object_reference
+                    (identifier))
+                  (identifier)))
+              (term
+                (field
+                  (object_reference
+                    (identifier))
+                  (identifier)))
+              (term
+                (binary_expression
+                  (field
+                    (object_reference
+                      (identifier))
+                    (identifier))
+                  (field
+                    (object_reference
+                      (identifier))
+                    (identifier))))))
+          (from
+            (keyword_from)
+            (relation
+              (object_reference
+                (identifier))
+              (identifier))
+            (relation
+              (object_reference
+                (identifier))
+              (identifier))
+            (where
+              (keyword_where)
+              (binary_expression
+                (field
+                  (object_reference
+                    (identifier))
+                  (identifier))
+                (field
+                  (object_reference
+                    (identifier))
+                  (identifier))))))))
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (field
+            (identifier)))
+        (term
+          (invocation
+            (object_reference
+              (identifier))
+            (term
+              (field
+                (identifier))))
+          (keyword_as)
+          (identifier))))
     (from
       (keyword_from)
       (relation
