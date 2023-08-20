@@ -332,6 +332,8 @@ module.exports = grammar({
     keyword_boolean: _ => make_keyword("boolean"),
     keyword_bit: _ => make_keyword("bit"),
     keyword_binary: _ => make_keyword("binary"),
+    keyword_varbinary: _ => make_keyword("varbinary"),
+    keyword_image: _ => make_keyword("image"),
 
     keyword_smallserial: _ => choice(make_keyword("smallserial"),make_keyword("serial2")),
     keyword_serial: _ => choice(make_keyword("serial"),make_keyword("serial4")),
@@ -350,9 +352,11 @@ module.exports = grammar({
     keyword_inet: _ => make_keyword("inet"),
 
     keyword_money: _ => make_keyword("money"),
+    keyword_smallmoney: _ => make_keyword("smallmoney"),
     keyword_varying: _ => make_keyword("varying"),
 
     keyword_char: _ => choice(make_keyword("char"), make_keyword("character")),
+    keyword_nchar: _ => make_keyword("nchar"),
     keyword_varchar: $ => choice(
       make_keyword("varchar"),
       seq(
@@ -360,6 +364,7 @@ module.exports = grammar({
         $.keyword_varying,
       )
     ),
+    keyword_nvarchar: _ => make_keyword("nvarchar"),
     keyword_text: _ => make_keyword("text"),
     keyword_string: _ => make_keyword("string"),
     keyword_uuid: _ => make_keyword("uuid"),
@@ -374,6 +379,10 @@ module.exports = grammar({
 
     keyword_date: _ => make_keyword("date"),
     keyword_datetime: _ => make_keyword("datetime"),
+    keyword_datetime2: _ => make_keyword("datetime2"),
+    keyword_smalldatetime: _ => make_keyword("smalldatetime"),
+    keyword_datetimeoffset: _ => make_keyword("datetimeoffset"),
+    keyword_time: _ => make_keyword("time"),
     keyword_timestamp: _ => prec.right(
       seq(
         make_keyword("timestamp"),
@@ -415,7 +424,9 @@ module.exports = grammar({
       choice(
         $.keyword_boolean,
         $.bit,
-        $.keyword_binary,
+        $.binary,
+        $.varbinary,
+        $.keyword_image,
 
         $.keyword_smallserial,
         $.keyword_serial,
@@ -432,9 +443,12 @@ module.exports = grammar({
         $.float,
 
         $.keyword_money,
+        $.keyword_smallmoney,
 
         $.char,
         $.varchar,
+        $.nchar,
+        $.nvarchar,
         $.numeric,
         $.keyword_string,
         $.keyword_text,
@@ -452,6 +466,10 @@ module.exports = grammar({
 
         $.keyword_date,
         $.keyword_datetime,
+        $.keyword_datetime2,
+        $.datetimeoffset,
+        $.keyword_smalldatetime,
+        $.time,
         $.keyword_timestamp,
         $.keyword_timestamptz,
         $.keyword_interval,
@@ -501,6 +519,9 @@ module.exports = grammar({
         prec(1, parametric_type($, $.keyword_bit, ['precision'])),
     ),
 
+    binary: $ => parametric_type($, $.keyword_binary, ['precision']),
+    varbinary: $ => parametric_type($, $.keyword_varbinary, ['precision']),
+
     // TODO: should qualify against /\\b(0?[1-9]|[1-4][0-9]|5[0-4])\\b/g
     float: $  => choice(
       parametric_type($, $.keyword_float, ['precision']),
@@ -524,6 +545,11 @@ module.exports = grammar({
     ),
     char: $ => parametric_type($, $.keyword_char),
     varchar: $ => parametric_type($, $.keyword_varchar),
+    nchar: $ => parametric_type($, $.keyword_nchar),
+    nvarchar: $ => parametric_type($, $.keyword_nvarchar),
+
+    datetimeoffset: $ => parametric_type($, $.keyword_datetimeoffset),
+    time: $ => parametric_type($, $.keyword_time),
 
     enum: $ => seq(
       $.keyword_enum,

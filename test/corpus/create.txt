@@ -799,6 +799,9 @@ CREATE TABLE type_test (
   a_bit BIT,
   a_bit2 BIT(2),
   a_bit3 BIT VARYING(2),
+  a_binary BINARY,
+  a_varbinary VARBINARY,
+  a_image IMAGE,
   a_smallser SMALLSERIAL,
   a_serial SERIAL,
   a_bigser BIGSERIAL,
@@ -814,10 +817,15 @@ CREATE TABLE type_test (
   a_real REAL,
   a_double_precision DOUBLE PRECISION,
   a_money MONEY,
+  a_smallmoney SMALLMONEY,
   a_char CHAR,
+  a_nchar NCHAR,
+  a_nchar_precision NCHAR(8),
   a_character CHARACTER,
   a_sized_char CHAR (10),
   a_varchar VARCHAR (10),
+  a_nvarchar NVARCHAR,
+  a_nvarchar_precision NVARCHAR (10),
   a_character_varying CHARACTER VARYING (10),
   a_text TEXT,
   a_json JSON,
@@ -827,6 +835,10 @@ CREATE TABLE type_test (
   a_enum ENUM('one','two','three'),
   a_date DATE,
   a_datetime DATETIME,
+  a_datetime2 DATETIME2,
+  a_datetimeoffset DATETIMEOFFSET,
+  a_smalldatetime SMALLDATE,
+  a_time TIME,
   a_timestamp TIMESTAMP,
   a_verbose_timestamp TIMESTAMP WITHOUT TIME ZONE,
   a_tstz TIMESTAMPTZ,
@@ -867,6 +879,17 @@ CREATE TABLE type_test (
             (keyword_bit)
             (keyword_varying)
             precision: (literal)))
+        (column_definition
+          name: (identifier)
+          type: (binary
+            (keyword_binary)))
+        (column_definition
+          name: (identifier)
+          type: (varbinary
+            (keyword_varbinary)))
+        (column_definition
+          name: (identifier)
+          type: (keyword_image))
         (column_definition
           name: (identifier)
           type: (keyword_smallserial))
@@ -932,8 +955,20 @@ CREATE TABLE type_test (
           type: (keyword_money))
         (column_definition
           name: (identifier)
+          type: (keyword_smallmoney))
+        (column_definition
+          name: (identifier)
           type: (char
             (keyword_char)))
+        (column_definition
+          name: (identifier)
+          type: (nchar
+            (keyword_nchar)))
+        (column_definition
+          name: (identifier)
+          type: (nchar
+            (keyword_nchar)
+            size: (literal)))
         (column_definition
           name: (identifier)
           type: (char
@@ -947,6 +982,15 @@ CREATE TABLE type_test (
           name: (identifier)
           type: (varchar
             (keyword_varchar)
+            size: (literal)))
+        (column_definition
+          name: (identifier)
+          type: (nvarchar
+            (keyword_nvarchar)))
+        (column_definition
+          name: (identifier)
+          type: (nvarchar
+            (keyword_nvarchar)
             size: (literal)))
         (column_definition
           name: (identifier)
@@ -982,6 +1026,19 @@ CREATE TABLE type_test (
         (column_definition
           name: (identifier)
           type: (keyword_datetime))
+        (column_definition
+          name: (identifier)
+          type: (keyword_datetime2))
+        (column_definition
+          name: (identifier)
+          type: (datetimeoffset
+            (keyword_datetimeoffset)))
+        (column_definition
+          name: (identifier))
+        (column_definition
+          name: (identifier)
+          type: (time
+            (keyword_time)))
         (column_definition
           name: (identifier)
           type: (keyword_timestamp))
@@ -1401,7 +1458,8 @@ CACHED IN 'pool1' WITH REPLICATION = 2
           type: (keyword_string))
         (column_definition
           name: (identifier)
-          type: (keyword_binary)))
+          type: (binary
+            (keyword_binary))))
       (table_partition
         (keyword_partitioned)
         (keyword_by)
