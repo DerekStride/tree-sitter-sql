@@ -107,11 +107,19 @@
             "named": true
           },
           {
+            "type": "binary",
+            "named": true
+          },
+          {
             "type": "bit",
             "named": true
           },
           {
             "type": "char",
+            "named": true
+          },
+          {
+            "type": "datetimeoffset",
             "named": true
           },
           {
@@ -139,10 +147,6 @@
             "named": true
           },
           {
-            "type": "keyword_binary",
-            "named": true
-          },
-          {
             "type": "keyword_boolean",
             "named": true
           },
@@ -167,11 +171,19 @@
             "named": true
           },
           {
+            "type": "keyword_datetime2",
+            "named": true
+          },
+          {
             "type": "keyword_geography",
             "named": true
           },
           {
             "type": "keyword_geometry",
+            "named": true
+          },
+          {
+            "type": "keyword_image",
             "named": true
           },
           {
@@ -223,6 +235,14 @@
             "named": true
           },
           {
+            "type": "keyword_smalldatetime",
+            "named": true
+          },
+          {
+            "type": "keyword_smallmoney",
+            "named": true
+          },
+          {
             "type": "keyword_smallserial",
             "named": true
           },
@@ -255,7 +275,15 @@
             "named": true
           },
           {
+            "type": "nchar",
+            "named": true
+          },
+          {
             "type": "numeric",
+            "named": true
+          },
+          {
+            "type": "nvarchar",
             "named": true
           },
           {
@@ -263,7 +291,15 @@
             "named": true
           },
           {
+            "type": "time",
+            "named": true
+          },
+          {
             "type": "tinyint",
+            "named": true
+          },
+          {
+            "type": "varbinary",
             "named": true
           },
           {
@@ -727,6 +763,10 @@
           "named": true
         },
         {
+          "type": "binary",
+          "named": true
+        },
+        {
           "type": "bit",
           "named": true
         },
@@ -736,6 +776,10 @@
         },
         {
           "type": "char",
+          "named": true
+        },
+        {
+          "type": "datetimeoffset",
           "named": true
         },
         {
@@ -775,10 +819,6 @@
           "named": true
         },
         {
-          "type": "keyword_binary",
-          "named": true
-        },
-        {
           "type": "keyword_boolean",
           "named": true
         },
@@ -815,6 +855,10 @@
           "named": true
         },
         {
+          "type": "keyword_datetime2",
+          "named": true
+        },
+        {
           "type": "keyword_exists",
           "named": true
         },
@@ -828,6 +872,10 @@
         },
         {
           "type": "keyword_if",
+          "named": true
+        },
+        {
+          "type": "keyword_image",
           "named": true
         },
         {
@@ -923,6 +971,14 @@
           "named": true
         },
         {
+          "type": "keyword_smalldatetime",
+          "named": true
+        },
+        {
+          "type": "keyword_smallmoney",
+          "named": true
+        },
+        {
           "type": "keyword_smallserial",
           "named": true
         },
@@ -971,7 +1027,15 @@
           "named": true
         },
         {
+          "type": "nchar",
+          "named": true
+        },
+        {
           "type": "numeric",
+          "named": true
+        },
+        {
+          "type": "nvarchar",
           "named": true
         },
         {
@@ -987,7 +1051,15 @@
           "named": true
         },
         {
+          "type": "time",
+          "named": true
+        },
+        {
           "type": "tinyint",
+          "named": true
+        },
+        {
+          "type": "varbinary",
           "named": true
         },
         {
@@ -1085,6 +1157,10 @@
           "named": true
         },
         {
+          "type": "binary",
+          "named": true
+        },
+        {
           "type": "bit",
           "named": true
         },
@@ -1094,6 +1170,10 @@
         },
         {
           "type": "char",
+          "named": true
+        },
+        {
+          "type": "datetimeoffset",
           "named": true
         },
         {
@@ -1145,10 +1225,6 @@
           "named": true
         },
         {
-          "type": "keyword_binary",
-          "named": true
-        },
-        {
           "type": "keyword_boolean",
           "named": true
         },
@@ -1185,6 +1261,10 @@
           "named": true
         },
         {
+          "type": "keyword_datetime2",
+          "named": true
+        },
+        {
           "type": "keyword_drop",
           "named": true
         },
@@ -1202,6 +1282,10 @@
         },
         {
           "type": "keyword_if",
+          "named": true
+        },
+        {
+          "type": "keyword_image",
           "named": true
         },
         {
@@ -1269,6 +1353,14 @@
           "named": true
         },
         {
+          "type": "keyword_smalldatetime",
+          "named": true
+        },
+        {
+          "type": "keyword_smallmoney",
+          "named": true
+        },
+        {
           "type": "keyword_smallserial",
           "named": true
         },
@@ -1317,7 +1409,15 @@
           "named": true
         },
         {
+          "type": "nchar",
+          "named": true
+        },
+        {
           "type": "numeric",
+          "named": true
+        },
+        {
+          "type": "nvarchar",
           "named": true
         },
         {
@@ -1333,7 +1433,15 @@
           "named": true
         },
         {
+          "type": "time",
+          "named": true
+        },
+        {
           "type": "tinyint",
+          "named": true
+        },
+        {
+          "type": "varbinary",
           "named": true
         },
         {
@@ -1892,6 +2000,32 @@
     }
   },
   {
+    "type": "binary",
+    "named": true,
+    "fields": {
+      "precision": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "literal",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_binary",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "binary_expression",
     "named": true,
     "fields": {
@@ -2425,6 +2559,10 @@
           "named": true
         },
         {
+          "type": "binary",
+          "named": true
+        },
+        {
           "type": "binary_expression",
           "named": true
         },
@@ -2442,6 +2580,10 @@
         },
         {
           "type": "char",
+          "named": true
+        },
+        {
+          "type": "datetimeoffset",
           "named": true
         },
         {
@@ -2489,10 +2631,6 @@
           "named": true
         },
         {
-          "type": "keyword_binary",
-          "named": true
-        },
-        {
           "type": "keyword_boolean",
           "named": true
         },
@@ -2517,11 +2655,19 @@
           "named": true
         },
         {
+          "type": "keyword_datetime2",
+          "named": true
+        },
+        {
           "type": "keyword_geography",
           "named": true
         },
         {
           "type": "keyword_geometry",
+          "named": true
+        },
+        {
+          "type": "keyword_image",
           "named": true
         },
         {
@@ -2573,6 +2719,14 @@
           "named": true
         },
         {
+          "type": "keyword_smalldatetime",
+          "named": true
+        },
+        {
+          "type": "keyword_smallmoney",
+          "named": true
+        },
+        {
           "type": "keyword_smallserial",
           "named": true
         },
@@ -2613,7 +2767,15 @@
           "named": true
         },
         {
+          "type": "nchar",
+          "named": true
+        },
+        {
           "type": "numeric",
+          "named": true
+        },
+        {
+          "type": "nvarchar",
           "named": true
         },
         {
@@ -2629,11 +2791,19 @@
           "named": true
         },
         {
+          "type": "time",
+          "named": true
+        },
+        {
           "type": "tinyint",
           "named": true
         },
         {
           "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "varbinary",
           "named": true
         },
         {
@@ -2811,11 +2981,19 @@
             "named": true
           },
           {
+            "type": "binary",
+            "named": true
+          },
+          {
             "type": "bit",
             "named": true
           },
           {
             "type": "char",
+            "named": true
+          },
+          {
+            "type": "datetimeoffset",
             "named": true
           },
           {
@@ -2843,10 +3021,6 @@
             "named": true
           },
           {
-            "type": "keyword_binary",
-            "named": true
-          },
-          {
             "type": "keyword_boolean",
             "named": true
           },
@@ -2871,11 +3045,19 @@
             "named": true
           },
           {
+            "type": "keyword_datetime2",
+            "named": true
+          },
+          {
             "type": "keyword_geography",
             "named": true
           },
           {
             "type": "keyword_geometry",
+            "named": true
+          },
+          {
+            "type": "keyword_image",
             "named": true
           },
           {
@@ -2927,6 +3109,14 @@
             "named": true
           },
           {
+            "type": "keyword_smalldatetime",
+            "named": true
+          },
+          {
+            "type": "keyword_smallmoney",
+            "named": true
+          },
+          {
             "type": "keyword_smallserial",
             "named": true
           },
@@ -2959,7 +3149,15 @@
             "named": true
           },
           {
+            "type": "nchar",
+            "named": true
+          },
+          {
             "type": "numeric",
+            "named": true
+          },
+          {
+            "type": "nvarchar",
             "named": true
           },
           {
@@ -2967,7 +3165,15 @@
             "named": true
           },
           {
+            "type": "time",
+            "named": true
+          },
+          {
             "type": "tinyint",
+            "named": true
+          },
+          {
+            "type": "varbinary",
             "named": true
           },
           {
@@ -3272,6 +3478,10 @@
           "named": true
         },
         {
+          "type": "binary",
+          "named": true
+        },
+        {
           "type": "bit",
           "named": true
         },
@@ -3281,6 +3491,10 @@
         },
         {
           "type": "column_definitions",
+          "named": true
+        },
+        {
+          "type": "datetimeoffset",
           "named": true
         },
         {
@@ -3344,10 +3558,6 @@
           "named": true
         },
         {
-          "type": "keyword_binary",
-          "named": true
-        },
-        {
           "type": "keyword_boolean",
           "named": true
         },
@@ -3376,6 +3586,10 @@
           "named": true
         },
         {
+          "type": "keyword_datetime2",
+          "named": true
+        },
+        {
           "type": "keyword_function",
           "named": true
         },
@@ -3385,6 +3599,10 @@
         },
         {
           "type": "keyword_geometry",
+          "named": true
+        },
+        {
+          "type": "keyword_image",
           "named": true
         },
         {
@@ -3452,6 +3670,14 @@
           "named": true
         },
         {
+          "type": "keyword_smalldatetime",
+          "named": true
+        },
+        {
+          "type": "keyword_smallmoney",
+          "named": true
+        },
+        {
           "type": "keyword_smallserial",
           "named": true
         },
@@ -3492,7 +3718,15 @@
           "named": true
         },
         {
+          "type": "nchar",
+          "named": true
+        },
+        {
           "type": "numeric",
+          "named": true
+        },
+        {
+          "type": "nvarchar",
           "named": true
         },
         {
@@ -3504,7 +3738,15 @@
           "named": true
         },
         {
+          "type": "time",
+          "named": true
+        },
+        {
           "type": "tinyint",
+          "named": true
+        },
+        {
+          "type": "varbinary",
           "named": true
         },
         {
@@ -3917,11 +4159,19 @@
           "named": true
         },
         {
+          "type": "binary",
+          "named": true
+        },
+        {
           "type": "bit",
           "named": true
         },
         {
           "type": "char",
+          "named": true
+        },
+        {
+          "type": "datetimeoffset",
           "named": true
         },
         {
@@ -3950,10 +4200,6 @@
         },
         {
           "type": "keyword_bigserial",
-          "named": true
-        },
-        {
-          "type": "keyword_binary",
           "named": true
         },
         {
@@ -3997,6 +4243,10 @@
           "named": true
         },
         {
+          "type": "keyword_datetime2",
+          "named": true
+        },
+        {
           "type": "keyword_exists",
           "named": true
         },
@@ -4010,6 +4260,10 @@
         },
         {
           "type": "keyword_if",
+          "named": true
+        },
+        {
+          "type": "keyword_image",
           "named": true
         },
         {
@@ -4093,6 +4347,14 @@
           "named": true
         },
         {
+          "type": "keyword_smalldatetime",
+          "named": true
+        },
+        {
+          "type": "keyword_smallmoney",
+          "named": true
+        },
+        {
           "type": "keyword_smallserial",
           "named": true
         },
@@ -4149,7 +4411,15 @@
           "named": true
         },
         {
+          "type": "nchar",
+          "named": true
+        },
+        {
           "type": "numeric",
+          "named": true
+        },
+        {
+          "type": "nvarchar",
           "named": true
         },
         {
@@ -4161,7 +4431,15 @@
           "named": true
         },
         {
+          "type": "time",
+          "named": true
+        },
+        {
           "type": "tinyint",
+          "named": true
+        },
+        {
+          "type": "varbinary",
           "named": true
         },
         {
@@ -4489,6 +4767,32 @@
         },
         {
           "type": "statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "datetimeoffset",
+    "named": true,
+    "fields": {
+      "size": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "literal",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_datetimeoffset",
           "named": true
         }
       ]
@@ -5441,11 +5745,19 @@
           "named": true
         },
         {
+          "type": "binary",
+          "named": true
+        },
+        {
           "type": "bit",
           "named": true
         },
         {
           "type": "char",
+          "named": true
+        },
+        {
+          "type": "datetimeoffset",
           "named": true
         },
         {
@@ -5477,10 +5789,6 @@
           "named": true
         },
         {
-          "type": "keyword_binary",
-          "named": true
-        },
-        {
           "type": "keyword_boolean",
           "named": true
         },
@@ -5505,11 +5813,19 @@
           "named": true
         },
         {
+          "type": "keyword_datetime2",
+          "named": true
+        },
+        {
           "type": "keyword_geography",
           "named": true
         },
         {
           "type": "keyword_geometry",
+          "named": true
+        },
+        {
+          "type": "keyword_image",
           "named": true
         },
         {
@@ -5561,6 +5877,14 @@
           "named": true
         },
         {
+          "type": "keyword_smalldatetime",
+          "named": true
+        },
+        {
+          "type": "keyword_smallmoney",
+          "named": true
+        },
+        {
           "type": "keyword_smallserial",
           "named": true
         },
@@ -5597,7 +5921,15 @@
           "named": true
         },
         {
+          "type": "nchar",
+          "named": true
+        },
+        {
           "type": "numeric",
+          "named": true
+        },
+        {
+          "type": "nvarchar",
           "named": true
         },
         {
@@ -5609,7 +5941,15 @@
           "named": true
         },
         {
+          "type": "time",
+          "named": true
+        },
+        {
           "type": "tinyint",
+          "named": true
+        },
+        {
+          "type": "varbinary",
           "named": true
         },
         {
@@ -6345,6 +6685,11 @@
     "fields": {}
   },
   {
+    "type": "keyword_time",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "keyword_timestamp",
     "named": true,
     "fields": {}
@@ -6739,6 +7084,32 @@
     }
   },
   {
+    "type": "nchar",
+    "named": true,
+    "fields": {
+      "size": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "literal",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_nchar",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "not_distinct_from",
     "named": true,
     "fields": {},
@@ -6857,6 +7228,32 @@
       "types": [
         {
           "type": "keyword_numeric",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "nvarchar",
+    "named": true,
+    "fields": {
+      "size": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "literal",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_nvarchar",
           "named": true
         }
       ]
@@ -8414,6 +8811,32 @@
     }
   },
   {
+    "type": "time",
+    "named": true,
+    "fields": {
+      "size": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "literal",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_time",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "tinyint",
     "named": true,
     "fields": {
@@ -8641,6 +9064,32 @@
         },
         {
           "type": "list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "varbinary",
+    "named": true,
+    "fields": {
+      "precision": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "literal",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_varbinary",
           "named": true
         }
       ]
@@ -9481,6 +9930,14 @@
     "named": true
   },
   {
+    "type": "keyword_datetime2",
+    "named": true
+  },
+  {
+    "type": "keyword_datetimeoffset",
+    "named": true
+  },
+  {
     "type": "keyword_decimal",
     "named": true
   },
@@ -9669,6 +10126,10 @@
     "named": true
   },
   {
+    "type": "keyword_image",
+    "named": true
+  },
+  {
     "type": "keyword_immutable",
     "named": true
   },
@@ -9821,6 +10282,10 @@
     "named": true
   },
   {
+    "type": "keyword_nchar",
+    "named": true
+  },
+  {
     "type": "keyword_no",
     "named": true
   },
@@ -9854,6 +10319,10 @@
   },
   {
     "type": "keyword_numeric",
+    "named": true
+  },
+  {
+    "type": "keyword_nvarchar",
     "named": true
   },
   {
@@ -10085,6 +10554,14 @@
     "named": true
   },
   {
+    "type": "keyword_smalldatetime",
+    "named": true
+  },
+  {
+    "type": "keyword_smallmoney",
+    "named": true
+  },
+  {
     "type": "keyword_some",
     "named": true
   },
@@ -10266,6 +10743,10 @@
   },
   {
     "type": "keyword_values",
+    "named": true
+  },
+  {
+    "type": "keyword_varbinary",
     "named": true
   },
   {
