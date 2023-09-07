@@ -1584,7 +1584,15 @@ Create table with generated always
 
 CREATE TABLE "Role" (
   "roleId" bigint generated always as identity,
-  "name" varchar NOT NULL
+  "name" varchar NOT NULL,
+  height_in numeric GENERATED ALWAYS AS (height_cm / 2.54) STORED,
+  item_type_name TEXT GENERATED ALWAYS AS (
+     CASE item_type
+       WHEN 1 THEN 'foo'
+       WHEN 2 THEN 'bar'
+       ELSE 'UNKNOWN'
+     END
+  ) VIRTUAL
 );
 
 --------------------------------------------------------------------------------
@@ -1604,13 +1612,48 @@ CREATE TABLE "Role" (
           (keyword_generated)
           (keyword_always)
           (keyword_as)
-          (identifier))
+          (field
+            name: (identifier)))
         (column_definition
           name: (literal)
           type: (varchar
             (keyword_varchar))
           (keyword_not)
-          (keyword_null))))))
+          (keyword_null))
+        (column_definition
+          name: (identifier)
+          type: (numeric
+            (keyword_numeric))
+          (keyword_generated)
+          (keyword_always)
+          (keyword_as)
+          (binary_expression
+            left: (field
+              name: (identifier))
+            right: (literal))
+          (keyword_stored))
+        (column_definition
+          name: (identifier)
+          type: (keyword_text)
+          (keyword_generated)
+          (keyword_always)
+          (keyword_as)
+          (case
+            (keyword_case)
+            (field
+              name: (identifier))
+            (keyword_when)
+            (literal)
+            (keyword_then)
+            (literal)
+            (keyword_when)
+            (literal)
+            (keyword_then)
+            (literal)
+            (keyword_else)
+            (literal)
+            (keyword_end))
+          (keyword_virtual))))))
 
 ================================================================================
 Inet type

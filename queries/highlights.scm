@@ -206,6 +206,7 @@
   (keyword_uncached)
   (keyword_lines)
   (keyword_stored)
+  (keyword_virtual)
   (keyword_partitioned)
   (keyword_analyze)
   (keyword_explain)
