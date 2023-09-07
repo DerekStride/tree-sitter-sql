@@ -3192,7 +3192,15 @@
           "named": true
         },
         {
+          "type": "between_expression",
+          "named": true
+        },
+        {
           "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "case",
           "named": true
         },
         {
@@ -3204,7 +3212,15 @@
           "named": true
         },
         {
-          "type": "identifier",
+          "type": "exists",
+          "named": true
+        },
+        {
+          "type": "field",
+          "named": true
+        },
+        {
+          "type": "interval",
           "named": true
         },
         {
@@ -3256,6 +3272,14 @@
           "named": true
         },
         {
+          "type": "keyword_stored",
+          "named": true
+        },
+        {
+          "type": "keyword_virtual",
+          "named": true
+        },
+        {
           "type": "list",
           "named": true
         },
@@ -3264,7 +3288,19 @@
           "named": true
         },
         {
+          "type": "parameter",
+          "named": true
+        },
+        {
+          "type": "subquery",
+          "named": true
+        },
+        {
           "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "window_function",
           "named": true
         }
       ]
@@ -10759,6 +10795,10 @@
   },
   {
     "type": "keyword_view",
+    "named": true
+  },
+  {
+    "type": "keyword_virtual",
     "named": true
   },
   {

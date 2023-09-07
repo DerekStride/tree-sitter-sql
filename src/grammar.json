@@ -881,6 +881,10 @@
       "type": "PATTERN",
       "value": "[sS][tT][oO][rR][eE][dD]"
     },
+    "keyword_virtual": {
+      "type": "PATTERN",
+      "value": "[vV][iI][rR][tT][uU][aA][lL]"
+    },
     "keyword_cached": {
       "type": "PATTERN",
       "value": "[cC][aA][cC][hH][eE][dD]"
@@ -12382,76 +12386,93 @@
       ]
     },
     "_column_constraint": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "keyword_null"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "_not_null"
-            }
-          ]
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_default_expression"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_primary_key"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "keyword_auto_increment"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "direction"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_column_comment"
-        },
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SEQ",
-                  "members": [
-                    {
-                      "type": "SYMBOL",
-                      "name": "keyword_generated"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "keyword_always"
-                    }
-                  ]
-                },
-                {
-                  "type": "BLANK"
-                }
-              ]
-            },
-            {
-              "type": "SYMBOL",
-              "name": "keyword_as"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "identifier"
-            }
-          ]
-        }
-      ]
+      "type": "PREC_LEFT",
+      "value": 0,
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "keyword_null"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_not_null"
+              }
+            ]
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_default_expression"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_primary_key"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "keyword_auto_increment"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "direction"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_column_comment"
+          },
+          {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "keyword_generated"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "keyword_always"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "BLANK"
+                  }
+                ]
+              },
+              {
+                "type": "SYMBOL",
+                "name": "keyword_as"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_expression"
+              }
+            ]
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "keyword_stored"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "keyword_virtual"
+              }
+            ]
+          }
+        ]
+      }
     },
     "_default_expression": {
       "type": "SEQ",
