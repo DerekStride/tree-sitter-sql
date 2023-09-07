@@ -264,6 +264,7 @@ module.exports = grammar({
     // Hive Keywords
     keyword_external: _ => make_keyword("external"),
     keyword_stored: _ => make_keyword("stored"),
+    keyword_virtual: _ => make_keyword("virtual"),
     keyword_cached: _ => make_keyword("cached"),
     keyword_uncached: _ => make_keyword("uncached"),
     keyword_replication: _ => make_keyword("replication"),
@@ -2190,22 +2191,26 @@ module.exports = grammar({
       alias($._literal_string, $.literal)
     ),
 
-    _column_constraint: $ => choice(
-        choice(
-            $.keyword_null,
-            $._not_null,
-        ),
-        $._default_expression,
-        $._primary_key,
-        $.keyword_auto_increment,
-        $.direction,
-        $._column_comment,
-        seq(
-          optional(seq($.keyword_generated, $.keyword_always)),
-          $.keyword_as,
-          $.identifier,
-        ),
-    ),
+    _column_constraint: $ => prec.left(choice(
+      choice(
+        $.keyword_null,
+        $._not_null,
+      ),
+      $._default_expression,
+      $._primary_key,
+      $.keyword_auto_increment,
+      $.direction,
+      $._column_comment,
+      seq(
+        optional(seq($.keyword_generated, $.keyword_always)),
+        $.keyword_as,
+        $._expression,
+      ),
+      choice(
+        $.keyword_stored,
+        $.keyword_virtual,
+      )
+    )),
 
     _default_expression: $ => seq(
       $.keyword_default,
