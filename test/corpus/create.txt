@@ -837,7 +837,7 @@ CREATE TABLE type_test (
   a_datetime DATETIME,
   a_datetime2 DATETIME2,
   a_datetimeoffset DATETIMEOFFSET,
-  a_smalldatetime SMALLDATE,
+  a_smalldatetime SMALLDATETIME,
   a_time TIME,
   a_timestamp TIMESTAMP,
   a_verbose_timestamp TIMESTAMP WITHOUT TIME ZONE,
@@ -1034,7 +1034,8 @@ CREATE TABLE type_test (
           type: (datetimeoffset
             (keyword_datetimeoffset)))
         (column_definition
-          name: (identifier))
+          name: (identifier)
+          type: (keyword_smalldatetime))
         (column_definition
           name: (identifier)
           type: (time
