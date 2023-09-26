@@ -533,7 +533,6 @@ ALTER TABLE "Role" ADD CONSTRAINT "pkRole" PRIMARY KEY ("roleId");
             (column
               name: (literal))))))))
 
-
 ================================================================================
 Add foreign key constraint
 ================================================================================
@@ -1131,3 +1130,46 @@ OWNED BY numbers.number_sequences
       (object_reference
         (identifier)
         (identifier)))))
+
+================================================================================
+Add foreign key constraint
+================================================================================
+
+ALTER TABLE "AccountRole" ADD CONSTRAINT "fkAccountRoleAccount"
+FOREIGN KEY ("accountId") REFERENCES "Account" ("accountId")
+ON DELETE SET NULL
+ON UPDATE SET DEFAULT;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_table
+      (keyword_alter)
+      (keyword_table)
+      (object_reference
+        (identifier))
+      (add_constraint
+        (keyword_add)
+        (keyword_constraint)
+        (identifier)
+        (constraint
+          (keyword_foreign)
+          (keyword_key)
+          (ordered_columns
+            (column
+              (literal)))
+          (keyword_references)
+          (object_reference
+            (identifier))
+          (ordered_columns
+            (column
+              (literal)))
+          (keyword_on)
+          (keyword_delete)
+          (keyword_set)
+          (keyword_null)
+          (keyword_on)
+          (keyword_update)
+          (keyword_set)
+          (keyword_default))))))

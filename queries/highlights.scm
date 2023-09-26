@@ -263,6 +263,7 @@
   (keyword_until)
   (keyword_user)
   (keyword_valid)
+  (keyword_action)
 ] @keyword
 
 [
