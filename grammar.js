@@ -75,6 +75,7 @@ module.exports = grammar({
     keyword_cross: _ => make_keyword("cross"),
     keyword_join: _ => make_keyword("join"),
     keyword_lateral: _ => make_keyword("lateral"),
+    keyword_natural: _ => make_keyword("natural"),
     keyword_on: _ => make_keyword("on"),
     keyword_where: _ => make_keyword("where"),
     keyword_order: _ => make_keyword("order"),
@@ -2642,6 +2643,7 @@ module.exports = grammar({
     ),
 
     join: $ => seq(
+      optional($.keyword_natural),
       optional(
         choice(
           $.keyword_left,

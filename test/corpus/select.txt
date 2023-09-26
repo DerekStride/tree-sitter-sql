@@ -1229,7 +1229,9 @@ ON a.id = e.e_id
 FULL OUTER JOIN table_f f
 ON a.id = f.f_id
 FULL JOIN table_g g
-ON a.id = g.g_id;
+ON a.id = g.g_id
+NATURAL JOIN table_h h
+USING (id);
 
 --------------------------------------------------------------------------------
 
@@ -1370,7 +1372,18 @@ ON a.id = g.g_id;
           right: (field
             (object_reference
               name: (identifier))
-            name: (identifier)))))))
+            name: (identifier))))
+      (join
+        (keyword_natural)
+        (keyword_join)
+        (relation
+          (object_reference
+            name: (identifier))
+            alias: (identifier))
+        (keyword_using)
+        (list
+          (column
+            (identifier)))))))
 
 ================================================================================
 Lateral join
