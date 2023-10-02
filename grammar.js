@@ -2265,12 +2265,12 @@ module.exports = grammar({
       ),
       choice($.keyword_key, $.keyword_index),
       optional(field('name', $.identifier)),
-      $.ordered_columns,
+      paren_list($.identifier, true),
       optional(
         seq(
           $.keyword_references,
           $.object_reference,
-          $.ordered_columns,
+          paren_list($.identifier, true),
           repeat(
             seq(
               $.keyword_on,
@@ -2282,7 +2282,7 @@ module.exports = grammar({
                 seq(
                   $.keyword_set,
                   choice($.keyword_null, $.keyword_default),
-                  optional(paren_list($.identifier))
+                    optional(paren_list($.identifier, true))
                 ),
               ),
             ),
