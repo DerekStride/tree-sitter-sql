@@ -6639,6 +6639,10 @@
           "named": true
         },
         {
+          "type": "keyword_natural",
+          "named": true
+        },
+        {
           "type": "keyword_on",
           "named": true
         },
@@ -10315,6 +10319,10 @@
   },
   {
     "type": "keyword_name",
+    "named": true
+  },
+  {
+    "type": "keyword_natural",
     "named": true
   },
   {
