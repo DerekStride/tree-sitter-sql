@@ -3380,11 +3380,23 @@
       "required": true,
       "types": [
         {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "keyword_action",
+          "named": true
+        },
+        {
           "type": "keyword_cascade",
           "named": true
         },
         {
           "type": "keyword_constraint",
+          "named": true
+        },
+        {
+          "type": "keyword_default",
           "named": true
         },
         {
@@ -3404,6 +3416,14 @@
           "named": true
         },
         {
+          "type": "keyword_no",
+          "named": true
+        },
+        {
+          "type": "keyword_null",
+          "named": true
+        },
+        {
           "type": "keyword_on",
           "named": true
         },
@@ -3416,7 +3436,19 @@
           "named": true
         },
         {
+          "type": "keyword_restrict",
+          "named": true
+        },
+        {
+          "type": "keyword_set",
+          "named": true
+        },
+        {
           "type": "keyword_unique",
+          "named": true
+        },
+        {
+          "type": "keyword_update",
           "named": true
         },
         {
@@ -9728,6 +9760,10 @@
   {
     "type": "hours",
     "named": false
+  },
+  {
+    "type": "keyword_action",
+    "named": true
   },
   {
     "type": "keyword_add",
