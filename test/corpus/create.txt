@@ -200,20 +200,14 @@ CREATE TABLE my_table (
           (constraint
             (keyword_key)
             name: (identifier)
-            (ordered_columns
-              (column
-                name: (identifier))
-              (column
-                name: (identifier))))
+            (identifier)
+            (identifier))
           (constraint
             (keyword_unique)
             (keyword_key)
             name: (identifier)
-            (ordered_columns
-              (column
-                name: (identifier))
-              (column
-                name: (identifier)))))))))
+            (identifier)
+            (identifier)))))))
 
 ================================================================================
 Create table if not exists
@@ -349,9 +343,7 @@ CREATE TABLE IF NOT EXISTS `addresses` (
           (constraint
             (keyword_key)
             name: (identifier)
-            (ordered_columns
-              (column
-                name: (identifier)))))))))
+            (identifier)))))))
 
 ================================================================================
 Create table with multiple constraints
@@ -421,23 +413,16 @@ CREATE TABLE IF NOT EXISTS `addresses` (
           (constraint
             (keyword_key)
             name: (identifier)
-            (ordered_columns
-              (column
-                name: (identifier))))
+            (identifier))
           (constraint
             (keyword_key)
             name: (identifier)
-            (ordered_columns
-              (column
-                name: (identifier))))
+            (identifier))
           (constraint
             (keyword_key)
             name: (identifier)
-            (ordered_columns
-              (column
-                name: (identifier))
-              (column
-                name: (identifier)))))))))
+            (identifier)
+            (identifier)))))))
 
 ================================================================================
 Debugging
@@ -1168,17 +1153,12 @@ CREATE TABLE some_table(
           (constraint
             (keyword_index)
             name: (identifier)
-            (ordered_columns
-              (column
-                name: (identifier))))
+            (identifier))
           (constraint
             (keyword_index)
             name: (identifier)
-            (ordered_columns
-              (column
-                name: (identifier))
-              (column
-                name: (identifier))))))
+            (identifier)
+            (identifier))))
       (table_option
         (keyword_default)
         (keyword_character)

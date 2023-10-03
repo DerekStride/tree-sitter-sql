@@ -235,6 +235,7 @@ module.exports = grammar({
     keyword_nowait: _ => make_keyword("nowait"),
     keyword_attribute: _ => make_keyword("attribute"),
     keyword_authorization: _ => make_keyword("authorization"),
+    keyword_action: _ => make_keyword("action"),
 
     keyword_trigger: _ => make_keyword('trigger'),
     keyword_function: _ => make_keyword("function"),
@@ -2264,17 +2265,26 @@ module.exports = grammar({
       ),
       choice($.keyword_key, $.keyword_index),
       optional(field('name', $.identifier)),
-      $.ordered_columns,
+      paren_list($.identifier, true),
       optional(
         seq(
           $.keyword_references,
           $.object_reference,
-          $.ordered_columns,
-          optional(
+          paren_list($.identifier, true),
+          repeat(
             seq(
               $.keyword_on,
-              $.keyword_delete,
-              $.keyword_cascade,
+              choice($.keyword_delete, $.keyword_update),
+              choice(
+                seq($.keyword_no, $.keyword_action),
+                $.keyword_restrict,
+                $.keyword_cascade,
+                seq(
+                  $.keyword_set,
+                  choice($.keyword_null, $.keyword_default),
+                    optional(paren_list($.identifier, true))
+                ),
+              ),
             ),
           ),
         ),
