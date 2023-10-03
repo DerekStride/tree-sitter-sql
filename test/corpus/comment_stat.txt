@@ -1,0 +1,39 @@
+================================================================================
+Comment table
+================================================================================
+
+COMMENT ON TABLE my_schema.my_table IS "this table is a test";
+
+--------------------------------------------------------------------------------
+
+(program
+	(statement
+		(comment_statement
+			(keyword_comment)
+			(keyword_on)
+			(keyword_table)
+			(object_reference
+				schema: (identifier)
+		    	name: (identifier))
+			(keyword_is)
+			(comment_text))))
+
+================================================================================
+Comment column is null
+================================================================================
+
+COMMENT ON COLUMN my_table.my_column IS NULL;
+
+--------------------------------------------------------------------------------
+
+(program
+	(statement
+		(comment_statement
+			(keyword_comment)
+			(keyword_on)
+			(keyword_column)
+			(object_reference
+				schema: (identifier)
+		    	name: (identifier))
+			(keyword_is)
+			(keyword_null))))

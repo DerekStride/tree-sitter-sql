@@ -1,19 +1,39 @@
-ts := $(shell which tree-sitter 2> /dev/null)
-ifeq (, ${ts})
-	ts := $(shell which tree-sitter-cli 2> /dev/null)
+CC ?= gcc
+
+TS := $(shell which tree-sitter 2>/dev/null)
+ifeq (, ${TS})
+	TS := $(shell which tree-sitter-cli 2>/dev/null)
 endif
+TSFLAGS ?=
 
-generate:
-	${ts} generate
+.PHONY: all
+all: compile
 
-test: generate
-	${ts} test
+.PHONY: clean
+clean:
+	rm src/grammar.json src/parser.c
 
-format: generate
-	${ts} test --update
+.PHONY: generate
+generate: src/grammar.json src/parser.c
+src/grammar.json src/parser.c: grammar.js queries/highlights.scm queries/indents.scm
+	${TS} generate ${TSFLAGS}
 
-compile: generate
-	gcc -shared -o target/parser.so -fPIC src/parser.c -I./src
+.PHONY: regenerate
+regenerate: clean generate
 
-check_keywords:
-	$(shell bash scripts/test-keywords.sh)
+.PHONY: test
+test: src/grammar.json
+	${TS} test
+
+.PHONY: format
+format: src/grammar.json
+	${TS} test --update
+
+.PHONY: compile
+compile: target/parser.so
+target/parser.so: src/parser.c
+	${CC} -shared -o target/parser.so -fPIC src/parser.c -I./src
+
+.PHONY: check_keywords
+check_keywords: src/grammar.json queries/highlights.scm scripts/test-keywords.sh
+	@bash scripts/test-keywords.sh

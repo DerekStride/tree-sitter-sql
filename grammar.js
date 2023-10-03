@@ -643,6 +643,7 @@ module.exports = grammar({
       $._rename_statement,
       $._optimize_statement,
       $._merge_statement,
+      $.comment_statement,
     ),
 
     _cte: $ => seq(
@@ -721,6 +722,59 @@ module.exports = grammar({
         $.select,
         optional($.from),
       ),
+    ),
+
+    comment_text: $ => $._literal_string,
+
+    comment_statement: $ => seq(
+      $.keyword_comment,
+      $.keyword_on,
+      $._comment_target,
+      $.keyword_is,
+      choice(
+        $.keyword_null,
+        $.comment_text,
+      ),
+    ),
+
+    _comment_target: $ => choice(
+      // TODO: access method
+      // TODO: aggregate
+      $.cast,
+      // TODO: collation
+      seq($.keyword_column, $.object_reference),
+      // TODO: constraint (on domain)
+      // TODO: conversion
+      seq($.keyword_database, $.identifier),
+      // TODO: domain
+      // TODO: extension
+      // TODO: event trigger
+      // TODO: foreign data wrapper
+      // TODO: foreign table
+      // TODO: function
+      seq($.keyword_index, $.object_reference),
+      // TODO: large object
+      seq($.keyword_materialized, $.keyword_view, $.object_reference),
+      // TODO: operator (|class|family)
+      // TODO: policy
+      // TODO: (procedural) language
+      // TODO: procedure
+      // TODO: publication
+      seq($.keyword_role, $.object_reference),
+      // TODO: routine
+      // TODO: rule
+      seq($.keyword_schema, $.object_reference),
+      seq($.keyword_sequence, $.object_reference),
+      // TODO: server
+      // TODO: statistics
+      // TODO: subscription
+      seq($.keyword_table, $.object_reference),
+      seq($.keyword_tablespace, $.object_reference),
+      // TODO: text search (configuration|dictionary|parser|template)
+      // TODO: transform for
+      seq($.keyword_trigger, $.keyword_on, $.object_reference),
+      seq($.keyword_type, $.identifier),
+      seq($.keyword_view, $.object_reference),
     ),
 
     select: $ => seq(

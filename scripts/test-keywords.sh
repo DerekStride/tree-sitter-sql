@@ -18,3 +18,5 @@ if [[ "$keywords" ]]; then
   echo "$keywords"
   exit 1
 fi
+
+echo "OK"
