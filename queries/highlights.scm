@@ -31,6 +31,7 @@
 
 (literal) @string
 (comment) @comment @spell
+(comment_text) @string
 (marginalia) @comment
 
 ((literal) @number
