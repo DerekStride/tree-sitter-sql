@@ -1,0 +1,104 @@
+================================================================================
+Comment on table
+================================================================================
+
+COMMENT ON TABLE my_schema.my_table IS "this table is a test";
+
+--------------------------------------------------------------------------------
+
+(program
+	(statement
+		(comment_statement
+			(keyword_comment)
+			(keyword_on)
+			(keyword_table)
+			(object_reference
+				schema: (identifier)
+		    	name: (identifier))
+			(keyword_is)
+			(literal))))
+
+================================================================================
+Comment on column is null
+================================================================================
+
+COMMENT ON COLUMN my_schema.my_table.my_column IS NULL;
+
+--------------------------------------------------------------------------------
+
+(program
+	(statement
+		(comment_statement
+			(keyword_comment)
+			(keyword_on)
+			(keyword_column)
+			(object_reference
+				(object_reference
+					(identifier)
+					(identifier))
+				(identifier))
+			(keyword_is)
+			(keyword_null))))
+
+================================================================================
+Comment on cast
+================================================================================
+
+COMMENT ON CAST (varchar AS text) IS "convert varchar to text";
+
+--------------------------------------------------------------------------------
+
+(program
+	(statement
+		(comment_statement
+			(keyword_comment)
+			(keyword_on)
+			(cast
+				(keyword_cast)
+				(field
+					(identifier))
+				(keyword_as)
+				(keyword_text))
+			(keyword_is)
+			(literal))))
+
+================================================================================
+Comment on materialized view
+================================================================================
+
+COMMENT ON MATERIALIZED VIEW matview IS "this view is materialized";
+
+--------------------------------------------------------------------------------
+
+(program
+	(statement
+		(comment_statement
+			(keyword_comment)
+			(keyword_on)
+			(keyword_materialized)
+			(keyword_view)
+			(object_reference
+				(identifier))
+			(keyword_is)
+			(literal))))
+
+================================================================================
+Comment on trigger
+================================================================================
+
+COMMENT ON TRIGGER on_insert ON users IS "new user has been added";
+
+--------------------------------------------------------------------------------
+
+(program
+	(statement
+		(comment_statement
+			(keyword_comment)
+			(keyword_on)
+			(keyword_trigger)
+			(identifier)
+			(keyword_on)
+			(object_reference
+				name: (identifier))
+			(keyword_is)
+			(literal))))
