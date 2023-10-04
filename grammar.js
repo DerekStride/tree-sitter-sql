@@ -742,7 +742,7 @@ module.exports = grammar({
       // TODO: aggregate
       $.cast,
       // TODO: collation
-      seq($.keyword_column, $.object_reference),
+      seq($.keyword_column, alias($._qualified_field, $.object_reference)),
       // TODO: constraint (on domain)
       // TODO: conversion
       seq($.keyword_database, $.identifier),
@@ -760,19 +760,19 @@ module.exports = grammar({
       // TODO: (procedural) language
       // TODO: procedure
       // TODO: publication
-      seq($.keyword_role, $.object_reference),
+      seq($.keyword_role, $.identifier),
       // TODO: routine
       // TODO: rule
-      seq($.keyword_schema, $.object_reference),
+      seq($.keyword_schema, $.identifier),
       seq($.keyword_sequence, $.object_reference),
       // TODO: server
       // TODO: statistics
       // TODO: subscription
       seq($.keyword_table, $.object_reference),
-      seq($.keyword_tablespace, $.object_reference),
+      seq($.keyword_tablespace, $.identifier),
       // TODO: text search (configuration|dictionary|parser|template)
       // TODO: transform for
-      seq($.keyword_trigger, $.keyword_on, $.object_reference),
+      seq($.keyword_trigger, $.identifier, $.keyword_on, $.object_reference),
       seq($.keyword_type, $.identifier),
       seq($.keyword_view, $.object_reference),
     ),
