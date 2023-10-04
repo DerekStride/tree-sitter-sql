@@ -724,8 +724,6 @@ module.exports = grammar({
       ),
     ),
 
-    comment_text: $ => $._literal_string,
-
     comment_statement: $ => seq(
       $.keyword_comment,
       $.keyword_on,
@@ -733,7 +731,7 @@ module.exports = grammar({
       $.keyword_is,
       choice(
         $.keyword_null,
-        $.comment_text,
+        alias($._literal_string, $.literal),
       ),
     ),
 
