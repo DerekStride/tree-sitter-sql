@@ -1907,7 +1907,7 @@ module.exports = grammar({
           $.keyword_values,
           comma_list($.list, true),
         ),
-        $._select_statement,
+        $._dml_read,
       ),
     ),
 
