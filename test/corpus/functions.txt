@@ -479,6 +479,7 @@ return 1;
       (object_reference
         (identifier)
         (identifier))
+      (function_arguments)
       (keyword_returns)
       (int
         (keyword_int))
@@ -510,12 +511,12 @@ return 1;
       (object_reference
         (identifier)
         (identifier))
-      (column_definitions
-        (column_definition
+      (function_arguments
+        (function_argument
           (identifier)
           (int
             (keyword_int)))
-        (column_definition
+        (function_argument
           (identifier)
           (keyword_text)))
       (keyword_returns)
@@ -555,6 +556,7 @@ return 1;
       (object_reference
         (identifier)
         (identifier))
+      (function_arguments)
       (keyword_returns)
       (int
         (keyword_int))
@@ -605,6 +607,7 @@ create or replace function public.fn()
       (object_reference
         schema: (identifier)
         name: (identifier))
+      (function_arguments)
       (keyword_returns)
       (int
         (keyword_int))
@@ -661,6 +664,7 @@ as 'select 1;';
       (object_reference
         (identifier)
         (identifier))
+      (function_arguments)
       (keyword_returns)
       (int
         (keyword_int))
@@ -692,6 +696,7 @@ as 'create table x (id int) row_format=dynamic';
       (object_reference
         (identifier)
         (identifier))
+      (function_arguments)
       (keyword_returns)
       (int
         (keyword_int))
@@ -725,6 +730,7 @@ end;
       (object_reference
         (identifier)
         (identifier))
+      (function_arguments)
       (keyword_returns)
       (int
         (keyword_int))
@@ -763,6 +769,7 @@ $function$;
       (object_reference
         (identifier)
         (identifier))
+      (function_arguments)
       (keyword_returns)
       (int
         (keyword_int))
@@ -807,6 +814,7 @@ $function$;
       (object_reference
         (identifier)
         (identifier))
+      (function_arguments)
       (keyword_returns)
       (int
         (keyword_int))
@@ -889,6 +897,7 @@ $function$
       (object_reference
         (identifier)
         (identifier))
+      (function_arguments)
       (keyword_returns)
       (keyword_trigger)
       (function_language

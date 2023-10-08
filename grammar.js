@@ -767,6 +767,23 @@ module.exports = grammar({
       seq($.keyword_in, $.keyword_out),
     ),
 
+    function_argument: $ => seq(
+      optional($._argmode),
+      optional($.identifier),
+      $._type,
+      optional(
+        seq(
+          choice($.keyword_default, '='),
+          $.literal,
+        ),
+      ),
+    ),
+
+    function_arguments: $ => paren_list(
+      $.function_argument,
+      false,
+    ),
+
     _comment_target: $ => choice(
       // TODO: access method
       // TODO: aggregate
@@ -781,7 +798,7 @@ module.exports = grammar({
       // TODO: event trigger
       // TODO: foreign data wrapper
       // TODO: foreign table
-      seq($.keyword_function, $.object_reference, optional(paren_list(seq(optional($._argmode), optional($.identifier), $._type), false))),
+      seq($.keyword_function, $.object_reference, optional($.function_arguments)),
       seq($.keyword_index, $.object_reference),
       // TODO: large object
       seq($.keyword_materialized, $.keyword_view, $.object_reference),
@@ -1053,10 +1070,7 @@ module.exports = grammar({
       optional($._or_replace),
       $.keyword_function,
       $.object_reference,
-      choice(
-        $.column_definitions, // TODO `default` will require own node type
-        wrapped_in_parenthesis(),
-      ),
+      $.function_arguments,
       $.keyword_returns,
       choice(
         $._type,
