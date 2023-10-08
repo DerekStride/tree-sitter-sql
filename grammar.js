@@ -262,6 +262,28 @@ module.exports = grammar({
     keyword_cost: _ => make_keyword("cost"),
     keyword_rows: _ => make_keyword("rows"),
     keyword_support: _ => make_keyword("support"),
+    keyword_extension: _ => make_keyword("extension"),
+    keyword_out: _ => make_keyword("out"),
+    keyword_inout: _ => make_keyword("inout"),
+    keyword_variadic: _ => make_keyword("variadic"),
+
+    keyword_session: _ => make_keyword("session"),
+    keyword_isolation: _ => make_keyword("isolation"),
+    keyword_level: _ => make_keyword("level"),
+    keyword_serializable: _ => make_keyword("seria"),
+    keyword_repeatable: _ => make_keyword("repeatable: _ ="),
+    keyword_read: _ => make_keyword("read: _ =>"),
+    keyword_write: _ => make_keyword("wr"),
+    keyword_committed: _ => make_keyword("committed"),
+    keyword_uncommitted: _ => make_keyword("uncommitted"),
+    keyword_deferrable: _ => make_keyword("deferrable"),
+    keyword_names: _ => make_keyword("names"),
+    keyword_zone: _ => make_keyword("zone"),
+    keyword_immediate: _ => make_keyword("immediate"),
+    keyword_deferred: _ => make_keyword("deferred"),
+    keyword_constraints    : _ => make_keyword("constraints"),
+    keyword_snapshot: _ => make_keyword("snapshot"),
+    keyword_characteristics: _ => make_keyword("characteristics"),
 
     // Hive Keywords
     keyword_external: _ => make_keyword("external"),
@@ -644,6 +666,8 @@ module.exports = grammar({
       $._optimize_statement,
       $._merge_statement,
       $.comment_statement,
+      $.set_statement,
+      $.reset_statement,
     ),
 
     _cte: $ => seq(
@@ -735,6 +759,14 @@ module.exports = grammar({
       ),
     ),
 
+    _argmode: $ => choice(
+      $.keyword_in,
+      $.keyword_out,
+      $.keyword_inout,
+      $.keyword_variadic,
+      seq($.keyword_in, $.keyword_out),
+    ),
+
     _comment_target: $ => choice(
       // TODO: access method
       // TODO: aggregate
@@ -745,11 +777,11 @@ module.exports = grammar({
       // TODO: conversion
       seq($.keyword_database, $.identifier),
       // TODO: domain
-      // TODO: extension
+      seq($.keyword_extension, $.object_reference),
       // TODO: event trigger
       // TODO: foreign data wrapper
       // TODO: foreign table
-      // TODO: function
+      seq($.keyword_function, $.object_reference, optional(paren_list(seq(optional($._argmode), optional($.identifier), $._type), false))),
       seq($.keyword_index, $.object_reference),
       // TODO: large object
       seq($.keyword_materialized, $.keyword_view, $.object_reference),
@@ -901,6 +933,54 @@ module.exports = grammar({
             ),
           ),
         ),
+      ),
+    ),
+
+    reset_statement: $ => seq(
+      $.keyword_reset,
+      choice(
+        $.object_reference,
+        $.keyword_all,
+        seq($.keyword_session, $.keyword_authorization),
+        $.keyword_role,
+      ),
+    ),
+
+    _transaction_mode: $ => seq(
+      $.keyword_isolation,
+      $.keyword_level,
+      choice(
+        $.keyword_serializable,
+        seq($.keyword_repeatable, $.keyword_read),
+        seq($.keyword_read, $.keyword_committed),
+        seq($.keyword_read, $.keyword_uncommitted),
+      ),
+      choice(
+        seq($.keyword_read, $.keyword_write),
+        seq($.keyword_read, $.keyword_only),
+      ),
+      optional($.keyword_not),
+      $.keyword_deferrable,
+    ),
+
+    set_statement: $ => seq(
+      $.keyword_set,
+      choice(
+        seq(
+          optional(choice($.keyword_session, $.keyword_local)),
+          choice(
+            seq($.object_reference, choice($.keyword_to, '='), choice($.literal, $.keyword_default)),
+            seq($.keyword_schema, $.literal),
+            seq($.keyword_names, $.literal),
+            seq($.keyword_time, $.keyword_zone, choice($.literal, $.keyword_local, $.keyword_default)),
+            seq($.keyword_session, $.keyword_authorization, choice($.identifier, $.keyword_default)),
+            seq($.keyword_role, choice($.identifier, $.keyword_none)),
+          ),
+        ),
+        seq($.keyword_constraints, choice($.keyword_all, comma_list($.identifier, true)), choice($.keyword_deferred, $.keyword_immediate)),
+        seq($.keyword_transaction, $._transaction_mode),
+        seq($.keyword_transaction, $.keyword_snapshot, $._transaction_mode),
+        seq($.keyword_session, $.keyword_characteristics, $.keyword_as, $.keyword_transaction, $._transaction_mode),
       ),
     ),
 
@@ -1377,6 +1457,7 @@ module.exports = grammar({
       $.keyword_alter,
       $.keyword_table,
       optional($._if_exists),
+      optional($.keyword_only),
       $.object_reference,
       choice(
         seq(

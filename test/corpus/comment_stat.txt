@@ -102,3 +102,45 @@ COMMENT ON TRIGGER on_insert ON users IS "new user has been added";
 				name: (identifier))
 			(keyword_is)
 			(literal))))
+
+================================================================================
+Comment on function
+================================================================================
+
+COMMENT ON FUNCTION schema_test.do_somthing(arg1 text) IS 'Do something';
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (comment_statement
+      (keyword_comment)
+      (keyword_on)
+      (keyword_function)
+      (object_reference
+        (identifier)
+        (identifier))
+      (identifier)
+      (keyword_text)
+      (keyword_is)
+      (literal))))
+
+
+================================================================================
+Comment on extension
+================================================================================
+
+COMMENT ON EXTENSION ext_test IS 'A testing extension';
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (comment_statement
+      (keyword_comment)
+      (keyword_on)
+      (keyword_extension)
+      (object_reference
+        (identifier))
+      (keyword_is)
+      (literal))))
