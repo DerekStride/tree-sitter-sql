@@ -986,7 +986,7 @@ module.exports = grammar({
         seq(
           optional(choice($.keyword_session, $.keyword_local)),
           choice(
-            seq($.object_reference, choice($.keyword_to, '='), choice($.literal, $.keyword_default)),
+            seq($.object_reference, choice($.keyword_to, '='), choice($.literal, $.keyword_default, $.identifier)),
             seq($.keyword_schema, $.literal),
             seq($.keyword_names, $.literal),
             seq($.keyword_time, $.keyword_zone, choice($.literal, $.keyword_local, $.keyword_default)),
