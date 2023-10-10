@@ -1387,7 +1387,7 @@ module.exports = grammar({
     create_type: $ => seq(
       $.keyword_create,
       $.keyword_type,
-      $.identifier,
+      $.object_reference,
       optional(
         seq(
           choice(
