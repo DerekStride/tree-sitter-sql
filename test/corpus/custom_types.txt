@@ -335,7 +335,9 @@ shipment boxes
         (identifier))
       (column_definitions
         (column_definition
-          (identifier))))))
+          (identifier)
+          (object_reference
+            (identifier)))))))
 
 ================================================================================
 Insert into table with custom type

@@ -513,7 +513,7 @@ module.exports = grammar({
         $.keyword_regproc,
         $.keyword_regtype,
 
-        field("custom_type", $._identifier)
+        field("custom_type", $.object_reference)
       ),
       optional($.array_size_definition)
     ),
