@@ -150,6 +150,7 @@ module.exports = grammar({
     keyword_cascade: _ => make_keyword("cascade"),
     keyword_restrict: _ => make_keyword("restrict"),
     keyword_with: _ => make_keyword("with"),
+    keyword_without: _ => make_keyword("without"),
     keyword_no: _ => make_keyword("no"),
     keyword_data: _ => make_keyword("data"),
     keyword_type: _ => make_keyword("type"),
@@ -437,6 +438,7 @@ module.exports = grammar({
     keyword_box3d: _ => make_keyword("box3d"),
 
     keyword_oid: _ => make_keyword("oid"),
+    keyword_oids: _ => make_keyword("oids"),
     keyword_name: _ => make_keyword("name"),
     keyword_regclass: _ => make_keyword("regclass"),
     keyword_regnamespace: _ => make_keyword("regnamespace"),
@@ -911,7 +913,17 @@ module.exports = grammar({
         $.keyword_tblproperties,
         paren_list($.table_option, true),
       ),
+      seq($.keyword_without, $.keyword_oids),
+      $.storage_parameters,
       $.table_option,
+    ),
+
+    storage_parameters: $ => seq(
+      $.keyword_with,
+      paren_list(
+        seq($.identifier, optional(seq('=', $.literal))),
+        true
+      ),
     ),
 
     // left precedence because 'quoted' table options otherwise conflict with
