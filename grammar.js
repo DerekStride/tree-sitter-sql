@@ -12,6 +12,8 @@ module.exports = grammar({
     [$.object_reference, $._qualified_field],
     [$.object_reference],
     [$.between_expression, $.binary_expression],
+    [$.time],
+    [$.timestamp],
   ],
 
   precedences: $ => [
@@ -409,27 +411,8 @@ module.exports = grammar({
     keyword_smalldatetime: _ => make_keyword("smalldatetime"),
     keyword_datetimeoffset: _ => make_keyword("datetimeoffset"),
     keyword_time: _ => make_keyword("time"),
-    keyword_timestamp: _ => prec.right(
-      seq(
-        make_keyword("timestamp"),
-        optional(
-          seq(
-            make_keyword('without'),
-            make_keyword('time'),
-            make_keyword('zone')
-          ),
-        ),
-      ),
-    ),
-    keyword_timestamptz: _ => choice(
-      make_keyword('timestamptz'),
-      seq(
-        make_keyword("timestamp"),
-        make_keyword('with'),
-        make_keyword('time'),
-        make_keyword('zone')
-      ),
-    ),
+    keyword_timestamp: _ => make_keyword("timestamp"),
+    keyword_timestamptz: _ => make_keyword('timestamptz'),
     keyword_interval: _ => make_keyword("interval"),
 
     keyword_geometry: _ => make_keyword("geometry"),
@@ -497,7 +480,7 @@ module.exports = grammar({
         $.datetimeoffset,
         $.keyword_smalldatetime,
         $.time,
-        $.keyword_timestamp,
+        $.timestamp,
         $.keyword_timestamptz,
         $.keyword_interval,
 
@@ -575,8 +558,21 @@ module.exports = grammar({
     nchar: $ => parametric_type($, $.keyword_nchar),
     nvarchar: $ => parametric_type($, $.keyword_nvarchar),
 
+    _time_zone: $ => seq(
+      choice($.keyword_with, $.keyword_without),
+      $.keyword_time,
+      $.keyword_zone,
+    ),
     datetimeoffset: $ => parametric_type($, $.keyword_datetimeoffset),
-    time: $ => parametric_type($, $.keyword_time),
+    time: $ => seq(
+      parametric_type($, $.keyword_time),
+      optional($._time_zone),
+    ),
+    timestamp: $ => seq(
+      parametric_type($, $.keyword_timestamp),
+      optional($._time_zone),
+    ),
+    timestamptz: $ => parametric_type($, $.keyword_timestamptz),
 
     enum: $ => seq(
       $.keyword_enum,
