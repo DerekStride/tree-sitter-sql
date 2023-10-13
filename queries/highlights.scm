@@ -264,6 +264,9 @@
   (keyword_user)
   (keyword_valid)
   (keyword_action)
+  (keyword_definer)
+  (keyword_invoker)
+  (keyword_security)
 ] @keyword
 
 [

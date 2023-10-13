@@ -484,7 +484,7 @@ return 1;
         (keyword_int))
       (function_language
         (keyword_language)
-        (keyword_sql))
+        (identifier))
       (function_body
         (keyword_return)
         (literal)))))
@@ -523,7 +523,7 @@ return 1;
         (keyword_int))
       (function_language
         (keyword_language)
-        (keyword_sql))
+        (identifier))
       (function_body
         (keyword_return)
         (literal)))))
@@ -560,7 +560,7 @@ return 1;
         (keyword_int))
       (function_language
         (keyword_language)
-        (keyword_sql))
+        (identifier))
       (function_volatility
         (keyword_immutable))
       (function_safety
@@ -620,7 +620,7 @@ create or replace function public.fn()
         (dollar_quote))
       (function_language
         (keyword_language)
-        (keyword_sql))
+        (identifier))
       (function_volatility
         (keyword_volatile))
       (function_safety
@@ -666,7 +666,7 @@ as 'select 1;';
         (keyword_int))
       (function_language
         (keyword_language)
-        (keyword_sql))
+        (identifier))
       (function_body
         (keyword_as)
         (literal)))))
@@ -697,7 +697,7 @@ as 'create table x (id int) row_format=dynamic';
         (keyword_int))
       (function_language
         (keyword_language)
-        (keyword_sql))
+        (identifier))
       (function_body
         (keyword_as)
         (literal)))))
@@ -730,7 +730,7 @@ end;
         (keyword_int))
       (function_language
         (keyword_language)
-        (keyword_sql))
+        (identifier))
       (function_body
         (keyword_begin)
         (keyword_atomic)
@@ -768,7 +768,7 @@ $function$;
         (keyword_int))
       (function_language
         (keyword_language)
-        (keyword_plpgsql))
+        (identifier))
       (function_body
         (keyword_as)
         (dollar_quote)
@@ -812,7 +812,7 @@ $function$;
         (keyword_int))
       (function_language
         (keyword_language)
-        (keyword_plpgsql))
+        (identifier))
       (function_body
         (keyword_as)
         (dollar_quote)
@@ -893,7 +893,7 @@ $function$
       (keyword_trigger)
       (function_language
         (keyword_language)
-        (keyword_plpgsql))
+        (identifier))
       (function_body
         (keyword_as)
         (dollar_quote)
@@ -1001,5 +1001,168 @@ $function$
         (keyword_return)
         (field
           (identifier))
+        (keyword_end)
+        (dollar_quote)))))
+
+================================================================================
+Function body with a $$ string literal
+================================================================================
+
+create or replace function public.do_stuff()
+  returns trigger
+  language plpgsql
+as $a$
+begin
+
+  -- comment!
+  with knn as (
+    select
+      h.alpha,
+      -- TODO factor in distance
+      avg(e.beta) as e_beta
+    from htable h
+    cross join lateral (
+      select
+        id,
+        gamma,
+        delta,
+        centroid
+      from ftable
+      limit 3
+    ) as e
+    group by h.alpha
+  )
+  update htable set epsilon = epsilon + e_beta
+  from knn
+  where knn.alpha = htable.alpha;
+
+  return $a$test$a$;
+
+end;
+$a$
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_or)
+      (keyword_replace)
+      (keyword_function)
+      (object_reference
+        (identifier)
+        (identifier))
+      (keyword_returns)
+      (keyword_trigger)
+      (function_language
+        (keyword_language)
+        (identifier))
+      (function_body
+        (keyword_as)
+        (dollar_quote)
+        (keyword_begin)
+        (comment)
+        (statement
+          (keyword_with)
+          (cte
+            (identifier)
+            (keyword_as)
+            (statement
+              (select
+                (keyword_select)
+                (select_expression
+                  (term
+                    (field
+                      (object_reference
+                        (identifier))
+                      (identifier)))
+                  (comment)
+                  (term
+                    (invocation
+                      (object_reference
+                        (identifier))
+                      (term
+                        (field
+                          (object_reference
+                            (identifier))
+                          (identifier))))
+                    (keyword_as)
+                    (identifier))))
+              (from
+                (keyword_from)
+                (relation
+                  (object_reference
+                    (identifier))
+                  (identifier))
+                (lateral_cross_join
+                  (keyword_cross)
+                  (keyword_join)
+                  (keyword_lateral)
+                  (subquery
+                    (select
+                      (keyword_select)
+                      (select_expression
+                        (term
+                          (field
+                            (identifier)))
+                        (term
+                          (field
+                            (identifier)))
+                        (term
+                          (field
+                            (identifier)))
+                        (term
+                          (field
+                            (identifier)))))
+                    (from
+                      (keyword_from)
+                      (relation
+                        (object_reference
+                          (identifier)))
+                      (limit
+                        (keyword_limit)
+                        (literal))))
+                  (keyword_as)
+                  (identifier))
+                (group_by
+                  (keyword_group)
+                  (keyword_by)
+                  (field
+                    (object_reference
+                      (identifier))
+                    (identifier))))))
+          (update
+            (keyword_update)
+            (relation
+              (object_reference
+                (identifier)))
+            (keyword_set)
+            (assignment
+              (field
+                (identifier))
+              (binary_expression
+                (field
+                  (identifier))
+                (field
+                  (identifier))))
+            (from
+              (keyword_from)
+              (relation
+                (object_reference
+                  (identifier)))
+              (where
+                (keyword_where)
+                (binary_expression
+                  (field
+                    (object_reference
+                      (identifier))
+                    (identifier))
+                  (field
+                    (object_reference
+                      (identifier))
+                    (identifier)))))))
+        (keyword_return)
+        (literal)
         (keyword_end)
         (dollar_quote)))))

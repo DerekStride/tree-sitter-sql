@@ -1379,7 +1379,7 @@ USING (id);
         (relation
           (object_reference
             name: (identifier))
-            alias: (identifier))
+          alias: (identifier))
         (keyword_using)
         (list
           (column
@@ -2703,8 +2703,7 @@ SELECT interval '1m'
       (select_expression
         (term
           value: (interval
-            (keyword_interval)
-            (interval_definitions)))))))
+            (keyword_interval)))))))
 
 ================================================================================
 Select with string literals containing single quotes
