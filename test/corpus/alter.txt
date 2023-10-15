@@ -556,7 +556,9 @@ FOREIGN KEY ("accountId") REFERENCES "Account" ("accountId") ON DELETE CASCADE;
         (constraint
           (keyword_foreign)
           (keyword_key)
-          (identifier)
+          (ordered_columns
+            (column
+              name: (literal)))
           (keyword_references)
           (object_reference
             name: (identifier))
@@ -1152,7 +1154,9 @@ ON UPDATE SET DEFAULT;
         (constraint
           (keyword_foreign)
           (keyword_key)
-          (identifier)
+          (ordered_columns
+            (column
+              (literal)))
           (keyword_references)
           (object_reference
             (identifier))
@@ -1188,6 +1192,10 @@ ALTER TABLE table_name
         (identifier)
         (constraint
           (keyword_unique)
-          (identifier)
-          (identifier)
-          (identifier))))))
+          (ordered_columns
+            (column
+              (identifier))
+            (column
+              (identifier))
+            (column
+              (identifier))))))))

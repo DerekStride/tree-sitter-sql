@@ -2324,7 +2324,7 @@ module.exports = grammar({
         $.keyword_index,
       ),
       optional(field('name', $.identifier)),
-      paren_list($.identifier, true),
+      $.ordered_columns,
       optional(
         seq(
           $.keyword_references,
