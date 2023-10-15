@@ -1012,3 +1012,52 @@ $function$
           (identifier))
         (keyword_end)
         (dollar_quote)))))
+
+================================================================================
+SQL function creation with complex arguments
+================================================================================
+
+create or replace function public.fn(IN arg1 text, OUT arg2 int DEFAULT 12, IN OUT arg3 text = 'test')
+ returns int
+ language sql
+return 1;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_or)
+      (keyword_replace)
+      (keyword_function)
+      (object_reference
+        (identifier)
+        (identifier))
+      (function_arguments
+        (function_argument
+          (keyword_in)
+          (identifier)
+          (keyword_text))
+        (function_argument
+          (keyword_out)
+          (identifier)
+          (int
+            (keyword_int))
+          (keyword_default)
+          (literal))
+        (function_argument
+          (keyword_in)
+          (keyword_out)
+          (identifier)
+          (keyword_text)
+          (literal)))
+      (keyword_returns)
+      (int
+        (keyword_int))
+      (function_language
+        (keyword_language)
+        (keyword_sql))
+      (function_body
+        (keyword_return)
+        (literal)))))

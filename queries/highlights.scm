@@ -287,6 +287,7 @@
   (keyword_constraints)
   (keyword_snapshot)
   (keyword_characteristics)
+  (keyword_off)
 ] @keyword
 
 [

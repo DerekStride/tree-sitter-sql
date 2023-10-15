@@ -145,3 +145,28 @@ COMMENT ON EXTENSION ext_test IS 'A testing extension';
         (identifier))
       (keyword_is)
       (literal))))
+
+================================================================================
+Comment on function with arg mode
+================================================================================
+
+COMMENT ON FUNCTION schema_test.do_somthing(OUT arg1 text) IS 'Do something';
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (comment_statement
+      (keyword_comment)
+      (keyword_on)
+      (keyword_function)
+      (object_reference
+        (identifier)
+        (identifier))
+      (function_arguments
+        (function_argument
+          (keyword_out)
+          (identifier)
+          (keyword_text)))
+      (keyword_is)
+      (literal))))
