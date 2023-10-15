@@ -2309,15 +2309,22 @@ module.exports = grammar({
     ),
 
     _key_constraint: $ => seq(
-      optional(
-        choice(
+      choice(
+        seq(
           $.keyword_unique,
-          $.keyword_foreign,
+          optional(
+            choice(
+              $.keyword_index,
+              $.keyword_key,
+              seq($.keyword_nulls, optional($.keyword_not), $.keyword_distinct),
+            ),
+          ),
         ),
+        seq(optional($.keyword_foreign), $.keyword_key, optional($._if_not_exists)),
+        $.keyword_index,
       ),
-      choice($.keyword_key, $.keyword_index),
       optional(field('name', $.identifier)),
-      paren_list($.identifier, true),
+      $.ordered_columns,
       optional(
         seq(
           $.keyword_references,
