@@ -1948,3 +1948,24 @@ OWNED BY numbers.number_sequences;
       (object_reference
         (identifier)
         (identifier)))))
+
+================================================================================
+Create extension
+================================================================================
+
+CREATE EXTENSION IF NOT EXISTS pg_stat_statements WITH SCHEMA public;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_extension
+      (keyword_create)
+      (keyword_extension)
+      (keyword_if)
+      (keyword_not)
+      (keyword_exists)
+      (identifier)
+      (keyword_with)
+      (keyword_schema)
+      (identifier))))

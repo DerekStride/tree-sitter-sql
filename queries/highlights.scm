@@ -264,6 +264,8 @@
   (keyword_user)
   (keyword_valid)
   (keyword_action)
+  (keyword_extension)
+  (keyword_version)
 ] @keyword
 
 [
