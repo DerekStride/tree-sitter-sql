@@ -575,9 +575,9 @@ module.exports = grammar({
       )
     ),
 
-    comment: _ => seq('--', /.*/),
+    comment: _ => /--.*/,
     // https://stackoverflow.com/questions/13014947/regex-to-match-a-c-style-multiline-comment
-    marginalia: _ => seq('/*', /[^*]*\*+(?:[^/*][^*]*\*+)*/, '/' ),
+    marginalia: _ => /\/\*[^*]*\*+(?:[^/*][^*]*\*+)*\//,
 
     transaction: $ => seq(
       $.keyword_begin,
@@ -2367,10 +2367,7 @@ module.exports = grammar({
       '*',
     ),
 
-    parameter: $ => choice(
-      "?",
-      seq("$", RegExp("[0-9]+")),
-    ),
+    parameter: $ => /\?|(\$[0-9]+)/,
 
     case: $ => seq(
       $.keyword_case,
@@ -2995,9 +2992,10 @@ module.exports = grammar({
         $.keyword_null,
       ),
     ),
-    _double_quote_string: _ => seq('"', /[^"]*/, '"'),
-    _single_quote_string: _ => seq("'", /([^']|'')*/, "'"),
-    _literal_string: $ => prec(1,
+    _double_quote_string: _ => /"[^"]*"/,
+    _single_quote_string: _ => /'([^']|'')*'/,
+    _literal_string: $ => prec(
+      1,
       choice(
         $._single_quote_string,
         $._double_quote_string,
@@ -3005,20 +3003,16 @@ module.exports = grammar({
     ),
     _natural_number: _ => /\d+/,
     _integer: $ => seq(optional("-"), $._natural_number),
-    _decimal_number: $ => choice(
-        seq(optional("-"), ".", $._natural_number),
-        seq($._integer, ".", $._natural_number),
-        seq($._integer, "."),
-    ),
+    _decimal_number: $ => seq(optional("-"), /(\d*[.]\d+)|(\d+[.])/),
 
     bang: _ => '!',
 
     identifier: $ => choice(
       $._identifier,
       $._double_quote_string,
-      seq('`', $._identifier, '`'),
+      /`([a-zA-Z_][0-9a-zA-Z_]*)`/,
     ),
-    _identifier: _ => /([a-zA-Z_][0-9a-zA-Z_]*)/,
+    _identifier: _ => /[a-zA-Z_][0-9a-zA-Z_]*/,
   }
 
 });
