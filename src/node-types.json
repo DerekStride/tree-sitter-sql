@@ -3495,7 +3495,19 @@
           "named": true
         },
         {
+          "type": "keyword_distinct",
+          "named": true
+        },
+        {
+          "type": "keyword_exists",
+          "named": true
+        },
+        {
           "type": "keyword_foreign",
+          "named": true
+        },
+        {
+          "type": "keyword_if",
           "named": true
         },
         {
@@ -3511,7 +3523,15 @@
           "named": true
         },
         {
+          "type": "keyword_not",
+          "named": true
+        },
+        {
           "type": "keyword_null",
+          "named": true
+        },
+        {
+          "type": "keyword_nulls",
           "named": true
         },
         {
