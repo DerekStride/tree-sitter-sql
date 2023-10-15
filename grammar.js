@@ -558,7 +558,7 @@ module.exports = grammar({
     nchar: $ => parametric_type($, $.keyword_nchar),
     nvarchar: $ => parametric_type($, $.keyword_nvarchar),
 
-    _time_zone: $ => seq(
+    _include_time_zone: $ => seq(
       choice($.keyword_with, $.keyword_without),
       $.keyword_time,
       $.keyword_zone,
@@ -566,11 +566,11 @@ module.exports = grammar({
     datetimeoffset: $ => parametric_type($, $.keyword_datetimeoffset),
     time: $ => seq(
       parametric_type($, $.keyword_time),
-      optional($._time_zone),
+      optional($._include_time_zone),
     ),
     timestamp: $ => seq(
       parametric_type($, $.keyword_timestamp),
-      optional($._time_zone),
+      optional($._include_time_zone),
     ),
     timestamptz: $ => parametric_type($, $.keyword_timestamptz),
 
