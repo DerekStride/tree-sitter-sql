@@ -1165,3 +1165,29 @@ ON UPDATE SET DEFAULT;
           (keyword_update)
           (keyword_set)
           (keyword_default))))))
+
+================================================================================
+Add unique constraint
+================================================================================
+
+ALTER TABLE table_name
+    ADD CONSTRAINT constraint_name UNIQUE (col1, col2, col3);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_table
+      (keyword_alter)
+      (keyword_table)
+      (object_reference
+        (identifier))
+      (add_constraint
+        (keyword_add)
+        (keyword_constraint)
+        (identifier)
+        (constraint
+          (keyword_unique)
+          (identifier)
+          (identifier)
+          (identifier))))))
