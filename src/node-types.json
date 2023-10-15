@@ -3356,11 +3356,6 @@
     }
   },
   {
-    "type": "comment",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "comment_statement",
     "named": true,
     "fields": {},
@@ -7193,11 +7188,6 @@
     }
   },
   {
-    "type": "marginalia",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "mediumint",
     "named": true,
     "fields": {
@@ -7625,11 +7615,6 @@
         }
       ]
     }
-  },
-  {
-    "type": "parameter",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "partition_by",
@@ -8749,17 +8734,9 @@
     "named": true,
     "fields": {
       "name": {
-        "multiple": true,
+        "multiple": false,
         "required": false,
         "types": [
-          {
-            "type": "\"",
-            "named": false
-          },
-          {
-            "type": "'",
-            "named": false
-          },
           {
             "type": "identifier",
             "named": true
@@ -8775,17 +8752,9 @@
         ]
       },
       "value": {
-        "multiple": true,
+        "multiple": false,
         "required": false,
         "types": [
-          {
-            "type": "\"",
-            "named": false
-          },
-          {
-            "type": "'",
-            "named": false
-          },
           {
             "type": "identifier",
             "named": true
@@ -9699,19 +9668,11 @@
     "named": false
   },
   {
-    "type": "\"",
-    "named": false
-  },
-  {
     "type": "#>",
     "named": false
   },
   {
     "type": "#>>",
-    "named": false
-  },
-  {
-    "type": "$",
     "named": false
   },
   {
@@ -9759,10 +9720,6 @@
     "named": false
   },
   {
-    "type": "--",
-    "named": false
-  },
-  {
     "type": "->",
     "named": false
   },
@@ -9776,10 +9733,6 @@
   },
   {
     "type": "/",
-    "named": false
-  },
-  {
-    "type": "/*",
     "named": false
   },
   {
@@ -9819,10 +9772,6 @@
     "named": false
   },
   {
-    "type": "?",
-    "named": false
-  },
-  {
     "type": "H",
     "named": false
   },
@@ -9847,10 +9796,6 @@
     "named": false
   },
   {
-    "type": "`",
-    "named": false
-  },
-  {
     "type": "ago",
     "named": false
   },
@@ -9861,6 +9806,10 @@
   {
     "type": "century",
     "named": false
+  },
+  {
+    "type": "comment",
+    "named": true
   },
   {
     "type": "d",
@@ -11003,6 +10952,10 @@
     "named": false
   },
   {
+    "type": "marginalia",
+    "named": true
+  },
+  {
     "type": "microsecond",
     "named": false
   },
@@ -11029,6 +10982,10 @@
   {
     "type": "months",
     "named": false
+  },
+  {
+    "type": "parameter",
+    "named": true
   },
   {
     "type": "second",
