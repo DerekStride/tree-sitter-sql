@@ -841,16 +841,7 @@ module.exports = grammar({
       ),
     ),
 
-    term: $ => seq(
-      field(
-        'value',
-        choice(
-          $.all_fields,
-          $._expression,
-        ),
-      ),
-      optional($._alias),
-    ),
+    term: $ => expr_term($, $._expression),
 
     _truncate_statement: $ => seq(
       $.keyword_truncate,
@@ -1139,9 +1130,7 @@ module.exports = grammar({
           ':=',
           choice(
             wrapped_in_parenthesis($.statement),
-            // TODO are there more possibilities here? We can't use `_expression` since
-            // that includes subqueries
-            $.literal,
+            $._expression_without_subquery,
           ),
         ),
       ),
@@ -2485,49 +2474,7 @@ module.exports = grammar({
 
     parameter: $ => /\?|(\$[0-9]+)/,
 
-    case: $ => seq(
-      $.keyword_case,
-      choice(
-        // simplified CASE x WHEN
-        seq(
-          $._expression,
-          $.keyword_when,
-          $._expression,
-          $.keyword_then,
-          $._expression,
-          repeat(
-            seq(
-              $.keyword_when,
-              $._expression,
-              $.keyword_then,
-              $._expression,
-            )
-          ),
-        ),
-        // standard CASE WHEN x, where x must be a predicate
-        seq(
-          $.keyword_when,
-          $._expression,
-          $.keyword_then,
-          $._expression,
-          repeat(
-            seq(
-              $.keyword_when,
-              $._expression,
-              $.keyword_then,
-              $._expression,
-            )
-          ),
-        ),
-      ),
-      optional(
-        seq(
-          $.keyword_else,
-          $._expression,
-        )
-      ),
-      $.keyword_end,
-    ),
+    case: $ => expr_case($, $._expression),
 
     field: $ => field('name', $.identifier),
 
@@ -2541,11 +2488,7 @@ module.exports = grammar({
       field('name', $.identifier),
     ),
 
-    implicit_cast: $ => seq(
-      $._expression,
-      '::',
-      $._type,
-    ),
+    implicit_cast: $ => expr_implicit_cast($, $._expression),
 
     interval_definitions: $ => repeat1(
          $._interval_definition
@@ -2595,56 +2538,17 @@ module.exports = grammar({
         ),
     ),
 
-    cast: $ => seq(
-      field('name', $.keyword_cast),
-      wrapped_in_parenthesis(
-        seq(
-          field('parameter', $._expression),
-          $.keyword_as,
-          $._type,
-        ),
-      ),
-    ),
+    cast: $ => expr_cast($, $._expression),
 
     filter_expression : $ => seq(
       $.keyword_filter,
       wrapped_in_parenthesis($.where),
     ),
 
-    invocation: $ => prec(1,
-      seq(
-        $.object_reference,
-        choice(
-          // default invocation
-          paren_list(
-            seq(
-              optional($.keyword_distinct),
-              field(
-                'parameter',
-                $.term,
-              ),
-              optional($.order_by)
-            )
-          ),
-          // _aggregate_function, e.g. group_concat
-          wrapped_in_parenthesis(
-            seq(
-              optional($.keyword_distinct),
-              field('parameter', $.term),
-              optional($.order_by),
-              optional(seq(
-                choice($.keyword_separator, ','),
-                alias($._literal_string, $.literal)
-              )),
-              optional($.limit),
-            ),
-          ),
-        ),
-        optional(
-          $.filter_expression
-        )
-      ),
-    ),
+    // This strangely doesn't pass tests
+    // `prec(1, expr_invocation($, $._expression, expr_term($, $._expression)))`
+    // which is the same grammar.
+    invocation: $ => prec(1, expr_invocation($, $._expression, $.term)),
 
     exists: $ => seq(
       $.keyword_exists,
@@ -2998,6 +2902,93 @@ module.exports = grammar({
       )
     ),
 
+    list_without_subquery: $ => paren_list($._expression_without_subquery),
+
+    term_without_subquery: $ => expr_term($, $._expression_without_subquery),
+
+    invocation_without_expression: $ => expr_invocation($, $._expression_without_subquery, alias($.term_without_subquery, $.term)),
+
+    _expression_without_subquery: $ => prec(
+      1,
+      choice(
+        $.literal,
+        alias(
+          $._qualified_field,
+          $.field,
+        ),
+        $.parameter,
+        alias($.list_without_subquery, $.list),
+        alias(expr_case($, $._expression_without_subquery), $.case),
+        // TODO: This one is a bit more verbose
+        // alias(expr_window_function($, $._expression_without_subquery), $.window_function),
+        alias(expr_cast($, $._expression_without_subquery), $.cast),
+        alias(expr_implicit_cast($, $._expression_without_subquery), $.cast),
+        alias($.invocation_without_expression, $.invocation),
+        alias($.binary_expression_without_subquery, $.binary_expression),
+        alias($.unary_expression_without_subquery, $.unary_expression),
+        alias(
+          seq($.keyword_array, "[", comma_list($._expression_without_subquery), "]" ),
+          $.array,
+        ),
+        alias($.between_expression_without_subquery, $.between_expression),
+        wrapped_in_parenthesis($._expression_without_subquery),
+      )
+    ),
+
+    unary_expression_without_subquery: $ => expr_unary_expression($, $._expression_without_subquery),
+
+    between_expression_without_subquery: $ => expr_between_expression($, $._expression_without_subquery),
+
+    binary_expression_without_subquery: $ => choice(
+      ...[
+        ['+', 'binary_plus'],
+        ['-', 'binary_plus'],
+        ['*', 'binary_times'],
+        ['/', 'binary_times'],
+        ['%', 'binary_times'],
+        ['^', 'binary_exp'],
+        ['||', 'binary_concat'],
+        ['=', 'binary_relation'],
+        ['<', 'binary_relation'],
+        ['<=', 'binary_relation'],
+        ['!=', 'binary_relation'],
+        ['>=', 'binary_relation'],
+        ['>', 'binary_relation'],
+        ['<>', 'binary_relation'],
+        ['->', 'binary_relation'],
+        ['->>', 'binary_relation'],
+        ['#>', 'binary_relation'],
+        ['#>>', 'binary_relation'],
+        [$.keyword_is, 'binary_is'],
+        [$.is_not, 'binary_is'],
+        [$.keyword_like, 'pattern_matching'],
+        [$.not_like, 'pattern_matching'],
+        [$.similar_to, 'pattern_matching'],
+        [$.not_similar_to, 'pattern_matching'],
+        // binary_is precedence disambiguates `(is not distinct from)` from an
+        // `is (not distinct from)` with a unary `not`
+        [$.distinct_from, 'binary_is'],
+        [$.not_distinct_from, 'binary_is'],
+      ].map(([operator, precedence]) =>
+        prec.left(precedence, seq(
+          field('left', $._expression_without_subquery),
+          field('operator', operator),
+          field('right', $._expression_without_subquery)
+        ))
+      ),
+      ...[
+        [$.keyword_and, 'clause_connective'],
+        [$.keyword_or, 'clause_disjunctive'],
+      ].map(([operator, precedence]) =>
+        prec.left(precedence, seq(
+          field('left', $._expression_without_subquery),
+          field('operator', operator),
+          field('right', $._expression_without_subquery)
+        ))
+      ),
+    ),
+
+
     binary_expression: $ => choice(
       ...[
         ['+', 'binary_plus'],
@@ -3057,35 +3048,9 @@ module.exports = grammar({
       ),
     ),
 
-    unary_expression: $ => choice(
-      ...[
-        [$.keyword_not, 'unary_not'],
-        [$.bang, 'unary_not'],
-        [$.keyword_any, 'unary_not'],
-        [$.keyword_some, 'unary_not'],
-        [$.keyword_all, 'unary_not'],
-      ].map(([operator, precedence]) =>
-        prec.left(precedence, seq(
-          field('operator', operator),
-          field('operand', $._expression)
-        ))
-      ),
-    ),
+    unary_expression: $ => expr_unary_expression($, $._expression),
 
-    between_expression: $ => choice(
-      ...[
-            [$.keyword_between, 'between'],
-            [seq($.keyword_not, $.keyword_between), 'between'],
-        ].map(([operator, precedence]) =>
-                prec.left(precedence, seq(
-                field('left', $._expression),
-                field('operator', operator),
-                field('low', $._expression),
-                $.keyword_and,
-                field('high', $._expression)
-            ))
-        ),
-    ),
+    between_expression: $ => expr_between_expression($, $._expression),
 
     not_in: $ => seq(
       $.keyword_not,
@@ -3201,4 +3166,153 @@ function make_keyword(word) {
     str = str + "[" + word.charAt(i).toLowerCase() + word.charAt(i).toUpperCase() + "]";
   }
   return new RegExp(str);
+}
+
+function expr_case($, expr) {
+  return seq(
+    $.keyword_case,
+    choice(
+      // simplified CASE x WHEN
+      seq(
+        expr,
+        $.keyword_when,
+        expr,
+        $.keyword_then,
+        expr,
+        repeat(
+          seq(
+            $.keyword_when,
+            expr,
+            $.keyword_then,
+            expr,
+          )
+        ),
+      ),
+      // standard CASE WHEN x, where x must be a predicate
+      seq(
+        $.keyword_when,
+        expr,
+        $.keyword_then,
+        expr,
+        repeat(
+          seq(
+            $.keyword_when,
+            expr,
+            $.keyword_then,
+            expr,
+          )
+        ),
+      ),
+    ),
+    optional(
+      seq(
+        $.keyword_else,
+        expr,
+      )
+    ),
+    $.keyword_end,
+  );
+}
+
+function expr_cast($, expr) {
+  return seq(
+    field('name', $.keyword_cast),
+    wrapped_in_parenthesis(
+      seq(
+        field('parameter', expr),
+        $.keyword_as,
+        $._type,
+      ),
+    ),
+  );
+}
+
+function expr_implicit_cast($, expr) {
+  return seq(
+    expr,
+    '::',
+    $._type,
+  );
+}
+
+function expr_invocation($, expr, term) {
+  return seq(
+      $.object_reference,
+      choice(
+        // default invocation
+        paren_list(
+          seq(
+            optional($.keyword_distinct),
+            field(
+              'parameter',
+              term,
+            ),
+            optional($.order_by)
+          )
+        ),
+        // _aggregate_function, e.g. group_concat
+        wrapped_in_parenthesis(
+          seq(
+            optional($.keyword_distinct),
+            field('parameter', term),
+            optional($.order_by),
+            optional(seq(
+              choice($.keyword_separator, ','),
+              alias($._literal_string, $.literal)
+            )),
+            optional($.limit),
+          ),
+        ),
+      ),
+      optional(
+        $.filter_expression
+      )
+  );
+}
+
+function expr_term($, expr) {
+  return seq(
+    field(
+      'value',
+      choice(
+        $.all_fields,
+        expr,
+      ),
+    ),
+    optional($._alias),
+  );
+}
+
+function expr_between_expression($, expr) {
+  return choice(
+    ...[
+      [$.keyword_between, 'between'],
+      [seq($.keyword_not, $.keyword_between), 'between'],
+    ].map(([operator, precedence]) =>
+      prec.left(precedence, seq(
+        field('left', expr),
+        field('operator', operator),
+        field('low', expr),
+        $.keyword_and,
+        field('high', expr)
+      ))
+    ),
+  );
+}
+
+function expr_unary_expression($, expr) {
+  return choice(
+    ...[
+      [$.keyword_not, 'unary_not'],
+      [$.bang, 'unary_not'],
+      [$.keyword_any, 'unary_not'],
+      [$.keyword_some, 'unary_not'],
+      [$.keyword_all, 'unary_not'],
+    ].map(([operator, precedence]) =>
+      prec.left(precedence, seq(
+        field('operator', operator),
+        field('operand', expr)
+      ))
+    ),
+  );
 }

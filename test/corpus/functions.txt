@@ -797,6 +797,9 @@ declare
   one int;
   two text := (select 'hello');
   three text := 'world';
+  four text := (('hello wolrd'));
+  five int := 1 + 2 * 3;
+  six int := fun(1, 2, 3);
 begin
   return 1;
 end;
@@ -842,6 +845,32 @@ $function$;
           (identifier)
           (keyword_text)
           (literal))
+        (function_declaration
+          (identifier)
+          (keyword_text)
+          (literal))
+        (function_declaration
+          (identifier)
+          (int
+            (keyword_int))
+          (binary_expression
+            (literal)
+            (binary_expression
+              (literal)
+              (literal))))
+        (function_declaration
+          (identifier)
+          (int
+            (keyword_int))
+          (invocation
+            (object_reference
+              (identifier))
+            (term
+              (literal))
+            (term
+              (literal))
+            (term
+              (literal))))
         (keyword_begin)
         (keyword_return)
         (literal)
