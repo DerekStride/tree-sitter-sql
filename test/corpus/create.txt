@@ -1042,10 +1042,15 @@ CREATE TABLE type_test (
             (keyword_time)))
         (column_definition
           name: (identifier)
-          type: (keyword_timestamp))
+          type: (timestamp
+            (keyword_timestamp)))
         (column_definition
           name: (identifier)
-          type: (keyword_timestamp))
+          type: (timestamp
+            (keyword_timestamp)
+            (keyword_without)
+            (keyword_time)
+            (keyword_zone)))
         (column_definition
           name: (identifier)
           type: (keyword_timestamptz))
@@ -1056,7 +1061,11 @@ CREATE TABLE type_test (
           (keyword_current_timestamp))
         (column_definition
           name: (identifier)
-          type: (keyword_timestamptz))
+          type: (timestamp
+            (keyword_timestamp)
+            (keyword_with)
+            (keyword_time)
+            (keyword_zone)))
         (column_definition
           name: (identifier)
           type: (keyword_geometry))
@@ -1968,3 +1977,61 @@ OWNED BY numbers.number_sequences;
       (object_reference
         (identifier)
         (identifier)))))
+
+================================================================================
+Create view rule conflict with time and timestamp rules (check timezone)
+================================================================================
+
+create view test as select '123'::timestamp with time zone;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_view
+      (keyword_create)
+      (keyword_view)
+      (object_reference
+        (identifier))
+      (keyword_as)
+      (create_query
+        (select
+          (keyword_select)
+          (select_expression
+            (term
+              (cast
+                (literal)
+                (timestamp
+                  (keyword_timestamp)
+                  (keyword_with)
+                  (keyword_time)
+                  (keyword_zone))))))))))
+
+================================================================================
+Create view rule conflict with time and timestamp rules (check create_view)
+================================================================================
+
+create view toto as select '123'::timestamp with check option;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_view
+      (keyword_create)
+      (keyword_view)
+      (object_reference
+        (identifier))
+      (keyword_as)
+      (create_query
+        (select
+          (keyword_select)
+          (select_expression
+            (term
+              (cast
+                (literal)
+                (timestamp
+                  (keyword_timestamp)))))))
+      (keyword_with)
+      (keyword_check)
+      (keyword_option))))

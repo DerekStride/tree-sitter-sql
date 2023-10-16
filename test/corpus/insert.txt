@@ -526,3 +526,38 @@ FROM
                     (identifier))
                   (literal)))))
           (identifier))))))
+
+================================================================================
+Insert from unioned select
+================================================================================
+
+INSERT INTO some_table
+  (field)
+  (SELECT "String value"
+   UNION
+   SELECT "String value");
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (insert
+      (keyword_insert)
+      (keyword_into)
+      (object_reference
+        (identifier))
+      (list
+        (column
+          (identifier)))
+      (set_operation
+        (select
+          (keyword_select)
+          (select_expression
+            (term
+              (literal))))
+        (keyword_union)
+        (select
+          (keyword_select)
+          (select_expression
+            (term
+              (literal))))))))

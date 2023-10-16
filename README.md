@@ -53,6 +53,8 @@ For a complete list of features see the the [tests](test/corpus)
   though I may not have been strict early on in the prototyping.
 * [Phoenix Language Reference](https://forcedotcom.github.io/phoenix/index.html) - A reference diagram.
 * [SQLite's railroad diagram for expr](https://www.sqlite.org/lang_expr.html) - Another reference diagram.
+* [Postgresql syntax documentation](https://www.postgresql.org/docs/current/sql-commands.html)
+* [Mariadb syntax documentation](https://mariadb.com/kb/en/sql-statements-structure/)
 
 ### Other projects
 
