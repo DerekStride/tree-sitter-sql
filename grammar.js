@@ -1300,7 +1300,7 @@ module.exports = grammar({
       $.identifier,
       optional($.keyword_with),
       optional(seq($.keyword_schema, $.identifier)),
-      optional(seq($.keyword_version, choice($.identifier, $._literal_string))),
+      optional(seq($.keyword_version, choice($.identifier, alias($._literal_string, $.literal)))),
       optional($.keyword_cascade),
     ),
 

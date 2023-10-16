@@ -1969,3 +1969,21 @@ CREATE EXTENSION IF NOT EXISTS pg_stat_statements WITH SCHEMA public;
       (keyword_with)
       (keyword_schema)
       (identifier))))
+
+================================================================================
+Create extension with version and cascade
+================================================================================
+
+CREATE EXTENSION pg_stat_statements VERSION '12' CASCADE;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_extension
+      (keyword_create)
+      (keyword_extension)
+      (identifier)
+      (keyword_version)
+      (literal)
+      (keyword_cascade))))
