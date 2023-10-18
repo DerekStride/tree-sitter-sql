@@ -11,7 +11,8 @@ Create type
     (create_type
       (keyword_create)
       (keyword_type)
-      (identifier))))
+      (object_reference
+        (identifier)))))
 
 ================================================================================
 Create type enum
@@ -30,7 +31,8 @@ CREATE TYPE colors as ENUM (
     (create_type
       (keyword_create)
       (keyword_type)
-      (identifier)
+      (object_reference
+        (identifier))
       (keyword_as)
       (keyword_enum)
       (enum_elements
@@ -52,7 +54,8 @@ CREATE TYPE cities AS (
     (create_type
       (keyword_create)
       (keyword_type)
-      (identifier)
+      (object_reference
+        (identifier))
       (keyword_as)
       (column_definitions
         (column_definition
@@ -78,7 +81,8 @@ CREATE TYPE marathon AS RANGE (
     (create_type
       (keyword_create)
       (keyword_type)
-      (identifier)
+      (object_reference
+        (identifier))
       (keyword_as)
       (keyword_range)
       (identifier)
@@ -98,7 +102,8 @@ CREATE TYPE bigobj (
     (create_type
       (keyword_create)
       (keyword_type)
-      (identifier)
+      (object_reference
+        (identifier))
       (identifier)
       (identifier)
       (identifier)
@@ -330,7 +335,9 @@ shipment boxes
         (identifier))
       (column_definitions
         (column_definition
-          (identifier))))))
+          (identifier)
+          (object_reference
+            (identifier)))))))
 
 ================================================================================
 Insert into table with custom type
