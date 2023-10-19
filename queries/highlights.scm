@@ -267,6 +267,7 @@
   (keyword_valid)
   (keyword_action)
   (keyword_extension)
+  (keyword_version)
   (keyword_out)
   (keyword_inout)
   (keyword_variadic)

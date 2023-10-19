@@ -3711,6 +3711,61 @@
     }
   },
   {
+    "type": "create_extension",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "keyword_cascade",
+          "named": true
+        },
+        {
+          "type": "keyword_create",
+          "named": true
+        },
+        {
+          "type": "keyword_exists",
+          "named": true
+        },
+        {
+          "type": "keyword_extension",
+          "named": true
+        },
+        {
+          "type": "keyword_if",
+          "named": true
+        },
+        {
+          "type": "keyword_not",
+          "named": true
+        },
+        {
+          "type": "keyword_schema",
+          "named": true
+        },
+        {
+          "type": "keyword_version",
+          "named": true
+        },
+        {
+          "type": "keyword_with",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "create_function",
     "named": true,
     "fields": {
@@ -5314,6 +5369,45 @@
         },
         {
           "type": "keyword_with",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "drop_extension",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "keyword_cascade",
+          "named": true
+        },
+        {
+          "type": "keyword_drop",
+          "named": true
+        },
+        {
+          "type": "keyword_exists",
+          "named": true
+        },
+        {
+          "type": "keyword_extension",
+          "named": true
+        },
+        {
+          "type": "keyword_if",
+          "named": true
+        },
+        {
+          "type": "keyword_restrict",
           "named": true
         }
       ]
@@ -8869,6 +8963,10 @@
           "named": true
         },
         {
+          "type": "create_extension",
+          "named": true
+        },
+        {
           "type": "create_function",
           "named": true
         },
@@ -8914,6 +9012,10 @@
         },
         {
           "type": "drop_database",
+          "named": true
+        },
+        {
+          "type": "drop_extension",
           "named": true
         },
         {
@@ -11692,6 +11794,10 @@
   },
   {
     "type": "keyword_verbose",
+    "named": true
+  },
+  {
+    "type": "keyword_version",
     "named": true
   },
   {
