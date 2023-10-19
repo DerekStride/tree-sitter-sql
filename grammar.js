@@ -240,6 +240,7 @@ module.exports = grammar({
     keyword_attribute: _ => make_keyword("attribute"),
     keyword_authorization: _ => make_keyword("authorization"),
     keyword_action: _ => make_keyword("action"),
+    keyword_extension: _ => make_keyword("extension"),
 
     keyword_trigger: _ => make_keyword('trigger'),
     keyword_function: _ => make_keyword("function"),
@@ -266,6 +267,7 @@ module.exports = grammar({
     keyword_cost: _ => make_keyword("cost"),
     keyword_rows: _ => make_keyword("rows"),
     keyword_support: _ => make_keyword("support"),
+    keyword_version: _ => make_keyword("version"),
     keyword_extension: _ => make_keyword("extension"),
     keyword_out: _ => make_keyword("out"),
     keyword_inout: _ => make_keyword("inout"),
@@ -893,6 +895,7 @@ module.exports = grammar({
         $.create_database,
         $.create_role,
         $.create_sequence,
+        $.create_extension,
         prec.left(seq(
           $.create_schema,
           repeat($._create_statement),
@@ -1405,6 +1408,17 @@ module.exports = grammar({
       ),
     ),
 
+    create_extension: $ => seq(
+      $.keyword_create,
+      $.keyword_extension,
+      optional($._if_not_exists),
+      $.identifier,
+      optional($.keyword_with),
+      optional(seq($.keyword_schema, $.identifier)),
+      optional(seq($.keyword_version, choice($.identifier, alias($._literal_string, $.literal)))),
+      optional($.keyword_cascade),
+    ),
+
     create_type: $ => seq(
       $.keyword_create,
       $.keyword_type,
@@ -1854,6 +1868,7 @@ module.exports = grammar({
         $.drop_database,
         $.drop_role,
         $.drop_sequence,
+        $.drop_extension,
       ),
     ),
 
@@ -1930,6 +1945,14 @@ module.exports = grammar({
             $.object_reference,
         ),
       ),
+    ),
+
+    drop_extension: $ => seq(
+      $.keyword_drop,
+      $.keyword_extension,
+      optional($._if_exists),
+      comma_list($.identifier, true),
+      optional(choice($.keyword_cascade, $.keyword_restrict)),
     ),
 
     rename_object: $ => seq(

@@ -1979,33 +1979,43 @@ OWNED BY numbers.number_sequences;
         (identifier)))))
 
 ================================================================================
-Create view rule conflict with time and timestamp rules (check timezone)
+Create extension
 ================================================================================
 
-create view test as select '123'::timestamp with time zone;
+CREATE EXTENSION IF NOT EXISTS pg_stat_statements WITH SCHEMA public;
 
 --------------------------------------------------------------------------------
 
 (program
   (statement
-    (create_view
+    (create_extension
       (keyword_create)
-      (keyword_view)
-      (object_reference
-        (identifier))
-      (keyword_as)
-      (create_query
-        (select
-          (keyword_select)
-          (select_expression
-            (term
-              (cast
-                (literal)
-                (timestamp
-                  (keyword_timestamp)
-                  (keyword_with)
-                  (keyword_time)
-                  (keyword_zone))))))))))
+      (keyword_extension)
+      (keyword_if)
+      (keyword_not)
+      (keyword_exists)
+      (identifier)
+      (keyword_with)
+      (keyword_schema)
+      (identifier))))
+
+================================================================================
+Create extension with version and cascade
+================================================================================
+
+CREATE EXTENSION pg_stat_statements VERSION '12' CASCADE;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_extension
+      (keyword_create)
+      (keyword_extension)
+      (identifier)
+      (keyword_version)
+      (literal)
+      (keyword_cascade))))
 
 ================================================================================
 Create view rule conflict with time and timestamp rules (check create_view)
