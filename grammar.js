@@ -10,7 +10,9 @@ module.exports = grammar({
 
 
   externals: $ => [
-    $._dollar_string,
+    $._dollar_quoted_string_start_tag,
+    $._dollar_quoted_string_content,
+    $._dollar_quoted_string_end_tag,
   ],
 
   conflicts: $ => [
@@ -2972,7 +2974,7 @@ module.exports = grammar({
       choice(
         $._single_quote_string,
         $._double_quote_string,
-        $._dollar_string,
+        seq($._dollar_quoted_string_start_tag, $._dollar_quoted_string_content, $._dollar_quoted_string_end_tag),
       ),
     ),
     _natural_number: _ => /\d+/,

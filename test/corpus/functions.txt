@@ -1036,7 +1036,7 @@ begin
   from knn
   where knn.alpha = htable.alpha;
 
-  return $a$test$a$;
+  return $b$text$b$;
 
 end;
 $a$
