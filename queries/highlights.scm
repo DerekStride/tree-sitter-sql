@@ -289,6 +289,19 @@
   (keyword_snapshot)
   (keyword_characteristics)
   (keyword_off)
+  (keyword_follows)
+  (keyword_precedes)
+  (keyword_definer)
+  (keyword_each)
+  (keyword_instead)
+  (keyword_of)
+  (keyword_initially)
+  (keyword_old)
+  (keyword_new)
+  (keyword_referencing)
+  (keyword_statement)
+  (keyword_execute)
+  (keyword_procedure)
 ] @keyword
 
 [
