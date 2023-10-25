@@ -11,8 +11,8 @@ module.exports = grammar({
 
   externals: $ => [
     $._dollar_quoted_string_start_tag,
-    $._dollar_quoted_string_content,
     $._dollar_quoted_string_end_tag,
+    $._dollar_quoted_string,
   ],
 
   conflicts: $ => [
@@ -1066,7 +1066,7 @@ module.exports = grammar({
       ),
       seq(
         $.keyword_as,
-        $.dollar_quote,
+        alias($._dollar_quoted_string_start_tag, $.dollar_quote),
         optional(
           seq(
             $.keyword_declare,
@@ -1084,7 +1084,7 @@ module.exports = grammar({
         ),
         $.keyword_end,
         optional(';'),
-        $.dollar_quote,
+        alias($._dollar_quoted_string_end_tag, $.dollar_quote),
       ),
       seq(
         $.keyword_as,
@@ -1098,10 +1098,10 @@ module.exports = grammar({
       ),
       seq(
         $.keyword_as,
-        $.dollar_quote,
+        alias($._dollar_quoted_string_start_tag, $.dollar_quote),
         $._function_body_statement,
         optional(';'),
-        $.dollar_quote,
+        alias($._dollar_quoted_string_end_tag, $.dollar_quote),
       ),
     ),
 
@@ -2974,7 +2974,7 @@ module.exports = grammar({
       choice(
         $._single_quote_string,
         $._double_quote_string,
-        seq($._dollar_quoted_string_start_tag, $._dollar_quoted_string_content, $._dollar_quoted_string_end_tag),
+        $._dollar_quoted_string,
       ),
     ),
     _natural_number: _ => /\d+/,
