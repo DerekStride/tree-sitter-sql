@@ -200,14 +200,20 @@ CREATE TABLE my_table (
           (constraint
             (keyword_key)
             name: (identifier)
-            (identifier)
-            (identifier))
+            (ordered_columns
+              (column
+                name: (identifier))
+              (column
+                name: (identifier))))
           (constraint
             (keyword_unique)
             (keyword_key)
             name: (identifier)
-            (identifier)
-            (identifier)))))))
+            (ordered_columns
+              (column
+                name: (identifier))
+              (column
+                name: (identifier)))))))))
 
 ================================================================================
 Create table if not exists
@@ -343,7 +349,9 @@ CREATE TABLE IF NOT EXISTS `addresses` (
           (constraint
             (keyword_key)
             name: (identifier)
-            (identifier)))))))
+            (ordered_columns
+              (column
+                name: (identifier)))))))))
 
 ================================================================================
 Create table with multiple constraints
@@ -413,16 +421,23 @@ CREATE TABLE IF NOT EXISTS `addresses` (
           (constraint
             (keyword_key)
             name: (identifier)
-            (identifier))
+            (ordered_columns
+              (column
+                name: (identifier))))
           (constraint
             (keyword_key)
             name: (identifier)
-            (identifier))
+            (ordered_columns
+              (column
+                name: (identifier))))
           (constraint
             (keyword_key)
             name: (identifier)
-            (identifier)
-            (identifier)))))))
+            (ordered_columns
+              (column
+                name: (identifier))
+              (column
+                name: (identifier)))))))))
 
 ================================================================================
 Debugging
@@ -1027,10 +1042,15 @@ CREATE TABLE type_test (
             (keyword_time)))
         (column_definition
           name: (identifier)
-          type: (keyword_timestamp))
+          type: (timestamp
+            (keyword_timestamp)))
         (column_definition
           name: (identifier)
-          type: (keyword_timestamp))
+          type: (timestamp
+            (keyword_timestamp)
+            (keyword_without)
+            (keyword_time)
+            (keyword_zone)))
         (column_definition
           name: (identifier)
           type: (keyword_timestamptz))
@@ -1041,7 +1061,11 @@ CREATE TABLE type_test (
           (keyword_current_timestamp))
         (column_definition
           name: (identifier)
-          type: (keyword_timestamptz))
+          type: (timestamp
+            (keyword_timestamp)
+            (keyword_with)
+            (keyword_time)
+            (keyword_zone)))
         (column_definition
           name: (identifier)
           type: (keyword_geometry))
@@ -1153,12 +1177,17 @@ CREATE TABLE some_table(
           (constraint
             (keyword_index)
             name: (identifier)
-            (identifier))
+            (ordered_columns
+              (column
+                name: (identifier))))
           (constraint
             (keyword_index)
             name: (identifier)
-            (identifier)
-            (identifier))))
+            (ordered_columns
+              (column
+                name: (identifier))
+              (column
+                name: (identifier))))))
       (table_option
         (keyword_default)
         (keyword_character)
@@ -1948,3 +1977,71 @@ OWNED BY numbers.number_sequences;
       (object_reference
         (identifier)
         (identifier)))))
+
+================================================================================
+Create extension
+================================================================================
+
+CREATE EXTENSION IF NOT EXISTS pg_stat_statements WITH SCHEMA public;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_extension
+      (keyword_create)
+      (keyword_extension)
+      (keyword_if)
+      (keyword_not)
+      (keyword_exists)
+      (identifier)
+      (keyword_with)
+      (keyword_schema)
+      (identifier))))
+
+================================================================================
+Create extension with version and cascade
+================================================================================
+
+CREATE EXTENSION pg_stat_statements VERSION '12' CASCADE;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_extension
+      (keyword_create)
+      (keyword_extension)
+      (identifier)
+      (keyword_version)
+      (literal)
+      (keyword_cascade))))
+
+================================================================================
+Create view rule conflict with time and timestamp rules (check create_view)
+================================================================================
+
+create view toto as select '123'::timestamp with check option;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_view
+      (keyword_create)
+      (keyword_view)
+      (object_reference
+        (identifier))
+      (keyword_as)
+      (create_query
+        (select
+          (keyword_select)
+          (select_expression
+            (term
+              (cast
+                (literal)
+                (timestamp
+                  (keyword_timestamp)))))))
+      (keyword_with)
+      (keyword_check)
+      (keyword_option))))
