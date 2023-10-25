@@ -8,6 +8,13 @@ module.exports = grammar({
     $.marginalia,
   ],
 
+
+  externals: $ => [
+    $._dollar_quoted_string_start_tag,
+    $._dollar_quoted_string_end_tag,
+    $._dollar_quoted_string,
+  ],
+
   conflicts: $ => [
     [$.object_reference, $._qualified_field],
     [$.object_reference],
@@ -267,6 +274,9 @@ module.exports = grammar({
     keyword_cost: _ => make_keyword("cost"),
     keyword_rows: _ => make_keyword("rows"),
     keyword_support: _ => make_keyword("support"),
+    keyword_definer: _ => make_keyword("definer"),
+    keyword_invoker: _ => make_keyword("invoker"),
+    keyword_security: _ => make_keyword("security"),
     keyword_version: _ => make_keyword("version"),
     keyword_extension: _ => make_keyword("extension"),
     keyword_out: _ => make_keyword("out"),
@@ -1078,14 +1088,10 @@ module.exports = grammar({
       ),
     ),
 
-    // TODO arbitrary dollar quoting, mostly ensuring that the initial and terminal quote
-    // delimiters match, will require an external scanner
-    // https://tree-sitter.github.io/tree-sitter/creating-parsers#external-scanners
-    dollar_quote: () => choice(
-      '$$',
-      '$function$',
-      '$body$'
-    ),
+    // This is only used in create function statement, it is not needed to check
+    // the start tag match the end one. The usage of this syntax in other
+    // context is done by _dollar_string.
+    dollar_quote: () => /\$[^\$]*\$/,
 
     create_function: $ => seq(
       $.keyword_create,
@@ -1105,6 +1111,7 @@ module.exports = grammar({
           $.function_language,
           $.function_volatility,
           $.function_leakproof,
+          $.function_security,
           $.function_safety,
           $.function_strictness,
           $.function_cost,
@@ -1120,6 +1127,7 @@ module.exports = grammar({
           $.function_language,
           $.function_volatility,
           $.function_leakproof,
+          $.function_security,
           $.function_safety,
           $.function_strictness,
           $.function_cost,
@@ -1174,7 +1182,7 @@ module.exports = grammar({
       ),
       seq(
         $.keyword_as,
-        $.dollar_quote,
+        alias($._dollar_quoted_string_start_tag, $.dollar_quote),
         optional(
           seq(
             $.keyword_declare,
@@ -1192,26 +1200,34 @@ module.exports = grammar({
         ),
         $.keyword_end,
         optional(';'),
-        $.dollar_quote,
+        alias($._dollar_quoted_string_end_tag, $.dollar_quote),
       ),
       seq(
         $.keyword_as,
-        alias($._literal_string, $.literal),
+        alias(
+          choice(
+            $._single_quote_string,
+            $._double_quote_string,
+          ),
+          $.literal
+        ),
       ),
       seq(
         $.keyword_as,
-        $.dollar_quote,
+        alias($._dollar_quoted_string_start_tag, $.dollar_quote),
         $._function_body_statement,
-        $.dollar_quote,
+        optional(';'),
+        alias($._dollar_quoted_string_end_tag, $.dollar_quote),
       ),
     ),
 
     function_language: $ => seq(
       $.keyword_language,
-      choice(
-        $.keyword_sql,
-        $.keyword_plpgsql,
-      ),
+      // TODO Maybe we should do different version of function_body_statement in
+      // regard to the defined language to match either sql, plsql or
+      // plpgsql. Currently the function_body_statement support only sql.  And
+      // maybe for other language the function_body should be a string.
+      $.identifier
     ),
 
     function_volatility: $ => choice(
@@ -1223,6 +1239,12 @@ module.exports = grammar({
     function_leakproof: $ => seq(
       optional($.keyword_not),
       $.keyword_leakproof,
+    ),
+
+    function_security: $ => seq(
+      optional($.keyword_external),
+      $.keyword_security,
+      choice($.keyword_invoker, $.keyword_definer),
     ),
 
     function_safety: $ => seq(
@@ -2570,52 +2592,10 @@ module.exports = grammar({
       $._type,
     ),
 
-    interval_definitions: $ => repeat1(
-         $._interval_definition
-    ),
-
-    _interval_definition: $ => seq(
-        $._natural_number,
-        choice(
-            "millennium",
-            "century",
-            "decade",
-            "year",
-            "month",
-            "week",
-            "day",
-            "hour",
-            "minute",
-            "second",
-            "millisecond",
-            "microsecond",
-            "y",
-            "m",
-            "d",
-            "H",
-            "M",
-            "S",
-            "years",
-            "months",
-            "weeks",
-            "days",
-            "hours",
-            "minutes",
-            "seconds",
-        ),
-        optional(
-            "ago",
-        ),
-    ),
-
     // Postgres syntax for intervals
     interval: $ => seq(
         $.keyword_interval,
-        seq(
-            "'",
-            $.interval_definitions,
-            "'",
-        ),
+        $._literal_string,
     ),
 
     cast: $ => seq(
@@ -3132,12 +3112,15 @@ module.exports = grammar({
       ),
     ),
     _double_quote_string: _ => /"[^"]*"/,
-    _single_quote_string: _ => /'([^']|'')*'/,
+    // The norm specify that between two consecutive string must be a return,
+    // but this is good enough.
+    _single_quote_string: _ => repeat1(/'([^']|'')*'/),
     _literal_string: $ => prec(
       1,
       choice(
         $._single_quote_string,
         $._double_quote_string,
+        $._dollar_quoted_string,
       ),
     ),
     _natural_number: _ => /\d+/,

@@ -57,3 +57,87 @@ created_at
 ---
 
 (program (ERROR))
+
+================================================================================
+Function body with a $$ string literal with the same name
+================================================================================
+
+create or replace function public.do_stuff()
+  returns trigger
+  language plpgsql
+as $a$
+begin
+  return $a$text$a$;
+end;
+$a$
+
+--------------------------------------------------------------------------------
+
+(program
+  (ERROR
+    (keyword_create)
+    (keyword_or)
+    (keyword_replace)
+    (keyword_function)
+    (object_reference
+      (identifier)
+      (identifier))
+    (function_arguments)
+    (keyword_returns)
+    (keyword_trigger)
+    (function_language
+      (keyword_language)
+      (identifier))
+    (keyword_as)
+    (ERROR
+      (dollar_quote)
+      (keyword_begin)
+      (keyword_return)
+      (dollar_quote)
+      (keyword_text))
+    (dollar_quote)
+    (keyword_end)
+    (dollar_quote)))
+
+================================================================================
+Function body with a unbalanced $$
+================================================================================
+
+create or replace function public.do_stuff()
+  returns trigger
+  language plpgsql
+as $a$
+begin
+  return $b$text$b$;
+end;
+$c$;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_or)
+      (keyword_replace)
+      (keyword_function)
+      (object_reference
+        (identifier)
+        (identifier))
+      (function_arguments)
+      (keyword_returns)
+      (keyword_trigger)
+      (function_language
+        (keyword_language)
+        (identifier))
+      (function_body
+        (keyword_as)
+        (dollar_quote)
+        (keyword_begin)
+        (keyword_return)
+        (literal)
+        (keyword_end)
+        (ERROR
+          (UNEXPECTED 'c')
+          (UNEXPECTED ';'))
+        (MISSING dollar_quote)))))

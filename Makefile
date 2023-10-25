@@ -31,8 +31,8 @@ format: src/grammar.json
 
 .PHONY: compile
 compile: target/parser.so
-target/parser.so: src/parser.c
-	${CC} -shared -o target/parser.so -fPIC src/parser.c -I./src
+target/parser.so: src/parser.c src/scanner.c
+	${CC} -shared -o target/parser.so -fPIC src/parser.c src/scanner.c -I./src
 
 .PHONY: check_keywords
 check_keywords: src/grammar.json queries/highlights.scm scripts/test-keywords.sh

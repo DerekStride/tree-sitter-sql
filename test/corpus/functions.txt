@@ -485,7 +485,7 @@ return 1;
         (keyword_int))
       (function_language
         (keyword_language)
-        (keyword_sql))
+        (identifier))
       (function_body
         (keyword_return)
         (literal)))))
@@ -524,7 +524,7 @@ return 1;
         (keyword_int))
       (function_language
         (keyword_language)
-        (keyword_sql))
+        (identifier))
       (function_body
         (keyword_return)
         (literal)))))
@@ -562,7 +562,7 @@ return 1;
         (keyword_int))
       (function_language
         (keyword_language)
-        (keyword_sql))
+        (identifier))
       (function_volatility
         (keyword_immutable))
       (function_safety
@@ -623,7 +623,7 @@ create or replace function public.fn()
         (dollar_quote))
       (function_language
         (keyword_language)
-        (keyword_sql))
+        (identifier))
       (function_volatility
         (keyword_volatile))
       (function_safety
@@ -670,7 +670,7 @@ as 'select 1;';
         (keyword_int))
       (function_language
         (keyword_language)
-        (keyword_sql))
+        (identifier))
       (function_body
         (keyword_as)
         (literal)))))
@@ -702,7 +702,7 @@ as 'create table x (id int) row_format=dynamic';
         (keyword_int))
       (function_language
         (keyword_language)
-        (keyword_sql))
+        (identifier))
       (function_body
         (keyword_as)
         (literal)))))
@@ -736,7 +736,7 @@ end;
         (keyword_int))
       (function_language
         (keyword_language)
-        (keyword_sql))
+        (identifier))
       (function_body
         (keyword_begin)
         (keyword_atomic)
@@ -775,7 +775,7 @@ $function$;
         (keyword_int))
       (function_language
         (keyword_language)
-        (keyword_plpgsql))
+        (identifier))
       (function_body
         (keyword_as)
         (dollar_quote)
@@ -820,7 +820,7 @@ $function$;
         (keyword_int))
       (function_language
         (keyword_language)
-        (keyword_plpgsql))
+        (identifier))
       (function_body
         (keyword_as)
         (dollar_quote)
@@ -902,7 +902,7 @@ $function$
       (keyword_trigger)
       (function_language
         (keyword_language)
-        (keyword_plpgsql))
+        (identifier))
       (function_body
         (keyword_as)
         (dollar_quote)
@@ -1057,7 +1057,47 @@ return 1;
         (keyword_int))
       (function_language
         (keyword_language)
-        (keyword_sql))
+        (identifier))
       (function_body
         (keyword_return)
         (literal)))))
+
+================================================================================
+Function body with a $$ string literal
+================================================================================
+
+create or replace function public.do_stuff()
+  returns trigger
+  language plpgsql
+as $a$
+begin
+  return $b$text$b$;
+end;
+$a$
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_or)
+      (keyword_replace)
+      (keyword_function)
+      (object_reference
+        (identifier)
+        (identifier))
+      (function_arguments)
+      (keyword_returns)
+      (keyword_trigger)
+      (function_language
+        (keyword_language)
+        (identifier))
+      (function_body
+        (keyword_as)
+        (dollar_quote)
+        (keyword_begin)
+        (keyword_return)
+        (literal)
+        (keyword_end)
+        (dollar_quote)))))
