@@ -893,6 +893,18 @@
       "type": "PATTERN",
       "value": "[sS][uU][pP][pP][oO][rR][tT]"
     },
+    "keyword_definer": {
+      "type": "PATTERN",
+      "value": "[dD][eE][fF][iI][nN][eE][rR]"
+    },
+    "keyword_invoker": {
+      "type": "PATTERN",
+      "value": "[iI][nN][vV][oO][kK][eE][rR]"
+    },
+    "keyword_security": {
+      "type": "PATTERN",
+      "value": "[sS][eE][cC][uU][rR][iI][tT][yY]"
+    },
     "keyword_version": {
       "type": "PATTERN",
       "value": "[vV][eE][rR][sS][iI][oO][nN]"
@@ -7337,21 +7349,8 @@
       }
     },
     "dollar_quote": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "$$"
-        },
-        {
-          "type": "STRING",
-          "value": "$function$"
-        },
-        {
-          "type": "STRING",
-          "value": "$body$"
-        }
-      ]
+      "type": "PATTERN",
+      "value": "\\$[^\\$]*\\$"
     },
     "create_function": {
       "type": "SEQ",
@@ -7446,6 +7445,10 @@
               },
               {
                 "type": "SYMBOL",
+                "name": "function_security"
+              },
+              {
+                "type": "SYMBOL",
                 "name": "function_safety"
               },
               {
@@ -7487,6 +7490,10 @@
               {
                 "type": "SYMBOL",
                 "name": "function_leakproof"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "function_security"
               },
               {
                 "type": "SYMBOL",
@@ -7656,8 +7663,13 @@
               "name": "keyword_as"
             },
             {
-              "type": "SYMBOL",
-              "name": "dollar_quote"
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "_dollar_quoted_string_start_tag"
+              },
+              "named": true,
+              "value": "dollar_quote"
             },
             {
               "type": "CHOICE",
@@ -7720,8 +7732,13 @@
               ]
             },
             {
-              "type": "SYMBOL",
-              "name": "dollar_quote"
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "_dollar_quoted_string_end_tag"
+              },
+              "named": true,
+              "value": "dollar_quote"
             }
           ]
         },
@@ -7735,8 +7752,17 @@
             {
               "type": "ALIAS",
               "content": {
-                "type": "SYMBOL",
-                "name": "_literal_string"
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "_single_quote_string"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "_double_quote_string"
+                  }
+                ]
               },
               "named": true,
               "value": "literal"
@@ -7751,16 +7777,38 @@
               "name": "keyword_as"
             },
             {
-              "type": "SYMBOL",
-              "name": "dollar_quote"
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "_dollar_quoted_string_start_tag"
+              },
+              "named": true,
+              "value": "dollar_quote"
             },
             {
               "type": "SYMBOL",
               "name": "_function_body_statement"
             },
             {
-              "type": "SYMBOL",
-              "name": "dollar_quote"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": ";"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "_dollar_quoted_string_end_tag"
+              },
+              "named": true,
+              "value": "dollar_quote"
             }
           ]
         }
@@ -7774,17 +7822,8 @@
           "name": "keyword_language"
         },
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "keyword_sql"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "keyword_plpgsql"
-            }
-          ]
+          "type": "SYMBOL",
+          "name": "identifier"
         }
       ]
     },
@@ -7823,6 +7862,40 @@
         {
           "type": "SYMBOL",
           "name": "keyword_leakproof"
+        }
+      ]
+    },
+    "function_security": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "keyword_external"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_security"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "keyword_invoker"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "keyword_definer"
+            }
+          ]
         }
       ]
     },
@@ -14652,139 +14725,6 @@
         }
       ]
     },
-    "interval_definitions": {
-      "type": "REPEAT1",
-      "content": {
-        "type": "SYMBOL",
-        "name": "_interval_definition"
-      }
-    },
-    "_interval_definition": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_natural_number"
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "millennium"
-            },
-            {
-              "type": "STRING",
-              "value": "century"
-            },
-            {
-              "type": "STRING",
-              "value": "decade"
-            },
-            {
-              "type": "STRING",
-              "value": "year"
-            },
-            {
-              "type": "STRING",
-              "value": "month"
-            },
-            {
-              "type": "STRING",
-              "value": "week"
-            },
-            {
-              "type": "STRING",
-              "value": "day"
-            },
-            {
-              "type": "STRING",
-              "value": "hour"
-            },
-            {
-              "type": "STRING",
-              "value": "minute"
-            },
-            {
-              "type": "STRING",
-              "value": "second"
-            },
-            {
-              "type": "STRING",
-              "value": "millisecond"
-            },
-            {
-              "type": "STRING",
-              "value": "microsecond"
-            },
-            {
-              "type": "STRING",
-              "value": "y"
-            },
-            {
-              "type": "STRING",
-              "value": "m"
-            },
-            {
-              "type": "STRING",
-              "value": "d"
-            },
-            {
-              "type": "STRING",
-              "value": "H"
-            },
-            {
-              "type": "STRING",
-              "value": "M"
-            },
-            {
-              "type": "STRING",
-              "value": "S"
-            },
-            {
-              "type": "STRING",
-              "value": "years"
-            },
-            {
-              "type": "STRING",
-              "value": "months"
-            },
-            {
-              "type": "STRING",
-              "value": "weeks"
-            },
-            {
-              "type": "STRING",
-              "value": "days"
-            },
-            {
-              "type": "STRING",
-              "value": "hours"
-            },
-            {
-              "type": "STRING",
-              "value": "minutes"
-            },
-            {
-              "type": "STRING",
-              "value": "seconds"
-            }
-          ]
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "ago"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        }
-      ]
-    },
     "interval": {
       "type": "SEQ",
       "members": [
@@ -14793,21 +14733,8 @@
           "name": "keyword_interval"
         },
         {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "'"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "interval_definitions"
-            },
-            {
-              "type": "STRING",
-              "value": "'"
-            }
-          ]
+          "type": "SYMBOL",
+          "name": "_literal_string"
         }
       ]
     },
@@ -17937,8 +17864,11 @@
       "value": "\"[^\"]*\""
     },
     "_single_quote_string": {
-      "type": "PATTERN",
-      "value": "'([^']|'')*'"
+      "type": "REPEAT1",
+      "content": {
+        "type": "PATTERN",
+        "value": "'([^']|'')*'"
+      }
     },
     "_literal_string": {
       "type": "PREC",
@@ -17953,6 +17883,10 @@
           {
             "type": "SYMBOL",
             "name": "_double_quote_string"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_dollar_quoted_string"
           }
         ]
       }
@@ -18122,7 +18056,20 @@
       }
     ]
   ],
-  "externals": [],
+  "externals": [
+    {
+      "type": "SYMBOL",
+      "name": "_dollar_quoted_string_start_tag"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_dollar_quoted_string_end_tag"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_dollar_quoted_string"
+    }
+  ],
   "inline": [],
   "supertypes": []
 }

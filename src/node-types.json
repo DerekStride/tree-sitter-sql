@@ -3857,6 +3857,10 @@
           "named": true
         },
         {
+          "type": "function_security",
+          "named": true
+        },
+        {
           "type": "function_strictness",
           "named": true
         },
@@ -5239,11 +5243,6 @@
         }
       ]
     }
-  },
-  {
-    "type": "dollar_quote",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "double",
@@ -6636,15 +6635,11 @@
       "required": true,
       "types": [
         {
+          "type": "identifier",
+          "named": true
+        },
+        {
           "type": "keyword_language",
-          "named": true
-        },
-        {
-          "type": "keyword_plpgsql",
-          "named": true
-        },
-        {
-          "type": "keyword_sql",
           "named": true
         }
       ]
@@ -6706,6 +6701,33 @@
         },
         {
           "type": "keyword_unsafe",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "function_security",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_definer",
+          "named": true
+        },
+        {
+          "type": "keyword_external",
+          "named": true
+        },
+        {
+          "type": "keyword_invoker",
+          "named": true
+        },
+        {
+          "type": "keyword_security",
           "named": true
         }
       ]
@@ -7091,24 +7113,15 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
-        {
-          "type": "interval_definitions",
-          "named": true
-        },
         {
           "type": "keyword_interval",
           "named": true
         }
       ]
     }
-  },
-  {
-    "type": "interval_definitions",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "invocation",
@@ -9453,7 +9466,7 @@
     "named": true,
     "fields": {
       "name": {
-        "multiple": false,
+        "multiple": true,
         "required": false,
         "types": [
           {
@@ -9471,7 +9484,7 @@
         ]
       },
       "value": {
-        "multiple": false,
+        "multiple": true,
         "required": false,
         "types": [
           {
@@ -10465,23 +10478,7 @@
     "named": false
   },
   {
-    "type": "$$",
-    "named": false
-  },
-  {
-    "type": "$body$",
-    "named": false
-  },
-  {
-    "type": "$function$",
-    "named": false
-  },
-  {
     "type": "%",
-    "named": false
-  },
-  {
-    "type": "'",
     "named": false
   },
   {
@@ -10561,18 +10558,6 @@
     "named": false
   },
   {
-    "type": "H",
-    "named": false
-  },
-  {
-    "type": "M",
-    "named": false
-  },
-  {
-    "type": "S",
-    "named": false
-  },
-  {
     "type": "[",
     "named": false
   },
@@ -10585,44 +10570,16 @@
     "named": false
   },
   {
-    "type": "ago",
-    "named": false
-  },
-  {
     "type": "bang",
     "named": true
-  },
-  {
-    "type": "century",
-    "named": false
   },
   {
     "type": "comment",
     "named": true
   },
   {
-    "type": "d",
-    "named": false
-  },
-  {
-    "type": "day",
-    "named": false
-  },
-  {
-    "type": "days",
-    "named": false
-  },
-  {
-    "type": "decade",
-    "named": false
-  },
-  {
-    "type": "hour",
-    "named": false
-  },
-  {
-    "type": "hours",
-    "named": false
+    "type": "dollar_quote",
+    "named": true
   },
   {
     "type": "keyword_action",
@@ -10909,6 +10866,10 @@
     "named": true
   },
   {
+    "type": "keyword_definer",
+    "named": true
+  },
+  {
     "type": "keyword_delayed",
     "named": true
   },
@@ -11146,6 +11107,10 @@
   },
   {
     "type": "keyword_into",
+    "named": true
+  },
+  {
+    "type": "keyword_invoker",
     "named": true
   },
   {
@@ -11405,10 +11370,6 @@
     "named": true
   },
   {
-    "type": "keyword_plpgsql",
-    "named": true
-  },
-  {
     "type": "keyword_preceding",
     "named": true
   },
@@ -11533,6 +11494,10 @@
     "named": true
   },
   {
+    "type": "keyword_security",
+    "named": true
+  },
+  {
     "type": "keyword_select",
     "named": true
   },
@@ -11590,10 +11555,6 @@
   },
   {
     "type": "keyword_spgist",
-    "named": true
-  },
-  {
-    "type": "keyword_sql",
     "named": true
   },
   {
@@ -11853,72 +11814,12 @@
     "named": true
   },
   {
-    "type": "m",
-    "named": false
-  },
-  {
     "type": "marginalia",
     "named": true
   },
   {
-    "type": "microsecond",
-    "named": false
-  },
-  {
-    "type": "millennium",
-    "named": false
-  },
-  {
-    "type": "millisecond",
-    "named": false
-  },
-  {
-    "type": "minute",
-    "named": false
-  },
-  {
-    "type": "minutes",
-    "named": false
-  },
-  {
-    "type": "month",
-    "named": false
-  },
-  {
-    "type": "months",
-    "named": false
-  },
-  {
     "type": "parameter",
     "named": true
-  },
-  {
-    "type": "second",
-    "named": false
-  },
-  {
-    "type": "seconds",
-    "named": false
-  },
-  {
-    "type": "week",
-    "named": false
-  },
-  {
-    "type": "weeks",
-    "named": false
-  },
-  {
-    "type": "y",
-    "named": false
-  },
-  {
-    "type": "year",
-    "named": false
-  },
-  {
-    "type": "years",
-    "named": false
   },
   {
     "type": "||",
