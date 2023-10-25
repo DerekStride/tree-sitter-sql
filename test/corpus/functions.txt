@@ -1057,10 +1057,10 @@ return 1;
         (keyword_int))
       (function_language
         (keyword_language)
-        (keyword_sql))
+        (identifier))
       (function_body
         (keyword_return)
-        (literal))))
+        (literal)))))
 
 ================================================================================
 Function body with a $$ string literal
@@ -1087,6 +1087,7 @@ $a$
       (object_reference
         (identifier)
         (identifier))
+      (function_arguments)
       (keyword_returns)
       (keyword_trigger)
       (function_language
@@ -1125,6 +1126,7 @@ $a$
     (object_reference
       (identifier)
       (identifier))
+    (function_arguments)
     (keyword_returns)
     (keyword_trigger)
     (function_language
@@ -1165,6 +1167,7 @@ $c$
     (object_reference
       (identifier)
       (identifier))
+    (function_arguments)
     (keyword_returns)
     (keyword_trigger)
     (function_language
