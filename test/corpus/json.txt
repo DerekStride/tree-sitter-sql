@@ -20,6 +20,7 @@ FROM users;
         (term
           value: (binary_expression
             left: (literal)
+            operator: (op_other)
             right: (literal))
           (keyword_as)
           alias: (identifier))
@@ -27,23 +28,29 @@ FROM users;
           value: (binary_expression
             left: (binary_expression
               left: (literal)
+              operator: (op_other)
               right: (literal))
+            operator: (op_other)
             right: (literal)))
         (term
           value: (binary_expression
             left: (binary_expression
               left: (literal)
+              operator: (op_other)
               right: (literal))
+            operator: (op_other)
             right: (literal))
           (keyword_as)
           alias: (identifier))
         (term
           value: (binary_expression
             left: (literal)
+            operator: (op_other)
             right: (literal)))
         (term
           value: (binary_expression
             left: (literal)
+            operator: (op_other)
             right: (literal))
           (keyword_as)
           alias: (identifier))))

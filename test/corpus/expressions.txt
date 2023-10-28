@@ -588,3 +588,52 @@ WHERE
           left: (field
             name: (identifier))
           right: (literal))))))
+
+================================================================================
+string operator concat and start with
+================================================================================
+
+SELECT 'abc' ^@ 'a' || 'z';
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (binary_expression
+            (binary_expression
+              (literal)
+              (op_other)
+              (literal))
+            (op_other)
+            (literal)))))))
+
+================================================================================
+full text search operators
+================================================================================
+
+SELECT 'fat cats ate rats' @@ !! ('cat' <-> 'rat'::tsquery);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (binary_expression
+            (literal)
+            (op_other)
+            (unary_expression
+                  (op_unary_other)
+                  (cast
+                    (binary_expression
+                      (literal)
+                      (op_other)
+                      (literal))
+                    (object_reference
+                      (identifier))))))))))
