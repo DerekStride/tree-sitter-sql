@@ -586,7 +586,7 @@ Function details, specified after string body
 
 create or replace function public.fn()
   returns int
-  as $$select 1$$
+  as $$select 1;$$
   language sql
   volatile
   parallel restricted

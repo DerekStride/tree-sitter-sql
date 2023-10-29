@@ -1216,7 +1216,7 @@ module.exports = grammar({
         $.keyword_as,
         alias($._dollar_quoted_string_start_tag, $.dollar_quote),
         $._function_body_statement,
-        optional(';'),
+        ';',
         alias($._dollar_quoted_string_end_tag, $.dollar_quote),
       ),
     ),
