@@ -2045,3 +2045,62 @@ create view toto as select '123'::timestamp with check option;
       (keyword_with)
       (keyword_check)
       (keyword_option))))
+
+================================================================================
+Create a trigger on delete for each row
+================================================================================
+
+CREATE TRIGGER update_at BEFORE DELETE ON public.table_A FOR EACH ROW EXECUTE FUNCTION public.update_timestamp();
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_trigger
+      (keyword_create)
+      (keyword_trigger)
+      (object_reference
+        (identifier))
+      (keyword_before)
+      (keyword_delete)
+      (keyword_on)
+      (object_reference
+        (identifier)
+        (identifier))
+      (keyword_for)
+      (keyword_each)
+      (keyword_row)
+      (keyword_execute)
+      (keyword_function)
+      (object_reference
+        (identifier)
+        (identifier)))))
+
+================================================================================
+Create a trigger on update
+================================================================================
+
+CREATE TRIGGER update_at_user AFTER UPDATE OF name ON public."user" EXECUTE FUNCTION public.update_timestamp();
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_trigger
+      (keyword_create)
+      (keyword_trigger)
+      (object_reference
+        (identifier))
+      (keyword_after)
+      (keyword_update)
+      (keyword_of)
+      (identifier)
+      (keyword_on)
+      (object_reference
+        (identifier)
+        (identifier))
+      (keyword_execute)
+      (keyword_function)
+      (object_reference
+        (identifier)
+        (identifier)))))
