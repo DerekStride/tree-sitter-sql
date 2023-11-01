@@ -2151,14 +2151,6 @@
             "named": false
           },
           {
-            "type": "#>",
-            "named": false
-          },
-          {
-            "type": "#>>",
-            "named": false
-          },
-          {
             "type": "%",
             "named": false
           },
@@ -2172,14 +2164,6 @@
           },
           {
             "type": "-",
-            "named": false
-          },
-          {
-            "type": "->",
-            "named": false
-          },
-          {
-            "type": "->>",
             "named": false
           },
           {
@@ -2259,12 +2243,12 @@
             "named": true
           },
           {
-            "type": "similar_to",
+            "type": "op_other",
             "named": true
           },
           {
-            "type": "||",
-            "named": false
+            "type": "similar_to",
+            "named": true
           }
         ]
       },
@@ -9954,6 +9938,10 @@
           {
             "type": "keyword_some",
             "named": true
+          },
+          {
+            "type": "op_unary_other",
+            "named": true
           }
         ]
       }
@@ -10470,14 +10458,6 @@
     "named": false
   },
   {
-    "type": "#>",
-    "named": false
-  },
-  {
-    "type": "#>>",
-    "named": false
-  },
-  {
     "type": "%",
     "named": false
   },
@@ -10503,14 +10483,6 @@
   },
   {
     "type": "-",
-    "named": false
-  },
-  {
-    "type": "->",
-    "named": false
-  },
-  {
-    "type": "->>",
     "named": false
   },
   {
@@ -11818,11 +11790,15 @@
     "named": true
   },
   {
-    "type": "parameter",
+    "type": "op_other",
     "named": true
   },
   {
-    "type": "||",
-    "named": false
+    "type": "op_unary_other",
+    "named": true
+  },
+  {
+    "type": "parameter",
+    "named": true
   }
 ]

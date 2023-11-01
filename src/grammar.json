@@ -16503,6 +16503,178 @@
         ]
       }
     },
+    "op_other": {
+      "type": "TOKEN",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "->"
+          },
+          {
+            "type": "STRING",
+            "value": "->>"
+          },
+          {
+            "type": "STRING",
+            "value": "#>"
+          },
+          {
+            "type": "STRING",
+            "value": "#>>"
+          },
+          {
+            "type": "STRING",
+            "value": "~"
+          },
+          {
+            "type": "STRING",
+            "value": "!~"
+          },
+          {
+            "type": "STRING",
+            "value": "~*"
+          },
+          {
+            "type": "STRING",
+            "value": "!~*"
+          },
+          {
+            "type": "STRING",
+            "value": "|"
+          },
+          {
+            "type": "STRING",
+            "value": "&"
+          },
+          {
+            "type": "STRING",
+            "value": "#"
+          },
+          {
+            "type": "STRING",
+            "value": "<<"
+          },
+          {
+            "type": "STRING",
+            "value": ">>"
+          },
+          {
+            "type": "STRING",
+            "value": "<<="
+          },
+          {
+            "type": "STRING",
+            "value": ">>="
+          },
+          {
+            "type": "STRING",
+            "value": "##"
+          },
+          {
+            "type": "STRING",
+            "value": "<->"
+          },
+          {
+            "type": "STRING",
+            "value": "@>"
+          },
+          {
+            "type": "STRING",
+            "value": "<@"
+          },
+          {
+            "type": "STRING",
+            "value": "&<"
+          },
+          {
+            "type": "STRING",
+            "value": "&>"
+          },
+          {
+            "type": "STRING",
+            "value": "|>>"
+          },
+          {
+            "type": "STRING",
+            "value": "<<|"
+          },
+          {
+            "type": "STRING",
+            "value": "&<|"
+          },
+          {
+            "type": "STRING",
+            "value": "|&>"
+          },
+          {
+            "type": "STRING",
+            "value": "<^"
+          },
+          {
+            "type": "STRING",
+            "value": "^>"
+          },
+          {
+            "type": "STRING",
+            "value": "?#"
+          },
+          {
+            "type": "STRING",
+            "value": "?-"
+          },
+          {
+            "type": "STRING",
+            "value": "?|"
+          },
+          {
+            "type": "STRING",
+            "value": "?-|"
+          },
+          {
+            "type": "STRING",
+            "value": "?||"
+          },
+          {
+            "type": "STRING",
+            "value": "@@"
+          },
+          {
+            "type": "STRING",
+            "value": "@@@"
+          },
+          {
+            "type": "STRING",
+            "value": "@?"
+          },
+          {
+            "type": "STRING",
+            "value": "#-"
+          },
+          {
+            "type": "STRING",
+            "value": "?&"
+          },
+          {
+            "type": "STRING",
+            "value": "?"
+          },
+          {
+            "type": "STRING",
+            "value": "-|-"
+          },
+          {
+            "type": "STRING",
+            "value": "||"
+          },
+          {
+            "type": "STRING",
+            "value": "^@"
+          }
+        ]
+      }
+    },
     "binary_expression": {
       "type": "CHOICE",
       "members": [
@@ -16691,39 +16863,6 @@
                 "content": {
                   "type": "STRING",
                   "value": "^"
-                }
-              },
-              {
-                "type": "FIELD",
-                "name": "right",
-                "content": {
-                  "type": "SYMBOL",
-                  "name": "_expression"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "PREC_LEFT",
-          "value": "binary_concat",
-          "content": {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "FIELD",
-                "name": "left",
-                "content": {
-                  "type": "SYMBOL",
-                  "name": "_expression"
-                }
-              },
-              {
-                "type": "FIELD",
-                "name": "operator",
-                "content": {
-                  "type": "STRING",
-                  "value": "||"
                 }
               },
               {
@@ -16970,7 +17109,7 @@
         },
         {
           "type": "PREC_LEFT",
-          "value": "binary_relation",
+          "value": "binary_other",
           "content": {
             "type": "SEQ",
             "members": [
@@ -16986,107 +17125,8 @@
                 "type": "FIELD",
                 "name": "operator",
                 "content": {
-                  "type": "STRING",
-                  "value": "->"
-                }
-              },
-              {
-                "type": "FIELD",
-                "name": "right",
-                "content": {
                   "type": "SYMBOL",
-                  "name": "_expression"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "PREC_LEFT",
-          "value": "binary_relation",
-          "content": {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "FIELD",
-                "name": "left",
-                "content": {
-                  "type": "SYMBOL",
-                  "name": "_expression"
-                }
-              },
-              {
-                "type": "FIELD",
-                "name": "operator",
-                "content": {
-                  "type": "STRING",
-                  "value": "->>"
-                }
-              },
-              {
-                "type": "FIELD",
-                "name": "right",
-                "content": {
-                  "type": "SYMBOL",
-                  "name": "_expression"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "PREC_LEFT",
-          "value": "binary_relation",
-          "content": {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "FIELD",
-                "name": "left",
-                "content": {
-                  "type": "SYMBOL",
-                  "name": "_expression"
-                }
-              },
-              {
-                "type": "FIELD",
-                "name": "operator",
-                "content": {
-                  "type": "STRING",
-                  "value": "#>"
-                }
-              },
-              {
-                "type": "FIELD",
-                "name": "right",
-                "content": {
-                  "type": "SYMBOL",
-                  "name": "_expression"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "PREC_LEFT",
-          "value": "binary_relation",
-          "content": {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "FIELD",
-                "name": "left",
-                "content": {
-                  "type": "SYMBOL",
-                  "name": "_expression"
-                }
-              },
-              {
-                "type": "FIELD",
-                "name": "operator",
-                "content": {
-                  "type": "STRING",
-                  "value": "#>>"
+                  "name": "op_other"
                 }
               },
               {
@@ -17516,6 +17556,54 @@
         }
       ]
     },
+    "op_unary_other": {
+      "type": "TOKEN",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "|/"
+          },
+          {
+            "type": "STRING",
+            "value": "||/"
+          },
+          {
+            "type": "STRING",
+            "value": "@"
+          },
+          {
+            "type": "STRING",
+            "value": "~"
+          },
+          {
+            "type": "STRING",
+            "value": "@-@"
+          },
+          {
+            "type": "STRING",
+            "value": "@@"
+          },
+          {
+            "type": "STRING",
+            "value": "#"
+          },
+          {
+            "type": "STRING",
+            "value": "?-"
+          },
+          {
+            "type": "STRING",
+            "value": "?|"
+          },
+          {
+            "type": "STRING",
+            "value": "!!"
+          }
+        ]
+      }
+    },
     "unary_expression": {
       "type": "CHOICE",
       "members": [
@@ -17631,6 +17719,31 @@
                 "content": {
                   "type": "SYMBOL",
                   "name": "keyword_all"
+                }
+              },
+              {
+                "type": "FIELD",
+                "name": "operand",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_expression"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "PREC_LEFT",
+          "value": "unary_other",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "FIELD",
+                "name": "operator",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "op_unary_other"
                 }
               },
               {
@@ -18024,6 +18137,14 @@
       },
       {
         "type": "STRING",
+        "value": "unary_other"
+      },
+      {
+        "type": "STRING",
+        "value": "binary_other"
+      },
+      {
+        "type": "STRING",
         "value": "binary_in"
       },
       {
@@ -18033,10 +18154,6 @@
       {
         "type": "STRING",
         "value": "binary_relation"
-      },
-      {
-        "type": "STRING",
-        "value": "binary_concat"
       },
       {
         "type": "STRING",
