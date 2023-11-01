@@ -4878,6 +4878,256 @@
     }
   },
   {
+    "type": "create_trigger",
+    "named": true,
+    "fields": {
+      "parameter": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "term",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "array",
+          "named": true
+        },
+        {
+          "type": "between_expression",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "case",
+          "named": true
+        },
+        {
+          "type": "cast",
+          "named": true
+        },
+        {
+          "type": "exists",
+          "named": true
+        },
+        {
+          "type": "field",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "interval",
+          "named": true
+        },
+        {
+          "type": "invocation",
+          "named": true
+        },
+        {
+          "type": "keyword_after",
+          "named": true
+        },
+        {
+          "type": "keyword_as",
+          "named": true
+        },
+        {
+          "type": "keyword_before",
+          "named": true
+        },
+        {
+          "type": "keyword_constraint",
+          "named": true
+        },
+        {
+          "type": "keyword_create",
+          "named": true
+        },
+        {
+          "type": "keyword_deferrable",
+          "named": true
+        },
+        {
+          "type": "keyword_deferred",
+          "named": true
+        },
+        {
+          "type": "keyword_definer",
+          "named": true
+        },
+        {
+          "type": "keyword_delete",
+          "named": true
+        },
+        {
+          "type": "keyword_each",
+          "named": true
+        },
+        {
+          "type": "keyword_execute",
+          "named": true
+        },
+        {
+          "type": "keyword_exists",
+          "named": true
+        },
+        {
+          "type": "keyword_follows",
+          "named": true
+        },
+        {
+          "type": "keyword_for",
+          "named": true
+        },
+        {
+          "type": "keyword_from",
+          "named": true
+        },
+        {
+          "type": "keyword_function",
+          "named": true
+        },
+        {
+          "type": "keyword_if",
+          "named": true
+        },
+        {
+          "type": "keyword_immediate",
+          "named": true
+        },
+        {
+          "type": "keyword_initially",
+          "named": true
+        },
+        {
+          "type": "keyword_insert",
+          "named": true
+        },
+        {
+          "type": "keyword_instead",
+          "named": true
+        },
+        {
+          "type": "keyword_new",
+          "named": true
+        },
+        {
+          "type": "keyword_not",
+          "named": true
+        },
+        {
+          "type": "keyword_of",
+          "named": true
+        },
+        {
+          "type": "keyword_old",
+          "named": true
+        },
+        {
+          "type": "keyword_on",
+          "named": true
+        },
+        {
+          "type": "keyword_or",
+          "named": true
+        },
+        {
+          "type": "keyword_precedes",
+          "named": true
+        },
+        {
+          "type": "keyword_procedure",
+          "named": true
+        },
+        {
+          "type": "keyword_referencing",
+          "named": true
+        },
+        {
+          "type": "keyword_replace",
+          "named": true
+        },
+        {
+          "type": "keyword_row",
+          "named": true
+        },
+        {
+          "type": "keyword_statement",
+          "named": true
+        },
+        {
+          "type": "keyword_table",
+          "named": true
+        },
+        {
+          "type": "keyword_temp",
+          "named": true
+        },
+        {
+          "type": "keyword_temporary",
+          "named": true
+        },
+        {
+          "type": "keyword_trigger",
+          "named": true
+        },
+        {
+          "type": "keyword_truncate",
+          "named": true
+        },
+        {
+          "type": "keyword_update",
+          "named": true
+        },
+        {
+          "type": "keyword_when",
+          "named": true
+        },
+        {
+          "type": "list",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "object_reference",
+          "named": true
+        },
+        {
+          "type": "parameter",
+          "named": true
+        },
+        {
+          "type": "subquery",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "window_function",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "create_type",
     "named": true,
     "fields": {
@@ -8992,6 +9242,10 @@
           "named": true
         },
         {
+          "type": "create_trigger",
+          "named": true
+        },
+        {
           "type": "create_type",
           "named": true
         },
@@ -10874,6 +11128,10 @@
     "named": true
   },
   {
+    "type": "keyword_each",
+    "named": true
+  },
+  {
     "type": "keyword_else",
     "named": true
   },
@@ -10903,6 +11161,10 @@
   },
   {
     "type": "keyword_exclude",
+    "named": true
+  },
+  {
+    "type": "keyword_execute",
     "named": true
   },
   {
@@ -10943,6 +11205,10 @@
   },
   {
     "type": "keyword_following",
+    "named": true
+  },
+  {
+    "type": "keyword_follows",
     "named": true
   },
   {
@@ -11054,6 +11320,10 @@
     "named": true
   },
   {
+    "type": "keyword_initially",
+    "named": true
+  },
+  {
     "type": "keyword_inner",
     "named": true
   },
@@ -11067,6 +11337,10 @@
   },
   {
     "type": "keyword_insert",
+    "named": true
+  },
+  {
+    "type": "keyword_instead",
     "named": true
   },
   {
@@ -11210,6 +11484,10 @@
     "named": true
   },
   {
+    "type": "keyword_new",
+    "named": true
+  },
+  {
     "type": "keyword_no",
     "named": true
   },
@@ -11250,6 +11528,10 @@
     "named": true
   },
   {
+    "type": "keyword_of",
+    "named": true
+  },
+  {
     "type": "keyword_off",
     "named": true
   },
@@ -11263,6 +11545,10 @@
   },
   {
     "type": "keyword_oids",
+    "named": true
+  },
+  {
+    "type": "keyword_old",
     "named": true
   },
   {
@@ -11342,6 +11628,10 @@
     "named": true
   },
   {
+    "type": "keyword_precedes",
+    "named": true
+  },
+  {
     "type": "keyword_preceding",
     "named": true
   },
@@ -11351,6 +11641,10 @@
   },
   {
     "type": "keyword_primary",
+    "named": true
+  },
+  {
+    "type": "keyword_procedure",
     "named": true
   },
   {
@@ -11371,6 +11665,10 @@
   },
   {
     "type": "keyword_references",
+    "named": true
+  },
+  {
+    "type": "keyword_referencing",
     "named": true
   },
   {
@@ -11535,6 +11833,10 @@
   },
   {
     "type": "keyword_start",
+    "named": true
+  },
+  {
+    "type": "keyword_statement",
     "named": true
   },
   {
