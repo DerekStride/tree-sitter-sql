@@ -2081,7 +2081,9 @@ SELECT id || '-' || name FROM my_table;
             left: (binary_expression
               left: (field
                 name: (identifier))
+              operator: (op_other)
               right: (literal))
+            operator: (op_other)
             right: (field
               name: (identifier))))))
     (from
