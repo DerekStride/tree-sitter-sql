@@ -294,7 +294,6 @@
   (keyword_off)
   (keyword_follows)
   (keyword_precedes)
-  (keyword_definer)
   (keyword_each)
   (keyword_instead)
   (keyword_of)
