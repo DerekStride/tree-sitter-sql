@@ -303,7 +303,6 @@ module.exports = grammar({
     keyword_characteristics: _ => make_keyword("characteristics"),
     keyword_follows: _ => make_keyword("follows"),
     keyword_precedes: _ => make_keyword("precedes"),
-    keyword_definer: _ => make_keyword("definer"),
     keyword_each: _ => make_keyword("each"),
     keyword_instead: _ => make_keyword("instead"),
     keyword_of: _ => make_keyword("of"),
