@@ -18499,6 +18499,14 @@
           },
           {
             "type": "SYMBOL",
+            "name": "_bit_string"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_string_casting"
+          },
+          {
+            "type": "SYMBOL",
             "name": "keyword_true"
           },
           {
@@ -18517,11 +18525,20 @@
       "value": "\"[^\"]*\""
     },
     "_single_quote_string": {
-      "type": "REPEAT1",
-      "content": {
-        "type": "PATTERN",
-        "value": "'([^']|'')*'"
-      }
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "([uU]&)?'([^']|'')*'"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "PATTERN",
+            "value": "'([^']|'')*'"
+          }
+        }
+      ]
     },
     "_literal_string": {
       "type": "PREC",
@@ -18555,8 +18572,17 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "STRING",
-              "value": "-"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "-"
+                },
+                {
+                  "type": "STRING",
+                  "value": "+"
+                }
+              ]
             },
             {
               "type": "BLANK"
@@ -18564,8 +18590,8 @@
           ]
         },
         {
-          "type": "SYMBOL",
-          "name": "_natural_number"
+          "type": "PATTERN",
+          "value": "(0[xX][0-9A-Fa-f]+(_[0-9A-Fa-f]+)*)|(0[oO][0-7]+(_[0-7]+)*)|(0[bB][01]+(_[01]+)*)|(\\d+(_\\d+)*(e[+-]?\\d+(_\\d+)*)?)"
         }
       ]
     },
@@ -18576,8 +18602,17 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "STRING",
-              "value": "-"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "-"
+                },
+                {
+                  "type": "STRING",
+                  "value": "+"
+                }
+              ]
             },
             {
               "type": "BLANK"
@@ -18586,7 +18621,36 @@
         },
         {
           "type": "PATTERN",
-          "value": "(\\d*[.]\\d+)|(\\d+[.])"
+          "value": "((\\d+(_\\d+)*)?[.]\\d+(_\\d+)*(e[+-]?\\d+(_\\d+)*)?)|(\\d+(_\\d+)*[.](e[+-]?\\d+(_\\d+)*)?)"
+        }
+      ]
+    },
+    "_bit_string": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "[bBxX]'([^']|'')*'"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "PATTERN",
+            "value": "'([^']|'')*'"
+          }
+        }
+      ]
+    },
+    "_string_casting": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_single_quote_string"
         }
       ]
     },

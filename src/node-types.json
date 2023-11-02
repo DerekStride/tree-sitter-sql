@@ -7910,6 +7910,10 @@
       "required": false,
       "types": [
         {
+          "type": "identifier",
+          "named": true
+        },
+        {
           "type": "keyword_false",
           "named": true
         },
