@@ -3240,6 +3240,8 @@ module.exports = grammar({
         $._integer,
         $._decimal_number,
         $._literal_string,
+        $._bit_string,
+        $._string_casting,
         $.keyword_true,
         $.keyword_false,
         $.keyword_null,
@@ -3248,7 +3250,7 @@ module.exports = grammar({
     _double_quote_string: _ => /"[^"]*"/,
     // The norm specify that between two consecutive string must be a return,
     // but this is good enough.
-    _single_quote_string: _ => repeat1(/'([^']|'')*'/),
+    _single_quote_string: _ => seq(/([uU]&)?'([^']|'')*'/, repeat(/'([^']|'')*'/)),
     _literal_string: $ => prec(
       1,
       choice(
@@ -3258,8 +3260,18 @@ module.exports = grammar({
       ),
     ),
     _natural_number: _ => /\d+/,
-    _integer: $ => seq(optional("-"), $._natural_number),
-    _decimal_number: $ => seq(optional("-"), /(\d*[.]\d+)|(\d+[.])/),
+    _integer: $ => seq(
+      optional(choice("-", "+")),
+      /(0[xX][0-9A-Fa-f]+(_[0-9A-Fa-f]+)*)|(0[oO][0-7]+(_[0-7]+)*)|(0[bB][01]+(_[01]+)*)|(\d+(_\d+)*(e[+-]?\d+(_\d+)*)?)/
+    ),
+    _decimal_number: $ => seq(
+      optional(
+        choice("-", "+")),
+      /((\d+(_\d+)*)?[.]\d+(_\d+)*(e[+-]?\d+(_\d+)*)?)|(\d+(_\d+)*[.](e[+-]?\d+(_\d+)*)?)/
+    ),
+    _bit_string: $ => seq(/[bBxX]'([^']|'')*'/, repeat(/'([^']|'')*'/)),
+    // The identifier should be followed by a string (no parenthesis allowed)
+    _string_casting: $ => seq($.identifier, $._single_quote_string),
 
     bang: _ => '!',
 
