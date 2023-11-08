@@ -26,6 +26,7 @@ let package = Package(
                 ],
                 sources: [
                     "src/parser.c",
+                    "src/scanner.c",
                 ],
                 publicHeadersPath: "bindings/swift",
                 cSettings: [.headerSearchPath("src")])
