@@ -1,5 +1,5 @@
 {
-  "name": "tree-sitter-sql",
+  "name": "@derekstride/tree-sitter-sql",
   "version": "0.1.0",
   "description": "Tree-sitter Grammar for SQL",
   "main": "bindings/node",
@@ -32,7 +32,17 @@
       "scope": "source.sql",
       "file-types": [
         "sql"
+      ],
+      "highlights": [
+        "queries/highlights.scm"
+      ],
+      "indents": [
+        "queries/indents.scm"
       ]
     }
+  ],
+  "keywords": [
+    "parser",
+    "sql"
   ]
 }
