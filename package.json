@@ -10,10 +10,10 @@
   "author": "derek stride",
   "license": "MIT",
   "dependencies": {
-    "nan": "^2.14.2"
+    "nan": "^2.18.0"
   },
   "devDependencies": {
-    "tree-sitter-cli": "^0.20.0"
+    "tree-sitter-cli": "^0.20.8"
   },
   "gypfile": true,
   "directories": {
