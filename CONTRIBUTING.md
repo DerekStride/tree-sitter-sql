@@ -56,23 +56,18 @@ $ bundle exec jekyll serve
 
 ## Pushing a new Version
 
-Create a new PR to bump the version number in `package.json`. Bump the major version if the commit log since the last
-publish includes breaking changes to the AST.
-
-```diff
-{
-  "name": "@derekstride/tree-sitter-sql",
-+   "version": "0.1.1",
--   "version": "0.1.0",
-  ...
-```
-
-Once that PR is merged, tag the latest commit with the format `v[VERSION]` and push the new tag.
+We use [commit-and-tag-version](https://www.npmjs.com/package/commit-and-tag-version) to automate bumping the version
+number and preparing for a release. Run the following to generate the release:
 
 ```
-git tag v0.1.1
-git push --tags
+$ npm run release
 ```
 
-Create a new Release [on Github](https://github.com/DerekStride/tree-sitter-sql/releases). When the release is
-published Github Actions will publish the new version to npm.
+Verify that all the changes are correct and push the updates to a new branch, including the git tags.
+
+```
+git push && git push --tags
+```
+
+Once that PR is merged, create a new Release [on Github](https://github.com/DerekStride/tree-sitter-sql/releases). When
+the release is published Github Actions will publish the new version to npm.
