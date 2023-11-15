@@ -28,20 +28,20 @@ void *tree_sitter_sql_external_scanner_destroy(void *payload) {
     state->start_tag = NULL;
   }
   free(payload);
+  return NULL;
 }
 
-char* add_char(char* text, int* text_size, char c, int index) {
+char* add_char(char* text, size_t* text_size, char c, int index) {
   if (text == NULL) {
     text = malloc(sizeof(char) * MALLOC_STRING_SIZE);
     *text_size = MALLOC_STRING_SIZE;
-    text[index] = c;
-    text[index + 1] = '\0';
   }
 
-  if (index + 1 == *text_size) {
+  // will break when indexes advances more than MALLOC_STRING_SIZE
+  if (index + 1 >= *text_size) {
     *text_size += MALLOC_STRING_SIZE;
     char* tmp = malloc(*text_size * sizeof(char));
-    strcpy(tmp, text);
+    strncpy(tmp, text, *text_size);
     free(text);
     text = tmp;
   }
@@ -54,12 +54,13 @@ char* add_char(char* text, int* text_size, char c, int index) {
 char* scan_dollar_string_tag(TSLexer *lexer) {
   char* tag = NULL;
   int index = 0;
-  int* text_size = malloc(sizeof(int));
+  size_t* text_size = malloc(sizeof(size_t));
   *text_size = 0;
   if (lexer->lookahead == '$') {
     tag = add_char(tag, text_size, '$', index);
     lexer->advance(lexer, false);
   } else {
+    free(text_size);
     return NULL;
   }
 
@@ -181,7 +182,7 @@ void tree_sitter_sql_external_scanner_deserialize(void *payload, const char *buf
   state->start_tag = NULL;
   // A length of 1 can't exists.
   if (length > 1) {
-    state->start_tag = malloc(length - 1);
+    state->start_tag = malloc(length);
     strcpy(state->start_tag, buffer);
   }
 }
