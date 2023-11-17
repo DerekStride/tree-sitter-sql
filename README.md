@@ -43,6 +43,10 @@ Tree-sitter parsers need to be compiled as a shared-object / dynamic-library, yo
 cc -shared -fPIC -I./src src/parser.c src/scanner.c -o sql.so
 ```
 
+## Development
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for documentation on how to set up the project for development.
+
 ## Features
 
 For a complete list of features see the the [tests](test/corpus)
