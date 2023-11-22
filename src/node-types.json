@@ -3267,11 +3267,19 @@
           "named": true
         },
         {
+          "type": "identifier",
+          "named": true
+        },
+        {
           "type": "interval",
           "named": true
         },
         {
           "type": "invocation",
+          "named": true
+        },
+        {
+          "type": "keyword_action",
           "named": true
         },
         {
@@ -3287,6 +3295,10 @@
           "named": true
         },
         {
+          "type": "keyword_cascade",
+          "named": true
+        },
+        {
           "type": "keyword_comment",
           "named": true
         },
@@ -3299,11 +3311,19 @@
           "named": true
         },
         {
+          "type": "keyword_delete",
+          "named": true
+        },
+        {
           "type": "keyword_generated",
           "named": true
         },
         {
           "type": "keyword_key",
+          "named": true
+        },
+        {
+          "type": "keyword_no",
           "named": true
         },
         {
@@ -3315,11 +3335,31 @@
           "named": true
         },
         {
+          "type": "keyword_on",
+          "named": true
+        },
+        {
           "type": "keyword_primary",
           "named": true
         },
         {
+          "type": "keyword_references",
+          "named": true
+        },
+        {
+          "type": "keyword_restrict",
+          "named": true
+        },
+        {
+          "type": "keyword_set",
+          "named": true
+        },
+        {
           "type": "keyword_stored",
+          "named": true
+        },
+        {
+          "type": "keyword_update",
           "named": true
         },
         {
@@ -3332,6 +3372,10 @@
         },
         {
           "type": "literal",
+          "named": true
+        },
+        {
+          "type": "object_reference",
           "named": true
         },
         {
