@@ -2104,3 +2104,35 @@ CREATE TRIGGER update_at_user AFTER UPDATE OF name ON public."user" EXECUTE FUNC
       (object_reference
         (identifier)
         (identifier)))))
+
+================================================================================
+Create table column REFERENCES constraint
+================================================================================
+
+CREATE TABLE foo (
+	bar int NOT NULL REFERENCES bar(foo) ON DELETE CASCADE
+);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (object_reference
+        name: (identifier))
+      (column_definitions
+        (column_definition
+          name: (identifier)
+          type: (int
+            (keyword_int))
+          (keyword_not)
+          (keyword_null)
+          (keyword_references)
+          (object_reference
+            name: (identifier))
+          (identifier)
+          (keyword_on)
+          (keyword_delete)
+          (keyword_cascade))))))
