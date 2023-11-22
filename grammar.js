@@ -2487,6 +2487,27 @@ module.exports = grammar({
         $.keyword_null,
         $._not_null,
       ),
+      seq(
+        $.keyword_references,
+        $.object_reference,
+        paren_list($.identifier, true),
+        repeat(
+          seq(
+            $.keyword_on,
+            choice($.keyword_delete, $.keyword_update),
+            choice(
+              seq($.keyword_no, $.keyword_action),
+              $.keyword_restrict,
+              $.keyword_cascade,
+              seq(
+                $.keyword_set,
+                choice($.keyword_null, $.keyword_default),
+                  optional(paren_list($.identifier, true))
+              ),
+            ),
+          ),
+        ),
+      ),
       $._default_expression,
       $._primary_key,
       $.keyword_auto_increment,
