@@ -15,6 +15,7 @@
   },
   "devDependencies": {
     "commit-and-tag-version": "^12.0.0",
+    "node-gyp": "^10.0.1",
     "tree-sitter-cli": "^0.20.8"
   },
   "gypfile": true,
