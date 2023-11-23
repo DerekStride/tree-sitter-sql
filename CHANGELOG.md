@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.1.1](https://github.com/derekstride/tree-sitter-sql/compare/v0.1.0...v0.1.1) (2023-11-22)
+
+
+### Features
+
+* Add REFERENCES column constraint to CREATE TABLE statements ([379f473](https://github.com/derekstride/tree-sitter-sql/commit/379f473698aaef8485b4fa56f316752353d565a8))
+
+
+### Bug Fixes
+
+* remove typo in npm publish workflow ([a1cf63b](https://github.com/derekstride/tree-sitter-sql/commit/a1cf63b4c919770eebe13e357f231f4279022631))
+
 ## 0.1.0 (2023-11-14)
 
 
