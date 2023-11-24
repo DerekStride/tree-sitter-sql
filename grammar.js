@@ -1301,6 +1301,35 @@ module.exports = grammar({
       alias($._literal_string, $.literal),
     ),
 
+    _operator_class: $ => seq(
+      field("opclass", $.identifier),
+      optional(
+        field("opclass_parameters", wrapped_in_parenthesis(comma_list($.term)))
+      )
+    ),
+
+    _index_field: $ => seq(
+      choice(
+        field("expression", wrapped_in_parenthesis($._expression)),
+        field("function", $.invocation),
+        field("column", $._column),
+      ),
+      optional(seq($.keyword_collate, $.identifier)),
+      optional($._operator_class),
+      optional($.direction),
+      optional(
+        seq(
+          $.keyword_nulls,
+          choice(
+            $.keyword_first,
+            $.keyword_last
+          )
+        )
+      ),
+    ),
+
+    index_fields: $ => wrapped_in_parenthesis(comma_list(alias($._index_field, $.field))),
+
     create_index: $ => seq(
       $.keyword_create,
       optional($.keyword_unique),
@@ -1329,7 +1358,7 @@ module.exports = grammar({
             ),
           ),
         ),
-        $.ordered_columns,
+        $.index_fields
       ),
       optional(
         $.where,

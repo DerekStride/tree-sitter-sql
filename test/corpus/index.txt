@@ -14,8 +14,8 @@ CREATE INDEX ON tab(col);
       (keyword_on)
       (object_reference
         (identifier))
-      (ordered_columns
-        (column
+      (index_fields
+        (field
           (identifier))))))
 
 ================================================================================
@@ -45,8 +45,8 @@ WHERE tab.col > 10;
         (identifier))
       (keyword_using)
       (keyword_hash)
-      (ordered_columns
-        (column
+      (index_fields
+        (field
           (identifier)
           (direction
             (keyword_asc))))
@@ -58,3 +58,56 @@ WHERE tab.col > 10;
               (identifier))
             (identifier))
           (literal))))))
+
+================================================================================
+Create unique index with complex index fields
+================================================================================
+
+CREATE UNIQUE INDEX foo_index ON foo (
+	md5(COALESCE(cat, '')) COLLATE some_collation ASC NULLS LAST,
+	dog some_operator_class(1),
+	(cow / 2)
+);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_index
+      (keyword_create)
+      (keyword_unique)
+      (keyword_index)
+      column: (identifier)
+      (keyword_on)
+      (object_reference
+        name: (identifier))
+      (index_fields
+        (field
+          function: (invocation
+            (object_reference
+              name: (identifier))
+            parameter: (term
+              value: (invocation
+                (object_reference
+                  name: (identifier))
+                parameter: (term
+                  value: (field
+                    name: (identifier)))
+                parameter: (term
+                  value: (literal)))))
+          (keyword_collate)
+          (identifier)
+          (direction
+            (keyword_asc))
+          (keyword_nulls)
+          (keyword_last))
+        (field
+          column: (identifier)
+          opclass: (identifier)
+          opclass_parameters: (term
+            value: (literal)))
+        (field
+          expression: (binary_expression
+            left: (field
+              name: (identifier))
+            right: (literal)))))))

@@ -1218,9 +1218,9 @@ CREATE UNIQUE INDEX "akRoleName" ON "Role" ("name");
       (keyword_on)
       (object_reference
         name: (identifier))
-      (ordered_columns
-        (column
-          name: (literal))))))
+      (index_fields
+        (field
+          column: (literal))))))
 
 ================================================================================
 Create table as select
