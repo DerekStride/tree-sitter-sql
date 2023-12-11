@@ -637,3 +637,52 @@ SELECT 'fat cats ate rats' @@ !! ('cat' <-> 'rat'::tsquery);
                       (literal))
                     (object_reference
                       (identifier))))))))))
+
+================================================================================
+Array subscript
+================================================================================
+
+SELECT
+  (ARRAY[1, 4, 9])[1+1],
+  (ARRAY[1, 4, 9])[1:3 - 1],
+  (ARRAY[1, 4, 9])[1:2][3];
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (subscript
+            expression: (array
+              (keyword_array)
+              (literal)
+              (literal)
+              (literal))
+            subscript: (binary_expression
+              left: (literal)
+              right: (literal))))
+        (term
+          value: (subscript
+            expression: (array
+              (keyword_array)
+              (literal)
+              (literal)
+              (literal))
+            lower: (literal)
+            upper: (binary_expression
+              left: (literal)
+              right: (literal))))
+        (term
+          value: (subscript
+            expression: (subscript
+              expression: (array
+                (keyword_array)
+                (literal)
+                (literal)
+                (literal))
+              lower: (literal)
+              upper: (literal))
+            subscript: (literal)))))))

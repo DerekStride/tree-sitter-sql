@@ -456,78 +456,80 @@ module.exports = grammar({
 
     keyword_array: _ => make_keyword("array"), // not included in _type since it's a constructor literal
 
-    _type: $ => seq(
-      choice(
-        $.keyword_boolean,
-        $.bit,
-        $.binary,
-        $.varbinary,
-        $.keyword_image,
+    _type: $ => prec.left(
+      seq(
+        choice(
+          $.keyword_boolean,
+          $.bit,
+          $.binary,
+          $.varbinary,
+          $.keyword_image,
 
-        $.keyword_smallserial,
-        $.keyword_serial,
-        $.keyword_bigserial,
+          $.keyword_smallserial,
+          $.keyword_serial,
+          $.keyword_bigserial,
 
-        $.tinyint,
-        $.smallint,
-        $.mediumint,
-        $.int,
-        $.bigint,
-        $.decimal,
-        $.numeric,
-        $.double,
-        $.float,
+          $.tinyint,
+          $.smallint,
+          $.mediumint,
+          $.int,
+          $.bigint,
+          $.decimal,
+          $.numeric,
+          $.double,
+          $.float,
 
-        $.keyword_money,
-        $.keyword_smallmoney,
+          $.keyword_money,
+          $.keyword_smallmoney,
 
-        $.char,
-        $.varchar,
-        $.nchar,
-        $.nvarchar,
-        $.numeric,
-        $.keyword_string,
-        $.keyword_text,
+          $.char,
+          $.varchar,
+          $.nchar,
+          $.nvarchar,
+          $.numeric,
+          $.keyword_string,
+          $.keyword_text,
 
-        $.keyword_uuid,
+          $.keyword_uuid,
 
-        $.keyword_json,
-        $.keyword_jsonb,
-        $.keyword_xml,
+          $.keyword_json,
+          $.keyword_jsonb,
+          $.keyword_xml,
 
-        $.keyword_bytea,
-        $.keyword_inet,
+          $.keyword_bytea,
+          $.keyword_inet,
 
-        $.enum,
+          $.enum,
 
-        $.keyword_date,
-        $.keyword_datetime,
-        $.keyword_datetime2,
-        $.datetimeoffset,
-        $.keyword_smalldatetime,
-        $.time,
-        $.timestamp,
-        $.keyword_timestamptz,
-        $.keyword_interval,
+          $.keyword_date,
+          $.keyword_datetime,
+          $.keyword_datetime2,
+          $.datetimeoffset,
+          $.keyword_smalldatetime,
+          $.time,
+          $.timestamp,
+          $.keyword_timestamptz,
+          $.keyword_interval,
 
-        $.keyword_geometry,
-        $.keyword_geography,
-        $.keyword_box2d,
-        $.keyword_box3d,
+          $.keyword_geometry,
+          $.keyword_geography,
+          $.keyword_box2d,
+          $.keyword_box3d,
 
-        $.keyword_oid,
-        $.keyword_name,
-        $.keyword_regclass,
-        $.keyword_regnamespace,
-        $.keyword_regproc,
-        $.keyword_regtype,
+          $.keyword_oid,
+          $.keyword_name,
+          $.keyword_regclass,
+          $.keyword_regnamespace,
+          $.keyword_regproc,
+          $.keyword_regtype,
 
-        field("custom_type", $.object_reference)
+          field("custom_type", $.object_reference)
+        ),
+        optional($.array_size_definition)
       ),
-      optional($.array_size_definition)
     ),
 
-    array_size_definition: $ => seq(
+    array_size_definition: $ => prec.left(
       choice(
         seq($.keyword_array, optional($._array_size_definition)),
         repeat1($._array_size_definition),
@@ -3119,12 +3121,29 @@ module.exports = grammar({
         $.exists,
         $.invocation,
         $.binary_expression,
+        $.subscript,
         $.unary_expression,
         $.array,
         $.interval,
         $.between_expression,
         wrapped_in_parenthesis($._expression),
       )
+    ),
+
+    subscript: $ => prec.left('binary_is',
+      seq(
+        field('expression', $._expression),
+        "[",
+        choice(
+          field('subscript', $._expression),
+          seq(
+            field('lower', $._expression),
+            ':',
+            field('upper', $._expression),
+          ),
+        ),
+        "]",
+      ),
     ),
 
     op_other: $ => token(
