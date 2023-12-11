@@ -1822,280 +1822,283 @@
       "value": "[aA][rR][rR][aA][yY]"
     },
     "_type": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "keyword_boolean"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "bit"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "binary"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "varbinary"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "keyword_image"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "keyword_smallserial"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "keyword_serial"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "keyword_bigserial"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "tinyint"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "smallint"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "mediumint"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "int"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "bigint"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "decimal"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "numeric"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "double"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "float"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "keyword_money"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "keyword_smallmoney"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "char"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "varchar"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "nchar"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "nvarchar"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "numeric"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "keyword_string"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "keyword_text"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "keyword_uuid"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "keyword_json"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "keyword_jsonb"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "keyword_xml"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "keyword_bytea"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "keyword_inet"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "enum"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "keyword_date"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "keyword_datetime"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "keyword_datetime2"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "datetimeoffset"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "keyword_smalldatetime"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "time"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "timestamp"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "keyword_timestamptz"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "keyword_interval"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "keyword_geometry"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "keyword_geography"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "keyword_box2d"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "keyword_box3d"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "keyword_oid"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "keyword_name"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "keyword_regclass"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "keyword_regnamespace"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "keyword_regproc"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "keyword_regtype"
-            },
-            {
-              "type": "FIELD",
-              "name": "custom_type",
-              "content": {
+      "type": "PREC_LEFT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "CHOICE",
+            "members": [
+              {
                 "type": "SYMBOL",
-                "name": "object_reference"
+                "name": "keyword_boolean"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "bit"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "binary"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "varbinary"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "keyword_image"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "keyword_smallserial"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "keyword_serial"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "keyword_bigserial"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "tinyint"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "smallint"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "mediumint"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "int"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "bigint"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "decimal"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "numeric"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "double"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "float"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "keyword_money"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "keyword_smallmoney"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "char"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "varchar"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "nchar"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "nvarchar"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "numeric"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "keyword_string"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "keyword_text"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "keyword_uuid"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "keyword_json"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "keyword_jsonb"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "keyword_xml"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "keyword_bytea"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "keyword_inet"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "enum"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "keyword_date"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "keyword_datetime"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "keyword_datetime2"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "datetimeoffset"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "keyword_smalldatetime"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "time"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "timestamp"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "keyword_timestamptz"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "keyword_interval"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "keyword_geometry"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "keyword_geography"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "keyword_box2d"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "keyword_box3d"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "keyword_oid"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "keyword_name"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "keyword_regclass"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "keyword_regnamespace"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "keyword_regproc"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "keyword_regtype"
+              },
+              {
+                "type": "FIELD",
+                "name": "custom_type",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "object_reference"
+                }
               }
-            }
-          ]
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "array_size_definition"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        }
-      ]
+            ]
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "array_size_definition"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        ]
+      }
     },
     "array_size_definition": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "keyword_array"
-                },
-                {
-                  "type": "CHOICE",
-                  "members": [
-                    {
-                      "type": "SYMBOL",
-                      "name": "_array_size_definition"
-                    },
-                    {
-                      "type": "BLANK"
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "REPEAT1",
-              "content": {
+      "type": "PREC_LEFT",
+      "value": 0,
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SEQ",
+            "members": [
+              {
                 "type": "SYMBOL",
-                "name": "_array_size_definition"
+                "name": "keyword_array"
+              },
+              {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "_array_size_definition"
+                  },
+                  {
+                    "type": "BLANK"
+                  }
+                ]
               }
+            ]
+          },
+          {
+            "type": "REPEAT1",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_array_size_definition"
             }
-          ]
-        }
-      ]
+          }
+        ]
+      }
     },
     "_array_size_definition": {
       "type": "SEQ",
@@ -17428,6 +17431,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "subscript"
+          },
+          {
+            "type": "SYMBOL",
             "name": "unary_expression"
           },
           {
@@ -17458,6 +17465,69 @@
                 "value": ")"
               }
             ]
+          }
+        ]
+      }
+    },
+    "subscript": {
+      "type": "PREC_LEFT",
+      "value": "binary_is",
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "FIELD",
+            "name": "expression",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_expression"
+            }
+          },
+          {
+            "type": "STRING",
+            "value": "["
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "FIELD",
+                "name": "subscript",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_expression"
+                }
+              },
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "FIELD",
+                    "name": "lower",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "_expression"
+                    }
+                  },
+                  {
+                    "type": "STRING",
+                    "value": ":"
+                  },
+                  {
+                    "type": "FIELD",
+                    "name": "upper",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "_expression"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "STRING",
+            "value": "]"
           }
         ]
       }
