@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.2.0](https://github.com/derekstride/tree-sitter-sql/compare/v0.1.1...v0.2.0) (2023-12-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* The `(ordered_columns)` node in the `create_index`
+statement has been replaced with `(index_fields)`, with `(field)` child
+nodes which can have `column: (_)`, `expression: (_)` or `function:
+(_)` named child nodes.
+
+### Features
+
+* Add complex index fields to CREATE INDEX statements ([97806c5](https://github.com/derekstride/tree-sitter-sql/commit/97806c5474f330260a6ae41c7614264a56bfddd1))
+* postgresql expression subscripts ([c54eff2](https://github.com/derekstride/tree-sitter-sql/commit/c54eff259d5ec577593b46f67646188836c48d1e))
+
+
+### Bug Fixes
+
+* **ci:** pin node-gyp to v10 ([0aaf90a](https://github.com/derekstride/tree-sitter-sql/commit/0aaf90a094a8c98efab920fb170dc8300c194e39))
+* ensure scanner.c is included in npm package ([ec6bb68](https://github.com/derekstride/tree-sitter-sql/commit/ec6bb68ecb1478211bf6864e161464572c9cf59e))
+* The scannar can now scan tag name with any (expected '$') ASCII char instead of only letters. ([dbe4c04](https://github.com/derekstride/tree-sitter-sql/commit/dbe4c04cd5fd78216ffc992658663ff2bf7d2471))
+
 ## [0.1.1](https://github.com/derekstride/tree-sitter-sql/compare/v0.1.0...v0.1.1) (2023-11-22)
 
 
