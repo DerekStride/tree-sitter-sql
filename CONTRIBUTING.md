@@ -63,10 +63,10 @@ number and preparing for a release. Run the following to generate the release:
 $ npm run release
 ```
 
-Verify that all the changes are correct and push the updates to a new branch, including the git tags.
+Verify that all the changes are correct and push the updates to a new branch.
 
 ```
-git push && git push --tags
+git push
 ```
 
 Once that PR is merged, create a new Release [on Github](https://github.com/DerekStride/tree-sitter-sql/releases). When

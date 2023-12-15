@@ -47,5 +47,10 @@
   "keywords": [
     "parser",
     "sql"
-  ]
+  ],
+  "commit-and-tag-version": {
+    "skip": {
+      "tag": true
+    }
+  }
 }
