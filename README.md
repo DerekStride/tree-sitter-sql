@@ -2,6 +2,8 @@
 
 [![Build/test](https://github.com/derekstride/tree-sitter-sql/actions/workflows/ci.yml/badge.svg)](https://github.com/derekstride/tree-sitter-sql/actions/workflows/ci.yml)
 [![GitHub Pages](https://github.com/DerekStride/tree-sitter-sql/actions/workflows/gh-pages.yml/badge.svg)](https://github.com/DerekStride/tree-sitter-sql/actions/workflows/gh-pages.yml)
+[![npm package version](https://img.shields.io/npm/v/%40derekstride/tree-sitter-sql?logo=npm&color=brightgreen)](https://www.npmjs.com/package/@derekstride/tree-sitter-sql)
+
 
 A general/permissive SQL grammar for [tree-sitter](https://github.com/tree-sitter/tree-sitter).
 
