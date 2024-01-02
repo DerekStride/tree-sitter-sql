@@ -149,37 +149,43 @@ Function body with a tag name contains whitespace
 create or replace function public.do_stuff()
   returns trigger
   language plpgsql
-as $a $
+as $a$
 begin
-  return $b$text$b$;
+  return $b $text$b $;
 end;
-$a $;
+$a$;
 
 --------------------------------------------------------------------------------
 
 (program
-  (ERROR
-    (keyword_create)
-    (keyword_or)
-    (keyword_replace)
-    (keyword_function)
-    (object_reference
-      (identifier)
-      (identifier))
-    (function_arguments)
-    (keyword_returns)
-    (keyword_trigger)
-    (function_language
-      (keyword_language)
-      (identifier))
-    (ERROR
-      (keyword_as)
-      (UNEXPECTED 'a')
-      (UNEXPECTED '\n'))
-    (keyword_begin)
-    (dollar_quote)
-    (keyword_text)
-    (dollar_quote)
-    (keyword_end)
-    (UNEXPECTED 'a')
-    (UNEXPECTED ';')))
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_or)
+      (keyword_replace)
+      (keyword_function)
+      (object_reference
+        (identifier)
+        (identifier))
+      (function_arguments)
+      (keyword_returns)
+      (keyword_trigger)
+      (function_language
+        (keyword_language)
+        (identifier))
+      (function_body
+        (keyword_as)
+        (dollar_quote)
+        (keyword_begin)
+        (keyword_return)
+        (ERROR
+          (UNEXPECTED 'b'))
+        (field
+          (identifier))
+        (ERROR
+          (UNEXPECTED 't')
+          (keyword_text)
+          (UNEXPECTED 'b')
+          (UNEXPECTED ';'))
+        (keyword_end)
+        (dollar_quote)))))
