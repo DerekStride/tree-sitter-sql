@@ -64,7 +64,7 @@ char* scan_dollar_string_tag(TSLexer *lexer) {
     return NULL;
   }
 
-  while (lexer->lookahead != '$' && !lexer->eof(lexer)) {
+  while (lexer->lookahead != '$' && !iswspace(lexer->lookahead) && !lexer->eof(lexer)) {
     tag = add_char(tag, text_size, lexer->lookahead, ++index);
     lexer->advance(lexer, false);
   }
