@@ -6,7 +6,9 @@
   "scripts": {
     "test": "tree-sitter test",
     "install": "tree-sitter generate && node-gyp rebuild",
-    "release": "commit-and-tag-version"
+    "release": "commit-and-tag-version",
+    "build-wasm": "tree-sitter build-wasm",
+    "build": "npm run build-wasm"
   },
   "author": "derek stride",
   "license": "MIT",
