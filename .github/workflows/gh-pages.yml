@@ -16,7 +16,7 @@ jobs:
           node-version: 20
       - run: npm install
       - name: Publish parser on GitHub Pages
-        run: cp -r LICENSE src queries bindings Package.swift docs Cargo.toml
+        run: cp -r LICENSE Cargo.toml src queries bindings Package.swift docs
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: 3.2.0
