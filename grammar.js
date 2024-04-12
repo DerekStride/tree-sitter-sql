@@ -2544,6 +2544,7 @@ module.exports = grammar({
       $.keyword_auto_increment,
       $.direction,
       $._column_comment,
+      $._check_constraint,
       seq(
         optional(seq($.keyword_generated, $.keyword_always)),
         $.keyword_as,
@@ -2554,6 +2555,17 @@ module.exports = grammar({
         $.keyword_virtual,
       )
     )),
+
+    _check_constraint: $ => seq(
+      optional(
+        seq(
+          $.keyword_constraint,
+          $.literal
+        )
+      ),
+      $.keyword_check,
+      wrapped_in_parenthesis($.binary_expression)
+    ),
 
     _default_expression: $ => seq(
       $.keyword_default,
@@ -2583,13 +2595,21 @@ module.exports = grammar({
       $._constraint_literal,
       $._key_constraint,
       $._primary_key_constraint,
+      $._check_constraint
     ),
 
     _constraint_literal: $ => seq(
       $.keyword_constraint,
       field('name', $.identifier),
-      $._primary_key,
-      $.ordered_columns,
+      choice(
+        seq(
+          $._primary_key,
+          $.ordered_columns,
+        ),
+        seq(
+          $._check_constraint
+        )
+      )
     ),
 
     _primary_key_constraint: $ => seq(
