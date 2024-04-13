@@ -216,6 +216,62 @@ CREATE TABLE my_table (
                 name: (identifier)))))))))
 
 ================================================================================
+Create table with constraint checks
+================================================================================
+
+CREATE TABLE products (
+    product_no integer,
+    name text,
+    price numeric CHECK (price > 0),
+    discounted_price numeric CHECK (discounted_price > 0),
+    CHECK (price > discounted_price)
+);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (object_reference
+        (identifier))
+      (column_definitions
+        (column_definition
+          (identifier)
+          (int
+            (keyword_int)))
+        (column_definition
+          (identifier)
+          (keyword_text))
+        (column_definition
+          (identifier)
+          (numeric
+            (keyword_numeric))
+          (keyword_check)
+          (binary_expression
+            (field
+              (identifier))
+            (literal)))
+        (column_definition
+          (identifier)
+          (numeric
+            (keyword_numeric))
+          (keyword_check)
+          (binary_expression
+            (field
+              (identifier))
+            (literal)))
+        (constraints
+          (constraint
+            (keyword_check)
+            (binary_expression
+              (field
+                (identifier))
+              (field
+                (identifier)))))))))
+
+================================================================================
 Create table if not exists
 ================================================================================
 
