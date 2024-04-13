@@ -3343,7 +3343,15 @@
           "named": true
         },
         {
+          "type": "keyword_check",
+          "named": true
+        },
+        {
           "type": "keyword_comment",
+          "named": true
+        },
+        {
+          "type": "keyword_constraint",
           "named": true
         },
         {
@@ -3617,6 +3625,10 @@
       "required": true,
       "types": [
         {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
           "type": "identifier",
           "named": true
         },
@@ -3626,6 +3638,10 @@
         },
         {
           "type": "keyword_cascade",
+          "named": true
+        },
+        {
+          "type": "keyword_check",
           "named": true
         },
         {
@@ -3706,6 +3722,10 @@
         },
         {
           "type": "keyword_update",
+          "named": true
+        },
+        {
+          "type": "literal",
           "named": true
         },
         {

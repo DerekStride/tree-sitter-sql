@@ -14844,6 +14844,10 @@
             "name": "_column_comment"
           },
           {
+            "type": "SYMBOL",
+            "name": "_check_constraint"
+          },
+          {
             "type": "SEQ",
             "members": [
               {
@@ -14892,6 +14896,53 @@
           }
         ]
       }
+    },
+    "_check_constraint": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_constraint"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "literal"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_check"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "("
+            },
+            {
+              "type": "SYMBOL",
+              "name": "binary_expression"
+            },
+            {
+              "type": "STRING",
+              "value": ")"
+            }
+          ]
+        }
+      ]
     },
     "_default_expression": {
       "type": "SEQ",
@@ -15021,6 +15072,10 @@
         {
           "type": "SYMBOL",
           "name": "_primary_key_constraint"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_check_constraint"
         }
       ]
     },
@@ -15040,12 +15095,31 @@
           }
         },
         {
-          "type": "SYMBOL",
-          "name": "_primary_key"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "ordered_columns"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_primary_key"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "ordered_columns"
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_check_constraint"
+                }
+              ]
+            }
+          ]
         }
       ]
     },
