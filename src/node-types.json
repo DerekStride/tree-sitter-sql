@@ -3411,6 +3411,10 @@
           "named": true
         },
         {
+          "type": "keyword_unique",
+          "named": true
+        },
+        {
           "type": "keyword_update",
           "named": true
         },
