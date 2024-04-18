@@ -2553,7 +2553,8 @@ module.exports = grammar({
       choice(
         $.keyword_stored,
         $.keyword_virtual,
-      )
+      ),
+      $.keyword_unique
     )),
 
     _check_constraint: $ => seq(

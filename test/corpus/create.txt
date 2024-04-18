@@ -30,7 +30,8 @@ Create table multiple columns
 
 CREATE TABLE my_table (
   id BIGINT NOT NULL PRIMARY KEY,
-  date DATE DEFAULT NULL ASC
+  date DATE DEFAULT NULL ASC,
+  date2 DATE DEFAULT NULL UNIQUE ASC
 );
 
 --------------------------------------------------------------------------------
@@ -57,6 +58,15 @@ CREATE TABLE my_table (
           (keyword_default)
           (literal
             (keyword_null))
+          (direction
+            (keyword_asc)))
+        (column_definition
+          name: (identifier)
+          type: (keyword_date)
+          (keyword_default)
+          (literal
+            (keyword_null))
+          (keyword_unique)
           (direction
             (keyword_asc)))))))
 
