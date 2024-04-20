@@ -1,0 +1,50 @@
+name: Build and Release
+
+# on:
+#   release:
+#     types: [published]
+
+jobs:
+  build:
+    name: Build Code
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest]
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Install Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: 20
+
+    - name: Install Emscripten
+      if: matrix.os == 'ubuntu-latest'
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y emscripten
+
+    - name: Install Emscripten
+      if: matrix.os == 'macos-latest'
+      run: |
+        brew install emscripten
+
+    - name: Build Code
+    - run: |
+        npm install
+        tree-sitter generate
+        cc -shared -fPIC -I./src src/parser.c src/scanner.c -o sql.so
+        tree-sitter build-wasm
+        zip -r tree-sitter-sql-${{ matrix.os }}.zip src sql.so tree-sitter-sql.wasm # TODO: add version name
+
+    - name: Create Release Asset
+      uses: meeDamian/github-release@2.0
+      with:
+        upload_url: ${{ github.event.release.upload_url }}
+        asset_path: .
+        asset_name: tree-sitter-sql-${{ matrix.os }}.zip
+        asset_content_type: application/zip
+        token: ${{ secrets.GITHUB_TOKEN }}
