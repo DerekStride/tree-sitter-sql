@@ -3,19 +3,33 @@
   "version": "0.3.0",
   "description": "Tree-sitter Grammar for SQL",
   "main": "bindings/node",
+  "types": "bindings/node",
   "scripts": {
     "test": "tree-sitter test",
+    "build": "tree-sitter generate && tree-sitter build-wasm && cc -shared -O -D_FORTIFY_SOURCE=3 -fPIE -fPIC -I./src src/parser.c src/scanner.c -o sql.so",
     "install": "tree-sitter generate && node-gyp rebuild",
-    "release": "commit-and-tag-version"
+    "release": "commit-and-tag-version",
+    "prebuildify": "prebuildify --napi --strip"
   },
   "author": "derek stride",
   "license": "MIT",
   "dependencies": {
-    "nan": "^2.18.0"
+    "nan": "^2.19.0",
+    "node-addon-api": "^7.1.0",
+    "node-gyp-build": "^4.8.0"
+  },
+  "peerDependencies": {
+    "tree-sitter": "^0.21.0"
+  },
+  "peerDependenciesMeta": {
+    "tree_sitter": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "commit-and-tag-version": "^12.0.0",
     "node-gyp": "^10.0.1",
+    "prebuildify": "^6.0.0",
     "tree-sitter-cli": "^0.20.8"
   },
   "gypfile": true,
@@ -47,6 +61,14 @@
   "keywords": [
     "parser",
     "sql"
+  ],
+  "files": [
+    "grammar.js",
+    "binding.gyp",
+    "prebuilds/**",
+    "bindings/node/*",
+    "queries/*",
+    "src/**"
   ],
   "commit-and-tag-version": {
     "skip": {

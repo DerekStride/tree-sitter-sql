@@ -1,0 +1,10 @@
+## SHA256 Checksums
+
+```
+
+${SHA_LINUX_64_ZIP}
+${SHA_LINUX_64_TAR}
+${SHA_MACOS_ARM64_ZIP}
+${SHA_MACOS_ARM64_TAR}
+
+```
