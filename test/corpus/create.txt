@@ -1938,6 +1938,24 @@ CREATE DATABASE hollywood
       (identifier))))
 
 ================================================================================
+Create database if not exists
+================================================================================
+
+CREATE DATABASE IF NOT EXISTS hollywood
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_database
+      (keyword_create)
+      (keyword_database)
+      (keyword_if)
+      (keyword_not)
+      (keyword_exists)
+      (identifier))))
+
+================================================================================
 Create database with settings
 ================================================================================
 

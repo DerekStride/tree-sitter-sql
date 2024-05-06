@@ -1392,6 +1392,7 @@ module.exports = grammar({
     create_database: $ => seq(
       $.keyword_create,
       $.keyword_database,
+      optional($._if_not_exists),
       $.identifier,
       optional($.keyword_with),
       repeat(
