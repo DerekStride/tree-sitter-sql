@@ -249,6 +249,17 @@ module.exports = grammar({
     keyword_authorization: _ => make_keyword("authorization"),
     keyword_action: _ => make_keyword("action"),
     keyword_extension: _ => make_keyword("extension"),
+    keyword_copy: _ => make_keyword("copy"),
+    keyword_stdin: _ => make_keyword("stdin"),
+    keyword_freeze: _ => make_keyword("freeze"),
+    keyword_escape: _ => make_keyword("escape"),
+    keyword_encoding: _ => make_keyword("encoding"),
+    keyword_force_quote: _ => make_keyword("force_quote"),
+    keyword_force_null: _ => make_keyword("force_null"),
+    keyword_force_not_null: _ => make_keyword("force_not_null"),
+    keyword_header: _ => make_keyword("header"),
+    keyword_match: _ => make_keyword("match"),
+    keyword_program: _ => make_keyword("program"),
 
     keyword_trigger: _ => make_keyword('trigger'),
     keyword_function: _ => make_keyword("function"),
@@ -336,6 +347,7 @@ module.exports = grammar({
     keyword_sort: _ => make_keyword("sort"),
     keyword_format: _ => make_keyword("format"),
     keyword_delimited: _ => make_keyword("delimited"),
+    keyword_delimiter: _ => make_keyword("delimiter"),
     keyword_fields: _ => make_keyword("fields"),
     keyword_terminated: _ => make_keyword("terminated"),
     keyword_escaped: _ => make_keyword("escaped"),
@@ -718,6 +730,7 @@ module.exports = grammar({
           $._insert_statement,
           $._update_statement,
           $._truncate_statement,
+          $._copy_statement,
         ),
       ),
     ),
@@ -2111,6 +2124,67 @@ module.exports = grammar({
         ),
       ),
       field('name', $.identifier),
+    ),
+
+    _copy_statement: $ => seq(
+      $.keyword_copy,
+      $.object_reference,
+      $._column_list,
+      $.keyword_from,
+      choice(
+        $.keyword_stdin,
+        alias($._literal_string, "filename"),
+        seq($.keyword_program, alias($._literal_string, "command")),
+      ),
+      optional($.keyword_with),
+      wrapped_in_parenthesis(
+        repeat1(
+          choice(
+            seq(
+              $.keyword_format,
+              choice(
+                $.keyword_csv,
+                $.keyword_binary,
+                $.keyword_text,
+              ),
+            ),
+            seq(
+              $.keyword_freeze,
+              choice(
+                $.keyword_true,
+                $.keyword_false
+              )
+            ),
+            seq(
+              $.keyword_header,
+              choice(
+                $.keyword_true,
+                $.keyword_false,
+                $.keyword_match
+              ),
+            ),
+            seq(
+              choice(
+                $.keyword_delimiter,
+                $.keyword_null,
+                $.keyword_default,
+                $.keyword_escape,
+                $.keyword_encoding,
+              ),
+              $._literal_string
+            ),
+            seq(
+              choice(
+                $.keyword_force_null,
+                $.keyword_force_not_null,
+                $.keyword_force_quote,
+              ),
+              $._column_list
+            ),
+          ),
+        ),
+      ),
+      optional($.where),
     ),
 
     _insert_statement: $ => seq(
