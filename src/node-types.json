@@ -3804,6 +3804,18 @@
           "named": true
         },
         {
+          "type": "keyword_exists",
+          "named": true
+        },
+        {
+          "type": "keyword_if",
+          "named": true
+        },
+        {
+          "type": "keyword_not",
+          "named": true
+        },
+        {
           "type": "keyword_with",
           "named": true
         }
