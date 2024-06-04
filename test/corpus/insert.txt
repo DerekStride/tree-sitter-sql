@@ -569,3 +569,87 @@ COPY FROM STDIN CSV
 COPY some_table (a, b, c) FROM STDIN (FORMAT CSV);
 
 --------------------------------------------------------------------------------
+(program
+  (statement
+    (keyword_copy)
+    (object_reference
+      (identifier))
+    (column
+      (identifier))
+    (column
+      (identifier))
+    (column
+      (identifier))
+    (keyword_from)
+    (keyword_stdin)
+    (keyword_format)
+    (keyword_csv)))
+
+================================================================================
+COPY FROM FILE
+================================================================================
+
+COPY some_table (a, b, c) FROM '/tmp/data.csv' (FORMAT CSV);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (keyword_copy)
+    (object_reference
+      (identifier))
+    (column
+      (identifier))
+    (column
+      (identifier))
+    (column
+      (identifier))
+    (keyword_from)
+    (keyword_format)
+    (keyword_csv)))
+
+================================================================================
+COPY FROM STDIN CSV WITH OPTIONS
+================================================================================
+
+COPY some_table (a, b, c) FROM STDIN WITH
+(
+    FORMAT CSV
+    DELIMITER ';'
+    QUOTE '"'
+    ESCAPE '\'
+    FREEZE true
+    HEADER MATCH
+    NULL 'NaN'
+);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (keyword_copy)
+    (object_reference
+      (identifier))
+    (column
+      (identifier))
+    (column
+      (identifier))
+    (column
+      (identifier))
+    (keyword_from)
+    (keyword_stdin)
+    (keyword_with)
+    (keyword_format)
+    (keyword_csv)
+    (keyword_delimiter)
+    (identifier)
+    (keyword_quote)
+    (identifier)
+    (keyword_escape)
+    (identifier)
+    (keyword_freeze)
+    (keyword_true)
+    (keyword_header)
+    (keyword_match)
+    (keyword_null)
+    (identifier)))

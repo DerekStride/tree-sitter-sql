@@ -255,6 +255,7 @@ module.exports = grammar({
     keyword_escape: _ => make_keyword("escape"),
     keyword_encoding: _ => make_keyword("encoding"),
     keyword_force_quote: _ => make_keyword("force_quote"),
+    keyword_quote: _ => make_keyword("quote"),
     keyword_force_null: _ => make_keyword("force_null"),
     keyword_force_not_null: _ => make_keyword("force_not_null"),
     keyword_header: _ => make_keyword("header"),
@@ -2169,9 +2170,10 @@ module.exports = grammar({
                 $.keyword_null,
                 $.keyword_default,
                 $.keyword_escape,
+                $.keyword_quote,
                 $.keyword_encoding,
               ),
-              $._literal_string
+              alias($._literal_string, $.identifier)
             ),
             seq(
               choice(
