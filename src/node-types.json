@@ -3507,6 +3507,11 @@
     }
   },
   {
+    "type": "command",
+    "named": false,
+    "fields": {}
+  },
+  {
     "type": "comment_statement",
     "named": true,
     "fields": {},
@@ -6314,6 +6319,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "filename",
+    "named": false,
+    "fields": {}
   },
   {
     "type": "filter_expression",
@@ -9543,6 +9553,10 @@
           "named": true
         },
         {
+          "type": "column",
+          "named": true
+        },
+        {
           "type": "comment_statement",
           "named": true
         },
@@ -9647,6 +9661,10 @@
           "named": true
         },
         {
+          "type": "identifier",
+          "named": true
+        },
+        {
           "type": "insert",
           "named": true
         },
@@ -9660,6 +9678,10 @@
         },
         {
           "type": "keyword_bin_pack",
+          "named": true
+        },
+        {
+          "type": "keyword_binary",
           "named": true
         },
         {
@@ -9679,7 +9701,31 @@
           "named": true
         },
         {
+          "type": "keyword_copy",
+          "named": true
+        },
+        {
+          "type": "keyword_csv",
+          "named": true
+        },
+        {
           "type": "keyword_data",
+          "named": true
+        },
+        {
+          "type": "keyword_default",
+          "named": true
+        },
+        {
+          "type": "keyword_delimiter",
+          "named": true
+        },
+        {
+          "type": "keyword_encoding",
+          "named": true
+        },
+        {
+          "type": "keyword_escape",
           "named": true
         },
         {
@@ -9699,7 +9745,35 @@
           "named": true
         },
         {
+          "type": "keyword_force_not_null",
+          "named": true
+        },
+        {
+          "type": "keyword_force_null",
+          "named": true
+        },
+        {
+          "type": "keyword_force_quote",
+          "named": true
+        },
+        {
+          "type": "keyword_format",
+          "named": true
+        },
+        {
+          "type": "keyword_freeze",
+          "named": true
+        },
+        {
+          "type": "keyword_from",
+          "named": true
+        },
+        {
           "type": "keyword_full",
+          "named": true
+        },
+        {
+          "type": "keyword_header",
           "named": true
         },
         {
@@ -9719,6 +9793,10 @@
           "named": true
         },
         {
+          "type": "keyword_match",
+          "named": true
+        },
+        {
           "type": "keyword_merge",
           "named": true
         },
@@ -9732,6 +9810,10 @@
         },
         {
           "type": "keyword_nowait",
+          "named": true
+        },
+        {
+          "type": "keyword_null",
           "named": true
         },
         {
@@ -9752,6 +9834,14 @@
         },
         {
           "type": "keyword_partition",
+          "named": true
+        },
+        {
+          "type": "keyword_program",
+          "named": true
+        },
+        {
+          "type": "keyword_quote",
           "named": true
         },
         {
@@ -9779,11 +9869,19 @@
           "named": true
         },
         {
+          "type": "keyword_stdin",
+          "named": true
+        },
+        {
           "type": "keyword_table",
           "named": true
         },
         {
           "type": "keyword_tables",
+          "named": true
+        },
+        {
+          "type": "keyword_text",
           "named": true
         },
         {
@@ -11699,6 +11797,10 @@
     "named": true
   },
   {
+    "type": "keyword_copy",
+    "named": true
+  },
+  {
     "type": "keyword_cost",
     "named": true
   },
@@ -11787,6 +11889,10 @@
     "named": true
   },
   {
+    "type": "keyword_delimiter",
+    "named": true
+  },
+  {
     "type": "keyword_desc",
     "named": true
   },
@@ -11815,6 +11921,10 @@
     "named": true
   },
   {
+    "type": "keyword_encoding",
+    "named": true
+  },
+  {
     "type": "keyword_encrypted",
     "named": true
   },
@@ -11828,6 +11938,10 @@
   },
   {
     "type": "keyword_enum",
+    "named": true
+  },
+  {
+    "type": "keyword_escape",
     "named": true
   },
   {
@@ -11899,11 +12013,27 @@
     "named": true
   },
   {
+    "type": "keyword_force_not_null",
+    "named": true
+  },
+  {
+    "type": "keyword_force_null",
+    "named": true
+  },
+  {
+    "type": "keyword_force_quote",
+    "named": true
+  },
+  {
     "type": "keyword_foreign",
     "named": true
   },
   {
     "type": "keyword_format",
+    "named": true
+  },
+  {
+    "type": "keyword_freeze",
     "named": true
   },
   {
@@ -11952,6 +12082,10 @@
   },
   {
     "type": "keyword_having",
+    "named": true
+  },
+  {
+    "type": "keyword_header",
     "named": true
   },
   {
@@ -12112,6 +12246,10 @@
   },
   {
     "type": "keyword_low_priority",
+    "named": true
+  },
+  {
+    "type": "keyword_match",
     "named": true
   },
   {
@@ -12327,6 +12465,14 @@
     "named": true
   },
   {
+    "type": "keyword_program",
+    "named": true
+  },
+  {
+    "type": "keyword_quote",
+    "named": true
+  },
+  {
     "type": "keyword_range",
     "named": true
   },
@@ -12524,6 +12670,10 @@
   },
   {
     "type": "keyword_stats",
+    "named": true
+  },
+  {
+    "type": "keyword_stdin",
     "named": true
   },
   {
