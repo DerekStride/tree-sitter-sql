@@ -849,6 +849,26 @@
       "type": "PATTERN",
       "value": "[pP][rR][oO][gG][rR][aA][mM]"
     },
+    "keyword_plain": {
+      "type": "PATTERN",
+      "value": "[pP][lL][aA][iI][nN]"
+    },
+    "keyword_extended": {
+      "type": "PATTERN",
+      "value": "[eE][xX][tT][eE][nN][dD][eE][dD]"
+    },
+    "keyword_main": {
+      "type": "PATTERN",
+      "value": "[mM][aA][iI][nN]"
+    },
+    "keyword_storage": {
+      "type": "PATTERN",
+      "value": "[sS][tT][oO][rR][aA][gG][eE]"
+    },
+    "keyword_compression": {
+      "type": "PATTERN",
+      "value": "[cC][oO][mM][pP][rR][eE][sS][sS][iI][oO][nN]"
+    },
     "keyword_trigger": {
       "type": "PATTERN",
       "value": "[tT][rR][iI][gG][gG][eE][rR]"
@@ -10542,12 +10562,133 @@
                   "name": "keyword_set"
                 },
                 {
-                  "type": "SYMBOL",
-                  "name": "keyword_default"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "_expression"
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "SYMBOL",
+                          "name": "keyword_statistics"
+                        },
+                        {
+                          "type": "FIELD",
+                          "name": "statistics",
+                          "content": {
+                            "type": "SYMBOL",
+                            "name": "_integer"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "SYMBOL",
+                          "name": "keyword_storage"
+                        },
+                        {
+                          "type": "CHOICE",
+                          "members": [
+                            {
+                              "type": "SYMBOL",
+                              "name": "keyword_plain"
+                            },
+                            {
+                              "type": "SYMBOL",
+                              "name": "keyword_external"
+                            },
+                            {
+                              "type": "SYMBOL",
+                              "name": "keyword_extended"
+                            },
+                            {
+                              "type": "SYMBOL",
+                              "name": "keyword_main"
+                            },
+                            {
+                              "type": "SYMBOL",
+                              "name": "keyword_default"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "SYMBOL",
+                          "name": "keyword_compression"
+                        },
+                        {
+                          "type": "FIELD",
+                          "name": "compression_method",
+                          "content": {
+                            "type": "SYMBOL",
+                            "name": "_identifier"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "SEQ",
+                          "members": [
+                            {
+                              "type": "STRING",
+                              "value": "("
+                            },
+                            {
+                              "type": "SEQ",
+                              "members": [
+                                {
+                                  "type": "SYMBOL",
+                                  "name": "_key_value_pair"
+                                },
+                                {
+                                  "type": "REPEAT",
+                                  "content": {
+                                    "type": "SEQ",
+                                    "members": [
+                                      {
+                                        "type": "STRING",
+                                        "value": ","
+                                      },
+                                      {
+                                        "type": "SYMBOL",
+                                        "name": "_key_value_pair"
+                                      }
+                                    ]
+                                  }
+                                }
+                              ]
+                            },
+                            {
+                              "type": "STRING",
+                              "value": ")"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "SYMBOL",
+                          "name": "keyword_default"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "_expression"
+                        }
+                      ]
+                    }
+                  ]
                 }
               ]
             },
