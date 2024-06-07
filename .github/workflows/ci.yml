@@ -28,6 +28,8 @@ jobs:
       fail-fast: true
     steps:
       - uses: actions/checkout@v3
+        with:
+          node-version: 20
       - run: |
           STATUS=0
           if [[ $(grep -rn --exclude=errors.txt ERROR test/ | wc -l) -gt 0 ]]; then
