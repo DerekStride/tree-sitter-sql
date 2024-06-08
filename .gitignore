@@ -12,3 +12,6 @@ package-lock.json
 /src/tree_sitter/
 /src/parser.c
 /src/*.json
+tree-sitter-sql.wasm
+a.out.js
+a.out.wasm
