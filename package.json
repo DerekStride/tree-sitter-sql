@@ -6,7 +6,7 @@
   "types": "bindings/node",
   "scripts": {
     "test": "tree-sitter test",
-    "install": "node-gyp-build",
+    "install": "tree-sitter generate && node-gyp-build",
     "release": "commit-and-tag-version",
     "prebuildify": "prebuildify --napi --strip"
   },
