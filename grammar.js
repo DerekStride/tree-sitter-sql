@@ -261,6 +261,11 @@ module.exports = grammar({
     keyword_header: _ => make_keyword("header"),
     keyword_match: _ => make_keyword("match"),
     keyword_program: _ => make_keyword("program"),
+    keyword_plain: _ => make_keyword("plain"),
+    keyword_extended: _ => make_keyword("extended"),
+    keyword_main: _ => make_keyword("main"),
+    keyword_storage: _ => make_keyword("storage"),
+    keyword_compression: _ => make_keyword("compression"),
 
     keyword_trigger: _ => make_keyword('trigger'),
     keyword_function: _ => make_keyword("function"),
@@ -1725,8 +1730,33 @@ module.exports = grammar({
         ),
         seq(
           $.keyword_set,
-          $.keyword_default,
-          $._expression,
+          choice(
+            seq(
+              $.keyword_statistics,
+              field('statistics', $._integer)
+            ),
+            seq(
+              $.keyword_storage,
+              choice(
+                $.keyword_plain,
+                $.keyword_external,
+                $.keyword_extended,
+                $.keyword_main,
+                $.keyword_default,
+              ),
+            ),
+            seq(
+              $.keyword_compression,
+              field('compression_method', $._identifier)
+            ),
+            seq(
+              paren_list($._key_value_pair, true),
+            ),
+            seq(
+              $.keyword_default,
+              $._expression,
+            ),
+          )
         ),
         seq(
           $.keyword_drop,

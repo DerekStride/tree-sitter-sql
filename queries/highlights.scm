@@ -317,6 +317,11 @@
   (keyword_program)
   (keyword_quote)
   (keyword_stdin)
+  (keyword_extended)
+  (keyword_main)
+  (keyword_plain)
+  (keyword_storage)
+  (keyword_compression)
 ] @keyword
 
 [
