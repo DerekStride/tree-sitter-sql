@@ -1,3 +1,6 @@
+(object_reference
+  name: (identifier) @type)
+
 (invocation
   (object_reference
     name: (identifier) @function.call))
@@ -11,9 +14,6 @@
   (keyword_brin)
   (keyword_array)
 ] @function.call
-
-(object_reference
-  name: (identifier) @type)
 
 (relation
   alias: (identifier) @variable)

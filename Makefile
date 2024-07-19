@@ -1,4 +1,4 @@
-CC ?= clang++
+CC ?= gcc
 
 TS := $(shell which tree-sitter 2>/dev/null)
 ifeq (, ${TS})
