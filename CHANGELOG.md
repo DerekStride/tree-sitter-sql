@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.3.2](https://github.com/derekstride/tree-sitter-sql/compare/v0.3.0...v0.3.2) (2024-07-25)
+
+
+### Features
+
+* add if_not_exists rule to create database ([0c08b73](https://github.com/derekstride/tree-sitter-sql/commit/0c08b73a41849800982b6f2ca88ae67d72d18cce))
+
 ## 0.3.0 (2024-04-18)
 
 
