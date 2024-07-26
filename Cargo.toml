@@ -1,5 +1,5 @@
 [package]
-name = "tree-sitter-sql"
+name = "tree-sitter-sequel"
 description = "sql grammar for the tree-sitter parsing library"
 version = "0.3.2"
 keywords = ["incremental", "parsing", "sql"]
