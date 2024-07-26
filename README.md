@@ -36,18 +36,6 @@ tar -xzf gh-pages.tar.gz
 cd tree-sitter-sql-gh-pages
 ```
 
-### [Cargo](https://crates.io/crates/tree-sitter-sequel)
-
-```bash
-cargo add tree-sitter-sequel
-```
-
-### [NPM](https://www.npmjs.com/package/@derekstride/tree-sitter-sql)
-
-```bash
-npm i @derekstride/tree-sitter-sql
-```
-
 ### Step 2: Compile the Parser
 
 Tree-sitter parsers need to be compiled as a shared-object / dynamic-library, you can enable this by passing the
@@ -55,6 +43,18 @@ Tree-sitter parsers need to be compiled as a shared-object / dynamic-library, yo
 
 ```bash
 cc -shared -fPIC -I./src src/parser.c src/scanner.c -o sql.so
+```
+
+### Using [Cargo](https://crates.io/crates/tree-sitter-sequel)
+
+```bash
+cargo add tree-sitter-sequel
+```
+
+### Using [NPM](https://www.npmjs.com/package/@derekstride/tree-sitter-sql)
+
+```bash
+npm i @derekstride/tree-sitter-sql
 ```
 
 ## Development
