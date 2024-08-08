@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.3.4](https://github.com/derekstride/tree-sitter-sql/compare/v0.3.3...v0.3.4) (2024-08-07)
+
+
+### Features
+
+* publish package to pypi ([c4705cd](https://github.com/derekstride/tree-sitter-sql/commit/c4705cd3b490bd75e3799229c820251b53b10f6a))
+
+
+### Bug Fixes
+
+* **ci:** generate the parser artifacts before cargo publish ([66e754e](https://github.com/derekstride/tree-sitter-sql/commit/66e754e9a9480369b99f45b7bfce2ebac1d7a615))
+
 ## [0.3.3](https://github.com/derekstride/tree-sitter-sql/compare/v0.3.2...v0.3.3) (2024-07-30)
 
 
