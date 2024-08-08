@@ -1,4 +1,4 @@
-name: Publish to NPM
+name: Publish Packages
 on:
   release:
     types: [published]
@@ -31,6 +31,7 @@ jobs:
           override: true
       - uses: katyo/publish-crates@v2
         with:
+          args: --allow-dirty
           registry-token: ${{ secrets.CARGO_REGISTRY_TOKEN }}
   pypi-publish:
     uses: tree-sitter/workflows/.github/workflows/package-pypi.yml@main
