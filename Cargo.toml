@@ -1,7 +1,7 @@
 [package]
 name = "tree-sitter-sequel"
 description = "sql grammar for the tree-sitter parsing library"
-version = "0.3.3"
+version = "0.3.4"
 keywords = ["incremental", "parsing", "sql"]
 categories = ["parsing", "text-editors"]
 repository = "https://github.com/DerekStride/tree-sitter-sql"
@@ -20,7 +20,7 @@ include = [
 path = "bindings/rust/lib.rs"
 
 [dependencies]
-tree-sitter = ">=0.21.0"
+tree-sitter = ">=0.22.0"
 
 [build-dependencies]
 cc = "~1.0.90"
