@@ -45,16 +45,22 @@ Tree-sitter parsers need to be compiled as a shared-object / dynamic-library, yo
 cc -shared -fPIC -I./src src/parser.c src/scanner.c -o sql.so
 ```
 
-### Using [Cargo](https://crates.io/crates/tree-sitter-sequel)
+### Using [cargo](https://crates.io/crates/tree-sitter-sequel)
 
 ```bash
 cargo add tree-sitter-sequel
 ```
 
-### Using [NPM](https://www.npmjs.com/package/@derekstride/tree-sitter-sql)
+### Using [npm](https://www.npmjs.com/package/@derekstride/tree-sitter-sql)
 
 ```bash
 npm i @derekstride/tree-sitter-sql
+```
+
+### Using [pip](https://pypi.org/project/tree-sitter-sql/0.3.5/)
+
+```bash
+pip install tree-sitter-sql
 ```
 
 ## Development
