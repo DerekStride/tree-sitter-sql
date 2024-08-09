@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.3.5](https://github.com/derekstride/tree-sitter-sql/compare/v0.3.4...v0.3.5) (2024-08-09)
+
+
+### Bug Fixes
+
+* **ci:** pass the `--allow-dirty` flag to cargo publish ([b83741a](https://github.com/derekstride/tree-sitter-sql/commit/b83741a7df4a70588cf93c8ae93b08a9790dc830))
+* **ci:** use generate option to generate parser files ([b592ed3](https://github.com/derekstride/tree-sitter-sql/commit/b592ed3271128778366560d63f08d3d574dcc351))
+* **python:** add scanner to setup.py ([c9ac532](https://github.com/derekstride/tree-sitter-sql/commit/c9ac532630b76e948aac7ffcdaec9855b9b80737))
+
 ## [0.3.4](https://github.com/derekstride/tree-sitter-sql/compare/v0.3.3...v0.3.4) (2024-08-07)
 
 
