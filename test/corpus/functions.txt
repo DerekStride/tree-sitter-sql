@@ -421,10 +421,28 @@ WHERE (
           name: (identifier)))
       (where
         (keyword_where)
-        predicate: (binary_expression
-          left: (unary_expression
-            operator: (keyword_not)
-            operand: (exists
+        predicate: (parenthesized_expression
+          (binary_expression
+            left: (unary_expression
+              operator: (keyword_not)
+              operand: (exists
+                (keyword_exists)
+                (subquery
+                  (select
+                    (keyword_select)
+                    (select_expression
+                      (term
+                        value: (literal))))
+                  (from
+                    (keyword_from)
+                    (relation
+                      (object_reference
+                        name: (identifier)))
+                    (where
+                      (keyword_where)
+                      predicate: (literal))))))
+            operator: (keyword_or)
+            right: (exists
               (keyword_exists)
               (subquery
                 (select
@@ -439,24 +457,7 @@ WHERE (
                       name: (identifier)))
                   (where
                     (keyword_where)
-                    predicate: (literal))))))
-          operator: (keyword_or)
-          right: (exists
-            (keyword_exists)
-            (subquery
-              (select
-                (keyword_select)
-                (select_expression
-                  (term
-                    value: (literal))))
-              (from
-                (keyword_from)
-                (relation
-                  (object_reference
-                    name: (identifier)))
-                (where
-                  (keyword_where)
-                  predicate: (literal))))))))))
+                    predicate: (literal)))))))))))
 
 ================================================================================
 Basic SQL function creation

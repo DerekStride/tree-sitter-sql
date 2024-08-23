@@ -64,15 +64,16 @@ USING monthly_accounts_update s
       (identifier))
     (identifier)
     (keyword_on)
-    (binary_expression
-      (field
-        (object_reference
+    (parenthesized_expression
+      (binary_expression
+        (field
+          (object_reference
+            (identifier))
           (identifier))
-        (identifier))
-      (field
-        (object_reference
-          (identifier))
-        (identifier)))
+        (field
+          (object_reference
+            (identifier))
+          (identifier))))
     (when_clause
       (keyword_when)
       (keyword_matched)
@@ -149,15 +150,16 @@ USING monthly_accounts_update s
       (identifier))
     (identifier)
     (keyword_on)
-    (binary_expression
-      (field
-        (object_reference
+    (parenthesized_expression
+      (binary_expression
+        (field
+          (object_reference
+            (identifier))
           (identifier))
-        (identifier))
-      (field
-        (object_reference
-          (identifier))
-        (identifier)))
+        (field
+          (object_reference
+            (identifier))
+          (identifier))))
     (when_clause
       (keyword_when)
       (keyword_matched)

@@ -1703,10 +1703,11 @@ CREATE TABLE "Role" (
           (keyword_generated)
           (keyword_always)
           (keyword_as)
-          (binary_expression
-            left: (field
-              name: (identifier))
-            right: (literal))
+          (parenthesized_expression
+            (binary_expression
+              left: (field
+                name: (identifier))
+              right: (literal)))
           (keyword_stored))
         (column_definition
           name: (identifier)
@@ -1714,21 +1715,22 @@ CREATE TABLE "Role" (
           (keyword_generated)
           (keyword_always)
           (keyword_as)
-          (case
-            (keyword_case)
-            (field
-              name: (identifier))
-            (keyword_when)
-            (literal)
-            (keyword_then)
-            (literal)
-            (keyword_when)
-            (literal)
-            (keyword_then)
-            (literal)
-            (keyword_else)
-            (literal)
-            (keyword_end))
+          (parenthesized_expression
+            (case
+              (keyword_case)
+              (field
+                name: (identifier))
+              (keyword_when)
+              (literal)
+              (keyword_then)
+              (literal)
+              (keyword_when)
+              (literal)
+              (keyword_then)
+              (literal)
+              (keyword_else)
+              (literal)
+              (keyword_end)))
           (keyword_virtual))))))
 
 ================================================================================
