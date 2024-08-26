@@ -821,8 +821,9 @@ FROM my_table;
       (keyword_distinct)
       (select_expression
         (term
-          value: (field
-            name: (identifier)))))
+          value: (parenthesized_expression
+            (field
+              name: (identifier))))))
     (from
       (keyword_from)
       (relation
@@ -871,8 +872,9 @@ FROM my_table;
               name: (identifier))
             (keyword_distinct)
             parameter: (term
-              value: (field
-                name: (identifier)))))))
+              value: (parenthesized_expression
+                (field
+                  name: (identifier))))))))
     (from
       (keyword_from)
       (relation
@@ -1958,23 +1960,27 @@ FROM my_table;
             (keyword_then)
             (literal)
             (keyword_when)
-            (binary_expression
-              (field
-                (identifier))
-              (literal))
-            (keyword_then)
-            (literal)
-            (keyword_when)
-            (binary_expression
-              (binary_expression
-                (field
-                  (identifier))
-                (literal))
-              (keyword_and)
+            (parenthesized_expression
               (binary_expression
                 (field
                   (identifier))
                 (literal)))
+            (keyword_then)
+            (literal)
+            (keyword_when)
+            (parenthesized_expression
+              (binary_expression
+                (parenthesized_expression
+                  (binary_expression
+                    (field
+                      (identifier))
+                    (literal)))
+                (keyword_and)
+                (parenthesized_expression
+                  (binary_expression
+                    (field
+                      (identifier))
+                    (literal)))))
             (keyword_then)
             (literal)
             (keyword_when)
@@ -2849,12 +2855,13 @@ WHERE (foo OR bar) AND baz
       (where
         (keyword_where)
         predicate: (binary_expression
-          left: (binary_expression
-            left: (field
-              name: (identifier))
-            operator: (keyword_or)
-            right: (field
-              name: (identifier)))
+          left: (parenthesized_expression
+            (binary_expression
+              left: (field
+                name: (identifier))
+              operator: (keyword_or)
+              right: (field
+                name: (identifier))))
           operator: (keyword_and)
           right: (field
             name: (identifier)))))))

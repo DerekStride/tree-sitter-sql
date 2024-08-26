@@ -3254,8 +3254,12 @@ module.exports = grammar({
         $.array,
         $.interval,
         $.between_expression,
-        wrapped_in_parenthesis($._expression),
+        $.parenthesized_expression,
       )
+    ),
+
+    parenthesized_expression: $ => prec(2,
+      wrapped_in_parenthesis($._expression)
     ),
 
     subscript: $ => prec.left('binary_is',
