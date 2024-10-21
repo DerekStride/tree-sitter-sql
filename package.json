@@ -5,10 +5,10 @@
   "main": "bindings/node",
   "types": "bindings/node",
   "scripts": {
-    "test": "tree-sitter test",
-    "install": "tree-sitter generate && node-gyp-build",
-    "release": "commit-and-tag-version",
-    "prebuildify": "prebuildify --napi --strip"
+    "install": "node-gyp-build",
+    "prestart": "tree-sitter build --wasm",
+    "start": "tree-sitter playground",
+    "test": "node --test bindings/node/*_test.js"
   },
   "author": "derek stride",
   "license": "MIT",
@@ -20,7 +20,7 @@
     "commit-and-tag-version": "^12.0.0",
     "node-gyp": "^10.0.1",
     "prebuildify": "^6.0.0",
-    "tree-sitter-cli": "^0.22.6"
+    "tree-sitter-cli": "^0.23.0"
   },
   "peerDependencies": {
     "tree-sitter": "^0.21.0"
