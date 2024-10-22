@@ -1196,6 +1196,10 @@
           "named": true
         },
         {
+          "type": "drop_constraint",
+          "named": true
+        },
+        {
           "type": "keyword_alter",
           "named": true
         },
@@ -5758,6 +5762,45 @@
         },
         {
           "type": "keyword_if",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "drop_constraint",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "keyword_cascade",
+          "named": true
+        },
+        {
+          "type": "keyword_constraint",
+          "named": true
+        },
+        {
+          "type": "keyword_drop",
+          "named": true
+        },
+        {
+          "type": "keyword_exists",
+          "named": true
+        },
+        {
+          "type": "keyword_if",
+          "named": true
+        },
+        {
+          "type": "keyword_restrict",
           "named": true
         }
       ]

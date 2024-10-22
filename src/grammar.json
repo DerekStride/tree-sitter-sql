@@ -10342,6 +10342,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "drop_constraint"
+        },
+        {
+          "type": "SYMBOL",
           "name": "alter_column"
         },
         {
@@ -10457,6 +10461,47 @@
         {
           "type": "SYMBOL",
           "name": "constraint"
+        }
+      ]
+    },
+    "drop_constraint": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_drop"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_constraint"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_if_exists"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_drop_behavior"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
