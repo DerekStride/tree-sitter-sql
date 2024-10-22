@@ -534,6 +534,29 @@ ALTER TABLE "Role" ADD CONSTRAINT "pkRole" PRIMARY KEY ("roleId");
               name: (literal))))))))
 
 ================================================================================
+Drop column constraint
+================================================================================
+
+ALTER TABLE posts DROP CONSTRAINT posts_user_id_fkey;
+
+--------------------------------------------------------------------------------
+
+(program
+    (statement
+        (alter_table
+            (keyword_alter)
+            (keyword_table)
+            (object_reference
+                name: (identifier))
+            (drop_constraint
+                (keyword_drop)
+                (keyword_constraint)
+                (identifier))
+        )
+    )
+)
+
+================================================================================
 Add foreign key constraint
 ================================================================================
 

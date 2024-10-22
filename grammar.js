@@ -1673,6 +1673,7 @@ module.exports = grammar({
     _alter_specifications: $ => choice(
       $.add_column,
       $.add_constraint,
+      $.drop_constraint,
       $.alter_column,
       $.modify_column,
       $.change_column,
@@ -1700,6 +1701,14 @@ module.exports = grammar({
       optional($.keyword_constraint),
       $.identifier,
       $.constraint,
+    ),
+
+    drop_constraint: $ => seq(
+      $.keyword_drop,
+      $.keyword_constraint,
+      optional($._if_exists),
+      $.identifier,
+      optional($._drop_behavior),
     ),
 
     alter_column: $ => seq(
