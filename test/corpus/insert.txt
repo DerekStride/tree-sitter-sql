@@ -140,7 +140,8 @@ RETURNING *;
     (returning
       (keyword_returning)
       (select_expression
-        (term value: (all_fields))))))
+        (term
+          value: (all_fields))))))
 
 ================================================================================
 Insert returning single column
@@ -449,7 +450,8 @@ FROM
             (select
               (keyword_select)
               (select_expression
-                (term (all_fields))))
+                (term
+                  (all_fields))))
             (from
               (keyword_from)
               (relation
@@ -513,7 +515,8 @@ FROM
             (select
               (keyword_select)
               (select_expression
-                (term (all_fields))))
+                (term
+                  (all_fields))))
             (from
               (keyword_from)
               (relation
@@ -607,6 +610,67 @@ COPY some_table (a, b, c) FROM '/tmp/data.csv' (FORMAT CSV);
     (keyword_from)
     (keyword_format)
     (keyword_csv)))
+
+================================================================================
+ON DUPLICATE KEY UPDATE
+================================================================================
+
+INSERT INTO table_1 (pk, col1, col2)
+VALUES
+  (1, 1, 1),
+  (2, 2, 2)
+ON DUPLICATE KEY UPDATE
+  pk = VALUES(pk),
+  col1 = 1,
+  col2 = "foo";
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (insert
+      (keyword_insert)
+      (keyword_into)
+      (object_reference
+        name: (identifier))
+      (list
+        (column
+          (identifier))
+        (column
+          (identifier))
+        (column
+          (identifier)))
+      (keyword_values)
+      (list
+        (literal)
+        (literal)
+        (literal))
+      (list
+        (literal)
+        (literal)
+        (literal))
+      (keyword_on)
+      (keyword_duplicate)
+      (keyword_key)
+      (keyword_update)
+      (assignment_list
+        (assignment
+          left: (field
+            name: (identifier))
+          right: (invocation
+            (object_reference
+              name: (identifier))
+            parameter: (term
+              value: (field
+                name: (identifier)))))
+        (assignment
+          left: (field
+            name: (identifier))
+          right: (literal))
+        (assignment
+          left: (field
+            name: (identifier))
+          right: (literal))))))
 
 ================================================================================
 COPY FROM STDIN CSV WITH OPTIONS
