@@ -11,23 +11,32 @@ jobs:
   test:
     runs-on: ${{ matrix.os }}
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
-        os: [macos-latest, ubuntu-latest, windows-2019]
+        os: [macos-latest, ubuntu-latest, windows-latest]
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up the repo
+        uses: tree-sitter/setup-action/cli@v1
         with:
-          node-version: 20
-      - run: npm install
-      - run: npm test
+          install-lib: false
+      - run: tree-sitter generate
+      - name: Run tests
+        uses: tree-sitter/parser-test-action@v2
+        with:
+          test-rust: true
+          test-node: true
+          test-python: true
+          # test-go: true
+          # test-swift: true
       - run: scripts/test-keywords.sh
   validate_tests:
     runs-on: ["ubuntu-latest"]
     strategy:
       fail-fast: true
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - run: |
           STATUS=0
           if [[ $(grep -rn --exclude=errors.txt ERROR test/ | wc -l) -gt 0 ]]; then
