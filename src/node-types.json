@@ -1835,6 +1835,21 @@
     }
   },
   {
+    "type": "assignment_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "assignment",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "between_expression",
     "named": true,
     "fields": {
@@ -7638,6 +7653,10 @@
           "named": true
         },
         {
+          "type": "assignment_list",
+          "named": true
+        },
+        {
           "type": "cte",
           "named": true
         },
@@ -7662,6 +7681,10 @@
           "named": true
         },
         {
+          "type": "keyword_duplicate",
+          "named": true
+        },
+        {
           "type": "keyword_high_priority",
           "named": true
         },
@@ -7675,6 +7698,10 @@
         },
         {
           "type": "keyword_into",
+          "named": true
+        },
+        {
+          "type": "keyword_key",
           "named": true
         },
         {
@@ -12082,6 +12109,10 @@
   },
   {
     "type": "keyword_drop",
+    "named": true
+  },
+  {
+    "type": "keyword_duplicate",
     "named": true
   },
   {
