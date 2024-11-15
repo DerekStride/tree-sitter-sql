@@ -124,6 +124,7 @@ module.exports = grammar({
     keyword_start: _ => make_keyword("start"),
     keyword_restart: _ => make_keyword("restart"),
     keyword_key: _ => make_keyword("key"),
+    keyword_duplicate: _ => make_keyword("duplicate"),
     keyword_as: _ => make_keyword("as"),
     keyword_distinct: _ => make_keyword("distinct"),
     keyword_constraint: _ => make_keyword("constraint"),
@@ -2259,22 +2260,40 @@ module.exports = grammar({
         $._set_values,
       ),
       optional(
-        seq(
-          $.keyword_on,
-          $.keyword_conflict,
+        choice(
+          $._on_conflict,
+          $._on_duplicate_key_update,
+        ),
+      ),
+    ),
+
+    _on_conflict: $ => seq(
+      $.keyword_on,
+      $.keyword_conflict,
+      seq(
+        $.keyword_do,
+        choice(
+          $.keyword_nothing,
           seq(
-            $.keyword_do,
-            choice(
-              $.keyword_nothing,
-              seq(
-                $.keyword_update,
-                $._set_values,
-                optional($.where),
-              ),
-            ),
+            $.keyword_update,
+            $._set_values,
+            optional($.where),
           ),
         ),
       ),
+    ),
+
+    _on_duplicate_key_update: $ => seq(
+      $.keyword_on,
+      $.keyword_duplicate,
+      $.keyword_key,
+      $.keyword_update,
+      $.assignment_list,
+    ),
+
+    assignment_list: $ => seq(
+      $.assignment,
+      repeat(seq(',', $.assignment)),
     ),
 
     _insert_values: $ => seq(

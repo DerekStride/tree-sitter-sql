@@ -315,6 +315,7 @@
   (keyword_plain)
   (keyword_storage)
   (keyword_compression)
+  (keyword_duplicate)
 ] @keyword
 
 [
