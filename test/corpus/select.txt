@@ -2970,3 +2970,69 @@ FROM (
                 (object_reference
                   (identifier))))))
         (identifier)))))
+
+================================================================================
+SELECT FROM UNNESTED ARRAY WITH ORDINALITY
+================================================================================
+
+SELECT numbers, n, a
+FROM (
+  VALUES
+    (ARRAY[2, 5]),
+    (ARRAY[7, 8, 9])
+) AS x (numbers)
+CROSS JOIN UNNEST(numbers) WITH ORDINALITY AS t (n, a);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (field
+            (identifier)))
+        (term
+          (field
+            (identifier)))
+        (term
+          (field
+            (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (values
+          (keyword_values)
+          (list
+            (array
+              (keyword_array)
+              (literal)
+              (literal)))
+          (list
+            (array
+              (keyword_array)
+              (literal)
+              (literal)
+              (literal))))
+        (keyword_as)
+        (identifier)
+        (list
+          (column
+            (identifier))))
+      (cross_join
+        (keyword_cross)
+        (keyword_join)
+        (relation
+          (invocation
+            (object_reference
+              (identifier))
+            (term
+              (field
+                (identifier)))))
+        (keyword_with)
+        (keyword_ordinality)
+        (keyword_as)
+        (identifier)
+        (identifier)
+        (identifier)))))

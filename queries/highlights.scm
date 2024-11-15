@@ -267,6 +267,7 @@
   (keyword_out)
   (keyword_inout)
   (keyword_variadic)
+  (keyword_ordinality)
   (keyword_session)
   (keyword_isolation)
   (keyword_level)
