@@ -316,18 +316,6 @@
       "type": "PATTERN",
       "value": "[sS][eE][pP][aA][rR][aA][tT][oO][rR]"
     },
-    "keyword_max": {
-      "type": "PATTERN",
-      "value": "[mM][aA][xX]"
-    },
-    "keyword_min": {
-      "type": "PATTERN",
-      "value": "[mM][iI][nN]"
-    },
-    "keyword_avg": {
-      "type": "PATTERN",
-      "value": "[aA][vV][gG]"
-    },
     "keyword_case": {
       "type": "PATTERN",
       "value": "[cC][aA][sS][eE]"
@@ -713,10 +701,6 @@
       "type": "PATTERN",
       "value": "[sS][iI][mM][iI][lL][aA][rR]"
     },
-    "keyword_preserve": {
-      "type": "PATTERN",
-      "value": "[pP][rR][eE][sS][eE][rR][vV][eE]"
-    },
     "keyword_unsigned": {
       "type": "PATTERN",
       "value": "[uU][nN][sS][iI][gG][nN][eE][dD]"
@@ -900,14 +884,6 @@
     "keyword_language": {
       "type": "PATTERN",
       "value": "[lL][aA][nN][gG][uU][aA][gG][eE]"
-    },
-    "keyword_sql": {
-      "type": "PATTERN",
-      "value": "[sS][qQ][lL]"
-    },
-    "keyword_plpgsql": {
-      "type": "PATTERN",
-      "value": "[pP][lL][pP][gG][sS][qQ][lL]"
     },
     "keyword_immutable": {
       "type": "PATTERN",
@@ -1132,10 +1108,6 @@
     "keyword_tblproperties": {
       "type": "PATTERN",
       "value": "[tT][bB][lL][pP][rR][oO][pP][eE][rR][tT][iI][eE][sS]"
-    },
-    "keyword_options": {
-      "type": "PATTERN",
-      "value": "[oO][pP][tT][iI][oO][nN][sS]"
     },
     "keyword_compute": {
       "type": "PATTERN",
