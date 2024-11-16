@@ -1,34 +1,37 @@
 // swift-tools-version:5.3
-
 import PackageDescription
 
 let package = Package(
-    name: "TreeSitterSQL",
-    platforms: [.macOS(.v10_13), .iOS(.v11)],
+    name: "TreeSitterSql",
     products: [
-        .library(name: "TreeSitterSQL", targets: ["TreeSitterSQL"]),
+        .library(name: "TreeSitterSql", targets: ["TreeSitterSql"]),
     ],
-    dependencies: [],
+    dependencies: [
+        .package(url: "https://github.com/ChimeHQ/SwiftTreeSitter", from: "0.8.0"),
+    ],
     targets: [
-        .target(name: "TreeSitterSQL",
-                path: ".",
-                exclude: [
-                    "binding.gyp",
-                    "bindings",
-                    "Cargo.toml",
-                    "grammar.js",
-                    "LICENSE",
-                    "Makefile",
-                    "package.json",
-                    "README.md",
-                    "src/grammar.json",
-                    "src/node-types.json",
-                ],
-                sources: [
-                    "src/parser.c",
-                    "src/scanner.c",
-                ],
-                publicHeadersPath: "bindings/swift",
-                cSettings: [.headerSearchPath("src")])
-    ]
+        .target(
+            name: "TreeSitterSql",
+            dependencies: [],
+            path: ".",
+            sources: [
+                "src/parser.c",
+                "src/scanner.c"
+            ],
+            resources: [
+                .copy("queries")
+            ],
+            publicHeadersPath: "bindings/swift",
+            cSettings: [.headerSearchPath("src")]
+        ),
+        .testTarget(
+            name: "TreeSitterSqlTests",
+            dependencies: [
+                "SwiftTreeSitter",
+                "TreeSitterSql",
+            ],
+            path: "bindings/swift/TreeSitterSqlTests"
+        )
+    ],
+    cLanguageStandard: .c11
 )

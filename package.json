@@ -22,7 +22,7 @@
     "commit-and-tag-version": "^12.0.0",
     "node-gyp": "^10.0.1",
     "prebuildify": "^6.0.0",
-    "tree-sitter-cli": "^0.23.0"
+    "tree-sitter-cli": "^0.24.0"
   },
   "peerDependencies": {
     "tree-sitter": "^0.21.0"
@@ -44,20 +44,11 @@
     "url": "https://github.com/derekstride/tree-sitter-sql/issues"
   },
   "homepage": "https://github.com/derekstride/tree-sitter-sql#readme",
-  "tree-sitter": [
-    {
-      "scope": "source.sql",
-      "file-types": [
-        "sql"
-      ],
-      "highlights": [
-        "queries/highlights.scm"
-      ],
-      "indents": [
-        "queries/indents.scm"
-      ]
+  "commit-and-tag-version": {
+    "skip": {
+      "tag": true
     }
-  ],
+  },
   "keywords": [
     "parser",
     "sql"
@@ -69,10 +60,5 @@
     "bindings/node/*",
     "queries/*",
     "src/**"
-  ],
-  "commit-and-tag-version": {
-    "skip": {
-      "tag": true
-    }
-  }
+  ]
 }

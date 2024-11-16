@@ -1,8 +1,8 @@
 {
   "grammars": [
     {
-      "name": "@derekstride/sql",
-      "camelcase": "DerekstrideSql",
+      "name": "sql",
+      "camelcase": "SQL",
       "scope": "source.sql",
       "path": ".",
       "file-types": [
