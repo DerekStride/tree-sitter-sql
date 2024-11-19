@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.3.6](https://github.com/derekstride/tree-sitter-sql/compare/v0.3.5...v0.3.6) (2024-11-19)
+
+
+### Features
+
+* add `cross join unnest with ordinality` ([b92c3e9](https://github.com/derekstride/tree-sitter-sql/commit/b92c3e9115d5d68d1cc53077b49c01f7d0109e0f))
+* add `SHOW` commands ([66363f4](https://github.com/derekstride/tree-sitter-sql/commit/66363f4ef63ef2d890fd15dead084257ad27e0f2))
+* drop constraint rule ([47892e4](https://github.com/derekstride/tree-sitter-sql/commit/47892e4d2d39a32b9c9e5879183dc29148219422))
+* ON DUPLICATE KEY UPDATE ([711d867](https://github.com/derekstride/tree-sitter-sql/commit/711d867c62a26401541cf31deb124c15d396e4b1))
+
+
+### Bug Fixes
+
+* do not use windows-latest ([0e6f8df](https://github.com/derekstride/tree-sitter-sql/commit/0e6f8df55e0a863918a5cb53792bea4d367274c2))
+* expose HIGHLIGHTS_QUERY in python bindings ([6df2e3e](https://github.com/derekstride/tree-sitter-sql/commit/6df2e3e1858eff4f48a43614b0922c4adb173d2e))
+* fix external scanner references ([684c198](https://github.com/derekstride/tree-sitter-sql/commit/684c1989a9319c3b0620708671ef4703624dfc86))
+* looser cc dep ([5564514](https://github.com/derekstride/tree-sitter-sql/commit/5564514f9bb14d8dffd8b8363d1a14e646425fda))
+* package json scripts ([f642d6f](https://github.com/derekstride/tree-sitter-sql/commit/f642d6f4fcdf3a17a7f829d32204a4fb185acbdb))
+* uncomment HIGHLIGHTS_QUERY in rust binding ([5d5b7c0](https://github.com/derekstride/tree-sitter-sql/commit/5d5b7c04ac66b8b2c876384342d1c942393d2d83))
+
 ## [0.3.5](https://github.com/derekstride/tree-sitter-sql/compare/v0.3.4...v0.3.5) (2024-08-09)
 
 
