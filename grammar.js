@@ -70,6 +70,7 @@ module.exports = grammar({
     keyword_update: _ => make_keyword("update"),
     keyword_truncate: _ => make_keyword("truncate"),
     keyword_merge: _ => make_keyword("merge"),
+    keyword_show: _ => make_keyword("show"),
     keyword_into: _ => make_keyword("into"),
     keyword_overwrite: _ => make_keyword("overwrite"),
     keyword_values: _ => make_keyword("values"),
@@ -741,8 +742,40 @@ module.exports = grammar({
         choice(
           $._select_statement,
           $.set_operation,
+          $._show_statement,
         ),
       ),
+    ),
+
+    _show_statement: $ => seq(
+      $.keyword_show,
+      choice(
+        $._show_create,
+        $.keyword_all, // Postgres
+        $._show_tables // trino/presto
+      ),
+    ),
+
+    _show_tables: $ => seq(
+      $.keyword_tables,
+      optional(seq($.keyword_from, $._qualified_field)),
+      optional(seq($.keyword_like, $._expression))
+    ),
+
+    _show_create: $ => seq(
+      $.keyword_create,
+      choice(
+        // Trino/Presto/MySQL
+        $.keyword_schema,
+        $.keyword_table,
+        seq(optional($.keyword_materialized), $.keyword_view),
+        // MySQL
+        $.keyword_user,
+        $.keyword_trigger,
+        $.keyword_procedure,
+        $.keyword_function
+      ),
+      $.object_reference
     ),
 
     cte: $ => seq(
