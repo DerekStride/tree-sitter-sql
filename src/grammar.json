@@ -77,6 +77,10 @@
       "type": "PATTERN",
       "value": "[mM][eE][rR][gG][eE]"
     },
+    "keyword_show": {
+      "type": "PATTERN",
+      "value": "[sS][hH][oO][wW]"
+    },
     "keyword_into": {
       "type": "PATTERN",
       "value": "[iI][nN][tT][oO]"
@@ -5361,6 +5365,10 @@
                   {
                     "type": "SYMBOL",
                     "name": "set_operation"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "_show_statement"
                   }
                 ]
               },
@@ -5381,6 +5389,10 @@
                       {
                         "type": "SYMBOL",
                         "name": "set_operation"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "_show_statement"
                       }
                     ]
                   },
@@ -5392,6 +5404,146 @@
               }
             ]
           }
+        }
+      ]
+    },
+    "_show_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_show"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_show_create"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "keyword_all"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_show_tables"
+            }
+          ]
+        }
+      ]
+    },
+    "_show_tables": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_tables"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_from"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_qualified_field"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_like"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_expression"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "_show_create": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_create"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "keyword_schema"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "keyword_table"
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "keyword_materialized"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_view"
+                }
+              ]
+            },
+            {
+              "type": "SYMBOL",
+              "name": "keyword_user"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "keyword_trigger"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "keyword_procedure"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "keyword_function"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "object_reference"
         }
       ]
     },
