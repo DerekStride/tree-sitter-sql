@@ -5717,17 +5717,44 @@
   {
     "type": "cross_join",
     "named": true,
-    "fields": {},
+    "fields": {
+      "alias": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "keyword_as",
+          "named": true
+        },
         {
           "type": "keyword_cross",
           "named": true
         },
         {
           "type": "keyword_join",
+          "named": true
+        },
+        {
+          "type": "keyword_ordinality",
+          "named": true
+        },
+        {
+          "type": "keyword_with",
           "named": true
         },
         {
@@ -13333,6 +13360,10 @@
   },
   {
     "type": "keyword_order",
+    "named": true
+  },
+  {
+    "type": "keyword_ordinality",
     "named": true
   },
   {
