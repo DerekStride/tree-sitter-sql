@@ -296,6 +296,7 @@ module.exports = grammar({
     keyword_out: _ => make_keyword("out"),
     keyword_inout: _ => make_keyword("inout"),
     keyword_variadic: _ => make_keyword("variadic"),
+    keyword_ordinality: _ => make_keyword("ordinality"),
 
     keyword_session: _ => make_keyword("session"),
     keyword_isolation: _ => make_keyword("isolation"),
@@ -3166,10 +3167,25 @@ module.exports = grammar({
       )
     ),
 
-    cross_join: $ => seq(
-      $.keyword_cross,
-      $.keyword_join,
-      $.relation,
+    cross_join: $ => prec.right(
+      seq(
+        $.keyword_cross,
+        $.keyword_join,
+        $.relation,
+        optional(
+          seq(
+            $.keyword_with,
+            $.keyword_ordinality,
+            optional(
+              seq(
+                $.keyword_as,
+                field("alias", $.identifier),
+                paren_list($.identifier),
+              )
+            )
+          )
+        )
+      )
     ),
 
     lateral_join: $ => seq(
