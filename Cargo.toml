@@ -1,7 +1,7 @@
 [package]
 name = "tree-sitter-sequel"
 description = "Tree-sitter Grammar for SQL"
-version = "0.3.5"
+version = "0.3.6"
 authors = ["derek stride"]
 license = "MIT"
 readme = "README.md"
