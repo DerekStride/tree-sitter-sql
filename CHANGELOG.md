@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.3.7](https://github.com/derekstride/tree-sitter-sql/compare/v0.3.6...v0.3.7) (2024-11-21)
+
+
+### Bug Fixes
+
+* bump other versions to 0.3.6 and add to docs ([7aa90e4](https://github.com/derekstride/tree-sitter-sql/commit/7aa90e4166c8a73b34df98206c15b710f1564dde))
+
 ## [0.3.6](https://github.com/derekstride/tree-sitter-sql/compare/v0.3.5...v0.3.6) (2024-11-19)
 
 
