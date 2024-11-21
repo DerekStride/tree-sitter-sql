@@ -7,7 +7,7 @@ license = "MIT"
 readme = "README.md"
 keywords = ["incremental", "parsing", "tree-sitter", "sql"]
 categories = ["parsing", "text-editors"]
-repository = "git+https://github.com/derekstride/tree-sitter-sql.git"
+repository = "https://github.com/derekstride/tree-sitter-sql.git"
 edition = "2021"
 autoexamples = false
 
