@@ -71,6 +71,7 @@ module.exports = grammar({
     keyword_truncate: _ => make_keyword("truncate"),
     keyword_merge: _ => make_keyword("merge"),
     keyword_show: _ => make_keyword("show"),
+    keyword_unload: _ => make_keyword("unload"),
     keyword_into: _ => make_keyword("into"),
     keyword_overwrite: _ => make_keyword("overwrite"),
     keyword_values: _ => make_keyword("values"),
@@ -744,8 +745,18 @@ module.exports = grammar({
           $._select_statement,
           $.set_operation,
           $._show_statement,
+          $._unload_statement,
         ),
       ),
+    ),
+
+    // athena
+    _unload_statement: $ => seq(
+      $.keyword_unload,
+      wrapped_in_parenthesis($._select_statement),
+      $.keyword_to,
+      $._single_quote_string,
+      $.storage_parameters,
     ),
 
     _show_statement: $ => seq(
@@ -994,7 +1005,7 @@ module.exports = grammar({
     storage_parameters: $ => seq(
       $.keyword_with,
       paren_list(
-        seq($.identifier, optional(seq('=', $.literal))),
+        seq($.identifier, optional(seq('=', choice($.literal, $.array)))),
         true
       ),
     ),
