@@ -1727,7 +1727,15 @@
           "named": true
         },
         {
+          "type": "keyword_to",
+          "named": true
+        },
+        {
           "type": "keyword_trigger",
+          "named": true
+        },
+        {
+          "type": "keyword_unload",
           "named": true
         },
         {
@@ -1768,6 +1776,10 @@
         },
         {
           "type": "set_operation",
+          "named": true
+        },
+        {
+          "type": "storage_parameters",
           "named": true
         },
         {
@@ -4621,7 +4633,15 @@
           "named": true
         },
         {
+          "type": "keyword_to",
+          "named": true
+        },
+        {
           "type": "keyword_trigger",
+          "named": true
+        },
+        {
+          "type": "keyword_unload",
           "named": true
         },
         {
@@ -4662,6 +4682,10 @@
         },
         {
           "type": "set_operation",
+          "named": true
+        },
+        {
+          "type": "storage_parameters",
           "named": true
         },
         {
@@ -8060,7 +8084,15 @@
           "named": true
         },
         {
+          "type": "keyword_to",
+          "named": true
+        },
+        {
           "type": "keyword_trigger",
+          "named": true
+        },
+        {
+          "type": "keyword_unload",
           "named": true
         },
         {
@@ -8109,6 +8141,10 @@
         },
         {
           "type": "set_operation",
+          "named": true
+        },
+        {
+          "type": "storage_parameters",
           "named": true
         },
         {
@@ -10570,6 +10606,10 @@
           "named": true
         },
         {
+          "type": "keyword_unload",
+          "named": true
+        },
+        {
           "type": "keyword_user",
           "named": true
         },
@@ -10635,6 +10675,10 @@
         },
         {
           "type": "set_statement",
+          "named": true
+        },
+        {
+          "type": "storage_parameters",
           "named": true
         },
         {
@@ -10746,6 +10790,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "array",
+          "named": true
+        },
         {
           "type": "identifier",
           "named": true
@@ -10924,7 +10972,15 @@
           "named": true
         },
         {
+          "type": "keyword_to",
+          "named": true
+        },
+        {
           "type": "keyword_trigger",
+          "named": true
+        },
+        {
+          "type": "keyword_unload",
           "named": true
         },
         {
@@ -10965,6 +11021,10 @@
         },
         {
           "type": "set_operation",
+          "named": true
+        },
+        {
+          "type": "storage_parameters",
           "named": true
         },
         {
@@ -12122,7 +12182,15 @@
           "named": true
         },
         {
+          "type": "keyword_to",
+          "named": true
+        },
+        {
           "type": "keyword_trigger",
+          "named": true
+        },
+        {
+          "type": "keyword_unload",
           "named": true
         },
         {
@@ -12175,6 +12243,10 @@
         },
         {
           "type": "set_operation",
+          "named": true
+        },
+        {
+          "type": "storage_parameters",
           "named": true
         },
         {
@@ -13772,6 +13844,10 @@
   },
   {
     "type": "keyword_unique",
+    "named": true
+  },
+  {
+    "type": "keyword_unload",
     "named": true
   },
   {
