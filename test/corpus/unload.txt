@@ -1,0 +1,71 @@
+================================================================================
+Simple Unload
+================================================================================
+
+UNLOAD (SELECT * FROM old_table)
+TO 's3://amzn-s3-demo-bucket/unload_test_1/'
+WITH (format = 'JSON')
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (keyword_unload)
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (all_fields))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          (identifier))))
+    (keyword_to)
+    (storage_parameters
+      (keyword_with)
+      (identifier)
+      (literal))))
+
+================================================================================
+Unload with ARRAY
+================================================================================
+
+UNLOAD (SELECT name1, address1, comment1, key1 FROM table1)
+TO 's3://amzn-s3-demo-bucket/ partitioned/'
+WITH (format = 'TEXTFILE', partitioned_by = ARRAY['key1'])
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (keyword_unload)
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (field
+            (identifier)))
+        (term
+          (field
+            (identifier)))
+        (term
+          (field
+            (identifier)))
+        (term
+          (field
+            (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          (identifier))))
+    (keyword_to)
+    (storage_parameters
+      (keyword_with)
+      (identifier)
+      (literal)
+      (identifier)
+      (array
+        (keyword_array)
+        (literal)))))
