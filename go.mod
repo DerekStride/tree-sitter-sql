@@ -1,4 +1,4 @@
-module github.com/tree-sitter/tree-sitter-sql
+module github.com/DerekStride/tree-sitter-sql
 
 go 1.23
 
