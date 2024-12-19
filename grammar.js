@@ -3533,12 +3533,16 @@ module.exports = grammar({
     // The norm specify that between two consecutive string must be a return,
     // but this is good enough.
     _single_quote_string: _ => seq(/([uU]&)?'([^']|'')*'/, repeat(/'([^']|'')*'/)),
+
+    _postgres_escape_string: _ => /(e|E)'([^']|\')*'/,
+
     _literal_string: $ => prec(
       1,
       choice(
         $._single_quote_string,
         $._double_quote_string,
         $._dollar_quoted_string,
+        $._postgres_escape_string,
       ),
     ),
     _natural_number: _ => /\d+/,
