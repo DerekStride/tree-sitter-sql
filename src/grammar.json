@@ -19974,6 +19974,10 @@
         }
       ]
     },
+    "_postgres_escape_string": {
+      "type": "PATTERN",
+      "value": "(e|E)'([^']|\\')*'"
+    },
     "_literal_string": {
       "type": "PREC",
       "value": 1,
@@ -19991,6 +19995,10 @@
           {
             "type": "SYMBOL",
             "name": "_dollar_quoted_string"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_postgres_escape_string"
           }
         ]
       }
