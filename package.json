@@ -16,13 +16,13 @@
   "license": "MIT",
   "dependencies": {
     "node-addon-api": "^7.1.0",
-    "node-gyp-build": "^4.8.0"
+    "node-gyp-build": "^4.8.0",
+    "tree-sitter-cli": "^0.24.0"
   },
   "devDependencies": {
     "commit-and-tag-version": "^12.0.0",
     "node-gyp": "^10.0.1",
-    "prebuildify": "^6.0.0",
-    "tree-sitter-cli": "^0.24.0"
+    "prebuildify": "^6.0.0"
   },
   "peerDependencies": {
     "tree-sitter": "^0.21.0"
