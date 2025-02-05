@@ -5,9 +5,9 @@
   "main": "bindings/node",
   "types": "bindings/node",
   "scripts": {
-    "install": "tree-sitter generate && node-gyp-build",
-    "prestart": "tree-sitter build --wasm",
-    "start": "tree-sitter playground",
+    "install": "npx --yes --package=tree-sitter-cli -- tree-sitter generate && node-gyp-build",
+    "prestart": "npx --yes --package=tree-sitter-cli -- tree-sitter build --wasm",
+    "start": "npx --yes --package=tree-sitter-cli -- tree-sitter playground",
     "release": "commit-and-tag-version",
     "test": "node --test bindings/node/*_test.js",
     "prebuildify": "prebuildify --napi --strip"
@@ -16,8 +16,7 @@
   "license": "MIT",
   "dependencies": {
     "node-addon-api": "^7.1.0",
-    "node-gyp-build": "^4.8.0",
-    "tree-sitter-cli": "^0.24.0"
+    "node-gyp-build": "^4.8.0"
   },
   "devDependencies": {
     "commit-and-tag-version": "^12.0.0",
