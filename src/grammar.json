@@ -19976,7 +19976,7 @@
     },
     "_postgres_escape_string": {
       "type": "PATTERN",
-      "value": "(e|E)'([^']|\\')*'"
+      "value": "(e|E)'([^']|\\\\')*'"
     },
     "_literal_string": {
       "type": "PREC",
@@ -20234,5 +20234,6 @@
     }
   ],
   "inline": [],
-  "supertypes": []
+  "supertypes": [],
+  "reserved": {}
 }
