@@ -177,6 +177,29 @@ SELECT E'this is a test';
           (literal))))))
 
 ================================================================================
+Postgres escape string terminates correctly
+================================================================================
+
+SELECT E'this is a test';
+SELECT E'this is another test';
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (literal)))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (literal))))))
+
+================================================================================
 Postgres escape string with literal newlines
 ================================================================================
 
