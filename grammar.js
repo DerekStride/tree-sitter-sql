@@ -3534,7 +3534,7 @@ module.exports = grammar({
     // but this is good enough.
     _single_quote_string: _ => seq(/([uU]&)?'([^']|'')*'/, repeat(/'([^']|'')*'/)),
 
-    _postgres_escape_string: _ => /(e|E)'([^']|\')*'/,
+    _postgres_escape_string: _ => /(e|E)'([^']|\\')*'/,
 
     _literal_string: $ => prec(
       1,
