@@ -5,9 +5,9 @@
   "main": "bindings/node",
   "types": "bindings/node",
   "scripts": {
-    "install": "npx --yes --package=tree-sitter-cli -- tree-sitter generate && node-gyp-build",
-    "prestart": "npx --yes --package=tree-sitter-cli -- tree-sitter build --wasm",
-    "start": "npx --yes --package=tree-sitter-cli -- tree-sitter playground",
+    "install": "npx --yes --package=tree-sitter-cli@v0.24.7 -- tree-sitter generate && node-gyp-build",
+    "prestart": "npx --yes --package=tree-sitter-cli@v0.24.7 -- tree-sitter build --wasm",
+    "start": "npx --yes --package=tree-sitter-cli@v0.24.7 -- tree-sitter playground",
     "release": "commit-and-tag-version",
     "test": "node --test bindings/node/*_test.js",
     "prebuildify": "prebuildify --napi --strip"
