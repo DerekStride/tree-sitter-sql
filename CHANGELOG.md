@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.3.8](https://github.com/derekstride/tree-sitter-sql/compare/v0.3.7...v0.3.8) (2025-02-10)
+
+
+### Features
+
+* add athena `unload` statement ([b87b5e9](https://github.com/derekstride/tree-sitter-sql/commit/b87b5e95da3e2ea2f32b94dcc5101efac4136a38))
+* include scanner in go bindings ([9d9b968](https://github.com/derekstride/tree-sitter-sql/commit/9d9b968bfddb19bb973483bb594155a38f1428b6))
+* Postgres escape strings ([a0d7b1a](https://github.com/derekstride/tree-sitter-sql/commit/a0d7b1a57a20c46526076261063a3e9b76d7c068))
+
+
+### Bug Fixes
+
+* pyproject url needs http(s)? too ([43510aa](https://github.com/derekstride/tree-sitter-sql/commit/43510aae16c826d0cfa9f956e4bbfed054167b80))
+* repository url needs to be http(s) ([6eae31e](https://github.com/derekstride/tree-sitter-sql/commit/6eae31e2fce9bf8d9ed51283a570112fcb8c64d0))
+* termination of Postgres escape strings ([7583f23](https://github.com/derekstride/tree-sitter-sql/commit/7583f23560a99debc56072205a273eb54b34b439))
+
 ## [0.3.7](https://github.com/derekstride/tree-sitter-sql/compare/v0.3.6...v0.3.7) (2024-11-21)
 
 
