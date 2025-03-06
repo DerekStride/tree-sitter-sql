@@ -3,8 +3,8 @@ package tree_sitter_sql_test
 import (
 	"testing"
 
+	tree_sitter_sql "github.com/DerekStride/tree-sitter-sql/bindings/go"
 	tree_sitter "github.com/tree-sitter/go-tree-sitter"
-	tree_sitter_sql "git+github.com/derekstride/tree-sitter-sql.git/bindings/go"
 )
 
 func TestCanLoadGrammar(t *testing.T) {
