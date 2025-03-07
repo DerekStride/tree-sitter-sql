@@ -1,5 +1,5 @@
-module github.com/DerekStride/tree-sitter-sql
+module github.com/rob2244/tree-sitter-sql
 
-go 1.23
+go 1.24
 
 require github.com/tree-sitter/go-tree-sitter v0.23.1
