@@ -26,6 +26,35 @@ ALTER TABLE my_table
           (keyword_null))))))
 
 ================================================================================
+Alter table and add column with FQN
+================================================================================
+
+ALTER TABLE my_database.my_table.my_table
+  ADD COLUMN val3 VARCHAR(100) NOT NULL;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_table
+      (keyword_alter)
+      (keyword_table)
+      (object_reference
+        database: (identifier)
+        schema: (identifier)
+        name: (identifier))
+      (add_column
+        (keyword_add)
+        (keyword_column)
+        (column_definition
+          name: (identifier)
+          type: (varchar
+            (keyword_varchar)
+            size: (literal))
+          (keyword_not)
+          (keyword_null))))))
+
+================================================================================
 Alter table and add column, eliding column keyword
 ================================================================================
 

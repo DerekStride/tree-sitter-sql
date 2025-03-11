@@ -2195,12 +2195,18 @@ module.exports = grammar({
       $.identifier,
     ),
 
-    object_reference: $ => seq(
-      optional(
-        seq(
-          field('schema', $.identifier),
-          '.',
-        ),
+    object_reference: $ => choice(
+      seq(
+        field('database', $.identifier),
+        '.',
+        field('schema', $.identifier),
+        '.',
+        field('name', $.identifier),
+      ),
+      seq(
+        field('schema', $.identifier),
+        '.',
+        field('name', $.identifier),
       ),
       field('name', $.identifier),
     ),

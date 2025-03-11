@@ -19,6 +19,27 @@ COMMENT ON TABLE my_schema.my_table IS "this table is a test";
       (literal))))
 
 ================================================================================
+Comment on table with FQN
+================================================================================
+
+COMMENT ON TABLE my_database.my_schema.my_table IS "this table is a test";
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (comment_statement
+      (keyword_comment)
+      (keyword_on)
+      (keyword_table)
+      (object_reference
+        database: (identifier)
+        schema: (identifier)
+        name: (identifier))
+      (keyword_is)
+      (literal))))
+
+================================================================================
 Comment on column is null
 ================================================================================
 
@@ -34,6 +55,29 @@ COMMENT ON COLUMN my_schema.my_table.my_column IS NULL;
       (keyword_column)
       (object_reference
         (object_reference
+          (identifier)
+          (identifier))
+        (identifier))
+      (keyword_is)
+      (keyword_null))))
+
+================================================================================
+Comment on column is null with FQN
+================================================================================
+
+COMMENT ON COLUMN my_database.my_schema.my_table.my_column IS NULL;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (comment_statement
+      (keyword_comment)
+      (keyword_on)
+      (keyword_column)
+      (object_reference
+        (object_reference
+          (identifier)
           (identifier)
           (identifier))
         (identifier))
