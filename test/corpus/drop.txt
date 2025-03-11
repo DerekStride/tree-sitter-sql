@@ -15,6 +15,24 @@ DROP TABLE my_table;
         name: (identifier)))))
 
 ================================================================================
+Drop table with FQN
+================================================================================
+
+DROP TABLE my_table.my_schema.my_table;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (drop_table
+      (keyword_drop)
+      (keyword_table)
+      (object_reference
+        database: (identifier)
+        schema: (identifier)
+        name: (identifier)))))
+
+================================================================================
 Drop table and cascade through
 ================================================================================
 
@@ -45,6 +63,24 @@ DROP VIEW my_view;
       (keyword_drop)
       (keyword_view)
       (object_reference
+        name: (identifier)))))
+
+================================================================================
+Drop view with FQN
+================================================================================
+
+DROP VIEW my_database.my_schema.my_view;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (drop_view
+      (keyword_drop)
+      (keyword_view)
+      (object_reference
+        database: (identifier)
+        schema: (identifier)
         name: (identifier)))))
 
 ================================================================================
