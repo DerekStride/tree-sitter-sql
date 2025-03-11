@@ -25,6 +25,33 @@ CREATE TABLE my_schema.my_table (id BIGINT NOT NULL PRIMARY KEY);
           (keyword_key))))))
 
 ================================================================================
+Create table with FQN
+================================================================================
+
+CREATE TABLE my_database.my_schema.my_table (id BIGINT NOT NULL PRIMARY KEY);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (object_reference
+        database: (identifier)
+        schema: (identifier)
+        name: (identifier))
+      (column_definitions
+        (column_definition
+          name: (identifier)
+          type: (bigint
+            (keyword_bigint))
+          (keyword_not)
+          (keyword_null)
+          (keyword_primary)
+          (keyword_key))))))
+
+================================================================================
 Create table multiple columns
 ================================================================================
 

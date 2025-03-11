@@ -750,13 +750,36 @@ SELECT * FROM my_schema.my_table;
           name: (identifier))))))
 
 ================================================================================
+Simple select with FQN
+================================================================================
+
+SELECT * FROM my_database.my_schema.my_table;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (all_fields))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          database: (identifier)
+          schema: (identifier)
+          name: (identifier))))))
+
+================================================================================
 Simple select with schema and fully-qualified *
 ================================================================================
 
 SELECT
-  my_schema.my_table.*
+  my_database.my_schema.my_table.*
 FROM
-  my_schema.my_table;
+  my_database.my_schema.my_table;
 
 --------------------------------------------------------------------------------
 
@@ -768,12 +791,14 @@ FROM
         (term
           value: (all_fields
             (object_reference
+              database: (identifier)
               schema: (identifier)
               name: (identifier))))))
     (from
       (keyword_from)
       (relation
         (object_reference
+          database: (identifier)
           schema: (identifier)
           name: (identifier))))))
 
@@ -782,9 +807,9 @@ Simple select with schema and fully-pathed fields
 ================================================================================
 
 SELECT
-  my_schema.my_table.my_field
+  my_database.my_schema.my_table.my_field
 FROM
-  my_schema.my_table;
+  my_database.my_schema.my_table;
 
 --------------------------------------------------------------------------------
 
@@ -796,6 +821,7 @@ FROM
         (term
           value: (field
             (object_reference
+              database: (identifier)
               schema: (identifier)
               name: (identifier))
             name: (identifier)))))
@@ -803,6 +829,7 @@ FROM
       (keyword_from)
       (relation
         (object_reference
+          database: (identifier)
           schema: (identifier)
           name: (identifier))))))
 
