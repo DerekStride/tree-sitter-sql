@@ -828,6 +828,12 @@ module.exports = grammar({
     _select_statement: $ => optional_parenthesis(
       seq(
         $.select,
+        optional(
+          seq(
+            $.keyword_into,
+            $.select_expression,
+          ),
+        ),
         optional($.from),
       ),
     ),

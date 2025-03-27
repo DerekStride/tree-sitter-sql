@@ -3036,3 +3036,69 @@ CROSS JOIN UNNEST(numbers) WITH ORDINALITY AS t (n, a);
         (identifier)
         (identifier)
         (identifier)))))
+
+================================================================================
+Simple select into
+================================================================================
+
+SELECT col into alpha FROM my_table;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+              name: (identifier)))))
+    (keyword_into)
+    (select_expression
+      (term
+        value: (field
+            name: (identifier))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier))))))
+
+================================================================================
+Select into multiple vars
+================================================================================
+
+SELECT col1, col2, col3 into alpha, beta, gamma FROM my_table;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            name: (identifier)))
+        (term
+          value: (field
+            name: (identifier)))
+        (term
+          value: (field
+            name: (identifier)))))
+    (keyword_into)
+    (select_expression
+      (term
+        value: (field
+          name: (identifier)))
+      (term
+        value: (field
+          name: (identifier)))
+      (term
+        value: (field
+          name: (identifier))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier))))))
