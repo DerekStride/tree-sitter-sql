@@ -1695,6 +1695,10 @@
           "named": true
         },
         {
+          "type": "keyword_into",
+          "named": true
+        },
+        {
           "type": "keyword_like",
           "named": true
         },
@@ -1772,6 +1776,10 @@
         },
         {
           "type": "select",
+          "named": true
+        },
+        {
+          "type": "select_expression",
           "named": true
         },
         {
@@ -4601,6 +4609,10 @@
           "named": true
         },
         {
+          "type": "keyword_into",
+          "named": true
+        },
+        {
           "type": "keyword_like",
           "named": true
         },
@@ -4678,6 +4690,10 @@
         },
         {
           "type": "select",
+          "named": true
+        },
+        {
+          "type": "select_expression",
           "named": true
         },
         {
@@ -5247,6 +5263,10 @@
           "named": true
         },
         {
+          "type": "keyword_into",
+          "named": true
+        },
+        {
           "type": "keyword_not",
           "named": true
         },
@@ -5288,6 +5308,10 @@
         },
         {
           "type": "select",
+          "named": true
+        },
+        {
+          "type": "select_expression",
           "named": true
         },
         {
@@ -8140,6 +8164,10 @@
           "named": true
         },
         {
+          "type": "select_expression",
+          "named": true
+        },
+        {
           "type": "set_operation",
           "named": true
         },
@@ -9814,7 +9842,15 @@
           "named": true
         },
         {
+          "type": "keyword_into",
+          "named": true
+        },
+        {
           "type": "select",
+          "named": true
+        },
+        {
+          "type": "select_expression",
           "named": true
         }
       ]
@@ -10680,6 +10716,10 @@
           "named": true
         },
         {
+          "type": "select_expression",
+          "named": true
+        },
+        {
           "type": "set_operation",
           "named": true
         },
@@ -10950,6 +10990,10 @@
           "named": true
         },
         {
+          "type": "keyword_into",
+          "named": true
+        },
+        {
           "type": "keyword_like",
           "named": true
         },
@@ -11027,6 +11071,10 @@
         },
         {
           "type": "select",
+          "named": true
+        },
+        {
+          "type": "select_expression",
           "named": true
         },
         {
@@ -12144,6 +12192,10 @@
           "named": true
         },
         {
+          "type": "keyword_into",
+          "named": true
+        },
+        {
           "type": "keyword_like",
           "named": true
         },
@@ -12249,6 +12301,10 @@
         },
         {
           "type": "select",
+          "named": true
+        },
+        {
+          "type": "select_expression",
           "named": true
         },
         {
