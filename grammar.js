@@ -283,7 +283,6 @@ module.exports = grammar({
     keyword_unsafe: _ => make_keyword("unsafe"),
     keyword_restricted: _ => make_keyword("restricted"),
     keyword_called: _ => make_keyword("called"),
-    keyword_returns: _ => make_keyword("returns"),
     keyword_input: _ => make_keyword("input"),
     keyword_strict: _ => make_keyword("strict"),
     keyword_cost: _ => make_keyword("cost"),
