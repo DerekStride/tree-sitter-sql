@@ -698,6 +698,20 @@ module.exports = grammar({
       ),
     ),
 
+    var_declarations: $ => seq($.keyword_declare, repeat1($.var_declaration)),
+    var_declaration: $ => seq(
+      choice($.identifier, $.tsql_parameter),
+      $._type,
+      optional(
+        seq(
+          choice($.keyword_default, '='),
+          $.literal,
+        ),
+      ),
+      optional(','),
+    ),
+
+
     _ddl_statement: $ => choice(
       $._create_statement,
       $._alter_statement,
@@ -1238,7 +1252,15 @@ module.exports = grammar({
       ';',
     ),
 
-    _function_body_statement: $ => choice(
+    _function_body_statement: $ => seq(
+      choice(
+        $.statement,
+        $._function_return,
+      )
+    ),
+
+    _tsql_function_body_statement: $ => seq(
+      optional($.var_declarations),
       $.statement,
       $._function_return,
     ),
@@ -1301,7 +1323,7 @@ module.exports = grammar({
       seq(
         $.keyword_as,
         $.keyword_begin,
-        $._function_body_statement,
+        $._tsql_function_body_statement,
         $.keyword_end,
       ),
     ),
