@@ -859,7 +859,7 @@ module.exports = grammar({
 
     function_argument: $ => seq(
       optional($._argmode),
-      optional($.identifier),
+      optional(choice($.identifier, $.tsql_parameter)),
       $._type,
       optional(
         seq(
@@ -2862,6 +2862,8 @@ module.exports = grammar({
       '*',
     ),
 
+
+    tsql_parameter: $ => /@([a-zA-Z_][0-9a-zA-Z_]*)/,
     parameter: $ => /\?|(\$[0-9]+)/,
 
     case: $ => seq(
