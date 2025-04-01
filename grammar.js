@@ -1298,6 +1298,12 @@ module.exports = grammar({
         optional(';'),
         alias($._dollar_quoted_string_end_tag, $.dollar_quote),
       ),
+      seq(
+        $.keyword_as,
+        $.keyword_begin,
+        $._function_body_statement,
+        $.keyword_end,
+      ),
     ),
 
     function_language: $ => seq(
