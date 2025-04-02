@@ -265,6 +265,7 @@ module.exports = grammar({
     keyword_main: _ => make_keyword("main"),
     keyword_storage: _ => make_keyword("storage"),
     keyword_compression: _ => make_keyword("compression"),
+    keyword_while: _ => make_keyword("while"),
 
     keyword_trigger: _ => make_keyword('trigger'),
     keyword_function: _ => make_keyword("function"),
@@ -695,6 +696,7 @@ module.exports = grammar({
         $._ddl_statement,
         $._dml_write,
         optional_parenthesis($._dml_read),
+        $.while_statement,
       ),
     ),
 
@@ -709,6 +711,12 @@ module.exports = grammar({
         ),
       ),
       optional(','),
+    ),
+
+    while_statement: $ => seq (
+      $.keyword_while,
+      optional_parenthesis($._expression),
+      $.statement,
     ),
 
 
