@@ -3361,6 +3361,7 @@ module.exports = grammar({
           $._qualified_field,
           $.field,
         ),
+        $.tsql_parameter,
         $.parameter,
         $.list,
         $.case,
