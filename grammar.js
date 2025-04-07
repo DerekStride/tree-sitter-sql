@@ -697,6 +697,7 @@ module.exports = grammar({
         $._dml_write,
         optional_parenthesis($._dml_read),
         $.while_statement,
+        $._set_values,
       ),
     ),
 
@@ -2978,7 +2979,7 @@ module.exports = grammar({
           '.',
         ),
       ),
-      field('name', $.identifier),
+      field('name', choice($.tsql_parameter, $.identifier)),
     ),
 
     implicit_cast: $ => seq(
