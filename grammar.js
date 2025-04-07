@@ -3552,7 +3552,7 @@ module.exports = grammar({
     _double_quote_string: _ => /"[^"]*"/,
     // The norm specify that between two consecutive string must be a return,
     // but this is good enough.
-    _single_quote_string: _ => seq(/([uU]&)?'([^']|'')*'/, repeat(/'([^']|'')*'/)),
+    _single_quote_string: _ => seq(/([uU]&|[nN])?'([^']|'')*'/, repeat(/'([^']|'')*'/)),
 
     _postgres_escape_string: _ => /(e|E)'([^']|\\')*'/,
 
