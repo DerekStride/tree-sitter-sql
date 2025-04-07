@@ -55,6 +55,7 @@ module.exports = grammar({
             $.block,
           ),
           ';',
+          optional($.keyword_go),
         ),
       ),
       // optionally, a single statement without a terminating ;
@@ -266,6 +267,7 @@ module.exports = grammar({
     keyword_storage: _ => make_keyword("storage"),
     keyword_compression: _ => make_keyword("compression"),
     keyword_while: _ => make_keyword("while"),
+    keyword_go: _ => make_keyword("go"),
 
     keyword_trigger: _ => make_keyword('trigger'),
     keyword_function: _ => make_keyword("function"),
