@@ -327,6 +327,7 @@ module.exports = grammar({
     keyword_statement: _ => make_keyword("statement"),
     keyword_execute: _ => make_keyword("execute"),
     keyword_procedure: _ => make_keyword("procedure"),
+    keyword_object_id: _ => make_keyword("object_id"),
 
     // Hive Keywords
     keyword_external: _ => make_keyword("external"),
@@ -2209,6 +2210,21 @@ module.exports = grammar({
       $.identifier,
     ),
 
+    object_id: $ => seq(
+      $.keyword_object_id,
+      wrapped_in_parenthesis(
+        seq(
+          alias($._literal_string, $.literal),
+          optional(
+            seq(
+              ',',
+              alias($._literal_string, $.literal),
+            ),
+          ),
+        ),
+      ),
+    ),
+
     object_reference: $ => choice(
       seq(
         field('database', $.identifier),
@@ -3357,6 +3373,7 @@ module.exports = grammar({
         $.interval,
         $.between_expression,
         $.parenthesized_expression,
+        $.object_id,
       )
     ),
 
