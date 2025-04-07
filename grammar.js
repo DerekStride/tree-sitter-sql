@@ -697,6 +697,7 @@ module.exports = grammar({
         $._dml_write,
         optional_parenthesis($._dml_read),
         $.while_statement,
+        $.if_statement,
         $._set_values,
       ),
     ),
@@ -722,6 +723,21 @@ module.exports = grammar({
       ),
       seq(
         $.keyword_while,
+        optional_parenthesis($._expression),
+        $.keyword_begin,
+        repeat1($.statement),
+        $.keyword_end,
+      ),
+    )),
+
+    if_statement: $ => prec.left(choice(
+      seq(
+        $.keyword_if,
+        optional_parenthesis($._expression),
+        repeat1($.statement),
+      ),
+      seq(
+        $.keyword_if,
         optional_parenthesis($._expression),
         $.keyword_begin,
         repeat1($.statement),
