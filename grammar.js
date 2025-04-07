@@ -1274,6 +1274,15 @@ module.exports = grammar({
     ),
 
     _tsql_statement: $ => choice(
+      seq(
+        $.keyword_begin,
+        $._tsql_statement_no_block,
+        $.keyword_end,
+      ),
+      $._tsql_statement_no_block,
+    ),
+
+    _tsql_statement_no_block: $ => choice(
       $._ddl_statement,
       $._dml_write,
       optional_parenthesis($._dml_read),
