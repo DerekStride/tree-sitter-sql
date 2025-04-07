@@ -713,12 +713,20 @@ module.exports = grammar({
       optional(','),
     ),
 
-    while_statement: $ => seq (
-      $.keyword_while,
-      optional_parenthesis($._expression),
-      $.statement,
-    ),
-
+    while_statement: $ => prec.right(choice(
+      seq(
+        $.keyword_while,
+        optional_parenthesis($._expression),
+        $.statement,
+      ),
+      seq(
+        $.keyword_while,
+        optional_parenthesis($._expression),
+        $.keyword_begin,
+        repeat1($.statement),
+        $.keyword_end,
+      ),
+    )),
 
     _ddl_statement: $ => choice(
       $._create_statement,
