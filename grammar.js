@@ -2174,6 +2174,7 @@ module.exports = grammar({
         $.drop_role,
         $.drop_sequence,
         $.drop_extension,
+        $.drop_function,
       ),
     ),
 
@@ -2258,6 +2259,14 @@ module.exports = grammar({
       optional($._if_exists),
       comma_list($.identifier, true),
       optional(choice($.keyword_cascade, $.keyword_restrict)),
+    ),
+
+    drop_function: $ => seq(
+      $.keyword_drop,
+      $.keyword_function,
+      optional($._if_exists),
+      $.object_reference,
+      optional($._drop_behavior),
     ),
 
     rename_object: $ => seq(
