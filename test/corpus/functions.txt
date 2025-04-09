@@ -1142,3 +1142,308 @@ $_$
         (literal)
         (keyword_end)
         (dollar_quote)))))
+
+================================================================================
+TSQL Function Returns
+================================================================================
+
+CREATE FUNCTION dbo.fn(@par int, @parr nvarchar(4000))
+RETURNS int
+  AS
+  BEGIN
+    SELECT * FROM ATABLE
+    RETURN @par
+  END
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_function)
+      (object_reference
+        (identifier)
+        (identifier))
+      (function_arguments
+        (function_argument
+          (identifier)
+          (int
+            (keyword_int)))
+        (function_argument
+          (identifier)
+          (nvarchar
+            (keyword_nvarchar)
+            (literal))))
+      (keyword_returns)
+      (int
+        (keyword_int))
+      (function_body
+        (keyword_as)
+        (keyword_begin)
+        (statement
+          (select
+            (keyword_select)
+            (select_expression
+              (term
+                (all_fields))))
+          (from
+            (keyword_from)
+            (relation
+              (object_reference
+                (identifier)))))
+        (keyword_return)
+        (field
+          (identifier))
+        (keyword_end)))))
+
+================================================================================
+TSQL Function Declare
+================================================================================
+
+CREATE FUNCTION dbo.fn(@par int, @parr nvarchar(4000))
+RETURNS int
+  AS
+  BEGIN
+    DECLARE @s int, @t int, @i int, @j int
+    SELECT * FROM ATABLE
+    RETURN @par
+  END
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_function)
+      (object_reference
+        (identifier)
+        (identifier))
+      (function_arguments
+        (function_argument
+          (identifier)
+          (int
+            (keyword_int)))
+        (function_argument
+          (identifier)
+          (nvarchar
+            (keyword_nvarchar)
+            (literal))))
+      (keyword_returns)
+      (int
+        (keyword_int))
+      (function_body
+        (keyword_as)
+        (keyword_begin)
+        (var_declarations
+          (keyword_declare)
+          (var_declaration
+            (identifier)
+            (int
+              (keyword_int)))
+          (var_declaration
+            (identifier)
+            (int
+              (keyword_int)))
+          (var_declaration
+            (identifier)
+            (int
+              (keyword_int)))
+          (var_declaration
+            (identifier)
+            (int
+              (keyword_int))))
+        (statement
+          (select
+            (keyword_select)
+            (select_expression
+              (term
+                (all_fields))))
+          (from
+            (keyword_from)
+            (relation
+              (object_reference
+                (identifier)))))
+        (keyword_return)
+        (field
+          (identifier))
+        (keyword_end)))))
+
+================================================================================
+TSQL Function Declare Multiple Statements
+================================================================================
+
+CREATE FUNCTION dbo.fn(@par int, @parr nvarchar(4000))
+RETURNS int
+  AS
+  BEGIN
+    DECLARE @s int, @t int, @i int, @j int
+    SELECT * FROM ATABLE
+    SELECT * FROM ANOTHER_TABLE
+    RETURN @par
+  END
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_function)
+      (object_reference
+        (identifier)
+        (identifier))
+      (function_arguments
+        (function_argument
+          (identifier)
+          (int
+            (keyword_int)))
+        (function_argument
+          (identifier)
+          (nvarchar
+            (keyword_nvarchar)
+            (literal))))
+      (keyword_returns)
+      (int
+        (keyword_int))
+      (function_body
+        (keyword_as)
+        (keyword_begin)
+        (var_declarations
+          (keyword_declare)
+          (var_declaration
+            (identifier)
+            (int
+              (keyword_int)))
+          (var_declaration
+            (identifier)
+            (int
+              (keyword_int)))
+          (var_declaration
+            (identifier)
+            (int
+              (keyword_int)))
+          (var_declaration
+            (identifier)
+            (int
+              (keyword_int))))
+        (statement
+          (select
+            (keyword_select)
+            (select_expression
+              (term
+                (all_fields))))
+          (from
+            (keyword_from)
+            (relation
+              (object_reference
+                (identifier)))))
+        (statement
+          (select
+            (keyword_select)
+            (select_expression
+              (term
+                (all_fields))))
+          (from
+            (keyword_from)
+            (relation
+              (object_reference
+                (identifier)))))
+        (keyword_return)
+        (field
+          (identifier))
+        (keyword_end)))))
+
+================================================================================
+TSQL Function With Nested BEGIN-END
+================================================================================
+
+CREATE FUNCTION dbo.fn(@par int, @parr nvarchar(4000))
+RETURNS int
+  AS
+  BEGIN
+    DECLARE @s int, @t int, @i int, @j int
+    BEGIN
+      SELECT * FROM ATABLE
+    END
+    BEGIN
+      SELECT * FROM ANOTHER_TABLE
+    END
+    RETURN @par
+  END
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_function)
+      (object_reference
+        (identifier)
+        (identifier))
+      (function_arguments
+        (function_argument
+          (identifier)
+          (int
+            (keyword_int)))
+        (function_argument
+          (identifier)
+          (nvarchar
+            (keyword_nvarchar)
+            (literal))))
+      (keyword_returns)
+      (int
+        (keyword_int))
+      (function_body
+        (keyword_as)
+        (keyword_begin)
+        (var_declarations
+          (keyword_declare)
+          (var_declaration
+            (identifier)
+            (int
+              (keyword_int)))
+          (var_declaration
+            (identifier)
+            (int
+              (keyword_int)))
+          (var_declaration
+            (identifier)
+            (int
+              (keyword_int)))
+          (var_declaration
+            (identifier)
+            (int
+              (keyword_int))))
+        (keyword_begin)
+        (statement
+          (select
+            (keyword_select)
+            (select_expression
+              (term
+                (all_fields))))
+          (from
+            (keyword_from)
+            (relation
+              (object_reference
+                (identifier)))))
+        (keyword_end)
+        (keyword_begin)
+        (statement
+          (select
+            (keyword_select)
+            (select_expression
+              (term
+                (all_fields))))
+          (from
+            (keyword_from)
+            (relation
+              (object_reference
+                (identifier)))))
+        (keyword_end)
+        (keyword_return)
+        (field
+          (identifier))
+        (keyword_end)))))
