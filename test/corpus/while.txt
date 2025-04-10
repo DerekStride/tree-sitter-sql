@@ -1,0 +1,75 @@
+================================================================================
+While in TSQL
+================================================================================
+
+WHILE @par < 1
+  SELECT endless FROM TABLE
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (while_statement
+      (keyword_while)
+      (binary_expression
+        (field
+          (identifier))
+        (literal))
+      (statement
+        (select
+          (keyword_select)
+          (select_expression
+            (term
+              (field
+                (identifier)))))
+        (from
+          (keyword_from)
+          (relation
+            (object_reference
+              (identifier))))))))
+
+================================================================================
+While in TSQL with SELECT condition
+================================================================================
+
+WHILE (
+        SELECT AVG(ListPrice)
+        FROM Production.Product
+        ) < $300
+  SELECT endless FROM TABLE
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (while_statement
+      (keyword_while)
+      (binary_expression
+        (subquery
+          (select
+            (keyword_select)
+            (select_expression
+              (term
+                (invocation
+                  (object_reference
+                    (identifier))
+                  (term
+                    (field
+                      (identifier)))))))
+          (from
+            (keyword_from)
+            (relation
+              (object_reference
+                (identifier)
+                (identifier)))))
+        (parameter))
+      (statement
+        (select
+          (keyword_select)
+          (select_expression
+            (term
+              (field
+                (identifier)))))
+        (from
+          (keyword_from)
+          (relation
+            (object_reference
+              (identifier))))))))
