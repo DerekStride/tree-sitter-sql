@@ -704,7 +704,14 @@ module.exports = grammar({
     while_statement: $ => seq(
       $.keyword_while,
       optional_parenthesis($._expression),
-      $.statement,
+      choice(
+        $.statement,
+        seq(
+          $.keyword_begin,
+          repeat($.statement),
+          $.keyword_end,
+        ),
+      ),
     ),
 
     var_declarations: $ => seq($.keyword_declare, repeat1($.var_declaration)),
@@ -1491,7 +1498,7 @@ module.exports = grammar({
           field('value', choice($.identifier, alias($._single_quote_string, $.literal))),
     ),
 
-    create_database: $ => seq(
+    create_database: $ => prec.left(seq(
       $.keyword_create,
       $.keyword_database,
       optional($._if_not_exists),
@@ -1500,9 +1507,9 @@ module.exports = grammar({
       repeat(
         $._with_settings
       ),
-    ),
+    )),
 
-    create_role: $ => seq(
+    create_role: $ => prec.left(seq(
       $.keyword_create,
       choice(
         $.keyword_user,
@@ -1517,7 +1524,7 @@ module.exports = grammar({
           $._role_options,
         ),
       ),
-    ),
+    )),
 
     _role_options: $ => choice(
       field("option", $.identifier),
@@ -1578,7 +1585,7 @@ module.exports = grammar({
       ),
     ),
 
-    create_extension: $ => seq(
+    create_extension: $ => prec.left(seq(
       $.keyword_create,
       $.keyword_extension,
       optional($._if_not_exists),
@@ -1587,7 +1594,7 @@ module.exports = grammar({
       optional(seq($.keyword_schema, $.identifier)),
       optional(seq($.keyword_version, choice($.identifier, alias($._literal_string, $.literal)))),
       optional($.keyword_cascade),
-    ),
+    )),
 
     create_trigger: $ => seq(
       $.keyword_create,
@@ -1651,7 +1658,7 @@ module.exports = grammar({
       $.keyword_truncate,
     ),
 
-    create_type: $ => seq(
+    create_type: $ => prec.left(seq(
       $.keyword_create,
       $.keyword_type,
       $.object_reference,
@@ -1682,7 +1689,7 @@ module.exports = grammar({
           ),
         ),
       ),
-    ),
+    )),
 
     enum_elements: $ => seq(
       paren_list(field("enum_element", alias($._literal_string, $.literal))),
@@ -1956,7 +1963,7 @@ module.exports = grammar({
         ),
       ),
 
-    alter_role: $ => seq(
+    alter_role: $ => prec.left(seq(
       $.keyword_alter,
       choice(
         $.keyword_role,
@@ -1983,7 +1990,7 @@ module.exports = grammar({
           ),
         )
       ),
-    ),
+    )),
 
     set_configuration: $ => seq(
       field("option", $.identifier),
@@ -2163,14 +2170,14 @@ module.exports = grammar({
       optional($._drop_behavior)
     ),
 
-    drop_database: $ => seq(
+    drop_database: $ => prec.left(seq(
       $.keyword_drop,
       $.keyword_database,
       optional($._if_exists),
       $.identifier,
       optional($.keyword_with),
       optional($.keyword_force),
-    ),
+    )),
 
     drop_role: $ => seq(
       $.keyword_drop,
@@ -2458,7 +2465,7 @@ module.exports = grammar({
       repeat1($.when_clause)
     ),
 
-    when_clause: $ => seq(
+    when_clause: $ => prec.left(seq(
       $.keyword_when,
       optional($.keyword_not),
       $.keyword_matched,
@@ -2481,7 +2488,7 @@ module.exports = grammar({
         ),
         optional($.where)
       )
-    ),
+    )),
 
     _optimize_statement: $ => choice(
       $._compute_stats,
@@ -2490,7 +2497,7 @@ module.exports = grammar({
     ),
 
     // Compute stats for Impala and Hive
-    _compute_stats: $ => choice(
+    _compute_stats: $ => prec.left(choice(
       // Hive
       seq(
         $.keyword_analyze,
@@ -2528,7 +2535,7 @@ module.exports = grammar({
           )
         )
       ),
-    ),
+    )),
 
     _optimize_table: $ => choice(
       // Athena/Iceberg
@@ -2558,14 +2565,14 @@ module.exports = grammar({
       ),
     ),
 
-    _vacuum_table: $ => seq(
+    _vacuum_table: $ => prec.left(seq(
       $.keyword_vacuum,
       optional($._vacuum_option),
       $.object_reference,
       optional(
         paren_list($.field)
       ),
-    ),
+    )),
 
     _vacuum_option: $ => choice(
       seq($.keyword_full, optional(choice($.keyword_true, $.keyword_false))),
@@ -2749,11 +2756,11 @@ module.exports = grammar({
       ')',
     ),
 
-    column_definition: $ => seq(
+    column_definition: $ => prec.left(seq(
       field('name', $._column),
       field('type', $._type),
       repeat($._column_constraint),
-    ),
+    )),
 
     _column_comment: $ => seq(
       $.keyword_comment,

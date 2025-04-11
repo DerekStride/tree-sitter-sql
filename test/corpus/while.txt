@@ -73,3 +73,79 @@ WHILE (
           (relation
             (object_reference
               (identifier))))))))
+
+================================================================================
+While in TSQL with SELECT many statements
+================================================================================
+
+WHILE (
+        SELECT AVG(ListPrice)
+        FROM Production.Product
+        ) < $300
+BEGIN
+    UPDATE Production.Product
+    SET ListPrice = ListPrice * 2
+
+    SELECT MAX(ListPrice)
+    FROM Production.Product
+END
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (while_statement
+      (keyword_while)
+      (binary_expression
+        (subquery
+          (select
+            (keyword_select)
+            (select_expression
+              (term
+                (invocation
+                  (object_reference
+                    (identifier))
+                  (term
+                    (field
+                      (identifier)))))))
+          (from
+            (keyword_from)
+            (relation
+              (object_reference
+                (identifier)
+                (identifier)))))
+        (parameter))
+      (keyword_begin)
+      (statement
+        (update
+          (keyword_update)
+          (relation
+            (object_reference
+              (identifier)
+              (identifier)))
+          (keyword_set)
+          (assignment
+            (field
+              (identifier))
+            (binary_expression
+              (field
+                (identifier))
+              (literal)))))
+      (statement
+        (select
+          (keyword_select)
+          (select_expression
+            (term
+              (invocation
+                (object_reference
+                  (identifier))
+                (term
+                  (field
+                    (identifier)))))))
+        (from
+          (keyword_from)
+          (relation
+            (object_reference
+              (identifier)
+              (identifier)))))
+      (keyword_end))))
