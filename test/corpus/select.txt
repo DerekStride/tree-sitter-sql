@@ -136,10 +136,10 @@ SELECT t.* FROM my_table AS t;
         alias: (identifier)))))
 
 ================================================================================
-Simple select with fields
+Simple select TSQL parameters
 ================================================================================
 
-SELECT id, name FROM my_table;
+SELECT @id, @VERSION FROM my_table;
 
 --------------------------------------------------------------------------------
 

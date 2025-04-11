@@ -283,7 +283,6 @@ module.exports = grammar({
     keyword_unsafe: _ => make_keyword("unsafe"),
     keyword_restricted: _ => make_keyword("restricted"),
     keyword_called: _ => make_keyword("called"),
-    keyword_returns: _ => make_keyword("returns"),
     keyword_input: _ => make_keyword("input"),
     keyword_strict: _ => make_keyword("strict"),
     keyword_cost: _ => make_keyword("cost"),
@@ -328,6 +327,7 @@ module.exports = grammar({
     keyword_statement: _ => make_keyword("statement"),
     keyword_execute: _ => make_keyword("execute"),
     keyword_procedure: _ => make_keyword("procedure"),
+    keyword_object_id: _ => make_keyword("object_id"),
 
     // Hive Keywords
     keyword_external: _ => make_keyword("external"),
@@ -2097,6 +2097,7 @@ module.exports = grammar({
         $.drop_role,
         $.drop_sequence,
         $.drop_extension,
+        $.drop_function,
       ),
     ),
 
@@ -2183,6 +2184,14 @@ module.exports = grammar({
       optional(choice($.keyword_cascade, $.keyword_restrict)),
     ),
 
+    drop_function: $ => seq(
+      $.keyword_drop,
+      $.keyword_function,
+      optional($._if_exists),
+      $.object_reference,
+      optional($._drop_behavior),
+    ),
+
     rename_object: $ => seq(
       $.keyword_rename,
       $.keyword_to,
@@ -2199,6 +2208,21 @@ module.exports = grammar({
       $.keyword_owner,
       $.keyword_to,
       $.identifier,
+    ),
+
+    object_id: $ => seq(
+      $.keyword_object_id,
+      wrapped_in_parenthesis(
+        seq(
+          alias($._literal_string, $.literal),
+          optional(
+            seq(
+              ',',
+              alias($._literal_string, $.literal),
+            ),
+          ),
+        ),
+      ),
     ),
 
     object_reference: $ => choice(
@@ -2862,6 +2886,7 @@ module.exports = grammar({
       '*',
     ),
 
+
     parameter: $ => /\?|(\$[0-9]+)/,
 
     case: $ => seq(
@@ -3348,6 +3373,7 @@ module.exports = grammar({
         $.interval,
         $.between_expression,
         $.parenthesized_expression,
+        $.object_id,
       )
     ),
 
@@ -3544,7 +3570,7 @@ module.exports = grammar({
     _double_quote_string: _ => /"[^"]*"/,
     // The norm specify that between two consecutive string must be a return,
     // but this is good enough.
-    _single_quote_string: _ => seq(/([uU]&)?'([^']|'')*'/, repeat(/'([^']|'')*'/)),
+    _single_quote_string: _ => seq(/([uU]&|[nN])?'([^']|'')*'/, repeat(/'([^']|'')*'/)),
 
     _postgres_escape_string: _ => /(e|E)'([^']|\\')*'/,
 
@@ -3576,8 +3602,10 @@ module.exports = grammar({
     identifier: $ => choice(
       $._identifier,
       $._double_quote_string,
-      /`([a-zA-Z_][0-9a-zA-Z_]*)`/,
+      $._tsql_parameter,
+      seq("`", $._identifier, "`"),
     ),
+    _tsql_parameter: $ => seq('@', $._identifier),
     _identifier: _ => /[a-zA-Z_][0-9a-zA-Z_]*/,
   }
 

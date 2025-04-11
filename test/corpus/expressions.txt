@@ -704,3 +704,22 @@ SELECT
               lower: (literal)
               upper: (literal))
             subscript: (literal)))))))
+
+================================================================================
+TSQL OBJECT_ID
+================================================================================
+
+SELECT OBJECT_ID (N'dbo.LEVENSHTEIN_DISTANCE', N'FN')
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (object_id
+            (keyword_object_id)
+            (literal)
+            (literal)))))))
