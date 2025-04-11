@@ -1098,6 +1098,10 @@
       "type": "PATTERN",
       "value": "[pP][rR][oO][cC][eE][dD][uU][rR][eE]"
     },
+    "keyword_object_id": {
+      "type": "PATTERN",
+      "value": "[oO][bB][jJ][eE][cC][tT][__][iI][dD]"
+    },
     "keyword_external": {
       "type": "PATTERN",
       "value": "[eE][xX][tT][eE][rR][nN][aA][lL]"
@@ -12566,6 +12570,10 @@
             {
               "type": "SYMBOL",
               "name": "drop_extension"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "drop_function"
             }
           ]
         }
@@ -13020,6 +13028,47 @@
         }
       ]
     },
+    "drop_function": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_drop"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_function"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_if_exists"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "object_reference"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_drop_behavior"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
     "rename_object": {
       "type": "SEQ",
       "members": [
@@ -13072,6 +13121,68 @@
         {
           "type": "SYMBOL",
           "name": "identifier"
+        }
+      ]
+    },
+    "object_id": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_object_id"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "("
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "_literal_string"
+                  },
+                  "named": true,
+                  "value": "literal"
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "STRING",
+                          "value": ","
+                        },
+                        {
+                          "type": "ALIAS",
+                          "content": {
+                            "type": "SYMBOL",
+                            "name": "_literal_string"
+                          },
+                          "named": true,
+                          "value": "literal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "STRING",
+              "value": ")"
+            }
+          ]
         }
       ]
     },
@@ -18468,6 +18579,10 @@
           {
             "type": "SYMBOL",
             "name": "parenthesized_expression"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "object_id"
           }
         ]
       }
@@ -20042,7 +20157,7 @@
       "members": [
         {
           "type": "PATTERN",
-          "value": "([uU]&)?'([^']|'')*'"
+          "value": "([uU]&|[nN])?'([^']|'')*'"
         },
         {
           "type": "REPEAT",
@@ -20191,8 +20306,38 @@
           "name": "_double_quote_string"
         },
         {
-          "type": "PATTERN",
-          "value": "`([a-zA-Z_][0-9a-zA-Z_]*)`"
+          "type": "SYMBOL",
+          "name": "_tsql_parameter"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "`"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_identifier"
+            },
+            {
+              "type": "STRING",
+              "value": "`"
+            }
+          ]
+        }
+      ]
+    },
+    "_tsql_parameter": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "@"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_identifier"
         }
       ]
     },
