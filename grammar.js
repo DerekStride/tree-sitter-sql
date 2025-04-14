@@ -701,18 +701,21 @@ module.exports = grammar({
       ),
     ),
 
-    while_statement: $ => seq(
+    while_statement: $ => prec.left(seq(
       $.keyword_while,
       optional_parenthesis($._expression),
       choice(
-        $.statement,
+        seq(
+          $.statement,
+          optional(';'),
+        ),
         seq(
           $.keyword_begin,
           repeat($.statement),
           $.keyword_end,
         ),
       ),
-    ),
+    )),
 
     var_declarations: $ => seq($.keyword_declare, repeat1($.var_declaration)),
     var_declaration: $ => seq(

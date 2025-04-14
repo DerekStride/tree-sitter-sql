@@ -28,6 +28,36 @@ WHILE @par < 1
               (identifier))))))))
 
 ================================================================================
+While in TSQL With Semicolon
+================================================================================
+
+WHILE @par < 1
+  SELECT endless FROM TABLE;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (while_statement
+      (keyword_while)
+      (binary_expression
+        (field
+          (identifier))
+        (literal))
+      (statement
+        (select
+          (keyword_select)
+          (select_expression
+            (term
+              (field
+                (identifier)))))
+        (from
+          (keyword_from)
+          (relation
+            (object_reference
+              (identifier))))))))
+
+================================================================================
 While in TSQL with SELECT condition
 ================================================================================
 
