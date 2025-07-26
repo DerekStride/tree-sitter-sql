@@ -9,6 +9,3 @@ build
 package-lock.json
 /target/
 /.build/
-/src/tree_sitter/
-/src/parser.c
-/src/*.json
