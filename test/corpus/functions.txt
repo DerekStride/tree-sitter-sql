@@ -193,6 +193,58 @@ FROM table_a;
           name: (identifier))))))
 
 ================================================================================
+MYSQL period_diff
+================================================================================
+
+SELECT
+    PERIOD_DIFF (
+        EXTRACT (YEAR_MONTH FROM NOW()), EXTRACT(YEAR_MONTH FROM t.a)
+    ) AS diffA
+FROM mytable;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (invocation
+            (object_reference
+              (identifier))
+            (term
+              (invocation
+                (object_reference
+                  (identifier))
+                (object_reference
+                  (identifier))
+                (keyword_from)
+                (term
+                  (invocation
+                    (object_reference
+                      (identifier))))))
+            (term
+              (invocation
+                (object_reference
+                  (identifier))
+                (object_reference
+                  (identifier))
+                (keyword_from)
+                (term
+                  (field
+                    (object_reference
+                      (identifier))
+                    (identifier))))))
+          (keyword_as)
+          (identifier))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          (identifier))))))
+
+================================================================================
 GROUP CONCAT
 ================================================================================
 
