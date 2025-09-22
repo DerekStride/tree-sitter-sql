@@ -2988,6 +2988,17 @@ module.exports = grammar({
               optional($.order_by)
             )
           ),
+          // https://dev.mysql.com/doc/refman/8.4/en/date-and-time-functions.html#function_extract
+          paren_list(
+            seq(
+              field(
+                'unit',
+                $.object_reference,
+              ),
+              $.keyword_from,
+              $.term
+            )
+          ),
           // _aggregate_function, e.g. group_concat
           wrapped_in_parenthesis(
             seq(
