@@ -16937,6 +16937,86 @@
                     "value": "("
                   },
                   {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SEQ",
+                        "members": [
+                          {
+                            "type": "SEQ",
+                            "members": [
+                              {
+                                "type": "FIELD",
+                                "name": "unit",
+                                "content": {
+                                  "type": "SYMBOL",
+                                  "name": "object_reference"
+                                }
+                              },
+                              {
+                                "type": "SYMBOL",
+                                "name": "keyword_from"
+                              },
+                              {
+                                "type": "SYMBOL",
+                                "name": "term"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "REPEAT",
+                            "content": {
+                              "type": "SEQ",
+                              "members": [
+                                {
+                                  "type": "STRING",
+                                  "value": ","
+                                },
+                                {
+                                  "type": "SEQ",
+                                  "members": [
+                                    {
+                                      "type": "FIELD",
+                                      "name": "unit",
+                                      "content": {
+                                        "type": "SYMBOL",
+                                        "name": "object_reference"
+                                      }
+                                    },
+                                    {
+                                      "type": "SYMBOL",
+                                      "name": "keyword_from"
+                                    },
+                                    {
+                                      "type": "SYMBOL",
+                                      "name": "term"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "type": "BLANK"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "STRING",
+                    "value": ")"
+                  }
+                ]
+              },
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": "("
+                  },
+                  {
                     "type": "SEQ",
                     "members": [
                       {

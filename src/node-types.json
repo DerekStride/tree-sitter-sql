@@ -8375,6 +8375,16 @@
             "named": true
           }
         ]
+      },
+      "unit": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "object_reference",
+            "named": true
+          }
+        ]
       }
     },
     "children": {
@@ -8387,6 +8397,10 @@
         },
         {
           "type": "keyword_distinct",
+          "named": true
+        },
+        {
+          "type": "keyword_from",
           "named": true
         },
         {
@@ -8407,6 +8421,10 @@
         },
         {
           "type": "order_by",
+          "named": true
+        },
+        {
+          "type": "term",
           "named": true
         }
       ]
