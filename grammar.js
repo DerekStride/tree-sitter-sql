@@ -3606,7 +3606,8 @@ module.exports = grammar({
       seq("`", $._identifier, "`"),
     ),
     _tsql_parameter: $ => seq('@', $._identifier),
-    _identifier: _ => /[a-zA-Z_][0-9a-zA-Z_]*/,
+    // support nordic chars and umlaue
+    _identifier: _ => /[A-Za-z_\u00C0-\u017F][0-9A-Za-z_\u00C0-\u017F]*/,
   }
 
 });

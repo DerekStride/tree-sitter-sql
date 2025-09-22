@@ -265,3 +265,20 @@ SELECT int '123';
         (term
           (literal
             (identifier)))))))
+
+================================================================================
+Support for nordic chars and umlaute
+================================================================================
+
+SELECT äöüÄÖÜøæØÆ
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (field
+            (identifier)))))))
