@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.3.9](https://github.com/derekstride/tree-sitter-sql/compare/v0.3.8...v0.3.9) (2025-09-23)
+
+
+### Features
+
+* DROP FUNCTION ([8908c0c](https://github.com/derekstride/tree-sitter-sql/commit/8908c0cbc1ffcb99a041bdc6210b638ca79df043))
+* parse mysql extract function ([b9a1ead](https://github.com/derekstride/tree-sitter-sql/commit/b9a1ead41a6459afd3e80ededbac493bc9e3b785))
+* Recognize TSQL [@param](https://github.com/param) as identifier ([a01d41c](https://github.com/derekstride/tree-sitter-sql/commit/a01d41cbbb530403b149ce32b860c443d9fca9e5))
+* select into ([dc6df46](https://github.com/derekstride/tree-sitter-sql/commit/dc6df4644198e1b1f6cefafd25c8dfd6b6162afa))
+* Single Quote for TSQL (N prefix) ([48bf7f7](https://github.com/derekstride/tree-sitter-sql/commit/48bf7f73eeb65ecfc9dfcfa0c4f17e5503713b28))
+* support nordic/umlaut chars ([9f76c5a](https://github.com/derekstride/tree-sitter-sql/commit/9f76c5a3dde34ed6896ad47e30d9e49c6a9f5a5b))
+* TSQL OBJECT_ID ([b99b491](https://github.com/derekstride/tree-sitter-sql/commit/b99b4916e54c63bd93475738eecb0ca21ec05528))
+
+
+### Bug Fixes
+
+* **ast:** Add database name to object_reference ([8d8c236](https://github.com/derekstride/tree-sitter-sql/commit/8d8c236f5278fe9e334f6f429c59a521743b828a))
+* incorrect function signature in external scanner ([177cfcc](https://github.com/derekstride/tree-sitter-sql/commit/177cfcc6f64bac48b7f0b0db6f8b832dc393986e))
+* module path in binding_test.go ([0e34d25](https://github.com/derekstride/tree-sitter-sql/commit/0e34d25a858b4420d4fb0163d58533da417faf26))
+* Remove duplicate keyword returns ([4050937](https://github.com/derekstride/tree-sitter-sql/commit/4050937724cf523a4a213cf8a67d06cb4920080b))
+* rewrite MySQL quoted identifier ([293b0ac](https://github.com/derekstride/tree-sitter-sql/commit/293b0ac0408e176c32c29b9d4cb642732fb7016f))
+
 ## [0.3.8](https://github.com/derekstride/tree-sitter-sql/compare/v0.3.7...v0.3.8) (2025-02-10)
 
 
