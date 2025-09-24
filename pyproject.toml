@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "tree-sitter-sql"
 description = "Tree-sitter Grammar for SQL"
-version = "0.3.9"
+version = "0.3.10"
 keywords = ["incremental", "parsing", "tree-sitter", "sql"]
 classifiers = [
   "Intended Audience :: Developers",
