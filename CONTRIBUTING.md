@@ -71,5 +71,16 @@ Verify that all the changes are correct and push the updates to a new branch.
 git push
 ```
 
-Once that PR is merged, create a new Release [on Github](https://github.com/DerekStride/tree-sitter-sql/releases). When
-the release is published Github Actions will publish the new version to npm.
+### Tagging
+
+Once that PR is merged, pull the latest `main` and create the new tag, finally, push the tag.
+
+```
+git pull origin main
+git tag v0.3.11
+git push --tags
+```
+
+This will trigger a workflow that will generate the parser files & upload them to a new
+[draft release](https://github.com/DerekStride/tree-sitter-sql/releases). When the release is published Github Actions
+will publish the new packages to npm, cargo, & pypi.
