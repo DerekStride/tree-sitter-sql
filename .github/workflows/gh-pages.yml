@@ -16,7 +16,12 @@ jobs:
           node-version: 20
       - run: npm install
       - name: Publish parser on GitHub Pages
-        run: cp -r LICENSE CMakeLists.txt Cargo.toml src queries bindings Package.swift docs
+        run: |
+          cp -r bindings queries src binding.gyp Cargo.lock Cargo.toml \
+            CMakeLists.txt go.mod grammar.js LICENSE Makefile package-lock.json \
+            package.json Package.swift pyproject.toml setup.py tree-sitter.json \
+            docs
+
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: 3.2.0
