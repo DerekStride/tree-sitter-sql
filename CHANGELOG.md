@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.3.11](https://github.com/derekstride/tree-sitter-sql/compare/v0.3.10...v0.3.11) (2025-09-30)
+
 ## [0.3.10](https://github.com/derekstride/tree-sitter-sql/compare/v0.3.9...v0.3.10) (2025-09-24)
 
 ### Features
