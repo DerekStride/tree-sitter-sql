@@ -16,7 +16,7 @@ jobs:
           install-lib: false
       - run: tree-sitter generate
       - run: mkdir -p parser-artifacts
-        run: |
+      - run: |
           cp -r bindings queries src binding.gyp Cargo.toml \
             CMakeLists.txt go.mod grammar.js LICENSE Makefile \
             package.json Package.swift pyproject.toml setup.py \
