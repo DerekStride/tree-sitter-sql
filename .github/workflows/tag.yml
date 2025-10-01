@@ -15,8 +15,15 @@ jobs:
         with:
           install-lib: false
       - run: tree-sitter generate
+      - run: mkdir -p parser-artifacts
+        run: |
+          cp -r bindings queries src binding.gyp Cargo.toml \
+            CMakeLists.txt go.mod grammar.js LICENSE Makefile \
+            package.json Package.swift pyproject.toml setup.py \
+            tree-sitter.json \
+            parser-artifacts
       - name: Package parser artifacts
-        run: tar -czf "tree-sitter-sql-${{ github.ref_name }}.tar.gz" .
+        run: tar -czf "tree-sitter-sql-${{ github.ref_name }}.tar.gz" -C parser-artifacts .
       - name: Upload Release Artifacts
         uses: softprops/action-gh-release@v2
         with:
