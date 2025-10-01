@@ -1,0 +1,63 @@
+{
+  "name": "@derekstride/tree-sitter-sql",
+  "version": "0.3.11",
+  "description": "Tree-sitter Grammar for SQL",
+  "main": "bindings/node",
+  "types": "bindings/node",
+  "scripts": {
+    "install": "npx --yes --package=tree-sitter-cli@v0.24.7 -- tree-sitter generate && node-gyp-build",
+    "prestart": "npx --yes --package=tree-sitter-cli@v0.24.7 -- tree-sitter build --wasm",
+    "start": "npx --yes --package=tree-sitter-cli@v0.24.7 -- tree-sitter playground",
+    "release": "commit-and-tag-version",
+    "test": "node --test bindings/node/*_test.js",
+    "prebuildify": "prebuildify --napi --strip"
+  },
+  "author": "derek stride",
+  "license": "MIT",
+  "dependencies": {
+    "node-addon-api": "^7.1.0",
+    "node-gyp-build": "^4.8.0"
+  },
+  "devDependencies": {
+    "commit-and-tag-version": "^12.0.0",
+    "node-gyp": "^10.0.1",
+    "prebuildify": "^6.0.0"
+  },
+  "peerDependencies": {
+    "tree-sitter": "^0.21.0"
+  },
+  "peerDependenciesMeta": {
+    "tree_sitter": {
+      "optional": true
+    }
+  },
+  "gypfile": true,
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/derekstride/tree-sitter-sql.git"
+  },
+  "bugs": {
+    "url": "https://github.com/derekstride/tree-sitter-sql/issues"
+  },
+  "homepage": "https://github.com/derekstride/tree-sitter-sql#readme",
+  "commit-and-tag-version": {
+    "skip": {
+      "tag": true
+    }
+  },
+  "keywords": [
+    "parser",
+    "sql"
+  ],
+  "files": [
+    "grammar.js",
+    "binding.gyp",
+    "prebuilds/**",
+    "bindings/node/*",
+    "queries/*",
+    "src/**"
+  ]
+}

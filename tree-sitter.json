@@ -1,0 +1,37 @@
+{
+  "grammars": [
+    {
+      "name": "sql",
+      "camelcase": "SQL",
+      "scope": "source.sql",
+      "path": ".",
+      "file-types": [
+        "sql"
+      ],
+      "highlights": [
+        "queries/highlights.scm"
+      ]
+    }
+  ],
+  "metadata": {
+    "version": "0.3.11",
+    "license": "MIT",
+    "description": "Tree-sitter Grammar for SQL",
+    "authors": [
+      {
+        "name": "derek stride"
+      }
+    ],
+    "links": {
+      "repository": "git+https://github.com/derekstride/tree-sitter-sql.git"
+    }
+  },
+  "bindings": {
+    "c": true,
+    "go": true,
+    "node": true,
+    "python": true,
+    "rust": true,
+    "swift": true
+  }
+}
