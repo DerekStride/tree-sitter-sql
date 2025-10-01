@@ -17,9 +17,10 @@ jobs:
       - run: npm install
       - name: Publish parser on GitHub Pages
         run: |
-          cp -r bindings queries src binding.gyp Cargo.lock Cargo.toml \
-            CMakeLists.txt go.mod grammar.js LICENSE Makefile package-lock.json \
-            package.json Package.swift pyproject.toml setup.py tree-sitter.json \
+          cp -r bindings queries src binding.gyp Cargo.toml \
+            CMakeLists.txt go.mod grammar.js LICENSE Makefile \
+            package.json Package.swift pyproject.toml setup.py \
+            tree-sitter.json \
             docs
 
       - uses: ruby/setup-ruby@v1
