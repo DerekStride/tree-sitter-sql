@@ -1,4 +1,4 @@
-name: Publish Packages
+name: Add Artifacts to Release
 on:
   push:
     tags:
