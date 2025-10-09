@@ -33,7 +33,8 @@ HAVING other_id > 10;
         (keyword_group)
         (keyword_by)
         (field
-          name: (identifier))
+          name: (identifier)))
+	(having
         (keyword_having)
         (binary_expression
           left: (field
@@ -73,7 +74,8 @@ HAVING other_id > 10;
       (group_by
         (keyword_group)
         (keyword_by)
-        (literal)
+        (literal))
+	(having
         (keyword_having)
         (binary_expression
           left: (field
@@ -118,7 +120,8 @@ HAVING other_id > 10;
         (keyword_by)
         (literal)
         (field
-          name: (identifier))
+          name: (identifier)))
+	  (having
         (keyword_having)
         (binary_expression
           left: (field
@@ -160,7 +163,8 @@ HAVING COUNT(*) = 2;
         (keyword_group)
         (keyword_by)
         (field
-          name: (identifier))
+          name: (identifier)))
+	  (having
         (keyword_having)
         (binary_expression
           left: (invocation
@@ -169,3 +173,40 @@ HAVING COUNT(*) = 2;
             parameter: (term
               value: (all_fields)))
           right: (literal))))))
+
+================================================================================
+Having without group by
+================================================================================
+
+SELECT COUNT(*) as cnt
+FROM db.table
+HAVING cnt = 2
+;
+
+--------------------------------------------------------------------------------
+
+    (program
+      (statement
+        (select
+          (keyword_select)
+          (select_expression
+            (term
+              (invocation
+                (object_reference
+                  (identifier))
+                (term
+                  (all_fields)))
+              (keyword_as)
+              (identifier))))
+        (from
+          (keyword_from)
+          (relation
+            (object_reference
+              (identifier)
+              (identifier)))
+          (having
+            (keyword_having)
+            (binary_expression
+              (field
+                (identifier))
+              (literal))))))
