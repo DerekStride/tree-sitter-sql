@@ -17636,6 +17636,18 @@
           "members": [
             {
               "type": "SYMBOL",
+              "name": "having"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
               "name": "window_clause"
             },
             {
@@ -18360,22 +18372,10 @@
               }
             }
           ]
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "_having"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
         }
       ]
     },
-    "_having": {
+    "having": {
       "type": "SEQ",
       "members": [
         {
