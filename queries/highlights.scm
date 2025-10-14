@@ -320,6 +320,7 @@
   (keyword_storage)
   (keyword_compression)
   (keyword_duplicate)
+  (keyword_while)
 ] @keyword
 
 [
