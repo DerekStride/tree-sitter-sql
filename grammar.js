@@ -1054,6 +1054,7 @@ module.exports = grammar({
     create_table: $ => prec.left(
       seq(
         $.keyword_create,
+        optional($._or_replace),
         optional(
           choice(
             $._temporary,
