@@ -58,6 +58,7 @@
     "prebuilds/**",
     "bindings/node/*",
     "queries/*",
-    "src/**"
+    "src/**",
+    "tree-sitter.json"
   ]
 }
