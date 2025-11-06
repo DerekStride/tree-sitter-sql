@@ -117,6 +117,8 @@ module.exports = grammar({
     keyword_columns: _ => make_keyword("columns"),
     keyword_materialized: _ => make_keyword("materialized"),
     keyword_tablespace: _ => make_keyword("tablespace"),
+    keyword_split: _ => make_keyword("split"),
+    keyword_tablets: _ => make_keyword("tablets"),
     keyword_sequence: _ => make_keyword("sequence"),
     keyword_increment: _ => make_keyword("increment"),
     keyword_minvalue: _ => make_keyword("minvalue"),
@@ -1443,6 +1445,8 @@ module.exports = grammar({
     ),
 
     index_fields: $ => wrapped_in_parenthesis(comma_list(alias($._index_field, $.field))),
+    tablespace: $ => seq($.keyword_tablespace, $.identifier),
+    tablet_split: $ => seq($.keyword_split, $.keyword_into, $._natural_number, $.keyword_tablets),
 
     create_index: $ => seq(
       $.keyword_create,
@@ -1474,6 +1478,8 @@ module.exports = grammar({
         ),
         $.index_fields
       ),
+      optional($.tablespace),
+      optional($.tablet_split),
       optional(
         $.where,
       ),

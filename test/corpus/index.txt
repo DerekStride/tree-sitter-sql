@@ -111,3 +111,31 @@ CREATE UNIQUE INDEX foo_index ON foo (
             left: (field
               name: (identifier))
             right: (literal)))))))
+
+================================================================================
+index with TABLESPACE & Tablet Split
+================================================================================
+
+CREATE INDEX code_idx ON films (code) TABLESPACE indexspace SPLIT INTO 2 TABLETS;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_index
+      (keyword_create)
+      (keyword_index)
+      column: (identifier)
+      (keyword_on)
+      (object_reference
+        name: (identifier))
+      (index_fields
+        (field
+          column: (identifier)))
+      (tablespace
+        (keyword_tablespace)
+        (identifier))
+      (tablet_split
+        (keyword_split)
+        (keyword_into)
+        (keyword_tablets)))))

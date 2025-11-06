@@ -258,6 +258,8 @@
   (keyword_start)
   (keyword_restart)
   (keyword_tablespace)
+  (keyword_split)
+  (keyword_tablets)
   (keyword_until)
   (keyword_user)
   (keyword_valid)
