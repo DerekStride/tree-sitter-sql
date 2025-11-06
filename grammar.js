@@ -150,6 +150,7 @@ module.exports = grammar({
     keyword_using: _ => make_keyword("using"),
     keyword_use: _ => make_keyword("use"),
     keyword_index: _ => make_keyword("index"),
+    keyword_include: _ => make_keyword("include"),
     keyword_for: _ => make_keyword("for"),
     keyword_if: _ => make_keyword("if"),
     keyword_exists: _ => make_keyword("exists"),
@@ -1448,6 +1449,11 @@ module.exports = grammar({
     tablespace: $ => seq($.keyword_tablespace, $.identifier),
     tablet_split: $ => seq($.keyword_split, $.keyword_into, $._natural_number, $.keyword_tablets),
 
+    covering_columns: $ => seq(
+      $.keyword_include,
+      $.index_fields,
+    ),
+
     create_index: $ => seq(
       $.keyword_create,
       optional($.keyword_unique),
@@ -1478,6 +1484,7 @@ module.exports = grammar({
         ),
         $.index_fields
       ),
+      optional($.covering_columns),
       optional($.tablespace),
       optional($.tablet_split),
       optional(

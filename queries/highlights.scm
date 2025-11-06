@@ -147,6 +147,7 @@
   (keyword_constraint)
   (keyword_force)
   (keyword_use)
+  (keyword_include)
   (keyword_for)
   (keyword_if)
   (keyword_exists)

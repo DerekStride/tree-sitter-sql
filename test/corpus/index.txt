@@ -113,6 +113,37 @@ CREATE UNIQUE INDEX foo_index ON foo (
             right: (literal)))))))
 
 ================================================================================
+Create covering index
+================================================================================
+
+CREATE INDEX idx_covering ON tree.sitter (other_id, foo) INCLUDE (bar, baz);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_index
+      (keyword_create)
+      (keyword_index)
+      column: (identifier)
+      (keyword_on)
+      (object_reference
+        schema: (identifier)
+        name: (identifier))
+      (index_fields
+        (field
+          column: (identifier))
+        (field
+          column: (identifier)))
+      (covering_columns
+        (keyword_include)
+        (index_fields
+          (field
+            column: (identifier))
+          (field
+            column: (identifier)))))))
+
+================================================================================
 index with TABLESPACE & Tablet Split
 ================================================================================
 
