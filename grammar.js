@@ -17,6 +17,8 @@ module.exports = grammar({
 
   conflicts: $ => [
     [$.object_reference, $._qualified_field],
+    [$.field, $._qualified_field],
+    [$._column, $._qualified_field],
     [$.object_reference],
     [$.between_expression, $.binary_expression],
     [$.time],
@@ -1425,6 +1427,16 @@ module.exports = grammar({
       )
     ),
 
+    composite_field: $ => seq(
+      wrapped_in_parenthesis(
+        comma_list(
+          alias($._index_field, $.field),
+          true,
+        ),
+      ),
+      optional($.keyword_hash),
+    ),
+
     _index_field: $ => seq(
       choice(
         field("expression", wrapped_in_parenthesis($._expression)),
@@ -1433,7 +1445,7 @@ module.exports = grammar({
       ),
       optional(seq($.keyword_collate, $.identifier)),
       optional($._operator_class),
-      optional($.direction),
+      optional(choice($.keyword_hash, $.direction)),
       optional(
         seq(
           $.keyword_nulls,
@@ -1445,7 +1457,15 @@ module.exports = grammar({
       ),
     ),
 
-    index_fields: $ => wrapped_in_parenthesis(comma_list(alias($._index_field, $.field))),
+    index_fields: $ => wrapped_in_parenthesis(
+      comma_list(
+        choice(
+          $.composite_field,
+          alias($._index_field, $.field),
+        ),
+        true,
+      ),
+    ),
     tablespace: $ => seq($.keyword_tablespace, $.identifier),
     tablet_split: $ => seq($.keyword_split, $.keyword_into, $._natural_number, $.keyword_tablets),
 

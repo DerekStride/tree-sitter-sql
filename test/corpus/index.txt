@@ -113,6 +113,65 @@ CREATE UNIQUE INDEX foo_index ON foo (
             right: (literal)))))))
 
 ================================================================================
+hash sharding index
+================================================================================
+
+CREATE INDEX idx_sharding_clustering
+  ON tree.sitter (shard_1 HASH, foo, bar);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_index
+      (keyword_create)
+      (keyword_index)
+      column: (identifier)
+      (keyword_on)
+      (object_reference
+        schema: (identifier)
+        name: (identifier))
+      (index_fields
+        (field
+          column: (identifier)
+          (keyword_hash))
+        (field
+          column: (identifier))
+        (field
+          column: (identifier))))))
+
+================================================================================
+hash sharding composite index
+================================================================================
+
+CREATE INDEX idx_sharding_clustering
+  ON tree.sitter ((shard_1, shard_2) HASH, foo, bar);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_index
+      (keyword_create)
+      (keyword_index)
+      column: (identifier)
+      (keyword_on)
+      (object_reference
+        schema: (identifier)
+        name: (identifier))
+      (index_fields
+        (composite_field
+          (field
+            column: (identifier))
+          (field
+            column: (identifier))
+          (keyword_hash))
+        (field
+          column: (identifier))
+        (field
+          column: (identifier))))))
+
+================================================================================
 Create covering index
 ================================================================================
 
