@@ -3827,6 +3827,25 @@
     }
   },
   {
+    "type": "composite_field",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "field",
+          "named": true
+        },
+        {
+          "type": "keyword_hash",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "constraint",
     "named": true,
     "fields": {
@@ -3970,6 +3989,25 @@
       "types": [
         {
           "type": "constraint",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "covering_columns",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "index_fields",
+          "named": true
+        },
+        {
+          "type": "keyword_include",
           "named": true
         }
       ]
@@ -4432,6 +4470,10 @@
       "required": true,
       "types": [
         {
+          "type": "covering_columns",
+          "named": true
+        },
+        {
           "type": "index_fields",
           "named": true
         },
@@ -4501,6 +4543,14 @@
         },
         {
           "type": "object_reference",
+          "named": true
+        },
+        {
+          "type": "tablespace",
+          "named": true
+        },
+        {
+          "type": "tablet_split",
           "named": true
         },
         {
@@ -6810,6 +6860,10 @@
           "named": true
         },
         {
+          "type": "keyword_hash",
+          "named": true
+        },
+        {
           "type": "keyword_last",
           "named": true
         },
@@ -8057,8 +8111,12 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
+        {
+          "type": "composite_field",
+          "named": true
+        },
         {
           "type": "field",
           "named": true
@@ -11849,6 +11907,48 @@
     }
   },
   {
+    "type": "tablespace",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "keyword_tablespace",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "tablet_split",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_into",
+          "named": true
+        },
+        {
+          "type": "keyword_split",
+          "named": true
+        },
+        {
+          "type": "keyword_tablets",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "term",
     "named": true,
     "fields": {
@@ -13904,6 +14004,10 @@
     "named": true
   },
   {
+    "type": "keyword_include",
+    "named": true
+  },
+  {
     "type": "keyword_increment",
     "named": true
   },
@@ -14460,6 +14564,10 @@
     "named": true
   },
   {
+    "type": "keyword_split",
+    "named": true
+  },
+  {
     "type": "keyword_stable",
     "named": true
   },
@@ -14513,6 +14621,10 @@
   },
   {
     "type": "keyword_tablespace",
+    "named": true
+  },
+  {
+    "type": "keyword_tablets",
     "named": true
   },
   {

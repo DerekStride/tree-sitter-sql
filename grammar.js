@@ -17,6 +17,8 @@ module.exports = grammar({
 
   conflicts: $ => [
     [$.object_reference, $._qualified_field],
+    [$.field, $._qualified_field],
+    [$._column, $._qualified_field],
     [$.object_reference],
     [$.between_expression, $.binary_expression],
     [$.time],
@@ -117,6 +119,8 @@ module.exports = grammar({
     keyword_columns: _ => make_keyword("columns"),
     keyword_materialized: _ => make_keyword("materialized"),
     keyword_tablespace: _ => make_keyword("tablespace"),
+    keyword_split: _ => make_keyword("split"),
+    keyword_tablets: _ => make_keyword("tablets"),
     keyword_sequence: _ => make_keyword("sequence"),
     keyword_increment: _ => make_keyword("increment"),
     keyword_minvalue: _ => make_keyword("minvalue"),
@@ -148,6 +152,7 @@ module.exports = grammar({
     keyword_using: _ => make_keyword("using"),
     keyword_use: _ => make_keyword("use"),
     keyword_index: _ => make_keyword("index"),
+    keyword_include: _ => make_keyword("include"),
     keyword_for: _ => make_keyword("for"),
     keyword_if: _ => make_keyword("if"),
     keyword_exists: _ => make_keyword("exists"),
@@ -1422,6 +1427,16 @@ module.exports = grammar({
       )
     ),
 
+    composite_field: $ => seq(
+      wrapped_in_parenthesis(
+        comma_list(
+          alias($._index_field, $.field),
+          true,
+        ),
+      ),
+      optional($.keyword_hash),
+    ),
+
     _index_field: $ => seq(
       choice(
         field("expression", wrapped_in_parenthesis($._expression)),
@@ -1430,7 +1445,7 @@ module.exports = grammar({
       ),
       optional(seq($.keyword_collate, $.identifier)),
       optional($._operator_class),
-      optional($.direction),
+      optional(choice($.keyword_hash, $.direction)),
       optional(
         seq(
           $.keyword_nulls,
@@ -1442,7 +1457,22 @@ module.exports = grammar({
       ),
     ),
 
-    index_fields: $ => wrapped_in_parenthesis(comma_list(alias($._index_field, $.field))),
+    index_fields: $ => wrapped_in_parenthesis(
+      comma_list(
+        choice(
+          $.composite_field,
+          alias($._index_field, $.field),
+        ),
+        true,
+      ),
+    ),
+    tablespace: $ => seq($.keyword_tablespace, $.identifier),
+    tablet_split: $ => seq($.keyword_split, $.keyword_into, $._natural_number, $.keyword_tablets),
+
+    covering_columns: $ => seq(
+      $.keyword_include,
+      $.index_fields,
+    ),
 
     create_index: $ => seq(
       $.keyword_create,
@@ -1474,6 +1504,9 @@ module.exports = grammar({
         ),
         $.index_fields
       ),
+      optional($.covering_columns),
+      optional($.tablespace),
+      optional($.tablet_split),
       optional(
         $.where,
       ),
