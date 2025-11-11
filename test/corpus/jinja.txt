@@ -1,0 +1,250 @@
+==================
+Jinja Comment Simple
+==================
+{# Single line comment #}
+---
+
+(program
+  (jinja_comment))
+
+==================
+Jinja Comment Multiline
+==================
+{#
+This is a
+multi-line
+comment
+#}
+---
+
+(program
+  (jinja_comment))
+
+==================
+Jinja with SQL comment inside
+==================
+{# SELECT * from users -- some comment inside the jinja #}
+SELECT 1
+---
+
+(program
+  (jinja_comment)
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (literal))))))
+
+==================
+Jinja Nested in Jina comment
+==================
+{# outer {{ inner }} comment #}
+---
+
+(program
+  (jinja_comment))
+
+==================
+Jinja Statement Simple
+==================
+{% set my_var = 'value' %}
+SELECT * FROM my_table
+---
+
+(program
+  (jinja_statement)
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (all_fields))))
+      (from
+        (keyword_from)
+        (relation
+          (object_reference
+          name: (identifier))))))
+
+==================
+Jinja Statement control flow
+==================
+SELECT
+  col1,
+  {% if condition %}
+  col2,
+  {% else %}
+  col3,
+  {% endif %}
+  col4
+FROM
+  my_table
+---
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (field
+            (identifier)))
+        (jinja_statement)
+        (term
+          (field
+            (identifier)))
+        (jinja_statement)
+        (term
+          (field
+            (identifier)))
+        (jinja_statement)
+        (term
+          (field
+            (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          (identifier))))))
+
+==================
+Jinja Expression Simple
+==================
+SELECT {{ my_variable }} FROM my_table
+---
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (jinja_expression))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          (identifier))))))
+
+==================
+Jinja Expression Simple no space
+==================
+SELECT {{my_variable}} FROM my_table
+---
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (jinja_expression))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          (identifier))))))
+
+==================
+Jinja Expression as part of a longer expression
+==================
+SELECT a + {{ b }} FROM d
+---
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (binary_expression
+            left: (field
+              name: (identifier))
+            right: (jinja_expression)))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier))))))
+
+==================
+Jinja Expression Multiline
+==================
+SELECT 1 FROM {{
+  my_schema.my_table
+}} WHERE a = 1
+---
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (literal))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier
+            (jinja_expression))))
+      (where
+        (keyword_where)
+        predicate: (binary_expression
+          left: (field
+            name: (identifier))
+          right: (literal))))))
+
+==================
+Jinja Expression Multiline CTAS
+==================
+{{ ctas_func(
+    type="temp",
+    schema="this_schema"
+) }}
+SELECT 1 FROM my_schema.my_table
+WHERE a = 1
+---
+
+(program
+  (jinja_expression)
+  (select
+    (keyword_select)
+    (select_expression
+      (term
+        value: (literal))))
+  (from
+    (keyword_from)
+    (relation
+      (object_reference
+        schema: (identifier)
+        name: (identifier)))
+    (where
+      (keyword_where)
+      predicate: (binary_expression
+        left: (field
+          name: (identifier))
+        right: (literal)))))
+
+================================================================================
+Jinja Expression: Alter role rename
+================================================================================
+
+ALTER ROLE {{ original_name }} RENAME TO {{ new_name }};
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_role
+      (keyword_alter)
+      (keyword_role)
+      (identifier
+        (jinja_expression))
+      (rename_object
+        (keyword_rename)
+        (keyword_to)
+        (object_reference
+          (identifier
+            (jinja_expression)))))))
+
