@@ -3697,6 +3697,7 @@ module.exports = grammar({
       $._double_quote_string,
       $._backtick_quoted_string,
       $._tsql_parameter,
+      seq("`", $._identifier, "`"),
     ),
     _tsql_parameter: $ => seq('@', $._identifier),
     // support nordic chars and umlaue

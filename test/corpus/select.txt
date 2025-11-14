@@ -3192,3 +3192,24 @@ SELECT * FROM "table_name";
       (relation
         (object_reference
           name: (identifier))))))
+
+================================================================================
+Select from table with identifiers containing hyphens, dots, or other special characters within backticks
+================================================================================
+
+SELECT * FROM `complex-database.schema_name.table_name`;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (all_fields))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier))))))
