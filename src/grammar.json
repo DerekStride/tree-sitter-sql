@@ -20699,6 +20699,10 @@
       "type": "PATTERN",
       "value": "\"[^\"]*\""
     },
+    "_backtick_quoted_string": {
+      "type": "PATTERN",
+      "value": "`[^`]*`"
+    },
     "_single_quote_string": {
       "type": "SEQ",
       "members": [
@@ -20851,6 +20855,10 @@
         {
           "type": "SYMBOL",
           "name": "_double_quote_string"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_backtick_quoted_string"
         },
         {
           "type": "SYMBOL",
