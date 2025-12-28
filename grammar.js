@@ -93,6 +93,7 @@ module.exports = grammar({
     keyword_on: _ => make_keyword("on"),
     keyword_off: _ => make_keyword("off"),
     keyword_where: _ => make_keyword("where"),
+    keyword_qualify: _ => make_keyword("qualify"),
     keyword_order: _ => make_keyword("order"),
     keyword_group: _ => make_keyword("group"),
     keyword_partition: _ => make_keyword("partition"),
@@ -3226,6 +3227,7 @@ module.exports = grammar({
       optional($.where),
       optional($.group_by),
       optional($.having),
+      optional($.qualify),
       optional($.window_clause),
       optional($.order_by),
       optional($.limit),
@@ -3394,6 +3396,14 @@ module.exports = grammar({
     having: $ => seq(
       $.keyword_having,
       $._expression,
+    ),
+
+    // https://docs.snowflake.com/en/sql-reference/constructs/qualify
+    // https://docs.cloud.google.com/bigquery/docs/reference/standard-sql/query-syntax#qualify_clause
+    // https://docs.databricks.com/aws/en/sql/language-manual/sql-ref-syntax-qry-select-qualify
+    qualify: $ => seq(
+      $.keyword_qualify,
+      field("predicate", $._expression),
     ),
 
     order_by: $ => prec.right(seq(
