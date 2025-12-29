@@ -1,3 +1,11 @@
+function make_keyword(word) {
+  str = "";
+  for (var i = 0; i < word.length; i++) {
+    str = str + "[" + word.charAt(i).toLowerCase() + word.charAt(i).toUpperCase() + "]";
+  }
+  return new RegExp(str);
+}
+
 function optional_parenthesis(node) {
   return prec.right(
     choice(
@@ -31,6 +39,7 @@ function paren_list(field, requireFirst) {
 }
 
 module.exports = {
+  make_keyword,
   optional_parenthesis,
   wrapped_in_parenthesis,
   comma_list,

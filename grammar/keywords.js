@@ -1,10 +1,4 @@
-function make_keyword(word) {
-  str = "";
-  for (var i = 0; i < word.length; i++) {
-    str = str + "[" + word.charAt(i).toLowerCase() + word.charAt(i).toUpperCase() + "]";
-  }
-  return new RegExp(str);
-}
+const { make_keyword } = require("./helpers");
 
 module.exports = {
 

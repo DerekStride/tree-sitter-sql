@@ -1,5 +1,4 @@
-const { comma_list, paren_list, wrapped_in_parenthesis } = require("./helpers");
-const { make_keyword } = require("./keywords");
+const { make_keyword, comma_list, paren_list, wrapped_in_parenthesis } = require("./helpers");
 
 module.exports = {
 
