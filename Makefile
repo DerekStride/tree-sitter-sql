@@ -15,7 +15,7 @@ clean:
 
 .PHONY: generate
 generate: src/grammar.json src/parser.c
-src/grammar.json src/parser.c: grammar.js queries/highlights.scm queries/indents.scm
+src/grammar.json src/parser.c: $(shell find grammar* -name '*.js') queries/highlights.scm queries/indents.scm
 	${TS} generate ${TSFLAGS}
 
 .PHONY: regenerate

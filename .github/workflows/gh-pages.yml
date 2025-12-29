@@ -18,7 +18,7 @@ jobs:
       - name: Publish parser on GitHub Pages
         run: |
           cp -r bindings queries src binding.gyp Cargo.toml \
-            CMakeLists.txt go.mod grammar.js LICENSE Makefile \
+            CMakeLists.txt go.mod grammar* LICENSE Makefile \
             package.json Package.swift pyproject.toml setup.py \
             tree-sitter.json \
             docs
