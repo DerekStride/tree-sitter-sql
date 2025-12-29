@@ -1,4 +1,5 @@
 const { comma_list, paren_list, wrapped_in_parenthesis } = require("./helpers");
+const { make_keyword } = require("./keywords");
 
 module.exports = {
 
@@ -113,7 +114,7 @@ module.exports = {
   ),
 
   double: $ => choice(
-    $.keyword_float8,
+    make_keyword("float8"),
     unsigned_type($, parametric_type($, $.keyword_double, ['precision', 'scale'])),
     unsigned_type($, parametric_type($, seq($.keyword_double, $.keyword_precision), ['precision', 'scale'])),
     unsigned_type($, parametric_type($, $.keyword_real, ['precision', 'scale'])),

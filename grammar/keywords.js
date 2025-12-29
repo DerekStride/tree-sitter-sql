@@ -365,7 +365,6 @@ module.exports = {
   keyword_numeric: _ => make_keyword("numeric"),
   keyword_real: _ => choice(make_keyword("real"),make_keyword("float4")),
   keyword_float: _ => make_keyword("float"),
-  keyword_float8: _ => make_keyword("float8"),
   keyword_double: _ => make_keyword("double"),
   keyword_precision: _ => make_keyword("precision"),
   keyword_inet: _ => make_keyword("inet"),
