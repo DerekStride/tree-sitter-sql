@@ -18,7 +18,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Set up the repo
-        uses: tree-sitter/setup-action/cli@v1
+        uses: tree-sitter/setup-action@v2
         with:
           install-lib: false
       - run: tree-sitter generate
