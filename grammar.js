@@ -115,6 +115,7 @@ module.exports = grammar({
     keyword_table: _ => make_keyword("table"),
     keyword_tables: _ => make_keyword("tables"),
     keyword_view: _ => make_keyword("view"),
+    keyword_policy: _ => make_keyword("policy"),
     keyword_column: _ => make_keyword("column"),
     keyword_columns: _ => make_keyword("columns"),
     keyword_materialized: _ => make_keyword("materialized"),
@@ -174,8 +175,11 @@ module.exports = grammar({
     keyword_to: _ => make_keyword("to"),
     keyword_database: _ => make_keyword("database"),
     keyword_schema: _ => make_keyword("schema"),
+    keyword_public: _ => make_keyword("public"),
     keyword_owner: _ => make_keyword("owner"),
     keyword_user: _ => make_keyword("user"),
+    keyword_current_user: _ => make_keyword("current_user"),
+    keyword_session_user: _ => make_keyword("session_user"),
     keyword_admin: _ => make_keyword("admin"),
     keyword_password: _ => make_keyword("password"),
     keyword_encrypted: _ => make_keyword("encrypted"),
@@ -183,6 +187,7 @@ module.exports = grammar({
     keyword_until: _ => make_keyword("until"),
     keyword_connection: _ => make_keyword("connection"),
     keyword_role: _ => make_keyword("role"),
+    keyword_current_role: _ => make_keyword("current_role"),
     keyword_reset: _ => make_keyword("reset"),
     keyword_temp: _ => make_keyword("temp"),
     keyword_temporary: _ => make_keyword("temporary"),
@@ -214,6 +219,8 @@ module.exports = grammar({
     keyword_unbounded: _ => make_keyword("unbounded"),
     keyword_preceding: _ => make_keyword("preceding"),
     keyword_following: _ => make_keyword("following"),
+    keyword_permissive: _ => make_keyword("permissive"),
+    keyword_restrictive: _ => make_keyword("restrictive"),
     keyword_exclude: _ => make_keyword("exclude"),
     keyword_current: _ => make_keyword("current"),
     keyword_row: _ => make_keyword("row"),
@@ -1022,6 +1029,7 @@ module.exports = grammar({
         $.create_sequence,
         $.create_extension,
         $.create_trigger,
+        $.create_policy,
         prec.left(seq(
           $.create_schema,
           repeat($._create_statement),
@@ -1201,6 +1209,75 @@ module.exports = grammar({
             )
           )
         )
+      ),
+    ),
+
+    // Postgres row level security
+    create_policy: $ => prec.right(
+      seq(
+        $.keyword_create,
+        $.keyword_policy,
+        $.object_reference,
+        $.keyword_on,
+        $.object_reference,
+        optional(
+          seq(
+            $.keyword_as,
+            choice(
+              $.keyword_permissive,
+              $.keyword_restrictive,
+            ),
+          ),
+        ),
+        optional(
+          seq(
+            $.keyword_for,
+            choice(
+              $.keyword_all,
+              $.keyword_select,
+              $.keyword_insert,
+              $.keyword_update,
+              $.keyword_delete,
+            ),
+          ),
+        ),
+        optional(
+          seq(
+            $.keyword_to,
+            choice(
+              $.object_reference,
+              $.keyword_public,
+              $.keyword_current_role,
+              $.keyword_current_user,
+              $.keyword_session_user,
+            ),
+            repeat(
+              seq(
+                ',',
+                choice(
+                  $.object_reference,
+                  $.keyword_public,
+                  $.keyword_current_role,
+                  $.keyword_current_user,
+                  $.keyword_session_user,
+                ),
+              ),
+            ),
+          ),
+        ),
+        optional(
+          seq(
+            $.keyword_using,
+            $.parenthesized_expression,
+          ),
+        ),
+        optional(
+          seq(
+            $.keyword_with,
+            $.keyword_check,
+            $.parenthesized_expression,
+          ),
+        ),
       ),
     ),
 
