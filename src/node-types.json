@@ -4628,6 +4628,105 @@
     }
   },
   {
+    "type": "create_policy",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_all",
+          "named": true
+        },
+        {
+          "type": "keyword_as",
+          "named": true
+        },
+        {
+          "type": "keyword_check",
+          "named": true
+        },
+        {
+          "type": "keyword_create",
+          "named": true
+        },
+        {
+          "type": "keyword_current_role",
+          "named": true
+        },
+        {
+          "type": "keyword_current_user",
+          "named": true
+        },
+        {
+          "type": "keyword_delete",
+          "named": true
+        },
+        {
+          "type": "keyword_for",
+          "named": true
+        },
+        {
+          "type": "keyword_insert",
+          "named": true
+        },
+        {
+          "type": "keyword_on",
+          "named": true
+        },
+        {
+          "type": "keyword_permissive",
+          "named": true
+        },
+        {
+          "type": "keyword_policy",
+          "named": true
+        },
+        {
+          "type": "keyword_public",
+          "named": true
+        },
+        {
+          "type": "keyword_restrictive",
+          "named": true
+        },
+        {
+          "type": "keyword_select",
+          "named": true
+        },
+        {
+          "type": "keyword_session_user",
+          "named": true
+        },
+        {
+          "type": "keyword_to",
+          "named": true
+        },
+        {
+          "type": "keyword_update",
+          "named": true
+        },
+        {
+          "type": "keyword_using",
+          "named": true
+        },
+        {
+          "type": "keyword_with",
+          "named": true
+        },
+        {
+          "type": "object_reference",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "create_query",
     "named": true,
     "fields": {
@@ -10613,6 +10712,10 @@
           "named": true
         },
         {
+          "type": "create_policy",
+          "named": true
+        },
+        {
           "type": "create_role",
           "named": true
         },
@@ -13700,7 +13803,15 @@
     "named": true
   },
   {
+    "type": "keyword_current_role",
+    "named": true
+  },
+  {
     "type": "keyword_current_timestamp",
+    "named": true
+  },
+  {
+    "type": "keyword_current_user",
     "named": true
   },
   {
@@ -14348,7 +14459,15 @@
     "named": true
   },
   {
+    "type": "keyword_permissive",
+    "named": true
+  },
+  {
     "type": "keyword_plain",
+    "named": true
+  },
+  {
+    "type": "keyword_policy",
     "named": true
   },
   {
@@ -14373,6 +14492,10 @@
   },
   {
     "type": "keyword_program",
+    "named": true
+  },
+  {
+    "type": "keyword_public",
     "named": true
   },
   {
@@ -14452,6 +14575,10 @@
     "named": true
   },
   {
+    "type": "keyword_restrictive",
+    "named": true
+  },
+  {
     "type": "keyword_return",
     "named": true
   },
@@ -14521,6 +14648,10 @@
   },
   {
     "type": "keyword_session",
+    "named": true
+  },
+  {
+    "type": "keyword_session_user",
     "named": true
   },
   {
