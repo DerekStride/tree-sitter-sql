@@ -427,6 +427,91 @@ ALTER TABLE my_table
         schema: (identifier)))))
 
 ================================================================================
+Postgres: Alter table and enable row level security
+================================================================================
+
+ALTER TABLE my_table
+  ENABLE ROW LEVEL SECURITY;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_table
+      (keyword_alter)
+      (keyword_table)
+      (object_reference
+        name: (identifier))
+      (keyword_enable)
+      (keyword_row)
+      (keyword_level)
+      (keyword_security))))
+
+================================================================================
+Postgres: Alter table and disable row level security
+================================================================================
+
+ALTER TABLE my_table
+  DISABLE ROW LEVEL SECURITY;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_table
+      (keyword_alter)
+      (keyword_table)
+      (object_reference
+        name: (identifier))
+      (keyword_disable)
+      (keyword_row)
+      (keyword_level)
+      (keyword_security))))
+
+================================================================================
+Postgres: Alter table and force row level security
+================================================================================
+
+ALTER TABLE my_table
+  FORCE ROW LEVEL SECURITY;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_table
+      (keyword_alter)
+      (keyword_table)
+      (object_reference
+        name: (identifier))
+      (keyword_force)
+      (keyword_row)
+      (keyword_level)
+      (keyword_security))))
+
+================================================================================
+Postgres: Alter table and no force row level security
+================================================================================
+
+ALTER TABLE my_table
+  NO FORCE ROW LEVEL SECURITY;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_table
+      (keyword_alter)
+      (keyword_table)
+      (object_reference
+        name: (identifier))
+      (keyword_no)
+      (keyword_force)
+      (keyword_row)
+      (keyword_level)
+      (keyword_security))))
+
+================================================================================
 Alter table and change owner
 ================================================================================
 
