@@ -147,6 +147,8 @@ module.exports = grammar({
     keyword_or: _ => make_keyword("or"),
     keyword_is: _ => make_keyword("is"),
     keyword_not: _ => make_keyword("not"),
+    keyword_enable: _ => make_keyword("enable"),
+    keyword_disable: _ => make_keyword("disable"),
     keyword_force: _ => make_keyword("force"),
     keyword_ignore: _ => make_keyword("ignore"),
     keyword_using: _ => make_keyword("using"),
@@ -1792,6 +1794,16 @@ module.exports = grammar({
               $._alter_specifications
             )
           )
+        ),
+        seq(
+          choice(
+            $.keyword_enable,
+            $.keyword_disable,
+            seq(optional($.keyword_no), $.keyword_force),
+          ),
+          $.keyword_row,
+          $.keyword_level,
+          $.keyword_security,
         ),
       ),
     ),

@@ -267,6 +267,8 @@
   (keyword_action)
   (keyword_definer)
   (keyword_invoker)
+  (keyword_enable)
+  (keyword_disable)
   (keyword_security)
   (keyword_extension)
   (keyword_version)
