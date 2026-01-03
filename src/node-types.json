@@ -1208,7 +1208,19 @@
           "named": true
         },
         {
+          "type": "keyword_disable",
+          "named": true
+        },
+        {
+          "type": "keyword_enable",
+          "named": true
+        },
+        {
           "type": "keyword_exists",
+          "named": true
+        },
+        {
+          "type": "keyword_force",
           "named": true
         },
         {
@@ -1216,7 +1228,23 @@
           "named": true
         },
         {
+          "type": "keyword_level",
+          "named": true
+        },
+        {
+          "type": "keyword_no",
+          "named": true
+        },
+        {
           "type": "keyword_only",
+          "named": true
+        },
+        {
+          "type": "keyword_row",
+          "named": true
+        },
+        {
+          "type": "keyword_security",
           "named": true
         },
         {
@@ -13887,6 +13915,10 @@
     "named": true
   },
   {
+    "type": "keyword_disable",
+    "named": true
+  },
+  {
     "type": "keyword_distinct",
     "named": true
   },
@@ -13912,6 +13944,10 @@
   },
   {
     "type": "keyword_else",
+    "named": true
+  },
+  {
+    "type": "keyword_enable",
     "named": true
   },
   {

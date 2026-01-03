@@ -381,6 +381,14 @@
       "type": "PATTERN",
       "value": "[nN][oO][tT]"
     },
+    "keyword_enable": {
+      "type": "PATTERN",
+      "value": "[eE][nN][aA][bB][lL][eE]"
+    },
+    "keyword_disable": {
+      "type": "PATTERN",
+      "value": "[dD][iI][sS][aA][bB][lL][eE]"
+    },
     "keyword_force": {
       "type": "PATTERN",
       "value": "[fF][oO][rR][cC][eE]"
@@ -11270,6 +11278,57 @@
                       }
                     ]
                   }
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "keyword_enable"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "keyword_disable"
+                    },
+                    {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "CHOICE",
+                          "members": [
+                            {
+                              "type": "SYMBOL",
+                              "name": "keyword_no"
+                            },
+                            {
+                              "type": "BLANK"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "keyword_force"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_row"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_level"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_security"
                 }
               ]
             }
