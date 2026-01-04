@@ -637,6 +637,73 @@
     }
   },
   {
+    "type": "alter_policy",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_alter",
+          "named": true
+        },
+        {
+          "type": "keyword_check",
+          "named": true
+        },
+        {
+          "type": "keyword_current_role",
+          "named": true
+        },
+        {
+          "type": "keyword_current_user",
+          "named": true
+        },
+        {
+          "type": "keyword_on",
+          "named": true
+        },
+        {
+          "type": "keyword_policy",
+          "named": true
+        },
+        {
+          "type": "keyword_public",
+          "named": true
+        },
+        {
+          "type": "keyword_session_user",
+          "named": true
+        },
+        {
+          "type": "keyword_to",
+          "named": true
+        },
+        {
+          "type": "keyword_using",
+          "named": true
+        },
+        {
+          "type": "keyword_with",
+          "named": true
+        },
+        {
+          "type": "object_reference",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "rename_object",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "alter_role",
     "named": true,
     "fields": {
@@ -10665,6 +10732,10 @@
         },
         {
           "type": "alter_index",
+          "named": true
+        },
+        {
+          "type": "alter_policy",
           "named": true
         },
         {

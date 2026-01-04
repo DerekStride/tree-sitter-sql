@@ -11091,6 +11091,10 @@
             {
               "type": "SYMBOL",
               "name": "alter_sequence"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "alter_policy"
             }
           ]
         }
@@ -12965,6 +12969,174 @@
           ]
         }
       ]
+    },
+    "alter_policy": {
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "keyword_alter"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "keyword_policy"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "object_reference"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "keyword_on"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "object_reference"
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "rename_object"
+              },
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SEQ",
+                        "members": [
+                          {
+                            "type": "SYMBOL",
+                            "name": "keyword_to"
+                          },
+                          {
+                            "type": "CHOICE",
+                            "members": [
+                              {
+                                "type": "SYMBOL",
+                                "name": "object_reference"
+                              },
+                              {
+                                "type": "SYMBOL",
+                                "name": "keyword_public"
+                              },
+                              {
+                                "type": "SYMBOL",
+                                "name": "keyword_current_role"
+                              },
+                              {
+                                "type": "SYMBOL",
+                                "name": "keyword_current_user"
+                              },
+                              {
+                                "type": "SYMBOL",
+                                "name": "keyword_session_user"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "REPEAT",
+                            "content": {
+                              "type": "SEQ",
+                              "members": [
+                                {
+                                  "type": "STRING",
+                                  "value": ","
+                                },
+                                {
+                                  "type": "CHOICE",
+                                  "members": [
+                                    {
+                                      "type": "SYMBOL",
+                                      "name": "object_reference"
+                                    },
+                                    {
+                                      "type": "SYMBOL",
+                                      "name": "keyword_public"
+                                    },
+                                    {
+                                      "type": "SYMBOL",
+                                      "name": "keyword_current_role"
+                                    },
+                                    {
+                                      "type": "SYMBOL",
+                                      "name": "keyword_current_user"
+                                    },
+                                    {
+                                      "type": "SYMBOL",
+                                      "name": "keyword_session_user"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "type": "BLANK"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SEQ",
+                        "members": [
+                          {
+                            "type": "SYMBOL",
+                            "name": "keyword_using"
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "parenthesized_expression"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "BLANK"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SEQ",
+                        "members": [
+                          {
+                            "type": "SYMBOL",
+                            "name": "keyword_with"
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "keyword_check"
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "parenthesized_expression"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "BLANK"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
     },
     "alter_type": {
       "type": "SEQ",
