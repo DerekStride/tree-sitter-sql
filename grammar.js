@@ -6,6 +6,8 @@ module.exports = grammar({
     /\s/,
     $.comment,
     $.marginalia,
+    $.jinja_comment,
+    $.jinja_statement,
   ],
 
 
@@ -61,7 +63,10 @@ module.exports = grammar({
       ),
       // optionally, a single statement without a terminating ;
       optional(
-        $.statement,
+        choice(
+          $.statement,
+          $._jinja_template_statement,
+        ),
       ),
     ),
 
@@ -1069,6 +1074,7 @@ module.exports = grammar({
     create_table: $ => prec.left(
       seq(
         $.keyword_create,
+        optional($._or_replace),
         optional(
           choice(
             $._temporary,
@@ -3609,6 +3615,7 @@ module.exports = grammar({
         $.between_expression,
         $.parenthesized_expression,
         $.object_id,
+        $.jinja_expression,
       )
     ),
 
@@ -3840,11 +3847,24 @@ module.exports = grammar({
       $._double_quote_string,
       $._backtick_quoted_string,
       $._tsql_parameter,
+      $.jinja_expression,
       seq("`", $._identifier, "`"),
     ),
     _tsql_parameter: $ => seq('@', $._identifier),
     // support nordic chars and umlaue
     _identifier: _ => /[A-Za-z_\u00C0-\u017F][0-9A-Za-z_\u00C0-\u017F]*/,
+
+    // Jinja template rules
+    _jinja_template_statement: $ => seq(
+      $.jinja_expression,
+      optional(seq(
+        optional($._cte),
+        $._select_statement,
+      )),
+    ),
+    jinja_comment: _ => /\{#[^#]*#*(?:[^}#][^#]*#+)*\}/,
+    jinja_statement: _ => /\{%[^%]*%+(?:[^}%][^%]*%+)*\}/,
+    jinja_expression: _ => /\{{2}[^{}](?:\{[^{}]*\})*[^{}]+\}{2}/,
   }
 
 });
