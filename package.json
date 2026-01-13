@@ -35,6 +35,7 @@
   "directories": {
     "test": "test"
   },
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/derekstride/tree-sitter-sql.git"
