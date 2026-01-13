@@ -3895,7 +3895,7 @@ function parametric_type($, type, params = ['size']) {
 }
 
 function comma_list(field, requireFirst) {
-  sequence = seq(field, repeat(seq(',', field)));
+  let sequence = seq(field, repeat(seq(',', field)));
 
   if (requireFirst) {
     return sequence;
@@ -3911,7 +3911,7 @@ function paren_list(field, requireFirst) {
 }
 
 function make_keyword(word) {
-  str = "";
+  let str = "";
   for (var i = 0; i < word.length; i++) {
     str = str + "[" + word.charAt(i).toLowerCase() + word.charAt(i).toUpperCase() + "]";
   }
