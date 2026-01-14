@@ -23,10 +23,11 @@ jobs:
           install-lib: false
       - run: tree-sitter generate
       - name: Run tests
-        uses: tree-sitter/parser-test-action@v2
+        uses: tree-sitter/parser-test-action@v3
         with:
           test-rust: true
           test-node: true
+          node-version: "22"
           test-python: true
           # test-go: true
           # test-swift: true
