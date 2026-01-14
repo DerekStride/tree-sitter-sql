@@ -1,6 +1,7 @@
 from unittest import TestCase
 
-import tree_sitter, tree_sitter_sql
+from tree_sitter import Language, Parser
+import tree_sitter_sql
 
 
 class TestLanguage(TestCase):
