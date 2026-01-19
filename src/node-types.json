@@ -13655,7 +13655,8 @@
   },
   {
     "type": "comment",
-    "named": true
+    "named": true,
+    "extra": true
   },
   {
     "type": "dollar_quote",
@@ -15087,7 +15088,8 @@
   },
   {
     "type": "marginalia",
-    "named": true
+    "named": true,
+    "extra": true
   },
   {
     "type": "op_other",

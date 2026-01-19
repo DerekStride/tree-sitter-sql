@@ -21414,10 +21414,6 @@
       "_qualified_field"
     ],
     [
-      "field",
-      "_qualified_field"
-    ],
-    [
       "_column",
       "_qualified_field"
     ],
@@ -21510,5 +21506,6 @@
     }
   ],
   "inline": [],
-  "supertypes": []
+  "supertypes": [],
+  "reserved": {}
 }
