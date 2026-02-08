@@ -137,6 +137,40 @@ Jinja comment
           name: (identifier))))))
 
 ================================================================================
+Jinja expression in INSERT (object_reference)
+================================================================================
+
+INSERT INTO {{ this }} (id, name) SELECT id, name FROM {{ ref('source') }}
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (insert
+      (keyword_insert)
+      (keyword_into)
+      (object_reference
+        (jinja_expression))
+      (list
+        (column
+          (identifier))
+        (column
+          (identifier)))
+      (select
+        (keyword_select)
+        (select_expression
+          (term
+            value: (field
+              name: (identifier)))
+          (term
+            value: (field
+              name: (identifier)))))
+      (from
+        (keyword_from)
+        (relation
+          (jinja_expression))))))
+
+================================================================================
 Jinja var in string literal and FROM clause
 ================================================================================
 
