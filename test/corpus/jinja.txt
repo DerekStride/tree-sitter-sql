@@ -1,0 +1,206 @@
+================================================================================
+Jinja expression in FROM clause (ref)
+================================================================================
+
+SELECT id, name FROM {{ ref('stg_users') }} WHERE active = true
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            name: (identifier)))
+        (term
+          value: (field
+            name: (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (jinja_expression))
+      (where
+        (keyword_where)
+        predicate: (binary_expression
+          left: (field
+            name: (identifier))
+          right: (literal
+            (keyword_true)))))))
+
+================================================================================
+Jinja config statement at top of file
+================================================================================
+
+{{ config(materialized='table') }}
+
+SELECT id, name FROM users
+
+--------------------------------------------------------------------------------
+
+(program
+  (jinja_expression)
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            name: (identifier)))
+        (term
+          value: (field
+            name: (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier))))))
+
+================================================================================
+Jinja expression in SELECT and FROM (dbt_utils.star)
+================================================================================
+
+SELECT id, {{ dbt_utils.star(from=ref('stg_users')) }} FROM {{ ref('stg_users') }}
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            name: (identifier)))
+        (term
+          value: (jinja_expression))))
+    (from
+      (keyword_from)
+      (relation
+        (jinja_expression)))))
+
+================================================================================
+Jinja statement (if block) in WHERE clause
+================================================================================
+
+SELECT id, name FROM users {% if is_incremental() %} WHERE updated_at > '2024-01-01' {% endif %}
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            name: (identifier)))
+        (term
+          value: (field
+            name: (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier)))
+      (jinja_statement)
+      (where
+        (keyword_where)
+        predicate: (binary_expression
+          left: (field
+            name: (identifier))
+          right: (literal)))))
+  (jinja_statement))
+
+================================================================================
+Jinja comment
+================================================================================
+
+{# this is a jinja comment #} SELECT id FROM users
+
+--------------------------------------------------------------------------------
+
+(program
+  (jinja_comment)
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            name: (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier))))))
+
+================================================================================
+Jinja expression in INSERT (object_reference)
+================================================================================
+
+INSERT INTO {{ this }} (id, name) SELECT id, name FROM {{ ref('source') }}
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (insert
+      (keyword_insert)
+      (keyword_into)
+      (object_reference
+        (jinja_expression))
+      (list
+        (column
+          (identifier))
+        (column
+          (identifier)))
+      (select
+        (keyword_select)
+        (select_expression
+          (term
+            value: (field
+              name: (identifier)))
+          (term
+            value: (field
+              name: (identifier)))))
+      (from
+        (keyword_from)
+        (relation
+          (jinja_expression))))))
+
+================================================================================
+Jinja var in string literal and FROM clause
+================================================================================
+
+SELECT id, '{{ var("prefix") }}' || name AS full_name FROM {{ ref('users') }} WHERE created_at > '{{ var("start_date") }}'
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            name: (identifier)))
+        (term
+          value: (binary_expression
+            left: (literal)
+            operator: (op_other)
+            right: (field
+              name: (identifier)))
+          (keyword_as)
+          alias: (identifier))))
+    (from
+      (keyword_from)
+      (relation
+        (jinja_expression))
+      (where
+        (keyword_where)
+        predicate: (binary_expression
+          left: (field
+            name: (identifier))
+          right: (literal))))))

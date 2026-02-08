@@ -6,6 +6,8 @@ export default grammar({
     /\s/,
     $.comment,
     $.marginalia,
+    $.jinja_statement,
+    $.jinja_comment,
   ],
 
 
@@ -19,6 +21,7 @@ export default grammar({
     [$.object_reference, $._qualified_field],
     [$._column, $._qualified_field],
     [$.object_reference],
+    [$.object_reference, $.relation],
     [$.between_expression, $.binary_expression],
     [$.time],
     [$.timestamp],
@@ -47,15 +50,18 @@ export default grammar({
 
   rules: {
     program: $ => seq(
-      // any number of transactions, statements, or blocks with a terminating ;
+      // any number of transactions, statements, blocks, or jinja expressions with a terminating ;
       repeat(
-        seq(
-          choice(
-            $.transaction,
-            $.statement,
-            $.block,
+        choice(
+          seq(
+            choice(
+              $.transaction,
+              $.statement,
+              $.block,
+            ),
+            ';',
           ),
-          ';',
+          $.jinja_expression,
         ),
       ),
       // optionally, a single statement without a terminating ;
@@ -2462,6 +2468,7 @@ export default grammar({
         field('name', $.identifier),
       ),
       field('name', $.identifier),
+      $.jinja_expression,
     ),
 
     _copy_statement: $ => seq(
@@ -3379,6 +3386,7 @@ export default grammar({
           $.subquery,
           $.invocation,
           $.object_reference,
+          $.jinja_expression,
           wrapped_in_parenthesis($.values),
         ),
         optional(
@@ -3608,6 +3616,7 @@ export default grammar({
         $.between_expression,
         $.parenthesized_expression,
         $.object_id,
+        $.jinja_expression,
       )
     ),
 
@@ -3833,6 +3842,11 @@ export default grammar({
     _string_casting: $ => seq($.identifier, $._single_quote_string),
 
     bang: _ => '!',
+
+    // Jinja template support for dbt
+    jinja_expression: _ => /\{\{[^}]*\}\}/,
+    jinja_statement: _ => /\{%[^%]*%\}/,
+    jinja_comment: _ => /\{#[^#]*#\}/,
 
     identifier: $ => choice(
       $._identifier,
