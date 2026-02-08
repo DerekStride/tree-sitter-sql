@@ -33,6 +33,9 @@
 (literal) @string
 (comment) @comment @spell
 (marginalia) @comment
+(jinja_expression) @embedded
+(jinja_statement) @embedded
+(jinja_comment) @comment
 
 ((literal) @number
    (#match? @number "^[-+]?%d+$"))
