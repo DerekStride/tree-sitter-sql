@@ -31,6 +31,16 @@ module.exports = {
           )
         )
       ),
+      seq(
+        choice(
+          $.keyword_enable,
+          $.keyword_disable,
+          seq(optional($.keyword_no), $.keyword_force),
+        ),
+        $.keyword_row,
+        $.keyword_level,
+        $.keyword_security,
+      ),
     ),
   ),
 
