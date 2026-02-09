@@ -1,6 +1,8 @@
-const { comma_list, paren_list, wrapped_in_parenthesis } = require("../helpers");
+import { comma_list, paren_list, wrapped_in_parenthesis } from "../helpers.js";
 
-module.exports = {
+import create_function_rules from "./create-function.js";
+
+export default {
 
   _create_statement: $ => seq(
     choice(
@@ -344,7 +346,7 @@ module.exports = {
     ),
   ),
 
-  ...require("./create-function"),
+  ...create_function_rules,
 
   create_schema: $ => prec.left(seq(
     $.keyword_create,

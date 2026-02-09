@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
   comment_statement: $ => seq(
     $.keyword_comment,

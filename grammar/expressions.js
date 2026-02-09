@@ -1,6 +1,6 @@
-const { optional_parenthesis, paren_list, wrapped_in_parenthesis } = require("./helpers");
+import { optional_parenthesis, paren_list, wrapped_in_parenthesis } from "./helpers.js";
 
-module.exports = {
+export default {
 
   _expression: $ => prec(1,
     choice(

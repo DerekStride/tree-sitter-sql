@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
   _delete_statement: $ => seq(
     $.delete,

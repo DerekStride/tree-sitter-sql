@@ -1,6 +1,6 @@
-const { comma_list, optional_parenthesis, paren_list, wrapped_in_parenthesis } = require("../helpers");
+import { comma_list, optional_parenthesis, paren_list, wrapped_in_parenthesis } from "../helpers.js";
 
-module.exports = {
+export default {
 
   _cte: $ => seq(
       $.keyword_with,

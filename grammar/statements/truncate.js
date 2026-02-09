@@ -1,6 +1,6 @@
-const { comma_list } = require("../helpers");
+import { comma_list } from "../helpers.js";
 
-module.exports = {
+export default {
 
   _truncate_statement: $ => seq(
     $.keyword_truncate,

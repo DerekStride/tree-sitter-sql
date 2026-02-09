@@ -1,12 +1,12 @@
-function make_keyword(word) {
-  str = "";
+export function make_keyword(word) {
+  let str = "";
   for (var i = 0; i < word.length; i++) {
     str = str + "[" + word.charAt(i).toLowerCase() + word.charAt(i).toUpperCase() + "]";
   }
   return new RegExp(str);
 }
 
-function optional_parenthesis(node) {
+export function optional_parenthesis(node) {
   return prec.right(
     choice(
       node,
@@ -15,15 +15,15 @@ function optional_parenthesis(node) {
   )
 }
 
-function wrapped_in_parenthesis(node) {
+export function wrapped_in_parenthesis(node) {
   if (node) {
     return seq("(", node, ")");
   }
   return seq("(", ")");
 }
 
-function comma_list(field, requireFirst) {
-  sequence = seq(field, repeat(seq(',', field)));
+export function comma_list(field, requireFirst) {
+  let sequence = seq(field, repeat(seq(',', field)));
 
   if (requireFirst) {
     return sequence;
@@ -32,16 +32,8 @@ function comma_list(field, requireFirst) {
   return optional(sequence);
 }
 
-function paren_list(field, requireFirst) {
+export function paren_list(field, requireFirst) {
   return wrapped_in_parenthesis(
     comma_list(field, requireFirst),
   )
 }
-
-module.exports = {
-  make_keyword,
-  optional_parenthesis,
-  wrapped_in_parenthesis,
-  comma_list,
-  paren_list,
-};

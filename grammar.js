@@ -1,4 +1,11 @@
-module.exports = grammar({
+import keyword_rules from "./grammar/keywords.js";
+import type_rules from "./grammar/types.js";
+import column_list_rules from "./grammar/column-lists.js";
+import expression_rules from "./grammar/expressions.js";
+import transaction_rules from "./grammar/transactions.js";
+import statement_rules from "./grammar/statements/index.js";
+
+export default grammar({
   name: 'sql',
 
   extras: $ => [
@@ -69,12 +76,12 @@ module.exports = grammar({
     // https://stackoverflow.com/questions/13014947/regex-to-match-a-c-style-multiline-comment
     marginalia: _ => /\/\*[^*]*\*+(?:[^/*][^*]*\*+)*\//,
 
-    ...require("./grammar/keywords"),
-    ...require("./grammar/types"),
-    ...require("./grammar/column-lists"),
-    ...require("./grammar/expressions"),
-    ...require("./grammar/transactions"),
-    ...require("./grammar/statements"),
+    ...keyword_rules,
+    ...type_rules,
+    ...column_list_rules,
+    ...expression_rules,
+    ...transaction_rules,
+    ...statement_rules,
 
   }
 

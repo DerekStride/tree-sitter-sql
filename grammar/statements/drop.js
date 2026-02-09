@@ -1,6 +1,6 @@
-const { comma_list } = require("../helpers");
+import { comma_list } from "../helpers.js";
 
-module.exports = {
+export default {
 
   _drop_statement: $ => seq(
     choice(

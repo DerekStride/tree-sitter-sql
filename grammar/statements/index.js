@@ -1,6 +1,21 @@
-const { optional_parenthesis, wrapped_in_parenthesis } = require("../helpers");
+import { optional_parenthesis, wrapped_in_parenthesis } from "../helpers.js";
 
-module.exports = {
+import create_rules from "./create.js";
+import alter_rules from "./alter.js";
+import drop_rules from "./drop.js";
+import rename_rules from "./rename.js";
+import optimize_rules from "./optimize.js";
+import merge_rules from "./merge.js";
+import comment_rules from "./comment.js";
+import delete_rules from "./delete.js";
+import insert_rules from "./insert.js";
+import update_rules from "./update.js";
+import truncate_rules from "./truncate.js";
+import copy_rules from "./copy.js";
+import select_rules from "./select.js";
+import set_rules from "./set.js";
+
+export default {
 
   block: $ => seq(
     $.keyword_begin,
@@ -69,13 +84,13 @@ module.exports = {
     $.reset_statement,
   ),
 
-  ...require("./create"),
-  ...require("./alter"),
-  ...require("./drop"),
-  ...require("./rename"),
-  ...require("./optimize"),
-  ...require("./merge"),
-  ...require("./comment"),
+  ...create_rules,
+  ...alter_rules,
+  ...drop_rules,
+  ...rename_rules,
+  ...optimize_rules,
+  ...merge_rules,
+  ...comment_rules,
 
   _dml_write: $ => seq(
     seq(
@@ -92,11 +107,11 @@ module.exports = {
     ),
   ),
 
-  ...require("./delete"),
-  ...require("./insert"),
-  ...require("./update"),
-  ...require("./truncate"),
-  ...require("./copy"),
+  ...delete_rules,
+  ...insert_rules,
+  ...update_rules,
+  ...truncate_rules,
+  ...copy_rules,
 
   _dml_read: $ => seq(
     optional(optional_parenthesis($._cte)),
@@ -110,8 +125,8 @@ module.exports = {
     ),
   ),
 
-  ...require("./select"),
-  ...require("./set"),
+  ...select_rules,
+  ...set_rules,
 
   _show_statement: $ => seq(
     $.keyword_show,

@@ -1,6 +1,6 @@
-const { paren_list, wrapped_in_parenthesis } = require("../helpers");
+import { paren_list, wrapped_in_parenthesis } from "../helpers.js";
 
-module.exports = {
+export default {
 
   // This is only used in create function statement, it is not needed to check
   // the start tag match the end one. The usage of this syntax in other

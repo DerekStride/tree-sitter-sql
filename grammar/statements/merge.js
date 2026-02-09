@@ -1,6 +1,6 @@
-const { optional_parenthesis } = require("../helpers");
+import { optional_parenthesis } from "../helpers.js";
 
-module.exports = {
+export default {
 
   _merge_statement: $=> seq(
     $.keyword_merge,

@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
   _rename_statement: $ => seq(
     $.keyword_rename,

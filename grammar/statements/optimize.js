@@ -1,6 +1,6 @@
-const { paren_list } = require("../helpers");
+import { paren_list } from "../helpers.js";
 
-module.exports = {
+export default {
 
   _optimize_statement: $ => choice(
     $._compute_stats,

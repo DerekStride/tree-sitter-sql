@@ -1,6 +1,6 @@
-const { make_keyword } = require("./helpers");
+import { make_keyword } from "./helpers.js";
 
-module.exports = {
+export default {
 
   keyword_select: _ => make_keyword("select"),
   keyword_delete: _ => make_keyword("delete"),

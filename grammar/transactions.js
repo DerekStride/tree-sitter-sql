@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
   transaction: $ => seq(
     $.keyword_begin,

@@ -1,6 +1,6 @@
-const { wrapped_in_parenthesis } = require("../helpers");
+import { wrapped_in_parenthesis } from "../helpers.js";
 
-module.exports = {
+export default {
 
   _copy_statement: $ => seq(
     $.keyword_copy,
