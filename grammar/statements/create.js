@@ -15,6 +15,7 @@ module.exports = {
       $.create_sequence,
       $.create_extension,
       $.create_trigger,
+      $.create_policy,
       prec.left(seq(
         $.create_schema,
         repeat($._create_statement),
@@ -562,6 +563,75 @@ module.exports = {
 
   enum_elements: $ => seq(
     paren_list(field("enum_element", alias($._literal_string, $.literal))),
+  ),
+
+  // Postgres row level security
+  create_policy: $ => prec.right(
+    seq(
+      $.keyword_create,
+      $.keyword_policy,
+      $.object_reference,
+      $.keyword_on,
+      $.object_reference,
+      optional(
+        seq(
+          $.keyword_as,
+          choice(
+            $.keyword_permissive,
+            $.keyword_restrictive,
+          ),
+        ),
+      ),
+      optional(
+        seq(
+          $.keyword_for,
+          choice(
+            $.keyword_all,
+            $.keyword_select,
+            $.keyword_insert,
+            $.keyword_update,
+            $.keyword_delete,
+          ),
+        ),
+      ),
+      optional(
+        seq(
+          $.keyword_to,
+          choice(
+            $.object_reference,
+            $.keyword_public,
+            $.keyword_current_role,
+            $.keyword_current_user,
+            $.keyword_session_user,
+          ),
+          repeat(
+            seq(
+              ',',
+              choice(
+                $.object_reference,
+                $.keyword_public,
+                $.keyword_current_role,
+                $.keyword_current_user,
+                $.keyword_session_user,
+              ),
+            ),
+          ),
+        ),
+      ),
+      optional(
+        seq(
+          $.keyword_using,
+          $.parenthesized_expression,
+        ),
+      ),
+      optional(
+        seq(
+          $.keyword_with,
+          $.keyword_check,
+          $.parenthesized_expression,
+        ),
+      ),
+    ),
   ),
 
 };
