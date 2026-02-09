@@ -1467,3 +1467,336 @@ ALTER TABLE table_name
         (identifier)
         (keyword_set)
         (keyword_statistics)))))
+
+================================================================================
+Alter policy basic
+================================================================================
+
+ALTER POLICY my_policy ON my_table;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_policy
+      (keyword_alter)
+      (keyword_policy)
+      (object_reference
+        name: (identifier))
+      (keyword_on)
+      (object_reference
+        name: (identifier)))))
+
+================================================================================
+Alter policy with schema qualified table
+================================================================================
+
+ALTER POLICY my_policy ON my_schema.my_table;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_policy
+      (keyword_alter)
+      (keyword_policy)
+      (object_reference
+        name: (identifier))
+      (keyword_on)
+      (object_reference
+        schema: (identifier)
+        name: (identifier)))))
+
+================================================================================
+Alter policy rename
+================================================================================
+
+ALTER POLICY my_policy ON my_table RENAME TO new_policy;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_policy
+      (keyword_alter)
+      (keyword_policy)
+      (object_reference
+        name: (identifier))
+      (keyword_on)
+      (object_reference
+        name: (identifier))
+      (rename_object
+        (keyword_rename)
+        (keyword_to)
+        (object_reference
+          name: (identifier))))))
+
+================================================================================
+Alter policy to role
+================================================================================
+
+ALTER POLICY my_policy ON my_table TO admin;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_policy
+      (keyword_alter)
+      (keyword_policy)
+      (object_reference
+        name: (identifier))
+      (keyword_on)
+      (object_reference
+        name: (identifier))
+      (keyword_to)
+      (object_reference
+        name: (identifier)))))
+
+================================================================================
+Alter policy to public
+================================================================================
+
+ALTER POLICY my_policy ON my_table TO PUBLIC;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_policy
+      (keyword_alter)
+      (keyword_policy)
+      (object_reference
+        name: (identifier))
+      (keyword_on)
+      (object_reference
+        name: (identifier))
+      (keyword_to)
+      (keyword_public))))
+
+================================================================================
+Alter policy to current_role
+================================================================================
+
+ALTER POLICY my_policy ON my_table TO CURRENT_ROLE;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_policy
+      (keyword_alter)
+      (keyword_policy)
+      (object_reference
+        name: (identifier))
+      (keyword_on)
+      (object_reference
+        name: (identifier))
+      (keyword_to)
+      (keyword_current_role))))
+
+================================================================================
+Alter policy to current_user
+================================================================================
+
+ALTER POLICY my_policy ON my_table TO CURRENT_USER;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_policy
+      (keyword_alter)
+      (keyword_policy)
+      (object_reference
+        name: (identifier))
+      (keyword_on)
+      (object_reference
+        name: (identifier))
+      (keyword_to)
+      (keyword_current_user))))
+
+================================================================================
+Alter policy to session_user
+================================================================================
+
+ALTER POLICY my_policy ON my_table TO SESSION_USER;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_policy
+      (keyword_alter)
+      (keyword_policy)
+      (object_reference
+        name: (identifier))
+      (keyword_on)
+      (object_reference
+        name: (identifier))
+      (keyword_to)
+      (keyword_session_user))))
+
+================================================================================
+Alter policy to multiple roles
+================================================================================
+
+ALTER POLICY my_policy ON my_table TO admin, manager, PUBLIC;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_policy
+      (keyword_alter)
+      (keyword_policy)
+      (object_reference
+        name: (identifier))
+      (keyword_on)
+      (object_reference
+        name: (identifier))
+      (keyword_to)
+      (object_reference
+        name: (identifier))
+      (object_reference
+        name: (identifier))
+      (keyword_public))))
+
+================================================================================
+Alter policy with using clause
+================================================================================
+
+ALTER POLICY my_policy ON my_table USING (user_id = get_user_id());
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_policy
+      (keyword_alter)
+      (keyword_policy)
+      (object_reference
+        name: (identifier))
+      (keyword_on)
+      (object_reference
+        name: (identifier))
+      (keyword_using)
+      (parenthesized_expression
+        (binary_expression
+          left: (field
+            name: (identifier))
+          right: (invocation
+            (object_reference
+              name: (identifier))))))))
+
+================================================================================
+Alter policy with check clause
+================================================================================
+
+ALTER POLICY my_policy ON my_table WITH CHECK (status = 'active');
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_policy
+      (keyword_alter)
+      (keyword_policy)
+      (object_reference
+        name: (identifier))
+      (keyword_on)
+      (object_reference
+        name: (identifier))
+      (keyword_with)
+      (keyword_check)
+      (parenthesized_expression
+        (binary_expression
+          left: (field
+            name: (identifier))
+          right: (literal))))))
+
+================================================================================
+Alter policy with using and check clauses
+================================================================================
+
+ALTER POLICY my_policy ON my_table USING (visible = true) WITH CHECK (user_id = get_user_id());
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_policy
+      (keyword_alter)
+      (keyword_policy)
+      (object_reference
+        name: (identifier))
+      (keyword_on)
+      (object_reference
+        name: (identifier))
+      (keyword_using)
+      (parenthesized_expression
+        (binary_expression
+          left: (field
+            name: (identifier))
+          right: (literal
+            (keyword_true))))
+      (keyword_with)
+      (keyword_check)
+      (parenthesized_expression
+        (binary_expression
+          left: (field
+            name: (identifier))
+          right: (invocation
+            (object_reference
+              name: (identifier))))))))
+
+================================================================================
+Alter policy full syntax
+================================================================================
+
+ALTER POLICY my_policy ON my_schema.my_table
+  TO admin, manager
+  USING (tenant_id = get_tenant_id()::int)
+  WITH CHECK (tenant_id = get_tenant_id()::int);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_policy
+      (keyword_alter)
+      (keyword_policy)
+      (object_reference
+        name: (identifier))
+      (keyword_on)
+      (object_reference
+        schema: (identifier)
+        name: (identifier))
+      (keyword_to)
+      (object_reference
+        name: (identifier))
+      (object_reference
+        name: (identifier))
+      (keyword_using)
+      (parenthesized_expression
+        (cast
+          (binary_expression
+            left: (field
+              name: (identifier))
+            right: (invocation
+              (object_reference
+                name: (identifier))))
+          (int
+            (keyword_int))))
+      (keyword_with)
+      (keyword_check)
+      (parenthesized_expression
+        (cast
+          (binary_expression
+            left: (field
+              name: (identifier))
+            right: (invocation
+              (object_reference
+                name: (identifier))))
+          (int
+            (keyword_int)))))))
