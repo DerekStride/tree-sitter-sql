@@ -23,10 +23,12 @@ $$;
       (function_arguments
         (function_argument
           (identifier)
-          (keyword_integer))
+          (int
+            (keyword_int)))
         (function_argument
           (identifier)
-          (keyword_integer)))
+          (int
+            (keyword_int))))
       (function_language
         (keyword_language)
         (identifier))
@@ -40,20 +42,20 @@ $$;
             (keyword_into)
             (object_reference
               name: (identifier))
+            (keyword_values)
             (list
-              (term
-                value: (field
-                  name: (identifier))))))
+              (field
+                name: (identifier)))))
         (statement
           (insert
             (keyword_insert)
             (keyword_into)
             (object_reference
               name: (identifier))
+            (keyword_values)
             (list
-              (term
-                value: (field
-                  name: (identifier))))))
+              (field
+                name: (identifier)))))
         (keyword_end)
         (dollar_quote)))))
 
@@ -88,11 +90,11 @@ $$;
         (dollar_quote)
         (statement
           (delete
-            (keyword_delete)
+            (keyword_delete))
+          (from
             (keyword_from)
-            (relation
-              (object_reference
-                name: (identifier)))))
+            (object_reference
+              name: (identifier))))
         (dollar_quote)))))
 
 ================================================================================
@@ -128,12 +130,12 @@ END
             (keyword_select)
             (select_expression
               (term
-                value: (all_fields)))
-            (from
-              (keyword_from)
-              (relation
-                (object_reference
-                  name: (identifier))))))
+                value: (all_fields))))
+          (from
+            (keyword_from)
+            (relation
+              (object_reference
+                name: (identifier)))))
         (keyword_end)))))
 
 ================================================================================
@@ -177,12 +179,12 @@ END
             (select_expression
               (term
                 value: (field
-                  name: (identifier))))
-            (from
-              (keyword_from)
-              (relation
-                (object_reference
-                  name: (identifier))))))
+                  name: (identifier)))))
+          (from
+            (keyword_from)
+            (relation
+              (object_reference
+                name: (identifier)))))
         (keyword_end)))))
 
 ================================================================================
@@ -224,12 +226,12 @@ END
             (keyword_select)
             (select_expression
               (term
-                value: (all_fields)))
-            (from
-              (keyword_from)
-              (relation
-                (object_reference
-                  name: (identifier))))))
+                value: (all_fields))))
+          (from
+            (keyword_from)
+            (relation
+              (object_reference
+                name: (identifier)))))
         (keyword_end)
         (keyword_begin)
         (statement
@@ -237,12 +239,12 @@ END
             (keyword_select)
             (select_expression
               (term
-                value: (all_fields)))
-            (from
-              (keyword_from)
-              (relation
-                (object_reference
-                  name: (identifier))))))
+                value: (all_fields))))
+          (from
+            (keyword_from)
+            (relation
+              (object_reference
+                name: (identifier)))))
         (keyword_end)
         (keyword_end)))))
 
@@ -274,11 +276,11 @@ $$;
         (dollar_quote)
         (statement
           (delete
-            (keyword_delete)
+            (keyword_delete))
+          (from
             (keyword_from)
-            (relation
-              (object_reference
-                name: (identifier)))))
+            (object_reference
+              name: (identifier))))
         (dollar_quote)))))
 
 ================================================================================
@@ -304,7 +306,8 @@ $$;
       (function_arguments
         (function_argument
           (identifier)
-          (keyword_integer)))
+          (int
+            (keyword_int))))
       (function_language
         (keyword_language)
         (identifier))
@@ -316,11 +319,11 @@ $$;
         (dollar_quote)
         (statement
           (delete
-            (keyword_delete)
+            (keyword_delete))
+          (from
             (keyword_from)
-            (relation
-              (object_reference
-                name: (identifier)))))
+            (object_reference
+              name: (identifier))))
         (dollar_quote)))))
 
 ================================================================================
