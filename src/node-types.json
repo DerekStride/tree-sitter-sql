@@ -3879,6 +3879,10 @@
           "named": true
         },
         {
+          "type": "keyword_procedure",
+          "named": true
+        },
+        {
           "type": "keyword_role",
           "named": true
         },
@@ -4816,6 +4820,77 @@
         },
         {
           "type": "parenthesized_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "create_procedure",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "function_arguments",
+          "named": true
+        },
+        {
+          "type": "function_language",
+          "named": true
+        },
+        {
+          "type": "function_safety",
+          "named": true
+        },
+        {
+          "type": "function_security",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "keyword_create",
+          "named": true
+        },
+        {
+          "type": "keyword_definer",
+          "named": true
+        },
+        {
+          "type": "keyword_exists",
+          "named": true
+        },
+        {
+          "type": "keyword_if",
+          "named": true
+        },
+        {
+          "type": "keyword_not",
+          "named": true
+        },
+        {
+          "type": "keyword_or",
+          "named": true
+        },
+        {
+          "type": "keyword_procedure",
+          "named": true
+        },
+        {
+          "type": "keyword_replace",
+          "named": true
+        },
+        {
+          "type": "object_reference",
+          "named": true
+        },
+        {
+          "type": "procedure_body",
           "named": true
         }
       ]
@@ -6568,6 +6643,45 @@
         },
         {
           "type": "keyword_on",
+          "named": true
+        },
+        {
+          "type": "keyword_restrict",
+          "named": true
+        },
+        {
+          "type": "object_reference",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "drop_procedure",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_cascade",
+          "named": true
+        },
+        {
+          "type": "keyword_drop",
+          "named": true
+        },
+        {
+          "type": "keyword_exists",
+          "named": true
+        },
+        {
+          "type": "keyword_if",
+          "named": true
+        },
+        {
+          "type": "keyword_procedure",
           "named": true
         },
         {
@@ -9967,6 +10081,129 @@
     }
   },
   {
+    "type": "procedure_body",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "array",
+          "named": true
+        },
+        {
+          "type": "between_expression",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "case",
+          "named": true
+        },
+        {
+          "type": "cast",
+          "named": true
+        },
+        {
+          "type": "dollar_quote",
+          "named": true
+        },
+        {
+          "type": "exists",
+          "named": true
+        },
+        {
+          "type": "field",
+          "named": true
+        },
+        {
+          "type": "function_declaration",
+          "named": true
+        },
+        {
+          "type": "interval",
+          "named": true
+        },
+        {
+          "type": "invocation",
+          "named": true
+        },
+        {
+          "type": "keyword_as",
+          "named": true
+        },
+        {
+          "type": "keyword_atomic",
+          "named": true
+        },
+        {
+          "type": "keyword_begin",
+          "named": true
+        },
+        {
+          "type": "keyword_declare",
+          "named": true
+        },
+        {
+          "type": "keyword_end",
+          "named": true
+        },
+        {
+          "type": "keyword_return",
+          "named": true
+        },
+        {
+          "type": "list",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "object_id",
+          "named": true
+        },
+        {
+          "type": "parameter",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "statement",
+          "named": true
+        },
+        {
+          "type": "subquery",
+          "named": true
+        },
+        {
+          "type": "subscript",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "var_declarations",
+          "named": true
+        },
+        {
+          "type": "window_function",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "program",
     "named": true,
     "root": true,
@@ -10815,6 +11052,10 @@
           "named": true
         },
         {
+          "type": "create_procedure",
+          "named": true
+        },
+        {
           "type": "create_role",
           "named": true
         },
@@ -10864,6 +11105,10 @@
         },
         {
           "type": "drop_index",
+          "named": true
+        },
+        {
+          "type": "drop_procedure",
           "named": true
         },
         {

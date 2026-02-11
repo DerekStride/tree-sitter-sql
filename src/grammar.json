@@ -9189,6 +9189,10 @@
             },
             {
               "type": "SYMBOL",
+              "name": "create_procedure"
+            },
+            {
+              "type": "SYMBOL",
               "name": "create_type"
             },
             {
@@ -11888,6 +11892,399 @@
           },
           "named": true,
           "value": "literal"
+        }
+      ]
+    },
+    "create_procedure": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_create"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_or_replace"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_definer"
+                },
+                {
+                  "type": "STRING",
+                  "value": "="
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "identifier"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_procedure"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_if_not_exists"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "object_reference"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "function_arguments"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "function_language"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "function_security"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "function_safety"
+              }
+            ]
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "procedure_body"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "function_language"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "function_security"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "function_safety"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "procedure_body": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "keyword_begin"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "keyword_atomic"
+            },
+            {
+              "type": "REPEAT1",
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "_function_body_statement"
+                  },
+                  {
+                    "type": "STRING",
+                    "value": ";"
+                  }
+                ]
+              }
+            },
+            {
+              "type": "SYMBOL",
+              "name": "keyword_end"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "keyword_as"
+            },
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "_dollar_quoted_string_start_tag"
+              },
+              "named": true,
+              "value": "dollar_quote"
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "keyword_declare"
+                    },
+                    {
+                      "type": "REPEAT1",
+                      "content": {
+                        "type": "SYMBOL",
+                        "name": "function_declaration"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
+              "type": "SYMBOL",
+              "name": "keyword_begin"
+            },
+            {
+              "type": "REPEAT1",
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "_function_body_statement"
+                  },
+                  {
+                    "type": "STRING",
+                    "value": ";"
+                  }
+                ]
+              }
+            },
+            {
+              "type": "SYMBOL",
+              "name": "keyword_end"
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": ";"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "_dollar_quoted_string_end_tag"
+              },
+              "named": true,
+              "value": "dollar_quote"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "keyword_as"
+            },
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "_single_quote_string"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "_double_quote_string"
+                  }
+                ]
+              },
+              "named": true,
+              "value": "literal"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "keyword_as"
+            },
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "_dollar_quoted_string_start_tag"
+              },
+              "named": true,
+              "value": "dollar_quote"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_function_body_statement"
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": ";"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "_dollar_quoted_string_end_tag"
+              },
+              "named": true,
+              "value": "dollar_quote"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_tsql_procedure_body_statement"
+        }
+      ]
+    },
+    "_tsql_procedure_body_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "keyword_as"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_begin"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "var_declarations"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "SYMBOL",
+                "name": "statement"
+              }
+            },
+            {
+              "type": "REPEAT1",
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "keyword_begin"
+                  },
+                  {
+                    "type": "REPEAT",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "statement"
+                    }
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "keyword_end"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_end"
         }
       ]
     },
@@ -16070,6 +16467,10 @@
             {
               "type": "SYMBOL",
               "name": "drop_function"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "drop_procedure"
             }
           ]
         }
@@ -16538,6 +16939,47 @@
         {
           "type": "SYMBOL",
           "name": "keyword_function"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_if_exists"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "object_reference"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_drop_behavior"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "drop_procedure": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_drop"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_procedure"
         },
         {
           "type": "CHOICE",
@@ -17607,6 +18049,31 @@
             {
               "type": "SYMBOL",
               "name": "object_reference"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "keyword_procedure"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "object_reference"
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "function_arguments"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
             }
           ]
         },
