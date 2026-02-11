@@ -1,0 +1,381 @@
+================================================================================
+Simple procedure (PostgreSQL dollar-quoted)
+================================================================================
+
+CREATE PROCEDURE insert_data(a integer, b integer)
+LANGUAGE SQL
+AS $$
+BEGIN
+INSERT INTO tbl VALUES (a);
+INSERT INTO tbl VALUES (b);
+END;
+$$;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_procedure
+      (keyword_create)
+      (keyword_procedure)
+      (object_reference
+        name: (identifier))
+      (function_arguments
+        (function_argument
+          (identifier)
+          (int
+            (keyword_int)))
+        (function_argument
+          (identifier)
+          (int
+            (keyword_int))))
+      (function_language
+        (keyword_language)
+        (identifier))
+      (procedure_body
+        (keyword_as)
+        (dollar_quote)
+        (keyword_begin)
+        (statement
+          (insert
+            (keyword_insert)
+            (keyword_into)
+            (object_reference
+              name: (identifier))
+            (keyword_values)
+            (list
+              (field
+                name: (identifier)))))
+        (statement
+          (insert
+            (keyword_insert)
+            (keyword_into)
+            (object_reference
+              name: (identifier))
+            (keyword_values)
+            (list
+              (field
+                name: (identifier)))))
+        (keyword_end)
+        (dollar_quote)))))
+
+================================================================================
+Procedure with OR REPLACE (PostgreSQL)
+================================================================================
+
+CREATE OR REPLACE PROCEDURE public.refresh_cache()
+LANGUAGE SQL
+AS $$
+DELETE FROM cache;
+$$;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_procedure
+      (keyword_create)
+      (keyword_or)
+      (keyword_replace)
+      (keyword_procedure)
+      (object_reference
+        schema: (identifier)
+        name: (identifier))
+      (function_arguments)
+      (function_language
+        (keyword_language)
+        (identifier))
+      (procedure_body
+        (keyword_as)
+        (dollar_quote)
+        (statement
+          (delete
+            (keyword_delete))
+          (from
+            (keyword_from)
+            (object_reference
+              name: (identifier))))
+        (dollar_quote)))))
+
+================================================================================
+TSQL procedure
+================================================================================
+
+CREATE PROCEDURE dbo.GetUsers(@status int)
+AS
+BEGIN
+  SELECT * FROM users
+END
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_procedure
+      (keyword_create)
+      (keyword_procedure)
+      (object_reference
+        schema: (identifier)
+        name: (identifier))
+      (function_arguments
+        (function_argument
+          (identifier)
+          (int
+            (keyword_int))))
+      (procedure_body
+        (keyword_as)
+        (keyword_begin)
+        (statement
+          (select
+            (keyword_select)
+            (select_expression
+              (term
+                value: (all_fields))))
+          (from
+            (keyword_from)
+            (relation
+              (object_reference
+                name: (identifier)))))
+        (keyword_end)))))
+
+================================================================================
+TSQL procedure with DECLARE
+================================================================================
+
+CREATE PROCEDURE dbo.UpdateCount(@id int)
+AS
+BEGIN
+  DECLARE @cnt int
+  SELECT @cnt FROM tbl
+END
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_procedure
+      (keyword_create)
+      (keyword_procedure)
+      (object_reference
+        schema: (identifier)
+        name: (identifier))
+      (function_arguments
+        (function_argument
+          (identifier)
+          (int
+            (keyword_int))))
+      (procedure_body
+        (keyword_as)
+        (keyword_begin)
+        (var_declarations
+          (keyword_declare)
+          (var_declaration
+            (identifier)
+            (int
+              (keyword_int))))
+        (statement
+          (select
+            (keyword_select)
+            (select_expression
+              (term
+                value: (field
+                  name: (identifier)))))
+          (from
+            (keyword_from)
+            (relation
+              (object_reference
+                name: (identifier)))))
+        (keyword_end)))))
+
+================================================================================
+TSQL procedure with nested BEGIN-END
+================================================================================
+
+CREATE PROCEDURE dbo.ProcessData(@id int)
+AS
+BEGIN
+  BEGIN
+    SELECT * FROM tbl_a
+  END
+  BEGIN
+    SELECT * FROM tbl_b
+  END
+END
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_procedure
+      (keyword_create)
+      (keyword_procedure)
+      (object_reference
+        schema: (identifier)
+        name: (identifier))
+      (function_arguments
+        (function_argument
+          (identifier)
+          (int
+            (keyword_int))))
+      (procedure_body
+        (keyword_as)
+        (keyword_begin)
+        (keyword_begin)
+        (statement
+          (select
+            (keyword_select)
+            (select_expression
+              (term
+                value: (all_fields))))
+          (from
+            (keyword_from)
+            (relation
+              (object_reference
+                name: (identifier)))))
+        (keyword_end)
+        (keyword_begin)
+        (statement
+          (select
+            (keyword_select)
+            (select_expression
+              (term
+                value: (all_fields))))
+          (from
+            (keyword_from)
+            (relation
+              (object_reference
+                name: (identifier)))))
+        (keyword_end)
+        (keyword_end)))))
+
+================================================================================
+Procedure with no parameters
+================================================================================
+
+CREATE PROCEDURE cleanup()
+LANGUAGE SQL
+AS $$
+DELETE FROM temp_data;
+$$;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_procedure
+      (keyword_create)
+      (keyword_procedure)
+      (object_reference
+        name: (identifier))
+      (function_arguments)
+      (function_language
+        (keyword_language)
+        (identifier))
+      (procedure_body
+        (keyword_as)
+        (dollar_quote)
+        (statement
+          (delete
+            (keyword_delete))
+          (from
+            (keyword_from)
+            (object_reference
+              name: (identifier))))
+        (dollar_quote)))))
+
+================================================================================
+Procedure with SECURITY DEFINER
+================================================================================
+
+CREATE PROCEDURE admin_reset(uid integer)
+LANGUAGE SQL
+SECURITY DEFINER
+AS $$
+DELETE FROM sessions;
+$$;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_procedure
+      (keyword_create)
+      (keyword_procedure)
+      (object_reference
+        name: (identifier))
+      (function_arguments
+        (function_argument
+          (identifier)
+          (int
+            (keyword_int))))
+      (function_language
+        (keyword_language)
+        (identifier))
+      (function_security
+        (keyword_security)
+        (keyword_definer))
+      (procedure_body
+        (keyword_as)
+        (dollar_quote)
+        (statement
+          (delete
+            (keyword_delete))
+          (from
+            (keyword_from)
+            (object_reference
+              name: (identifier))))
+        (dollar_quote)))))
+
+================================================================================
+Drop procedure
+================================================================================
+
+DROP PROCEDURE my_procedure;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (drop_procedure
+      (keyword_drop)
+      (keyword_procedure)
+      (object_reference
+        name: (identifier)))))
+
+================================================================================
+Drop procedure if exists
+================================================================================
+
+DROP PROCEDURE IF EXISTS my_procedure;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (drop_procedure
+      (keyword_drop)
+      (keyword_procedure)
+      (keyword_if)
+      (keyword_exists)
+      (object_reference
+        name: (identifier)))))
+
+================================================================================
+Drop procedure cascade
+================================================================================
+
+DROP PROCEDURE IF EXISTS public.my_procedure CASCADE;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (drop_procedure
+      (keyword_drop)
+      (keyword_procedure)
+      (keyword_if)
+      (keyword_exists)
+      (object_reference
+        (identifier)
+        (identifier))
+      (keyword_cascade))))

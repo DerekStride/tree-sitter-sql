@@ -1,6 +1,7 @@
 import { comma_list, paren_list, wrapped_in_parenthesis } from "../helpers.js";
 
 import create_function_rules from "./create-function.js";
+import create_procedure_rules from "./create-procedure.js";
 
 export default {
 
@@ -11,6 +12,7 @@ export default {
       $.create_materialized_view,
       $.create_index,
       $.create_function,
+      $.create_procedure,
       $.create_type,
       $.create_database,
       $.create_role,
@@ -347,6 +349,7 @@ export default {
   ),
 
   ...create_function_rules,
+  ...create_procedure_rules,
 
   create_schema: $ => prec.left(seq(
     $.keyword_create,
