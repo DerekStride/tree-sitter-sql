@@ -25,39 +25,55 @@ export default {
       $.interval,
       $.between_expression,
       $.parenthesized_expression,
-      $.object_id,
     )
   ),
 
-    object_reference: $ => choice(
-      seq(
-        field('database', $.identifier),
-        '.',
-        field('schema', $.identifier),
-        '.',
-        field('name', $.identifier),
-      ),
-      seq(
-        field('schema', $.identifier),
-        '.',
-        field('name', $.identifier),
-      ),
+  object_reference: $ => choice(
+    seq(
+      field('server', $.identifier),
+      '.',
+      field('database', $.identifier),
+      '.',
+      field('schema', $.identifier),
+      '.',
       field('name', $.identifier),
     ),
-
-    field: $ => field('name', $.identifier),
-
-    _qualified_field: $ => seq(
-      optional(
-        seq(
-          optional_parenthesis($.object_reference),
-          '.',
-        ),
-      ),
+    seq(
+      field('database', $.identifier),
+      '.',
+      field('schema', $.identifier),
+      '.',
       field('name', $.identifier),
     ),
+    seq(
+      field('database', $.identifier),
+      '..',
+      field('name', $.identifier),
+    ),
+    seq(
+      field('schema', $.identifier),
+      '.',
+      field('name', $.identifier),
+    ),
+    field('name', $.identifier),
+  ),
 
-  parameter: $ => /\?|(\$[0-9]+)/,
+  field: $ => field('name', $.identifier),
+
+  _qualified_field: $ => seq(
+    optional(
+      seq(
+        optional_parenthesis($.object_reference),
+        '.',
+      ),
+    ),
+    field('name', $.identifier),
+  ),
+
+  parameter: $ => choice(
+    /\?|(\$[0-9]+)/,
+    $._tsql_parameter,
+  ),
 
   case: $ => seq(
     $.keyword_case,
@@ -171,7 +187,7 @@ export default {
     ),
   ),
 
-  filter_expression : $ => seq(
+  filter_expression: $ => seq(
     $.keyword_filter,
     wrapped_in_parenthesis($.where),
   ),
@@ -330,23 +346,23 @@ export default {
 
   // Postgres syntax for intervals
   interval: $ => seq(
-      $.keyword_interval,
-      $._literal_string,
+    $.keyword_interval,
+    $._literal_string,
   ),
 
   between_expression: $ => choice(
     ...[
-          [$.keyword_between, 'between'],
-          [seq($.keyword_not, $.keyword_between), 'between'],
-      ].map(([operator, precedence]) =>
-              prec.left(precedence, seq(
-              field('left', $._expression),
-              field('operator', operator),
-              field('low', $._expression),
-              $.keyword_and,
-              field('high', $._expression)
-          ))
-      ),
+      [$.keyword_between, 'between'],
+      [seq($.keyword_not, $.keyword_between), 'between'],
+    ].map(([operator, precedence]) =>
+      prec.left(precedence, seq(
+        field('left', $._expression),
+        field('operator', operator),
+        field('low', $._expression),
+        $.keyword_and,
+        field('high', $._expression)
+      ))
+    ),
   ),
 
   not_in: $ => seq(
@@ -409,26 +425,14 @@ export default {
     $._identifier,
     $._double_quote_string,
     $._backtick_quoted_string,
-    $._tsql_parameter,
     seq("`", $._identifier, "`"),
+    $._tsql_bracket_identifier,
+    $._tsql_parameter,
   ),
-  _tsql_parameter: $ => seq('@', $._identifier),
   // support nordic chars and umlaue
   _identifier: _ => /[A-Za-z_\u00C0-\u017F][0-9A-Za-z_\u00C0-\u017F]*/,
 
-  object_id: $ => seq(
-    $.keyword_object_id,
-    wrapped_in_parenthesis(
-      seq(
-        alias($._literal_string, $.literal),
-        optional(
-          seq(
-            ',',
-            alias($._literal_string, $.literal),
-          ),
-        ),
-      ),
-    ),
-  ),
+  _tsql_bracket_identifier: _ => /\[[^\]]*\]/,
+  _tsql_parameter: _ => /@[A-Za-z_0-9]*/,
 
 };

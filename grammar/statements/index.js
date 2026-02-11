@@ -23,7 +23,7 @@ export default {
     repeat(
       seq(
         $.statement,
-        ';'
+        optional(';')
       ),
     ),
     $.keyword_end,
@@ -40,8 +40,80 @@ export default {
       $._dml_write,
       optional_parenthesis($._dml_read),
       $.while_statement,
+      $.if_statement,
+      $.var_declarations,
+      $.return_statement,
+      $.print_statement,
+      $.raiserror_statement,
+      $.exec_statement,
+      $.goto_statement,
+      $.label,
+      $.transaction_statement,
     ),
   ),
+
+  transaction_statement: $ => choice(
+    seq($.keyword_begin, $.keyword_transaction, optional($.identifier)),
+    seq($.keyword_commit, optional($.keyword_transaction), optional($.identifier)),
+    seq($.keyword_rollback, optional($.keyword_transaction), optional($.identifier)),
+  ),
+
+  return_statement: $ => seq(
+    $.keyword_return,
+    optional($._expression),
+  ),
+
+  print_statement: $ => seq(
+    $.keyword_print,
+    $._expression,
+  ),
+
+  raiserror_statement: $ => seq(
+    $.keyword_raiserror,
+    wrapped_in_parenthesis(
+      seq(
+        choice($.literal, $._expression),
+        ',',
+        $._expression,
+        ',',
+        $._expression,
+        repeat(seq(',', $._expression))
+      )
+    )
+  ),
+
+  exec_statement: $ => seq(
+    choice($.keyword_execute, $.keyword_exec),
+    optional(wrapped_in_parenthesis($.identifier)), // for return value or dynamic sql?
+    $.object_reference,
+    optional(comma_list($.procedure_argument, true)) // reuse procedure_argument for calls too?
+  ),
+
+  goto_statement: $ => seq(
+    $.keyword_goto,
+    $.identifier
+  ),
+
+  label: $ => seq(
+    $.identifier,
+    ':'
+  ),
+
+  if_statement: $ => prec.left(seq(
+    $.keyword_if,
+    $._expression,
+    choice(
+      seq($.statement, optional(';')),
+      $.block
+    ),
+    optional(seq(
+      $.keyword_else,
+      choice(
+        seq($.statement, optional(';')),
+        $.block
+      )
+    ))
+  )),
 
   while_statement: $ => prec.left(seq(
     $.keyword_while,
@@ -60,16 +132,24 @@ export default {
   )),
 
   var_declarations: $ => seq($.keyword_declare, repeat1($.var_declaration)),
-  var_declaration: $ => seq(
-    $.identifier,
-    $._type,
-    optional(
-      seq(
-        choice($.keyword_default, '='),
-        $.literal,
+  var_declaration: $ => choice(
+    seq(
+      $.identifier,
+      $._type,
+      optional(
+        seq(
+          choice($.keyword_default, '='),
+          $._expression,
+        ),
       ),
+      optional(','),
     ),
-    optional(','),
+    seq(
+      $.identifier,
+      $.keyword_table,
+      $.column_definitions,
+      optional(','),
+    )
   ),
 
   _ddl_statement: $ => choice(

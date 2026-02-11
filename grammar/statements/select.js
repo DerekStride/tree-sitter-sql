@@ -3,15 +3,15 @@ import { comma_list, optional_parenthesis, paren_list, wrapped_in_parenthesis } 
 export default {
 
   _cte: $ => seq(
-      $.keyword_with,
-      optional($.keyword_recursive),
-      $.cte,
-      repeat(
-          seq(
-            ',',
-            $.cte,
-          ),
+    $.keyword_with,
+    optional($.keyword_recursive),
+    $.cte,
+    repeat(
+      seq(
+        ',',
+        $.cte,
       ),
+    ),
   ),
 
   cte: $ => seq(
@@ -80,15 +80,22 @@ export default {
     ),
   ),
 
-  term: $ => seq(
-    field(
-      'value',
-      choice(
-        $.all_fields,
-        $._expression,
+  term: $ => choice(
+    seq(
+      field(
+        'value',
+        choice(
+          $.all_fields,
+          $._expression,
+        ),
       ),
+      optional($._alias),
     ),
-    optional($._alias),
+    seq(
+      field('alias', choice($.identifier, $.parameter)),
+      '=',
+      field('value', $._expression)
+    )
   ),
 
   all_fields: $ => seq(
@@ -102,84 +109,84 @@ export default {
   ),
 
   partition_by: $ => seq(
-      $.keyword_partition,
-      $.keyword_by,
-      comma_list($._expression, true),
+    $.keyword_partition,
+    $.keyword_by,
+    comma_list($._expression, true),
   ),
 
   frame_definition: $ => seq(
-      choice(
-        seq(
-          $.keyword_unbounded,
-          $.keyword_preceding,
-        ),
-        seq(
-            field("start",
-              choice(
-                $.identifier,
-                $.binary_expression,
-                alias($._literal_string, $.literal),
-                alias($._integer, $.literal)
-              )
-            ),
-            $.keyword_preceding,
-        ),
-        $._current_row,
-        seq(
-            field("end",
-              choice(
-                $.identifier,
-                $.binary_expression,
-                alias($._literal_string, $.literal),
-                alias($._integer, $.literal)
-              )
-            ),
-            $.keyword_following,
-        ),
-        seq(
-          $.keyword_unbounded,
-          $.keyword_following,
-        ),
+    choice(
+      seq(
+        $.keyword_unbounded,
+        $.keyword_preceding,
       ),
+      seq(
+        field("start",
+          choice(
+            $.identifier,
+            $.binary_expression,
+            alias($._literal_string, $.literal),
+            alias($._integer, $.literal)
+          )
+        ),
+        $.keyword_preceding,
+      ),
+      $._current_row,
+      seq(
+        field("end",
+          choice(
+            $.identifier,
+            $.binary_expression,
+            alias($._literal_string, $.literal),
+            alias($._integer, $.literal)
+          )
+        ),
+        $.keyword_following,
+      ),
+      seq(
+        $.keyword_unbounded,
+        $.keyword_following,
+      ),
+    ),
   ),
 
   window_frame: $ => seq(
-      choice(
-          $.keyword_range,
-          $.keyword_rows,
-          $.keyword_groups,
-      ),
+    choice(
+      $.keyword_range,
+      $.keyword_rows,
+      $.keyword_groups,
+    ),
 
-      choice(
+    choice(
+      seq(
+        $.keyword_between,
+        $.frame_definition,
+        optional(
           seq(
-              $.keyword_between,
-              $.frame_definition,
-              optional(
-                seq(
-                  $.keyword_and,
-                  $.frame_definition,
-                )
-              )
-          ),
-          seq(
-              $.frame_definition,
+            $.keyword_and,
+            $.frame_definition,
           )
+        )
       ),
-      optional(
-          choice(
-              $._exclude_current_row,
-              $._exclude_group,
-              $._exclude_ties,
-              $._exclude_no_others,
-          ),
+      seq(
+        $.frame_definition,
+      )
+    ),
+    optional(
+      choice(
+        $._exclude_current_row,
+        $._exclude_group,
+        $._exclude_ties,
+        $._exclude_no_others,
       ),
+    ),
   ),
 
   window_clause: $ => seq(
-      $.keyword_window,
-      $.identifier,
-      $.keyword_as,
-      $.window_specification,
+    $.keyword_window,
+    $.identifier,
+    $.keyword_as,
+    $.window_specification,
   ),
 
   window_specification: $ => wrapped_in_parenthesis(
@@ -191,12 +198,12 @@ export default {
   ),
 
   window_function: $ => seq(
-      $.invocation,
-      $.keyword_over,
-      choice(
-          $.identifier,
-          $.window_specification,
-      ),
+    $.invocation,
+    $.keyword_over,
+    choice(
+      $.identifier,
+      $.window_specification,
+    ),
   ),
 
   _alias: $ => seq(
@@ -248,7 +255,7 @@ export default {
     $.keyword_values,
     $.list,
     optional(
-        repeat(
+      repeat(
         seq(
           ',',
           $.list,

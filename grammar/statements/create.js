@@ -18,6 +18,7 @@ export default {
       $.create_extension,
       $.create_trigger,
       $.create_policy,
+      // $.create_procedure,
       prec.left(seq(
         $.create_schema,
         repeat($._create_statement),
@@ -80,18 +81,18 @@ export default {
   ),
 
   stored_as: $ => seq(
-      $.keyword_stored,
-      $.keyword_as,
-      choice(
-          $.keyword_parquet,
-          $.keyword_csv,
-          $.keyword_sequencefile,
-          $.keyword_textfile,
-          $.keyword_rcfile,
-          $.keyword_orc,
-          $.keyword_avro,
-          $.keyword_jsonfile,
-      ),
+    $.keyword_stored,
+    $.keyword_as,
+    choice(
+      $.keyword_parquet,
+      $.keyword_csv,
+      $.keyword_sequencefile,
+      $.keyword_textfile,
+      $.keyword_rcfile,
+      $.keyword_orc,
+      $.keyword_avro,
+      $.keyword_jsonfile,
+    ),
   ),
 
   storage_parameters: $ => seq(
@@ -103,63 +104,63 @@ export default {
   ),
 
   storage_location: $ => prec.right(
-      seq(
-          $.keyword_location,
-          field('path', alias($._literal_string, $.literal)),
+    seq(
+      $.keyword_location,
+      field('path', alias($._literal_string, $.literal)),
+      optional(
+        seq(
+          $.keyword_cached,
+          $.keyword_in,
+          field('pool', alias($._literal_string, $.literal)),
           optional(
+            choice(
+              $.keyword_uncached,
               seq(
-                  $.keyword_cached,
-                  $.keyword_in,
-                  field('pool', alias($._literal_string, $.literal)),
-                  optional(
-                      choice(
-                          $.keyword_uncached,
-                          seq(
-                              $.keyword_with,
-                              $.keyword_replication,
-                              '=',
-                              field('value', alias($._natural_number, $.literal)),
-                          ),
-                      ),
-                  ),
-              )
-          )
-      ),
+                $.keyword_with,
+                $.keyword_replication,
+                '=',
+                field('value', alias($._natural_number, $.literal)),
+              ),
+            ),
+          ),
+        )
+      )
+    ),
   ),
 
   row_format: $ => seq(
-      $.keyword_row,
-      $.keyword_format,
-      $.keyword_delimited,
-      optional(
+    $.keyword_row,
+    $.keyword_format,
+    $.keyword_delimited,
+    optional(
+      seq(
+        $.keyword_fields,
+        $.keyword_terminated,
+        $.keyword_by,
+        field('fields_terminated_char', alias($._literal_string, $.literal)),
+        optional(
           seq(
-              $.keyword_fields,
-              $.keyword_terminated,
-              $.keyword_by,
-              field('fields_terminated_char', alias($._literal_string, $.literal)),
-              optional(
-                  seq(
-                      $.keyword_escaped,
-                      $.keyword_by,
-                      field('escaped_char', alias($._literal_string, $.literal)),
-                  )
-              )
+            $.keyword_escaped,
+            $.keyword_by,
+            field('escaped_char', alias($._literal_string, $.literal)),
           )
-      ),
-      optional(
-          seq(
-              $.keyword_lines,
-              $.keyword_terminated,
-              $.keyword_by,
-              field('row_terminated_char', alias($._literal_string, $.literal)),
-          )
+        )
       )
+    ),
+    optional(
+      seq(
+        $.keyword_lines,
+        $.keyword_terminated,
+        $.keyword_by,
+        field('row_terminated_char', alias($._literal_string, $.literal)),
+      )
+    )
   ),
 
   table_sort: $ => seq(
-      $.keyword_sort,
-      $.keyword_by,
-      paren_list($.identifier, true),
+    $.keyword_sort,
+    $.keyword_by,
+    paren_list($.identifier, true),
   ),
 
   table_partition: $ => seq(
@@ -365,9 +366,9 @@ export default {
   )),
 
   _with_settings: $ => seq(
-        field('name', $.identifier),
-        optional('='),
-        field('value', choice($.identifier, alias($._single_quote_string, $.literal))),
+    field('name', $.identifier),
+    optional('='),
+    field('value', choice($.identifier, alias($._single_quote_string, $.literal))),
   ),
 
   create_database: $ => prec.left(seq(
@@ -636,4 +637,28 @@ export default {
     ),
   ),
 
+  create_procedure: $ => seq(
+    $.keyword_create,
+    optional($._or_replace),
+    choice($.keyword_procedure, $.keyword_proc),
+    $.object_reference,
+    optional(
+      choice(
+        paren_list($.procedure_argument, true),
+        comma_list($.procedure_argument, true)
+      )
+    ),
+    optional($.keyword_as),
+    choice(
+      $.statement,
+      $.block
+    )
+  ),
+
+  procedure_argument: $ => seq(
+    $.identifier,
+    $._type,
+    optional(seq('=', choice($.literal, $.keyword_null))),
+    optional(choice($.keyword_out, $.keyword_output))
+  ),
 };

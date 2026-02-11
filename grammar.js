@@ -55,20 +55,22 @@ export default grammar({
 
   rules: {
     program: $ => seq(
-      // any number of transactions, statements, or blocks with a terminating ;
       repeat(
         seq(
           choice(
             $.transaction,
             $.statement,
             $.block,
+            $.keyword_go,
           ),
-          ';',
+          optional(';'),
         ),
       ),
-      // optionally, a single statement without a terminating ;
       optional(
-        $.statement,
+        choice(
+          $.statement,
+          $.keyword_go,
+        )
       ),
     ),
 

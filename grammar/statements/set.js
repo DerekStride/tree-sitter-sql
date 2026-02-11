@@ -9,12 +9,11 @@ export default {
         optional(choice($.keyword_session, $.keyword_local)),
         choice(
           seq(
-            $.object_reference,
+            choice($.identifier, $.parameter),
             choice($.keyword_to, '='),
             choice(
-              $.literal,
+              $._expression,
               $.keyword_default,
-              $.identifier,
               $.keyword_on,
               $.keyword_off,
             ),

@@ -14,6 +14,7 @@ export default {
       $.drop_sequence,
       $.drop_extension,
       $.drop_function,
+      $.drop_procedure,
     ),
   ),
 
@@ -86,8 +87,8 @@ export default {
     optional($._drop_behavior),
     optional(
       seq(
-          $.keyword_on,
-          $.object_reference,
+        $.keyword_on,
+        $.object_reference,
       ),
     ),
   ),
@@ -106,6 +107,13 @@ export default {
     optional($._if_exists),
     $.object_reference,
     optional($._drop_behavior),
+  ),
+
+  drop_procedure: $ => seq(
+    $.keyword_drop,
+    choice($.keyword_procedure, $.keyword_proc),
+    optional($._if_exists),
+    $.object_reference,
   ),
 
 };
