@@ -79,8 +79,8 @@ $$;
       (keyword_replace)
       (keyword_procedure)
       (object_reference
-        (identifier)
-        (identifier))
+        schema: (identifier)
+        name: (identifier))
       (function_arguments)
       (function_language
         (keyword_language)
@@ -115,8 +115,8 @@ END
       (keyword_create)
       (keyword_procedure)
       (object_reference
-        (identifier)
-        (identifier))
+        schema: (identifier)
+        name: (identifier))
       (function_arguments
         (function_argument
           (identifier)
@@ -157,8 +157,8 @@ END
       (keyword_create)
       (keyword_procedure)
       (object_reference
-        (identifier)
-        (identifier))
+        schema: (identifier)
+        name: (identifier))
       (function_arguments
         (function_argument
           (identifier)
@@ -210,8 +210,8 @@ END
       (keyword_create)
       (keyword_procedure)
       (object_reference
-        (identifier)
-        (identifier))
+        schema: (identifier)
+        name: (identifier))
       (function_arguments
         (function_argument
           (identifier)
