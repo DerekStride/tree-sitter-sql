@@ -427,7 +427,6 @@ export default {
     $._backtick_quoted_string,
     seq("`", $._identifier, "`"),
     $._tsql_bracket_identifier,
-    $._tsql_parameter,
   ),
   // support nordic chars and umlaue
   _identifier: _ => /[A-Za-z_\u00C0-\u017F][0-9A-Za-z_\u00C0-\u017F]*/,

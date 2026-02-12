@@ -6,7 +6,7 @@ export default {
     $.keyword_truncate,
     optional($.keyword_table),
     optional($.keyword_only),
-    comma_list($.object_reference),
+    comma_list($.object_reference, true),
     optional($._drop_behavior),
   ),
 

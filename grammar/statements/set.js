@@ -29,6 +29,7 @@ export default {
       seq($.keyword_transaction, $._transaction_mode),
       seq($.keyword_transaction, $.keyword_snapshot, $._transaction_mode),
       seq($.keyword_session, $.keyword_characteristics, $.keyword_as, $.keyword_transaction, $._transaction_mode),
+      seq($.keyword_nocount, choice($.keyword_on, $.keyword_off)),
     ),
   ),
 

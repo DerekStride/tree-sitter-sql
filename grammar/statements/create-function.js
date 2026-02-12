@@ -76,12 +76,12 @@ export default {
       false,
     ),
 
-  _function_return: $ => seq(
+  _function_return: $ => prec(2, seq(
     $.keyword_return,
     $._expression,
-  ),
+  )),
 
-  function_declaration: $ => seq(
+  function_declaration: $ => prec(2, seq(
     $.identifier,
     $._type,
     optional(
@@ -96,14 +96,14 @@ export default {
       ),
     ),
     ';',
-  ),
+  )),
 
   _function_body_statement: $ => choice(
     $.statement,
     $._function_return,
   ),
 
-  _tsql_function_body_statement: $ => seq(
+  _tsql_function_body_statement: $ => prec(1, seq(
     optional($.keyword_as),
     $.keyword_begin,
     optional($.var_declarations),
@@ -117,7 +117,7 @@ export default {
     ),
     $._function_return,
     $.keyword_end,
-  ),
+  )),
 
   function_body: $ => choice(
     seq(

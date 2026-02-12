@@ -81,7 +81,7 @@ export default {
   ),
 
   term: $ => choice(
-    seq(
+    prec.left(seq(
       field(
         'value',
         choice(
@@ -90,12 +90,12 @@ export default {
         ),
       ),
       optional($._alias),
-    ),
-    seq(
+    )),
+    prec(2, seq(
       field('alias', choice($.identifier, $.parameter)),
       '=',
       field('value', $._expression)
-    )
+    ))
   ),
 
   all_fields: $ => seq(
@@ -240,6 +240,7 @@ export default {
         $.subquery,
         $.invocation,
         $.object_reference,
+        $.parameter,
         wrapped_in_parenthesis($.values),
       ),
       optional(
@@ -282,7 +283,7 @@ export default {
     ),
   ),
 
-  join: $ => seq(
+  join: $ => prec.right(seq(
     optional($.keyword_natural),
     optional(
       choice(
@@ -309,7 +310,7 @@ export default {
         alias($._column_list, $.list),
       )
     )
-  ),
+  )),
 
   cross_join: $ => prec.right(
     seq(
@@ -364,7 +365,7 @@ export default {
     ),
   ),
 
-  lateral_cross_join: $ => seq(
+  lateral_cross_join: $ => prec.right(seq(
     $.keyword_cross,
     $.keyword_join,
     $.keyword_lateral,
@@ -372,16 +373,8 @@ export default {
       $.invocation,
       $.subquery,
     ),
-    optional(
-      choice(
-        seq(
-          $.keyword_as,
-          field('alias', $.identifier),
-        ),
-        field('alias', $.identifier),
-      ),
-    ),
-  ),
+    optional($._alias),
+  )),
 
   where: $ => seq(
     $.keyword_where,

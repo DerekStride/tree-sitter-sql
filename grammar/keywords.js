@@ -285,6 +285,8 @@ export default {
   keyword_raiserror: _ => make_keyword("raiserror"),
   keyword_goto: _ => make_keyword("goto"),
   keyword_exec: _ => make_keyword("exec"),
+  keyword_out: _ => make_keyword("out"),
+  keyword_output: _ => make_keyword("output"),
 
   // Hive Keywords
   keyword_external: _ => make_keyword("external"),

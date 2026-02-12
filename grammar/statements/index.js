@@ -1,4 +1,4 @@
-import { optional_parenthesis, wrapped_in_parenthesis } from "../helpers.js";
+import { comma_list, optional_parenthesis, wrapped_in_parenthesis } from "../helpers.js";
 
 import create_rules from "./create.js";
 import alter_rules from "./alter.js";
@@ -53,15 +53,15 @@ export default {
   ),
 
   transaction_statement: $ => choice(
-    seq($.keyword_begin, $.keyword_transaction, optional($.identifier)),
-    seq($.keyword_commit, optional($.keyword_transaction), optional($.identifier)),
-    seq($.keyword_rollback, optional($.keyword_transaction), optional($.identifier)),
+    prec.right(seq($.keyword_begin, $.keyword_transaction, optional($.identifier))),
+    prec.right(seq($.keyword_commit, optional($.keyword_transaction), optional($.identifier))),
+    prec.right(seq($.keyword_rollback, optional($.keyword_transaction), optional($.identifier))),
   ),
 
-  return_statement: $ => seq(
+  return_statement: $ => prec.right(seq(
     $.keyword_return,
     optional($._expression),
-  ),
+  )),
 
   print_statement: $ => seq(
     $.keyword_print,
@@ -82,12 +82,12 @@ export default {
     )
   ),
 
-  exec_statement: $ => seq(
+  exec_statement: $ => prec.left(seq(
     choice($.keyword_execute, $.keyword_exec),
     optional(wrapped_in_parenthesis($.identifier)), // for return value or dynamic sql?
     $.object_reference,
     optional(comma_list($.procedure_argument, true)) // reuse procedure_argument for calls too?
-  ),
+  )),
 
   goto_statement: $ => seq(
     $.keyword_goto,
@@ -131,10 +131,10 @@ export default {
     ),
   )),
 
-  var_declarations: $ => seq($.keyword_declare, repeat1($.var_declaration)),
+  var_declarations: $ => prec.left(seq($.keyword_declare, repeat1($.var_declaration))),
   var_declaration: $ => choice(
     seq(
-      $.identifier,
+      $.parameter,
       $._type,
       optional(
         seq(
@@ -145,7 +145,7 @@ export default {
       optional(','),
     ),
     seq(
-      $.identifier,
+      $.parameter,
       $.keyword_table,
       $.column_definitions,
       optional(','),

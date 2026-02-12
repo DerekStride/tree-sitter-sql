@@ -30,6 +30,9 @@ export default grammar({
     [$.between_expression, $.binary_expression],
     [$.time],
     [$.timestamp],
+    [$.statement, $._tsql_function_body_statement],
+    [$.return_statement, $._function_return],
+    [$.var_declaration, $.function_declaration],
   ],
 
   precedences: $ => [
@@ -54,23 +57,14 @@ export default grammar({
   word: $ => $._identifier,
 
   rules: {
-    program: $ => seq(
-      repeat(
-        seq(
-          choice(
-            $.transaction,
-            $.statement,
-            $.block,
-            $.keyword_go,
-          ),
-          optional(';'),
-        ),
-      ),
-      optional(
+    program: $ => repeat(
+      seq(
         choice(
           $.statement,
+          $.block,
           $.keyword_go,
-        )
+        ),
+        optional(';'),
       ),
     ),
 

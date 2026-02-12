@@ -18,7 +18,7 @@ export default {
       $.create_extension,
       $.create_trigger,
       $.create_policy,
-      // $.create_procedure,
+      $.create_procedure,
       prec.left(seq(
         $.create_schema,
         repeat($._create_statement),
@@ -643,9 +643,11 @@ export default {
     choice($.keyword_procedure, $.keyword_proc),
     $.object_reference,
     optional(
-      choice(
-        paren_list($.procedure_argument, true),
-        comma_list($.procedure_argument, true)
+      repeat(
+        seq(
+          optional(','),
+          $.procedure_argument
+        )
       )
     ),
     optional($.keyword_as),
@@ -656,7 +658,7 @@ export default {
   ),
 
   procedure_argument: $ => seq(
-    $.identifier,
+    field('name', $.parameter),
     $._type,
     optional(seq('=', choice($.literal, $.keyword_null))),
     optional(choice($.keyword_out, $.keyword_output))

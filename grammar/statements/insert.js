@@ -26,7 +26,10 @@ export default {
         $.keyword_overwrite, // Spark SQL
       ),
     ),
-    $.object_reference,
+    choice(
+      $.object_reference,
+      $.parameter,
+    ),
     optional($.table_partition), // Spark SQL
     optional(
       seq(
