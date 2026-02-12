@@ -32,7 +32,7 @@ export default {
     // TODO: operator (|class|family)
     // TODO: policy
     // TODO: (procedural) language
-    // TODO: procedure
+    seq($.keyword_procedure, $.object_reference, optional($.function_arguments)),
     // TODO: publication
     seq($.keyword_role, $.identifier),
     // TODO: routine

@@ -114,6 +114,7 @@ export default {
     choice($.keyword_procedure, $.keyword_proc),
     optional($._if_exists),
     $.object_reference,
+    optional($._drop_behavior),
   ),
 
 };
