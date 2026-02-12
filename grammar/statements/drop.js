@@ -112,6 +112,7 @@ export default {
   drop_procedure: $ => seq(
     $.keyword_drop,
     choice($.keyword_procedure, $.keyword_proc),
+    $.keyword_procedure,
     optional($._if_exists),
     $.object_reference,
     optional($._drop_behavior),
