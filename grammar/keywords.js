@@ -177,6 +177,7 @@ export default {
   keyword_gin:  _ => make_keyword("gin"),
   keyword_brin: _ => make_keyword("brin"),
   keyword_like: _ => choice(make_keyword("like"),make_keyword("ilike")),
+  keyword_rlike: _ => choice(make_keyword("rlike"),make_keyword("regexp")),
   keyword_similar: _ => make_keyword("similar"),
   keyword_unsigned: _ => make_keyword("unsigned"),
   keyword_zerofill: _ => make_keyword("zerofill"),
@@ -325,6 +326,7 @@ export default {
   // Operators
   is_not: $ => prec.left(seq($.keyword_is, $.keyword_not)),
   not_like: $ => seq($.keyword_not, $.keyword_like),
+  not_rlike: $ => seq($.keyword_not, $.keyword_rlike),
   similar_to: $ => seq($.keyword_similar, $.keyword_to),
   not_similar_to: $ => seq($.keyword_not, $.keyword_similar, $.keyword_to),
   distinct_from: $ => seq($.keyword_is, $.keyword_distinct, $.keyword_from),

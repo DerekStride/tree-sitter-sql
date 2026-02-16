@@ -262,6 +262,8 @@ export default {
       [$.is_not, 'binary_is'],
       [$.keyword_like, 'pattern_matching'],
       [$.not_like, 'pattern_matching'],
+      [$.keyword_rlike, 'pattern_matching'],
+      [$.not_rlike, 'pattern_matching'],
       [$.similar_to, 'pattern_matching'],
       [$.not_similar_to, 'pattern_matching'],
       // binary_is precedence disambiguates `(is not distinct from)` from an
