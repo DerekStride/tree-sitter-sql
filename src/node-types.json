@@ -2538,6 +2538,10 @@
             "named": true
           },
           {
+            "type": "keyword_rlike",
+            "named": true
+          },
+          {
             "type": "not_distinct_from",
             "named": true
           },
@@ -2547,6 +2551,10 @@
           },
           {
             "type": "not_like",
+            "named": true
+          },
+          {
+            "type": "not_rlike",
             "named": true
           },
           {
@@ -9089,6 +9097,11 @@
     "fields": {}
   },
   {
+    "type": "keyword_rlike",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "keyword_serial",
     "named": true,
     "fields": {}
@@ -9591,6 +9604,25 @@
         },
         {
           "type": "keyword_not",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "not_rlike",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_not",
+          "named": true
+        },
+        {
+          "type": "keyword_rlike",
           "named": true
         }
       ]

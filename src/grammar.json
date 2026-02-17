@@ -766,6 +766,19 @@
         }
       ]
     },
+    "keyword_rlike": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "[rR][lL][iI][kK][eE]"
+        },
+        {
+          "type": "PATTERN",
+          "value": "[rR][eE][gG][eE][xX][pP]"
+        }
+      ]
+    },
     "keyword_similar": {
       "type": "PATTERN",
       "value": "[sS][iI][mM][iI][lL][aA][rR]"
@@ -1333,6 +1346,19 @@
         {
           "type": "SYMBOL",
           "name": "keyword_like"
+        }
+      ]
+    },
+    "not_rlike": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_not"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_rlike"
         }
       ]
     },
@@ -7721,6 +7747,72 @@
                 "content": {
                   "type": "SYMBOL",
                   "name": "not_like"
+                }
+              },
+              {
+                "type": "FIELD",
+                "name": "right",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_expression"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "PREC_LEFT",
+          "value": "pattern_matching",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "FIELD",
+                "name": "left",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_expression"
+                }
+              },
+              {
+                "type": "FIELD",
+                "name": "operator",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "keyword_rlike"
+                }
+              },
+              {
+                "type": "FIELD",
+                "name": "right",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_expression"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "PREC_LEFT",
+          "value": "pattern_matching",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "FIELD",
+                "name": "left",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_expression"
+                }
+              },
+              {
+                "type": "FIELD",
+                "name": "operator",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "not_rlike"
                 }
               },
               {
