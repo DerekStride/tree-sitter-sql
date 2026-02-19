@@ -14,6 +14,7 @@ import truncate_rules from "./truncate.js";
 import copy_rules from "./copy.js";
 import select_rules from "./select.js";
 import set_rules from "./set.js";
+import refresh_rules from "./refresh.js";
 
 export default {
 
@@ -79,6 +80,7 @@ export default {
     $._rename_statement,
     $._optimize_statement,
     $._merge_statement,
+    $._refresh_statement,
     $.comment_statement,
     $.set_statement,
     $.reset_statement,
@@ -90,6 +92,7 @@ export default {
   ...rename_rules,
   ...optimize_rules,
   ...merge_rules,
+  ...refresh_rules,
   ...comment_rules,
 
   _dml_write: $ => seq(

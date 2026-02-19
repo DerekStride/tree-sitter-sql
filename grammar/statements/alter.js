@@ -6,6 +6,7 @@ export default {
     choice(
       $.alter_table,
       $.alter_view,
+      $.alter_materialized_view,
       $.alter_schema,
       $.alter_type,
       $.alter_index,
@@ -206,6 +207,19 @@ export default {
       // TODO Postgres allows a single "alter column" to set or drop default
       $.rename_object,
       $.rename_column,
+      $.set_schema,
+      $.change_ownership,
+    ),
+  ),
+
+  alter_materialized_view: $ => seq(
+    $.keyword_alter,
+    $.keyword_materialized,
+    $.keyword_view,
+    optional($._if_exists),
+    $.object_reference,
+    choice(
+      $.rename_object,
       $.set_schema,
       $.change_ownership,
     ),
