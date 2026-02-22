@@ -110,6 +110,7 @@ export default {
   keyword_no: _ => make_keyword("no"),
   keyword_data: _ => make_keyword("data"),
   keyword_type: _ => make_keyword("type"),
+  keyword_refresh: _ => make_keyword("refresh"),
   keyword_rename: _ => make_keyword("rename"),
   keyword_to: _ => make_keyword("to"),
   keyword_database: _ => make_keyword("database"),

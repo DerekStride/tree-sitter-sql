@@ -291,3 +291,77 @@ DROP EXTENSION my_extension;
       (keyword_drop)
       (keyword_extension)
       (identifier))))
+
+================================================================================
+Drop materialized view
+================================================================================
+
+DROP MATERIALIZED VIEW my_view;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (drop_materialized_view
+      (keyword_drop)
+      (keyword_materialized)
+      (keyword_view)
+      (object_reference
+        name: (identifier)))))
+
+================================================================================
+Drop materialized view if exists
+================================================================================
+
+DROP MATERIALIZED VIEW IF EXISTS my_view;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (drop_materialized_view
+      (keyword_drop)
+      (keyword_materialized)
+      (keyword_view)
+      (keyword_if)
+      (keyword_exists)
+      (object_reference
+        name: (identifier)))))
+
+================================================================================
+Drop materialized view cascade
+================================================================================
+
+DROP MATERIALIZED VIEW IF EXISTS my_view CASCADE;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (drop_materialized_view
+      (keyword_drop)
+      (keyword_materialized)
+      (keyword_view)
+      (keyword_if)
+      (keyword_exists)
+      (object_reference
+        name: (identifier))
+      (keyword_cascade))))
+
+================================================================================
+Drop materialized view with schema
+================================================================================
+
+DROP MATERIALIZED VIEW myschema.my_view;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (drop_materialized_view
+      (keyword_drop)
+      (keyword_materialized)
+      (keyword_view)
+      (object_reference
+        schema: (identifier)
+        name: (identifier)))))

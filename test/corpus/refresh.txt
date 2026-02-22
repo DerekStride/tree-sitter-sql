@@ -1,0 +1,129 @@
+================================================================================
+Refresh materialized view basic
+================================================================================
+
+REFRESH MATERIALIZED VIEW my_view;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (refresh_materialized_view
+      (keyword_refresh)
+      (keyword_materialized)
+      (keyword_view)
+      (object_reference
+        name: (identifier)))))
+
+================================================================================
+Refresh materialized view concurrently
+================================================================================
+
+REFRESH MATERIALIZED VIEW CONCURRENTLY my_view;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (refresh_materialized_view
+      (keyword_refresh)
+      (keyword_materialized)
+      (keyword_view)
+      (keyword_concurrently)
+      (object_reference
+        name: (identifier)))))
+
+================================================================================
+Refresh materialized view with data
+================================================================================
+
+REFRESH MATERIALIZED VIEW my_view WITH DATA;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (refresh_materialized_view
+      (keyword_refresh)
+      (keyword_materialized)
+      (keyword_view)
+      (object_reference
+        name: (identifier))
+      (keyword_with)
+      (keyword_data))))
+
+================================================================================
+Refresh materialized view with no data
+================================================================================
+
+REFRESH MATERIALIZED VIEW my_view WITH NO DATA;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (refresh_materialized_view
+      (keyword_refresh)
+      (keyword_materialized)
+      (keyword_view)
+      (object_reference
+        name: (identifier))
+      (keyword_with)
+      (keyword_no)
+      (keyword_data))))
+
+================================================================================
+Refresh materialized view concurrently with no data
+================================================================================
+
+REFRESH MATERIALIZED VIEW CONCURRENTLY my_view WITH NO DATA;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (refresh_materialized_view
+      (keyword_refresh)
+      (keyword_materialized)
+      (keyword_view)
+      (keyword_concurrently)
+      (object_reference
+        name: (identifier))
+      (keyword_with)
+      (keyword_no)
+      (keyword_data))))
+
+================================================================================
+Refresh materialized view with schema qualification
+================================================================================
+
+REFRESH MATERIALIZED VIEW schema.my_view;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (refresh_materialized_view
+      (keyword_refresh)
+      (keyword_materialized)
+      (keyword_view)
+      (object_reference
+        schema: (identifier)
+        name: (identifier)))))
+
+================================================================================
+Refresh materialized view lowercase
+================================================================================
+
+refresh materialized view my_view;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (refresh_materialized_view
+      (keyword_refresh)
+      (keyword_materialized)
+      (keyword_view)
+      (object_reference
+        name: (identifier)))))
