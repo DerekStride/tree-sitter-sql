@@ -637,6 +637,53 @@
     }
   },
   {
+    "type": "alter_materialized_view",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "change_ownership",
+          "named": true
+        },
+        {
+          "type": "keyword_alter",
+          "named": true
+        },
+        {
+          "type": "keyword_exists",
+          "named": true
+        },
+        {
+          "type": "keyword_if",
+          "named": true
+        },
+        {
+          "type": "keyword_materialized",
+          "named": true
+        },
+        {
+          "type": "keyword_view",
+          "named": true
+        },
+        {
+          "type": "object_reference",
+          "named": true
+        },
+        {
+          "type": "rename_object",
+          "named": true
+        },
+        {
+          "type": "set_schema",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "alter_policy",
     "named": true,
     "fields": {},
@@ -6665,6 +6712,49 @@
     }
   },
   {
+    "type": "drop_materialized_view",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_cascade",
+          "named": true
+        },
+        {
+          "type": "keyword_drop",
+          "named": true
+        },
+        {
+          "type": "keyword_exists",
+          "named": true
+        },
+        {
+          "type": "keyword_if",
+          "named": true
+        },
+        {
+          "type": "keyword_materialized",
+          "named": true
+        },
+        {
+          "type": "keyword_restrict",
+          "named": true
+        },
+        {
+          "type": "keyword_view",
+          "named": true
+        },
+        {
+          "type": "object_reference",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "drop_procedure",
     "named": true,
     "fields": {},
@@ -10260,6 +10350,49 @@
     }
   },
   {
+    "type": "refresh_materialized_view",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_concurrently",
+          "named": true
+        },
+        {
+          "type": "keyword_data",
+          "named": true
+        },
+        {
+          "type": "keyword_materialized",
+          "named": true
+        },
+        {
+          "type": "keyword_no",
+          "named": true
+        },
+        {
+          "type": "keyword_refresh",
+          "named": true
+        },
+        {
+          "type": "keyword_view",
+          "named": true
+        },
+        {
+          "type": "keyword_with",
+          "named": true
+        },
+        {
+          "type": "object_reference",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "relation",
     "named": true,
     "fields": {
@@ -11004,6 +11137,10 @@
           "named": true
         },
         {
+          "type": "alter_materialized_view",
+          "named": true
+        },
+        {
           "type": "alter_policy",
           "named": true
         },
@@ -11137,6 +11274,10 @@
         },
         {
           "type": "drop_index",
+          "named": true
+        },
+        {
+          "type": "drop_materialized_view",
           "named": true
         },
         {
@@ -11513,6 +11654,10 @@
         },
         {
           "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "refresh_materialized_view",
           "named": true
         },
         {
@@ -14909,6 +15054,10 @@
   },
   {
     "type": "keyword_referencing",
+    "named": true
+  },
+  {
+    "type": "keyword_refresh",
     "named": true
   },
   {

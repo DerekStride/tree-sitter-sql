@@ -169,6 +169,7 @@
   (keyword_data)
   (keyword_type)
   (keyword_rename)
+  (keyword_refresh)
   (keyword_to)
   (keyword_schema)
   (keyword_owner)

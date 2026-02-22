@@ -6,6 +6,7 @@ export default {
     choice(
       $.drop_table,
       $.drop_view,
+      $.drop_materialized_view,
       $.drop_index,
       $.drop_type,
       $.drop_schema,
@@ -28,6 +29,15 @@ export default {
 
   drop_view: $ => seq(
     $.keyword_drop,
+    $.keyword_view,
+    optional($._if_exists),
+    $.object_reference,
+    optional($._drop_behavior),
+  ),
+
+  drop_materialized_view: $ => seq(
+    $.keyword_drop,
+    $.keyword_materialized,
     $.keyword_view,
     optional($._if_exists),
     $.object_reference,
