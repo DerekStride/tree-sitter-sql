@@ -2711,3 +2711,466 @@ CREATE POLICY my_policy ON my_schema.my_table
                 name: (identifier))))
           (int
             (keyword_int)))))))
+
+
+================================================================================
+Create policy basic
+================================================================================
+
+CREATE POLICY my_policy ON my_table;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_policy
+      (keyword_create)
+      (keyword_policy)
+      (object_reference
+        name: (identifier))
+      (keyword_on)
+      (object_reference
+        name: (identifier)))))
+
+================================================================================
+Create policy with schema qualified table
+================================================================================
+
+CREATE POLICY my_policy ON my_schema.my_table;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_policy
+      (keyword_create)
+      (keyword_policy)
+      (object_reference
+        name: (identifier))
+      (keyword_on)
+      (object_reference
+        schema: (identifier)
+        name: (identifier)))))
+
+================================================================================
+Create policy as permissive
+================================================================================
+
+CREATE POLICY my_policy ON my_table AS PERMISSIVE;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_policy
+      (keyword_create)
+      (keyword_policy)
+      (object_reference
+        name: (identifier))
+      (keyword_on)
+      (object_reference
+        name: (identifier))
+      (keyword_as)
+      (keyword_permissive))))
+
+================================================================================
+Create policy as restrictive
+================================================================================
+
+CREATE POLICY my_policy ON my_table AS RESTRICTIVE;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_policy
+      (keyword_create)
+      (keyword_policy)
+      (object_reference
+        name: (identifier))
+      (keyword_on)
+      (object_reference
+        name: (identifier))
+      (keyword_as)
+      (keyword_restrictive))))
+
+================================================================================
+Create policy for all
+================================================================================
+
+CREATE POLICY my_policy ON my_table FOR ALL;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_policy
+      (keyword_create)
+      (keyword_policy)
+      (object_reference
+        name: (identifier))
+      (keyword_on)
+      (object_reference
+        name: (identifier))
+      (keyword_for)
+      (keyword_all))))
+
+================================================================================
+Create policy for select
+================================================================================
+
+CREATE POLICY my_policy ON my_table FOR SELECT;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_policy
+      (keyword_create)
+      (keyword_policy)
+      (object_reference
+        name: (identifier))
+      (keyword_on)
+      (object_reference
+        name: (identifier))
+      (keyword_for)
+      (keyword_select))))
+
+================================================================================
+Create policy for insert
+================================================================================
+
+CREATE POLICY my_policy ON my_table FOR INSERT;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_policy
+      (keyword_create)
+      (keyword_policy)
+      (object_reference
+        name: (identifier))
+      (keyword_on)
+      (object_reference
+        name: (identifier))
+      (keyword_for)
+      (keyword_insert))))
+
+================================================================================
+Create policy for update
+================================================================================
+
+CREATE POLICY my_policy ON my_table FOR UPDATE;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_policy
+      (keyword_create)
+      (keyword_policy)
+      (object_reference
+        name: (identifier))
+      (keyword_on)
+      (object_reference
+        name: (identifier))
+      (keyword_for)
+      (keyword_update))))
+
+================================================================================
+Create policy for delete
+================================================================================
+
+CREATE POLICY my_policy ON my_table FOR DELETE;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_policy
+      (keyword_create)
+      (keyword_policy)
+      (object_reference
+        name: (identifier))
+      (keyword_on)
+      (object_reference
+        name: (identifier))
+      (keyword_for)
+      (keyword_delete))))
+
+================================================================================
+Create policy to role
+================================================================================
+
+CREATE POLICY my_policy ON my_table TO admin;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_policy
+      (keyword_create)
+      (keyword_policy)
+      (object_reference
+        name: (identifier))
+      (keyword_on)
+      (object_reference
+        name: (identifier))
+      (keyword_to)
+      (object_reference
+        name: (identifier)))))
+
+================================================================================
+Create policy to public
+================================================================================
+
+CREATE POLICY my_policy ON my_table TO PUBLIC;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_policy
+      (keyword_create)
+      (keyword_policy)
+      (object_reference
+        name: (identifier))
+      (keyword_on)
+      (object_reference
+        name: (identifier))
+      (keyword_to)
+      (keyword_public))))
+
+================================================================================
+Create policy to current_role
+================================================================================
+
+CREATE POLICY my_policy ON my_table TO CURRENT_ROLE;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_policy
+      (keyword_create)
+      (keyword_policy)
+      (object_reference
+        name: (identifier))
+      (keyword_on)
+      (object_reference
+        name: (identifier))
+      (keyword_to)
+      (keyword_current_role))))
+
+================================================================================
+Create policy to current_user
+================================================================================
+
+CREATE POLICY my_policy ON my_table TO CURRENT_USER;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_policy
+      (keyword_create)
+      (keyword_policy)
+      (object_reference
+        name: (identifier))
+      (keyword_on)
+      (object_reference
+        name: (identifier))
+      (keyword_to)
+      (keyword_current_user))))
+
+================================================================================
+Create policy to session_user
+================================================================================
+
+CREATE POLICY my_policy ON my_table TO SESSION_USER;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_policy
+      (keyword_create)
+      (keyword_policy)
+      (object_reference
+        name: (identifier))
+      (keyword_on)
+      (object_reference
+        name: (identifier))
+      (keyword_to)
+      (keyword_session_user))))
+
+================================================================================
+Create policy to multiple roles
+================================================================================
+
+CREATE POLICY my_policy ON my_table TO admin, manager, PUBLIC;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_policy
+      (keyword_create)
+      (keyword_policy)
+      (object_reference
+        name: (identifier))
+      (keyword_on)
+      (object_reference
+        name: (identifier))
+      (keyword_to)
+      (object_reference
+        name: (identifier))
+      (object_reference
+        name: (identifier))
+      (keyword_public))))
+
+================================================================================
+Create policy with using clause
+================================================================================
+
+CREATE POLICY my_policy ON my_table USING (user_id = get_user_id());
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_policy
+      (keyword_create)
+      (keyword_policy)
+      (object_reference
+        name: (identifier))
+      (keyword_on)
+      (object_reference
+        name: (identifier))
+      (keyword_using)
+      (parenthesized_expression
+        (binary_expression
+          left: (field
+            name: (identifier))
+          right: (invocation
+            (object_reference
+              name: (identifier))))))))
+
+================================================================================
+Create policy with check clause
+================================================================================
+
+CREATE POLICY my_policy ON my_table WITH CHECK (status = 'active');
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_policy
+      (keyword_create)
+      (keyword_policy)
+      (object_reference
+        name: (identifier))
+      (keyword_on)
+      (object_reference
+        name: (identifier))
+      (keyword_with)
+      (keyword_check)
+      (parenthesized_expression
+        (binary_expression
+          left: (field
+            name: (identifier))
+          right: (literal))))))
+
+================================================================================
+Create policy with using and check clauses
+================================================================================
+
+CREATE POLICY my_policy ON my_table USING (visible = true) WITH CHECK (user_id = get_user_id());
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_policy
+      (keyword_create)
+      (keyword_policy)
+      (object_reference
+        name: (identifier))
+      (keyword_on)
+      (object_reference
+        name: (identifier))
+      (keyword_using)
+      (parenthesized_expression
+        (binary_expression
+          left: (field
+            name: (identifier))
+          right: (literal
+            (keyword_true))))
+      (keyword_with)
+      (keyword_check)
+      (parenthesized_expression
+        (binary_expression
+          left: (field
+            name: (identifier))
+          right: (invocation
+            (object_reference
+              name: (identifier))))))))
+
+================================================================================
+Create policy full syntax
+================================================================================
+
+CREATE POLICY my_policy ON my_schema.my_table
+  AS RESTRICTIVE
+  FOR UPDATE
+  TO admin, manager
+  USING (tenant_id = get_tenant_id()::int)
+  WITH CHECK (tenant_id = get_tenant_id()::int);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_policy
+      (keyword_create)
+      (keyword_policy)
+      (object_reference
+        name: (identifier))
+      (keyword_on)
+      (object_reference
+        schema: (identifier)
+        name: (identifier))
+      (keyword_as)
+      (keyword_restrictive)
+      (keyword_for)
+      (keyword_update)
+      (keyword_to)
+      (object_reference
+        name: (identifier))
+      (object_reference
+        name: (identifier))
+      (keyword_using)
+      (parenthesized_expression
+        (cast
+          (binary_expression
+            left: (field
+              name: (identifier))
+            right: (invocation
+              (object_reference
+                name: (identifier))))
+          (int
+            (keyword_int))))
+      (keyword_with)
+      (keyword_check)
+      (parenthesized_expression
+        (cast
+          (binary_expression
+            left: (field
+              name: (identifier))
+            right: (invocation
+              (object_reference
+                name: (identifier))))
+          (int
+            (keyword_int)))))))

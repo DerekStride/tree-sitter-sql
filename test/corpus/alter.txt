@@ -1800,3 +1800,114 @@ ALTER POLICY my_policy ON my_schema.my_table
                 name: (identifier))))
           (int
             (keyword_int)))))))
+
+================================================================================
+Alter materialized view rename
+================================================================================
+
+ALTER MATERIALIZED VIEW my_view RENAME TO new_view;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_materialized_view
+      (keyword_alter)
+      (keyword_materialized)
+      (keyword_view)
+      (object_reference
+        name: (identifier))
+      (rename_object
+        (keyword_rename)
+        (keyword_to)
+        (object_reference
+          name: (identifier))))))
+
+================================================================================
+Alter materialized view if exists rename
+================================================================================
+
+ALTER MATERIALIZED VIEW IF EXISTS my_view RENAME TO new_view;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_materialized_view
+      (keyword_alter)
+      (keyword_materialized)
+      (keyword_view)
+      (keyword_if)
+      (keyword_exists)
+      (object_reference
+        name: (identifier))
+      (rename_object
+        (keyword_rename)
+        (keyword_to)
+        (object_reference
+          name: (identifier))))))
+
+================================================================================
+Alter materialized view set schema
+================================================================================
+
+ALTER MATERIALIZED VIEW my_view SET SCHEMA new_schema;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_materialized_view
+      (keyword_alter)
+      (keyword_materialized)
+      (keyword_view)
+      (object_reference
+        name: (identifier))
+      (set_schema
+        (keyword_set)
+        (keyword_schema)
+        schema: (identifier)))))
+
+================================================================================
+Alter materialized view change owner
+================================================================================
+
+ALTER MATERIALIZED VIEW my_view OWNER TO someone_else;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_materialized_view
+      (keyword_alter)
+      (keyword_materialized)
+      (keyword_view)
+      (object_reference
+        name: (identifier))
+      (change_ownership
+        (keyword_owner)
+        (keyword_to)
+        (identifier)))))
+
+================================================================================
+Alter materialized view with schema qualification
+================================================================================
+
+ALTER MATERIALIZED VIEW myschema.my_view RENAME TO new_view;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_materialized_view
+      (keyword_alter)
+      (keyword_materialized)
+      (keyword_view)
+      (object_reference
+        schema: (identifier)
+        name: (identifier))
+      (rename_object
+        (keyword_rename)
+        (keyword_to)
+        (object_reference
+          name: (identifier))))))

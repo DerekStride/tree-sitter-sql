@@ -572,6 +572,66 @@ WHERE
             right: (literal)))))))
 
 ================================================================================
+Where with RLIKE pattern matching
+================================================================================
+
+SELECT
+    *
+FROM
+    a
+WHERE
+        a RLIKE '^pattern'
+    AND a NOT RLIKE '^pattern'
+    AND a rlike '^pattern'
+    AND a REGEXP '^pattern';
+
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (all_fields))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier)))
+      (where
+        (keyword_where)
+        predicate: (binary_expression
+          left: (binary_expression
+            left: (binary_expression
+              left: (binary_expression
+                left: (field
+                  name: (identifier))
+                operator: (keyword_rlike)
+                right: (literal))
+              operator: (keyword_and)
+              right: (binary_expression
+                left: (field
+                  name: (identifier))
+                operator: (not_rlike
+                  (keyword_not)
+                  (keyword_rlike))
+                right: (literal)))
+            operator: (keyword_and)
+            right: (binary_expression
+              left: (field
+                name: (identifier))
+              operator: (keyword_rlike)
+              right: (literal)))
+          operator: (keyword_and)
+          right: (binary_expression
+            left: (field
+              name: (identifier))
+            operator: (keyword_rlike)
+            right: (literal)))))))
+
+================================================================================
 NOT EQUAL <> OPERATOR
 ================================================================================
 

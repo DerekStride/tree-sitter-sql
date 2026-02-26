@@ -55,6 +55,7 @@
   ],
   "files": [
     "grammar.js",
+    "grammar/**",
     "binding.gyp",
     "prebuilds/**",
     "bindings/node/*",
