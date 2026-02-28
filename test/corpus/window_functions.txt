@@ -201,7 +201,7 @@ Window Functions two inline functions
 SELECT
   a,
   SUM(b) OVER (PARTITION BY c) AS w1,
-  AVG(b) OVER (ORDER BY d) AS w2,
+  AVG(b) OVER (ORDER BY d) AS w2
 FROM tab1;
 
 --------------------------------------------------------------------------------
@@ -248,11 +248,12 @@ FROM tab1;
                   (field
                     name: (identifier))))))
           (keyword_as)
-          alias: (identifier))
-        (term
-          value: (field
-            name: (identifier))
-          alias: (identifier))))))
+          alias: (identifier))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier))))))
 
 ================================================================================
 Window Functions separate definition
