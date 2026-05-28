@@ -2750,6 +2750,93 @@
     }
   },
   {
+    "type": "cluster_by",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "array",
+          "named": true
+        },
+        {
+          "type": "between_expression",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "case",
+          "named": true
+        },
+        {
+          "type": "cast",
+          "named": true
+        },
+        {
+          "type": "exists",
+          "named": true
+        },
+        {
+          "type": "field",
+          "named": true
+        },
+        {
+          "type": "interval",
+          "named": true
+        },
+        {
+          "type": "invocation",
+          "named": true
+        },
+        {
+          "type": "keyword_by",
+          "named": true
+        },
+        {
+          "type": "keyword_cluster",
+          "named": true
+        },
+        {
+          "type": "list",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "parameter",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "subquery",
+          "named": true
+        },
+        {
+          "type": "subscript",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "window_function",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "column",
     "named": true,
     "fields": {
@@ -5134,6 +5221,93 @@
     }
   },
   {
+    "type": "distribute_by",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "array",
+          "named": true
+        },
+        {
+          "type": "between_expression",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "case",
+          "named": true
+        },
+        {
+          "type": "cast",
+          "named": true
+        },
+        {
+          "type": "exists",
+          "named": true
+        },
+        {
+          "type": "field",
+          "named": true
+        },
+        {
+          "type": "interval",
+          "named": true
+        },
+        {
+          "type": "invocation",
+          "named": true
+        },
+        {
+          "type": "keyword_by",
+          "named": true
+        },
+        {
+          "type": "keyword_distribute",
+          "named": true
+        },
+        {
+          "type": "list",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "parameter",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "subquery",
+          "named": true
+        },
+        {
+          "type": "subscript",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "window_function",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "double",
     "named": true,
     "fields": {
@@ -6081,7 +6255,15 @@
       "required": true,
       "types": [
         {
+          "type": "cluster_by",
+          "named": true
+        },
+        {
           "type": "cross_join",
+          "named": true
+        },
+        {
+          "type": "distribute_by",
           "named": true
         },
         {
@@ -6130,6 +6312,10 @@
         },
         {
           "type": "relation",
+          "named": true
+        },
+        {
+          "type": "sort_by",
           "named": true
         },
         {
@@ -6996,6 +7182,77 @@
     }
   },
   {
+    "type": "insert_overwrite_directory",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "cte",
+          "named": true
+        },
+        {
+          "type": "from",
+          "named": true
+        },
+        {
+          "type": "keyword_directory",
+          "named": true
+        },
+        {
+          "type": "keyword_insert",
+          "named": true
+        },
+        {
+          "type": "keyword_into",
+          "named": true
+        },
+        {
+          "type": "keyword_local",
+          "named": true
+        },
+        {
+          "type": "keyword_overwrite",
+          "named": true
+        },
+        {
+          "type": "keyword_recursive",
+          "named": true
+        },
+        {
+          "type": "keyword_with",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "row_format",
+          "named": true
+        },
+        {
+          "type": "select",
+          "named": true
+        },
+        {
+          "type": "select_expression",
+          "named": true
+        },
+        {
+          "type": "set_operation",
+          "named": true
+        },
+        {
+          "type": "stored_as",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "int",
     "named": true,
     "fields": {
@@ -7652,6 +7909,57 @@
     }
   },
   {
+    "type": "load_data",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_data",
+          "named": true
+        },
+        {
+          "type": "keyword_inpath",
+          "named": true
+        },
+        {
+          "type": "keyword_into",
+          "named": true
+        },
+        {
+          "type": "keyword_load",
+          "named": true
+        },
+        {
+          "type": "keyword_local",
+          "named": true
+        },
+        {
+          "type": "keyword_overwrite",
+          "named": true
+        },
+        {
+          "type": "keyword_table",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "object_reference",
+          "named": true
+        },
+        {
+          "type": "table_partition",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "modify_column",
     "named": true,
     "fields": {},
@@ -7731,6 +8039,104 @@
         },
         {
           "type": "keyword_table",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "multi_table_insert",
+    "named": true,
+    "fields": {
+      "alias": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "cte",
+          "named": true
+        },
+        {
+          "type": "from",
+          "named": true
+        },
+        {
+          "type": "keyword_as",
+          "named": true
+        },
+        {
+          "type": "keyword_from",
+          "named": true
+        },
+        {
+          "type": "keyword_insert",
+          "named": true
+        },
+        {
+          "type": "keyword_into",
+          "named": true
+        },
+        {
+          "type": "keyword_overwrite",
+          "named": true
+        },
+        {
+          "type": "keyword_recursive",
+          "named": true
+        },
+        {
+          "type": "keyword_select",
+          "named": true
+        },
+        {
+          "type": "keyword_table",
+          "named": true
+        },
+        {
+          "type": "keyword_values",
+          "named": true
+        },
+        {
+          "type": "keyword_with",
+          "named": true
+        },
+        {
+          "type": "list",
+          "named": true
+        },
+        {
+          "type": "object_reference",
+          "named": true
+        },
+        {
+          "type": "select",
+          "named": true
+        },
+        {
+          "type": "select_expression",
+          "named": true
+        },
+        {
+          "type": "set_operation",
+          "named": true
+        },
+        {
+          "type": "table_partition",
+          "named": true
+        },
+        {
+          "type": "where",
           "named": true
         }
       ]
@@ -9135,6 +9541,29 @@
     }
   },
   {
+    "type": "sort_by",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_by",
+          "named": true
+        },
+        {
+          "type": "keyword_sort",
+          "named": true
+        },
+        {
+          "type": "order_target",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "statement",
     "named": true,
     "fields": {
@@ -9386,6 +9815,10 @@
           "named": true
         },
         {
+          "type": "insert_overwrite_directory",
+          "named": true
+        },
+        {
           "type": "keyword_analyze",
           "named": true
         },
@@ -9474,7 +9907,15 @@
           "named": true
         },
         {
+          "type": "load_data",
+          "named": true
+        },
+        {
           "type": "msck_repair_statement",
+          "named": true
+        },
+        {
+          "type": "multi_table_insert",
           "named": true
         },
         {
@@ -11403,6 +11844,10 @@
     "named": true
   },
   {
+    "type": "keyword_cluster",
+    "named": true
+  },
+  {
     "type": "keyword_clustered",
     "named": true
   },
@@ -11527,11 +11972,19 @@
     "named": true
   },
   {
+    "type": "keyword_directory",
+    "named": true
+  },
+  {
     "type": "keyword_disable",
     "named": true
   },
   {
     "type": "keyword_distinct",
+    "named": true
+  },
+  {
+    "type": "keyword_distribute",
     "named": true
   },
   {
@@ -11735,6 +12188,10 @@
     "named": true
   },
   {
+    "type": "keyword_inpath",
+    "named": true
+  },
+  {
     "type": "keyword_input",
     "named": true
   },
@@ -11824,6 +12281,10 @@
   },
   {
     "type": "keyword_lines",
+    "named": true
+  },
+  {
+    "type": "keyword_load",
     "named": true
   },
   {

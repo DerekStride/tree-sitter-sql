@@ -36,6 +36,8 @@ export default grammar(spark, {
     [$.cluster_by],
     [$.distribute_by],
     [$.sort_by],
+    // Inherited from Hive via Spark: multi-table INSERT ambiguity
+    [$.select, $.multi_table_insert],
     [$.lateral_cross_join],
     // Inherited from Hive via Spark: SERDE optional WITH SERDEPROPERTIES ambiguity
     [$.row_format],

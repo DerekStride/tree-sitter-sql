@@ -8,26 +8,8 @@ export default {
     field('predicate', $._expression),
   ),
 
-  // CLUSTER BY col [, col] — distribute + sort (shorthand for DISTRIBUTE BY + SORT BY)
-  cluster_by: $ => seq(
-    $.keyword_cluster,
-    $.keyword_by,
-    comma_list($._expression, true),
-  ),
-
-  // DISTRIBUTE BY col [, col] — controls partition of rows to reducers (no sort)
-  distribute_by: $ => seq(
-    $.keyword_distribute,
-    $.keyword_by,
-    comma_list($._expression, true),
-  ),
-
-  // SORT BY col [ASC|DESC] [, col] — per-reducer sort (not globally sorted)
-  sort_by: $ => seq(
-    $.keyword_sort,
-    $.keyword_by,
-    comma_list($.order_target, true),
-  ),
+  // Note: cluster_by / distribute_by / sort_by are defined in Hive (parent grammar)
+  // and inherited by Spark. They live there so they are also available in plain Hive.
 
   // PIVOT ( agg(col) FOR col IN ('v1', 'v2' [, ...]) )
   pivot_clause: $ => seq(

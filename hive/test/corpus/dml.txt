@@ -1,0 +1,162 @@
+================================================================================
+Hive: LOAD DATA INPATH into table
+================================================================================
+
+LOAD DATA INPATH '/data/input' INTO TABLE t;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (load_data
+      (keyword_load)
+      (keyword_data)
+      (keyword_inpath)
+      (literal)
+      (keyword_into)
+      (keyword_table)
+      (object_reference
+        name: (identifier)))))
+
+================================================================================
+Hive: LOAD DATA LOCAL INPATH with OVERWRITE
+================================================================================
+
+LOAD DATA LOCAL INPATH '/data/input' OVERWRITE INTO TABLE sales PARTITION (year='2024');
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (load_data
+      (keyword_load)
+      (keyword_data)
+      (keyword_local)
+      (keyword_inpath)
+      (literal)
+      (keyword_overwrite)
+      (keyword_into)
+      (keyword_table)
+      (object_reference
+        name: (identifier))
+      (table_partition
+        (keyword_partition)
+        key: (identifier)
+        value: (literal)))))
+
+================================================================================
+Hive: INSERT OVERWRITE DIRECTORY
+================================================================================
+
+INSERT OVERWRITE DIRECTORY '/data/output' SELECT id, name FROM t;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (insert_overwrite_directory
+      (keyword_insert)
+      (keyword_overwrite)
+      (keyword_directory)
+      (literal)
+      (select
+        (keyword_select)
+        (select_expression
+          (term
+            value: (field
+              name: (identifier)))
+          (term
+            value: (field
+              name: (identifier)))))
+      (from
+        (keyword_from)
+        (relation
+          (object_reference
+            name: (identifier)))))))
+
+================================================================================
+Hive: CLUSTER BY clause
+================================================================================
+
+SELECT id, dept FROM employees CLUSTER BY dept;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            name: (identifier)))
+        (term
+          value: (field
+            name: (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier)))
+      (cluster_by
+        (keyword_cluster)
+        (keyword_by)
+        (field
+          name: (identifier))))))
+
+================================================================================
+Hive: DISTRIBUTE BY clause
+================================================================================
+
+SELECT id FROM t DISTRIBUTE BY id;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            name: (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier)))
+      (distribute_by
+        (keyword_distribute)
+        (keyword_by)
+        (field
+          name: (identifier))))))
+
+================================================================================
+Hive: SORT BY clause
+================================================================================
+
+SELECT id FROM t SORT BY id DESC;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            name: (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier)))
+      (sort_by
+        (keyword_sort)
+        (keyword_by)
+        (order_target
+          (field
+            name: (identifier))
+          (direction
+            (keyword_desc)))))))

@@ -1,5 +1,5 @@
 import base from '../grammar.js';
-import { paren_list, optional_parenthesis, comma_list, make_keyword } from '../grammar/helpers.js';
+import { paren_list, optional_parenthesis, comma_list, wrapped_in_parenthesis, make_keyword } from '../grammar/helpers.js';
 import hive_storage_rules from './grammar/storage.js';
 import hive_partition_rules from './grammar/partition.js';
 import hive_lateral_view_rules from './grammar/lateral_view.js';
@@ -16,6 +16,11 @@ export default grammar(base, {
     [$.stored_by],
     [$.row_format],
     [$.skewed_by],
+    [$.cluster_by],
+    [$.distribute_by],
+    [$.sort_by],
+    [$.multi_table_insert],
+    [$.select, $.multi_table_insert],
   ],
 
   rules: {
@@ -34,6 +39,72 @@ export default grammar(base, {
       $.reset_statement,
       $.use_statement,
       $.msck_repair_statement,
+      $.load_data,
+    ),
+
+    // Override _dml_write to include Hive's multi-table insert and overwrite-directory
+    _dml_write: $ => seq(
+      optional($._cte),
+      choice(
+        $._delete_statement,
+        $._insert_statement,
+        $._update_statement,
+        $._truncate_statement,
+        $.multi_table_insert,
+        $.insert_overwrite_directory,
+      ),
+    ),
+
+    // LOAD DATA [LOCAL] INPATH 'path' [OVERWRITE] INTO TABLE tbl [PARTITION (key=val)]
+    load_data: $ => seq(
+      $.keyword_load,
+      $.keyword_data,
+      optional($.keyword_local),
+      $.keyword_inpath,
+      alias($._literal_string, $.literal),
+      optional($.keyword_overwrite),
+      $.keyword_into,
+      $.keyword_table,
+      $.object_reference,
+      optional($.table_partition),
+    ),
+
+    // INSERT OVERWRITE [LOCAL] DIRECTORY 'path' [ROW FORMAT ...] [STORED AS ...]
+    // SELECT ...
+    insert_overwrite_directory: $ => seq(
+      $.keyword_insert,
+      $.keyword_overwrite,
+      optional($.keyword_local),
+      $.keyword_directory,
+      alias($._literal_string, $.literal),
+      repeat(
+        choice(
+          $.row_format,
+          $.stored_as,
+        ),
+      ),
+      $._dml_read,
+    ),
+
+    // FROM src INSERT [OVERWRITE] [INTO] TABLE tbl [PARTITION] SELECT/VALUES ...
+    // (one or more INSERT targets in a single scan)
+    multi_table_insert: $ => seq(
+      $.keyword_from,
+      $.object_reference,
+      optional($._alias),
+      repeat1(
+        seq(
+          $.keyword_insert,
+          optional(choice($.keyword_overwrite, $.keyword_into)),
+          optional($.keyword_table),
+          $.object_reference,
+          optional($.table_partition),
+          choice(
+            seq($.keyword_select, $.select_expression, optional($.where)),
+            $._insert_values,
+          ),
+        ),
+      ),
     ),
 
     // CREATE TABLE with EXTERNAL support and HiveQL table settings
@@ -120,7 +191,7 @@ export default grammar(base, {
       $.change_ownership,
     ),
 
-    // FROM with LATERAL VIEW support (Hive-specific table-generating function syntax)
+    // FROM with LATERAL VIEW, CLUSTER/DISTRIBUTE/SORT BY support
     from: $ => seq(
       $.keyword_from,
       optional($.keyword_only),
@@ -139,7 +210,35 @@ export default grammar(base, {
       optional($.having),
       optional($.window_clause),
       optional($.order_by),
+      optional(
+        choice(
+          $.cluster_by,
+          $.distribute_by,
+          $.sort_by,
+        ),
+      ),
       optional($.limit),
+    ),
+
+    // CLUSTER BY col [, col]
+    cluster_by: $ => seq(
+      $.keyword_cluster,
+      $.keyword_by,
+      comma_list($._expression, true),
+    ),
+
+    // DISTRIBUTE BY col [, col]
+    distribute_by: $ => seq(
+      $.keyword_distribute,
+      $.keyword_by,
+      comma_list($._expression, true),
+    ),
+
+    // SORT BY col [ASC|DESC] [, col]
+    sort_by: $ => seq(
+      $.keyword_sort,
+      $.keyword_by,
+      comma_list($.order_target, true),
     ),
 
     // TABLESAMPLE with BUCKET n OUT OF n support (Hive-specific bucket sampling)

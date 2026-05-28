@@ -30,6 +30,8 @@ export default grammar(hive, {
     [$.distribute_by],
     [$.sort_by],
     [$.qualify],
+    // Inherited from Hive: multi-table INSERT ambiguity
+    [$.select, $.multi_table_insert],
     // Inherited from Hive: SERDE optional WITH SERDEPROPERTIES ambiguity
     [$.row_format],
     [$.lateral_view],
