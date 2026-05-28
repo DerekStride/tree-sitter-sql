@@ -378,6 +378,10 @@
           "named": true
         },
         {
+          "type": "user_variable",
+          "named": true
+        },
+        {
           "type": "window_function",
           "named": true
         }
@@ -1507,6 +1511,10 @@
           "named": true
         },
         {
+          "type": "user_variable",
+          "named": true
+        },
+        {
           "type": "values_row_statement",
           "named": true
         },
@@ -1626,6 +1634,10 @@
             "named": true
           },
           {
+            "type": "user_variable",
+            "named": true
+          },
+          {
             "type": "window_function",
             "named": true
           }
@@ -1721,6 +1733,10 @@
             "named": true
           },
           {
+            "type": "user_variable",
+            "named": true
+          },
+          {
             "type": "window_function",
             "named": true
           }
@@ -1795,6 +1811,10 @@
             "named": true
           },
           {
+            "type": "user_variable",
+            "named": true
+          },
+          {
             "type": "window_function",
             "named": true
           }
@@ -1866,6 +1886,10 @@
           },
           {
             "type": "unary_expression",
+            "named": true
+          },
+          {
+            "type": "user_variable",
             "named": true
           },
           {
@@ -2022,6 +2046,10 @@
           },
           {
             "type": "unary_expression",
+            "named": true
+          },
+          {
+            "type": "user_variable",
             "named": true
           },
           {
@@ -2217,6 +2245,10 @@
             "named": true
           },
           {
+            "type": "user_variable",
+            "named": true
+          },
+          {
             "type": "window_function",
             "named": true
           }
@@ -2347,6 +2379,10 @@
           "named": true
         },
         {
+          "type": "user_variable",
+          "named": true
+        },
+        {
           "type": "window_function",
           "named": true
         }
@@ -2443,6 +2479,10 @@
           },
           {
             "type": "unary_expression",
+            "named": true
+          },
+          {
+            "type": "user_variable",
             "named": true
           },
           {
@@ -3016,6 +3056,10 @@
           "named": true
         },
         {
+          "type": "user_variable",
+          "named": true
+        },
+        {
           "type": "window_function",
           "named": true
         }
@@ -3549,6 +3593,10 @@
         },
         {
           "type": "update",
+          "named": true
+        },
+        {
+          "type": "user_variable",
           "named": true
         },
         {
@@ -4909,6 +4957,10 @@
           "named": true
         },
         {
+          "type": "user_variable",
+          "named": true
+        },
+        {
           "type": "window_function",
           "named": true
         }
@@ -5222,6 +5274,33 @@
       "types": [
         {
           "type": "keyword_delete",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "describe_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "keyword_desc",
+          "named": true
+        },
+        {
+          "type": "keyword_describe",
+          "named": true
+        },
+        {
+          "type": "object_reference",
           "named": true
         }
       ]
@@ -5998,6 +6077,10 @@
             "named": true
           },
           {
+            "type": "user_variable",
+            "named": true
+          },
+          {
             "type": "window_function",
             "named": true
           }
@@ -6537,6 +6620,10 @@
           "named": true
         },
         {
+          "type": "user_variable",
+          "named": true
+        },
+        {
           "type": "window_function",
           "named": true
         }
@@ -6896,6 +6983,10 @@
           "named": true
         },
         {
+          "type": "user_variable",
+          "named": true
+        },
+        {
           "type": "window_function",
           "named": true
         }
@@ -6976,6 +7067,10 @@
         },
         {
           "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "user_variable",
           "named": true
         },
         {
@@ -7406,6 +7501,10 @@
             "named": true
           },
           {
+            "type": "user_variable",
+            "named": true
+          },
+          {
             "type": "window_function",
             "named": true
           }
@@ -7551,6 +7650,10 @@
           },
           {
             "type": "unary_expression",
+            "named": true
+          },
+          {
+            "type": "user_variable",
             "named": true
           },
           {
@@ -7906,6 +8009,10 @@
           "named": true
         },
         {
+          "type": "user_variable",
+          "named": true
+        },
+        {
           "type": "window_function",
           "named": true
         }
@@ -8009,6 +8116,10 @@
         },
         {
           "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "user_variable",
           "named": true
         },
         {
@@ -8525,6 +8636,10 @@
           "named": true
         },
         {
+          "type": "user_variable",
+          "named": true
+        },
+        {
           "type": "window_function",
           "named": true
         }
@@ -8826,6 +8941,10 @@
           "named": true
         },
         {
+          "type": "user_variable",
+          "named": true
+        },
+        {
           "type": "window_function",
           "named": true
         }
@@ -8910,6 +9029,10 @@
         },
         {
           "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "user_variable",
           "named": true
         },
         {
@@ -9057,6 +9180,10 @@
         },
         {
           "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "user_variable",
           "named": true
         },
         {
@@ -9258,6 +9385,10 @@
         },
         {
           "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "user_variable",
           "named": true
         },
         {
@@ -9627,6 +9758,177 @@
     }
   },
   {
+    "type": "show_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "array",
+          "named": true
+        },
+        {
+          "type": "between_expression",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "case",
+          "named": true
+        },
+        {
+          "type": "cast",
+          "named": true
+        },
+        {
+          "type": "exists",
+          "named": true
+        },
+        {
+          "type": "field",
+          "named": true
+        },
+        {
+          "type": "interval",
+          "named": true
+        },
+        {
+          "type": "invocation",
+          "named": true
+        },
+        {
+          "type": "keyword_columns",
+          "named": true
+        },
+        {
+          "type": "keyword_create",
+          "named": true
+        },
+        {
+          "type": "keyword_databases",
+          "named": true
+        },
+        {
+          "type": "keyword_errors",
+          "named": true
+        },
+        {
+          "type": "keyword_fields",
+          "named": true
+        },
+        {
+          "type": "keyword_from",
+          "named": true
+        },
+        {
+          "type": "keyword_full",
+          "named": true
+        },
+        {
+          "type": "keyword_grants",
+          "named": true
+        },
+        {
+          "type": "keyword_in",
+          "named": true
+        },
+        {
+          "type": "keyword_index",
+          "named": true
+        },
+        {
+          "type": "keyword_indexes",
+          "named": true
+        },
+        {
+          "type": "keyword_keys",
+          "named": true
+        },
+        {
+          "type": "keyword_like",
+          "named": true
+        },
+        {
+          "type": "keyword_processlist",
+          "named": true
+        },
+        {
+          "type": "keyword_show",
+          "named": true
+        },
+        {
+          "type": "keyword_status",
+          "named": true
+        },
+        {
+          "type": "keyword_table",
+          "named": true
+        },
+        {
+          "type": "keyword_tables",
+          "named": true
+        },
+        {
+          "type": "keyword_variables",
+          "named": true
+        },
+        {
+          "type": "keyword_warnings",
+          "named": true
+        },
+        {
+          "type": "limit",
+          "named": true
+        },
+        {
+          "type": "list",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "object_reference",
+          "named": true
+        },
+        {
+          "type": "parameter",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "subquery",
+          "named": true
+        },
+        {
+          "type": "subscript",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "user_variable",
+          "named": true
+        },
+        {
+          "type": "window_function",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "similar_to",
     "named": true,
     "fields": {},
@@ -9754,6 +10056,10 @@
             "named": true
           },
           {
+            "type": "user_variable",
+            "named": true
+          },
+          {
             "type": "window_function",
             "named": true
           }
@@ -9876,6 +10182,10 @@
         },
         {
           "type": "delete",
+          "named": true
+        },
+        {
+          "type": "describe_statement",
           "named": true
         },
         {
@@ -10059,6 +10369,10 @@
           "named": true
         },
         {
+          "type": "show_statement",
+          "named": true
+        },
+        {
           "type": "subquery",
           "named": true
         },
@@ -10205,6 +10519,10 @@
             "named": true
           },
           {
+            "type": "user_variable",
+            "named": true
+          },
+          {
             "type": "window_function",
             "named": true
           }
@@ -10276,6 +10594,10 @@
           },
           {
             "type": "unary_expression",
+            "named": true
+          },
+          {
+            "type": "user_variable",
             "named": true
           },
           {
@@ -10353,6 +10675,10 @@
             "named": true
           },
           {
+            "type": "user_variable",
+            "named": true
+          },
+          {
             "type": "window_function",
             "named": true
           }
@@ -10424,6 +10750,10 @@
           },
           {
             "type": "unary_expression",
+            "named": true
+          },
+          {
+            "type": "user_variable",
             "named": true
           },
           {
@@ -10654,6 +10984,10 @@
             "named": true
           },
           {
+            "type": "user_variable",
+            "named": true
+          },
+          {
             "type": "window_function",
             "named": true
           }
@@ -10855,6 +11189,10 @@
             "named": true
           },
           {
+            "type": "user_variable",
+            "named": true
+          },
+          {
             "type": "window_function",
             "named": true
           }
@@ -11039,6 +11377,10 @@
           "named": true
         },
         {
+          "type": "user_variable",
+          "named": true
+        },
+        {
           "type": "window_function",
           "named": true
         }
@@ -11167,6 +11509,10 @@
           },
           {
             "type": "unary_expression",
+            "named": true
+          },
+          {
+            "type": "user_variable",
             "named": true
           },
           {
@@ -11345,6 +11691,10 @@
           },
           {
             "type": "unary_expression",
+            "named": true
+          },
+          {
+            "type": "user_variable",
             "named": true
           },
           {
@@ -11843,6 +12193,10 @@
     "named": true
   },
   {
+    "type": "keyword_databases",
+    "named": true
+  },
+  {
     "type": "keyword_date",
     "named": true
   },
@@ -11876,6 +12230,10 @@
   },
   {
     "type": "keyword_desc",
+    "named": true
+  },
+  {
+    "type": "keyword_describe",
     "named": true
   },
   {
@@ -11940,6 +12298,10 @@
   },
   {
     "type": "keyword_environment",
+    "named": true
+  },
+  {
+    "type": "keyword_errors",
     "named": true
   },
   {
@@ -12039,6 +12401,10 @@
     "named": true
   },
   {
+    "type": "keyword_grants",
+    "named": true
+  },
+  {
     "type": "keyword_group",
     "named": true
   },
@@ -12092,6 +12458,10 @@
   },
   {
     "type": "keyword_index",
+    "named": true
+  },
+  {
+    "type": "keyword_indexes",
     "named": true
   },
   {
@@ -12168,6 +12538,10 @@
   },
   {
     "type": "keyword_key",
+    "named": true
+  },
+  {
+    "type": "keyword_keys",
     "named": true
   },
   {
@@ -12423,6 +12797,10 @@
     "named": true
   },
   {
+    "type": "keyword_processlist",
+    "named": true
+  },
+  {
     "type": "keyword_range",
     "named": true
   },
@@ -12563,6 +12941,10 @@
     "named": true
   },
   {
+    "type": "keyword_show",
+    "named": true
+  },
+  {
     "type": "keyword_similar",
     "named": true
   },
@@ -12600,6 +12982,10 @@
   },
   {
     "type": "keyword_statistics",
+    "named": true
+  },
+  {
+    "type": "keyword_status",
     "named": true
   },
   {
@@ -12763,6 +13149,10 @@
     "named": true
   },
   {
+    "type": "keyword_variables",
+    "named": true
+  },
+  {
     "type": "keyword_variadic",
     "named": true
   },
@@ -12796,6 +13186,10 @@
   },
   {
     "type": "keyword_wait",
+    "named": true
+  },
+  {
+    "type": "keyword_warnings",
     "named": true
   },
   {
@@ -12845,6 +13239,10 @@
   },
   {
     "type": "parameter",
+    "named": true
+  },
+  {
+    "type": "user_variable",
     "named": true
   }
 ]

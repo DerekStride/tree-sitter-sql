@@ -1,0 +1,271 @@
+================================================================================
+MySQL: SHOW TABLES
+================================================================================
+
+SHOW TABLES;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (show_statement
+      (keyword_show)
+      (keyword_tables))))
+
+================================================================================
+MySQL: SHOW TABLES FROM schema
+================================================================================
+
+SHOW TABLES FROM mydb;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (show_statement
+      (keyword_show)
+      (keyword_tables)
+      (keyword_from)
+      (object_reference
+        name: (identifier)))))
+
+================================================================================
+MySQL: SHOW FULL TABLES LIKE pattern
+================================================================================
+
+SHOW FULL TABLES LIKE 'user%';
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (show_statement
+      (keyword_show)
+      (keyword_full)
+      (keyword_tables)
+      (keyword_like)
+      (literal))))
+
+================================================================================
+MySQL: SHOW DATABASES
+================================================================================
+
+SHOW DATABASES;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (show_statement
+      (keyword_show)
+      (keyword_databases))))
+
+================================================================================
+MySQL: SHOW COLUMNS FROM table
+================================================================================
+
+SHOW COLUMNS FROM users;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (show_statement
+      (keyword_show)
+      (keyword_columns)
+      (keyword_from)
+      (object_reference
+        name: (identifier)))))
+
+================================================================================
+MySQL: SHOW INDEX FROM table
+================================================================================
+
+SHOW INDEX FROM orders;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (show_statement
+      (keyword_show)
+      (keyword_index)
+      (keyword_from)
+      (object_reference
+        name: (identifier)))))
+
+================================================================================
+MySQL: SHOW CREATE TABLE
+================================================================================
+
+SHOW CREATE TABLE users;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (show_statement
+      (keyword_show)
+      (keyword_create)
+      (keyword_table)
+      (object_reference
+        name: (identifier)))))
+
+================================================================================
+MySQL: SHOW PROCESSLIST
+================================================================================
+
+SHOW PROCESSLIST;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (show_statement
+      (keyword_show)
+      (keyword_processlist))))
+
+================================================================================
+MySQL: SHOW STATUS
+================================================================================
+
+SHOW STATUS;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (show_statement
+      (keyword_show)
+      (keyword_status))))
+
+================================================================================
+MySQL: SHOW VARIABLES LIKE pattern
+================================================================================
+
+SHOW VARIABLES LIKE 'max_%';
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (show_statement
+      (keyword_show)
+      (keyword_variables)
+      (keyword_like)
+      (literal))))
+
+================================================================================
+MySQL: SHOW WARNINGS
+================================================================================
+
+SHOW WARNINGS;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (show_statement
+      (keyword_show)
+      (keyword_warnings))))
+
+================================================================================
+MySQL: DESCRIBE table
+================================================================================
+
+DESCRIBE users;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (describe_statement
+      (keyword_describe)
+      (object_reference
+        name: (identifier)))))
+
+================================================================================
+MySQL: DESC table column
+================================================================================
+
+DESC users email;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (describe_statement
+      (keyword_desc)
+      (object_reference
+        name: (identifier))
+      (identifier))))
+
+================================================================================
+MySQL: LIMIT with comma offset form
+================================================================================
+
+SELECT id FROM t LIMIT 10, 20;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            name: (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier)))
+      (limit
+        (keyword_limit)
+        (literal)
+        (literal)))))
+
+================================================================================
+MySQL: User variable in SELECT
+================================================================================
+
+SELECT @user_id;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (user_variable))))))
+
+================================================================================
+MySQL: System variable in WHERE expression
+================================================================================
+
+SELECT id FROM t WHERE active = @@global_flag;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            name: (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier)))
+      (where
+        (keyword_where)
+        predicate: (binary_expression
+          left: (field
+            name: (identifier))
+          right: (user_variable))))))

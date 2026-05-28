@@ -345,6 +345,17 @@
   (keyword_tablesample)
 ] @keyword
 
+; --- MySQL SHOW / DESCRIBE ---
+[
+  (keyword_databases)
+  (keyword_processlist)
+  (keyword_status)
+  (keyword_warnings)
+  (keyword_errors)
+  (keyword_variables)
+  (keyword_indexes)
+] @keyword
+
 ; ============================================================
 ; Type qualifiers
 ; ============================================================

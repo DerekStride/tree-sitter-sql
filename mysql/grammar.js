@@ -66,6 +66,8 @@ export default grammar(base, {
       $._merge_statement,
       $._refresh_statement,
       $.set_statement,
+      $.show_statement,
+      $.describe_statement,
     ),
 
     _dml_write: $ => seq(
@@ -314,6 +316,80 @@ export default grammar(base, {
       field('path', alias($._literal_string, $.literal)),
     ),
 
+    // SHOW TABLES / DATABASES / COLUMNS / INDEX / CREATE TABLE / PROCESSLIST / STATUS / VARIABLES / WARNINGS / ERRORS / GRANTS
+    show_statement: $ => seq(
+      $.keyword_show,
+      optional($.keyword_full),
+      choice(
+        seq(
+          $.keyword_tables,
+          optional(seq(choice($.keyword_from, $.keyword_in), $.object_reference)),
+          optional(seq($.keyword_like, $._expression)),
+        ),
+        $.keyword_databases,
+        seq(
+          choice($.keyword_columns, $.keyword_fields),
+          $.keyword_from,
+          $.object_reference,
+        ),
+        seq(
+          choice($.keyword_index, $.keyword_indexes, $.keyword_keys),
+          $.keyword_from,
+          $.object_reference,
+        ),
+        seq($.keyword_create, $.keyword_table, $.object_reference),
+        $.keyword_processlist,
+        seq($.keyword_status, optional(seq($.keyword_like, $._expression))),
+        seq($.keyword_variables, optional(seq($.keyword_like, $._expression))),
+        seq($.keyword_warnings, optional($.limit)),
+        $.keyword_errors,
+        $.keyword_grants,
+      ),
+    ),
+
+    // DESCRIBE table [column] / DESC table [column]
+    describe_statement: $ => seq(
+      choice($.keyword_describe, $.keyword_desc),
+      $.object_reference,
+      optional($.identifier),
+    ),
+
+    // Override limit: MySQL also supports LIMIT offset, count (comma form)
+    limit: $ => seq(
+      $.keyword_limit,
+      choice(
+        seq(alias($._integer, $.literal), ',', alias($._integer, $.literal)),
+        seq($.literal, optional($.offset)),
+      ),
+    ),
+
+    // MySQL user/session variables: @name and @@name
+    user_variable: _ => token(/@@?[a-zA-Z_][a-zA-Z0-9_]*/),
+
+    // Extend _expression to include user variables
+    _expression: $ => prec(1,
+      choice(
+        $.user_variable,
+        $.literal,
+        alias($._qualified_field, $.field),
+        $.parameter,
+        $.list,
+        $.case,
+        $.window_function,
+        $.subquery,
+        $.cast,
+        $.exists,
+        $.invocation,
+        $.binary_expression,
+        $.subscript,
+        $.unary_expression,
+        $.array,
+        $.interval,
+        $.between_expression,
+        $.parenthesized_expression,
+      ),
+    ),
+
     _backtick_quoted_string: _ => /`[^`]*`/,
 
     identifier: $ => choice(
@@ -354,6 +430,13 @@ export default grammar(base, {
     keyword_json_table:     _ => token(prec(1, make_keyword("json_table"))),
     keyword_path:           _ => token(prec(1, make_keyword("path"))),
     keyword_infile:         _ => token(prec(1, make_keyword("infile"))),
+    keyword_databases:      _ => token(prec(1, make_keyword("databases"))),
+    keyword_processlist:    _ => token(prec(1, make_keyword("processlist"))),
+    keyword_status:         _ => token(prec(1, make_keyword("status"))),
+    keyword_warnings:       _ => token(prec(1, make_keyword("warnings"))),
+    keyword_errors:         _ => token(prec(1, make_keyword("errors"))),
+    keyword_variables:      _ => token(prec(1, make_keyword("variables"))),
+    keyword_indexes:        _ => token(prec(1, make_keyword("indexes"))),
 
     ...mysql_create_rules,
     ...mysql_optimize_rules,

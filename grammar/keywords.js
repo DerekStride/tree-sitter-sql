@@ -360,6 +360,14 @@ export default {
   keyword_message: _ => make_keyword("message"),
   keyword_condition: _ => make_keyword("condition"),
   keyword_get: _ => make_keyword("get"),
+  // MySQL SHOW / DESCRIBE extensions (#2d)
+  keyword_databases: _ => make_keyword("databases"),
+  keyword_processlist: _ => make_keyword("processlist"),
+  keyword_status: _ => make_keyword("status"),
+  keyword_warnings: _ => make_keyword("warnings"),
+  keyword_errors: _ => make_keyword("errors"),
+  keyword_variables: _ => make_keyword("variables"),
+  keyword_indexes: _ => make_keyword("indexes"),
   // Spark 4.x (#21)
   keyword_var: _ => make_keyword("var"),
   keyword_variable: _ => make_keyword("variable"),
