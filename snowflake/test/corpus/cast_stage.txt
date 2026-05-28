@@ -1,0 +1,93 @@
+================================================================================
+Snowflake: :: cast to STRING
+================================================================================
+
+SELECT col::STRING FROM t;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (cast
+            (field
+              name: (identifier))
+            (keyword_string)))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier))))))
+
+================================================================================
+Snowflake: :: cast to INT
+================================================================================
+
+SELECT '42'::INT FROM t;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (cast
+            (literal)
+            (int
+              (keyword_int))))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier))))))
+
+================================================================================
+Snowflake: :: cast to DATE
+================================================================================
+
+SELECT created_at::DATE FROM events;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (cast
+            (field
+              name: (identifier))
+            (keyword_date)))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier))))))
+
+================================================================================
+Snowflake: @stage as FROM source
+================================================================================
+
+SELECT $1, $2 FROM @my_stage;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (parameter))
+        (term
+          value: (parameter))))
+    (from
+      (keyword_from)
+      (relation
+        (sf_stage_ref)))))

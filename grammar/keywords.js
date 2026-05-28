@@ -376,6 +376,7 @@ export default {
   keyword_geography:  _ => make_keyword("geography"),
   keyword_datetime:   _ => make_keyword("datetime"),
   keyword_unnest:     _ => make_keyword("unnest"),
+  keyword_flatten:    _ => make_keyword("flatten"),
   // Spark 4.x (#21)
   keyword_var: _ => make_keyword("var"),
   keyword_variable: _ => make_keyword("variable"),

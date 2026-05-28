@@ -367,6 +367,7 @@
 ] @type.builtin
 
 (keyword_unnest) @function.call
+(keyword_flatten) @function.call
 
 ; ============================================================
 ; Type qualifiers

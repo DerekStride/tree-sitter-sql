@@ -26,6 +26,8 @@ export default grammar(base, {
     [$.create_function],
     // Snowflake-specific conflicts
     [$._function_return, $.sf_return_statement],
+    [$.time],
+    [$.timestamp],
   ],
 
   rules: {
@@ -156,6 +158,8 @@ export default grammar(base, {
           $.invocation,
           $.object_reference,
           wrapped_in_parenthesis($.values),
+          // Snowflake: @stage as a FROM source
+          $.sf_stage_ref,
         ),
         optional($.sf_time_travel_clause),
         optional($.tablesample),
@@ -171,7 +175,7 @@ export default grammar(base, {
       ),
     ),
 
-    // ── _expression: add variant colon-path access ──────────────────────────
+    // ── _expression: add variant colon-path access and :: cast ──────────────
     _expression: $ => prec(1, choice(
       $.literal,
       alias($._qualified_field, $.field),
@@ -181,6 +185,7 @@ export default grammar(base, {
       $.window_function,
       $.subquery,
       $.cast,
+      alias($.sf_cast, $.cast),
       $.exists,
       $.invocation,
       $.binary_expression,
@@ -194,6 +199,13 @@ export default grammar(base, {
       $.sf_variant_access,
     )),
 
+    // ── :: type cast (Snowflake-specific; Postgres has same pattern) ─────────
+    sf_cast: $ => seq(
+      $._expression,
+      '::',
+      $._type,
+    ),
+
     // Snowflake-specific keywords (not ANSI)
     keyword_at:             _ => make_keyword("at"),
     keyword_one:            _ => make_keyword("one"),
@@ -205,6 +217,7 @@ export default grammar(base, {
     keyword_pattern:        _ => make_keyword("pattern"),
     keyword_define:         _ => make_keyword("define"),
     keyword_skip:           _ => make_keyword("skip"),
+    keyword_flatten:        _ => token(prec(1, make_keyword("flatten"))),
     keyword_let:            _ => make_keyword("let"),
     keyword_raise:          _ => make_keyword("raise"),
     keyword_exception:      _ => make_keyword("exception"),
