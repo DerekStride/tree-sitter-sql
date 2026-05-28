@@ -5,6 +5,7 @@ import spark_optimize_rules from './grammar/optimize.js';
 import spark_spark4_rules from './grammar/spark4.js'; // TODO change file name
 import spark_scripting_rules from './grammar/scripting.js';
 import spark_iceberg_rules from './grammar/iceberg.js';
+import spark_select_rules from './grammar/select.js';
 
 export default grammar(hive, {
   name: 'spark_sql',
@@ -25,6 +26,10 @@ export default grammar(hive, {
     [$.subquery, $.lateral_subquery],
     [$.order_target],
     [$.iceberg_write_order],
+    [$.cluster_by],
+    [$.distribute_by],
+    [$.sort_by],
+    [$.qualify],
     // Inherited from Hive: SERDE optional WITH SERDEPROPERTIES ambiguity
     [$.row_format],
     [$.lateral_view],
@@ -264,7 +269,7 @@ export default grammar(hive, {
       optional($.select_except_clause),
     ),
 
-    // Override relation to support standalone LATERAL subquery
+    // Override relation to support LATERAL subquery, PIVOT, and UNPIVOT
     relation: $ => prec.right(
       seq(
         choice(
@@ -275,6 +280,7 @@ export default grammar(hive, {
           $.values,
         ),
         optional($.tablesample),
+        optional(choice($.pivot_clause, $.unpivot_clause)),
         optional(
           seq(
             $._alias,
@@ -282,6 +288,36 @@ export default grammar(hive, {
           ),
         ),
       ),
+    ),
+
+    // Override from to add: LATERAL VIEW, QUALIFY, CLUSTER/DISTRIBUTE/SORT BY
+    from: $ => seq(
+      $.keyword_from,
+      optional($.keyword_only),
+      comma_list($.relation, true),
+      repeat(
+        choice(
+          $.join,
+          $.cross_join,
+          $.lateral_join,
+          $.lateral_cross_join,
+          $.lateral_view,
+        ),
+      ),
+      optional($.where),
+      optional($.group_by),
+      optional($.having),
+      optional($.qualify),
+      optional($.window_clause),
+      optional($.order_by),
+      optional(
+        choice(
+          $.cluster_by,
+          $.distribute_by,
+          $.sort_by,
+        ),
+      ),
+      optional($.limit),
     ),
 
     _alter_specifications: $ => choice(
@@ -401,5 +437,6 @@ export default grammar(hive, {
     ...spark_spark4_rules,
     ...spark_scripting_rules,
     ...spark_iceberg_rules,
+    ...spark_select_rules,
   },
 });
