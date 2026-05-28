@@ -2876,11 +2876,23 @@
           "named": true
         },
         {
+          "type": "keyword_action",
+          "named": true
+        },
+        {
           "type": "keyword_always",
           "named": true
         },
         {
           "type": "keyword_as",
+          "named": true
+        },
+        {
+          "type": "keyword_auto_increment",
+          "named": true
+        },
+        {
+          "type": "keyword_cascade",
           "named": true
         },
         {
@@ -2904,6 +2916,10 @@
           "named": true
         },
         {
+          "type": "keyword_delete",
+          "named": true
+        },
+        {
           "type": "keyword_generated",
           "named": true
         },
@@ -2916,11 +2932,19 @@
           "named": true
         },
         {
+          "type": "keyword_no",
+          "named": true
+        },
+        {
           "type": "keyword_not",
           "named": true
         },
         {
           "type": "keyword_null",
+          "named": true
+        },
+        {
+          "type": "keyword_on",
           "named": true
         },
         {
@@ -2932,7 +2956,27 @@
           "named": true
         },
         {
+          "type": "keyword_restrict",
+          "named": true
+        },
+        {
+          "type": "keyword_set",
+          "named": true
+        },
+        {
+          "type": "keyword_stored",
+          "named": true
+        },
+        {
           "type": "keyword_unique",
+          "named": true
+        },
+        {
+          "type": "keyword_update",
+          "named": true
+        },
+        {
+          "type": "keyword_virtual",
           "named": true
         },
         {
@@ -11639,6 +11683,10 @@
     "named": true
   },
   {
+    "type": "keyword_auto_increment",
+    "named": true
+  },
+  {
     "type": "keyword_before",
     "named": true
   },
@@ -12559,6 +12607,10 @@
     "named": true
   },
   {
+    "type": "keyword_stored",
+    "named": true
+  },
+  {
     "type": "keyword_strict",
     "named": true
   },
@@ -12728,6 +12780,10 @@
   },
   {
     "type": "keyword_view",
+    "named": true
+  },
+  {
+    "type": "keyword_virtual",
     "named": true
   },
   {

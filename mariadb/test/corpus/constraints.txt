@@ -1,0 +1,121 @@
+================================================================================
+MariaDB: AUTO_INCREMENT (regression — must not be dropped by INVISIBLE override)
+================================================================================
+
+CREATE TABLE t (id INT AUTO_INCREMENT PRIMARY KEY);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (object_reference
+        name: (identifier))
+      (column_definitions
+        (column_definition
+          name: (identifier)
+          type: (int
+            (keyword_int))
+          (keyword_auto_increment)
+          (keyword_primary)
+          (keyword_key))))))
+
+================================================================================
+MariaDB: FOREIGN KEY with ON DELETE CASCADE (regression)
+================================================================================
+
+CREATE TABLE orders (
+  id INT,
+  user_id INT REFERENCES users(id) ON DELETE CASCADE
+);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (object_reference
+        name: (identifier))
+      (column_definitions
+        (column_definition
+          name: (identifier)
+          type: (int
+            (keyword_int)))
+        (column_definition
+          name: (identifier)
+          type: (int
+            (keyword_int))
+          (keyword_references)
+          (object_reference
+            name: (identifier))
+          (identifier)
+          (keyword_on)
+          (keyword_delete)
+          (keyword_cascade))))))
+
+================================================================================
+MariaDB: Generated column STORED (regression)
+================================================================================
+
+CREATE TABLE t (a INT, b INT, c INT AS (a + b) STORED);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (object_reference
+        name: (identifier))
+      (column_definitions
+        (column_definition
+          name: (identifier)
+          type: (int
+            (keyword_int)))
+        (column_definition
+          name: (identifier)
+          type: (int
+            (keyword_int)))
+        (column_definition
+          name: (identifier)
+          type: (int
+            (keyword_int))
+          (keyword_as)
+          (binary_expression
+            left: (field
+              name: (identifier))
+            right: (field
+              name: (identifier)))
+          (keyword_stored))))))
+
+================================================================================
+MariaDB: AUTO_INCREMENT + INVISIBLE together
+================================================================================
+
+CREATE TABLE t (id INT AUTO_INCREMENT, hidden INT INVISIBLE);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (object_reference
+        name: (identifier))
+      (column_definitions
+        (column_definition
+          name: (identifier)
+          type: (int
+            (keyword_int))
+          (keyword_auto_increment))
+        (column_definition
+          name: (identifier)
+          type: (int
+            (keyword_int))
+          (keyword_invisible))))))

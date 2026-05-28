@@ -32,6 +32,7 @@ export default grammar(spark, {
     [$.group_by],
     [$.subquery, $.lateral_subquery],
     [$.order_target],
+    [$.iceberg_write_order],
     [$.lateral_cross_join],
     // Inherited from Hive via Spark: SERDE optional WITH SERDEPROPERTIES ambiguity
     [$.row_format],
@@ -188,6 +189,14 @@ export default grammar(spark, {
       $.rename_column,
       $.set_schema,
       $.change_ownership,
+      // Spark iceberg partition field operations (inherited from spark, kept here to avoid regression)
+      seq($.keyword_add, $.keyword_partition, $.keyword_field, $.iceberg_partition_transform),
+      seq($.keyword_drop, $.keyword_partition, $.keyword_field, $.iceberg_partition_transform),
+      seq($.keyword_replace, $.keyword_partition, $.keyword_field, $.iceberg_partition_transform,
+          $.keyword_with, $.iceberg_partition_transform),
+      // Spark iceberg write order (must be kept so ALTER TABLE ... WRITE ORDERED BY still parses)
+      $.iceberg_write_order,
+      seq($.keyword_write, $.keyword_distributed, $.keyword_by, $.keyword_partition),
       // Iceberg / Unity Catalog specs
       $._alter_table_iceberg_spec,
     ),

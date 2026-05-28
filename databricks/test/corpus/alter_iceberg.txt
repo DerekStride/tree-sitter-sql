@@ -442,3 +442,29 @@ ALTER TABLE my_table ALTER TABLE my_other_table COMMIT SNAPSHOT;
         name: (identifier))
       (keyword_commit)
       (keyword_snapshot))))
+
+================================================================================
+ALTER TABLE Iceberg: WRITE ORDERED BY (regression — must not be dropped by Databricks override)
+================================================================================
+
+ALTER TABLE my_table WRITE ORDERED BY (ts, id);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (alter_table
+      (keyword_alter)
+      (keyword_table)
+      (object_reference
+        name: (identifier))
+      (iceberg_write_order
+        (keyword_write)
+        (keyword_ordered)
+        (keyword_by)
+        (order_target
+          (list
+            (field
+              name: (identifier))
+            (field
+              name: (identifier))))))))
