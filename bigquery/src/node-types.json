@@ -129,13 +129,9 @@
         ]
       },
       "type": {
-        "multiple": true,
+        "multiple": false,
         "required": false,
         "types": [
-          {
-            "type": "array_size_definition",
-            "named": true
-          },
           {
             "type": "bigint",
             "named": true
@@ -146,6 +142,14 @@
           },
           {
             "type": "bit",
+            "named": true
+          },
+          {
+            "type": "bq_array_type",
+            "named": true
+          },
+          {
+            "type": "bq_struct_type",
             "named": true
           },
           {
@@ -173,11 +177,35 @@
             "named": true
           },
           {
+            "type": "keyword_bignumeric",
+            "named": true
+          },
+          {
             "type": "keyword_boolean",
             "named": true
           },
           {
+            "type": "keyword_bytes",
+            "named": true
+          },
+          {
             "type": "keyword_date",
+            "named": true
+          },
+          {
+            "type": "keyword_datetime",
+            "named": true
+          },
+          {
+            "type": "keyword_float64",
+            "named": true
+          },
+          {
+            "type": "keyword_geography",
+            "named": true
+          },
+          {
+            "type": "keyword_int64",
             "named": true
           },
           {
@@ -804,10 +832,6 @@
       "required": true,
       "types": [
         {
-          "type": "array_size_definition",
-          "named": true
-        },
-        {
           "type": "bigint",
           "named": true
         },
@@ -817,6 +841,14 @@
         },
         {
           "type": "bit",
+          "named": true
+        },
+        {
+          "type": "bq_array_type",
+          "named": true
+        },
+        {
+          "type": "bq_struct_type",
           "named": true
         },
         {
@@ -860,11 +892,19 @@
           "named": true
         },
         {
+          "type": "keyword_bignumeric",
+          "named": true
+        },
+        {
           "type": "keyword_boolean",
           "named": true
         },
         {
           "type": "keyword_by",
+          "named": true
+        },
+        {
+          "type": "keyword_bytes",
           "named": true
         },
         {
@@ -880,7 +920,19 @@
           "named": true
         },
         {
+          "type": "keyword_datetime",
+          "named": true
+        },
+        {
           "type": "keyword_exists",
+          "named": true
+        },
+        {
+          "type": "keyword_float64",
+          "named": true
+        },
+        {
+          "type": "keyword_geography",
           "named": true
         },
         {
@@ -889,6 +941,10 @@
         },
         {
           "type": "keyword_increment",
+          "named": true
+        },
+        {
+          "type": "keyword_int64",
           "named": true
         },
         {
@@ -1133,10 +1189,6 @@
       "required": true,
       "types": [
         {
-          "type": "array_size_definition",
-          "named": true
-        },
-        {
           "type": "bigint",
           "named": true
         },
@@ -1146,6 +1198,14 @@
         },
         {
           "type": "bit",
+          "named": true
+        },
+        {
+          "type": "bq_array_type",
+          "named": true
+        },
+        {
+          "type": "bq_struct_type",
           "named": true
         },
         {
@@ -1201,7 +1261,15 @@
           "named": true
         },
         {
+          "type": "keyword_bignumeric",
+          "named": true
+        },
+        {
           "type": "keyword_boolean",
+          "named": true
+        },
+        {
+          "type": "keyword_bytes",
           "named": true
         },
         {
@@ -1221,6 +1289,10 @@
           "named": true
         },
         {
+          "type": "keyword_datetime",
+          "named": true
+        },
+        {
           "type": "keyword_drop",
           "named": true
         },
@@ -1229,7 +1301,19 @@
           "named": true
         },
         {
+          "type": "keyword_float64",
+          "named": true
+        },
+        {
+          "type": "keyword_geography",
+          "named": true
+        },
+        {
           "type": "keyword_if",
+          "named": true
+        },
+        {
+          "type": "keyword_int64",
           "named": true
         },
         {
@@ -1536,32 +1620,6 @@
         },
         {
           "type": "window_function",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "array_size_definition",
-    "named": true,
-    "fields": {
-      "size": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "literal",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "keyword_array",
           "named": true
         }
       ]
@@ -2535,6 +2593,156 @@
     }
   },
   {
+    "type": "bq_array_type",
+    "named": true,
+    "fields": {
+      "custom_type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "object_reference",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "bigint",
+          "named": true
+        },
+        {
+          "type": "binary",
+          "named": true
+        },
+        {
+          "type": "bit",
+          "named": true
+        },
+        {
+          "type": "bq_array_type",
+          "named": true
+        },
+        {
+          "type": "bq_struct_type",
+          "named": true
+        },
+        {
+          "type": "char",
+          "named": true
+        },
+        {
+          "type": "decimal",
+          "named": true
+        },
+        {
+          "type": "double",
+          "named": true
+        },
+        {
+          "type": "enum",
+          "named": true
+        },
+        {
+          "type": "float",
+          "named": true
+        },
+        {
+          "type": "int",
+          "named": true
+        },
+        {
+          "type": "keyword_array",
+          "named": true
+        },
+        {
+          "type": "keyword_bignumeric",
+          "named": true
+        },
+        {
+          "type": "keyword_boolean",
+          "named": true
+        },
+        {
+          "type": "keyword_bytes",
+          "named": true
+        },
+        {
+          "type": "keyword_date",
+          "named": true
+        },
+        {
+          "type": "keyword_datetime",
+          "named": true
+        },
+        {
+          "type": "keyword_float64",
+          "named": true
+        },
+        {
+          "type": "keyword_geography",
+          "named": true
+        },
+        {
+          "type": "keyword_int64",
+          "named": true
+        },
+        {
+          "type": "keyword_interval",
+          "named": true
+        },
+        {
+          "type": "keyword_json",
+          "named": true
+        },
+        {
+          "type": "keyword_string",
+          "named": true
+        },
+        {
+          "type": "keyword_xml",
+          "named": true
+        },
+        {
+          "type": "nchar",
+          "named": true
+        },
+        {
+          "type": "numeric",
+          "named": true
+        },
+        {
+          "type": "nvarchar",
+          "named": true
+        },
+        {
+          "type": "smallint",
+          "named": true
+        },
+        {
+          "type": "time",
+          "named": true
+        },
+        {
+          "type": "timestamp",
+          "named": true
+        },
+        {
+          "type": "varbinary",
+          "named": true
+        },
+        {
+          "type": "varchar",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "bq_assert",
     "named": true,
     "fields": {
@@ -2777,10 +2985,6 @@
           "named": true
         },
         {
-          "type": "array_size_definition",
-          "named": true
-        },
-        {
           "type": "between_expression",
           "named": true
         },
@@ -2801,11 +3005,19 @@
           "named": true
         },
         {
+          "type": "bq_array_type",
+          "named": true
+        },
+        {
           "type": "bq_ml_function",
           "named": true
         },
         {
           "type": "bq_struct",
+          "named": true
+        },
+        {
+          "type": "bq_struct_type",
           "named": true
         },
         {
@@ -2873,11 +3085,23 @@
           "named": true
         },
         {
+          "type": "keyword_bignumeric",
+          "named": true
+        },
+        {
           "type": "keyword_boolean",
           "named": true
         },
         {
+          "type": "keyword_bytes",
+          "named": true
+        },
+        {
           "type": "keyword_date",
+          "named": true
+        },
+        {
+          "type": "keyword_datetime",
           "named": true
         },
         {
@@ -2886,6 +3110,18 @@
         },
         {
           "type": "keyword_default",
+          "named": true
+        },
+        {
+          "type": "keyword_float64",
+          "named": true
+        },
+        {
+          "type": "keyword_geography",
+          "named": true
+        },
+        {
+          "type": "keyword_int64",
           "named": true
         },
         {
@@ -3795,15 +4031,25 @@
     }
   },
   {
-    "type": "bq_typed_literal",
+    "type": "bq_struct_type",
     "named": true,
     "fields": {
       "custom_type": {
-        "multiple": false,
+        "multiple": true,
         "required": false,
         "types": [
           {
             "type": "object_reference",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
             "named": true
           }
         ]
@@ -3814,10 +4060,6 @@
       "required": true,
       "types": [
         {
-          "type": "array_size_definition",
-          "named": true
-        },
-        {
           "type": "bigint",
           "named": true
         },
@@ -3827,6 +4069,14 @@
         },
         {
           "type": "bit",
+          "named": true
+        },
+        {
+          "type": "bq_array_type",
+          "named": true
+        },
+        {
+          "type": "bq_struct_type",
           "named": true
         },
         {
@@ -3854,11 +4104,185 @@
           "named": true
         },
         {
+          "type": "keyword_bignumeric",
+          "named": true
+        },
+        {
           "type": "keyword_boolean",
           "named": true
         },
         {
+          "type": "keyword_bytes",
+          "named": true
+        },
+        {
           "type": "keyword_date",
+          "named": true
+        },
+        {
+          "type": "keyword_datetime",
+          "named": true
+        },
+        {
+          "type": "keyword_float64",
+          "named": true
+        },
+        {
+          "type": "keyword_geography",
+          "named": true
+        },
+        {
+          "type": "keyword_int64",
+          "named": true
+        },
+        {
+          "type": "keyword_interval",
+          "named": true
+        },
+        {
+          "type": "keyword_json",
+          "named": true
+        },
+        {
+          "type": "keyword_string",
+          "named": true
+        },
+        {
+          "type": "keyword_struct",
+          "named": true
+        },
+        {
+          "type": "keyword_xml",
+          "named": true
+        },
+        {
+          "type": "nchar",
+          "named": true
+        },
+        {
+          "type": "numeric",
+          "named": true
+        },
+        {
+          "type": "nvarchar",
+          "named": true
+        },
+        {
+          "type": "smallint",
+          "named": true
+        },
+        {
+          "type": "time",
+          "named": true
+        },
+        {
+          "type": "timestamp",
+          "named": true
+        },
+        {
+          "type": "varbinary",
+          "named": true
+        },
+        {
+          "type": "varchar",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "bq_typed_literal",
+    "named": true,
+    "fields": {
+      "custom_type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "object_reference",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "bigint",
+          "named": true
+        },
+        {
+          "type": "binary",
+          "named": true
+        },
+        {
+          "type": "bit",
+          "named": true
+        },
+        {
+          "type": "bq_array_type",
+          "named": true
+        },
+        {
+          "type": "bq_struct_type",
+          "named": true
+        },
+        {
+          "type": "char",
+          "named": true
+        },
+        {
+          "type": "decimal",
+          "named": true
+        },
+        {
+          "type": "double",
+          "named": true
+        },
+        {
+          "type": "enum",
+          "named": true
+        },
+        {
+          "type": "float",
+          "named": true
+        },
+        {
+          "type": "int",
+          "named": true
+        },
+        {
+          "type": "keyword_bignumeric",
+          "named": true
+        },
+        {
+          "type": "keyword_boolean",
+          "named": true
+        },
+        {
+          "type": "keyword_bytes",
+          "named": true
+        },
+        {
+          "type": "keyword_date",
+          "named": true
+        },
+        {
+          "type": "keyword_datetime",
+          "named": true
+        },
+        {
+          "type": "keyword_float64",
+          "named": true
+        },
+        {
+          "type": "keyword_geography",
+          "named": true
+        },
+        {
+          "type": "keyword_int64",
           "named": true
         },
         {
@@ -3911,6 +4335,117 @@
         },
         {
           "type": "varchar",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "bq_unnest",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "array",
+          "named": true
+        },
+        {
+          "type": "between_expression",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "bq_ml_function",
+          "named": true
+        },
+        {
+          "type": "bq_struct",
+          "named": true
+        },
+        {
+          "type": "bq_triple_double_quoted_string",
+          "named": true
+        },
+        {
+          "type": "bq_triple_single_quoted_string",
+          "named": true
+        },
+        {
+          "type": "bq_typed_literal",
+          "named": true
+        },
+        {
+          "type": "case",
+          "named": true
+        },
+        {
+          "type": "cast",
+          "named": true
+        },
+        {
+          "type": "exists",
+          "named": true
+        },
+        {
+          "type": "field",
+          "named": true
+        },
+        {
+          "type": "interval",
+          "named": true
+        },
+        {
+          "type": "invocation",
+          "named": true
+        },
+        {
+          "type": "keyword_offset",
+          "named": true
+        },
+        {
+          "type": "keyword_unnest",
+          "named": true
+        },
+        {
+          "type": "keyword_with",
+          "named": true
+        },
+        {
+          "type": "list",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "parameter",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "subquery",
+          "named": true
+        },
+        {
+          "type": "subscript",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "window_function",
           "named": true
         }
       ]
@@ -4281,10 +4816,6 @@
       "required": true,
       "types": [
         {
-          "type": "array_size_definition",
-          "named": true
-        },
-        {
           "type": "bigint",
           "named": true
         },
@@ -4294,6 +4825,14 @@
         },
         {
           "type": "bit",
+          "named": true
+        },
+        {
+          "type": "bq_array_type",
+          "named": true
+        },
+        {
+          "type": "bq_struct_type",
           "named": true
         },
         {
@@ -4325,11 +4864,35 @@
           "named": true
         },
         {
+          "type": "keyword_bignumeric",
+          "named": true
+        },
+        {
           "type": "keyword_boolean",
           "named": true
         },
         {
+          "type": "keyword_bytes",
+          "named": true
+        },
+        {
           "type": "keyword_date",
+          "named": true
+        },
+        {
+          "type": "keyword_datetime",
+          "named": true
+        },
+        {
+          "type": "keyword_float64",
+          "named": true
+        },
+        {
+          "type": "keyword_geography",
+          "named": true
+        },
+        {
+          "type": "keyword_int64",
           "named": true
         },
         {
@@ -4545,13 +5108,9 @@
         ]
       },
       "type": {
-        "multiple": true,
+        "multiple": false,
         "required": true,
         "types": [
-          {
-            "type": "array_size_definition",
-            "named": true
-          },
           {
             "type": "bigint",
             "named": true
@@ -4562,6 +5121,14 @@
           },
           {
             "type": "bit",
+            "named": true
+          },
+          {
+            "type": "bq_array_type",
+            "named": true
+          },
+          {
+            "type": "bq_struct_type",
             "named": true
           },
           {
@@ -4589,11 +5156,35 @@
             "named": true
           },
           {
+            "type": "keyword_bignumeric",
+            "named": true
+          },
+          {
             "type": "keyword_boolean",
             "named": true
           },
           {
+            "type": "keyword_bytes",
+            "named": true
+          },
+          {
             "type": "keyword_date",
+            "named": true
+          },
+          {
+            "type": "keyword_datetime",
+            "named": true
+          },
+          {
+            "type": "keyword_float64",
+            "named": true
+          },
+          {
+            "type": "keyword_geography",
+            "named": true
+          },
+          {
+            "type": "keyword_int64",
             "named": true
           },
           {
@@ -5186,10 +5777,6 @@
       "required": true,
       "types": [
         {
-          "type": "array_size_definition",
-          "named": true
-        },
-        {
           "type": "bigint",
           "named": true
         },
@@ -5199,6 +5786,14 @@
         },
         {
           "type": "bit",
+          "named": true
+        },
+        {
+          "type": "bq_array_type",
+          "named": true
+        },
+        {
+          "type": "bq_struct_type",
           "named": true
         },
         {
@@ -5290,7 +5885,15 @@
           "named": true
         },
         {
+          "type": "keyword_bignumeric",
+          "named": true
+        },
+        {
           "type": "keyword_boolean",
+          "named": true
+        },
+        {
+          "type": "keyword_bytes",
           "named": true
         },
         {
@@ -5302,7 +5905,15 @@
           "named": true
         },
         {
+          "type": "keyword_datetime",
+          "named": true
+        },
+        {
           "type": "keyword_exists",
+          "named": true
+        },
+        {
+          "type": "keyword_float64",
           "named": true
         },
         {
@@ -5310,7 +5921,15 @@
           "named": true
         },
         {
+          "type": "keyword_geography",
+          "named": true
+        },
+        {
           "type": "keyword_if",
+          "named": true
+        },
+        {
+          "type": "keyword_int64",
           "named": true
         },
         {
@@ -5878,10 +6497,6 @@
       "required": true,
       "types": [
         {
-          "type": "array_size_definition",
-          "named": true
-        },
-        {
           "type": "bigint",
           "named": true
         },
@@ -5891,6 +6506,14 @@
         },
         {
           "type": "bit",
+          "named": true
+        },
+        {
+          "type": "bq_array_type",
+          "named": true
+        },
+        {
+          "type": "bq_struct_type",
           "named": true
         },
         {
@@ -5922,11 +6545,19 @@
           "named": true
         },
         {
+          "type": "keyword_bignumeric",
+          "named": true
+        },
+        {
           "type": "keyword_boolean",
           "named": true
         },
         {
           "type": "keyword_by",
+          "named": true
+        },
+        {
+          "type": "keyword_bytes",
           "named": true
         },
         {
@@ -5946,7 +6577,19 @@
           "named": true
         },
         {
+          "type": "keyword_datetime",
+          "named": true
+        },
+        {
           "type": "keyword_exists",
+          "named": true
+        },
+        {
+          "type": "keyword_float64",
+          "named": true
+        },
+        {
+          "type": "keyword_geography",
           "named": true
         },
         {
@@ -5955,6 +6598,10 @@
         },
         {
           "type": "keyword_increment",
+          "named": true
+        },
+        {
+          "type": "keyword_int64",
           "named": true
         },
         {
@@ -7747,6 +8394,10 @@
           "named": true
         },
         {
+          "type": "qualify",
+          "named": true
+        },
+        {
           "type": "relation",
           "named": true
         },
@@ -7781,10 +8432,6 @@
       "required": false,
       "types": [
         {
-          "type": "array_size_definition",
-          "named": true
-        },
-        {
           "type": "bigint",
           "named": true
         },
@@ -7794,6 +8441,14 @@
         },
         {
           "type": "bit",
+          "named": true
+        },
+        {
+          "type": "bq_array_type",
+          "named": true
+        },
+        {
+          "type": "bq_struct_type",
           "named": true
         },
         {
@@ -7825,7 +8480,15 @@
           "named": true
         },
         {
+          "type": "keyword_bignumeric",
+          "named": true
+        },
+        {
           "type": "keyword_boolean",
+          "named": true
+        },
+        {
+          "type": "keyword_bytes",
           "named": true
         },
         {
@@ -7833,7 +8496,19 @@
           "named": true
         },
         {
+          "type": "keyword_datetime",
+          "named": true
+        },
+        {
           "type": "keyword_default",
+          "named": true
+        },
+        {
+          "type": "keyword_float64",
+          "named": true
+        },
+        {
+          "type": "keyword_geography",
           "named": true
         },
         {
@@ -7842,6 +8517,10 @@
         },
         {
           "type": "keyword_inout",
+          "named": true
+        },
+        {
+          "type": "keyword_int64",
           "named": true
         },
         {
@@ -10074,6 +10753,116 @@
     }
   },
   {
+    "type": "qualify",
+    "named": true,
+    "fields": {
+      "predicate": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "array",
+            "named": true
+          },
+          {
+            "type": "between_expression",
+            "named": true
+          },
+          {
+            "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "bq_ml_function",
+            "named": true
+          },
+          {
+            "type": "bq_struct",
+            "named": true
+          },
+          {
+            "type": "bq_triple_double_quoted_string",
+            "named": true
+          },
+          {
+            "type": "bq_triple_single_quoted_string",
+            "named": true
+          },
+          {
+            "type": "bq_typed_literal",
+            "named": true
+          },
+          {
+            "type": "case",
+            "named": true
+          },
+          {
+            "type": "cast",
+            "named": true
+          },
+          {
+            "type": "exists",
+            "named": true
+          },
+          {
+            "type": "field",
+            "named": true
+          },
+          {
+            "type": "interval",
+            "named": true
+          },
+          {
+            "type": "invocation",
+            "named": true
+          },
+          {
+            "type": "list",
+            "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "parameter",
+            "named": true
+          },
+          {
+            "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "subquery",
+            "named": true
+          },
+          {
+            "type": "subscript",
+            "named": true
+          },
+          {
+            "type": "unary_expression",
+            "named": true
+          },
+          {
+            "type": "window_function",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_qualify",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "refresh_materialized_view",
     "named": true,
     "fields": {},
@@ -10135,6 +10924,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "bq_unnest",
+          "named": true
+        },
         {
           "type": "invocation",
           "named": true
@@ -12573,6 +13366,10 @@
     "named": true
   },
   {
+    "type": "keyword_bignumeric",
+    "named": true
+  },
+  {
     "type": "keyword_binary",
     "named": true
   },
@@ -12586,6 +13383,10 @@
   },
   {
     "type": "keyword_by",
+    "named": true
+  },
+  {
+    "type": "keyword_bytes",
     "named": true
   },
   {
@@ -12698,6 +13499,10 @@
   },
   {
     "type": "keyword_date",
+    "named": true
+  },
+  {
+    "type": "keyword_datetime",
     "named": true
   },
   {
@@ -12845,6 +13650,10 @@
     "named": true
   },
   {
+    "type": "keyword_float64",
+    "named": true
+  },
+  {
     "type": "keyword_following",
     "named": true
   },
@@ -12874,6 +13683,10 @@
   },
   {
     "type": "keyword_generated",
+    "named": true
+  },
+  {
+    "type": "keyword_geography",
     "named": true
   },
   {
@@ -12946,6 +13759,10 @@
   },
   {
     "type": "keyword_instead",
+    "named": true
+  },
+  {
+    "type": "keyword_int64",
     "named": true
   },
   {
@@ -13221,6 +14038,10 @@
     "named": true
   },
   {
+    "type": "keyword_qualify",
+    "named": true
+  },
+  {
     "type": "keyword_range",
     "named": true
   },
@@ -13486,6 +14307,10 @@
   },
   {
     "type": "keyword_unlogged",
+    "named": true
+  },
+  {
+    "type": "keyword_unnest",
     "named": true
   },
   {

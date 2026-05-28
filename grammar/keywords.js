@@ -368,6 +368,14 @@ export default {
   keyword_errors: _ => make_keyword("errors"),
   keyword_variables: _ => make_keyword("variables"),
   keyword_indexes: _ => make_keyword("indexes"),
+  // BigQuery native types and functions (#2e)
+  keyword_int64:      _ => make_keyword("int64"),
+  keyword_float64:    _ => make_keyword("float64"),
+  keyword_bytes:      _ => make_keyword("bytes"),
+  keyword_bignumeric: _ => make_keyword("bignumeric"),
+  keyword_geography:  _ => make_keyword("geography"),
+  keyword_datetime:   _ => make_keyword("datetime"),
+  keyword_unnest:     _ => make_keyword("unnest"),
   // Spark 4.x (#21)
   keyword_var: _ => make_keyword("var"),
   keyword_variable: _ => make_keyword("variable"),

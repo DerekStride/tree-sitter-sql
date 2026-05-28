@@ -11,8 +11,7 @@ DECLARE x INT64 DEFAULT 0;
     (bq_declare_statement
       (keyword_declare)
       (identifier)
-      custom_type: (object_reference
-        name: (identifier))
+      (keyword_int64)
       (keyword_default)
       (literal))))
 

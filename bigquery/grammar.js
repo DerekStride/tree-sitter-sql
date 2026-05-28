@@ -7,6 +7,7 @@ import bq_string_rules    from './grammar/strings.js';
 import bq_scripting_rules from './grammar/scripting.js';
 import bq_ddl_rules       from './grammar/ddl.js';
 import bq_ml_rules        from './grammar/ml.js';
+import bq_types_rules     from './grammar/types.js';
 
 export default grammar(base, {
   name: 'bigquery_sql',
@@ -21,6 +22,9 @@ export default grammar(base, {
     [$.create_function],
     // BigQuery-specific
     [$.all_fields, $.bq_all_fields_except],
+    [$.qualify],
+    [$.bq_array_type, $.bq_struct_type],
+    [$.bq_unnest],
   ],
 
   rules: {
@@ -140,26 +144,84 @@ export default grammar(base, {
       $.bq_ml_function,
     )),
 
+    // ── from: add QUALIFY after HAVING ─────────────────────────────────────
+    from: $ => seq(
+      $.keyword_from,
+      optional($.keyword_only),
+      comma_list($.relation, true),
+      repeat(
+        choice(
+          $.join,
+          $.cross_join,
+          $.lateral_join,
+          $.lateral_cross_join,
+        ),
+      ),
+      optional($.where),
+      optional($.group_by),
+      optional($.having),
+      optional($.qualify),
+      optional($.window_clause),
+      optional($.order_by),
+      optional($.limit),
+    ),
+
+    // ── relation: add UNNEST as a FROM source ───────────────────────────────
+    relation: $ => prec.right(
+      seq(
+        choice(
+          $.subquery,
+          $.invocation,
+          $.object_reference,
+          wrapped_in_parenthesis($.values),
+          $.bq_unnest,
+        ),
+        optional($.tablesample),
+        optional(
+          seq(
+            $._alias,
+            optional(alias($._column_list, $.list)),
+          ),
+        ),
+      ),
+    ),
+
+    // ── identifier: add backtick quoting ────────────────────────────────────
+    _bq_backtick_quoted_string: _ => /`[^`]*`/,
+
+    identifier: $ => choice(
+      $._identifier,
+      $._double_quote_string,
+      $._bq_backtick_quoted_string,
+    ),
+
     // BigQuery-specific keywords (not ANSI)
-    keyword_struct:    _ => make_keyword("struct"),
-    keyword_export:    _ => make_keyword("export"),
-    keyword_model:     _ => make_keyword("model"),
-    keyword_ml:        _ => make_keyword("ml"),
-    keyword_predict:   _ => make_keyword("predict"),
-    keyword_evaluate:  _ => make_keyword("evaluate"),
-    keyword_assert:    _ => make_keyword("assert"),
-    keyword_continue:  _ => make_keyword("continue"),
-    keyword_error:     _ => make_keyword("error"),
-    keyword_exception: _ => make_keyword("exception"),
-    keyword_qualify:   _ => make_keyword("qualify"),
-    keyword_string:    _ => make_keyword("string"),
-    keyword_while:     _ => make_keyword("while"),
-    keyword_loop:      _ => make_keyword("loop"),
-    keyword_leave:     _ => make_keyword("leave"),
-    keyword_iterate:   _ => make_keyword("iterate"),
-    keyword_elseif:    _ => make_keyword("elseif"),
-    keyword_source:    _ => make_keyword("source"),
-    keyword_options:   _ => make_keyword("options"),
+    keyword_struct:     _ => make_keyword("struct"),
+    keyword_export:     _ => make_keyword("export"),
+    keyword_model:      _ => make_keyword("model"),
+    keyword_ml:         _ => make_keyword("ml"),
+    keyword_predict:    _ => make_keyword("predict"),
+    keyword_evaluate:   _ => make_keyword("evaluate"),
+    keyword_assert:     _ => make_keyword("assert"),
+    keyword_continue:   _ => make_keyword("continue"),
+    keyword_error:      _ => make_keyword("error"),
+    keyword_exception:  _ => make_keyword("exception"),
+    keyword_qualify:    _ => make_keyword("qualify"),
+    keyword_string:     _ => make_keyword("string"),
+    keyword_while:      _ => make_keyword("while"),
+    keyword_loop:       _ => make_keyword("loop"),
+    keyword_leave:      _ => make_keyword("leave"),
+    keyword_iterate:    _ => make_keyword("iterate"),
+    keyword_elseif:     _ => make_keyword("elseif"),
+    keyword_source:     _ => make_keyword("source"),
+    keyword_options:    _ => make_keyword("options"),
+    keyword_int64:      _ => token(prec(1, make_keyword("int64"))),
+    keyword_float64:    _ => token(prec(1, make_keyword("float64"))),
+    keyword_bytes:      _ => token(prec(1, make_keyword("bytes"))),
+    keyword_bignumeric: _ => token(prec(1, make_keyword("bignumeric"))),
+    keyword_geography:  _ => token(prec(1, make_keyword("geography"))),
+    keyword_datetime:   _ => token(prec(1, make_keyword("datetime"))),
+    keyword_unnest:     _ => token(prec(1, make_keyword("unnest"))),
 
     // ── Spread all BigQuery rule modules ────────────────────────────────────
     ...bq_select_rules,
@@ -168,6 +230,7 @@ export default grammar(base, {
     ...bq_scripting_rules,
     ...bq_ddl_rules,
     ...bq_ml_rules,
+    ...bq_types_rules,
 
   },
 });

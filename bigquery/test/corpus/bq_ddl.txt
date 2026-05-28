@@ -16,8 +16,7 @@ CREATE TABLE t (id INT64) OPTIONS (description = 'my table');
       (column_definitions
         (column_definition
           name: (identifier)
-          custom_type: (object_reference
-            name: (identifier))))
+          type: (keyword_int64)))
       (bq_options_clause
         (keyword_options)
         key: (identifier)

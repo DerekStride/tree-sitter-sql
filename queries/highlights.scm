@@ -356,6 +356,18 @@
   (keyword_indexes)
 ] @keyword
 
+; --- BigQuery types ---
+[
+  (keyword_int64)
+  (keyword_float64)
+  (keyword_bytes)
+  (keyword_bignumeric)
+  (keyword_geography)
+  (keyword_datetime)
+] @type.builtin
+
+(keyword_unnest) @function.call
+
 ; ============================================================
 ; Type qualifiers
 ; ============================================================

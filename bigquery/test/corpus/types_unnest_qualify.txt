@@ -1,0 +1,229 @@
+================================================================================
+BigQuery: INT64 and FLOAT64 native types in CREATE TABLE
+================================================================================
+
+CREATE TABLE t (id INT64, score FLOAT64, data BYTES);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (object_reference
+        name: (identifier))
+      (column_definitions
+        (column_definition
+          name: (identifier)
+          type: (keyword_int64))
+        (column_definition
+          name: (identifier)
+          type: (keyword_float64))
+        (column_definition
+          name: (identifier)
+          type: (keyword_bytes))))))
+
+================================================================================
+BigQuery: BIGNUMERIC, GEOGRAPHY, DATETIME types
+================================================================================
+
+CREATE TABLE geo (loc GEOGRAPHY, ts DATETIME, amount BIGNUMERIC);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (object_reference
+        name: (identifier))
+      (column_definitions
+        (column_definition
+          name: (identifier)
+          type: (keyword_geography))
+        (column_definition
+          name: (identifier)
+          type: (keyword_datetime))
+        (column_definition
+          name: (identifier)
+          type: (keyword_bignumeric))))))
+
+================================================================================
+BigQuery: ARRAY<T> parametric type
+================================================================================
+
+CREATE TABLE t (tags ARRAY<STRING>);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (object_reference
+        name: (identifier))
+      (column_definitions
+        (column_definition
+          name: (identifier)
+          type: (bq_array_type
+            (keyword_array)
+            (keyword_string)))))))
+
+================================================================================
+BigQuery: STRUCT<fields> parametric type
+================================================================================
+
+CREATE TABLE t (address STRUCT<city STRING, zip INT64>);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (object_reference
+        name: (identifier))
+      (column_definitions
+        (column_definition
+          name: (identifier)
+          type: (bq_struct_type
+            (keyword_struct)
+            name: (identifier)
+            (keyword_string)
+            name: (identifier)
+            (keyword_int64)))))))
+
+================================================================================
+BigQuery: UNNEST in FROM
+================================================================================
+
+SELECT elem FROM UNNEST(arr) AS elem;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            name: (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (bq_unnest
+          (keyword_unnest)
+          (field
+            name: (identifier)))
+        (keyword_as)
+        alias: (identifier)))))
+
+================================================================================
+BigQuery: UNNEST with WITH OFFSET (offset alias on relation)
+================================================================================
+
+SELECT elem, pos FROM UNNEST(arr) WITH OFFSET AS pos;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            name: (identifier)))
+        (term
+          value: (field
+            name: (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (bq_unnest
+          (keyword_unnest)
+          (field
+            name: (identifier))
+          (keyword_with)
+          (keyword_offset))
+        (keyword_as)
+        alias: (identifier)))))
+
+================================================================================
+BigQuery: QUALIFY clause
+================================================================================
+
+SELECT id, ROW_NUMBER() OVER (PARTITION BY dept ORDER BY salary DESC) AS rn
+FROM employees
+QUALIFY rn = 1;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            name: (identifier)))
+        (term
+          value: (window_function
+            (invocation
+              (object_reference
+                name: (identifier)))
+            (keyword_over)
+            (window_specification
+              (partition_by
+                (keyword_partition)
+                (keyword_by)
+                (field
+                  name: (identifier)))
+              (order_by
+                (keyword_order)
+                (keyword_by)
+                (order_target
+                  (field
+                    name: (identifier))
+                  (direction
+                    (keyword_desc))))))
+          (keyword_as)
+          alias: (identifier))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier)))
+      (qualify
+        (keyword_qualify)
+        predicate: (binary_expression
+          left: (field
+            name: (identifier))
+          right: (literal))))))
+
+================================================================================
+BigQuery: Backtick-quoted identifier
+================================================================================
+
+SELECT `my-column` FROM `my-project.dataset.table`;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            name: (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier))))))
