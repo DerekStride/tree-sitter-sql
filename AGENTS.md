@@ -13,14 +13,24 @@ grammar into independently compiled dialect grammars.
 
 ```
 grammar.js                ← ANSI SQL base (clean, no dialect-specific rules)
-  ├── spark/grammar.js    ← grammar(base, spark_rules)     [CLUSTERED BY, STORED AS, TBLPROPERTIES, ANALYZE TABLE]
-  │     └── databricks/grammar.js  ← grammar(spark, databricks_rules)  [OPTIMIZE/VACUUM delta, RESTORE, Unity Catalog]
-  ├── postgres/grammar.js ← grammar(base, postgres_rules)  [COPY FROM/TO, VACUUM, CREATE EXTENSION/POLICY]
-  └── mysql/grammar.js    ← grammar(base, mysql_rules)     [ENGINE=, CHARSET=, MariaDB OPTIMIZE TABLE]
+  ├── hive/grammar.js     ← grammar(base, hive_rules)      [LATERAL VIEW, STORED BY/AS, multi-table INSERT]
+  │     └── spark/grammar.js  ← grammar(hive, spark_rules)  [QUALIFY, PIVOT, scripting, Iceberg, VARIANT]
+  │           └── databricks/grammar.js  ← grammar(spark, databricks_rules)  [OPTIMIZE delta, Unity Catalog]
+  ├── postgres/grammar.js ← grammar(base, postgres_rules)  [COPY, VACUUM, PARTITION BY, extensions, policies]
+  ├── mysql/grammar.js    ← grammar(base, mysql_rules)     [ENGINE=, CHARSET=, index hints, SHOW/DESCRIBE]
+  │     └── mariadb/grammar.js  ← grammar(mysql, mariadb_rules)  [INVISIBLE columns]
+  ├── oracle/grammar.js   ← grammar(base, oracle_rules)    [CONNECT BY, PL/SQL blocks, packages, cursors]
+  ├── db2/grammar.js      ← grammar(base, db2_rules)       [SQL PL, modules, audit, federated objects]
+  ├── tsql/grammar.js     ← grammar(base, tsql_rules)      [T-SQL scripting, APPLY, hints, temp tables]
+  ├── bigquery/grammar.js ← grammar(base, bq_rules)        [INT64/STRUCT/ARRAY types, UNNEST, QUALIFY]
+  ├── snowflake/grammar.js← grammar(base, sf_rules)        [scripting, FLATTEN, time travel, stages]
+  └── sqlite/grammar.js   ← grammar(base, sqlite_rules)    [AUTOINCREMENT, INDEXED BY, INSERT OR REPLACE]
 ```
 
 Each dialect compiles to its own `<dialect>/src/parser.c` independently. Changing Databricks rules
-only requires regenerating `databricks/src/parser.c` — base and Postgres parsers are unaffected.
+only requires regenerating `databricks/src/parser.c` — base and sibling parsers are unaffected.
+Dependencies: databricks depends on spark; spark depends on hive; mariadb depends on mysql.
+Regenerate the child dialect when the parent grammar changes.
 
 ---
 
@@ -46,12 +56,12 @@ grammar/
     delete.js                   # DELETE FROM
     merge.js                    # MERGE INTO ... USING ... WHEN MATCHED
     optimize.js                 # OPTIMIZE TABLE ... REWRITE DATA (Iceberg/Athena)
-    show.js                     # SHOW TABLES/SCHEMAS/COLUMNS
+    show.js                     # SHOW TABLES [FROM …] [LIKE …]
     set.js                      # SET variable = value
     refresh.js                  # REFRESH MATERIALIZED VIEW
     truncate.js                 # TRUNCATE TABLE
     rename.js                   # RENAME TABLE/COLUMN
-    compound.js                 # IF/WHILE/FOR blocks
+    grant.js                    # GRANT/REVOKE (ANSI DCL)
     comment.js                  # COMMENT ON ...
     create-function.js          # CREATE FUNCTION (with dollar-quoted body support)
     create-procedure.js         # CREATE PROCEDURE
