@@ -1,0 +1,205 @@
+================================================================================
+SQLite: INSERT OR REPLACE
+================================================================================
+
+INSERT OR REPLACE INTO t (id, name) VALUES (1, 'alice');
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (insert
+      (keyword_insert)
+      (keyword_or)
+      (sqlite_conflict_action
+        (keyword_replace))
+      (keyword_into)
+      (object_reference
+        name: (identifier))
+      (list
+        (column
+          (identifier))
+        (column
+          (identifier)))
+      (keyword_values)
+      (list
+        (literal)
+        (literal)))))
+
+================================================================================
+SQLite: INSERT OR IGNORE
+================================================================================
+
+INSERT OR IGNORE INTO t (id) VALUES (1);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (insert
+      (keyword_insert)
+      (keyword_or)
+      (sqlite_conflict_action
+        (keyword_ignore))
+      (keyword_into)
+      (object_reference
+        name: (identifier))
+      (list
+        (column
+          (identifier)))
+      (keyword_values)
+      (list
+        (literal)))))
+
+================================================================================
+SQLite: INSERT ... ON CONFLICT DO NOTHING (upsert)
+================================================================================
+
+INSERT INTO t (id, val) VALUES (1, 42) ON CONFLICT DO NOTHING;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (insert
+      (keyword_insert)
+      (keyword_into)
+      (object_reference
+        name: (identifier))
+      (list
+        (column
+          (identifier))
+        (column
+          (identifier)))
+      (keyword_values)
+      (list
+        (literal)
+        (literal))
+      (keyword_on)
+      (keyword_conflict)
+      (keyword_do)
+      (keyword_nothing))))
+
+================================================================================
+SQLite: INSERT ... ON CONFLICT DO UPDATE SET (upsert)
+================================================================================
+
+INSERT INTO t (id, val) VALUES (1, 42) ON CONFLICT DO UPDATE SET val = excluded.val;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (insert
+      (keyword_insert)
+      (keyword_into)
+      (object_reference
+        name: (identifier))
+      (list
+        (column
+          (identifier))
+        (column
+          (identifier)))
+      (keyword_values)
+      (list
+        (literal)
+        (literal))
+      (keyword_on)
+      (keyword_conflict)
+      (keyword_do)
+      (keyword_update)
+      (keyword_set)
+      (assignment
+        left: (field
+          name: (identifier))
+        right: (field
+          (object_reference
+            name: (identifier))
+          name: (identifier))))))
+
+================================================================================
+SQLite: AUTOINCREMENT column
+================================================================================
+
+CREATE TABLE t (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (object_reference
+        name: (identifier))
+      (column_definitions
+        (column_definition
+          name: (identifier)
+          type: (int
+            (keyword_int))
+          (keyword_primary)
+          (keyword_key)
+          (keyword_autoincrement))
+        (column_definition
+          name: (identifier)
+          custom_type: (object_reference
+            name: (identifier)))))))
+
+================================================================================
+SQLite: INDEXED BY on relation
+================================================================================
+
+SELECT * FROM t INDEXED BY my_idx WHERE id = 1;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (all_fields))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier))
+        (keyword_indexed)
+        (keyword_by)
+        index: (identifier))
+      (where
+        (keyword_where)
+        predicate: (binary_expression
+          left: (field
+            name: (identifier))
+          right: (literal))))))
+
+================================================================================
+SQLite: NOT INDEXED on relation
+================================================================================
+
+SELECT * FROM t NOT INDEXED WHERE id = 1;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (all_fields))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier))
+        (keyword_not)
+        (keyword_indexed))
+      (where
+        (keyword_where)
+        predicate: (binary_expression
+          left: (field
+            name: (identifier))
+          right: (literal))))))

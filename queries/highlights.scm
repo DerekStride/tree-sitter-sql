@@ -290,6 +290,8 @@
   (keyword_begin)
   (keyword_commit)
   (keyword_rollback)
+  (keyword_abort)
+  (keyword_fail)
   (keyword_transaction)
   (keyword_session)
   (keyword_isolation)

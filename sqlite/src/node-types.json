@@ -2901,6 +2901,10 @@
           "named": true
         },
         {
+          "type": "keyword_autoincrement",
+          "named": true
+        },
+        {
           "type": "keyword_cascade",
           "named": true
         },
@@ -2969,11 +2973,19 @@
           "named": true
         },
         {
+          "type": "keyword_stored",
+          "named": true
+        },
+        {
           "type": "keyword_unique",
           "named": true
         },
         {
           "type": "keyword_update",
+          "named": true
+        },
+        {
+          "type": "keyword_virtual",
           "named": true
         },
         {
@@ -6822,6 +6834,14 @@
           "named": true
         },
         {
+          "type": "keyword_conflict",
+          "named": true
+        },
+        {
+          "type": "keyword_do",
+          "named": true
+        },
+        {
           "type": "keyword_insert",
           "named": true
         },
@@ -6830,11 +6850,27 @@
           "named": true
         },
         {
+          "type": "keyword_nothing",
+          "named": true
+        },
+        {
+          "type": "keyword_on",
+          "named": true
+        },
+        {
+          "type": "keyword_or",
+          "named": true
+        },
+        {
           "type": "keyword_recursive",
           "named": true
         },
         {
           "type": "keyword_set",
+          "named": true
+        },
+        {
+          "type": "keyword_update",
           "named": true
         },
         {
@@ -6854,6 +6890,10 @@
           "named": true
         },
         {
+          "type": "returning",
+          "named": true
+        },
+        {
           "type": "select",
           "named": true
         },
@@ -6863,6 +6903,14 @@
         },
         {
           "type": "set_operation",
+          "named": true
+        },
+        {
+          "type": "sqlite_conflict_action",
+          "named": true
+        },
+        {
+          "type": "where",
           "named": true
         }
       ]
@@ -8354,6 +8402,16 @@
             "named": true
           }
         ]
+      },
+      "index": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
       }
     },
     "children": {
@@ -8366,6 +8424,18 @@
         },
         {
           "type": "keyword_as",
+          "named": true
+        },
+        {
+          "type": "keyword_by",
+          "named": true
+        },
+        {
+          "type": "keyword_indexed",
+          "named": true
+        },
+        {
+          "type": "keyword_not",
           "named": true
         },
         {
@@ -8453,6 +8523,25 @@
         },
         {
           "type": "object_reference",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "returning",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_returning",
+          "named": true
+        },
+        {
+          "type": "select_expression",
           "named": true
         }
       ]
@@ -8767,6 +8856,37 @@
       "types": [
         {
           "type": "keyword_smallint",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "sqlite_conflict_action",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_abort",
+          "named": true
+        },
+        {
+          "type": "keyword_fail",
+          "named": true
+        },
+        {
+          "type": "keyword_ignore",
+          "named": true
+        },
+        {
+          "type": "keyword_replace",
+          "named": true
+        },
+        {
+          "type": "keyword_rollback",
           "named": true
         }
       ]
@@ -10530,6 +10650,10 @@
     "extra": true
   },
   {
+    "type": "keyword_abort",
+    "named": true
+  },
+  {
     "type": "keyword_action",
     "named": true
   },
@@ -10595,6 +10719,10 @@
   },
   {
     "type": "keyword_authorization",
+    "named": true
+  },
+  {
+    "type": "keyword_autoincrement",
     "named": true
   },
   {
@@ -10694,6 +10822,10 @@
     "named": true
   },
   {
+    "type": "keyword_conflict",
+    "named": true
+  },
+  {
     "type": "keyword_connection",
     "named": true
   },
@@ -10782,6 +10914,10 @@
     "named": true
   },
   {
+    "type": "keyword_do",
+    "named": true
+  },
+  {
     "type": "keyword_double",
     "named": true
   },
@@ -10843,6 +10979,10 @@
   },
   {
     "type": "keyword_external",
+    "named": true
+  },
+  {
+    "type": "keyword_fail",
     "named": true
   },
   {
@@ -10918,6 +11058,10 @@
     "named": true
   },
   {
+    "type": "keyword_ignore",
+    "named": true
+  },
+  {
     "type": "keyword_immediate",
     "named": true
   },
@@ -10939,6 +11083,10 @@
   },
   {
     "type": "keyword_index",
+    "named": true
+  },
+  {
+    "type": "keyword_indexed",
     "named": true
   },
   {
@@ -11095,6 +11243,10 @@
   },
   {
     "type": "keyword_not",
+    "named": true
+  },
+  {
+    "type": "keyword_nothing",
     "named": true
   },
   {
@@ -11286,6 +11438,10 @@
     "named": true
   },
   {
+    "type": "keyword_returning",
+    "named": true
+  },
+  {
     "type": "keyword_returns",
     "named": true
   },
@@ -11387,6 +11543,10 @@
   },
   {
     "type": "keyword_storage",
+    "named": true
+  },
+  {
+    "type": "keyword_stored",
     "named": true
   },
   {
