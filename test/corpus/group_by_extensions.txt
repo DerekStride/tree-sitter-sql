@@ -1,0 +1,165 @@
+================================================================================
+ANSI: GROUP BY ROLLUP
+================================================================================
+
+SELECT region, SUM(sales)
+FROM t
+GROUP BY ROLLUP(region, product);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            name: (identifier)))
+        (term
+          value: (invocation
+            (object_reference
+              name: (identifier))
+            parameter: (term
+              value: (field
+                name: (identifier)))))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier)))
+      (group_by
+        (keyword_group)
+        (keyword_by)
+        (rollup_clause
+          (keyword_rollup)
+          (field
+            name: (identifier))
+          (field
+            name: (identifier)))))))
+
+================================================================================
+ANSI: GROUP BY CUBE
+================================================================================
+
+SELECT a, b, SUM(c) FROM t GROUP BY CUBE(a, b);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            name: (identifier)))
+        (term
+          value: (field
+            name: (identifier)))
+        (term
+          value: (invocation
+            (object_reference
+              name: (identifier))
+            parameter: (term
+              value: (field
+                name: (identifier)))))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier)))
+      (group_by
+        (keyword_group)
+        (keyword_by)
+        (cube_clause
+          (keyword_cube)
+          (field
+            name: (identifier))
+          (field
+            name: (identifier)))))))
+
+================================================================================
+ANSI: GROUP BY GROUPING SETS
+================================================================================
+
+SELECT region, product, SUM(sales)
+FROM t
+GROUP BY GROUPING SETS ((region, product), (region), ());
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            name: (identifier)))
+        (term
+          value: (field
+            name: (identifier)))
+        (term
+          value: (invocation
+            (object_reference
+              name: (identifier))
+            parameter: (term
+              value: (field
+                name: (identifier)))))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier)))
+      (group_by
+        (keyword_group)
+        (keyword_by)
+        (grouping_sets_clause
+          (keyword_grouping)
+          (keyword_sets)
+          (list
+            (field
+              name: (identifier))
+            (field
+              name: (identifier)))
+          (parenthesized_expression
+            (field
+              name: (identifier)))
+          (grouping_set))))))
+
+================================================================================
+ANSI: GROUP BY WITH ROLLUP
+================================================================================
+
+SELECT region, SUM(sales) FROM t GROUP BY region WITH ROLLUP;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            name: (identifier)))
+        (term
+          value: (invocation
+            (object_reference
+              name: (identifier))
+            parameter: (term
+              value: (field
+                name: (identifier)))))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier)))
+      (group_by
+        (keyword_group)
+        (keyword_by)
+        (field
+          name: (identifier))
+        (keyword_with)
+        (keyword_rollup)))))

@@ -16,6 +16,9 @@ export default grammar(mysql, {
     [$.object_reference],
     [$.between_expression, $.binary_expression],
     [$.create_function],
+    [$.list, $.grouping_set],
+    [$.list, $.rollup_element],
+    [$.list, $.cube_element],
   ],
 
   rules: {

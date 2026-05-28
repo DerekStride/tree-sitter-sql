@@ -390,10 +390,56 @@ export default {
     field('predicate', $._expression),
   ),
 
-  group_by: $ => seq(
+  group_by: $ => prec.left(seq(
     $.keyword_group,
     $.keyword_by,
+    comma_list(choice(
+      $._expression,
+      $.rollup_clause,
+      $.cube_clause,
+      $.grouping_sets_clause,
+    ), true),
+    optional(seq($.keyword_with, choice($.keyword_rollup, $.keyword_cube))),
+  )),
+
+  rollup_clause: $ => seq(
+    $.keyword_rollup,
+    '(',
+    comma_list(choice($._expression, $.rollup_element), true),
+    ')',
+  ),
+
+  rollup_element: $ => seq(
+    '(',
     comma_list($._expression, true),
+    ')',
+  ),
+
+  cube_clause: $ => seq(
+    $.keyword_cube,
+    '(',
+    comma_list(choice($._expression, $.cube_element), true),
+    ')',
+  ),
+
+  cube_element: $ => seq(
+    '(',
+    comma_list($._expression, true),
+    ')',
+  ),
+
+  grouping_sets_clause: $ => seq(
+    $.keyword_grouping,
+    $.keyword_sets,
+    '(',
+    comma_list(choice($.grouping_set, $._expression), true),
+    ')',
+  ),
+
+  grouping_set: $ => seq(
+    '(',
+    optional(comma_list($._expression, true)),
+    ')',
   ),
 
   having: $ => seq(

@@ -19,6 +19,9 @@ export default grammar(base, {
     [$.time],
     [$.timestamp],
     [$.create_function],
+    [$.list, $.grouping_set],
+    [$.list, $.rollup_element],
+    [$.list, $.cube_element],
   ],
 
   externals: $ => [

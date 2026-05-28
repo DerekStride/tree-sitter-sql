@@ -15,6 +15,9 @@ export default grammar(base, {
     [$.object_reference],
     [$.between_expression, $.binary_expression],
     [$.create_function],
+    [$.list, $.grouping_set],
+    [$.list, $.rollup_element],
+    [$.list, $.cube_element],
   ],
 
   rules: {
@@ -202,8 +205,13 @@ export default grammar(base, {
     group_by: $ => prec.left(seq(
       $.keyword_group,
       $.keyword_by,
-      comma_list($._expression, true),
-      optional(seq($.keyword_with, $.keyword_rollup)),
+      comma_list(choice(
+        $._expression,
+        $.rollup_clause,
+        $.cube_clause,
+        $.grouping_sets_clause,
+      ), true),
+      optional(seq($.keyword_with, choice($.keyword_rollup, $.keyword_cube))),
     )),
 
     // MySQL: window functions support IGNORE/RESPECT NULLS

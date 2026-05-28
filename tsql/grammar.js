@@ -17,6 +17,9 @@ export default grammar(base, {
     [$.object_reference],
     [$.between_expression, $.binary_expression],
     [$.create_function],
+    [$.list, $.grouping_set],
+    [$.list, $.rollup_element],
+    [$.list, $.cube_element],
     // output_clause: optional paren column list after INTO @var is ambiguous
     [$.output_clause],
     // EXPLAIN followed by keyword_continue / keyword_break is ambiguous — resolved by tree-sitter

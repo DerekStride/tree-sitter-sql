@@ -20,6 +20,9 @@ export default grammar(base, {
     [$.object_reference],
     [$.between_expression, $.binary_expression],
     [$.create_function],
+    [$.list, $.grouping_set],
+    [$.list, $.rollup_element],
+    [$.list, $.cube_element],
     // BigQuery-specific
     [$.all_fields, $.bq_all_fields_except],
     [$.qualify],
