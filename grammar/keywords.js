@@ -83,6 +83,7 @@ export default {
   keyword_owned: _ => make_keyword("owned"),
   keyword_start: _ => make_keyword("start"),
   keyword_restart: _ => make_keyword("restart"),
+  keyword_reverse: _ => make_keyword("reverse"),
   keyword_key: _ => make_keyword("key"),
   keyword_keys: _ => make_keyword("keys"),
   keyword_flow: _ => make_keyword("flow"),
@@ -381,6 +382,9 @@ export default {
   keyword_inherits:   _ => make_keyword("inherits"),
   keyword_including:  _ => make_keyword("including"),
   keyword_excluding:  _ => make_keyword("excluding"),
+  // Oracle PL/SQL procedural keywords (#3a)
+  keyword_elsif:      _ => make_keyword("elsif"),
+  keyword_exit:       _ => make_keyword("exit"),
   // Spark 4.x (#21)
   keyword_var: _ => make_keyword("var"),
   keyword_variable: _ => make_keyword("variable"),

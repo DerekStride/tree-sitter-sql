@@ -6,6 +6,7 @@ import oracle_bulk_rules from './grammar/bulk_ops.js';
 import oracle_merge_rules from './grammar/merge_ext.js';
 import oracle_cursor_rules from './grammar/cursor.js';
 import oracle_package_rules from './grammar/package.js';
+import oracle_procedural_rules from './grammar/procedural.js';
 
 export default grammar(base, {
   name: 'oracle_sql',
@@ -37,6 +38,9 @@ export default grammar(base, {
     [$.object_reference],
     [$.between_expression, $.binary_expression],
     [$.create_function],
+    [$.plsql_assign, $._qualified_field],
+    [$._function_return, $.plsql_return],
+    [$.cursor_for_loop, $.plsql_for],
   ],
 
   rules: {
@@ -82,7 +86,8 @@ export default grammar(base, {
       ),
     ),
 
-    // Extend statement to add PL/SQL blocks, FORALL, EXECUTE IMMEDIATE, cursors
+    // Extend statement to add PL/SQL blocks, FORALL, EXECUTE IMMEDIATE, cursors,
+    // procedural control-flow (IF/WHILE/LOOP/FOR/RETURN/EXIT/CONTINUE/NULL/ASSIGN)
     statement: $ => seq(
       optional(seq(
         $.keyword_explain,
@@ -100,6 +105,16 @@ export default grammar(base, {
         $.cursor_open_statement,
         $.cursor_fetch_statement,
         $.cursor_close_statement,
+        // Procedural control-flow
+        $.plsql_if,
+        $.plsql_while,
+        $.plsql_loop,
+        $.plsql_for,
+        $.plsql_return,
+        $.plsql_exit,
+        $.plsql_continue,
+        $.plsql_null,
+        $.plsql_assign,
       ),
     ),
 
@@ -169,6 +184,8 @@ export default grammar(base, {
     keyword_noneditionable: _ => token(prec(1, make_keyword("noneditionable"))),
     keyword_authid:         _ => token(prec(1, make_keyword("authid"))),
     keyword_pragma:         _ => token(prec(1, make_keyword("pragma"))),
+    keyword_reverse:        _ => token(prec(1, make_keyword("reverse"))),
+    keyword_continue:       _ => token(prec(1, make_keyword("continue"))),
 
     ...oracle_hierarchical_rules,
     ...oracle_plsql_rules,
@@ -176,6 +193,7 @@ export default grammar(base, {
     ...oracle_merge_rules,
     ...oracle_cursor_rules,
     ...oracle_package_rules,
+    ...oracle_procedural_rules,
 
   },
 });

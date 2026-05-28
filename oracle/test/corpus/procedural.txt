@@ -1,0 +1,365 @@
+================================================================================
+Oracle: PL/SQL assignment
+================================================================================
+
+BEGIN
+  v_count := 0;
+END;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (plsql_block
+      (keyword_begin)
+      (statement
+        (plsql_assign
+          target: (identifier)
+          value: (literal)))
+      (keyword_end))))
+
+================================================================================
+Oracle: PL/SQL IF THEN ELSE END IF
+================================================================================
+
+BEGIN
+  IF x > 0 THEN
+    v := 1;
+  ELSE
+    v := 0;
+  END IF;
+END;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (plsql_block
+      (keyword_begin)
+      (statement
+        (plsql_if
+          (keyword_if)
+          condition: (binary_expression
+            left: (field
+              name: (identifier))
+            right: (literal))
+          (keyword_then)
+          (statement
+            (plsql_assign
+              target: (identifier)
+              value: (literal)))
+          (keyword_else)
+          (statement
+            (plsql_assign
+              target: (identifier)
+              value: (literal)))
+          (keyword_end)
+          (keyword_if)))
+      (keyword_end))))
+
+================================================================================
+Oracle: PL/SQL IF ELSIF END IF
+================================================================================
+
+BEGIN
+  IF x = 1 THEN
+    v := 'a';
+  ELSIF x = 2 THEN
+    v := 'b';
+  END IF;
+END;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (plsql_block
+      (keyword_begin)
+      (statement
+        (plsql_if
+          (keyword_if)
+          condition: (binary_expression
+            left: (field
+              name: (identifier))
+            right: (literal))
+          (keyword_then)
+          (statement
+            (plsql_assign
+              target: (identifier)
+              value: (literal)))
+          (keyword_elsif)
+          condition: (binary_expression
+            left: (field
+              name: (identifier))
+            right: (literal))
+          (keyword_then)
+          (statement
+            (plsql_assign
+              target: (identifier)
+              value: (literal)))
+          (keyword_end)
+          (keyword_if)))
+      (keyword_end))))
+
+================================================================================
+Oracle: PL/SQL WHILE LOOP
+================================================================================
+
+BEGIN
+  WHILE i < 10 LOOP
+    i := i + 1;
+  END LOOP;
+END;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (plsql_block
+      (keyword_begin)
+      (statement
+        (plsql_while
+          (keyword_while)
+          condition: (binary_expression
+            left: (field
+              name: (identifier))
+            right: (literal))
+          (keyword_loop)
+          (statement
+            (plsql_assign
+              target: (identifier)
+              value: (binary_expression
+                left: (field
+                  name: (identifier))
+                right: (literal))))
+          (keyword_end)
+          (keyword_loop)))
+      (keyword_end))))
+
+================================================================================
+Oracle: PL/SQL bare LOOP with EXIT WHEN
+================================================================================
+
+BEGIN
+  LOOP
+    i := i + 1;
+    EXIT WHEN i >= 10;
+  END LOOP;
+END;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (plsql_block
+      (keyword_begin)
+      (statement
+        (plsql_loop
+          (keyword_loop)
+          (statement
+            (plsql_assign
+              target: (identifier)
+              value: (binary_expression
+                left: (field
+                  name: (identifier))
+                right: (literal))))
+          (statement
+            (plsql_exit
+              (keyword_exit)
+              (keyword_when)
+              condition: (binary_expression
+                left: (field
+                  name: (identifier))
+                right: (literal))))
+          (keyword_end)
+          (keyword_loop)))
+      (keyword_end))))
+
+================================================================================
+Oracle: PL/SQL FOR numeric loop
+================================================================================
+
+BEGIN
+  FOR i IN 1..10 LOOP
+    NULL;
+  END LOOP;
+END;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (plsql_block
+      (keyword_begin)
+      (statement
+        (plsql_for
+          (keyword_for)
+          index: (identifier)
+          (keyword_in)
+          lower: (literal)
+          upper: (literal)
+          (keyword_loop)
+          (statement
+            (plsql_null
+              (keyword_null)))
+          (keyword_end)
+          (keyword_loop)))
+      (keyword_end))))
+
+================================================================================
+Oracle: PL/SQL FOR REVERSE loop
+================================================================================
+
+BEGIN
+  FOR i IN REVERSE 1..5 LOOP
+    NULL;
+  END LOOP;
+END;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (plsql_block
+      (keyword_begin)
+      (statement
+        (plsql_for
+          (keyword_for)
+          index: (identifier)
+          (keyword_in)
+          (keyword_reverse)
+          lower: (literal)
+          upper: (literal)
+          (keyword_loop)
+          (statement
+            (plsql_null
+              (keyword_null)))
+          (keyword_end)
+          (keyword_loop)))
+      (keyword_end))))
+
+================================================================================
+Oracle: PL/SQL RETURN expression
+================================================================================
+
+BEGIN
+  RETURN 42;
+END;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (plsql_block
+      (keyword_begin)
+      (statement
+        (plsql_return
+          (keyword_return)
+          (literal)))
+      (keyword_end))))
+
+================================================================================
+Oracle: PL/SQL CONTINUE WHEN
+================================================================================
+
+BEGIN
+  LOOP
+    CONTINUE WHEN done = 1;
+  END LOOP;
+END;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (plsql_block
+      (keyword_begin)
+      (statement
+        (plsql_loop
+          (keyword_loop)
+          (statement
+            (plsql_continue
+              (keyword_continue)
+              (keyword_when)
+              condition: (binary_expression
+                left: (field
+                  name: (identifier))
+                right: (literal))))
+          (keyword_end)
+          (keyword_loop)))
+      (keyword_end))))
+
+================================================================================
+Oracle: FORALL with UPDATE
+================================================================================
+
+BEGIN
+  FORALL i IN 1..10
+    UPDATE t SET val = vals(i) WHERE id = ids(i);
+END;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (plsql_block
+      (keyword_begin)
+      (statement
+        (forall_statement
+          (keyword_forall)
+          index: (identifier)
+          (keyword_in)
+          lower: (literal)
+          upper: (literal)
+          (update
+            (keyword_update)
+            (relation
+              (object_reference
+                name: (identifier)))
+            (keyword_set)
+            (assignment
+              left: (field
+                name: (identifier))
+              right: (invocation
+                (object_reference
+                  name: (identifier))
+                parameter: (term
+                  value: (field
+                    name: (identifier)))))
+            (where
+              (keyword_where)
+              predicate: (binary_expression
+                left: (field
+                  name: (identifier))
+                right: (invocation
+                  (object_reference
+                    name: (identifier))
+                  parameter: (term
+                    value: (field
+                      name: (identifier)))))))))
+      (keyword_end))))
+
+================================================================================
+Oracle: EXECUTE IMMEDIATE BULK COLLECT INTO
+================================================================================
+
+BEGIN
+  EXECUTE IMMEDIATE 'SELECT id FROM t' BULK COLLECT INTO id_list;
+END;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (plsql_block
+      (keyword_begin)
+      (statement
+        (execute_immediate_statement
+          (keyword_execute)
+          (keyword_immediate)
+          sql: (literal)
+          (keyword_bulk)
+          (keyword_collect)
+          (keyword_into)
+          (identifier)))
+      (keyword_end))))

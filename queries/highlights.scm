@@ -376,6 +376,12 @@
   (keyword_excluding)
 ] @keyword
 
+; --- Oracle / DB2 procedural ---
+[
+  (keyword_elsif)
+  (keyword_exit)
+] @keyword
+
 ; ============================================================
 ; Type qualifiers
 ; ============================================================

@@ -20,15 +20,21 @@ export default {
       ),
     ),
     optional(seq($.keyword_save, $.keyword_exceptions)),
-    $.insert,
+    choice(
+      $.insert,
+      $._update_statement,
+      $._delete_statement,
+      $._merge_statement,
+    ),
   ),
 
-  // EXECUTE IMMEDIATE sql_str [INTO var1 [, var2]] [USING bind1 [, bind2]]
+  // EXECUTE IMMEDIATE sql_str [[BULK COLLECT] INTO var1 [, var2]] [USING bind1 [, bind2]]
   execute_immediate_statement: $ => seq(
     $.keyword_execute,
     $.keyword_immediate,
     field('sql', $._expression),
     optional(seq(
+      optional(seq($.keyword_bulk, $.keyword_collect)),
       $.keyword_into,
       comma_list($.identifier, true),
     )),

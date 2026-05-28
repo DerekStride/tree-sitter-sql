@@ -6348,6 +6348,14 @@
           "named": true
         },
         {
+          "type": "tsql_cross_apply",
+          "named": true
+        },
+        {
+          "type": "tsql_outer_apply",
+          "named": true
+        },
+        {
           "type": "where",
           "named": true
         },
@@ -8954,7 +8962,19 @@
           "named": true
         },
         {
+          "type": "tsql_pivot",
+          "named": true
+        },
+        {
           "type": "tsql_table_hints",
+          "named": true
+        },
+        {
+          "type": "tsql_unpivot",
+          "named": true
+        },
+        {
+          "type": "values",
           "named": true
         }
       ]
@@ -10757,6 +10777,48 @@
     }
   },
   {
+    "type": "tsql_cross_apply",
+    "named": true,
+    "fields": {
+      "alias": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "invocation",
+          "named": true
+        },
+        {
+          "type": "keyword_apply",
+          "named": true
+        },
+        {
+          "type": "keyword_as",
+          "named": true
+        },
+        {
+          "type": "keyword_cross",
+          "named": true
+        },
+        {
+          "type": "subquery",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "tsql_datetime2",
     "named": true,
     "fields": {},
@@ -10960,6 +11022,168 @@
         },
         {
           "type": "keyword_smallmoney",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "tsql_outer_apply",
+    "named": true,
+    "fields": {
+      "alias": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "invocation",
+          "named": true
+        },
+        {
+          "type": "keyword_apply",
+          "named": true
+        },
+        {
+          "type": "keyword_as",
+          "named": true
+        },
+        {
+          "type": "keyword_outer",
+          "named": true
+        },
+        {
+          "type": "subquery",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "tsql_pivot",
+    "named": true,
+    "fields": {
+      "alias": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "pivot_col": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "array",
+          "named": true
+        },
+        {
+          "type": "between_expression",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "case",
+          "named": true
+        },
+        {
+          "type": "cast",
+          "named": true
+        },
+        {
+          "type": "exists",
+          "named": true
+        },
+        {
+          "type": "field",
+          "named": true
+        },
+        {
+          "type": "interval",
+          "named": true
+        },
+        {
+          "type": "invocation",
+          "named": true
+        },
+        {
+          "type": "keyword_as",
+          "named": true
+        },
+        {
+          "type": "keyword_for",
+          "named": true
+        },
+        {
+          "type": "keyword_in",
+          "named": true
+        },
+        {
+          "type": "keyword_pivot",
+          "named": true
+        },
+        {
+          "type": "list",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "parameter",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "subquery",
+          "named": true
+        },
+        {
+          "type": "subscript",
+          "named": true
+        },
+        {
+          "type": "tsql_variable",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "window_function",
           "named": true
         }
       ]
@@ -11182,6 +11406,54 @@
       "types": [
         {
           "type": "keyword_uniqueidentifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "tsql_unpivot",
+    "named": true,
+    "fields": {
+      "name_col": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "value_col": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "keyword_for",
+          "named": true
+        },
+        {
+          "type": "keyword_in",
+          "named": true
+        },
+        {
+          "type": "keyword_unpivot",
           "named": true
         }
       ]
@@ -11476,6 +11748,25 @@
         },
         {
           "type": "where",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "values",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_values",
+          "named": true
+        },
+        {
+          "type": "list",
           "named": true
         }
       ]
@@ -12297,6 +12588,10 @@
     "named": true
   },
   {
+    "type": "keyword_apply",
+    "named": true
+  },
+  {
     "type": "keyword_array",
     "named": true
   },
@@ -12993,6 +13288,10 @@
     "named": true
   },
   {
+    "type": "keyword_pivot",
+    "named": true
+  },
+  {
     "type": "keyword_plain",
     "named": true
   },
@@ -13338,6 +13637,10 @@
   },
   {
     "type": "keyword_unlogged",
+    "named": true
+  },
+  {
+    "type": "keyword_unpivot",
     "named": true
   },
   {

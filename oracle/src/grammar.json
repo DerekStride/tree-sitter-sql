@@ -314,6 +314,17 @@
       "type": "PATTERN",
       "value": "[rR][eE][sS][tT][aA][rR][tT]"
     },
+    "keyword_reverse": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 1,
+        "content": {
+          "type": "PATTERN",
+          "value": "[rR][eE][vV][eE][rR][sS][eE]"
+        }
+      }
+    },
     "keyword_key": {
       "type": "PATTERN",
       "value": "[kK][eE][yY]"
@@ -637,6 +648,14 @@
     "keyword_rollback": {
       "type": "PATTERN",
       "value": "[rR][oO][lL][lL][bB][aA][cC][kK]"
+    },
+    "keyword_abort": {
+      "type": "PATTERN",
+      "value": "[aA][bB][oO][rR][tT]"
+    },
+    "keyword_fail": {
+      "type": "PATTERN",
+      "value": "[fF][aA][iI][lL]"
     },
     "keyword_transaction": {
       "type": "PATTERN",
@@ -1346,6 +1365,86 @@
     "keyword_get": {
       "type": "PATTERN",
       "value": "[gG][eE][tT]"
+    },
+    "keyword_databases": {
+      "type": "PATTERN",
+      "value": "[dD][aA][tT][aA][bB][aA][sS][eE][sS]"
+    },
+    "keyword_processlist": {
+      "type": "PATTERN",
+      "value": "[pP][rR][oO][cC][eE][sS][sS][lL][iI][sS][tT]"
+    },
+    "keyword_status": {
+      "type": "PATTERN",
+      "value": "[sS][tT][aA][tT][uU][sS]"
+    },
+    "keyword_warnings": {
+      "type": "PATTERN",
+      "value": "[wW][aA][rR][nN][iI][nN][gG][sS]"
+    },
+    "keyword_errors": {
+      "type": "PATTERN",
+      "value": "[eE][rR][rR][oO][rR][sS]"
+    },
+    "keyword_variables": {
+      "type": "PATTERN",
+      "value": "[vV][aA][rR][iI][aA][bB][lL][eE][sS]"
+    },
+    "keyword_indexes": {
+      "type": "PATTERN",
+      "value": "[iI][nN][dD][eE][xX][eE][sS]"
+    },
+    "keyword_int64": {
+      "type": "PATTERN",
+      "value": "[iI][nN][tT][66][44]"
+    },
+    "keyword_float64": {
+      "type": "PATTERN",
+      "value": "[fF][lL][oO][aA][tT][66][44]"
+    },
+    "keyword_bytes": {
+      "type": "PATTERN",
+      "value": "[bB][yY][tT][eE][sS]"
+    },
+    "keyword_bignumeric": {
+      "type": "PATTERN",
+      "value": "[bB][iI][gG][nN][uU][mM][eE][rR][iI][cC]"
+    },
+    "keyword_geography": {
+      "type": "PATTERN",
+      "value": "[gG][eE][oO][gG][rR][aA][pP][hH][yY]"
+    },
+    "keyword_datetime": {
+      "type": "PATTERN",
+      "value": "[dD][aA][tT][eE][tT][iI][mM][eE]"
+    },
+    "keyword_unnest": {
+      "type": "PATTERN",
+      "value": "[uU][nN][nN][eE][sS][tT]"
+    },
+    "keyword_flatten": {
+      "type": "PATTERN",
+      "value": "[fF][lL][aA][tT][tT][eE][nN]"
+    },
+    "keyword_inherits": {
+      "type": "PATTERN",
+      "value": "[iI][nN][hH][eE][rR][iI][tT][sS]"
+    },
+    "keyword_including": {
+      "type": "PATTERN",
+      "value": "[iI][nN][cC][lL][uU][dD][iI][nN][gG]"
+    },
+    "keyword_excluding": {
+      "type": "PATTERN",
+      "value": "[eE][xX][cC][lL][uU][dD][iI][nN][gG]"
+    },
+    "keyword_elsif": {
+      "type": "PATTERN",
+      "value": "[eE][lL][sS][iI][fF]"
+    },
+    "keyword_exit": {
+      "type": "PATTERN",
+      "value": "[eE][xX][iI][tT]"
     },
     "keyword_var": {
       "type": "PATTERN",
@@ -2328,8 +2427,15 @@
       "value": "[aA][sS][sS][eE][rR][tT]"
     },
     "keyword_continue": {
-      "type": "PATTERN",
-      "value": "[cC][oO][nN][tT][iI][nN][uU][eE]"
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 1,
+        "content": {
+          "type": "PATTERN",
+          "value": "[cC][oO][nN][tT][iI][nN][uU][eE]"
+        }
+      }
     },
     "keyword_error": {
       "type": "PATTERN",
@@ -7617,7 +7723,7 @@
         },
         {
           "type": "PATTERN",
-          "value": "((\\d+(_\\d+)*)?[.]\\d+(_\\d+)*(e[+-]?\\d+(_\\d+)*)?)|(\\d+(_\\d+)*[.](e[+-]?\\d+(_\\d+)*)?)"
+          "value": "((\\d+(_\\d+)*)?[.]\\d+(_\\d+)*(e[+-]?\\d+(_\\d+)*)?)|(\\d+(_\\d+)*[.](\\d+(_\\d+)*)?e[+-]?\\d+(_\\d+)*)"
         }
       ]
     },
@@ -7874,6 +7980,42 @@
             {
               "type": "SYMBOL",
               "name": "cursor_close_statement"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "plsql_if"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "plsql_while"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "plsql_loop"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "plsql_for"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "plsql_return"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "plsql_exit"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "plsql_continue"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "plsql_null"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "plsql_assign"
             }
           ]
         }
@@ -18937,8 +19079,25 @@
           ]
         },
         {
-          "type": "SYMBOL",
-          "name": "insert"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "insert"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_update_statement"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_delete_statement"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_merge_statement"
+            }
+          ]
         }
       ]
     },
@@ -18967,6 +19126,27 @@
             {
               "type": "SEQ",
               "members": [
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "SYMBOL",
+                          "name": "keyword_bulk"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "keyword_collect"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                },
                 {
                   "type": "SYMBOL",
                   "name": "keyword_into"
@@ -20148,6 +20328,410 @@
           "value": ";"
         }
       ]
+    },
+    "plsql_assign": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "target",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "identifier"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_qualified_field"
+              }
+            ]
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ":="
+        },
+        {
+          "type": "FIELD",
+          "name": "value",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_expression"
+          }
+        }
+      ]
+    },
+    "plsql_if": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_if"
+        },
+        {
+          "type": "FIELD",
+          "name": "condition",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_expression"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_then"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "statement"
+              },
+              {
+                "type": "STRING",
+                "value": ";"
+              }
+            ]
+          }
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "keyword_elsif"
+              },
+              {
+                "type": "FIELD",
+                "name": "condition",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_expression"
+                }
+              },
+              {
+                "type": "SYMBOL",
+                "name": "keyword_then"
+              },
+              {
+                "type": "REPEAT",
+                "content": {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "statement"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": ";"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_else"
+                },
+                {
+                  "type": "REPEAT",
+                  "content": {
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "statement"
+                      },
+                      {
+                        "type": "STRING",
+                        "value": ";"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_end"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_if"
+        }
+      ]
+    },
+    "plsql_while": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_while"
+        },
+        {
+          "type": "FIELD",
+          "name": "condition",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_expression"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_loop"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "statement"
+              },
+              {
+                "type": "STRING",
+                "value": ";"
+              }
+            ]
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_end"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_loop"
+        }
+      ]
+    },
+    "plsql_loop": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_loop"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "statement"
+              },
+              {
+                "type": "STRING",
+                "value": ";"
+              }
+            ]
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_end"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_loop"
+        }
+      ]
+    },
+    "plsql_for": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_for"
+        },
+        {
+          "type": "FIELD",
+          "name": "index",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_in"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "keyword_reverse"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "FIELD",
+          "name": "lower",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_expression"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ".."
+        },
+        {
+          "type": "FIELD",
+          "name": "upper",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_expression"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_loop"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "statement"
+              },
+              {
+                "type": "STRING",
+                "value": ";"
+              }
+            ]
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_end"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_loop"
+        }
+      ]
+    },
+    "plsql_return": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_return"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_expression"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "plsql_exit": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_exit"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_when"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "condition",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "_expression"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "plsql_continue": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_continue"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_when"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "condition",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "_expression"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "plsql_null": {
+      "type": "SYMBOL",
+      "name": "keyword_null"
     }
   },
   "extras": [
@@ -20190,6 +20774,18 @@
     ],
     [
       "create_function"
+    ],
+    [
+      "plsql_assign",
+      "_qualified_field"
+    ],
+    [
+      "_function_return",
+      "plsql_return"
+    ],
+    [
+      "cursor_for_loop",
+      "plsql_for"
     ]
   ],
   "precedences": [

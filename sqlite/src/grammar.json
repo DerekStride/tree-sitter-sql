@@ -314,6 +314,10 @@
       "type": "PATTERN",
       "value": "[rR][eE][sS][tT][aA][rR][tT]"
     },
+    "keyword_reverse": {
+      "type": "PATTERN",
+      "value": "[rR][eE][vV][eE][rR][sS][eE]"
+    },
     "keyword_key": {
       "type": "PATTERN",
       "value": "[kK][eE][yY]"
@@ -1354,6 +1358,86 @@
     "keyword_get": {
       "type": "PATTERN",
       "value": "[gG][eE][tT]"
+    },
+    "keyword_databases": {
+      "type": "PATTERN",
+      "value": "[dD][aA][tT][aA][bB][aA][sS][eE][sS]"
+    },
+    "keyword_processlist": {
+      "type": "PATTERN",
+      "value": "[pP][rR][oO][cC][eE][sS][sS][lL][iI][sS][tT]"
+    },
+    "keyword_status": {
+      "type": "PATTERN",
+      "value": "[sS][tT][aA][tT][uU][sS]"
+    },
+    "keyword_warnings": {
+      "type": "PATTERN",
+      "value": "[wW][aA][rR][nN][iI][nN][gG][sS]"
+    },
+    "keyword_errors": {
+      "type": "PATTERN",
+      "value": "[eE][rR][rR][oO][rR][sS]"
+    },
+    "keyword_variables": {
+      "type": "PATTERN",
+      "value": "[vV][aA][rR][iI][aA][bB][lL][eE][sS]"
+    },
+    "keyword_indexes": {
+      "type": "PATTERN",
+      "value": "[iI][nN][dD][eE][xX][eE][sS]"
+    },
+    "keyword_int64": {
+      "type": "PATTERN",
+      "value": "[iI][nN][tT][66][44]"
+    },
+    "keyword_float64": {
+      "type": "PATTERN",
+      "value": "[fF][lL][oO][aA][tT][66][44]"
+    },
+    "keyword_bytes": {
+      "type": "PATTERN",
+      "value": "[bB][yY][tT][eE][sS]"
+    },
+    "keyword_bignumeric": {
+      "type": "PATTERN",
+      "value": "[bB][iI][gG][nN][uU][mM][eE][rR][iI][cC]"
+    },
+    "keyword_geography": {
+      "type": "PATTERN",
+      "value": "[gG][eE][oO][gG][rR][aA][pP][hH][yY]"
+    },
+    "keyword_datetime": {
+      "type": "PATTERN",
+      "value": "[dD][aA][tT][eE][tT][iI][mM][eE]"
+    },
+    "keyword_unnest": {
+      "type": "PATTERN",
+      "value": "[uU][nN][nN][eE][sS][tT]"
+    },
+    "keyword_flatten": {
+      "type": "PATTERN",
+      "value": "[fF][lL][aA][tT][tT][eE][nN]"
+    },
+    "keyword_inherits": {
+      "type": "PATTERN",
+      "value": "[iI][nN][hH][eE][rR][iI][tT][sS]"
+    },
+    "keyword_including": {
+      "type": "PATTERN",
+      "value": "[iI][nN][cC][lL][uU][dD][iI][nN][gG]"
+    },
+    "keyword_excluding": {
+      "type": "PATTERN",
+      "value": "[eE][xX][cC][lL][uU][dD][iI][nN][gG]"
+    },
+    "keyword_elsif": {
+      "type": "PATTERN",
+      "value": "[eE][lL][sS][iI][fF]"
+    },
+    "keyword_exit": {
+      "type": "PATTERN",
+      "value": "[eE][xX][iI][tT]"
     },
     "keyword_var": {
       "type": "PATTERN",
@@ -7579,7 +7663,7 @@
         },
         {
           "type": "PATTERN",
-          "value": "((\\d+(_\\d+)*)?[.]\\d+(_\\d+)*(e[+-]?\\d+(_\\d+)*)?)|(\\d+(_\\d+)*[.](e[+-]?\\d+(_\\d+)*)?)"
+          "value": "((\\d+(_\\d+)*)?[.]\\d+(_\\d+)*(e[+-]?\\d+(_\\d+)*)?)|(\\d+(_\\d+)*[.](\\d+(_\\d+)*)?e[+-]?\\d+(_\\d+)*)"
         }
       ]
     },
