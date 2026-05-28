@@ -15,4 +15,12 @@
   (keyword_cs)
   (keyword_rs)
   (keyword_rr)
+  (keyword_do)
+  (keyword_leave)
+  (keyword_iterate)
+  (keyword_loop)
+  (keyword_elseif)
+  (keyword_while)
+  (keyword_declare)
+  (keyword_atomic)
 ] @keyword

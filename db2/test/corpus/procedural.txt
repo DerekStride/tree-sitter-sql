@@ -1,0 +1,215 @@
+================================================================================
+Db2: BEGIN ATOMIC compound statement
+================================================================================
+
+BEGIN ATOMIC
+  SET v = 1;
+END;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (db2_compound_statement
+      (keyword_begin)
+      (keyword_atomic)
+      (statement
+        (db2_set
+          (keyword_set)
+          target: (identifier)
+          value: (literal)))
+      (keyword_end))))
+
+================================================================================
+Db2: DECLARE variable
+================================================================================
+
+BEGIN ATOMIC
+  DECLARE v INT DEFAULT 0;
+END;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (db2_compound_statement
+      (keyword_begin)
+      (keyword_atomic)
+      (statement
+        (db2_declare
+          (keyword_declare)
+          (identifier)
+          (int
+            (keyword_int))
+          (keyword_default)
+          (literal)))
+      (keyword_end))))
+
+================================================================================
+Db2: IF ELSEIF ELSE END IF
+================================================================================
+
+BEGIN ATOMIC
+  IF x = 1 THEN
+    SET v = 'a';
+  ELSEIF x = 2 THEN
+    SET v = 'b';
+  ELSE
+    SET v = 'c';
+  END IF;
+END;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (db2_compound_statement
+      (keyword_begin)
+      (keyword_atomic)
+      (statement
+        (db2_if
+          (keyword_if)
+          condition: (binary_expression
+            left: (field
+              name: (identifier))
+            right: (literal))
+          (keyword_then)
+          (statement
+            (db2_set
+              (keyword_set)
+              target: (identifier)
+              value: (literal)))
+          (keyword_elseif)
+          condition: (binary_expression
+            left: (field
+              name: (identifier))
+            right: (literal))
+          (keyword_then)
+          (statement
+            (db2_set
+              (keyword_set)
+              target: (identifier)
+              value: (literal)))
+          (keyword_else)
+          (statement
+            (db2_set
+              (keyword_set)
+              target: (identifier)
+              value: (literal)))
+          (keyword_end)
+          (keyword_if)))
+      (keyword_end))))
+
+================================================================================
+Db2: WHILE DO END WHILE
+================================================================================
+
+BEGIN ATOMIC
+  WHILE i < 10 DO
+    SET i = i + 1;
+  END WHILE;
+END;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (db2_compound_statement
+      (keyword_begin)
+      (keyword_atomic)
+      (statement
+        (db2_while
+          (keyword_while)
+          condition: (binary_expression
+            left: (field
+              name: (identifier))
+            right: (literal))
+          (keyword_do)
+          (statement
+            (db2_set
+              (keyword_set)
+              target: (identifier)
+              value: (binary_expression
+                left: (field
+                  name: (identifier))
+                right: (literal))))
+          (keyword_end)
+          (keyword_while)))
+      (keyword_end))))
+
+================================================================================
+Db2: LOOP END LOOP with LEAVE
+================================================================================
+
+BEGIN ATOMIC
+  myloop: LOOP
+    SET i = i + 1;
+    LEAVE myloop;
+  END LOOP myloop;
+END;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (db2_compound_statement
+      (keyword_begin)
+      (keyword_atomic)
+      (statement
+        (db2_loop
+          label: (identifier)
+          (keyword_loop)
+          (statement
+            (db2_set
+              (keyword_set)
+              target: (identifier)
+              value: (binary_expression
+                left: (field
+                  name: (identifier))
+                right: (literal))))
+          (statement
+            (db2_leave
+              (keyword_leave)
+              label: (identifier)))
+          (keyword_end)
+          (keyword_loop)
+          end_label: (identifier)))
+      (keyword_end))))
+
+================================================================================
+Db2: ITERATE label
+================================================================================
+
+BEGIN ATOMIC
+  myloop: LOOP
+    SET i = i + 1;
+    ITERATE myloop;
+  END LOOP;
+END;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (db2_compound_statement
+      (keyword_begin)
+      (keyword_atomic)
+      (statement
+        (db2_loop
+          label: (identifier)
+          (keyword_loop)
+          (statement
+            (db2_set
+              (keyword_set)
+              target: (identifier)
+              value: (binary_expression
+                left: (field
+                  name: (identifier))
+                right: (literal))))
+          (statement
+            (db2_iterate
+              (keyword_iterate)
+              label: (identifier)))
+          (keyword_end)
+          (keyword_loop)))
+      (keyword_end))))

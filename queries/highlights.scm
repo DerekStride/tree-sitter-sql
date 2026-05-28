@@ -290,8 +290,6 @@
   (keyword_begin)
   (keyword_commit)
   (keyword_rollback)
-  (keyword_abort)
-  (keyword_fail)
   (keyword_transaction)
   (keyword_session)
   (keyword_isolation)
@@ -345,42 +343,6 @@
   (keyword_tablesample)
 ] @keyword
 
-; --- MySQL SHOW / DESCRIBE ---
-[
-  (keyword_databases)
-  (keyword_processlist)
-  (keyword_status)
-  (keyword_warnings)
-  (keyword_errors)
-  (keyword_variables)
-  (keyword_indexes)
-] @keyword
-
-; --- BigQuery types ---
-[
-  (keyword_int64)
-  (keyword_float64)
-  (keyword_bytes)
-  (keyword_bignumeric)
-  (keyword_geography)
-  (keyword_datetime)
-] @type.builtin
-
-(keyword_unnest) @function.call
-(keyword_flatten) @function.call
-
-; --- PostgreSQL partitioning ---
-[
-  (keyword_inherits)
-  (keyword_including)
-  (keyword_excluding)
-] @keyword
-
-; --- Oracle / DB2 procedural ---
-[
-  (keyword_elsif)
-  (keyword_exit)
-] @keyword
 
 ; ============================================================
 ; Type qualifiers

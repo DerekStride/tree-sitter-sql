@@ -12,4 +12,11 @@
   (keyword_save)
   (keyword_target)
   (keyword_exceptions)
+  (keyword_elsif)
+  (keyword_exit)
+  (keyword_reverse)
+  (keyword_continue)
+  (keyword_loop)
+  (keyword_declare)
+  (keyword_atomic)
 ] @keyword

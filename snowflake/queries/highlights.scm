@@ -42,6 +42,8 @@
   (keyword_modify)
 ] @keyword
 
+(keyword_flatten) @function.call
+
 ; ── Stage references (@stage_name) ─────────────────────────────────────────
 
 (sf_stage_ref) @string.special

@@ -1,4 +1,16 @@
 ; BigQuery-specific keywords
+[
+  (keyword_int64)
+  (keyword_float64)
+  (keyword_bytes)
+  (keyword_bignumeric)
+  (keyword_geography)
+  (keyword_datetime)
+] @type.builtin
+
+(keyword_unnest) @function.call
+(keyword_flatten) @function.call
+
 (keyword_struct) @keyword
 (keyword_export) @keyword
 (keyword_model) @keyword

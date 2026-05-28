@@ -7,6 +7,17 @@
   (keyword_low_priority)
 ] @type.qualifier
 
+; MySQL SHOW / DESCRIBE
+[
+  (keyword_databases)
+  (keyword_processlist)
+  (keyword_status)
+  (keyword_warnings)
+  (keyword_errors)
+  (keyword_variables)
+  (keyword_indexes)
+] @keyword
+
 ; MySQL Sprint 8 keywords
 [
   (keyword_rollup)
