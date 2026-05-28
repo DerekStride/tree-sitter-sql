@@ -38,6 +38,8 @@ export default grammar(base, {
       $.signal_statement,
       $.resignal_statement,
       $.get_diagnostics_statement,
+      $.grant_statement,
+      $.revoke_statement,
     ),
 
     // Extend statement to add Db2 SQL PL procedural constructs

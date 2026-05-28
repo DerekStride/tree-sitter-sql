@@ -68,6 +68,8 @@ export default grammar(base, {
       $.set_statement,
       $.show_statement,
       $.describe_statement,
+      $.grant_statement,
+      $.revoke_statement,
     ),
 
     _dml_write: $ => seq(

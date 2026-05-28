@@ -6915,6 +6915,129 @@
     }
   },
   {
+    "type": "grant_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "keyword_all",
+          "named": true
+        },
+        {
+          "type": "keyword_database",
+          "named": true
+        },
+        {
+          "type": "keyword_delete",
+          "named": true
+        },
+        {
+          "type": "keyword_execute",
+          "named": true
+        },
+        {
+          "type": "keyword_function",
+          "named": true
+        },
+        {
+          "type": "keyword_grant",
+          "named": true
+        },
+        {
+          "type": "keyword_group",
+          "named": true
+        },
+        {
+          "type": "keyword_insert",
+          "named": true
+        },
+        {
+          "type": "keyword_on",
+          "named": true
+        },
+        {
+          "type": "keyword_option",
+          "named": true
+        },
+        {
+          "type": "keyword_privileges",
+          "named": true
+        },
+        {
+          "type": "keyword_procedure",
+          "named": true
+        },
+        {
+          "type": "keyword_public",
+          "named": true
+        },
+        {
+          "type": "keyword_references",
+          "named": true
+        },
+        {
+          "type": "keyword_role",
+          "named": true
+        },
+        {
+          "type": "keyword_schema",
+          "named": true
+        },
+        {
+          "type": "keyword_select",
+          "named": true
+        },
+        {
+          "type": "keyword_sequence",
+          "named": true
+        },
+        {
+          "type": "keyword_table",
+          "named": true
+        },
+        {
+          "type": "keyword_to",
+          "named": true
+        },
+        {
+          "type": "keyword_trigger",
+          "named": true
+        },
+        {
+          "type": "keyword_update",
+          "named": true
+        },
+        {
+          "type": "keyword_usage",
+          "named": true
+        },
+        {
+          "type": "keyword_user",
+          "named": true
+        },
+        {
+          "type": "keyword_view",
+          "named": true
+        },
+        {
+          "type": "keyword_with",
+          "named": true
+        },
+        {
+          "type": "object_reference",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "group_by",
     "named": true,
     "fields": {},
@@ -9048,6 +9171,141 @@
     }
   },
   {
+    "type": "revoke_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "keyword_all",
+          "named": true
+        },
+        {
+          "type": "keyword_cascade",
+          "named": true
+        },
+        {
+          "type": "keyword_database",
+          "named": true
+        },
+        {
+          "type": "keyword_delete",
+          "named": true
+        },
+        {
+          "type": "keyword_execute",
+          "named": true
+        },
+        {
+          "type": "keyword_for",
+          "named": true
+        },
+        {
+          "type": "keyword_from",
+          "named": true
+        },
+        {
+          "type": "keyword_function",
+          "named": true
+        },
+        {
+          "type": "keyword_grant",
+          "named": true
+        },
+        {
+          "type": "keyword_group",
+          "named": true
+        },
+        {
+          "type": "keyword_insert",
+          "named": true
+        },
+        {
+          "type": "keyword_on",
+          "named": true
+        },
+        {
+          "type": "keyword_option",
+          "named": true
+        },
+        {
+          "type": "keyword_privileges",
+          "named": true
+        },
+        {
+          "type": "keyword_procedure",
+          "named": true
+        },
+        {
+          "type": "keyword_public",
+          "named": true
+        },
+        {
+          "type": "keyword_references",
+          "named": true
+        },
+        {
+          "type": "keyword_restrict",
+          "named": true
+        },
+        {
+          "type": "keyword_revoke",
+          "named": true
+        },
+        {
+          "type": "keyword_role",
+          "named": true
+        },
+        {
+          "type": "keyword_schema",
+          "named": true
+        },
+        {
+          "type": "keyword_select",
+          "named": true
+        },
+        {
+          "type": "keyword_sequence",
+          "named": true
+        },
+        {
+          "type": "keyword_table",
+          "named": true
+        },
+        {
+          "type": "keyword_trigger",
+          "named": true
+        },
+        {
+          "type": "keyword_update",
+          "named": true
+        },
+        {
+          "type": "keyword_usage",
+          "named": true
+        },
+        {
+          "type": "keyword_user",
+          "named": true
+        },
+        {
+          "type": "keyword_view",
+          "named": true
+        },
+        {
+          "type": "object_reference",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "select",
     "named": true,
     "fields": {},
@@ -9713,6 +9971,10 @@
           "named": true
         },
         {
+          "type": "grant_statement",
+          "named": true
+        },
+        {
           "type": "insert",
           "named": true
         },
@@ -9838,6 +10100,10 @@
         },
         {
           "type": "refresh_materialized_view",
+          "named": true
+        },
+        {
+          "type": "revoke_statement",
           "named": true
         },
         {
@@ -12960,6 +13226,10 @@
     "named": true
   },
   {
+    "type": "keyword_grant",
+    "named": true
+  },
+  {
     "type": "keyword_group",
     "named": true
   },
@@ -13312,7 +13582,15 @@
     "named": true
   },
   {
+    "type": "keyword_privileges",
+    "named": true
+  },
+  {
     "type": "keyword_procedure",
+    "named": true
+  },
+  {
+    "type": "keyword_public",
     "named": true
   },
   {
@@ -13389,6 +13667,10 @@
   },
   {
     "type": "keyword_returns",
+    "named": true
+  },
+  {
+    "type": "keyword_revoke",
     "named": true
   },
   {
@@ -13657,6 +13939,10 @@
   },
   {
     "type": "keyword_updlock",
+    "named": true
+  },
+  {
+    "type": "keyword_usage",
     "named": true
   },
   {

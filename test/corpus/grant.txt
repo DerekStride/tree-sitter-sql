@@ -1,0 +1,147 @@
+================================================================================
+ANSI: GRANT SELECT on table to user
+================================================================================
+
+GRANT SELECT ON TABLE orders TO alice;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (grant_statement
+      (keyword_grant)
+      (keyword_select)
+      (keyword_on)
+      (keyword_table)
+      (object_reference
+        name: (identifier))
+      (keyword_to)
+      (identifier))))
+
+================================================================================
+ANSI: GRANT multiple privileges to role
+================================================================================
+
+GRANT SELECT, INSERT, UPDATE ON orders TO analytics_role;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (grant_statement
+      (keyword_grant)
+      (keyword_select)
+      (keyword_insert)
+      (keyword_update)
+      (keyword_on)
+      (object_reference
+        name: (identifier))
+      (keyword_to)
+      (identifier))))
+
+================================================================================
+ANSI: GRANT ALL PRIVILEGES with GRANT OPTION
+================================================================================
+
+GRANT ALL PRIVILEGES ON TABLE customers TO admin WITH GRANT OPTION;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (grant_statement
+      (keyword_grant)
+      (keyword_all)
+      (keyword_privileges)
+      (keyword_on)
+      (keyword_table)
+      (object_reference
+        name: (identifier))
+      (keyword_to)
+      (identifier)
+      (keyword_with)
+      (keyword_grant)
+      (keyword_option))))
+
+================================================================================
+ANSI: GRANT to PUBLIC
+================================================================================
+
+GRANT SELECT ON VIEW public_summary TO PUBLIC;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (grant_statement
+      (keyword_grant)
+      (keyword_select)
+      (keyword_on)
+      (keyword_view)
+      (object_reference
+        name: (identifier))
+      (keyword_to)
+      (keyword_public))))
+
+================================================================================
+ANSI: REVOKE with CASCADE
+================================================================================
+
+REVOKE SELECT ON TABLE orders FROM alice CASCADE;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (revoke_statement
+      (keyword_revoke)
+      (keyword_select)
+      (keyword_on)
+      (keyword_table)
+      (object_reference
+        name: (identifier))
+      (keyword_from)
+      (identifier)
+      (keyword_cascade))))
+
+================================================================================
+ANSI: REVOKE GRANT OPTION FOR
+================================================================================
+
+REVOKE GRANT OPTION FOR INSERT ON orders FROM alice;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (revoke_statement
+      (keyword_revoke)
+      (keyword_grant)
+      (keyword_option)
+      (keyword_for)
+      (keyword_insert)
+      (keyword_on)
+      (object_reference
+        name: (identifier))
+      (keyword_from)
+      (identifier))))
+
+================================================================================
+ANSI: GRANT EXECUTE on function
+================================================================================
+
+GRANT EXECUTE ON FUNCTION calculate_tax TO billing_role;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (grant_statement
+      (keyword_grant)
+      (keyword_execute)
+      (keyword_on)
+      (keyword_function)
+      (object_reference
+        name: (identifier))
+      (keyword_to)
+      (identifier))))

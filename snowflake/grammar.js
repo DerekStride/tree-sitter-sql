@@ -74,6 +74,8 @@ export default grammar(base, {
       $._merge_statement,
       $._refresh_statement,
       $.set_statement,
+      $.grant_statement,
+      $.revoke_statement,
       // Snowflake additions
       $.sf_execute_immediate,
       $.sf_execute_task,

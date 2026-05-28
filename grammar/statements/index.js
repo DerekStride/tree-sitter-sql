@@ -14,6 +14,7 @@ import select_rules from "./select.js";
 import set_rules from "./set.js";
 import refresh_rules from "./refresh.js";
 import show_rules from "./show.js";
+import grant_rules from "./grant.js";
 
 export default {
 
@@ -44,6 +45,7 @@ export default {
   ...select_rules,
   ...set_rules,
   ...show_rules,
+  ...grant_rules,
 
   _ddl_statement: $ => choice(
     $._create_statement,
@@ -53,6 +55,8 @@ export default {
     $._merge_statement,
     $._refresh_statement,
     $.set_statement,
+    $.grant_statement,
+    $.revoke_statement,
   ),
 
   _dml_write: $ => seq(

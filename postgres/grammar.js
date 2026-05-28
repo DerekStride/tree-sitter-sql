@@ -278,6 +278,8 @@ export default grammar(base, {
       $.comment_statement,
       $._show_statement,
       $.do_statement,
+      $.grant_statement,
+      $.revoke_statement,
     ),
 
     // PostgreSQL: DO $$ ... $$ anonymous block

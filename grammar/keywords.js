@@ -84,6 +84,7 @@ export default {
   keyword_start: _ => make_keyword("start"),
   keyword_restart: _ => make_keyword("restart"),
   keyword_reverse: _ => make_keyword("reverse"),
+  keyword_usage: _ => make_keyword("usage"),
   keyword_key: _ => make_keyword("key"),
   keyword_keys: _ => make_keyword("keys"),
   keyword_flow: _ => make_keyword("flow"),

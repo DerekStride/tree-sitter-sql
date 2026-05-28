@@ -78,6 +78,8 @@ export default grammar(base, {
       $._refresh_statement,
       $.set_statement,
       $.copy_into_statement,
+      $.grant_statement,
+      $.revoke_statement,
     ),
 
     // ── CREATE dispatch ───────────────────────────────────────────────────────

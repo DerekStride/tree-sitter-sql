@@ -138,6 +138,8 @@ export default grammar(hive, {
       $.declare_variable_statement,
       $.set_variable_statement,
       $.call_statement,
+      $.grant_statement,
+      $.revoke_statement,
     ),
 
     // Override set_statement to add scripting assignment: SET var = expr

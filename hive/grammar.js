@@ -40,6 +40,8 @@ export default grammar(base, {
       $.use_statement,
       $.msck_repair_statement,
       $.load_data,
+      $.grant_statement,
+      $.revoke_statement,
     ),
 
     // Override _dml_write to include Hive's multi-table insert and overwrite-directory
