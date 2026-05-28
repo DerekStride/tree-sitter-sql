@@ -377,6 +377,10 @@ export default {
   keyword_datetime:   _ => make_keyword("datetime"),
   keyword_unnest:     _ => make_keyword("unnest"),
   keyword_flatten:    _ => make_keyword("flatten"),
+  // PostgreSQL partitioning and table options (#2h)
+  keyword_inherits:   _ => make_keyword("inherits"),
+  keyword_including:  _ => make_keyword("including"),
+  keyword_excluding:  _ => make_keyword("excluding"),
   // Spark 4.x (#21)
   keyword_var: _ => make_keyword("var"),
   keyword_variable: _ => make_keyword("variable"),

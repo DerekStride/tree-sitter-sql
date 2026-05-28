@@ -1,0 +1,146 @@
+================================================================================
+PostgreSQL: CREATE TABLE PARTITION BY RANGE
+================================================================================
+
+CREATE TABLE orders (id INT, created_at DATE) PARTITION BY RANGE (created_at);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (object_reference
+        name: (identifier))
+      (column_definitions
+        (column_definition
+          name: (identifier)
+          type: (int
+            (keyword_int)))
+        (column_definition
+          name: (identifier)
+          type: (keyword_date)))
+      (pg_partition_by
+        (keyword_partition)
+        (keyword_by)
+        (keyword_range)
+        (field
+          name: (identifier))))))
+
+================================================================================
+PostgreSQL: CREATE TABLE PARTITION BY LIST
+================================================================================
+
+CREATE TABLE logs PARTITION BY LIST (region);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (object_reference
+        name: (identifier))
+      (pg_partition_by
+        (keyword_partition)
+        (keyword_by)
+        (keyword_list)
+        (field
+          name: (identifier))))))
+
+================================================================================
+PostgreSQL: CREATE TABLE PARTITION OF parent FOR VALUES
+================================================================================
+
+CREATE TABLE orders_2024 PARTITION OF orders FOR VALUES FROM ('2024-01-01') TO ('2025-01-01');
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (object_reference
+        name: (identifier))
+      (keyword_partition)
+      (keyword_of)
+      (object_reference
+        name: (identifier))
+      (pg_partition_bound
+        (keyword_for)
+        (keyword_values)
+        (keyword_from)
+        (literal)
+        (keyword_to)
+        (literal)))))
+
+================================================================================
+PostgreSQL: CREATE TABLE PARTITION OF parent DEFAULT
+================================================================================
+
+CREATE TABLE orders_default PARTITION OF orders DEFAULT;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (object_reference
+        name: (identifier))
+      (keyword_partition)
+      (keyword_of)
+      (object_reference
+        name: (identifier))
+      (keyword_default))))
+
+================================================================================
+PostgreSQL: CREATE TABLE LIKE
+================================================================================
+
+CREATE TABLE orders_copy (LIKE orders INCLUDING ALL);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (object_reference
+        name: (identifier))
+      (pg_like_clause
+        (keyword_like)
+        (object_reference
+          name: (identifier))
+        (keyword_including)
+        (keyword_all)))))
+
+================================================================================
+PostgreSQL: CREATE TABLE INHERITS
+================================================================================
+
+CREATE TABLE audit_log (action TEXT) INHERITS (base_log);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (object_reference
+        name: (identifier))
+      (column_definitions
+        (column_definition
+          name: (identifier)
+          custom_type: (object_reference
+            name: (identifier))))
+      (pg_inherits
+        (keyword_inherits)
+        (object_reference
+          name: (identifier))))))

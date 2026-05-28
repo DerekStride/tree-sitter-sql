@@ -369,6 +369,13 @@
 (keyword_unnest) @function.call
 (keyword_flatten) @function.call
 
+; --- PostgreSQL partitioning ---
+[
+  (keyword_inherits)
+  (keyword_including)
+  (keyword_excluding)
+] @keyword
+
 ; ============================================================
 ; Type qualifiers
 ; ============================================================
