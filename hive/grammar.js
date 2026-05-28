@@ -223,6 +223,7 @@ export default grammar(base, {
         ),
       ),
       optional($.limit),
+      optional($.offset_fetch_clause),
     ),
 
     // CLUSTER BY col [, col]

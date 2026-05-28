@@ -145,6 +145,7 @@ export default grammar(base, {
       optional($.window_clause),
       optional($.order_by),
       optional($.limit),
+      optional($.offset_fetch_clause),
       optional($.optimize_for_clause),
       optional($.with_isolation_clause),
     ),

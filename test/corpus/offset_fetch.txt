@@ -1,0 +1,105 @@
+================================================================================
+FETCH FIRST n ROWS ONLY
+================================================================================
+
+SELECT id FROM t ORDER BY id FETCH FIRST 10 ROWS ONLY
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (field
+            (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          (identifier)))
+      (order_by
+        (keyword_order)
+        (keyword_by)
+        (order_target
+          (field
+            (identifier))))
+      (offset_fetch_clause
+        (keyword_fetch)
+        (keyword_first)
+        (literal)
+        (keyword_rows)
+        (keyword_only)))))
+
+================================================================================
+FETCH NEXT n ROWS ONLY
+================================================================================
+
+SELECT id FROM t ORDER BY id LIMIT 5 FETCH NEXT 10 ROWS ONLY
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (field
+            (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          (identifier)))
+      (order_by
+        (keyword_order)
+        (keyword_by)
+        (order_target
+          (field
+            (identifier))))
+      (limit
+        (keyword_limit)
+        (literal))
+      (offset_fetch_clause
+        (keyword_fetch)
+        (keyword_next)
+        (literal)
+        (keyword_rows)
+        (keyword_only)))))
+
+================================================================================
+FETCH FIRST n ROWS WITH TIES
+================================================================================
+
+SELECT id FROM t ORDER BY id FETCH FIRST 5 ROWS WITH TIES
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (field
+            (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          (identifier)))
+      (order_by
+        (keyword_order)
+        (keyword_by)
+        (order_target
+          (field
+            (identifier))))
+      (offset_fetch_clause
+        (keyword_fetch)
+        (keyword_first)
+        (literal)
+        (keyword_rows)
+        (keyword_with)
+        (keyword_ties)))))

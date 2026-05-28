@@ -156,6 +156,8 @@
   (keyword_having)
   (keyword_limit)
   (keyword_offset)
+  (keyword_fetch)
+  (keyword_next)
 ] @keyword
 
 ; --- DDL object ---

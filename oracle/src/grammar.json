@@ -757,6 +757,17 @@
       "type": "PATTERN",
       "value": "[rR][oO][wW]"
     },
+    "keyword_fetch": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 1,
+        "content": {
+          "type": "PATTERN",
+          "value": "[fF][eE][tT][cC][hH]"
+        }
+      }
+    },
     "keyword_ties": {
       "type": "PATTERN",
       "value": "[tT][iI][eE][sS]"
@@ -16847,6 +16858,18 @@
               "type": "BLANK"
             }
           ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "offset_fetch_clause"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
@@ -18150,6 +18173,75 @@
         }
       ]
     },
+    "offset_fetch_clause": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_fetch"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "keyword_first"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "keyword_next"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "literal"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "keyword_row"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "keyword_rows"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "keyword_only"
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_with"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_ties"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
     "returning": {
       "type": "SEQ",
       "members": [
@@ -19251,17 +19343,6 @@
         "content": {
           "type": "PATTERN",
           "value": "[oO][pP][eE][nN]"
-        }
-      }
-    },
-    "keyword_fetch": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": 1,
-        "content": {
-          "type": "PATTERN",
-          "value": "[fF][eE][tT][cC][hH]"
         }
       }
     },

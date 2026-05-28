@@ -141,6 +141,7 @@ export default grammar(base, {
       optional($.order_siblings_by),
       optional($.order_by),
       optional($.limit),
+      optional($.offset_fetch_clause),
     ),
 
     // Extend unary_expression to include Oracle PRIOR operator

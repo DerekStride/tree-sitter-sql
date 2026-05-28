@@ -224,6 +224,7 @@ export default {
     optional($.window_clause),
     optional($.order_by),
     optional($.limit),
+    optional($.offset_fetch_clause),
   ),
 
   relation: $ => prec.right(
@@ -486,6 +487,15 @@ export default {
   offset: $ => seq(
     $.keyword_offset,
     $.literal,
+  ),
+
+  // ANSI FETCH {FIRST|NEXT} n {ROW|ROWS} {ONLY|WITH TIES}
+  offset_fetch_clause: $ => seq(
+    $.keyword_fetch,
+    choice($.keyword_first, $.keyword_next),
+    optional($.literal),
+    choice($.keyword_row, $.keyword_rows),
+    choice($.keyword_only, seq($.keyword_with, $.keyword_ties)),
   ),
 
   returning: $ => seq(

@@ -6518,6 +6518,10 @@
           "named": true
         },
         {
+          "type": "offset_fetch_clause",
+          "named": true
+        },
+        {
           "type": "order_by",
           "named": true
         },
@@ -9002,6 +9006,53 @@
       "types": [
         {
           "type": "keyword_offset",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "offset_fetch_clause",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_fetch",
+          "named": true
+        },
+        {
+          "type": "keyword_first",
+          "named": true
+        },
+        {
+          "type": "keyword_next",
+          "named": true
+        },
+        {
+          "type": "keyword_only",
+          "named": true
+        },
+        {
+          "type": "keyword_row",
+          "named": true
+        },
+        {
+          "type": "keyword_rows",
+          "named": true
+        },
+        {
+          "type": "keyword_ties",
+          "named": true
+        },
+        {
+          "type": "keyword_with",
           "named": true
         },
         {
@@ -13161,6 +13212,10 @@
     "named": true
   },
   {
+    "type": "keyword_fetch",
+    "named": true
+  },
+  {
     "type": "keyword_fields",
     "named": true
   },
@@ -13454,6 +13509,10 @@
   },
   {
     "type": "keyword_new",
+    "named": true
+  },
+  {
+    "type": "keyword_next",
     "named": true
   },
   {

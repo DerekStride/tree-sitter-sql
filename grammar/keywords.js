@@ -192,6 +192,7 @@ export default {
   keyword_exclude: _ => make_keyword("exclude"),
   keyword_current: _ => make_keyword("current"),
   keyword_row: _ => make_keyword("row"),
+  keyword_fetch: _ => make_keyword("fetch"),
   keyword_ties: _ => make_keyword("ties"),
   keyword_others: _ => make_keyword("others"),
   keyword_only: _ => make_keyword("only"),

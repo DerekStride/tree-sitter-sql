@@ -750,6 +750,10 @@
       "type": "PATTERN",
       "value": "[rR][oO][wW]"
     },
+    "keyword_fetch": {
+      "type": "PATTERN",
+      "value": "[fF][eE][tT][cC][hH]"
+    },
     "keyword_ties": {
       "type": "PATTERN",
       "value": "[tT][iI][eE][sS]"
@@ -16752,6 +16756,18 @@
               "type": "BLANK"
             }
           ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "offset_fetch_clause"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
@@ -18077,6 +18093,75 @@
         {
           "type": "SYMBOL",
           "name": "literal"
+        }
+      ]
+    },
+    "offset_fetch_clause": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_fetch"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "keyword_first"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "keyword_next"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "literal"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "keyword_row"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "keyword_rows"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "keyword_only"
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_with"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_ties"
+                }
+              ]
+            }
+          ]
         }
       ]
     },

@@ -153,6 +153,7 @@ export default grammar(base, {
       optional($.window_clause),
       optional($.order_by),
       optional($.limit),
+      optional($.offset_fetch_clause),
     ),
 
     // ── relation: add time travel, PIVOT, UNPIVOT, MATCH_RECOGNIZE ──────────

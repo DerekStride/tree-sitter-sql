@@ -325,6 +325,7 @@ export default grammar(hive, {
         ),
       ),
       optional($.limit),
+      optional($.offset_fetch_clause),
     ),
 
     _alter_specifications: $ => choice(
