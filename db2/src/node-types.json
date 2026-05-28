@@ -374,6 +374,10 @@
           "named": true
         },
         {
+          "type": "trim_expression",
+          "named": true
+        },
+        {
           "type": "unary_expression",
           "named": true
         },
@@ -1491,6 +1495,10 @@
           "named": true
         },
         {
+          "type": "trim_expression",
+          "named": true
+        },
+        {
           "type": "unary_expression",
           "named": true
         },
@@ -1606,6 +1614,10 @@
             "named": true
           },
           {
+            "type": "trim_expression",
+            "named": true
+          },
+          {
             "type": "unary_expression",
             "named": true
           },
@@ -1686,6 +1698,10 @@
             "named": true
           },
           {
+            "type": "trim_expression",
+            "named": true
+          },
+          {
             "type": "unary_expression",
             "named": true
           },
@@ -1760,6 +1776,10 @@
             "named": true
           },
           {
+            "type": "trim_expression",
+            "named": true
+          },
+          {
             "type": "unary_expression",
             "named": true
           },
@@ -1831,6 +1851,10 @@
           },
           {
             "type": "subscript",
+            "named": true
+          },
+          {
+            "type": "trim_expression",
             "named": true
           },
           {
@@ -1987,6 +2011,10 @@
           },
           {
             "type": "subscript",
+            "named": true
+          },
+          {
+            "type": "trim_expression",
             "named": true
           },
           {
@@ -2182,6 +2210,10 @@
             "named": true
           },
           {
+            "type": "trim_expression",
+            "named": true
+          },
+          {
             "type": "unary_expression",
             "named": true
           },
@@ -2312,6 +2344,10 @@
           "named": true
         },
         {
+          "type": "trim_expression",
+          "named": true
+        },
+        {
           "type": "unary_expression",
           "named": true
         },
@@ -2408,6 +2444,10 @@
           },
           {
             "type": "subscript",
+            "named": true
+          },
+          {
+            "type": "trim_expression",
             "named": true
           },
           {
@@ -2958,6 +2998,10 @@
         },
         {
           "type": "subscript",
+          "named": true
+        },
+        {
+          "type": "trim_expression",
           "named": true
         },
         {
@@ -3762,6 +3806,10 @@
             "named": true
           },
           {
+            "type": "trim_expression",
+            "named": true
+          },
+          {
             "type": "unary_expression",
             "named": true
           },
@@ -4050,6 +4098,10 @@
           },
           {
             "type": "subscript",
+            "named": true
+          },
+          {
+            "type": "trim_expression",
             "named": true
           },
           {
@@ -4724,6 +4776,10 @@
             "named": true
           },
           {
+            "type": "trim_expression",
+            "named": true
+          },
+          {
             "type": "unary_expression",
             "named": true
           },
@@ -5063,6 +5119,10 @@
         },
         {
           "type": "subscript",
+          "named": true
+        },
+        {
+          "type": "trim_expression",
           "named": true
         },
         {
@@ -5448,6 +5508,10 @@
           "named": true
         },
         {
+          "type": "trim_expression",
+          "named": true
+        },
+        {
           "type": "unary_expression",
           "named": true
         },
@@ -5524,6 +5588,10 @@
         },
         {
           "type": "subscript",
+          "named": true
+        },
+        {
+          "type": "trim_expression",
           "named": true
         },
         {
@@ -5769,6 +5837,10 @@
           "named": true
         },
         {
+          "type": "trim_expression",
+          "named": true
+        },
+        {
           "type": "unary_expression",
           "named": true
         },
@@ -5853,6 +5925,10 @@
           },
           {
             "type": "subscript",
+            "named": true
+          },
+          {
+            "type": "trim_expression",
             "named": true
           },
           {
@@ -6128,6 +6204,10 @@
             "named": true
           },
           {
+            "type": "trim_expression",
+            "named": true
+          },
+          {
             "type": "unary_expression",
             "named": true
           },
@@ -6215,6 +6295,10 @@
           },
           {
             "type": "subscript",
+            "named": true
+          },
+          {
+            "type": "trim_expression",
             "named": true
           },
           {
@@ -7127,6 +7211,10 @@
             "named": true
           },
           {
+            "type": "trim_expression",
+            "named": true
+          },
+          {
             "type": "unary_expression",
             "named": true
           },
@@ -7674,6 +7762,10 @@
           "named": true
         },
         {
+          "type": "trim_expression",
+          "named": true
+        },
+        {
           "type": "unary_expression",
           "named": true
         },
@@ -8212,6 +8304,10 @@
           "named": true
         },
         {
+          "type": "trim_expression",
+          "named": true
+        },
+        {
           "type": "unary_expression",
           "named": true
         },
@@ -8288,6 +8384,10 @@
         },
         {
           "type": "subscript",
+          "named": true
+        },
+        {
+          "type": "trim_expression",
           "named": true
         },
         {
@@ -8382,6 +8482,10 @@
           "named": true
         },
         {
+          "type": "trim_expression",
+          "named": true
+        },
+        {
           "type": "unary_expression",
           "named": true
         },
@@ -8462,6 +8566,10 @@
         },
         {
           "type": "subscript",
+          "named": true
+        },
+        {
+          "type": "trim_expression",
           "named": true
         },
         {
@@ -8610,7 +8718,18 @@
   {
     "type": "interval",
     "named": true,
-    "fields": {},
+    "fields": {
+      "qualifier": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": false,
       "required": true,
@@ -8685,6 +8804,10 @@
         },
         {
           "type": "term",
+          "named": true
+        },
+        {
+          "type": "within_group",
           "named": true
         }
       ]
@@ -8775,6 +8898,10 @@
           },
           {
             "type": "subscript",
+            "named": true
+          },
+          {
+            "type": "trim_expression",
             "named": true
           },
           {
@@ -9035,6 +9162,10 @@
           "named": true
         },
         {
+          "type": "trim_expression",
+          "named": true
+        },
+        {
           "type": "unary_expression",
           "named": true
         },
@@ -9138,6 +9269,10 @@
         },
         {
           "type": "subscript",
+          "named": true
+        },
+        {
+          "type": "trim_expression",
           "named": true
         },
         {
@@ -9641,6 +9776,10 @@
           "named": true
         },
         {
+          "type": "trim_expression",
+          "named": true
+        },
+        {
           "type": "unary_expression",
           "named": true
         },
@@ -9735,6 +9874,10 @@
           "named": true
         },
         {
+          "type": "trim_expression",
+          "named": true
+        },
+        {
           "type": "unary_expression",
           "named": true
         },
@@ -9819,6 +9962,10 @@
         },
         {
           "type": "subscript",
+          "named": true
+        },
+        {
+          "type": "trim_expression",
           "named": true
         },
         {
@@ -9922,6 +10069,10 @@
         },
         {
           "type": "subscript",
+          "named": true
+        },
+        {
+          "type": "trim_expression",
           "named": true
         },
         {
@@ -10184,6 +10335,10 @@
             "named": true
           },
           {
+            "type": "trim_expression",
+            "named": true
+          },
+          {
             "type": "unary_expression",
             "named": true
           },
@@ -10443,6 +10598,10 @@
           "named": true
         },
         {
+          "type": "trim_expression",
+          "named": true
+        },
+        {
           "type": "unary_expression",
           "named": true
         },
@@ -10519,6 +10678,10 @@
         },
         {
           "type": "subscript",
+          "named": true
+        },
+        {
+          "type": "trim_expression",
           "named": true
         },
         {
@@ -10867,6 +11030,10 @@
           "named": true
         },
         {
+          "type": "trim_expression",
+          "named": true
+        },
+        {
           "type": "unary_expression",
           "named": true
         },
@@ -10943,6 +11110,10 @@
           },
           {
             "type": "subscript",
+            "named": true
+          },
+          {
+            "type": "trim_expression",
             "named": true
           },
           {
@@ -11153,6 +11324,10 @@
           },
           {
             "type": "subscript",
+            "named": true
+          },
+          {
+            "type": "trim_expression",
             "named": true
           },
           {
@@ -11651,6 +11826,10 @@
             "named": true
           },
           {
+            "type": "trim_expression",
+            "named": true
+          },
+          {
             "type": "unary_expression",
             "named": true
           },
@@ -11722,6 +11901,10 @@
           },
           {
             "type": "subscript",
+            "named": true
+          },
+          {
+            "type": "trim_expression",
             "named": true
           },
           {
@@ -11799,6 +11982,10 @@
             "named": true
           },
           {
+            "type": "trim_expression",
+            "named": true
+          },
+          {
             "type": "unary_expression",
             "named": true
           },
@@ -11870,6 +12057,10 @@
           },
           {
             "type": "subscript",
+            "named": true
+          },
+          {
+            "type": "trim_expression",
             "named": true
           },
           {
@@ -12006,6 +12197,10 @@
           },
           {
             "type": "subscript",
+            "named": true
+          },
+          {
+            "type": "trim_expression",
             "named": true
           },
           {
@@ -12226,6 +12421,109 @@
     }
   },
   {
+    "type": "trim_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "array",
+          "named": true
+        },
+        {
+          "type": "between_expression",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "case",
+          "named": true
+        },
+        {
+          "type": "cast",
+          "named": true
+        },
+        {
+          "type": "exists",
+          "named": true
+        },
+        {
+          "type": "field",
+          "named": true
+        },
+        {
+          "type": "interval",
+          "named": true
+        },
+        {
+          "type": "invocation",
+          "named": true
+        },
+        {
+          "type": "keyword_both",
+          "named": true
+        },
+        {
+          "type": "keyword_from",
+          "named": true
+        },
+        {
+          "type": "keyword_leading",
+          "named": true
+        },
+        {
+          "type": "keyword_trailing",
+          "named": true
+        },
+        {
+          "type": "keyword_trim",
+          "named": true
+        },
+        {
+          "type": "list",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "parameter",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "subquery",
+          "named": true
+        },
+        {
+          "type": "subscript",
+          "named": true
+        },
+        {
+          "type": "trim_expression",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "window_function",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "unary_expression",
     "named": true,
     "fields": {
@@ -12291,6 +12589,10 @@
           },
           {
             "type": "subscript",
+            "named": true
+          },
+          {
+            "type": "trim_expression",
             "named": true
           },
           {
@@ -12518,6 +12820,10 @@
             "named": true
           },
           {
+            "type": "trim_expression",
+            "named": true
+          },
+          {
             "type": "unary_expression",
             "named": true
           },
@@ -12685,6 +12991,10 @@
           },
           {
             "type": "subscript",
+            "named": true
+          },
+          {
+            "type": "trim_expression",
             "named": true
           },
           {
@@ -12875,6 +13185,29 @@
         },
         {
           "type": "keyword_with",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "within_group",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_group",
+          "named": true
+        },
+        {
+          "type": "keyword_within",
+          "named": true
+        },
+        {
+          "type": "order_by",
           "named": true
         }
       ]
@@ -13522,6 +13855,10 @@
     "named": true
   },
   {
+    "type": "keyword_leading",
+    "named": true
+  },
+  {
     "type": "keyword_leakproof",
     "named": true
   },
@@ -14050,6 +14387,10 @@
     "named": true
   },
   {
+    "type": "keyword_trailing",
+    "named": true
+  },
+  {
     "type": "keyword_transaction",
     "named": true
   },
@@ -14059,6 +14400,10 @@
   },
   {
     "type": "keyword_trigger",
+    "named": true
+  },
+  {
+    "type": "keyword_trim",
     "named": true
   },
   {
@@ -14183,6 +14528,10 @@
   },
   {
     "type": "keyword_with",
+    "named": true
+  },
+  {
+    "type": "keyword_within",
     "named": true
   },
   {

@@ -18,6 +18,7 @@ export default grammar(base, {
     [$.list, $.grouping_set],
     [$.list, $.rollup_element],
     [$.list, $.cube_element],
+    [$.interval],
   ],
 
   rules: {

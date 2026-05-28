@@ -622,7 +622,13 @@ export default {
   keyword_regproc: _ => make_keyword("regproc"),
   keyword_regtype: _ => make_keyword("regtype"),
 
-  // ANSI SQL — TRIM(BOTH x FROM y)
+  // ANSI SQL — TRIM(BOTH|LEADING|TRAILING x FROM y)
   keyword_both: _ => make_keyword("both"),
+  keyword_leading: _ => make_keyword("leading"),
+  keyword_trailing: _ => make_keyword("trailing"),
+  keyword_trim: _ => make_keyword("trim"),
+
+  // ANSI SQL — WITHIN GROUP (ORDER BY ...)
+  keyword_within: _ => make_keyword("within"),
 
 }

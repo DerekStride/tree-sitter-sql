@@ -2504,6 +2504,22 @@
       "type": "PATTERN",
       "value": "[bB][oO][tT][hH]"
     },
+    "keyword_leading": {
+      "type": "PATTERN",
+      "value": "[lL][eE][aA][dD][iI][nN][gG]"
+    },
+    "keyword_trailing": {
+      "type": "PATTERN",
+      "value": "[tT][rR][aA][iI][lL][iI][nN][gG]"
+    },
+    "keyword_trim": {
+      "type": "PATTERN",
+      "value": "[tT][rR][iI][mM]"
+    },
+    "keyword_within": {
+      "type": "PATTERN",
+      "value": "[wW][iI][tT][hH][iI][nN]"
+    },
     "_type": {
       "type": "PREC_LEFT",
       "value": 0,
@@ -5316,6 +5332,10 @@
           {
             "type": "SYMBOL",
             "name": "parenthesized_expression"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "trim_expression"
           }
         ]
       }
@@ -5975,6 +5995,18 @@
                 "type": "BLANK"
               }
             ]
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "within_group"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
           }
         ]
       }
@@ -6002,6 +6034,121 @@
               "value": ")"
             }
           ]
+        }
+      ]
+    },
+    "within_group": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_within"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_group"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "("
+            },
+            {
+              "type": "SYMBOL",
+              "name": "order_by"
+            },
+            {
+              "type": "STRING",
+              "value": ")"
+            }
+          ]
+        }
+      ]
+    },
+    "trim_expression": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_trim"
+        },
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "keyword_leading"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "keyword_trailing"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "keyword_both"
+                    }
+                  ]
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "_expression"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_from"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_expression"
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_expression"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_from"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_expression"
+                }
+              ]
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_expression"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": ")"
         }
       ]
     },
@@ -7446,6 +7593,22 @@
         {
           "type": "SYMBOL",
           "name": "_literal_string"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "qualifier",
+              "content": {
+                "type": "SYMBOL",
+                "name": "identifier"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
@@ -21649,6 +21812,9 @@
     [
       "list",
       "cube_element"
+    ],
+    [
+      "interval"
     ],
     [
       "plsql_assign",

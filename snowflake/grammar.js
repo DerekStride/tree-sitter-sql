@@ -27,6 +27,7 @@ export default grammar(base, {
     [$.list, $.grouping_set],
     [$.list, $.rollup_element],
     [$.list, $.cube_element],
+    [$.interval],
     // Snowflake-specific conflicts
     [$._function_return, $.sf_return_statement],
     [$.time],

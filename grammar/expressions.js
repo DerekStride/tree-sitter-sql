@@ -24,6 +24,7 @@ export default {
       $.interval,
       $.between_expression,
       $.parenthesized_expression,
+      $.trim_expression,
     )
   ),
 
@@ -157,15 +158,37 @@ export default {
           ),
         ),
       ),
-      optional(
-        $.filter_expression
-      )
+      optional($.filter_expression),
+      optional($.within_group),
     ),
   ),
 
-  filter_expression : $ => seq(
+  filter_expression: $ => seq(
     $.keyword_filter,
     wrapped_in_parenthesis($.where),
+  ),
+
+  within_group: $ => seq(
+    $.keyword_within,
+    $.keyword_group,
+    wrapped_in_parenthesis($.order_by),
+  ),
+
+  // TRIM([{BOTH|LEADING|TRAILING} [trim_char] FROM] string)
+  trim_expression: $ => seq(
+    $.keyword_trim,
+    '(',
+    choice(
+      seq(
+        choice($.keyword_leading, $.keyword_trailing, $.keyword_both),
+        optional($._expression),
+        $.keyword_from,
+        $._expression,
+      ),
+      seq($._expression, $.keyword_from, $._expression),
+      $._expression,
+    ),
+    ')',
   ),
 
   parenthesized_expression: $ => prec(2,
@@ -324,8 +347,9 @@ export default {
 
   // Postgres syntax for intervals
   interval: $ => seq(
-      $.keyword_interval,
-      $._literal_string,
+    $.keyword_interval,
+    $._literal_string,
+    optional(field('qualifier', $.identifier)),
   ),
 
   between_expression: $ => choice(

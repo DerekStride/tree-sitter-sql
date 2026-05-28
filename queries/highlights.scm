@@ -158,6 +158,11 @@
   (keyword_offset)
   (keyword_fetch)
   (keyword_next)
+  (keyword_within)
+  (keyword_leading)
+  (keyword_trailing)
+  (keyword_trim)
+  (keyword_both)
 ] @keyword
 
 ; --- DDL object ---

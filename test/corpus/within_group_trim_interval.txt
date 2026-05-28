@@ -1,0 +1,137 @@
+================================================================================
+WITHIN GROUP ordered-set aggregate
+================================================================================
+
+SELECT PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY salary) FROM employees
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (invocation
+            (object_reference
+              (identifier))
+            (term
+              (literal))
+            (within_group
+              (keyword_within)
+              (keyword_group)
+              (order_by
+                (keyword_order)
+                (keyword_by)
+                (order_target
+                  (field
+                    (identifier)))))))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          (identifier))))))
+
+================================================================================
+TRIM with LEADING
+================================================================================
+
+SELECT TRIM(LEADING ' ' FROM name) FROM t
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (trim_expression
+            (keyword_trim)
+            (keyword_leading)
+            (literal)
+            (keyword_from)
+            (field
+              (identifier))))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          (identifier))))))
+
+================================================================================
+TRIM with TRAILING
+================================================================================
+
+SELECT TRIM(TRAILING ' ' FROM name) FROM t
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (trim_expression
+            (keyword_trim)
+            (keyword_trailing)
+            (literal)
+            (keyword_from)
+            (field
+              (identifier))))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          (identifier))))))
+
+================================================================================
+TRIM with BOTH
+================================================================================
+
+SELECT TRIM(BOTH ' ' FROM name) FROM t
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (trim_expression
+            (keyword_trim)
+            (keyword_both)
+            (literal)
+            (keyword_from)
+            (field
+              (identifier))))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          (identifier))))))
+
+================================================================================
+INTERVAL with qualifier
+================================================================================
+
+SELECT INTERVAL '1' DAY FROM t
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (interval
+            (keyword_interval)
+            (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          (identifier))))))

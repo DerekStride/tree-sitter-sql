@@ -9900,7 +9900,18 @@
   {
     "type": "interval",
     "named": true,
-    "fields": {},
+    "fields": {
+      "qualifier": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": false,
       "required": true,
@@ -9975,6 +9986,10 @@
         },
         {
           "type": "term",
+          "named": true
+        },
+        {
+          "type": "within_group",
           "named": true
         }
       ]
@@ -14144,6 +14159,29 @@
     }
   },
   {
+    "type": "within_group",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_group",
+          "named": true
+        },
+        {
+          "type": "keyword_within",
+          "named": true
+        },
+        {
+          "type": "order_by",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "!=",
     "named": false
   },
@@ -15402,6 +15440,10 @@
   },
   {
     "type": "keyword_with",
+    "named": true
+  },
+  {
+    "type": "keyword_within",
     "named": true
   },
   {
