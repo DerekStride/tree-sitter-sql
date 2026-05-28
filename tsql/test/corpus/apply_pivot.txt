@@ -1,0 +1,228 @@
+================================================================================
+T-SQL: CROSS APPLY with subquery
+================================================================================
+
+SELECT t.id, a.val FROM t CROSS APPLY (SELECT val FROM v WHERE v.id = t.id) a;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            (object_reference
+              name: (identifier))
+            name: (identifier)))
+        (term
+          value: (field
+            (object_reference
+              name: (identifier))
+            name: (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier)))
+      (tsql_cross_apply
+        (keyword_cross)
+        (keyword_apply)
+        (subquery
+          (select
+            (keyword_select)
+            (select_expression
+              (term
+                value: (field
+                  name: (identifier)))))
+          (from
+            (keyword_from)
+            (relation
+              (object_reference
+                name: (identifier)))
+            (where
+              (keyword_where)
+              predicate: (binary_expression
+                left: (field
+                  (object_reference
+                    name: (identifier))
+                  name: (identifier))
+                right: (field
+                  (object_reference
+                    name: (identifier))
+                  name: (identifier))))))
+        alias: (identifier)))))
+
+================================================================================
+T-SQL: OUTER APPLY with function
+================================================================================
+
+SELECT t.id, f.val FROM t OUTER APPLY dbo.GetValues(t.id) f;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            (object_reference
+              name: (identifier))
+            name: (identifier)))
+        (term
+          value: (field
+            (object_reference
+              name: (identifier))
+            name: (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier)))
+      (tsql_outer_apply
+        (keyword_outer)
+        (keyword_apply)
+        (invocation
+          (object_reference
+            schema: (identifier)
+            name: (identifier))
+          parameter: (term
+            value: (field
+              (object_reference
+                name: (identifier))
+              name: (identifier))))
+        alias: (identifier)))))
+
+================================================================================
+T-SQL: PIVOT
+================================================================================
+
+SELECT * FROM sales PIVOT (SUM(amount) FOR month IN ('Jan', 'Feb', 'Mar')) AS pvt;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (all_fields))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier))
+        (tsql_pivot
+          (keyword_pivot)
+          (invocation
+            (object_reference
+              name: (identifier))
+            parameter: (term
+              value: (field
+                name: (identifier))))
+          (keyword_for)
+          pivot_col: (identifier)
+          (keyword_in)
+          (literal)
+          (literal)
+          (literal))
+        (keyword_as)
+        alias: (identifier)))))
+
+================================================================================
+T-SQL: UNPIVOT
+================================================================================
+
+SELECT name, month, amount FROM sales UNPIVOT (amount FOR month IN (jan, feb, mar)) AS upvt;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            name: (identifier)))
+        (term
+          value: (field
+            name: (identifier)))
+        (term
+          value: (field
+            name: (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier))
+        (tsql_unpivot
+          (keyword_unpivot)
+          value_col: (identifier)
+          (keyword_for)
+          name_col: (identifier)
+          (keyword_in)
+          (identifier)
+          (identifier)
+          (identifier))
+        (keyword_as)
+        alias: (identifier)))))
+
+================================================================================
+T-SQL: Temp table identifier
+================================================================================
+
+SELECT id FROM #temp_orders WHERE status = 1;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            name: (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier)))
+      (where
+        (keyword_where)
+        predicate: (binary_expression
+          left: (field
+            name: (identifier))
+          right: (literal))))))
+
+================================================================================
+T-SQL: Global temp table identifier
+================================================================================
+
+INSERT INTO ##global_cache SELECT id FROM t;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (insert
+      (keyword_insert)
+      (keyword_into)
+      (object_reference
+        name: (identifier))
+      (select
+        (keyword_select)
+        (select_expression
+          (term
+            value: (field
+              name: (identifier)))))
+      (from
+        (keyword_from)
+        (relation
+          (object_reference
+            name: (identifier)))))))

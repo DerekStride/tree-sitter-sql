@@ -119,17 +119,18 @@ export default grammar(base, {
       ),
     ),
 
-    // ── Identifier — add [bracket] form ──────────────────────────────────────
-    // T-SQL allows [schema].[table].[column] with square-bracket quoting.
-    // The regex token is a single lexer-level match so it doesn't conflict with
-    // the subscript rule (which requires an expression before '[').
+    // ── Identifier — add [bracket] and #temp/##global forms ──────────────────
+    // T-SQL allows [schema].[table].[column] with square-bracket quoting and
+    // #temp / ##global temp table prefixes.
     identifier: $ => choice(
       $._identifier,
       $._double_quote_string,
       $._tsql_bracket_identifier,
+      $._tsql_temp_identifier,
     ),
 
     _tsql_bracket_identifier: _ => token(/\[[^\]\n]*\]/),
+    _tsql_temp_identifier: _ => token(/##?[A-Za-z_][0-9A-Za-z_]*/),
 
     // ── @variable syntax ──────────────────────────────────────────────────────
     // Matches both @@system_var and @local_var.
@@ -186,6 +187,9 @@ export default grammar(base, {
     keyword_money:            _ => token(prec(1, make_keyword("money"))),
     keyword_smallmoney:       _ => token(prec(1, make_keyword("smallmoney"))),
     keyword_uniqueidentifier: _ => token(prec(1, make_keyword("uniqueidentifier"))),
+    keyword_pivot:            _ => make_keyword("pivot"),
+    keyword_unpivot:          _ => make_keyword("unpivot"),
+    keyword_apply:            _ => make_keyword("apply"),
     keyword_distribution:     _ => token(prec(1, make_keyword("distribution"))),
     keyword_round_robin:      _ => token(prec(1, make_keyword("round_robin"))),
     keyword_replicate:        _ => token(prec(1, make_keyword("replicate"))),

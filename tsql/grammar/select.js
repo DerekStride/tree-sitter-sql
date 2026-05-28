@@ -20,7 +20,7 @@ export default {
     optional(seq($.keyword_with, $.keyword_ties)),
   ),
 
-  // Extend FROM to include FOR XML / FOR JSON at the end
+  // Extend FROM to include CROSS/OUTER APPLY and FOR XML / FOR JSON
   from: $ => seq(
     $.keyword_from,
     optional($.keyword_only),
@@ -31,6 +31,8 @@ export default {
         $.cross_join,
         $.lateral_join,
         $.lateral_cross_join,
+        $.tsql_cross_apply,
+        $.tsql_outer_apply,
       ),
     ),
     optional($.where),
@@ -41,6 +43,50 @@ export default {
     optional($.limit),
     optional($.for_clause),
   ),
+
+  // CROSS APPLY <subquery|function> [alias]
+  tsql_cross_apply: $ => seq(
+    $.keyword_cross,
+    $.keyword_apply,
+    choice($.subquery, $.invocation),
+    optional($._alias),
+  ),
+
+  // OUTER APPLY <subquery|function> [alias]
+  tsql_outer_apply: $ => seq(
+    $.keyword_outer,
+    $.keyword_apply,
+    choice($.subquery, $.invocation),
+    optional($._alias),
+  ),
+
+  // PIVOT (agg_fn(col) FOR pivot_col IN (val [AS alias], ...)) AS alias
+  tsql_pivot: $ => seq(
+    $.keyword_pivot,
+    '(',
+    $.invocation,
+    $.keyword_for,
+    field('pivot_col', $.identifier),
+    $.keyword_in,
+    paren_list(
+      seq($._expression, optional(seq($.keyword_as, field('alias', $.identifier)))),
+      true,
+    ),
+    ')',
+  ),
+
+  // UNPIVOT (value_col FOR name_col IN (col, ...)) AS alias
+  tsql_unpivot: $ => seq(
+    $.keyword_unpivot,
+    '(',
+    field('value_col', $.identifier),
+    $.keyword_for,
+    field('name_col', $.identifier),
+    $.keyword_in,
+    paren_list($.identifier, true),
+    ')',
+  ),
+
 
   // FOR XML { RAW | AUTO | EXPLICIT | PATH ['(root)'] } [, ...options]
   // FOR JSON { AUTO | PATH ['(root)'] } [, WITHOUT_ARRAY_WRAPPER]
