@@ -1499,3 +1499,69 @@ RETURNS int
         (field
           (identifier))
         (keyword_end)))))
+
+================================================================================
+Function with SET configuration parameters
+================================================================================
+
+CREATE FUNCTION public.foo()
+RETURNS void
+SET search_path = public, pg_temp
+SET work_mem TO '64MB'
+SET enable_seqscan FROM CURRENT
+AS $$
+  select 1
+$$
+LANGUAGE sql
+SET standard_conforming_strings = on;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_function)
+      (object_reference
+        (identifier)
+        (identifier))
+      (function_arguments)
+      (keyword_returns)
+      (object_reference
+        (identifier))
+      (function_set
+        (keyword_set)
+        (object_reference
+          (identifier))
+        (identifier)
+        (identifier))
+      (function_set
+        (keyword_set)
+        (object_reference
+          (identifier))
+        (keyword_to)
+        (literal))
+      (function_set
+        (keyword_set)
+        (object_reference
+          (identifier))
+        (keyword_from)
+        (keyword_current))
+      (function_body
+        (keyword_as)
+        (dollar_quote)
+        (statement
+          (select
+            (keyword_select)
+            (select_expression
+              (term
+                (literal)))))
+        (dollar_quote))
+      (function_language
+        (keyword_language)
+        (identifier))
+      (function_set
+        (keyword_set)
+        (object_reference
+          (identifier))
+        (keyword_on)))))
