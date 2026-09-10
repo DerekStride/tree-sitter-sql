@@ -17,6 +17,10 @@ export default {
     $.raise_statement,
     $.assert_statement,
     $.get_diagnostics,
+    $.open_statement,
+    $.fetch_statement,
+    $.move_statement,
+    $.close_statement,
   ),
 
   _procedural_statements: $ => repeat1(

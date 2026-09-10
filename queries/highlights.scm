@@ -360,6 +360,21 @@
   (keyword_get)
   (keyword_stacked)
   (keyword_diagnostics)
+  (keyword_constant)
+  (keyword_alias)
+  (keyword_rowtype)
+  (keyword_cursor)
+  (keyword_scroll)
+  (keyword_open)
+  (keyword_fetch)
+  (keyword_move)
+  (keyword_close)
+  (keyword_next)
+  (keyword_prior)
+  (keyword_absolute)
+  (keyword_relative)
+  (keyword_forward)
+  (keyword_backward)
 ] @keyword
 
 [

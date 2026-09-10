@@ -39,14 +39,7 @@ export default {
       $.keyword_as,
       alias($._dollar_quoted_string_start_tag, $.dollar_quote),
       optional($.label),
-      optional(
-        seq(
-          $.keyword_declare,
-          repeat1(
-            $.function_declaration,
-          ),
-        ),
-      ),
+      optional($._declare_section),
       $.keyword_begin,
       $._procedural_statements,
       optional($._exception_handlers),

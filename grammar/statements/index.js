@@ -17,17 +17,13 @@ import set_rules from "./set.js";
 import refresh_rules from "./refresh.js";
 import control_flow_rules from "./control-flow.js";
 import error_handling_rules from "./error-handling.js";
+import cursor_rules from "./cursors.js";
 
 export default {
 
   block: $ => seq(
     optional($.label),
-    optional(
-      seq(
-        $.keyword_declare,
-        repeat1($.function_declaration),
-      ),
-    ),
+    optional($._declare_section),
     $.keyword_begin,
     optional(';'),
     // shared with `transaction` so that both reduce a statement list the same
@@ -40,6 +36,7 @@ export default {
 
   ...control_flow_rules,
   ...error_handling_rules,
+  ...cursor_rules,
 
   statement: $ => seq(
     optional(seq(
