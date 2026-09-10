@@ -1,4 +1,5 @@
 #include "tree_sitter/parser.h"
+#include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
 #include <wctype.h>
@@ -17,7 +18,9 @@ typedef struct LexerState {
 
 void *tree_sitter_sql_external_scanner_create() {
   LexerState *state = malloc(sizeof(LexerState));
-  state->start_tag = NULL;
+  if (state != NULL) {
+    state->start_tag = NULL;
+  }
   return state;
 }
 
@@ -32,15 +35,27 @@ void tree_sitter_sql_external_scanner_destroy(void *payload) {
 
 static char* add_char(char* text, size_t* text_size, char c, int index) {
   if (text == NULL) {
-    text = malloc(sizeof(char) * MALLOC_STRING_SIZE);
+    text = malloc(MALLOC_STRING_SIZE);
+    if (text == NULL) {
+      return NULL;
+    }
     *text_size = MALLOC_STRING_SIZE;
   }
 
   // will break when indexes advances more than MALLOC_STRING_SIZE
   if (index + 1 >= *text_size) {
+    size_t old_size = *text_size;
+    if (*text_size > SIZE_MAX - MALLOC_STRING_SIZE) {
+      free(text);
+      return NULL;
+    }
     *text_size += MALLOC_STRING_SIZE;
-    char* tmp = malloc(*text_size * sizeof(char));
-    strncpy(tmp, text, *text_size);
+    char* tmp = malloc(*text_size);
+    if (tmp == NULL) {
+      free(text);
+      return NULL;
+    }
+    memcpy(tmp, text, old_size);
     free(text);
     text = tmp;
   }
@@ -54,6 +69,9 @@ static char* scan_dollar_string_tag(TSLexer *lexer) {
   char* tag = NULL;
   int index = 0;
   size_t* text_size = malloc(sizeof(size_t));
+  if (text_size == NULL) {
+    return NULL;
+  }
   *text_size = 0;
   if (lexer->lookahead == '$') {
     tag = add_char(tag, text_size, '$', index);
@@ -62,9 +80,17 @@ static char* scan_dollar_string_tag(TSLexer *lexer) {
     free(text_size);
     return NULL;
   }
+  if (tag == NULL) {
+    free(text_size);
+    return NULL;
+  }
 
   while (lexer->lookahead != '$' && !iswspace(lexer->lookahead) && !lexer->eof(lexer)) {
     tag = add_char(tag, text_size, lexer->lookahead, ++index);
+    if (tag == NULL) {
+      free(text_size);
+      return NULL;
+    }
     lexer->advance(lexer, false);
   }
 
@@ -183,6 +209,8 @@ void tree_sitter_sql_external_scanner_deserialize(void *payload, const char *buf
   // A length of 1 can't exists.
   if (length > 1) {
     state->start_tag = malloc(length);
-    memcpy(state->start_tag, buffer, length);
+    if (state->start_tag != NULL) {
+      memcpy(state->start_tag, buffer, length);
+    }
   }
 }
