@@ -1,0 +1,606 @@
+================================================================================
+Perform
+================================================================================
+
+create function f() returns void language plpgsql as $$
+begin
+  perform pg_notify('chan', 'payload');
+  perform 1 from t where id = 3;
+  perform distinct a, b from t join u on t.id = u.id order by a limit 1;
+end;
+$$;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_function)
+      (object_reference
+        (identifier))
+      (function_arguments)
+      (keyword_returns)
+      (object_reference
+        (identifier))
+      (function_language
+        (keyword_language)
+        (identifier))
+      (function_body
+        (keyword_as)
+        (dollar_quote)
+        (keyword_begin)
+        (perform_statement
+          (keyword_perform)
+          (select_expression
+            (term
+              (invocation
+                (object_reference
+                  (identifier))
+                (term
+                  (literal))
+                (term
+                  (literal))))))
+        (perform_statement
+          (keyword_perform)
+          (select_expression
+            (term
+              (literal)))
+          (from
+            (keyword_from)
+            (relation
+              (object_reference
+                (identifier)))
+            (where
+              (keyword_where)
+              (binary_expression
+                (field
+                  (identifier))
+                (literal)))))
+        (perform_statement
+          (keyword_perform)
+          (keyword_distinct)
+          (select_expression
+            (term
+              (field
+                (identifier)))
+            (term
+              (field
+                (identifier))))
+          (from
+            (keyword_from)
+            (relation
+              (object_reference
+                (identifier)))
+            (join
+              (keyword_join)
+              (relation
+                (object_reference
+                  (identifier)))
+              (keyword_on)
+              (binary_expression
+                (field
+                  (object_reference
+                    (identifier))
+                  (identifier))
+                (field
+                  (object_reference
+                    (identifier))
+                  (identifier))))
+            (order_by
+              (keyword_order)
+              (keyword_by)
+              (order_target
+                (field
+                  (identifier))))
+            (limit
+              (keyword_limit)
+              (literal))))
+        (keyword_end)
+        (dollar_quote)))))
+
+================================================================================
+Execute with into and using
+================================================================================
+
+create function f(tbl text) returns int language plpgsql as $$
+declare
+  n int;
+  r record;
+begin
+  execute 'select count(*) from ' || quote_ident(tbl) into n;
+  execute format('insert into %I values ($1)', tbl) using n;
+  execute 'select 1, 2' into strict n, r.b;
+  execute 'select $1 + $2' into n using 1, 2;
+  return n;
+end;
+$$;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_function)
+      (object_reference
+        (identifier))
+      (function_arguments
+        (function_argument
+          (identifier)
+          (keyword_text)))
+      (keyword_returns)
+      (int
+        (keyword_int))
+      (function_language
+        (keyword_language)
+        (identifier))
+      (function_body
+        (keyword_as)
+        (dollar_quote)
+        (keyword_declare)
+        (function_declaration
+          (identifier)
+          (int
+            (keyword_int)))
+        (function_declaration
+          (identifier)
+          (object_reference
+            (identifier)))
+        (keyword_begin)
+        (execute_statement
+          (keyword_execute)
+          (binary_expression
+            (literal)
+            (op_other)
+            (invocation
+              (object_reference
+                (identifier))
+              (term
+                (field
+                  (identifier)))))
+          (keyword_into)
+          (field
+            (identifier)))
+        (execute_statement
+          (keyword_execute)
+          (invocation
+            (object_reference
+              (identifier))
+            (term
+              (literal))
+            (term
+              (field
+                (identifier))))
+          (keyword_using)
+          (field
+            (identifier)))
+        (execute_statement
+          (keyword_execute)
+          (literal)
+          (keyword_into)
+          (keyword_strict)
+          (field
+            (identifier))
+          (field
+            (object_reference
+              (identifier))
+            (identifier)))
+        (execute_statement
+          (keyword_execute)
+          (literal)
+          (keyword_into)
+          (field
+            (identifier))
+          (keyword_using)
+          (literal)
+          (literal))
+        (keyword_return)
+        (field
+          (identifier))
+        (keyword_end)
+        (dollar_quote)))))
+
+================================================================================
+Execute immediate
+================================================================================
+
+BEGIN
+  EXECUTE IMMEDIATE 'truncate table t';
+  EXECUTE IMMEDIATE 'select count(*) from ' || 't' INTO g_count;
+  EXECUTE IMMEDIATE 'begin p(:1, :2); end;' USING IN l_a, OUT l_b, IN OUT l_c;
+END;
+
+--------------------------------------------------------------------------------
+
+(program
+  (block
+    (keyword_begin)
+    (execute_statement
+      (keyword_execute)
+      (keyword_immediate)
+      (literal))
+    (execute_statement
+      (keyword_execute)
+      (keyword_immediate)
+      (binary_expression
+        (literal)
+        (op_other)
+        (literal))
+      (keyword_into)
+      (field
+        (identifier)))
+    (execute_statement
+      (keyword_execute)
+      (keyword_immediate)
+      (literal)
+      (keyword_using)
+      (keyword_in)
+      (field
+        (identifier))
+      (keyword_out)
+      (field
+        (identifier))
+      (keyword_in)
+      (keyword_out)
+      (field
+        (identifier)))
+    (keyword_end)))
+
+================================================================================
+Return next and return query
+================================================================================
+
+create function f() returns setof int language plpgsql as $$
+declare
+  r record;
+begin
+  for r in select id from t loop
+    return next r.id;
+  end loop;
+  return query select id from t;
+  return query execute 'select 1' using 2;
+  return;
+end;
+$$;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_function)
+      (object_reference
+        (identifier))
+      (function_arguments)
+      (keyword_returns)
+      (keyword_setof)
+      (int
+        (keyword_int))
+      (function_language
+        (keyword_language)
+        (identifier))
+      (function_body
+        (keyword_as)
+        (dollar_quote)
+        (keyword_declare)
+        (function_declaration
+          (identifier)
+          (object_reference
+            (identifier)))
+        (keyword_begin)
+        (loop_statement
+          (keyword_for)
+          (identifier)
+          (keyword_in)
+          (statement
+            (select
+              (keyword_select)
+              (select_expression
+                (term
+                  (field
+                    (identifier)))))
+            (from
+              (keyword_from)
+              (relation
+                (object_reference
+                  (identifier)))))
+          (keyword_loop)
+          (keyword_return)
+          (keyword_next)
+          (field
+            (object_reference
+              (identifier))
+            (identifier))
+          (keyword_end)
+          (keyword_loop))
+        (keyword_return)
+        (keyword_query)
+        (statement
+          (select
+            (keyword_select)
+            (select_expression
+              (term
+                (field
+                  (identifier)))))
+          (from
+            (keyword_from)
+            (relation
+              (object_reference
+                (identifier)))))
+        (keyword_return)
+        (keyword_query)
+        (execute_statement
+          (keyword_execute)
+          (literal)
+          (keyword_using)
+          (literal))
+        (keyword_return)
+        (keyword_end)
+        (dollar_quote)))))
+
+================================================================================
+Select into strict and returning into
+================================================================================
+
+create function f() returns int language plpgsql as $$
+declare
+  n int;
+  r record;
+begin
+  select count(*) into n from t;
+  select count(*) into strict n from t;
+  select a, b into r.a, r.b from t;
+  insert into t values (1) returning id into n;
+  update t set a = 1 where id = 1 returning a, b into strict r.a, r.b;
+  delete from t where id = 1 returning * into r;
+  return n;
+end;
+$$;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_function)
+      (object_reference
+        (identifier))
+      (function_arguments)
+      (keyword_returns)
+      (int
+        (keyword_int))
+      (function_language
+        (keyword_language)
+        (identifier))
+      (function_body
+        (keyword_as)
+        (dollar_quote)
+        (keyword_declare)
+        (function_declaration
+          (identifier)
+          (int
+            (keyword_int)))
+        (function_declaration
+          (identifier)
+          (object_reference
+            (identifier)))
+        (keyword_begin)
+        (statement
+          (select
+            (keyword_select)
+            (select_expression
+              (term
+                (invocation
+                  (object_reference
+                    (identifier))
+                  (term
+                    (all_fields))))))
+          (keyword_into)
+          (select_expression
+            (term
+              (field
+                (identifier))))
+          (from
+            (keyword_from)
+            (relation
+              (object_reference
+                (identifier)))))
+        (statement
+          (select
+            (keyword_select)
+            (select_expression
+              (term
+                (invocation
+                  (object_reference
+                    (identifier))
+                  (term
+                    (all_fields))))))
+          (keyword_into)
+          (keyword_strict)
+          (select_expression
+            (term
+              (field
+                (identifier))))
+          (from
+            (keyword_from)
+            (relation
+              (object_reference
+                (identifier)))))
+        (statement
+          (select
+            (keyword_select)
+            (select_expression
+              (term
+                (field
+                  (identifier)))
+              (term
+                (field
+                  (identifier)))))
+          (keyword_into)
+          (select_expression
+            (term
+              (field
+                (object_reference
+                  (identifier))
+                (identifier)))
+            (term
+              (field
+                (object_reference
+                  (identifier))
+                (identifier))))
+          (from
+            (keyword_from)
+            (relation
+              (object_reference
+                (identifier)))))
+        (statement
+          (insert
+            (keyword_insert)
+            (keyword_into)
+            (object_reference
+              (identifier))
+            (keyword_values)
+            (list
+              (literal)))
+          (returning
+            (keyword_returning)
+            (select_expression
+              (term
+                (field
+                  (identifier))))
+            (keyword_into)
+            (field
+              (identifier))))
+        (statement
+          (update
+            (keyword_update)
+            (relation
+              (object_reference
+                (identifier)))
+            (keyword_set)
+            (assignment
+              (field
+                (identifier))
+              (literal))
+            (where
+              (keyword_where)
+              (binary_expression
+                (field
+                  (identifier))
+                (literal))))
+          (returning
+            (keyword_returning)
+            (select_expression
+              (term
+                (field
+                  (identifier)))
+              (term
+                (field
+                  (identifier))))
+            (keyword_into)
+            (keyword_strict)
+            (field
+              (object_reference
+                (identifier))
+              (identifier))
+            (field
+              (object_reference
+                (identifier))
+              (identifier))))
+        (statement
+          (delete
+            (keyword_delete))
+          (from
+            (keyword_from)
+            (object_reference
+              (identifier))
+            (where
+              (keyword_where)
+              (binary_expression
+                (field
+                  (identifier))
+                (literal))))
+          (returning
+            (keyword_returning)
+            (select_expression
+              (term
+                (all_fields)))
+            (keyword_into)
+            (field
+              (identifier))))
+        (keyword_return)
+        (field
+          (identifier))
+        (keyword_end)
+        (dollar_quote)))))
+
+================================================================================
+Open a cursor for a dynamic query
+================================================================================
+
+create function f() returns void language plpgsql as $$
+declare
+  refc refcursor;
+begin
+  open refc for execute 'select 1';
+  open refc scroll for execute format('select * from %I', 't') using 1;
+  close refc;
+end;
+$$;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_function)
+      (object_reference
+        (identifier))
+      (function_arguments)
+      (keyword_returns)
+      (object_reference
+        (identifier))
+      (function_language
+        (keyword_language)
+        (identifier))
+      (function_body
+        (keyword_as)
+        (dollar_quote)
+        (keyword_declare)
+        (function_declaration
+          (identifier)
+          (object_reference
+            (identifier)))
+        (keyword_begin)
+        (open_statement
+          (keyword_open)
+          (identifier)
+          (keyword_for)
+          (execute_statement
+            (keyword_execute)
+            (literal)))
+        (open_statement
+          (keyword_open)
+          (identifier)
+          (keyword_scroll)
+          (keyword_for)
+          (execute_statement
+            (keyword_execute)
+            (invocation
+              (object_reference
+                (identifier))
+              (term
+                (literal))
+              (term
+                (literal)))
+            (keyword_using)
+            (literal)))
+        (close_statement
+          (keyword_close)
+          (identifier))
+        (keyword_end)
+        (dollar_quote)))))

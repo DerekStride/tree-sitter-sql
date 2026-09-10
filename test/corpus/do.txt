@@ -1,0 +1,114 @@
+================================================================================
+Do block
+================================================================================
+
+do $$
+declare
+  r record;
+begin
+  for r in select tablename from pg_tables where schemaname = 'public' loop
+    execute 'drop table if exists ' || quote_ident(r.tablename) || ' cascade';
+  end loop;
+end
+$$;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (do_statement
+      (keyword_do)
+      (dollar_quote)
+      (keyword_declare)
+      (function_declaration
+        (identifier)
+        (object_reference
+          (identifier)))
+      (keyword_begin)
+      (loop_statement
+        (keyword_for)
+        (identifier)
+        (keyword_in)
+        (statement
+          (select
+            (keyword_select)
+            (select_expression
+              (term
+                (field
+                  (identifier)))))
+          (from
+            (keyword_from)
+            (relation
+              (object_reference
+                (identifier)))
+            (where
+              (keyword_where)
+              (binary_expression
+                (field
+                  (identifier))
+                (literal)))))
+        (keyword_loop)
+        (execute_statement
+          (keyword_execute)
+          (binary_expression
+            (binary_expression
+              (literal)
+              (op_other)
+              (invocation
+                (object_reference
+                  (identifier))
+                (term
+                  (field
+                    (object_reference
+                      (identifier))
+                    (identifier)))))
+            (op_other)
+            (literal)))
+        (keyword_end)
+        (keyword_loop))
+      (keyword_end)
+      (dollar_quote))))
+
+================================================================================
+Do block with language and exception handler
+================================================================================
+
+do language plpgsql $$
+begin
+  raise notice 'hi';
+exception when others then
+  null;
+end;
+$$;
+do 'begin null; end' language plpgsql;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (do_statement
+      (keyword_do)
+      (function_language
+        (keyword_language)
+        (identifier))
+      (dollar_quote)
+      (keyword_begin)
+      (raise_statement
+        (keyword_raise)
+        (keyword_notice)
+        (literal))
+      (keyword_exception)
+      (exception_handler
+        (keyword_when)
+        (keyword_others)
+        (keyword_then)
+        (keyword_null))
+      (keyword_end)
+      (dollar_quote)))
+  (statement
+    (do_statement
+      (keyword_do)
+      (literal)
+      (function_language
+        (keyword_language)
+        (identifier)))))

@@ -78,7 +78,19 @@ export default {
 
   _function_return: $ => seq(
     $.keyword_return,
-    optional($._expression),
+    optional(
+      choice(
+        seq($.keyword_next, $._expression),
+        seq(
+          $.keyword_query,
+          choice(
+            $.execute_statement,
+            $.statement,
+          ),
+        ),
+        $._expression,
+      ),
+    ),
   ),
 
   _declare_section: $ => seq(

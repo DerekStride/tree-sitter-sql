@@ -291,6 +291,9 @@ export default {
   keyword_relative: _ => make_keyword("relative"),
   keyword_forward: _ => make_keyword("forward"),
   keyword_backward: _ => make_keyword("backward"),
+  keyword_perform: _ => make_keyword("perform"),
+  keyword_query: _ => make_keyword("query"),
+  keyword_call: _ => make_keyword("call"),
 
   keyword_session: _ => make_keyword("session"),
   keyword_isolation: _ => make_keyword("isolation"),

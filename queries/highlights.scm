@@ -375,6 +375,9 @@
   (keyword_relative)
   (keyword_forward)
   (keyword_backward)
+  (keyword_perform)
+  (keyword_query)
+  (keyword_call)
 ] @keyword
 
 [

@@ -21,6 +21,8 @@ export default {
     $.fetch_statement,
     $.move_statement,
     $.close_statement,
+    $.perform_statement,
+    $.execute_statement,
   ),
 
   _procedural_statements: $ => repeat1(

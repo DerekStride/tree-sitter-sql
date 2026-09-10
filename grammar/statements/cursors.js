@@ -16,7 +16,10 @@ export default {
         seq(
           optional(seq(optional($.keyword_no), $.keyword_scroll)),
           $.keyword_for,
-          $.statement,
+          choice(
+            $.execute_statement,
+            $.statement,
+          ),
         ),
       ),
     ),

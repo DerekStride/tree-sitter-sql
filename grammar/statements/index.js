@@ -18,6 +18,7 @@ import refresh_rules from "./refresh.js";
 import control_flow_rules from "./control-flow.js";
 import error_handling_rules from "./error-handling.js";
 import cursor_rules from "./cursors.js";
+import dynamic_sql_rules from "./dynamic-sql.js";
 
 export default {
 
@@ -37,6 +38,7 @@ export default {
   ...control_flow_rules,
   ...error_handling_rules,
   ...cursor_rules,
+  ...dynamic_sql_rules,
 
   statement: $ => seq(
     optional(seq(
@@ -49,6 +51,8 @@ export default {
       $._dml_write,
       optional_parenthesis($._dml_read),
       $.while_statement,
+      $.do_statement,
+      $.call_statement,
     ),
   ),
 
