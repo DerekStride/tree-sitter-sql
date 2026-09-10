@@ -145,6 +145,7 @@ export default {
       ),
       $.keyword_begin,
       $._procedural_statements,
+      optional($._exception_handlers),
       $.keyword_end,
       optional(';'),
       alias($._dollar_quoted_string_end_tag, $.dollar_quote),

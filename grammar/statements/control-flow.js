@@ -14,6 +14,9 @@ export default {
     $.continue_statement,
     $.keyword_null,
     $.block,
+    $.raise_statement,
+    $.assert_statement,
+    $.get_diagnostics,
   ),
 
   _procedural_statements: $ => repeat1(

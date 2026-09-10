@@ -16,6 +16,7 @@ import select_rules from "./select.js";
 import set_rules from "./set.js";
 import refresh_rules from "./refresh.js";
 import control_flow_rules from "./control-flow.js";
+import error_handling_rules from "./error-handling.js";
 
 export default {
 
@@ -32,11 +33,13 @@ export default {
     // shared with `transaction` so that both reduce a statement list the same
     // way after `begin`
     optional($._procedural_statements),
+    optional($._exception_handlers),
     $.keyword_end,
     optional($.identifier),
   ),
 
   ...control_flow_rules,
+  ...error_handling_rules,
 
   statement: $ => seq(
     optional(seq(

@@ -343,6 +343,23 @@
   (keyword_reverse)
   (keyword_foreach)
   (keyword_slice)
+  (keyword_raise)
+  (keyword_exception)
+  (keyword_debug)
+  (keyword_log)
+  (keyword_info)
+  (keyword_notice)
+  (keyword_warning)
+  (keyword_sqlstate)
+  (keyword_message)
+  (keyword_detail)
+  (keyword_hint)
+  (keyword_errcode)
+  (keyword_datatype)
+  (keyword_assert)
+  (keyword_get)
+  (keyword_stacked)
+  (keyword_diagnostics)
 ] @keyword
 
 [
