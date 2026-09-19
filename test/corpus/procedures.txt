@@ -60,6 +60,67 @@ $$;
         (dollar_quote)))))
 
 ================================================================================
+Procedure with named tag dollar-quote (PostgreSQL)
+================================================================================
+
+CREATE PROCEDURE insert_data(a integer, b integer)
+LANGUAGE SQL
+AS $body$
+BEGIN
+INSERT INTO tbl VALUES (a);
+INSERT INTO tbl VALUES (b);
+END;
+$body$;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_procedure
+      (keyword_create)
+      (keyword_procedure)
+      (object_reference
+        name: (identifier))
+      (function_arguments
+        (function_argument
+          (identifier)
+          (int
+            (keyword_int)))
+        (function_argument
+          (identifier)
+          (int
+            (keyword_int))))
+      (function_language
+        (keyword_language)
+        (identifier))
+      (procedure_body
+        (keyword_as)
+        (dollar_quote)
+        (keyword_begin)
+        (statement
+          (insert
+            (keyword_insert)
+            (keyword_into)
+            (object_reference
+              name: (identifier))
+            (keyword_values)
+            (list
+              (field
+                name: (identifier)))))
+        (statement
+          (insert
+            (keyword_insert)
+            (keyword_into)
+            (object_reference
+              name: (identifier))
+            (keyword_values)
+            (list
+              (field
+                name: (identifier)))))
+        (keyword_end)
+        (dollar_quote)))))
+
+================================================================================
 Procedure with OR REPLACE (PostgreSQL)
 ================================================================================
 
