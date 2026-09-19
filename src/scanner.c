@@ -17,6 +17,9 @@ typedef struct LexerState {
 
 void *tree_sitter_sql_external_scanner_create() {
   LexerState *state = malloc(sizeof(LexerState));
+  if (state == NULL) {
+    return NULL;
+  }
   state->start_tag = NULL;
   return state;
 }
@@ -32,15 +35,23 @@ void tree_sitter_sql_external_scanner_destroy(void *payload) {
 
 static char* add_char(char* text, size_t* text_size, char c, int index) {
   if (text == NULL) {
-    text = malloc(sizeof(char) * MALLOC_STRING_SIZE);
+    text = malloc(MALLOC_STRING_SIZE);
+    if (text == NULL) {
+      return NULL;
+    }
     *text_size = MALLOC_STRING_SIZE;
   }
 
   // will break when indexes advances more than MALLOC_STRING_SIZE
   if (index + 1 >= *text_size) {
+    size_t old_size = *text_size;
     *text_size += MALLOC_STRING_SIZE;
-    char* tmp = malloc(*text_size * sizeof(char));
-    strncpy(tmp, text, *text_size);
+    char* tmp = malloc(*text_size);
+    if (tmp == NULL) {
+      free(text);
+      return NULL;
+    }
+    memcpy(tmp, text, old_size);
     free(text);
     text = tmp;
   }
@@ -54,6 +65,9 @@ static char* scan_dollar_string_tag(TSLexer *lexer) {
   char* tag = NULL;
   int index = 0;
   size_t* text_size = malloc(sizeof(size_t));
+  if (text_size == NULL) {
+    return NULL;
+  }
   *text_size = 0;
   if (lexer->lookahead == '$') {
     tag = add_char(tag, text_size, '$', index);
