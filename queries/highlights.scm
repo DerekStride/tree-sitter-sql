@@ -335,6 +335,14 @@
   (keyword_compression)
   (keyword_duplicate)
   (keyword_while)
+  (keyword_loop)
+  (keyword_exit)
+  (keyword_continue)
+  (keyword_elsif)
+  (keyword_elseif)
+  (keyword_reverse)
+  (keyword_foreach)
+  (keyword_slice)
 ] @keyword
 
 [
