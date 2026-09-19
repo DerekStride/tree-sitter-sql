@@ -1,4 +1,4 @@
-import { paren_list, wrapped_in_parenthesis } from "../helpers.js";
+import { comma_list, paren_list, wrapped_in_parenthesis } from "../helpers.js";
 
 export default {
 
@@ -7,7 +7,9 @@ export default {
   // context is done by _dollar_string.
   dollar_quote: () => /\$[^\$]*\$/,
 
-  create_function: $ => seq(
+  // right associativity so that a trailing `set ...` option belongs to the
+  // definition rather than starting a new statement in a T-SQL `while` body
+  create_function: $ => prec.right(seq(
     $.keyword_create,
     optional($._or_replace),
     $.keyword_function,
@@ -31,6 +33,7 @@ export default {
         $.function_cost,
         $.function_rows,
         $.function_support,
+        $.function_set,
       ),
     ),
     // ensure that there's only one function body -- other specifiers are less
@@ -47,9 +50,10 @@ export default {
         $.function_cost,
         $.function_rows,
         $.function_support,
+        $.function_set,
       ),
     ),
-  ),
+  )),
 
   _argmode: $ => choice(
     $.keyword_in,
@@ -241,6 +245,28 @@ export default {
   function_support: $ => seq(
     $.keyword_support,
     alias($._literal_string, $.literal),
+  ),
+
+  // `set search_path = public, pg_temp`, `set work_mem from current`
+  function_set: $ => seq(
+    $.keyword_set,
+    $.object_reference,
+    choice(
+      seq(
+        choice($.keyword_to, '='),
+        comma_list(
+          choice(
+            $.literal,
+            $.keyword_default,
+            $.identifier,
+            $.keyword_on,
+            $.keyword_off,
+          ),
+          true,
+        ),
+      ),
+      seq($.keyword_from, $.keyword_current),
+    ),
   ),
 
 };

@@ -440,3 +440,50 @@ DROP PROCEDURE IF EXISTS public.my_procedure CASCADE;
         (identifier)
         (identifier))
       (keyword_cascade))))
+
+================================================================================
+Procedure with SET configuration parameter
+================================================================================
+
+create procedure p()
+language plpgsql
+set search_path = default
+as $$
+begin
+  insert into t values (1);
+end;
+$$;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_procedure
+      (keyword_create)
+      (keyword_procedure)
+      (object_reference
+        (identifier))
+      (function_arguments)
+      (function_language
+        (keyword_language)
+        (identifier))
+      (function_set
+        (keyword_set)
+        (object_reference
+          (identifier))
+        (keyword_default))
+      (procedure_body
+        (keyword_as)
+        (dollar_quote)
+        (keyword_begin)
+        (statement
+          (insert
+            (keyword_insert)
+            (keyword_into)
+            (object_reference
+              (identifier))
+            (keyword_values)
+            (list
+              (literal))))
+        (keyword_end)
+        (dollar_quote)))))
