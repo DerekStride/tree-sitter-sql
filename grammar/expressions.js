@@ -57,7 +57,7 @@ export default {
       field('name', $.identifier),
     ),
 
-  parameter: $ => /\?|(\$[0-9]+)/,
+  parameter: $ => choice(/\?|(\$[0-9]+)/, seq(':', $.identifier)),
 
   case: $ => seq(
     $.keyword_case,
@@ -424,7 +424,7 @@ export default {
   ),
   _tsql_parameter: $ => seq('@', $._identifier),
   // support nordic chars and umlaue
-  _identifier: _ => /[A-Za-z_\u00C0-\u017F][0-9A-Za-z_\u00C0-\u017F]*/,
+  _identifier: _ => /[A-Za-z_\u00C0-\u017F][0-9A-Za-z_$\u00C0-\u017F]*/,
 
   object_id: $ => seq(
     $.keyword_object_id,

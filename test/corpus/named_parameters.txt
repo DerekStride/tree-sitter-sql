@@ -1,0 +1,24 @@
+================================================================================
+Colon parameters and dollar-containing identifiers
+================================================================================
+
+SELECT GEN_ID(gen_order, 1) FROM RDB$DATABASE WHERE id = :id;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (invocation
+            (object_reference (identifier))
+            (term (field (identifier)))
+            (term (literal))))))
+    (from
+      (keyword_from)
+      (relation (object_reference (identifier)))
+      (where
+        (keyword_where)
+        (binary_expression (field (identifier)) (parameter (identifier)))))))

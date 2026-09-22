@@ -93,10 +93,11 @@ $a$
       (dollar_quote)
       (keyword_begin)
       (keyword_return)
-      (dollar_quote)
-      (keyword_text))
-    (dollar_quote)
-    (keyword_end)
+      (ERROR
+        (dollar_quote))
+      (field
+        (identifier))
+      (keyword_end))
     (dollar_quote)))
 
 ================================================================================
@@ -138,8 +139,7 @@ $c$;
         (literal)
         (keyword_end)
         (ERROR
-          (UNEXPECTED 'c')
-          (UNEXPECTED ';'))
+          (UNEXPECTED 'c'))
         (MISSING dollar_quote)))))
 
 ================================================================================
@@ -184,8 +184,6 @@ $a$;
           (identifier))
         (ERROR
           (UNEXPECTED 't')
-          (keyword_text)
-          (UNEXPECTED 'b')
           (UNEXPECTED ';'))
         (keyword_end)
         (dollar_quote)))))
