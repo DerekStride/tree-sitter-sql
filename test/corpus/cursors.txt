@@ -1,0 +1,344 @@
+================================================================================
+Open, fetch and close a cursor
+================================================================================
+
+create function f() returns int language plpgsql as $$
+declare
+  cur cursor for select id from t;
+  cur2 cursor (key int) for select id from t where id = key;
+  v int;
+begin
+  open cur;
+  fetch cur into v;
+  fetch next from cur into v;
+  fetch prior in cur into v;
+  fetch absolute 3 from cur into v;
+  fetch relative -1 from cur into v;
+  fetch first from cur into r.a, r.b;
+  move last in cur;
+  move cur;
+  close cur;
+  open cur2(5);
+  return v;
+end;
+$$;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_function)
+      (object_reference
+        (identifier))
+      (function_arguments)
+      (keyword_returns)
+      (int
+        (keyword_int))
+      (function_language
+        (keyword_language)
+        (identifier))
+      (function_body
+        (keyword_as)
+        (dollar_quote)
+        (keyword_declare)
+        (cursor_declaration
+          (identifier)
+          (keyword_cursor)
+          (keyword_for)
+          (statement
+            (select
+              (keyword_select)
+              (select_expression
+                (term
+                  (field
+                    (identifier)))))
+            (from
+              (keyword_from)
+              (relation
+                (object_reference
+                  (identifier))))))
+        (cursor_declaration
+          (identifier)
+          (keyword_cursor)
+          (function_arguments
+            (function_argument
+              (identifier)
+              (int
+                (keyword_int))))
+          (keyword_for)
+          (statement
+            (select
+              (keyword_select)
+              (select_expression
+                (term
+                  (field
+                    (identifier)))))
+            (from
+              (keyword_from)
+              (relation
+                (object_reference
+                  (identifier)))
+              (where
+                (keyword_where)
+                (binary_expression
+                  (field
+                    (identifier))
+                  (field
+                    (identifier)))))))
+        (function_declaration
+          (identifier)
+          (int
+            (keyword_int)))
+        (keyword_begin)
+        (open_statement
+          (keyword_open)
+          (identifier))
+        (fetch_statement
+          (keyword_fetch)
+          (identifier)
+          (keyword_into)
+          (field
+            (identifier)))
+        (fetch_statement
+          (keyword_fetch)
+          (keyword_next)
+          (keyword_from)
+          (identifier)
+          (keyword_into)
+          (field
+            (identifier)))
+        (fetch_statement
+          (keyword_fetch)
+          (keyword_prior)
+          (keyword_in)
+          (identifier)
+          (keyword_into)
+          (field
+            (identifier)))
+        (fetch_statement
+          (keyword_fetch)
+          (keyword_absolute)
+          (literal)
+          (keyword_from)
+          (identifier)
+          (keyword_into)
+          (field
+            (identifier)))
+        (fetch_statement
+          (keyword_fetch)
+          (keyword_relative)
+          (literal)
+          (keyword_from)
+          (identifier)
+          (keyword_into)
+          (field
+            (identifier)))
+        (fetch_statement
+          (keyword_fetch)
+          (keyword_first)
+          (keyword_from)
+          (identifier)
+          (keyword_into)
+          (field
+            (object_reference
+              (identifier))
+            (identifier))
+          (field
+            (object_reference
+              (identifier))
+            (identifier)))
+        (move_statement
+          (keyword_move)
+          (keyword_last)
+          (keyword_in)
+          (identifier))
+        (move_statement
+          (keyword_move)
+          (identifier))
+        (close_statement
+          (keyword_close)
+          (identifier))
+        (open_statement
+          (keyword_open)
+          (identifier)
+          (list
+            (literal)))
+        (keyword_return)
+        (field
+          (identifier))
+        (keyword_end)
+        (dollar_quote)))))
+
+================================================================================
+Open a cursor variable for a query
+================================================================================
+
+create function f() returns void language plpgsql as $$
+declare
+  refc refcursor;
+begin
+  open refc for select 1;
+  open refc scroll for select * from t where a = 1;
+  open refc no scroll for (select 1);
+  close refc;
+end;
+$$;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_function)
+      (object_reference
+        (identifier))
+      (function_arguments)
+      (keyword_returns)
+      (object_reference
+        (identifier))
+      (function_language
+        (keyword_language)
+        (identifier))
+      (function_body
+        (keyword_as)
+        (dollar_quote)
+        (keyword_declare)
+        (function_declaration
+          (identifier)
+          (object_reference
+            (identifier)))
+        (keyword_begin)
+        (open_statement
+          (keyword_open)
+          (identifier)
+          (keyword_for)
+          (statement
+            (select
+              (keyword_select)
+              (select_expression
+                (term
+                  (literal))))))
+        (open_statement
+          (keyword_open)
+          (identifier)
+          (keyword_scroll)
+          (keyword_for)
+          (statement
+            (select
+              (keyword_select)
+              (select_expression
+                (term
+                  (all_fields))))
+            (from
+              (keyword_from)
+              (relation
+                (object_reference
+                  (identifier)))
+              (where
+                (keyword_where)
+                (binary_expression
+                  (field
+                    (identifier))
+                  (literal))))))
+        (open_statement
+          (keyword_open)
+          (identifier)
+          (keyword_no)
+          (keyword_scroll)
+          (keyword_for)
+          (statement
+            (select
+              (keyword_select)
+              (select_expression
+                (term
+                  (literal))))))
+        (close_statement
+          (keyword_close)
+          (identifier))
+        (keyword_end)
+        (dollar_quote)))))
+
+================================================================================
+Cursor loop in an anonymous block
+================================================================================
+
+DECLARE
+  CURSOR c_emp IS SELECT employee_id, last_name FROM employees WHERE department_id = 10;
+  l_rec c_emp%ROWTYPE;
+BEGIN
+  OPEN c_emp;
+  LOOP
+    FETCH c_emp INTO l_rec;
+    EXIT WHEN l_rec.employee_id IS NULL;
+  END LOOP;
+  CLOSE c_emp;
+END;
+
+--------------------------------------------------------------------------------
+
+(program
+  (block
+    (keyword_declare)
+    (cursor_declaration
+      (keyword_cursor)
+      (identifier)
+      (keyword_is)
+      (statement
+        (select
+          (keyword_select)
+          (select_expression
+            (term
+              (field
+                (identifier)))
+            (term
+              (field
+                (identifier)))))
+        (from
+          (keyword_from)
+          (relation
+            (object_reference
+              (identifier)))
+          (where
+            (keyword_where)
+            (binary_expression
+              (field
+                (identifier))
+              (literal))))))
+    (function_declaration
+      (identifier)
+      (type_attribute
+        (object_reference
+          (identifier))
+        (keyword_rowtype)))
+    (keyword_begin)
+    (open_statement
+      (keyword_open)
+      (identifier))
+    (loop_statement
+      (keyword_loop)
+      (fetch_statement
+        (keyword_fetch)
+        (identifier)
+        (keyword_into)
+        (field
+          (identifier)))
+      (exit_statement
+        (keyword_exit)
+        (keyword_when)
+        (binary_expression
+          (field
+            (object_reference
+              (identifier))
+            (identifier))
+          (keyword_is)
+          (literal
+            (keyword_null))))
+      (keyword_end)
+      (keyword_loop))
+    (close_statement
+      (keyword_close)
+      (identifier))
+    (keyword_end)))

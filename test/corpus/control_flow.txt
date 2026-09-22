@@ -1,0 +1,1057 @@
+================================================================================
+Variable assignment
+================================================================================
+
+create function f() returns int language plpgsql as $$
+declare
+  x int;
+  y text;
+begin
+  x := 1;
+  y = 'two';
+  x := x + (select count(*) from t);
+  r.total := r.total * 2;
+  return x;
+end;
+$$;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_function)
+      (object_reference
+        (identifier))
+      (function_arguments)
+      (keyword_returns)
+      (int
+        (keyword_int))
+      (function_language
+        (keyword_language)
+        (identifier))
+      (function_body
+        (keyword_as)
+        (dollar_quote)
+        (keyword_declare)
+        (function_declaration
+          (identifier)
+          (int
+            (keyword_int)))
+        (function_declaration
+          (identifier)
+          (keyword_text))
+        (keyword_begin)
+        (assignment
+          (field
+            (identifier))
+          (literal))
+        (assignment
+          (field
+            (identifier))
+          (literal))
+        (assignment
+          (field
+            (identifier))
+          (binary_expression
+            (field
+              (identifier))
+            (subquery
+              (select
+                (keyword_select)
+                (select_expression
+                  (term
+                    (invocation
+                      (object_reference
+                        (identifier))
+                      (term
+                        (all_fields))))))
+              (from
+                (keyword_from)
+                (relation
+                  (object_reference
+                    (identifier)))))))
+        (assignment
+          (field
+            (object_reference
+              (identifier))
+            (identifier))
+          (binary_expression
+            (field
+              (object_reference
+                (identifier))
+              (identifier))
+            (literal)))
+        (keyword_return)
+        (field
+          (identifier))
+        (keyword_end)
+        (dollar_quote)))))
+
+================================================================================
+Null statement and bare return
+================================================================================
+
+create procedure p() language plpgsql as $$
+begin
+  null;
+  return;
+end;
+$$;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_procedure
+      (keyword_create)
+      (keyword_procedure)
+      (object_reference
+        (identifier))
+      (function_arguments)
+      (function_language
+        (keyword_language)
+        (identifier))
+      (procedure_body
+        (keyword_as)
+        (dollar_quote)
+        (keyword_begin)
+        (keyword_null)
+        (keyword_return)
+        (keyword_end)
+        (dollar_quote)))))
+
+================================================================================
+If, elsif, else
+================================================================================
+
+create function f(a int) returns int language plpgsql as $$
+begin
+  if a > 10 then
+    return 1;
+  elsif a > 5 then
+    return 2;
+  elseif a > 0 then
+    return 3;
+  else
+    return 4;
+  end if;
+  if a is null then end if;
+end;
+$$;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_function)
+      (object_reference
+        (identifier))
+      (function_arguments
+        (function_argument
+          (identifier)
+          (int
+            (keyword_int))))
+      (keyword_returns)
+      (int
+        (keyword_int))
+      (function_language
+        (keyword_language)
+        (identifier))
+      (function_body
+        (keyword_as)
+        (dollar_quote)
+        (keyword_begin)
+        (if_statement
+          (keyword_if)
+          (binary_expression
+            (field
+              (identifier))
+            (literal))
+          (keyword_then)
+          (keyword_return)
+          (literal)
+          (keyword_elsif)
+          (binary_expression
+            (field
+              (identifier))
+            (literal))
+          (keyword_then)
+          (keyword_return)
+          (literal)
+          (keyword_elseif)
+          (binary_expression
+            (field
+              (identifier))
+            (literal))
+          (keyword_then)
+          (keyword_return)
+          (literal)
+          (keyword_else)
+          (keyword_return)
+          (literal)
+          (keyword_end)
+          (keyword_if))
+        (if_statement
+          (keyword_if)
+          (binary_expression
+            (field
+              (identifier))
+            (keyword_is)
+            (literal
+              (keyword_null)))
+          (keyword_then)
+          (keyword_end)
+          (keyword_if))
+        (keyword_end)
+        (dollar_quote)))))
+
+================================================================================
+Case statement
+================================================================================
+
+create function f(a int) returns text language plpgsql as $$
+begin
+  case a
+    when 1, 2 then
+      return 'low';
+    when 3 then
+      return 'mid';
+    else
+      return 'high';
+  end case;
+  case
+    when a < 0 then return 'negative';
+    else return 'positive';
+  end case;
+end;
+$$;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_function)
+      (object_reference
+        (identifier))
+      (function_arguments
+        (function_argument
+          (identifier)
+          (int
+            (keyword_int))))
+      (keyword_returns)
+      (keyword_text)
+      (function_language
+        (keyword_language)
+        (identifier))
+      (function_body
+        (keyword_as)
+        (dollar_quote)
+        (keyword_begin)
+        (case_statement
+          (keyword_case)
+          (field
+            (identifier))
+          (keyword_when)
+          (literal)
+          (literal)
+          (keyword_then)
+          (keyword_return)
+          (literal)
+          (keyword_when)
+          (literal)
+          (keyword_then)
+          (keyword_return)
+          (literal)
+          (keyword_else)
+          (keyword_return)
+          (literal)
+          (keyword_end)
+          (keyword_case))
+        (case_statement
+          (keyword_case)
+          (keyword_when)
+          (binary_expression
+            (field
+              (identifier))
+            (literal))
+          (keyword_then)
+          (keyword_return)
+          (literal)
+          (keyword_else)
+          (keyword_return)
+          (literal)
+          (keyword_end)
+          (keyword_case))
+        (keyword_end)
+        (dollar_quote)))))
+
+================================================================================
+Loop with exit and continue
+================================================================================
+
+create function f() returns int language plpgsql as $$
+declare
+  i int := 0;
+begin
+  loop
+    i := i + 1;
+    continue when i % 2 = 0;
+    exit when i > 10;
+  end loop;
+  return i;
+end;
+$$;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_function)
+      (object_reference
+        (identifier))
+      (function_arguments)
+      (keyword_returns)
+      (int
+        (keyword_int))
+      (function_language
+        (keyword_language)
+        (identifier))
+      (function_body
+        (keyword_as)
+        (dollar_quote)
+        (keyword_declare)
+        (function_declaration
+          (identifier)
+          (int
+            (keyword_int))
+          (literal))
+        (keyword_begin)
+        (loop_statement
+          (keyword_loop)
+          (assignment
+            (field
+              (identifier))
+            (binary_expression
+              (field
+                (identifier))
+              (literal)))
+          (continue_statement
+            (keyword_continue)
+            (keyword_when)
+            (binary_expression
+              (binary_expression
+                (field
+                  (identifier))
+                (literal))
+              (literal)))
+          (exit_statement
+            (keyword_exit)
+            (keyword_when)
+            (binary_expression
+              (field
+                (identifier))
+              (literal)))
+          (keyword_end)
+          (keyword_loop))
+        (keyword_return)
+        (field
+          (identifier))
+        (keyword_end)
+        (dollar_quote)))))
+
+================================================================================
+While loop
+================================================================================
+
+create function f(i int) returns int language plpgsql as $$
+begin
+  while i > 0 loop
+    i := i - 1;
+  end loop;
+  return i;
+end;
+$$;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_function)
+      (object_reference
+        (identifier))
+      (function_arguments
+        (function_argument
+          (identifier)
+          (int
+            (keyword_int))))
+      (keyword_returns)
+      (int
+        (keyword_int))
+      (function_language
+        (keyword_language)
+        (identifier))
+      (function_body
+        (keyword_as)
+        (dollar_quote)
+        (keyword_begin)
+        (loop_statement
+          (keyword_while)
+          (binary_expression
+            (field
+              (identifier))
+            (literal))
+          (keyword_loop)
+          (assignment
+            (field
+              (identifier))
+            (binary_expression
+              (field
+                (identifier))
+              (literal)))
+          (keyword_end)
+          (keyword_loop))
+        (keyword_return)
+        (field
+          (identifier))
+        (keyword_end)
+        (dollar_quote)))))
+
+================================================================================
+For loop over an integer range
+================================================================================
+
+create function f(n int) returns int language plpgsql as $$
+declare
+  s int := 0;
+begin
+  for i in 1..10 loop
+    s := s + i;
+  end loop;
+  for i in reverse n..1 by 2 loop
+    s := s - i;
+  end loop;
+  for i in -1 .. array_length(arr, 1) loop
+    s := s + i;
+  end loop;
+  return s;
+end;
+$$;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_function)
+      (object_reference
+        (identifier))
+      (function_arguments
+        (function_argument
+          (identifier)
+          (int
+            (keyword_int))))
+      (keyword_returns)
+      (int
+        (keyword_int))
+      (function_language
+        (keyword_language)
+        (identifier))
+      (function_body
+        (keyword_as)
+        (dollar_quote)
+        (keyword_declare)
+        (function_declaration
+          (identifier)
+          (int
+            (keyword_int))
+          (literal))
+        (keyword_begin)
+        (loop_statement
+          (keyword_for)
+          (identifier)
+          (keyword_in)
+          (literal)
+          (literal)
+          (keyword_loop)
+          (assignment
+            (field
+              (identifier))
+            (binary_expression
+              (field
+                (identifier))
+              (field
+                (identifier))))
+          (keyword_end)
+          (keyword_loop))
+        (loop_statement
+          (keyword_for)
+          (identifier)
+          (keyword_in)
+          (keyword_reverse)
+          (field
+            (identifier))
+          (literal)
+          (keyword_by)
+          (literal)
+          (keyword_loop)
+          (assignment
+            (field
+              (identifier))
+            (binary_expression
+              (field
+                (identifier))
+              (field
+                (identifier))))
+          (keyword_end)
+          (keyword_loop))
+        (loop_statement
+          (keyword_for)
+          (identifier)
+          (keyword_in)
+          (literal)
+          (invocation
+            (object_reference
+              (identifier))
+            (term
+              (field
+                (identifier)))
+            (term
+              (literal)))
+          (keyword_loop)
+          (assignment
+            (field
+              (identifier))
+            (binary_expression
+              (field
+                (identifier))
+              (field
+                (identifier))))
+          (keyword_end)
+          (keyword_loop))
+        (keyword_return)
+        (field
+          (identifier))
+        (keyword_end)
+        (dollar_quote)))))
+
+================================================================================
+For loop over a query
+================================================================================
+
+create function f() returns int language plpgsql as $$
+declare
+  r record;
+  a int;
+  b int;
+begin
+  for r in select id, name from t where active loop
+    insert into log values (r.id);
+  end loop;
+  for a, b in (select 1, 2) loop
+    null;
+  end loop;
+  return 0;
+end;
+$$;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_function)
+      (object_reference
+        (identifier))
+      (function_arguments)
+      (keyword_returns)
+      (int
+        (keyword_int))
+      (function_language
+        (keyword_language)
+        (identifier))
+      (function_body
+        (keyword_as)
+        (dollar_quote)
+        (keyword_declare)
+        (function_declaration
+          (identifier)
+          (object_reference
+            (identifier)))
+        (function_declaration
+          (identifier)
+          (int
+            (keyword_int)))
+        (function_declaration
+          (identifier)
+          (int
+            (keyword_int)))
+        (keyword_begin)
+        (loop_statement
+          (keyword_for)
+          (identifier)
+          (keyword_in)
+          (statement
+            (select
+              (keyword_select)
+              (select_expression
+                (term
+                  (field
+                    (identifier)))
+                (term
+                  (field
+                    (identifier)))))
+            (from
+              (keyword_from)
+              (relation
+                (object_reference
+                  (identifier)))
+              (where
+                (keyword_where)
+                (field
+                  (identifier)))))
+          (keyword_loop)
+          (statement
+            (insert
+              (keyword_insert)
+              (keyword_into)
+              (object_reference
+                (identifier))
+              (keyword_values)
+              (list
+                (field
+                  (object_reference
+                    (identifier))
+                  (identifier)))))
+          (keyword_end)
+          (keyword_loop))
+        (loop_statement
+          (keyword_for)
+          (identifier)
+          (identifier)
+          (keyword_in)
+          (statement
+            (select
+              (keyword_select)
+              (select_expression
+                (term
+                  (literal))
+                (term
+                  (literal)))))
+          (keyword_loop)
+          (keyword_null)
+          (keyword_end)
+          (keyword_loop))
+        (keyword_return)
+        (literal)
+        (keyword_end)
+        (dollar_quote)))))
+
+================================================================================
+For loop over a cursor
+================================================================================
+
+create function f() returns int language plpgsql as $$
+declare
+  r record;
+begin
+  for r in c_emp loop
+    null;
+  end loop;
+  for r in c_dep(10) loop
+    null;
+  end loop;
+  return 0;
+end;
+$$;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_function)
+      (object_reference
+        (identifier))
+      (function_arguments)
+      (keyword_returns)
+      (int
+        (keyword_int))
+      (function_language
+        (keyword_language)
+        (identifier))
+      (function_body
+        (keyword_as)
+        (dollar_quote)
+        (keyword_declare)
+        (function_declaration
+          (identifier)
+          (object_reference
+            (identifier)))
+        (keyword_begin)
+        (loop_statement
+          (keyword_for)
+          (identifier)
+          (keyword_in)
+          (field
+            (identifier))
+          (keyword_loop)
+          (keyword_null)
+          (keyword_end)
+          (keyword_loop))
+        (loop_statement
+          (keyword_for)
+          (identifier)
+          (keyword_in)
+          (invocation
+            (object_reference
+              (identifier))
+            (term
+              (literal)))
+          (keyword_loop)
+          (keyword_null)
+          (keyword_end)
+          (keyword_loop))
+        (keyword_return)
+        (literal)
+        (keyword_end)
+        (dollar_quote)))))
+
+================================================================================
+Foreach over an array
+================================================================================
+
+create function f(arr int[]) returns int language plpgsql as $$
+declare
+  x int;
+  row int[];
+  s int := 0;
+begin
+  foreach x in array arr loop
+    s := s + x;
+  end loop;
+  foreach row slice 1 in array arr loop
+    s := s + row[1];
+  end loop;
+  return s;
+end;
+$$;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_function)
+      (object_reference
+        (identifier))
+      (function_arguments
+        (function_argument
+          (identifier)
+          (int
+            (keyword_int))
+          (array_size_definition)))
+      (keyword_returns)
+      (int
+        (keyword_int))
+      (function_language
+        (keyword_language)
+        (identifier))
+      (function_body
+        (keyword_as)
+        (dollar_quote)
+        (keyword_declare)
+        (function_declaration
+          (identifier)
+          (int
+            (keyword_int)))
+        (function_declaration
+          (identifier)
+          (int
+            (keyword_int))
+          (array_size_definition))
+        (function_declaration
+          (identifier)
+          (int
+            (keyword_int))
+          (literal))
+        (keyword_begin)
+        (loop_statement
+          (keyword_foreach)
+          (identifier)
+          (keyword_in)
+          (keyword_array)
+          (field
+            (identifier))
+          (keyword_loop)
+          (assignment
+            (field
+              (identifier))
+            (binary_expression
+              (field
+                (identifier))
+              (field
+                (identifier))))
+          (keyword_end)
+          (keyword_loop))
+        (loop_statement
+          (keyword_foreach)
+          (identifier)
+          (keyword_slice)
+          (keyword_in)
+          (keyword_array)
+          (field
+            (identifier))
+          (keyword_loop)
+          (assignment
+            (field
+              (identifier))
+            (binary_expression
+              (field
+                (identifier))
+              (subscript
+                (field
+                  (identifier))
+                (literal))))
+          (keyword_end)
+          (keyword_loop))
+        (keyword_return)
+        (field
+          (identifier))
+        (keyword_end)
+        (dollar_quote)))))
+
+================================================================================
+Labels on blocks and loops
+================================================================================
+
+create function f() returns int language plpgsql as $$
+<<outer>>
+declare
+  i int := 0;
+begin
+  <<lp>>
+  loop
+    i := i + 1;
+    continue lp when i = 2;
+    exit lp when i > 3;
+  end loop lp;
+  return outer.i;
+end;
+$$;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_function)
+      (object_reference
+        (identifier))
+      (function_arguments)
+      (keyword_returns)
+      (int
+        (keyword_int))
+      (function_language
+        (keyword_language)
+        (identifier))
+      (function_body
+        (keyword_as)
+        (dollar_quote)
+        (label
+          (identifier))
+        (keyword_declare)
+        (function_declaration
+          (identifier)
+          (int
+            (keyword_int))
+          (literal))
+        (keyword_begin)
+        (loop_statement
+          (label
+            (identifier))
+          (keyword_loop)
+          (assignment
+            (field
+              (identifier))
+            (binary_expression
+              (field
+                (identifier))
+              (literal)))
+          (continue_statement
+            (keyword_continue)
+            (identifier)
+            (keyword_when)
+            (binary_expression
+              (field
+                (identifier))
+              (literal)))
+          (exit_statement
+            (keyword_exit)
+            (identifier)
+            (keyword_when)
+            (binary_expression
+              (field
+                (identifier))
+              (literal)))
+          (keyword_end)
+          (keyword_loop)
+          (identifier))
+        (keyword_return)
+        (field
+          (object_reference
+            (identifier))
+          (identifier))
+        (keyword_end)
+        (dollar_quote)))))
+
+================================================================================
+Nested block
+================================================================================
+
+create function f() returns int language plpgsql as $$
+declare
+  x int := 1;
+begin
+  <<inner>>
+  declare
+    y int := 2;
+  begin
+    x := x + y;
+  end inner;
+  begin
+    x := x * 2;
+  end;
+  return x;
+end;
+$$;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_function)
+      (object_reference
+        (identifier))
+      (function_arguments)
+      (keyword_returns)
+      (int
+        (keyword_int))
+      (function_language
+        (keyword_language)
+        (identifier))
+      (function_body
+        (keyword_as)
+        (dollar_quote)
+        (keyword_declare)
+        (function_declaration
+          (identifier)
+          (int
+            (keyword_int))
+          (literal))
+        (keyword_begin)
+        (block
+          (label
+            (identifier))
+          (keyword_declare)
+          (function_declaration
+            (identifier)
+            (int
+              (keyword_int))
+            (literal))
+          (keyword_begin)
+          (assignment
+            (field
+              (identifier))
+            (binary_expression
+              (field
+                (identifier))
+              (field
+                (identifier))))
+          (keyword_end)
+          (identifier))
+        (block
+          (keyword_begin)
+          (assignment
+            (field
+              (identifier))
+            (binary_expression
+              (field
+                (identifier))
+              (literal)))
+          (keyword_end))
+        (keyword_return)
+        (field
+          (identifier))
+        (keyword_end)
+        (dollar_quote)))))
+
+================================================================================
+Anonymous block with declarations
+================================================================================
+
+DECLARE
+  l_count NUMBER := 0;
+BEGIN
+  l_count := l_count + 1;
+  IF l_count > 0 THEN
+    UPDATE t SET n = l_count;
+  END IF;
+END;
+
+--------------------------------------------------------------------------------
+
+(program
+  (block
+    (keyword_declare)
+    (function_declaration
+      (identifier)
+      (object_reference
+        (identifier))
+      (literal))
+    (keyword_begin)
+    (assignment
+      (field
+        (identifier))
+      (binary_expression
+        (field
+          (identifier))
+        (literal)))
+    (if_statement
+      (keyword_if)
+      (binary_expression
+        (field
+          (identifier))
+        (literal))
+      (keyword_then)
+      (statement
+        (update
+          (keyword_update)
+          (relation
+            (object_reference
+              (identifier)))
+          (keyword_set)
+          (assignment
+            (field
+              (identifier))
+            (field
+              (identifier)))))
+      (keyword_end)
+      (keyword_if))
+    (keyword_end)))

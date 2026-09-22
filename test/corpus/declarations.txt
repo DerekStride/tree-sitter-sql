@@ -1,0 +1,366 @@
+================================================================================
+Declarations with type attributes
+================================================================================
+
+create function f() returns int language plpgsql as $$
+declare
+  v_id t.id%type;
+  v_row t%rowtype;
+  v_cur c_emp%rowtype;
+begin
+  return v_row.id;
+end;
+$$;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_function)
+      (object_reference
+        (identifier))
+      (function_arguments)
+      (keyword_returns)
+      (int
+        (keyword_int))
+      (function_language
+        (keyword_language)
+        (identifier))
+      (function_body
+        (keyword_as)
+        (dollar_quote)
+        (keyword_declare)
+        (function_declaration
+          (identifier)
+          (type_attribute
+            (object_reference
+              (identifier)
+              (identifier))
+            (keyword_type)))
+        (function_declaration
+          (identifier)
+          (type_attribute
+            (object_reference
+              (identifier))
+            (keyword_rowtype)))
+        (function_declaration
+          (identifier)
+          (type_attribute
+            (object_reference
+              (identifier))
+            (keyword_rowtype)))
+        (keyword_begin)
+        (keyword_return)
+        (field
+          (object_reference
+            (identifier))
+          (identifier))
+        (keyword_end)
+        (dollar_quote)))))
+
+================================================================================
+Declarations with constant, not null and initialisers
+================================================================================
+
+create function f(int) returns int language plpgsql as $$
+declare
+  c constant int := 3;
+  n int not null default 0;
+  s text = 'ab';
+  q text := (select 'hello');
+  arg alias for $1;
+  other alias for arg;
+begin
+  return c + n;
+end;
+$$;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_function)
+      (object_reference
+        (identifier))
+      (function_arguments
+        (function_argument
+          (int
+            (keyword_int))))
+      (keyword_returns)
+      (int
+        (keyword_int))
+      (function_language
+        (keyword_language)
+        (identifier))
+      (function_body
+        (keyword_as)
+        (dollar_quote)
+        (keyword_declare)
+        (function_declaration
+          (identifier)
+          (keyword_constant)
+          (int
+            (keyword_int))
+          (literal))
+        (function_declaration
+          (identifier)
+          (int
+            (keyword_int))
+          (keyword_not)
+          (keyword_null)
+          (keyword_default)
+          (literal))
+        (function_declaration
+          (identifier)
+          (keyword_text)
+          (literal))
+        (function_declaration
+          (identifier)
+          (keyword_text)
+          (statement
+            (select
+              (keyword_select)
+              (select_expression
+                (term
+                  (literal))))))
+        (function_declaration
+          (identifier)
+          (keyword_alias)
+          (keyword_for)
+          (parameter))
+        (function_declaration
+          (identifier)
+          (keyword_alias)
+          (keyword_for)
+          (identifier))
+        (keyword_begin)
+        (keyword_return)
+        (binary_expression
+          (field
+            (identifier))
+          (field
+            (identifier)))
+        (keyword_end)
+        (dollar_quote)))))
+
+================================================================================
+Cursor declarations
+================================================================================
+
+create function f() returns int language plpgsql as $$
+declare
+  c1 cursor for select id from t;
+  c2 no scroll cursor (key int) for select id from t where id = key;
+  c3 scroll cursor is select 1;
+  cursor c4 is select * from departments;
+  cursor c5 (p_id number) return departments%rowtype is select * from departments where department_id = p_id;
+begin
+  return 0;
+end;
+$$;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_function)
+      (object_reference
+        (identifier))
+      (function_arguments)
+      (keyword_returns)
+      (int
+        (keyword_int))
+      (function_language
+        (keyword_language)
+        (identifier))
+      (function_body
+        (keyword_as)
+        (dollar_quote)
+        (keyword_declare)
+        (cursor_declaration
+          (identifier)
+          (keyword_cursor)
+          (keyword_for)
+          (statement
+            (select
+              (keyword_select)
+              (select_expression
+                (term
+                  (field
+                    (identifier)))))
+            (from
+              (keyword_from)
+              (relation
+                (object_reference
+                  (identifier))))))
+        (cursor_declaration
+          (identifier)
+          (keyword_no)
+          (keyword_scroll)
+          (keyword_cursor)
+          (function_arguments
+            (function_argument
+              (identifier)
+              (int
+                (keyword_int))))
+          (keyword_for)
+          (statement
+            (select
+              (keyword_select)
+              (select_expression
+                (term
+                  (field
+                    (identifier)))))
+            (from
+              (keyword_from)
+              (relation
+                (object_reference
+                  (identifier)))
+              (where
+                (keyword_where)
+                (binary_expression
+                  (field
+                    (identifier))
+                  (field
+                    (identifier)))))))
+        (cursor_declaration
+          (identifier)
+          (keyword_scroll)
+          (keyword_cursor)
+          (keyword_is)
+          (statement
+            (select
+              (keyword_select)
+              (select_expression
+                (term
+                  (literal))))))
+        (cursor_declaration
+          (keyword_cursor)
+          (identifier)
+          (keyword_is)
+          (statement
+            (select
+              (keyword_select)
+              (select_expression
+                (term
+                  (all_fields))))
+            (from
+              (keyword_from)
+              (relation
+                (object_reference
+                  (identifier))))))
+        (cursor_declaration
+          (keyword_cursor)
+          (identifier)
+          (function_arguments
+            (function_argument
+              (identifier)
+              (object_reference
+                (identifier))))
+          (keyword_return)
+          (type_attribute
+            (object_reference
+              (identifier))
+            (keyword_rowtype))
+          (keyword_is)
+          (statement
+            (select
+              (keyword_select)
+              (select_expression
+                (term
+                  (all_fields))))
+            (from
+              (keyword_from)
+              (relation
+                (object_reference
+                  (identifier)))
+              (where
+                (keyword_where)
+                (binary_expression
+                  (field
+                    (identifier))
+                  (field
+                    (identifier)))))))
+        (keyword_begin)
+        (keyword_return)
+        (literal)
+        (keyword_end)
+        (dollar_quote)))))
+
+================================================================================
+Type attributes in parameters
+================================================================================
+
+CREATE OR REPLACE PROCEDURE add_job_history
+  (  p_emp_id          job_history.employee_id%type
+   , p_start_date      job_history.start_date%type
+   , p_row             job_history%rowtype
+   )
+AS $$
+BEGIN
+  INSERT INTO job_history (employee_id, start_date)
+    VALUES (p_emp_id, p_start_date);
+END;
+$$;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_procedure
+      (keyword_create)
+      (keyword_or)
+      (keyword_replace)
+      (keyword_procedure)
+      (object_reference
+        (identifier))
+      (function_arguments
+        (function_argument
+          (identifier)
+          (type_attribute
+            (object_reference
+              (identifier)
+              (identifier))
+            (keyword_type)))
+        (function_argument
+          (identifier)
+          (type_attribute
+            (object_reference
+              (identifier)
+              (identifier))
+            (keyword_type)))
+        (function_argument
+          (identifier)
+          (type_attribute
+            (object_reference
+              (identifier))
+            (keyword_rowtype))))
+      (procedure_body
+        (keyword_as)
+        (dollar_quote)
+        (keyword_begin)
+        (statement
+          (insert
+            (keyword_insert)
+            (keyword_into)
+            (object_reference
+              (identifier))
+            (list
+              (column
+                (identifier))
+              (column
+                (identifier)))
+            (keyword_values)
+            (list
+              (field
+                (identifier))
+              (field
+                (identifier)))))
+        (keyword_end)
+        (dollar_quote)))))

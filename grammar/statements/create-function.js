@@ -62,7 +62,7 @@ export default {
   function_argument: $ => seq(
     optional($._argmode),
     optional($.identifier),
-    $._type,
+    choice($._type, $.type_attribute),
     optional(
       seq(
         choice($.keyword_default, '='),
@@ -78,29 +78,74 @@ export default {
 
   _function_return: $ => seq(
     $.keyword_return,
-    $._expression,
+    optional($._expression),
   ),
 
-  function_declaration: $ => seq(
-    $.identifier,
-    $._type,
-    optional(
-      seq(
-        ':=',
-        choice(
-          wrapped_in_parenthesis($.statement),
-          // TODO are there more possibilities here? We can't use `_expression` since
-          // that includes subqueries
-          $.literal,
-        ),
+  _declare_section: $ => seq(
+    $.keyword_declare,
+    repeat1(
+      choice(
+        $.function_declaration,
+        $.cursor_declaration,
       ),
     ),
+  ),
+
+  function_declaration: $ => choice(
+    seq(
+      $.identifier,
+      optional($.keyword_constant),
+      choice($._type, $.type_attribute),
+      optional($._not_null),
+      optional(
+        seq(
+          choice(':=', '=', $.keyword_default),
+          choice(
+            wrapped_in_parenthesis($.statement),
+            // TODO are there more possibilities here? We can't use `_expression` since
+            // that includes subqueries
+            $.literal,
+          ),
+        ),
+      ),
+      ';',
+    ),
+    seq(
+      $.identifier,
+      $.keyword_alias,
+      $.keyword_for,
+      choice($.parameter, $.identifier),
+      ';',
+    ),
+  ),
+
+  // `employees.salary%type`, `employees%rowtype`
+  type_attribute: $ => seq(
+    $.object_reference,
+    '%',
+    choice($.keyword_type, $.keyword_rowtype),
+  ),
+
+  cursor_declaration: $ => seq(
+    choice(
+      seq(
+        $.identifier,
+        optional(seq(optional($.keyword_no), $.keyword_scroll)),
+        $.keyword_cursor,
+      ),
+      seq($.keyword_cursor, $.identifier),
+    ),
+    optional($.function_arguments),
+    optional(seq($.keyword_return, choice($._type, $.type_attribute))),
+    choice($.keyword_for, $.keyword_is),
+    $.statement,
     ';',
   ),
 
   _function_body_statement: $ => choice(
     $.statement,
     $._function_return,
+    $._procedural_statement,
   ),
 
   _tsql_function_body_statement: $ => seq(
@@ -127,32 +172,17 @@ export default {
     seq(
       $.keyword_begin,
       $.keyword_atomic,
-      repeat1(
-        seq(
-          $._function_body_statement,
-          ';',
-        ),
-      ),
+      $._procedural_statements,
       $.keyword_end,
     ),
     seq(
       $.keyword_as,
       alias($._dollar_quoted_string_start_tag, $.dollar_quote),
-      optional(
-        seq(
-          $.keyword_declare,
-          repeat1(
-            $.function_declaration,
-          ),
-        ),
-      ),
+      optional($.label),
+      optional($._declare_section),
       $.keyword_begin,
-      repeat1(
-        seq(
-          $._function_body_statement,
-          ';',
-        ),
-      ),
+      $._procedural_statements,
+      optional($._exception_handlers),
       $.keyword_end,
       optional(';'),
       alias($._dollar_quoted_string_end_tag, $.dollar_quote),
@@ -170,7 +200,12 @@ export default {
     seq(
       $.keyword_as,
       alias($._dollar_quoted_string_start_tag, $.dollar_quote),
-      $._function_body_statement,
+      // a single SQL statement, e.g. a `language sql` body; a procedural
+      // statement here would be ambiguous with the `begin ... end` form
+      choice(
+        $.statement,
+        $._function_return,
+      ),
       optional(';'),
       alias($._dollar_quoted_string_end_tag, $.dollar_quote),
     ),
