@@ -39,3 +39,8 @@ An upstream dialect-selection or stateful delimiter policy would be needed to
 interpret this text differently for InterBase without changing the meaning of
 the identical arithmetic expression in other dialects.
 
+## Neovim
+
+See [the local preview instructions](../contrib/neovim/README.md) for the matching
+Neovim query extension. The grammar repository's queries use Tree-sitter's
+capture names; the extension uses Neovim's current capture names.
