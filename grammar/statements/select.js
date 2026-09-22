@@ -55,6 +55,8 @@ export default {
       optional(
         seq(
           $.keyword_into,
+          // PL/pgSQL
+          optional($.keyword_strict),
           $.select_expression,
         ),
       ),
@@ -436,6 +438,8 @@ export default {
   returning: $ => seq(
     $.keyword_returning,
     $.select_expression,
+    // PL/pgSQL
+    optional($._into_targets),
   ),
 
 };

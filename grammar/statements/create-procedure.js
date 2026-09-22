@@ -31,33 +31,18 @@ export default {
     seq(
       $.keyword_begin,
       $.keyword_atomic,
-      repeat1(
-        seq(
-          $._function_body_statement,
-          ';',
-        ),
-      ),
+      $._procedural_statements,
       $.keyword_end,
     ),
     // Dollar-quoted with optional DECLARE (PostgreSQL)
     seq(
       $.keyword_as,
       alias($._dollar_quoted_string_start_tag, $.dollar_quote),
-      optional(
-        seq(
-          $.keyword_declare,
-          repeat1(
-            $.function_declaration,
-          ),
-        ),
-      ),
+      optional($.label),
+      optional($._declare_section),
       $.keyword_begin,
-      repeat1(
-        seq(
-          $._function_body_statement,
-          ';',
-        ),
-      ),
+      $._procedural_statements,
+      optional($._exception_handlers),
       $.keyword_end,
       optional(';'),
       alias($._dollar_quoted_string_end_tag, $.dollar_quote),
@@ -77,7 +62,12 @@ export default {
     seq(
       $.keyword_as,
       alias($._dollar_quoted_string_start_tag, $.dollar_quote),
-      $._function_body_statement,
+      // a single SQL statement, e.g. a `language sql` body; a procedural
+      // statement here would be ambiguous with the `begin ... end` form
+      choice(
+        $.statement,
+        $._function_return,
+      ),
       optional(';'),
       alias($._dollar_quoted_string_end_tag, $.dollar_quote),
     ),

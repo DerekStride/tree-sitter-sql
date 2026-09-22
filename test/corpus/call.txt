@@ -1,0 +1,70 @@
+================================================================================
+Call a procedure
+================================================================================
+
+call p(1, 'x');
+call schema_name.p();
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (call_statement
+      (keyword_call)
+      (invocation
+        (object_reference
+          (identifier))
+        (term
+          (literal))
+        (term
+          (literal)))))
+  (statement
+    (call_statement
+      (keyword_call)
+      (invocation
+        (object_reference
+          (identifier)
+          (identifier))))))
+
+================================================================================
+Call a procedure from a procedure body
+================================================================================
+
+create procedure outer_p(a int) language plpgsql as $$
+begin
+  call inner_p(a);
+end;
+$$;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_procedure
+      (keyword_create)
+      (keyword_procedure)
+      (object_reference
+        (identifier))
+      (function_arguments
+        (function_argument
+          (identifier)
+          (int
+            (keyword_int))))
+      (function_language
+        (keyword_language)
+        (identifier))
+      (procedure_body
+        (keyword_as)
+        (dollar_quote)
+        (keyword_begin)
+        (statement
+          (call_statement
+            (keyword_call)
+            (invocation
+              (object_reference
+                (identifier))
+              (term
+                (field
+                  (identifier))))))
+        (keyword_end)
+        (dollar_quote)))))
