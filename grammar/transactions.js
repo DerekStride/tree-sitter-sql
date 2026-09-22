@@ -6,12 +6,7 @@ export default {
       $.keyword_transaction,
     ),
     optional(';'),
-    repeat(
-      seq(
-        $.statement,
-        ';'
-      ),
-    ),
+    optional($._procedural_statements),
     choice(
       $._commit,
       $._rollback,

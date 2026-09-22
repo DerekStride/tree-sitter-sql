@@ -1,0 +1,489 @@
+================================================================================
+Raise with a format string and arguments
+================================================================================
+
+create function f(a int) returns void language plpgsql as $$
+begin
+  raise notice 'value is %', a;
+  raise exception 'bad value % for %', a, 'x';
+  raise debug 'd';
+  raise log 'l';
+  raise info 'i';
+  raise warning 'w';
+  raise 'plain';
+end;
+$$;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_function)
+      (object_reference
+        (identifier))
+      (function_arguments
+        (function_argument
+          (identifier)
+          (int
+            (keyword_int))))
+      (keyword_returns)
+      (object_reference
+        (identifier))
+      (function_language
+        (keyword_language)
+        (identifier))
+      (function_body
+        (keyword_as)
+        (dollar_quote)
+        (keyword_begin)
+        (raise_statement
+          (keyword_raise)
+          (keyword_notice)
+          (literal)
+          (field
+            (identifier)))
+        (raise_statement
+          (keyword_raise)
+          (keyword_exception)
+          (literal)
+          (field
+            (identifier))
+          (literal))
+        (raise_statement
+          (keyword_raise)
+          (keyword_debug)
+          (literal))
+        (raise_statement
+          (keyword_raise)
+          (keyword_log)
+          (literal))
+        (raise_statement
+          (keyword_raise)
+          (keyword_info)
+          (literal))
+        (raise_statement
+          (keyword_raise)
+          (keyword_warning)
+          (literal))
+        (raise_statement
+          (keyword_raise)
+          (literal))
+        (keyword_end)
+        (dollar_quote)))))
+
+================================================================================
+Raise with a condition name, sqlstate and using options
+================================================================================
+
+create function f() returns void language plpgsql as $$
+begin
+  raise unique_violation;
+  raise exception sqlstate 'P0001';
+  raise exception 'no' using errcode = 'P0001', hint = 'fix it', detail := 'why';
+  raise using message = 'm';
+  raise;
+end;
+$$;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_function)
+      (object_reference
+        (identifier))
+      (function_arguments)
+      (keyword_returns)
+      (object_reference
+        (identifier))
+      (function_language
+        (keyword_language)
+        (identifier))
+      (function_body
+        (keyword_as)
+        (dollar_quote)
+        (keyword_begin)
+        (raise_statement
+          (keyword_raise)
+          (field
+            (identifier)))
+        (raise_statement
+          (keyword_raise)
+          (keyword_exception)
+          (keyword_sqlstate)
+          (literal))
+        (raise_statement
+          (keyword_raise)
+          (keyword_exception)
+          (literal)
+          (keyword_using)
+          (raise_option
+            (keyword_errcode)
+            (literal))
+          (raise_option
+            (keyword_hint)
+            (literal))
+          (raise_option
+            (keyword_detail)
+            (literal)))
+        (raise_statement
+          (keyword_raise)
+          (keyword_using)
+          (raise_option
+            (keyword_message)
+            (literal)))
+        (raise_statement
+          (keyword_raise))
+        (keyword_end)
+        (dollar_quote)))))
+
+================================================================================
+Assert
+================================================================================
+
+create function f(a int) returns int language plpgsql as $$
+begin
+  assert a > 0;
+  assert a > 0, 'a must be positive';
+  return a;
+end;
+$$;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_function)
+      (object_reference
+        (identifier))
+      (function_arguments
+        (function_argument
+          (identifier)
+          (int
+            (keyword_int))))
+      (keyword_returns)
+      (int
+        (keyword_int))
+      (function_language
+        (keyword_language)
+        (identifier))
+      (function_body
+        (keyword_as)
+        (dollar_quote)
+        (keyword_begin)
+        (assert_statement
+          (keyword_assert)
+          (binary_expression
+            (field
+              (identifier))
+            (literal)))
+        (assert_statement
+          (keyword_assert)
+          (binary_expression
+            (field
+              (identifier))
+            (literal))
+          (literal))
+        (keyword_return)
+        (field
+          (identifier))
+        (keyword_end)
+        (dollar_quote)))))
+
+================================================================================
+Exception handlers in a function body
+================================================================================
+
+create function f() returns int language plpgsql as $$
+begin
+  insert into t values (1);
+  return 1;
+exception
+  when unique_violation then
+    return 0;
+  when sqlstate '22012' or division_by_zero then
+    return -2;
+  when others then
+    raise notice 'oops: % %', sqlstate, sqlerrm;
+    return -1;
+end;
+$$;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_function)
+      (object_reference
+        (identifier))
+      (function_arguments)
+      (keyword_returns)
+      (int
+        (keyword_int))
+      (function_language
+        (keyword_language)
+        (identifier))
+      (function_body
+        (keyword_as)
+        (dollar_quote)
+        (keyword_begin)
+        (statement
+          (insert
+            (keyword_insert)
+            (keyword_into)
+            (object_reference
+              (identifier))
+            (keyword_values)
+            (list
+              (literal))))
+        (keyword_return)
+        (literal)
+        (keyword_exception)
+        (exception_handler
+          (keyword_when)
+          (identifier)
+          (keyword_then)
+          (keyword_return)
+          (literal))
+        (exception_handler
+          (keyword_when)
+          (keyword_sqlstate)
+          (literal)
+          (keyword_or)
+          (identifier)
+          (keyword_then)
+          (keyword_return)
+          (literal))
+        (exception_handler
+          (keyword_when)
+          (keyword_others)
+          (keyword_then)
+          (raise_statement
+            (keyword_raise)
+            (keyword_notice)
+            (literal)
+            (field
+              (identifier))
+            (field
+              (identifier)))
+          (keyword_return)
+          (literal))
+        (keyword_end)
+        (dollar_quote)))))
+
+================================================================================
+Exception handlers in a nested block and a procedure
+================================================================================
+
+create procedure p() language plpgsql as $$
+declare
+  x int := 1;
+begin
+  begin
+    x := x / 0;
+  exception when others then
+    x := 0;
+  end;
+exception
+  when others then
+    null;
+end;
+$$;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_procedure
+      (keyword_create)
+      (keyword_procedure)
+      (object_reference
+        (identifier))
+      (function_arguments)
+      (function_language
+        (keyword_language)
+        (identifier))
+      (procedure_body
+        (keyword_as)
+        (dollar_quote)
+        (keyword_declare)
+        (function_declaration
+          (identifier)
+          (int
+            (keyword_int))
+          (literal))
+        (keyword_begin)
+        (block
+          (keyword_begin)
+          (assignment
+            (field
+              (identifier))
+            (binary_expression
+              (field
+                (identifier))
+              (literal)))
+          (keyword_exception)
+          (exception_handler
+            (keyword_when)
+            (keyword_others)
+            (keyword_then)
+            (assignment
+              (field
+                (identifier))
+              (literal)))
+          (keyword_end))
+        (keyword_exception)
+        (exception_handler
+          (keyword_when)
+          (keyword_others)
+          (keyword_then)
+          (keyword_null))
+        (keyword_end)
+        (dollar_quote)))))
+
+================================================================================
+Get diagnostics
+================================================================================
+
+create function f() returns int language plpgsql as $$
+declare
+  n int;
+  ctx text;
+begin
+  update t set a = 1;
+  get diagnostics n = row_count;
+  get current diagnostics n := row_count, ctx = pg_context;
+  return n;
+exception when others then
+  get stacked diagnostics ctx = pg_exception_context;
+  return -1;
+end;
+$$;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_function)
+      (object_reference
+        (identifier))
+      (function_arguments)
+      (keyword_returns)
+      (int
+        (keyword_int))
+      (function_language
+        (keyword_language)
+        (identifier))
+      (function_body
+        (keyword_as)
+        (dollar_quote)
+        (keyword_declare)
+        (function_declaration
+          (identifier)
+          (int
+            (keyword_int)))
+        (function_declaration
+          (identifier)
+          (keyword_text))
+        (keyword_begin)
+        (statement
+          (update
+            (keyword_update)
+            (relation
+              (object_reference
+                (identifier)))
+            (keyword_set)
+            (assignment
+              (field
+                (identifier))
+              (literal))))
+        (get_diagnostics
+          (keyword_get)
+          (keyword_diagnostics)
+          (field
+            (identifier))
+          (identifier))
+        (get_diagnostics
+          (keyword_get)
+          (keyword_current)
+          (keyword_diagnostics)
+          (field
+            (identifier))
+          (identifier)
+          (field
+            (identifier))
+          (identifier))
+        (keyword_return)
+        (field
+          (identifier))
+        (keyword_exception)
+        (exception_handler
+          (keyword_when)
+          (keyword_others)
+          (keyword_then)
+          (get_diagnostics
+            (keyword_get)
+            (keyword_stacked)
+            (keyword_diagnostics)
+            (field
+              (identifier))
+            (identifier))
+          (keyword_return)
+          (literal))
+        (keyword_end)
+        (dollar_quote)))))
+
+================================================================================
+Exception handlers in an anonymous block
+================================================================================
+
+BEGIN
+  DELETE FROM t WHERE id = 1;
+EXCEPTION
+  WHEN NO_DATA_FOUND THEN
+    NULL;
+  WHEN OTHERS THEN
+    RAISE;
+END;
+
+--------------------------------------------------------------------------------
+
+(program
+  (block
+    (keyword_begin)
+    (statement
+      (delete
+        (keyword_delete))
+      (from
+        (keyword_from)
+        (object_reference
+          (identifier))
+        (where
+          (keyword_where)
+          (binary_expression
+            (field
+              (identifier))
+            (literal)))))
+    (keyword_exception)
+    (exception_handler
+      (keyword_when)
+      (identifier)
+      (keyword_then)
+      (keyword_null))
+    (exception_handler
+      (keyword_when)
+      (keyword_others)
+      (keyword_then)
+      (raise_statement
+        (keyword_raise)))
+    (keyword_end)))
