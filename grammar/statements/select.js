@@ -59,7 +59,7 @@ export default {
           $.select_expression,
         ),
       ),
-      optional($.from),
+      optional(seq($.from, optional($.interbase_into))),
   ),
 
   select: $ => seq(
@@ -225,6 +225,7 @@ export default {
     optional($.window_clause),
     optional($.order_by),
     optional($.limit),
+    optional($.interbase_rows),
   ),
 
   relation: $ => prec.right(

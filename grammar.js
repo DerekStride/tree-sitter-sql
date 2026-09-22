@@ -30,6 +30,7 @@ export default grammar({
     [$.between_expression, $.binary_expression],
     [$._subquery_body, $._select_statement],
     [$.subquery, $._subquery_body],
+    [$._tsql_procedure_body_statement, $.interbase_block],
     [$.time],
     [$.timestamp],
   ],
@@ -57,7 +58,7 @@ export default grammar({
 
   rules: {
     program: $ => seq(
-      // any number of transactions, statements, or blocks with a terminating ;
+      // Script terminators are separate from semicolons inside PSQL blocks.
       repeat(
         seq(
           choice(

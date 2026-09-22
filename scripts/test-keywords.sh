@@ -5,11 +5,11 @@ mkdir -p tmp/tree-sitter-sql/
 cat src/grammar.json |
   jq '.rules | to_entries[] | select(.key | contains("keyword")) | .key' |
   tr -d '"' |
-  sort > tmp/tree-sitter-sql/keywords.txt
+  sort -u > tmp/tree-sitter-sql/keywords.txt
 
 cat queries/highlights.scm |
   grep -o "keyword\w\+" |
-  sort > tmp/tree-sitter-sql/highlights.txt
+  sort -u > tmp/tree-sitter-sql/highlights.txt
 
 keywords=$(comm -3 tmp/tree-sitter-sql/keywords.txt tmp/tree-sitter-sql/highlights.txt)
 

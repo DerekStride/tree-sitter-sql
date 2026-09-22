@@ -15,6 +15,7 @@ import copy_rules from "./copy.js";
 import select_rules from "./select.js";
 import set_rules from "./set.js";
 import refresh_rules from "./refresh.js";
+import interbase_rules from "./interbase.js";
 
 export default {
 
@@ -41,6 +42,7 @@ export default {
       $._dml_write,
       optional_parenthesis($._dml_read),
       $.while_statement,
+      $.interbase_execute_procedure,
     ),
   ),
 
@@ -74,6 +76,9 @@ export default {
   ),
 
   _ddl_statement: $ => choice(
+    $.interbase_procedure,
+    $.interbase_trigger,
+    $.interbase_generator,
     $._create_statement,
     $._alter_statement,
     $._drop_statement,
@@ -93,6 +98,7 @@ export default {
   ...optimize_rules,
   ...merge_rules,
   ...refresh_rules,
+  ...interbase_rules,
   ...comment_rules,
 
   _dml_write: $ => seq(

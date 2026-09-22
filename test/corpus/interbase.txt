@@ -1,0 +1,67 @@
+================================================================================
+InterBase procedure parameters and return values
+================================================================================
+
+CREATE PROCEDURE p (id INTEGER)
+RETURNS (result SMALLINT)
+AS
+BEGIN
+  SUSPEND;
+END;
+ALTER TABLE orders ADD flag CHAR(1);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (interbase_procedure
+      (keyword_create)
+      (keyword_procedure)
+      (object_reference (identifier))
+      (function_arguments (function_argument (identifier) (int (keyword_int))))
+      (keyword_returns)
+      (function_arguments (function_argument (identifier) (smallint (keyword_smallint))))
+      (keyword_as)
+      (interbase_block
+        (keyword_begin)
+        (keyword_suspend)
+        (keyword_end))))
+  (statement
+    (alter_table
+      (keyword_alter)
+      (keyword_table)
+      (object_reference (identifier))
+      (add_column
+        (keyword_add)
+        (column_definition (identifier) (char (keyword_char) (literal)))))))
+
+================================================================================
+InterBase declaration and assignment
+================================================================================
+
+ALTER PROCEDURE p AS
+DECLARE VARIABLE x INTEGER;
+BEGIN
+  x = 1;
+  EXIT;
+END;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (interbase_procedure
+      (keyword_alter)
+      (keyword_procedure)
+      (object_reference (identifier))
+      (keyword_as)
+      (interbase_declaration
+        (keyword_declare)
+        (keyword_variable)
+        (identifier)
+        (int (keyword_int)))
+      (interbase_block
+        (keyword_begin)
+        (interbase_assignment (field (identifier)) (literal))
+        (keyword_exit)
+        (keyword_end)))))

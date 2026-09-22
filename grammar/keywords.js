@@ -1,6 +1,21 @@
 import { make_keyword } from "./helpers.js";
 
 export default {
+  keyword_variable: _ => make_keyword("variable"),
+  keyword_suspend: _ => make_keyword("suspend"),
+  keyword_exit: _ => make_keyword("exit"),
+  keyword_returning_values: _ => make_keyword("returning_values"),
+  keyword_exception: _ => make_keyword("exception"),
+  keyword_sqlcode: _ => make_keyword("sqlcode"),
+  keyword_gdscode: _ => make_keyword("gdscode"),
+  keyword_blob: _ => make_keyword("blob"),
+  keyword_sub_type: _ => make_keyword("sub_type"),
+  keyword_segment: _ => make_keyword("segment"),
+  keyword_size: _ => make_keyword("size"),
+  keyword_active: _ => make_keyword("active"),
+  keyword_inactive: _ => make_keyword("inactive"),
+  keyword_position: _ => make_keyword("position"),
+  keyword_generator: _ => make_keyword("generator"),
 
   keyword_select: _ => make_keyword("select"),
   keyword_delete: _ => make_keyword("delete"),

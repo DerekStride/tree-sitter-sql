@@ -43,6 +43,7 @@ export default {
         $.keyword_xml,
 
         $.keyword_bytea,
+        $.interbase_blob,
         $.keyword_inet,
 
         $.enum,
@@ -80,6 +81,12 @@ export default {
       seq($.keyword_array, optional($._array_size_definition)),
       repeat1($._array_size_definition),
     ),
+  ),
+
+  interbase_blob: $ => seq(
+    $.keyword_blob,
+    optional(seq($.keyword_sub_type, choice(alias($._integer, $.literal), $.identifier))),
+    optional(seq($.keyword_segment, $.keyword_size, alias($._natural_number, $.literal))),
   ),
 
   _array_size_definition: $ => seq(
