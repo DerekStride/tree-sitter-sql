@@ -1499,3 +1499,192 @@ RETURNS int
         (field
           (identifier))
         (keyword_end)))))
+
+================================================================================
+Function with SET configuration parameter (equals form)
+================================================================================
+
+create function public.foo()
+returns int
+set search_path = 'public'
+language sql
+return 1;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_function)
+      (object_reference
+        schema: (identifier)
+        name: (identifier))
+      (function_arguments)
+      (keyword_returns)
+      (int
+        (keyword_int))
+      (function_set
+        (keyword_set)
+        parameter: (identifier)
+        (literal))
+      (function_language
+        (keyword_language)
+        (identifier))
+      (function_body
+        (keyword_return)
+        (literal)))))
+
+================================================================================
+Function with SET configuration parameter (TO form)
+================================================================================
+
+create function public.foo()
+returns int
+set search_path to 'public'
+language sql
+return 1;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_function)
+      (object_reference
+        schema: (identifier)
+        name: (identifier))
+      (function_arguments)
+      (keyword_returns)
+      (int
+        (keyword_int))
+      (function_set
+        (keyword_set)
+        parameter: (identifier)
+        (keyword_to)
+        (literal))
+      (function_language
+        (keyword_language)
+        (identifier))
+      (function_body
+        (keyword_return)
+        (literal)))))
+
+================================================================================
+Function with SET configuration parameter TO DEFAULT
+================================================================================
+
+create function public.foo()
+returns int
+set search_path to default
+language sql
+return 1;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_function)
+      (object_reference
+        schema: (identifier)
+        name: (identifier))
+      (function_arguments)
+      (keyword_returns)
+      (int
+        (keyword_int))
+      (function_set
+        (keyword_set)
+        parameter: (identifier)
+        (keyword_to)
+        (keyword_default))
+      (function_language
+        (keyword_language)
+        (identifier))
+      (function_body
+        (keyword_return)
+        (literal)))))
+
+================================================================================
+Function with multiple SET configuration parameters
+================================================================================
+
+create function public.foo()
+returns int
+set search_path = 'public'
+set enable_seqscan = 'off'
+language sql
+return 1;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_function)
+      (object_reference
+        schema: (identifier)
+        name: (identifier))
+      (function_arguments)
+      (keyword_returns)
+      (int
+        (keyword_int))
+      (function_set
+        (keyword_set)
+        parameter: (identifier)
+        (literal))
+      (function_set
+        (keyword_set)
+        parameter: (identifier)
+        (literal))
+      (function_language
+        (keyword_language)
+        (identifier))
+      (function_body
+        (keyword_return)
+        (literal)))))
+
+================================================================================
+Function with SET configuration parameter after body
+================================================================================
+
+create function public.foo()
+returns int
+language sql
+as $$select 1$$
+set search_path = 'public';
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_function)
+      (object_reference
+        schema: (identifier)
+        name: (identifier))
+      (function_arguments)
+      (keyword_returns)
+      (int
+        (keyword_int))
+      (function_language
+        (keyword_language)
+        (identifier))
+      (function_body
+        (keyword_as)
+        (dollar_quote)
+        (statement
+          (select
+            (keyword_select)
+            (select_expression
+              (term
+                value: (literal)))))
+        (dollar_quote))
+      (function_set
+        (keyword_set)
+        parameter: (identifier)
+        (literal)))))

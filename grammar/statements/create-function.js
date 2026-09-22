@@ -31,6 +31,7 @@ export default {
         $.function_cost,
         $.function_rows,
         $.function_support,
+        $.function_set,
       ),
     ),
     // ensure that there's only one function body -- other specifiers are less
@@ -47,6 +48,7 @@ export default {
         $.function_cost,
         $.function_rows,
         $.function_support,
+        $.function_set,
       ),
     ),
   ),
@@ -241,6 +243,19 @@ export default {
   function_support: $ => seq(
     $.keyword_support,
     alias($._literal_string, $.literal),
+  ),
+
+  function_set: $ => seq(
+    $.keyword_set,
+    field('parameter', $.identifier),
+    choice($.keyword_to, "="),
+    choice(
+      $.literal,
+      $.identifier,
+      $.keyword_on,
+      $.keyword_off,
+      $.keyword_default,
+    ),
   ),
 
 };
