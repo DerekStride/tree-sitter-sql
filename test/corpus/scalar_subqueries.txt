@@ -1,0 +1,42 @@
+================================================================================
+Parenthesized comparison of a scalar subquery
+================================================================================
+
+SELECT id FROM orders WHERE ((SELECT id FROM other_orders) = 1);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select (keyword_select) (select_expression (term (field (identifier)))))
+    (from
+      (keyword_from)
+      (relation (object_reference (identifier)))
+      (where
+        (keyword_where)
+        (parenthesized_expression
+          (binary_expression
+            (subquery
+              (select (keyword_select) (select_expression (term (field (identifier)))))
+              (from (keyword_from) (relation (object_reference (identifier)))))
+            (literal)))))))
+
+================================================================================
+Extra parentheses around a table subquery preserve the tree
+================================================================================
+
+SELECT * FROM ((SELECT id FROM orders)) AS x;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select (keyword_select) (select_expression (term (all_fields))))
+    (from
+      (keyword_from)
+      (relation
+        (subquery
+          (select (keyword_select) (select_expression (term (field (identifier)))))
+          (from (keyword_from) (relation (object_reference (identifier)))))
+        (keyword_as)
+        (identifier)))))
