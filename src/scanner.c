@@ -6,7 +6,8 @@
 enum TokenType {
   DOLLAR_QUOTED_STRING_START_TAG,
   DOLLAR_QUOTED_STRING_END_TAG,
-  DOLLAR_QUOTED_STRING
+  DOLLAR_QUOTED_STRING,
+  CARET_OPERATOR
 };
 
 #define MALLOC_STRING_SIZE 1024
@@ -80,8 +81,82 @@ static char* scan_dollar_string_tag(TSLexer *lexer) {
   }
 }
 
+// '^' is also a SQL arithmetic operator. Looking past trivia lets a script
+// terminator end even a low-precedence expression (WHERE id = 1^), without
+// changing arithmetic precedence or treating a newline as an implicit delimiter.
+static bool scan_caret_operator(TSLexer *lexer) {
+  lexer->advance(lexer, false);
+  lexer->mark_end(lexer);
+  // Leave PostgreSQL's ^@ and ^> operators to the ordinary lexer.
+  if (lexer->lookahead == '@' || lexer->lookahead == '>') return false;
+  lexer->result_symbol = CARET_OPERATOR;
+
+  for (;;) {
+    while (iswspace(lexer->lookahead)) lexer->advance(lexer, false);
+    if (lexer->lookahead == '-') {
+      lexer->advance(lexer, false);
+      if (lexer->lookahead != '-') return true;
+      while (!lexer->eof(lexer) && lexer->lookahead != '\n') lexer->advance(lexer, false);
+    } else if (lexer->lookahead == '/') {
+      lexer->advance(lexer, false);
+      if (lexer->lookahead != '*') return true;
+      lexer->advance(lexer, false);
+      bool closed = false;
+      while (!lexer->eof(lexer)) {
+        if (lexer->lookahead == '*') {
+          lexer->advance(lexer, false);
+          if (lexer->lookahead == '/') {
+            lexer->advance(lexer, false);
+            closed = true;
+            break;
+          }
+        } else {
+          lexer->advance(lexer, false);
+        }
+      }
+      if (!closed) break;
+    } else {
+      break;
+    }
+  }
+
+  if (!lexer->eof(lexer)) {
+    // Statement-start keywords cannot be unquoted arithmetic operands. Quoted
+    // identifiers and ordinary names still go through the arithmetic lexer.
+    static const char *const statements[] = {
+      "ALTER", "BEGIN", "CALL", "COMMENT", "COMMIT", "CONNECT", "COPY",
+      "CREATE", "DELETE", "DROP", "END", "EXECUTE", "EXPLAIN", "GRANT",
+      "INSERT", "MERGE", "OPTIMIZE", "REFRESH", "RENAME", "REPLACE", "RESET", "REVOKE",
+      "ROLLBACK", "SELECT", "SET", "SHOW", "TRUNCATE", "UNLOAD", "UPDATE",
+      "USE", "VACUUM", "WHILE", "WITH",
+    };
+    char word[16];
+    unsigned length = 0;
+    while (iswalnum(lexer->lookahead) || lexer->lookahead == '_' || lexer->lookahead == '$') {
+      if (length == sizeof(word) - 1 || lexer->lookahead > 127) return true;
+      word[length++] = (char)towupper(lexer->lookahead);
+      lexer->advance(lexer, false);
+    }
+    word[length] = '\0';
+    bool statement = false;
+    for (unsigned i = 0; i < sizeof(statements) / sizeof(statements[0]); i++) {
+      if (strcmp(word, statements[i]) == 0) {
+        statement = true;
+        break;
+      }
+    }
+    return !statement;
+  }
+
+  return false;
+}
+
 bool tree_sitter_sql_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols) {
   LexerState *state = (LexerState*)payload;
+  if (valid_symbols[CARET_OPERATOR]) {
+    while (iswspace(lexer->lookahead)) lexer->advance(lexer, true);
+    if (lexer->lookahead == '^') return scan_caret_operator(lexer);
+  }
   if (valid_symbols[DOLLAR_QUOTED_STRING_START_TAG] && state->start_tag == NULL) {
     while (iswspace(lexer->lookahead)) lexer->advance(lexer, true);
 

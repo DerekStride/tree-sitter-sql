@@ -20,6 +20,7 @@ export default grammar({
     $._dollar_quoted_string_start_tag,
     $._dollar_quoted_string_end_tag,
     $._dollar_quoted_string,
+    $._caret_operator,
   ],
 
   conflicts: $ => [
@@ -66,7 +67,7 @@ export default grammar({
             $.statement,
             $.block,
           ),
-          ';',
+          choice(';', '^'),
         ),
       ),
       // optionally, a single statement without a terminating ;

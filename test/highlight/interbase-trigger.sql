@@ -9,7 +9,7 @@ BEGIN
 --    ^ variable
   IF (NEW.total < 0) THEN
     EXCEPTION invalid_total;
-END;
+END^
 -- ^ punctuation.delimiter
 
 ALTER TRIGGER orders_bi AS
@@ -19,4 +19,4 @@ BEGIN
   NEW.updated_at = stamp;
   IF (OLD.total <> NEW.total) THEN
     EXECUTE PROCEDURE publish_order(NEW.id);
-END;
+END^

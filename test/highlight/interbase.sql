@@ -40,6 +40,6 @@ BEGIN
     orderok = 0;
     EXIT;
   END
-END;
+END^
 
-SELECT '^not a terminator', ':not_a_parameter', 2 ^ 3 FROM RDB$DATABASE;
+SELECT '^not a terminator', ':not_a_parameter', 2 ^ 3 FROM RDB$DATABASE^

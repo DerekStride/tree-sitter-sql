@@ -16,6 +16,7 @@ export default {
   keyword_inactive: _ => make_keyword("inactive"),
   keyword_position: _ => make_keyword("position"),
   keyword_generator: _ => make_keyword("generator"),
+  keyword_term: _ => make_keyword("term"),
 
   keyword_select: _ => make_keyword("select"),
   keyword_delete: _ => make_keyword("delete"),

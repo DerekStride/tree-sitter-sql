@@ -7,8 +7,8 @@ RETURNS (result SMALLINT)
 AS
 BEGIN
   SUSPEND;
-END;
-ALTER TABLE orders ADD flag CHAR(1);
+END^
+ALTER TABLE orders ADD flag CHAR(1)^
 
 --------------------------------------------------------------------------------
 
@@ -44,7 +44,7 @@ DECLARE VARIABLE x INTEGER;
 BEGIN
   x = 1;
   EXIT;
-END;
+END^
 
 --------------------------------------------------------------------------------
 

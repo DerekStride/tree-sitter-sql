@@ -79,6 +79,7 @@ export default {
     $.interbase_procedure,
     $.interbase_trigger,
     $.interbase_generator,
+    $.interbase_set_term,
     $._create_statement,
     $._alter_statement,
     $._drop_statement,

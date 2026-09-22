@@ -70,6 +70,7 @@
   (keyword_inactive)
   (keyword_position)
   (keyword_generator)
+  (keyword_term)
 ] @keyword
 
 (keyword_blob) @type.builtin
@@ -496,6 +497,8 @@
 (interbase_for (keyword_for) @repeat)
 (interbase_while (keyword_while) @repeat)
 
+(program "^" @punctuation.delimiter)
+(interbase_set_term ["^" ";"] @punctuation.delimiter)
 (interbase_generator (literal) @number)
 (interbase_trigger (literal) @number)
 (interbase_handler (literal) @number)

@@ -1,6 +1,10 @@
 import { comma_list, paren_list } from "../helpers.js";
 
 export default {
+  interbase_set_term: $ => seq(
+    $.keyword_set, $.keyword_term, choice(';', '^'),
+  ),
+
   interbase_generator: $ => choice(
     seq($.keyword_create, $.keyword_generator, $.object_reference),
     seq($.keyword_set, $.keyword_generator, $.object_reference,

@@ -1,0 +1,103 @@
+================================================================================
+Caret terminators skip comments before the next statement and at EOF
+================================================================================
+
+SELECT 1^ -- next statement
+UPDATE orders SET id = 2^ /* end of script */
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement (select (keyword_select) (select_expression (term (literal)))))
+  (comment)
+  (statement
+    (update
+      (keyword_update)
+      (relation (object_reference (identifier)))
+      (keyword_set)
+      (assignment (field (identifier)) (literal))))
+  (marginalia))
+
+================================================================================
+Arithmetic caret retains precedence and identifier operands
+================================================================================
+
+SELECT a ^ b + 2, 1 + 2 ^ 3, updated_at ^ other_value FROM orders;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (binary_expression
+            (binary_expression (field (identifier)) (field (identifier)))
+            (literal)))
+        (term
+          (binary_expression
+            (literal)
+            (binary_expression (literal) (literal))))
+        (term
+          (binary_expression (field (identifier)) (field (identifier))))))
+    (from (keyword_from) (relation (object_reference (identifier))))))
+
+================================================================================
+Caret and colon inside strings are not delimiters or parameters
+================================================================================
+
+SELECT '^', ':id', 'it''s ^ a string' FROM orders^
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression (term (literal)) (term (literal)) (term (literal))))
+    (from (keyword_from) (relation (object_reference (identifier))))))
+
+================================================================================
+REPLACE begins a new caret-delimited statement
+================================================================================
+
+SELECT 1^
+REPLACE INTO orders VALUES (2)^
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement (select (keyword_select) (select_expression (term (literal)))))
+  (statement
+    (insert
+      (keyword_replace)
+      (keyword_into)
+      (object_reference (identifier))
+      (keyword_values)
+      (list (literal)))))
+
+================================================================================
+Caret separates statements after a predicate
+================================================================================
+
+DELETE FROM orders WHERE id = 1^
+UPDATE orders SET id = 2^
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (delete (keyword_delete))
+    (from
+      (keyword_from)
+      (object_reference (identifier))
+      (where
+        (keyword_where)
+        (binary_expression (field (identifier)) (literal)))))
+  (statement
+    (update
+      (keyword_update)
+      (relation (object_reference (identifier)))
+      (keyword_set)
+      (assignment (field (identifier)) (literal)))))
