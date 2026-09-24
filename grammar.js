@@ -30,6 +30,7 @@ export default grammar({
     [$.between_expression, $.binary_expression],
     [$.time],
     [$.timestamp],
+    [$.constraints],
   ],
 
   precedences: $ => [
