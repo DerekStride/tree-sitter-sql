@@ -3174,3 +3174,71 @@ CREATE POLICY my_policy ON my_schema.my_table
                 name: (identifier))))
           (int
             (keyword_int)))))))
+
+================================================================================
+Create table with T-SQL identity, named key constraints and trailing comma
+================================================================================
+
+CREATE TABLE dbo.assembly (
+  id int IDENTITY (1, 1) NOT NULL,
+  customer_id int NOT NULL,
+  CONSTRAINT pk_assembly PRIMARY KEY (id),
+  CONSTRAINT fk_assembly_customer FOREIGN KEY (customer_id) REFERENCES dbo.customer(id),
+  CONSTRAINT uq_assembly UNIQUE (customer_id),
+);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (object_reference
+        (identifier)
+        (identifier))
+      (column_definitions
+        (column_definition
+          (identifier)
+          (int
+            (keyword_int))
+          (keyword_identity)
+          (literal)
+          (literal)
+          (keyword_not)
+          (keyword_null))
+        (column_definition
+          (identifier)
+          (int
+            (keyword_int))
+          (keyword_not)
+          (keyword_null))
+        (constraints
+          (constraint
+            (keyword_constraint)
+            (identifier)
+            (keyword_primary)
+            (keyword_key)
+            (ordered_columns
+              (column
+                (identifier))))
+          (constraint
+            (keyword_constraint)
+            (identifier)
+            (keyword_foreign)
+            (keyword_key)
+            (ordered_columns
+              (column
+                (identifier)))
+            (keyword_references)
+            (object_reference
+              (identifier)
+              (identifier))
+            (identifier))
+          (constraint
+            (keyword_constraint)
+            (identifier)
+            (keyword_unique)
+            (ordered_columns
+              (column
+                (identifier)))))))))
