@@ -1,0 +1,21 @@
+================================================================================
+Dollar-containing unquoted identifiers
+================================================================================
+
+SELECT column$name FROM table$name;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (field
+            (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          (identifier))))))
