@@ -93,6 +93,7 @@ export default {
     $.keyword_index,
     optional($.keyword_concurrently),
     optional($._if_exists),
+    optional(seq(field("schema", $.identifier), '.')),
     field("name", $.identifier),
     optional($._drop_behavior),
     optional(
