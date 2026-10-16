@@ -3,6 +3,11 @@ import { make_keyword } from "./helpers.js";
 export default {
 
   keyword_select: _ => make_keyword("select"),
+  keyword_grant: _ => make_keyword("grant"),
+  keyword_revoke: _ => make_keyword("revoke"),
+  keyword_privileges: _ => make_keyword("privileges"),
+  keyword_granted: _ => make_keyword("granted"),
+  keyword_maintain: _ => make_keyword("maintain"),
   keyword_delete: _ => make_keyword("delete"),
   keyword_insert: _ => make_keyword("insert"),
   keyword_replace: _ => make_keyword("replace"),

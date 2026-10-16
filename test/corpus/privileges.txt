@@ -1,0 +1,325 @@
+================================================================================
+Grant table privileges
+================================================================================
+
+GRANT SELECT, INSERT, UPDATE ON app.items TO app_service;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (grant_statement
+      (keyword_grant)
+      (table_privilege
+        (keyword_select))
+      (table_privilege
+        (keyword_insert))
+      (table_privilege
+        (keyword_update))
+      (keyword_on)
+      (object_reference
+        (identifier)
+        (identifier))
+      (keyword_to)
+      (identifier))))
+
+================================================================================
+Revoke all table privileges
+================================================================================
+
+REVOKE ALL ON app.items FROM PUBLIC, guest, member;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (revoke_statement
+      (keyword_revoke)
+      (keyword_all)
+      (keyword_on)
+      (object_reference
+        (identifier)
+        (identifier))
+      (keyword_from)
+      (keyword_public)
+      (identifier)
+      (identifier))))
+
+================================================================================
+Grant all privileges on multiple tables
+================================================================================
+
+GRANT ALL PRIVILEGES ON TABLE app.items, app.events TO reader, writer;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (grant_statement
+      (keyword_grant)
+      (keyword_all)
+      (keyword_privileges)
+      (keyword_on)
+      (keyword_table)
+      (object_reference
+        (identifier)
+        (identifier))
+      (object_reference
+        (identifier)
+        (identifier))
+      (keyword_to)
+      (identifier)
+      (identifier))))
+
+================================================================================
+Grant table privileges with grant option
+================================================================================
+
+GRANT DELETE, TRUNCATE, REFERENCES, TRIGGER, MAINTAIN ON items TO admin WITH GRANT OPTION GRANTED BY CURRENT_USER;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (grant_statement
+      (keyword_grant)
+      (table_privilege
+        (keyword_delete))
+      (table_privilege
+        (keyword_truncate))
+      (table_privilege
+        (keyword_references))
+      (table_privilege
+        (keyword_trigger))
+      (table_privilege
+        (keyword_maintain))
+      (keyword_on)
+      (object_reference
+        (identifier))
+      (keyword_to)
+      (identifier)
+      (keyword_with)
+      (keyword_grant)
+      (keyword_option)
+      (keyword_granted)
+      (keyword_by)
+      (keyword_current_user))))
+
+================================================================================
+Grant column privileges
+================================================================================
+
+GRANT SELECT (id, title), UPDATE (title), INSERT (id), REFERENCES (id) ON app.items TO editor;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (grant_statement
+      (keyword_grant)
+      (table_privilege
+        (keyword_select)
+        (identifier)
+        (identifier))
+      (table_privilege
+        (keyword_update)
+        (identifier))
+      (table_privilege
+        (keyword_insert)
+        (identifier))
+      (table_privilege
+        (keyword_references)
+        (identifier))
+      (keyword_on)
+      (object_reference
+        (identifier)
+        (identifier))
+      (keyword_to)
+      (identifier))))
+
+================================================================================
+Grant all column privileges
+================================================================================
+
+GRANT ALL PRIVILEGES (id, title) ON TABLE app.items TO reader;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (grant_statement
+      (keyword_grant)
+      (keyword_all)
+      (keyword_privileges)
+      (identifier)
+      (identifier)
+      (keyword_on)
+      (keyword_table)
+      (object_reference
+        (identifier)
+        (identifier))
+      (keyword_to)
+      (identifier))))
+
+================================================================================
+Grant privileges on all tables in schemas
+================================================================================
+
+GRANT SELECT ON ALL TABLES IN SCHEMA app, audit TO GROUP readers, CURRENT_ROLE, CURRENT_USER, SESSION_USER;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (grant_statement
+      (keyword_grant)
+      (table_privilege
+        (keyword_select))
+      (keyword_on)
+      (keyword_all)
+      (keyword_tables)
+      (keyword_in)
+      (keyword_schema)
+      (identifier)
+      (identifier)
+      (keyword_to)
+      (keyword_group)
+      (identifier)
+      (keyword_current_role)
+      (keyword_current_user)
+      (keyword_session_user))))
+
+================================================================================
+Revoke grant option for table privileges
+================================================================================
+
+REVOKE GRANT OPTION FOR SELECT, UPDATE ON TABLE app.items FROM editor GRANTED BY CURRENT_USER CASCADE;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (revoke_statement
+      (keyword_revoke)
+      (keyword_grant)
+      (keyword_option)
+      (keyword_for)
+      (table_privilege
+        (keyword_select))
+      (table_privilege
+        (keyword_update))
+      (keyword_on)
+      (keyword_table)
+      (object_reference
+        (identifier)
+        (identifier))
+      (keyword_from)
+      (identifier)
+      (keyword_granted)
+      (keyword_by)
+      (keyword_current_user)
+      (keyword_cascade))))
+
+================================================================================
+Revoke column privileges
+================================================================================
+
+REVOKE SELECT (id), UPDATE (title) ON items FROM reader RESTRICT;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (revoke_statement
+      (keyword_revoke)
+      (table_privilege
+        (keyword_select)
+        (identifier))
+      (table_privilege
+        (keyword_update)
+        (identifier))
+      (keyword_on)
+      (object_reference
+        (identifier))
+      (keyword_from)
+      (identifier)
+      (keyword_restrict))))
+
+================================================================================
+Revoke privileges on all tables in schemas
+================================================================================
+
+REVOKE ALL PRIVILEGES ON ALL TABLES IN SCHEMA app, audit FROM PUBLIC;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (revoke_statement
+      (keyword_revoke)
+      (keyword_all)
+      (keyword_privileges)
+      (keyword_on)
+      (keyword_all)
+      (keyword_tables)
+      (keyword_in)
+      (keyword_schema)
+      (identifier)
+      (identifier)
+      (keyword_from)
+      (keyword_public))))
+
+================================================================================
+Grant privileges with quoted names
+================================================================================
+
+grant select on "App"."Items" to "Reader";
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (grant_statement
+      (keyword_grant)
+      (table_privilege
+        (keyword_select))
+      (keyword_on)
+      (object_reference
+        (identifier)
+        (identifier))
+      (keyword_to)
+      (identifier))))
+
+================================================================================
+Privilege keywords as identifiers
+================================================================================
+
+SELECT grant, revoke, privileges, granted, maintain FROM items;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (field
+            (identifier)))
+        (term
+          (field
+            (identifier)))
+        (term
+          (field
+            (identifier)))
+        (term
+          (field
+            (identifier)))
+        (term
+          (field
+            (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          (identifier))))))
