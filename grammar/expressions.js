@@ -356,8 +356,18 @@ export default {
     $.keyword_in,
   ),
 
-  subquery: $ => wrapped_in_parenthesis(
-    $._dml_read
+  subquery: $ => wrapped_in_parenthesis($._subquery_body),
+
+  _subquery_body: $ => choice(
+    // Let expression parentheses wrap scalar subqueries. The statement-level
+    // optional parentheses otherwise greedily consume the inner closing ')'.
+    // Handles cases like SELECT 1 + (SELECT MAX(price) FROM products); where
+    // the inner SELECT is a scalar subquery.
+    seq(
+      optional($._cte),
+      choice($._select_body, $.set_operation, $._show_statement, $._unload_statement),
+    ),
+    wrapped_in_parenthesis($._subquery_body),
   ),
 
   list: $ => paren_list($._expression),
