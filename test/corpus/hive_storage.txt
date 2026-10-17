@@ -1,0 +1,538 @@
+================================================================================
+Hive angle-bracket array type
+================================================================================
+
+CREATE TABLE t (a array<string>);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (object_reference
+        name: (identifier))
+      (column_definitions
+        (column_definition
+          name: (identifier)
+          type: (array_type
+            (keyword_array)
+            element_type: (keyword_string)))))))
+
+================================================================================
+Hive nested angle-bracket array type
+================================================================================
+
+CREATE TABLE t (a array<array<string>>);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (object_reference
+        name: (identifier))
+      (column_definitions
+        (column_definition
+          name: (identifier)
+          type: (array_type
+            (keyword_array)
+            element_type: (array_type
+              (keyword_array)
+              element_type: (keyword_string))))))))
+
+================================================================================
+Hive array of parameterized numeric type
+================================================================================
+
+CREATE TABLE t (a array<decimal(10, 2)>);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (object_reference
+        name: (identifier))
+      (column_definitions
+        (column_definition
+          name: (identifier)
+          type: (array_type
+            (keyword_array)
+            element_type: (decimal
+              (keyword_decimal)
+              precision: (literal)
+              scale: (literal))))))))
+
+================================================================================
+Hive SerDe row format
+================================================================================
+
+CREATE TABLE t (a string) ROW FORMAT SERDE 'serde.class';
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (object_reference
+        name: (identifier))
+      (column_definitions
+        (column_definition
+          name: (identifier)
+          type: (keyword_string)))
+      (row_format
+        (keyword_row)
+        (keyword_format)
+        (keyword_serde)
+        serde_class: (literal)))))
+
+================================================================================
+Hive explicit input and output formats
+================================================================================
+
+CREATE TABLE t (a string) STORED AS INPUTFORMAT 'input.class' OUTPUTFORMAT 'output.class';
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (object_reference
+        name: (identifier))
+      (column_definitions
+        (column_definition
+          name: (identifier)
+          type: (keyword_string)))
+      (stored_as
+        (keyword_stored)
+        (keyword_as)
+        (keyword_inputformat)
+        input_format: (literal)
+        (keyword_outputformat)
+        output_format: (literal)))))
+
+================================================================================
+Hive external table with quoted template location
+================================================================================
+
+CREATE EXTERNAL TABLE t(`a` string, `b` array<string>)
+PARTITIONED BY (`p` string)
+ROW FORMAT SERDE 'org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe'
+STORED AS INPUTFORMAT 'x' OUTPUTFORMAT 'y'
+LOCATION 's3://{{bucket}}/t/'
+TBLPROPERTIES ('k'='v');
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_external)
+      (keyword_table)
+      (object_reference
+        name: (identifier))
+      (column_definitions
+        (column_definition
+          name: (identifier)
+          type: (keyword_string))
+        (column_definition
+          name: (identifier)
+          type: (array_type
+            (keyword_array)
+            element_type: (keyword_string))))
+      (table_partition
+        (keyword_partitioned)
+        (keyword_by)
+        (column_definitions
+          (column_definition
+            name: (identifier)
+            type: (keyword_string))))
+      (row_format
+        (keyword_row)
+        (keyword_format)
+        (keyword_serde)
+        serde_class: (literal))
+      (stored_as
+        (keyword_stored)
+        (keyword_as)
+        (keyword_inputformat)
+        input_format: (literal)
+        (keyword_outputformat)
+        output_format: (literal))
+      (storage_location
+        (keyword_location)
+        path: (literal))
+      (keyword_tblproperties)
+      (table_option))))
+
+================================================================================
+Hive external table with rendered location
+================================================================================
+
+CREATE EXTERNAL TABLE t(`a` string, `b` array<string>)
+PARTITIONED BY (`p` string)
+ROW FORMAT SERDE 'org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe'
+STORED AS INPUTFORMAT 'x' OUTPUTFORMAT 'y'
+LOCATION 's3://example-bucket/t/'
+TBLPROPERTIES ('k'='v');
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_external)
+      (keyword_table)
+      (object_reference
+        name: (identifier))
+      (column_definitions
+        (column_definition
+          name: (identifier)
+          type: (keyword_string))
+        (column_definition
+          name: (identifier)
+          type: (array_type
+            (keyword_array)
+            element_type: (keyword_string))))
+      (table_partition
+        (keyword_partitioned)
+        (keyword_by)
+        (column_definitions
+          (column_definition
+            name: (identifier)
+            type: (keyword_string))))
+      (row_format
+        (keyword_row)
+        (keyword_format)
+        (keyword_serde)
+        serde_class: (literal))
+      (stored_as
+        (keyword_stored)
+        (keyword_as)
+        (keyword_inputformat)
+        input_format: (literal)
+        (keyword_outputformat)
+        output_format: (literal))
+      (storage_location
+        (keyword_location)
+        path: (literal))
+      (keyword_tblproperties)
+      (table_option))))
+
+================================================================================
+Hive case-insensitive storage clauses
+================================================================================
+
+create table t (a ArRaY<STRING>) row format serde 'serde.class' stored as inputformat 'input.class' outputformat 'output.class';
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (object_reference
+        name: (identifier))
+      (column_definitions
+        (column_definition
+          name: (identifier)
+          type: (array_type
+            (keyword_array)
+            element_type: (keyword_string))))
+      (row_format
+        (keyword_row)
+        (keyword_format)
+        (keyword_serde)
+        serde_class: (literal))
+      (stored_as
+        (keyword_stored)
+        (keyword_as)
+        (keyword_inputformat)
+        input_format: (literal)
+        (keyword_outputformat)
+        output_format: (literal)))))
+
+================================================================================
+Hive array requires an element type
+:error
+================================================================================
+
+CREATE TABLE t (a array<>);
+
+--------------------------------------------------------------------------------
+
+================================================================================
+Hive array requires a closing angle bracket
+:error
+================================================================================
+
+CREATE TABLE t (a array<string);
+
+--------------------------------------------------------------------------------
+
+================================================================================
+Hive SerDe requires a class string
+:error
+================================================================================
+
+CREATE TABLE t (a string) ROW FORMAT SERDE;
+
+--------------------------------------------------------------------------------
+
+================================================================================
+Hive input format requires an output format
+:error
+================================================================================
+
+CREATE TABLE t (a string) STORED AS INPUTFORMAT 'input.class';
+
+--------------------------------------------------------------------------------
+
+================================================================================
+Hive output format requires a class string
+:error
+================================================================================
+
+CREATE TABLE t (a string) STORED AS INPUTFORMAT 'input.class' OUTPUTFORMAT;
+
+--------------------------------------------------------------------------------
+
+================================================================================
+Hive format classes must be quoted
+:error
+================================================================================
+
+CREATE TABLE t (a string) STORED AS INPUTFORMAT input_class OUTPUTFORMAT output_class;
+
+--------------------------------------------------------------------------------
+
+================================================================================
+Unnamed custom PostgreSQL ARRAY argument
+================================================================================
+
+CREATE FUNCTION f(custom ARRAY) RETURNS int RETURN 1;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_function)
+      (object_reference
+        name: (identifier))
+      (function_arguments
+        (function_argument
+          custom_type: (object_reference
+            name: (identifier))
+          (array_size_definition
+            (keyword_array))))
+      (keyword_returns)
+      (int
+        (keyword_int))
+      (function_body
+        (keyword_return)
+        (literal)))))
+
+================================================================================
+Named custom PostgreSQL ARRAY argument
+================================================================================
+
+CREATE FUNCTION f(a custom ARRAY) RETURNS int RETURN 1;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_function)
+      (object_reference
+        name: (identifier))
+      (function_arguments
+        (function_argument
+          (identifier)
+          custom_type: (object_reference
+            name: (identifier))
+          (array_size_definition
+            (keyword_array))))
+      (keyword_returns)
+      (int
+        (keyword_int))
+      (function_body
+        (keyword_return)
+        (literal)))))
+
+================================================================================
+Unnamed ordinary PostgreSQL ARRAY argument
+================================================================================
+
+CREATE FUNCTION f(text ARRAY) RETURNS int RETURN 1;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_function)
+      (object_reference
+        name: (identifier))
+      (function_arguments
+        (function_argument
+          (keyword_text)
+          (array_size_definition
+            (keyword_array))))
+      (keyword_returns)
+      (int
+        (keyword_int))
+      (function_body
+        (keyword_return)
+        (literal)))))
+
+================================================================================
+Named ordinary PostgreSQL ARRAY argument
+================================================================================
+
+CREATE FUNCTION f(a text ARRAY) RETURNS int RETURN 1;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_function)
+      (object_reference
+        name: (identifier))
+      (function_arguments
+        (function_argument
+          (identifier)
+          (keyword_text)
+          (array_size_definition
+            (keyword_array))))
+      (keyword_returns)
+      (int
+        (keyword_int))
+      (function_body
+        (keyword_return)
+        (literal)))))
+
+================================================================================
+Unnamed custom PostgreSQL sized ARRAY argument
+================================================================================
+
+CREATE FUNCTION f(custom ARRAY[4]) RETURNS int RETURN 1;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_function)
+      (object_reference
+        name: (identifier))
+      (function_arguments
+        (function_argument
+          custom_type: (object_reference
+            name: (identifier))
+          (array_size_definition
+            (keyword_array)
+            size: (literal))))
+      (keyword_returns)
+      (int
+        (keyword_int))
+      (function_body
+        (keyword_return)
+        (literal)))))
+
+================================================================================
+Named custom PostgreSQL sized ARRAY argument
+================================================================================
+
+CREATE FUNCTION f(a custom ARRAY[4]) RETURNS int RETURN 1;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_function)
+      (object_reference
+        name: (identifier))
+      (function_arguments
+        (function_argument
+          (identifier)
+          custom_type: (object_reference
+            name: (identifier))
+          (array_size_definition
+            (keyword_array)
+            size: (literal))))
+      (keyword_returns)
+      (int
+        (keyword_int))
+      (function_body
+        (keyword_return)
+        (literal)))))
+
+================================================================================
+Custom array table column
+================================================================================
+
+CREATE TABLE t (a custom ARRAY);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (object_reference
+        name: (identifier))
+      (column_definitions
+        (column_definition
+          name: (identifier)
+          custom_type: (object_reference
+            name: (identifier))
+          type: (array_size_definition
+            (keyword_array)))))))
+
+================================================================================
+Custom sized array table column
+================================================================================
+
+CREATE TABLE t (a custom ARRAY[4]);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (object_reference
+        name: (identifier))
+      (column_definitions
+        (column_definition
+          name: (identifier)
+          custom_type: (object_reference
+            name: (identifier))
+          type: (array_size_definition
+            (keyword_array)
+            size: (literal)))))))

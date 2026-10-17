@@ -5,6 +5,7 @@ export default {
   _type: $ => prec.left(
     seq(
       choice(
+        $.array_type,
         $.keyword_boolean,
         $.bit,
         $.binary,
@@ -73,6 +74,13 @@ export default {
       ),
       optional($.array_size_definition)
     ),
+  ),
+
+  array_type: $ => seq(
+    $.keyword_array,
+    '<',
+    field('element_type', $._type),
+    '>',
   ),
 
   array_size_definition: $ => prec.left(
