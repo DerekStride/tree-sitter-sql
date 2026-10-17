@@ -49,9 +49,8 @@ export default {
     ),
   ),
 
-  _select_statement: $ => optional_parenthesis($._select_body),
-
-  _select_body: $ => seq(
+  _select_statement: $ => optional_parenthesis(
+    seq(
       $.select,
       optional(
         seq(
@@ -60,6 +59,7 @@ export default {
         ),
       ),
       optional($.from),
+    ),
   ),
 
   select: $ => seq(

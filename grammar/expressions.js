@@ -356,18 +356,8 @@ export default {
     $.keyword_in,
   ),
 
-  subquery: $ => wrapped_in_parenthesis($._subquery_body),
-
-  _subquery_body: $ => choice(
-    // Let expression parentheses wrap scalar subqueries. The statement-level
-    // optional parentheses otherwise greedily consume the inner closing ')'.
-    // Handles cases like SELECT 1 + (SELECT MAX(price) FROM products); where
-    // the inner SELECT is a scalar subquery.
-    seq(
-      optional($._cte),
-      choice($._select_body, $.set_operation, $._show_statement, $._unload_statement),
-    ),
-    wrapped_in_parenthesis($._subquery_body),
+  subquery: $ => wrapped_in_parenthesis(
+    $._dml_read
   ),
 
   list: $ => paren_list($._expression),
@@ -426,7 +416,7 @@ export default {
   ),
   _tsql_parameter: $ => seq('@', $._identifier),
   // support nordic chars and umlaue
-  _identifier: _ => /[A-Za-z_\u00C0-\u017F][0-9A-Za-z_$\u00C0-\u017F]*/,
+  _identifier: _ => /[A-Za-z_\u00C0-\u017F][0-9A-Za-z_\u00C0-\u017F]*/,
 
   object_id: $ => seq(
     $.keyword_object_id,

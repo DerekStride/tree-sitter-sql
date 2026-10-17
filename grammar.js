@@ -29,8 +29,6 @@ export default grammar({
     [$.object_reference],
     [$.object_reference, $.function_argument],
     [$.between_expression, $.binary_expression],
-    [$._subquery_body, $._select_statement],
-    [$.subquery, $._subquery_body],
     [$.time],
     [$.timestamp],
   ],
