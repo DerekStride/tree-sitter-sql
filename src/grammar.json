@@ -61,6 +61,26 @@
       "type": "PATTERN",
       "value": "[sS][eE][lL][eE][cC][tT]"
     },
+    "keyword_grant": {
+      "type": "PATTERN",
+      "value": "[gG][rR][aA][nN][tT]"
+    },
+    "keyword_revoke": {
+      "type": "PATTERN",
+      "value": "[rR][eE][vV][oO][kK][eE]"
+    },
+    "keyword_privileges": {
+      "type": "PATTERN",
+      "value": "[pP][rR][iI][vV][iI][lL][eE][gG][eE][sS]"
+    },
+    "keyword_granted": {
+      "type": "PATTERN",
+      "value": "[gG][rR][aA][nN][tT][eE][dD]"
+    },
+    "keyword_maintain": {
+      "type": "PATTERN",
+      "value": "[mM][aA][iI][nN][tT][aA][iI][nN]"
+    },
     "keyword_delete": {
       "type": "PATTERN",
       "value": "[dD][eE][lL][eE][tT][eE]"
@@ -9051,6 +9071,14 @@
             {
               "type": "SYMBOL",
               "name": "while_statement"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "grant_statement"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "revoke_statement"
             }
           ]
         }
@@ -18475,6 +18503,538 @@
               "name": "object_reference"
             }
           ]
+        }
+      ]
+    },
+    "grant_statement": {
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "keyword_grant"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_table_privileges"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "keyword_on"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_privilege_tables"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "keyword_to"
+          },
+          {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_privilege_role"
+              },
+              {
+                "type": "REPEAT",
+                "content": {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "STRING",
+                      "value": ","
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "_privilege_role"
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "keyword_with"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "keyword_grant"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "keyword_option"
+                  }
+                ]
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_granted_by"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "revoke_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_revoke"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_grant"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_option"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_for"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_table_privileges"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_on"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_privilege_tables"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_from"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_privilege_role"
+            },
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": ","
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "_privilege_role"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_granted_by"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_drop_behavior"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "_table_privileges": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "keyword_all"
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_privileges"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "STRING",
+                      "value": "("
+                    },
+                    {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "SYMBOL",
+                          "name": "identifier"
+                        },
+                        {
+                          "type": "REPEAT",
+                          "content": {
+                            "type": "SEQ",
+                            "members": [
+                              {
+                                "type": "STRING",
+                                "value": ","
+                              },
+                              {
+                                "type": "SYMBOL",
+                                "name": "identifier"
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "STRING",
+                      "value": ")"
+                    }
+                  ]
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "table_privilege"
+            },
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": ","
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "table_privilege"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "table_privilege": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_select"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_insert"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_update"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_references"
+                }
+              ]
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "STRING",
+                      "value": "("
+                    },
+                    {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "SYMBOL",
+                          "name": "identifier"
+                        },
+                        {
+                          "type": "REPEAT",
+                          "content": {
+                            "type": "SEQ",
+                            "members": [
+                              {
+                                "type": "STRING",
+                                "value": ","
+                              },
+                              {
+                                "type": "SYMBOL",
+                                "name": "identifier"
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "STRING",
+                      "value": ")"
+                    }
+                  ]
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_delete"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_truncate"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_trigger"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_maintain"
+        }
+      ]
+    },
+    "_privilege_tables": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_table"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "object_reference"
+                },
+                {
+                  "type": "REPEAT",
+                  "content": {
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "STRING",
+                        "value": ","
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "object_reference"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "keyword_all"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "keyword_tables"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "keyword_in"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "keyword_schema"
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "identifier"
+                },
+                {
+                  "type": "REPEAT",
+                  "content": {
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "STRING",
+                        "value": ","
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "identifier"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "_privilege_role": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "keyword_group"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
+              "type": "SYMBOL",
+              "name": "identifier"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_public"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_current_role"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_current_user"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_session_user"
+        }
+      ]
+    },
+    "_granted_by": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "keyword_granted"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keyword_by"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_privilege_role"
         }
       ]
     },
