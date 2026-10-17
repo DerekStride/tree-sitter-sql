@@ -104,6 +104,11 @@
 
 [
   (keyword_select)
+  (keyword_grant)
+  (keyword_revoke)
+  (keyword_privileges)
+  (keyword_granted)
+  (keyword_maintain)
   (keyword_from)
   (keyword_where)
   (keyword_index)
