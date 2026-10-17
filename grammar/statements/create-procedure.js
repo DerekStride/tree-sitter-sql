@@ -1,6 +1,7 @@
 export default {
 
-  create_procedure: $ => seq(
+  // see create_function for the associativity
+  create_procedure: $ => prec.right(seq(
     $.keyword_create,
     optional($._or_replace),
     // mariadb/mysql
@@ -14,6 +15,7 @@ export default {
         $.function_language,
         $.function_security,
         $.function_safety,
+        $.function_set,
       ),
     ),
     $.procedure_body,
@@ -22,9 +24,10 @@ export default {
         $.function_language,
         $.function_security,
         $.function_safety,
+        $.function_set,
       ),
     ),
-  ),
+  )),
 
   procedure_body: $ => choice(
     // BEGIN ATOMIC block (SQL standard)
