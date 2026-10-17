@@ -93,6 +93,12 @@ export default {
           $.keyword_orc,
           $.keyword_avro,
           $.keyword_jsonfile,
+          seq(
+              $.keyword_inputformat,
+              field('input_format', alias($._literal_string, $.literal)),
+              $.keyword_outputformat,
+              field('output_format', alias($._literal_string, $.literal)),
+          ),
       ),
   ),
 
@@ -132,30 +138,38 @@ export default {
   row_format: $ => seq(
       $.keyword_row,
       $.keyword_format,
-      $.keyword_delimited,
-      optional(
+      choice(
           seq(
-              $.keyword_fields,
-              $.keyword_terminated,
-              $.keyword_by,
-              field('fields_terminated_char', alias($._literal_string, $.literal)),
+              $.keyword_serde,
+              field('serde_class', alias($._literal_string, $.literal)),
+          ),
+          seq(
+              $.keyword_delimited,
               optional(
                   seq(
-                      $.keyword_escaped,
+                      $.keyword_fields,
+                      $.keyword_terminated,
                       $.keyword_by,
-                      field('escaped_char', alias($._literal_string, $.literal)),
+                      field('fields_terminated_char', alias($._literal_string, $.literal)),
+                      optional(
+                          seq(
+                              $.keyword_escaped,
+                              $.keyword_by,
+                              field('escaped_char', alias($._literal_string, $.literal)),
+                          )
+                      )
+                  )
+              ),
+              optional(
+                  seq(
+                      $.keyword_lines,
+                      $.keyword_terminated,
+                      $.keyword_by,
+                      field('row_terminated_char', alias($._literal_string, $.literal)),
                   )
               )
-          )
+          ),
       ),
-      optional(
-          seq(
-              $.keyword_lines,
-              $.keyword_terminated,
-              $.keyword_by,
-              field('row_terminated_char', alias($._literal_string, $.literal)),
-          )
-      )
   ),
 
   table_sort: $ => seq(

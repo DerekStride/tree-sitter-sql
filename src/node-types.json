@@ -137,6 +137,10 @@
             "named": true
           },
           {
+            "type": "array_type",
+            "named": true
+          },
+          {
             "type": "bigint",
             "named": true
           },
@@ -971,6 +975,10 @@
           "named": true
         },
         {
+          "type": "array_type",
+          "named": true
+        },
+        {
           "type": "bigint",
           "named": true
         },
@@ -1409,6 +1417,10 @@
       "types": [
         {
           "type": "array_size_definition",
+          "named": true
+        },
+        {
+          "type": "array_type",
           "named": true
         },
         {
@@ -1977,6 +1989,254 @@
     "children": {
       "multiple": false,
       "required": false,
+      "types": [
+        {
+          "type": "keyword_array",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "array_type",
+    "named": true,
+    "fields": {
+      "custom_type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "object_reference",
+            "named": true
+          }
+        ]
+      },
+      "element_type": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "array_size_definition",
+            "named": true
+          },
+          {
+            "type": "array_type",
+            "named": true
+          },
+          {
+            "type": "bigint",
+            "named": true
+          },
+          {
+            "type": "binary",
+            "named": true
+          },
+          {
+            "type": "bit",
+            "named": true
+          },
+          {
+            "type": "char",
+            "named": true
+          },
+          {
+            "type": "datetimeoffset",
+            "named": true
+          },
+          {
+            "type": "decimal",
+            "named": true
+          },
+          {
+            "type": "double",
+            "named": true
+          },
+          {
+            "type": "enum",
+            "named": true
+          },
+          {
+            "type": "float",
+            "named": true
+          },
+          {
+            "type": "int",
+            "named": true
+          },
+          {
+            "type": "keyword_bigserial",
+            "named": true
+          },
+          {
+            "type": "keyword_boolean",
+            "named": true
+          },
+          {
+            "type": "keyword_box2d",
+            "named": true
+          },
+          {
+            "type": "keyword_box3d",
+            "named": true
+          },
+          {
+            "type": "keyword_bytea",
+            "named": true
+          },
+          {
+            "type": "keyword_date",
+            "named": true
+          },
+          {
+            "type": "keyword_datetime",
+            "named": true
+          },
+          {
+            "type": "keyword_datetime2",
+            "named": true
+          },
+          {
+            "type": "keyword_geography",
+            "named": true
+          },
+          {
+            "type": "keyword_geometry",
+            "named": true
+          },
+          {
+            "type": "keyword_image",
+            "named": true
+          },
+          {
+            "type": "keyword_inet",
+            "named": true
+          },
+          {
+            "type": "keyword_interval",
+            "named": true
+          },
+          {
+            "type": "keyword_json",
+            "named": true
+          },
+          {
+            "type": "keyword_jsonb",
+            "named": true
+          },
+          {
+            "type": "keyword_money",
+            "named": true
+          },
+          {
+            "type": "keyword_name",
+            "named": true
+          },
+          {
+            "type": "keyword_oid",
+            "named": true
+          },
+          {
+            "type": "keyword_regclass",
+            "named": true
+          },
+          {
+            "type": "keyword_regnamespace",
+            "named": true
+          },
+          {
+            "type": "keyword_regproc",
+            "named": true
+          },
+          {
+            "type": "keyword_regtype",
+            "named": true
+          },
+          {
+            "type": "keyword_serial",
+            "named": true
+          },
+          {
+            "type": "keyword_smalldatetime",
+            "named": true
+          },
+          {
+            "type": "keyword_smallmoney",
+            "named": true
+          },
+          {
+            "type": "keyword_smallserial",
+            "named": true
+          },
+          {
+            "type": "keyword_string",
+            "named": true
+          },
+          {
+            "type": "keyword_text",
+            "named": true
+          },
+          {
+            "type": "keyword_timestamptz",
+            "named": true
+          },
+          {
+            "type": "keyword_uuid",
+            "named": true
+          },
+          {
+            "type": "keyword_xml",
+            "named": true
+          },
+          {
+            "type": "mediumint",
+            "named": true
+          },
+          {
+            "type": "nchar",
+            "named": true
+          },
+          {
+            "type": "numeric",
+            "named": true
+          },
+          {
+            "type": "nvarchar",
+            "named": true
+          },
+          {
+            "type": "object_reference",
+            "named": true
+          },
+          {
+            "type": "smallint",
+            "named": true
+          },
+          {
+            "type": "time",
+            "named": true
+          },
+          {
+            "type": "timestamp",
+            "named": true
+          },
+          {
+            "type": "tinyint",
+            "named": true
+          },
+          {
+            "type": "varbinary",
+            "named": true
+          },
+          {
+            "type": "varchar",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
       "types": [
         {
           "type": "keyword_array",
@@ -2970,6 +3230,10 @@
           "named": true
         },
         {
+          "type": "array_type",
+          "named": true
+        },
+        {
           "type": "between_expression",
           "named": true
         },
@@ -3415,6 +3679,10 @@
         "types": [
           {
             "type": "array_size_definition",
+            "named": true
+          },
+          {
+            "type": "array_type",
             "named": true
           },
           {
@@ -4307,6 +4575,10 @@
       "types": [
         {
           "type": "array_size_definition",
+          "named": true
+        },
+        {
+          "type": "array_type",
           "named": true
         },
         {
@@ -5351,6 +5623,10 @@
       "types": [
         {
           "type": "array_size_definition",
+          "named": true
+        },
+        {
+          "type": "array_type",
           "named": true
         },
         {
@@ -7525,6 +7801,10 @@
           "named": true
         },
         {
+          "type": "array_type",
+          "named": true
+        },
+        {
           "type": "bigint",
           "named": true
         },
@@ -7933,6 +8213,10 @@
       "types": [
         {
           "type": "array_size_definition",
+          "named": true
+        },
+        {
+          "type": "array_type",
           "named": true
         },
         {
@@ -10804,6 +11088,16 @@
             "named": true
           }
         ]
+      },
+      "serde_class": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "literal",
+            "named": true
+          }
+        ]
       }
     },
     "children": {
@@ -10836,6 +11130,10 @@
         },
         {
           "type": "keyword_row",
+          "named": true
+        },
+        {
+          "type": "keyword_serde",
           "named": true
         },
         {
@@ -12043,7 +12341,28 @@
   {
     "type": "stored_as",
     "named": true,
-    "fields": {},
+    "fields": {
+      "input_format": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "literal",
+            "named": true
+          }
+        ]
+      },
+      "output_format": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "literal",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": true,
@@ -12061,11 +12380,19 @@
           "named": true
         },
         {
+          "type": "keyword_inputformat",
+          "named": true
+        },
+        {
           "type": "keyword_jsonfile",
           "named": true
         },
         {
           "type": "keyword_orc",
+          "named": true
+        },
+        {
+          "type": "keyword_outputformat",
           "named": true
         },
         {
@@ -13289,6 +13616,10 @@
       "types": [
         {
           "type": "array_size_definition",
+          "named": true
+        },
+        {
+          "type": "array_type",
           "named": true
         },
         {
@@ -14956,6 +15287,10 @@
     "named": true
   },
   {
+    "type": "keyword_inputformat",
+    "named": true
+  },
+  {
     "type": "keyword_insert",
     "named": true
   },
@@ -15232,6 +15567,10 @@
     "named": true
   },
   {
+    "type": "keyword_outputformat",
+    "named": true
+  },
+  {
     "type": "keyword_over",
     "named": true
   },
@@ -15461,6 +15800,10 @@
   },
   {
     "type": "keyword_sequencefile",
+    "named": true
+  },
+  {
+    "type": "keyword_serde",
     "named": true
   },
   {
