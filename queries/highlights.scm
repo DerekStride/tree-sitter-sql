@@ -104,6 +104,11 @@
 
 [
   (keyword_select)
+  (keyword_grant)
+  (keyword_revoke)
+  (keyword_privileges)
+  (keyword_granted)
+  (keyword_maintain)
   (keyword_from)
   (keyword_where)
   (keyword_index)
@@ -200,6 +205,7 @@
   (keyword_others)
   (keyword_zerofill)
   (keyword_format)
+  (keyword_serde)
   (keyword_fields)
   (keyword_row)
   (keyword_sort)
@@ -210,6 +216,8 @@
   (keyword_uncached)
   (keyword_lines)
   (keyword_stored)
+  (keyword_inputformat)
+  (keyword_outputformat)
   (keyword_virtual)
   (keyword_partitioned)
   (keyword_analyze)

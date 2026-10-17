@@ -3,6 +3,11 @@ import { make_keyword } from "./helpers.js";
 export default {
 
   keyword_select: _ => make_keyword("select"),
+  keyword_grant: _ => make_keyword("grant"),
+  keyword_revoke: _ => make_keyword("revoke"),
+  keyword_privileges: _ => make_keyword("privileges"),
+  keyword_granted: _ => make_keyword("granted"),
+  keyword_maintain: _ => make_keyword("maintain"),
   keyword_delete: _ => make_keyword("delete"),
   keyword_insert: _ => make_keyword("insert"),
   keyword_replace: _ => make_keyword("replace"),
@@ -286,6 +291,8 @@ export default {
   // Hive Keywords
   keyword_external: _ => make_keyword("external"),
   keyword_stored: _ => make_keyword("stored"),
+  keyword_inputformat: () => make_keyword("inputformat"),
+  keyword_outputformat: () => make_keyword("outputformat"),
   keyword_virtual: _ => make_keyword("virtual"),
   keyword_cached: _ => make_keyword("cached"),
   keyword_uncached: _ => make_keyword("uncached"),
@@ -303,6 +310,7 @@ export default {
   keyword_comment: _ => make_keyword("comment"),
   keyword_sort: _ => make_keyword("sort"),
   keyword_format: _ => make_keyword("format"),
+  keyword_serde: () => make_keyword("serde"),
   keyword_delimited: _ => make_keyword("delimited"),
   keyword_delimiter: _ => make_keyword("delimiter"),
   keyword_fields: _ => make_keyword("fields"),

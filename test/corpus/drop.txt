@@ -365,3 +365,74 @@ DROP MATERIALIZED VIEW myschema.my_view;
       (object_reference
         schema: (identifier)
         name: (identifier)))))
+
+================================================================================
+Drop schema-qualified index
+================================================================================
+
+DROP INDEX app.idx;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (drop_index
+      (keyword_drop)
+      (keyword_index)
+      schema: (identifier)
+      name: (identifier))))
+
+================================================================================
+Drop quoted schema-qualified index
+================================================================================
+
+DROP INDEX "App"."Index";
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (drop_index
+      (keyword_drop)
+      (keyword_index)
+      schema: (identifier)
+      name: (identifier))))
+
+================================================================================
+Drop schema-qualified index concurrently if exists
+================================================================================
+
+DROP INDEX CONCURRENTLY IF EXISTS app.idx RESTRICT;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (drop_index
+      (keyword_drop)
+      (keyword_index)
+      (keyword_concurrently)
+      (keyword_if)
+      (keyword_exists)
+      schema: (identifier)
+      name: (identifier)
+      (keyword_restrict))))
+
+================================================================================
+Drop schema-qualified index cascade
+================================================================================
+
+DROP INDEX IF EXISTS app.idx CASCADE;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (drop_index
+      (keyword_drop)
+      (keyword_index)
+      (keyword_if)
+      (keyword_exists)
+      schema: (identifier)
+      name: (identifier)
+      (keyword_cascade))))
