@@ -60,6 +60,7 @@ export default {
       ),
     ),
     $._default_expression,
+    seq($.keyword_on, $.keyword_update, $._inner_default_expression),
     $._primary_key,
     $.keyword_auto_increment,
     $.direction,
@@ -100,7 +101,10 @@ export default {
       $.unary_expression,
       $.array,
       $.invocation,
-      $.keyword_current_timestamp,
+      prec.right(seq(
+        $.keyword_current_timestamp,
+        optional(wrapped_in_parenthesis(optional(alias($._natural_number, $.literal)))),
+      )),
       alias($.implicit_cast, $.cast),
   ),
 
