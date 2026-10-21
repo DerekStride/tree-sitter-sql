@@ -500,7 +500,8 @@ CREATE TABLE IF NOT EXISTS `addresses` (
             (keyword_null)))
         (column_definition
           name: (identifier)
-          type: (keyword_datetime)
+          type: (datetime
+            (keyword_datetime))
           (keyword_default)
           (literal
             (keyword_null)))
@@ -1118,7 +1119,8 @@ CREATE TABLE type_test (
           type: (keyword_date))
         (column_definition
           name: (identifier)
-          type: (keyword_datetime))
+          type: (datetime
+            (keyword_datetime)))
         (column_definition
           name: (identifier)
           type: (keyword_datetime2))
@@ -1149,7 +1151,8 @@ CREATE TABLE type_test (
           type: (keyword_timestamptz))
         (column_definition
           name: (identifier)
-          type: (keyword_datetime)
+          type: (datetime
+            (keyword_datetime))
           (keyword_default)
           (keyword_current_timestamp))
         (column_definition
@@ -2711,7 +2714,6 @@ CREATE POLICY my_policy ON my_schema.my_table
                 name: (identifier))))
           (int
             (keyword_int)))))))
-
 
 ================================================================================
 Create policy basic
