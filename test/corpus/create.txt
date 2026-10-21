@@ -500,7 +500,8 @@ CREATE TABLE IF NOT EXISTS `addresses` (
             (keyword_null)))
         (column_definition
           name: (identifier)
-          type: (keyword_datetime)
+          type: (datetime
+            (keyword_datetime))
           (keyword_default)
           (literal
             (keyword_null)))
@@ -1118,7 +1119,8 @@ CREATE TABLE type_test (
           type: (keyword_date))
         (column_definition
           name: (identifier)
-          type: (keyword_datetime))
+          type: (datetime
+            (keyword_datetime)))
         (column_definition
           name: (identifier)
           type: (keyword_datetime2))
@@ -1149,7 +1151,8 @@ CREATE TABLE type_test (
           type: (keyword_timestamptz))
         (column_definition
           name: (identifier)
-          type: (keyword_datetime)
+          type: (datetime
+            (keyword_datetime))
           (keyword_default)
           (keyword_current_timestamp))
         (column_definition
@@ -2712,7 +2715,6 @@ CREATE POLICY my_policy ON my_schema.my_table
           (int
             (keyword_int)))))))
 
-
 ================================================================================
 Create policy basic
 ================================================================================
@@ -3174,3 +3176,50 @@ CREATE POLICY my_policy ON my_schema.my_table
                 name: (identifier))))
           (int
             (keyword_int)))))))
+
+================================================================================
+Create table with MariaDB current_timestamp() attributes
+================================================================================
+
+CREATE TABLE foo (
+  created_at datetime(6) NOT NULL DEFAULT current_timestamp(6),
+  updated_at datetime DEFAULT NULL ON UPDATE current_timestamp(),
+  seen_at datetime DEFAULT current_timestamp()
+);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (object_reference
+        name: (identifier))
+      (column_definitions
+        (column_definition
+          name: (identifier)
+          type: (datetime
+            (keyword_datetime)
+            size: (literal))
+          (keyword_not)
+          (keyword_null)
+          (keyword_default)
+          (keyword_current_timestamp)
+          (literal))
+        (column_definition
+          name: (identifier)
+          type: (datetime
+            (keyword_datetime))
+          (keyword_default)
+          (literal
+            (keyword_null))
+          (keyword_on)
+          (keyword_update)
+          (keyword_current_timestamp))
+        (column_definition
+          name: (identifier)
+          type: (datetime
+            (keyword_datetime))
+          (keyword_default)
+          (keyword_current_timestamp))))))
