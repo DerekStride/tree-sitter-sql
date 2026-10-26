@@ -191,12 +191,22 @@ export default {
   ),
 
   window_function: $ => seq(
-      $.invocation,
+      choice(
+          $.invocation,
+          $.ordered_set_aggregate,
+      ),
       $.keyword_over,
       choice(
           $.identifier,
           $.window_specification,
       ),
+  ),
+
+  ordered_set_aggregate: $ => seq(
+    $.invocation,
+    $.keyword_within,
+    $.keyword_group,
+    wrapped_in_parenthesis($.order_by),
   ),
 
   _alias: $ => seq(

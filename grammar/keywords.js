@@ -112,6 +112,7 @@ export default {
   keyword_restrict: _ => make_keyword("restrict"),
   keyword_with: _ => make_keyword("with"),
   keyword_without: _ => make_keyword("without"),
+  keyword_within: _ => make_keyword("within"),
   keyword_no: _ => make_keyword("no"),
   keyword_data: _ => make_keyword("data"),
   keyword_type: _ => make_keyword("type"),
