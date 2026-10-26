@@ -142,6 +142,7 @@
   (keyword_without)
   (keyword_as)
   (keyword_having)
+  (keyword_qualify)
   (keyword_limit)
   (keyword_offset)
   (keyword_table)
