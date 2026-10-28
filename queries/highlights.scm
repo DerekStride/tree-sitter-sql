@@ -355,6 +355,7 @@
  (keyword_high_priority)
  (keyword_low_priority)
  (keyword_ignore)
+ (keyword_respect)
  (keyword_nothing)
  (keyword_check)
  (keyword_option)

@@ -153,6 +153,7 @@ export default {
   keyword_transaction: _ => make_keyword("transaction"),
   keyword_over: _ => make_keyword("over"),
   keyword_nulls: _ => make_keyword("nulls"),
+  keyword_respect: _ => make_keyword("respect"),
   keyword_first: _ => make_keyword("first"),
   keyword_after: _ => make_keyword("after"),
   keyword_before: _ => make_keyword("before"),
