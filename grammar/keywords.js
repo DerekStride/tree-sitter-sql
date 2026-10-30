@@ -35,6 +35,7 @@ export default {
   keyword_on: _ => make_keyword("on"),
   keyword_off: _ => make_keyword("off"),
   keyword_where: _ => make_keyword("where"),
+  keyword_qualify: _ => make_keyword("qualify"),
   keyword_order: _ => make_keyword("order"),
   keyword_group: _ => make_keyword("group"),
   keyword_partition: _ => make_keyword("partition"),

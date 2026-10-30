@@ -230,6 +230,7 @@ export default {
     optional($.where),
     optional($.group_by),
     optional($.having),
+    optional($.qualify),
     optional($.window_clause),
     optional($.order_by),
     optional($.limit),
@@ -398,6 +399,12 @@ export default {
   having: $ => seq(
     $.keyword_having,
     $._expression,
+  ),
+
+  // Snowflake, BigQuery, Databricks
+  qualify: $ => seq(
+    $.keyword_qualify,
+    field("predicate", $._expression),
   ),
 
   order_by: $ => prec.right(seq(
