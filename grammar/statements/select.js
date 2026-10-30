@@ -199,12 +199,32 @@ export default {
   ),
 
   window_function: $ => seq(
-      $.invocation,
-      $.keyword_over,
+      choice(
+          $.invocation,
+          $.ordered_set_aggregate,
+      ),
+      $._over,
       choice(
           $.identifier,
           $.window_specification,
       ),
+  ),
+
+  ordered_set_aggregate: $ => seq(
+    $.invocation,
+    $.keyword_within,
+    $.keyword_group,
+    wrapped_in_parenthesis($.order_by),
+  ),
+
+  _over: $ => seq(
+    optional($.null_treatment),
+    $.keyword_over,
+  ),
+
+  null_treatment: $ => seq(
+    choice($.keyword_ignore, $.keyword_respect),
+    $.keyword_nulls,
   ),
 
   _alias: $ => seq(

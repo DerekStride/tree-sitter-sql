@@ -13,6 +13,7 @@ export default {
       $.list,
       $.case,
       $.window_function,
+      $.ordered_set_aggregate,
       $.subquery,
       $.cast,
       alias($.implicit_cast, $.cast),
