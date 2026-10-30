@@ -38,10 +38,18 @@ export default {
       seq(
         field(
           "operation",
-          choice(
-            seq($.keyword_union, optional($.keyword_all)),
-            $.keyword_except,
-            $.keyword_intersect,
+          seq(
+            choice(
+              $.keyword_union,
+              $.keyword_except,
+              $.keyword_intersect,
+            ),
+            optional(
+              choice(
+                $.keyword_all,
+                $.keyword_distinct,
+              ),
+            ),
           ),
         ),
         $._select_statement,

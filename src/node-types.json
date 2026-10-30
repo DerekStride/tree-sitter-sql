@@ -11305,6 +11305,10 @@
             "named": true
           },
           {
+            "type": "keyword_distinct",
+            "named": true
+          },
+          {
             "type": "keyword_except",
             "named": true
           },

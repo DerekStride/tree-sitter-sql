@@ -20704,15 +20704,28 @@
                 "type": "FIELD",
                 "name": "operation",
                 "content": {
-                  "type": "CHOICE",
+                  "type": "SEQ",
                   "members": [
                     {
-                      "type": "SEQ",
+                      "type": "CHOICE",
                       "members": [
                         {
                           "type": "SYMBOL",
                           "name": "keyword_union"
                         },
+                        {
+                          "type": "SYMBOL",
+                          "name": "keyword_except"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "keyword_intersect"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "CHOICE",
+                      "members": [
                         {
                           "type": "CHOICE",
                           "members": [
@@ -20721,19 +20734,15 @@
                               "name": "keyword_all"
                             },
                             {
-                              "type": "BLANK"
+                              "type": "SYMBOL",
+                              "name": "keyword_distinct"
                             }
                           ]
+                        },
+                        {
+                          "type": "BLANK"
                         }
                       ]
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "keyword_except"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "keyword_intersect"
                     }
                   ]
                 }
