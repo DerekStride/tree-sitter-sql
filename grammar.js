@@ -33,6 +33,7 @@ export default grammar({
     [$.subquery, $._subquery_body],
     [$.time],
     [$.timestamp],
+    [$.constraints],
   ],
 
   precedences: $ => [
