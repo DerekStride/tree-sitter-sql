@@ -101,7 +101,7 @@ export default {
   keyword_for: _ => make_keyword("for"),
   keyword_if: _ => make_keyword("if"),
   keyword_exists: _ => make_keyword("exists"),
-  keyword_auto_increment: _ => make_keyword("auto_increment"),
+  keyword_auto_increment: _ => choice(make_keyword("auto_increment"),make_keyword("autoincrement")),
   keyword_generated: _ => make_keyword("generated"),
   keyword_always: _ => make_keyword("always"),
   keyword_collate: _ => make_keyword("collate"),

@@ -339,6 +339,76 @@ CREATE TABLE IF NOT EXISTS `addresses` (
           (keyword_auto_increment))))))
 
 ================================================================================
+Create table with sqlite autoincrement
+================================================================================
+
+CREATE TABLE notes (
+  id INTEGER PRIMARY KEY AUTOINCREMENT
+);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (object_reference
+        name: (identifier))
+      (column_definitions
+        (column_definition
+          name: (identifier)
+          type: (int
+            (keyword_int))
+          (keyword_primary)
+          (keyword_key)
+          (keyword_auto_increment))))))
+
+================================================================================
+Create table with between in check constraints
+================================================================================
+
+CREATE TABLE schedules (
+  day_of_week integer NOT NULL CHECK (day_of_week BETWEEN 0 AND 6),
+  CHECK (day_of_week BETWEEN 0 AND 6)
+);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (object_reference
+        name: (identifier))
+      (column_definitions
+        (column_definition
+          name: (identifier)
+          type: (int
+            (keyword_int))
+          (keyword_not)
+          (keyword_null)
+          (keyword_check)
+          (between_expression
+            left: (field
+              name: (identifier))
+            operator: (keyword_between)
+            low: (literal)
+            (keyword_and)
+            high: (literal)))
+        (constraints
+          (constraint
+            (keyword_check)
+            (between_expression
+              left: (field
+                name: (identifier))
+              operator: (keyword_between)
+              low: (literal)
+              (keyword_and)
+              high: (literal))))))))
+
+================================================================================
 Create table with unsigned zerofill types
 ================================================================================
 
