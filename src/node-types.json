@@ -157,6 +157,10 @@
             "named": true
           },
           {
+            "type": "datetime",
+            "named": true
+          },
+          {
             "type": "datetimeoffset",
             "named": true
           },
@@ -202,10 +206,6 @@
           },
           {
             "type": "keyword_date",
-            "named": true
-          },
-          {
-            "type": "keyword_datetime",
             "named": true
           },
           {
@@ -475,6 +475,10 @@
         },
         {
           "type": "object_id",
+          "named": true
+        },
+        {
+          "type": "ordered_set_aggregate",
           "named": true
         },
         {
@@ -999,6 +1003,10 @@
           "named": true
         },
         {
+          "type": "datetime",
+          "named": true
+        },
+        {
           "type": "datetimeoffset",
           "named": true
         },
@@ -1068,10 +1076,6 @@
         },
         {
           "type": "keyword_date",
-          "named": true
-        },
-        {
-          "type": "keyword_datetime",
           "named": true
         },
         {
@@ -1444,6 +1448,10 @@
           "named": true
         },
         {
+          "type": "datetime",
+          "named": true
+        },
+        {
           "type": "datetimeoffset",
           "named": true
         },
@@ -1525,10 +1533,6 @@
         },
         {
           "type": "keyword_date",
-          "named": true
-        },
-        {
-          "type": "keyword_datetime",
           "named": true
         },
         {
@@ -1929,6 +1933,10 @@
           "named": true
         },
         {
+          "type": "ordered_set_aggregate",
+          "named": true
+        },
+        {
           "type": "parameter",
           "named": true
         },
@@ -2040,6 +2048,10 @@
             "named": true
           },
           {
+            "type": "datetime",
+            "named": true
+          },
+          {
             "type": "datetimeoffset",
             "named": true
           },
@@ -2085,10 +2097,6 @@
           },
           {
             "type": "keyword_date",
-            "named": true
-          },
-          {
-            "type": "keyword_datetime",
             "named": true
           },
           {
@@ -2312,6 +2320,10 @@
             "named": true
           },
           {
+            "type": "ordered_set_aggregate",
+            "named": true
+          },
+          {
             "type": "parameter",
             "named": true
           },
@@ -2411,6 +2423,10 @@
             "named": true
           },
           {
+            "type": "ordered_set_aggregate",
+            "named": true
+          },
+          {
             "type": "parameter",
             "named": true
           },
@@ -2489,6 +2505,10 @@
             "named": true
           },
           {
+            "type": "ordered_set_aggregate",
+            "named": true
+          },
+          {
             "type": "parameter",
             "named": true
           },
@@ -2564,6 +2584,10 @@
           },
           {
             "type": "object_id",
+            "named": true
+          },
+          {
+            "type": "ordered_set_aggregate",
             "named": true
           },
           {
@@ -2732,6 +2756,10 @@
           },
           {
             "type": "object_id",
+            "named": true
+          },
+          {
+            "type": "ordered_set_aggregate",
             "named": true
           },
           {
@@ -2931,6 +2959,10 @@
             "named": true
           },
           {
+            "type": "ordered_set_aggregate",
+            "named": true
+          },
+          {
             "type": "parameter",
             "named": true
           },
@@ -3088,6 +3120,10 @@
           "named": true
         },
         {
+          "type": "ordered_set_aggregate",
+          "named": true
+        },
+        {
           "type": "parameter",
           "named": true
         },
@@ -3191,6 +3227,10 @@
             "named": true
           },
           {
+            "type": "ordered_set_aggregate",
+            "named": true
+          },
+          {
             "type": "parameter",
             "named": true
           },
@@ -3266,6 +3306,10 @@
           "named": true
         },
         {
+          "type": "datetime",
+          "named": true
+        },
+        {
           "type": "datetimeoffset",
           "named": true
         },
@@ -3331,10 +3375,6 @@
         },
         {
           "type": "keyword_date",
-          "named": true
-        },
-        {
-          "type": "keyword_datetime",
           "named": true
         },
         {
@@ -3459,6 +3499,10 @@
         },
         {
           "type": "object_id",
+          "named": true
+        },
+        {
+          "type": "ordered_set_aggregate",
           "named": true
         },
         {
@@ -3702,6 +3746,10 @@
             "named": true
           },
           {
+            "type": "datetime",
+            "named": true
+          },
+          {
             "type": "datetimeoffset",
             "named": true
           },
@@ -3747,10 +3795,6 @@
           },
           {
             "type": "keyword_date",
-            "named": true
-          },
-          {
-            "type": "keyword_datetime",
             "named": true
           },
           {
@@ -4058,6 +4102,10 @@
         },
         {
           "type": "object_reference",
+          "named": true
+        },
+        {
+          "type": "ordered_set_aggregate",
           "named": true
         },
         {
@@ -4602,6 +4650,10 @@
           "named": true
         },
         {
+          "type": "datetime",
+          "named": true
+        },
+        {
           "type": "datetimeoffset",
           "named": true
         },
@@ -4699,10 +4751,6 @@
         },
         {
           "type": "keyword_date",
-          "named": true
-        },
-        {
-          "type": "keyword_datetime",
           "named": true
         },
         {
@@ -5387,6 +5435,10 @@
           "named": true
         },
         {
+          "type": "ordered_set_aggregate",
+          "named": true
+        },
+        {
           "type": "parameter",
           "named": true
         },
@@ -5654,6 +5706,10 @@
           "named": true
         },
         {
+          "type": "datetime",
+          "named": true
+        },
+        {
           "type": "datetimeoffset",
           "named": true
         },
@@ -5719,10 +5775,6 @@
         },
         {
           "type": "keyword_date",
-          "named": true
-        },
-        {
-          "type": "keyword_datetime",
           "named": true
         },
         {
@@ -6287,6 +6339,10 @@
           "named": true
         },
         {
+          "type": "ordered_set_aggregate",
+          "named": true
+        },
+        {
           "type": "parameter",
           "named": true
         },
@@ -6563,6 +6619,32 @@
         },
         {
           "type": "statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "datetime",
+    "named": true,
+    "fields": {
+      "size": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "literal",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_datetime",
           "named": true
         }
       ]
@@ -7461,6 +7543,10 @@
             "named": true
           },
           {
+            "type": "ordered_set_aggregate",
+            "named": true
+          },
+          {
             "type": "parameter",
             "named": true
           },
@@ -7771,6 +7857,10 @@
           "named": true
         },
         {
+          "type": "qualify",
+          "named": true
+        },
+        {
           "type": "relation",
           "named": true
         },
@@ -7829,6 +7919,10 @@
           "named": true
         },
         {
+          "type": "datetime",
+          "named": true
+        },
+        {
           "type": "datetimeoffset",
           "named": true
         },
@@ -7878,10 +7972,6 @@
         },
         {
           "type": "keyword_date",
-          "named": true
-        },
-        {
-          "type": "keyword_datetime",
           "named": true
         },
         {
@@ -8151,6 +8241,10 @@
           "named": true
         },
         {
+          "type": "ordered_set_aggregate",
+          "named": true
+        },
+        {
           "type": "parameter",
           "named": true
         },
@@ -8244,6 +8338,10 @@
           "named": true
         },
         {
+          "type": "datetime",
+          "named": true
+        },
+        {
           "type": "datetimeoffset",
           "named": true
         },
@@ -8293,10 +8391,6 @@
         },
         {
           "type": "keyword_date",
-          "named": true
-        },
-        {
-          "type": "keyword_datetime",
           "named": true
         },
         {
@@ -8821,6 +8915,10 @@
           "named": true
         },
         {
+          "type": "keyword_all",
+          "named": true
+        },
+        {
           "type": "keyword_by",
           "named": true
         },
@@ -8838,6 +8936,10 @@
         },
         {
           "type": "object_id",
+          "named": true
+        },
+        {
+          "type": "ordered_set_aggregate",
           "named": true
         },
         {
@@ -8925,6 +9027,10 @@
         },
         {
           "type": "object_id",
+          "named": true
+        },
+        {
+          "type": "ordered_set_aggregate",
           "named": true
         },
         {
@@ -9266,6 +9372,10 @@
           "named": true
         },
         {
+          "type": "ordered_set_aggregate",
+          "named": true
+        },
+        {
           "type": "parameter",
           "named": true
         },
@@ -9506,6 +9616,10 @@
           },
           {
             "type": "object_id",
+            "named": true
+          },
+          {
+            "type": "ordered_set_aggregate",
             "named": true
           },
           {
@@ -9824,6 +9938,10 @@
           "named": true
         },
         {
+          "type": "ordered_set_aggregate",
+          "named": true
+        },
+        {
           "type": "parameter",
           "named": true
         },
@@ -9931,6 +10049,10 @@
         },
         {
           "type": "object_id",
+          "named": true
+        },
+        {
+          "type": "ordered_set_aggregate",
           "named": true
         },
         {
@@ -10190,6 +10312,29 @@
     }
   },
   {
+    "type": "null_treatment",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_ignore",
+          "named": true
+        },
+        {
+          "type": "keyword_nulls",
+          "named": true
+        },
+        {
+          "type": "keyword_respect",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "numeric",
     "named": true,
     "fields": {
@@ -10344,7 +10489,27 @@
       "required": true,
       "types": [
         {
+          "type": "direction",
+          "named": true
+        },
+        {
+          "type": "keyword_all",
+          "named": true
+        },
+        {
           "type": "keyword_by",
+          "named": true
+        },
+        {
+          "type": "keyword_first",
+          "named": true
+        },
+        {
+          "type": "keyword_last",
+          "named": true
+        },
+        {
+          "type": "keyword_nulls",
           "named": true
         },
         {
@@ -10435,6 +10600,10 @@
           "named": true
         },
         {
+          "type": "ordered_set_aggregate",
+          "named": true
+        },
+        {
           "type": "parameter",
           "named": true
         },
@@ -10471,6 +10640,33 @@
       "types": [
         {
           "type": "column",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "ordered_set_aggregate",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "invocation",
+          "named": true
+        },
+        {
+          "type": "keyword_group",
+          "named": true
+        },
+        {
+          "type": "keyword_within",
+          "named": true
+        },
+        {
+          "type": "order_by",
           "named": true
         }
       ]
@@ -10530,6 +10726,10 @@
         },
         {
           "type": "object_id",
+          "named": true
+        },
+        {
+          "type": "ordered_set_aggregate",
           "named": true
         },
         {
@@ -10621,6 +10821,10 @@
         },
         {
           "type": "object_id",
+          "named": true
+        },
+        {
+          "type": "ordered_set_aggregate",
           "named": true
         },
         {
@@ -10739,6 +10943,10 @@
           "named": true
         },
         {
+          "type": "ordered_set_aggregate",
+          "named": true
+        },
+        {
           "type": "parameter",
           "named": true
         },
@@ -10792,6 +11000,104 @@
         },
         {
           "type": "transaction",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "qualify",
+    "named": true,
+    "fields": {
+      "predicate": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "array",
+            "named": true
+          },
+          {
+            "type": "between_expression",
+            "named": true
+          },
+          {
+            "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "case",
+            "named": true
+          },
+          {
+            "type": "cast",
+            "named": true
+          },
+          {
+            "type": "exists",
+            "named": true
+          },
+          {
+            "type": "field",
+            "named": true
+          },
+          {
+            "type": "interval",
+            "named": true
+          },
+          {
+            "type": "invocation",
+            "named": true
+          },
+          {
+            "type": "list",
+            "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "object_id",
+            "named": true
+          },
+          {
+            "type": "ordered_set_aggregate",
+            "named": true
+          },
+          {
+            "type": "parameter",
+            "named": true
+          },
+          {
+            "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "subquery",
+            "named": true
+          },
+          {
+            "type": "subscript",
+            "named": true
+          },
+          {
+            "type": "unary_expression",
+            "named": true
+          },
+          {
+            "type": "window_function",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_qualify",
           "named": true
         }
       ]
@@ -11661,6 +11967,10 @@
             "named": true
           },
           {
+            "type": "ordered_set_aggregate",
+            "named": true
+          },
+          {
             "type": "parameter",
             "named": true
           },
@@ -12226,6 +12536,10 @@
           "named": true
         },
         {
+          "type": "ordered_set_aggregate",
+          "named": true
+        },
+        {
           "type": "parameter",
           "named": true
         },
@@ -12637,6 +12951,10 @@
           "named": true
         },
         {
+          "type": "ordered_set_aggregate",
+          "named": true
+        },
+        {
           "type": "parameter",
           "named": true
         },
@@ -12736,6 +13054,10 @@
             "named": true
           },
           {
+            "type": "ordered_set_aggregate",
+            "named": true
+          },
+          {
             "type": "parameter",
             "named": true
           },
@@ -12811,6 +13133,10 @@
           },
           {
             "type": "object_id",
+            "named": true
+          },
+          {
+            "type": "ordered_set_aggregate",
             "named": true
           },
           {
@@ -12892,6 +13218,10 @@
             "named": true
           },
           {
+            "type": "ordered_set_aggregate",
+            "named": true
+          },
+          {
             "type": "parameter",
             "named": true
           },
@@ -12967,6 +13297,10 @@
           },
           {
             "type": "object_id",
+            "named": true
+          },
+          {
+            "type": "ordered_set_aggregate",
             "named": true
           },
           {
@@ -13300,6 +13634,10 @@
             "named": true
           },
           {
+            "type": "ordered_set_aggregate",
+            "named": true
+          },
+          {
             "type": "parameter",
             "named": true
           },
@@ -13539,6 +13877,10 @@
             "named": true
           },
           {
+            "type": "ordered_set_aggregate",
+            "named": true
+          },
+          {
             "type": "parameter",
             "named": true
           },
@@ -13702,6 +14044,10 @@
           "named": true
         },
         {
+          "type": "datetime",
+          "named": true
+        },
+        {
           "type": "datetimeoffset",
           "named": true
         },
@@ -13751,10 +14097,6 @@
         },
         {
           "type": "keyword_date",
-          "named": true
-        },
-        {
-          "type": "keyword_datetime",
           "named": true
         },
         {
@@ -14042,6 +14384,10 @@
             "named": true
           },
           {
+            "type": "ordered_set_aggregate",
+            "named": true
+          },
+          {
             "type": "parameter",
             "named": true
           },
@@ -14253,6 +14599,10 @@
           "named": true
         },
         {
+          "type": "ordered_set_aggregate",
+          "named": true
+        },
+        {
           "type": "parameter",
           "named": true
         },
@@ -14353,6 +14703,10 @@
           },
           {
             "type": "object_id",
+            "named": true
+          },
+          {
+            "type": "ordered_set_aggregate",
             "named": true
           },
           {
@@ -14459,6 +14813,10 @@
         },
         {
           "type": "object_id",
+          "named": true
+        },
+        {
+          "type": "ordered_set_aggregate",
           "named": true
         },
         {
@@ -14600,6 +14958,14 @@
         },
         {
           "type": "keyword_over",
+          "named": true
+        },
+        {
+          "type": "null_treatment",
+          "named": true
+        },
+        {
+          "type": "ordered_set_aggregate",
           "named": true
         },
         {
@@ -15714,6 +16080,10 @@
     "named": true
   },
   {
+    "type": "keyword_qualify",
+    "named": true
+  },
+  {
     "type": "keyword_quote",
     "named": true
   },
@@ -15779,6 +16149,10 @@
   },
   {
     "type": "keyword_reset",
+    "named": true
+  },
+  {
+    "type": "keyword_respect",
     "named": true
   },
   {
@@ -16183,6 +16557,10 @@
   },
   {
     "type": "keyword_with",
+    "named": true
+  },
+  {
+    "type": "keyword_within",
     "named": true
   },
   {

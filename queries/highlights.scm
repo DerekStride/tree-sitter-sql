@@ -35,10 +35,10 @@
 (marginalia) @comment
 
 ((literal) @number
-   (#match? @number "^[-+]?%d+$"))
+   (#match? @number "^[-+]?[0-9]+$"))
 
 ((literal) @float
-  (#match? @float "^[-+]?%d*\.%d*$"))
+  (#match? @float "^[-+]?[0-9]*\\.[0-9]*$"))
 
 (parameter) @parameter
 
@@ -140,8 +140,10 @@
   (keyword_group)
   (keyword_with)
   (keyword_without)
+  (keyword_within)
   (keyword_as)
   (keyword_having)
+  (keyword_qualify)
   (keyword_limit)
   (keyword_offset)
   (keyword_table)
@@ -354,6 +356,7 @@
  (keyword_high_priority)
  (keyword_low_priority)
  (keyword_ignore)
+ (keyword_respect)
  (keyword_nothing)
  (keyword_check)
  (keyword_option)

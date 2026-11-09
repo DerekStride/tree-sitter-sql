@@ -199,12 +199,32 @@ export default {
   ),
 
   window_function: $ => seq(
-      $.invocation,
-      $.keyword_over,
+      choice(
+          $.invocation,
+          $.ordered_set_aggregate,
+      ),
+      $._over,
       choice(
           $.identifier,
           $.window_specification,
       ),
+  ),
+
+  ordered_set_aggregate: $ => seq(
+    $.invocation,
+    $.keyword_within,
+    $.keyword_group,
+    wrapped_in_parenthesis($.order_by),
+  ),
+
+  _over: $ => seq(
+    optional($.null_treatment),
+    $.keyword_over,
+  ),
+
+  null_treatment: $ => seq(
+    choice($.keyword_ignore, $.keyword_respect),
+    $.keyword_nulls,
   ),
 
   _alias: $ => seq(
@@ -230,6 +250,7 @@ export default {
     optional($.where),
     optional($.group_by),
     optional($.having),
+    optional($.qualify),
     optional($.window_clause),
     optional($.order_by),
     optional($.limit),
@@ -389,21 +410,39 @@ export default {
     field("predicate", $._expression),
   ),
 
-  group_by: $ => seq(
+  group_by: $ => prec.right(seq(
     $.keyword_group,
     $.keyword_by,
-    comma_list($._expression, true),
-  ),
+    choice(
+      // DuckDB, Snowflake, Databricks, BigQuery: group by every
+      // non-aggregate column of the select list.
+      $.keyword_all,
+      comma_list($._expression, true),
+    ),
+  )),
 
   having: $ => seq(
     $.keyword_having,
     $._expression,
   ),
 
+  // Snowflake, BigQuery, Databricks
+  qualify: $ => seq(
+    $.keyword_qualify,
+    field("predicate", $._expression),
+  ),
+
   order_by: $ => prec.right(seq(
     $.keyword_order,
     $.keyword_by,
-    comma_list($.order_target, true),
+    choice(
+      // DuckDB: order by every column of the select list, left to right.
+      seq(
+        $.keyword_all,
+        optional(seq($.direction, optional($._nulls_order))),
+      ),
+      comma_list($.order_target, true),
+    ),
   )),
 
   order_target: $ => seq(
@@ -417,16 +456,16 @@ export default {
             choice('<', '>', '<=', '>='),
           ),
         ),
-        optional(
-          seq(
-            $.keyword_nulls,
-            choice(
-              $.keyword_first,
-              $.keyword_last,
-            ),
-          ),
-        ),
+        optional($._nulls_order),
       ),
+    ),
+  ),
+
+  _nulls_order: $ => seq(
+    $.keyword_nulls,
+    choice(
+      $.keyword_first,
+      $.keyword_last,
     ),
   ),
 
