@@ -243,6 +243,66 @@ FROM tab1;
           name: (identifier))))))
 
 ================================================================================
+Window Functions ignore and respect nulls
+================================================================================
+
+SELECT
+  LAG(x) IGNORE NULLS OVER (ORDER BY y),
+  FIRST_VALUE(x) RESPECT NULLS OVER (ORDER BY y)
+FROM tab1;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (window_function
+            (invocation
+              (object_reference
+                name: (identifier))
+              parameter: (term
+                value: (field
+                  name: (identifier))))
+            (null_treatment
+              (keyword_ignore)
+              (keyword_nulls))
+            (keyword_over)
+            (window_specification
+              (order_by
+                (keyword_order)
+                (keyword_by)
+                (order_target
+                  (field
+                    name: (identifier)))))))
+        (term
+          value: (window_function
+            (invocation
+              (object_reference
+                name: (identifier))
+              parameter: (term
+                value: (field
+                  name: (identifier))))
+            (null_treatment
+              (keyword_respect)
+              (keyword_nulls))
+            (keyword_over)
+            (window_specification
+              (order_by
+                (keyword_order)
+                (keyword_by)
+                (order_target
+                  (field
+                    name: (identifier)))))))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier))))))
+
+================================================================================
 Window Functions two inline functions
 ================================================================================
 

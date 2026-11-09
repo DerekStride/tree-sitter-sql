@@ -203,7 +203,7 @@ export default {
           $.invocation,
           $.ordered_set_aggregate,
       ),
-      $.keyword_over,
+      $._over,
       choice(
           $.identifier,
           $.window_specification,
@@ -215,6 +215,16 @@ export default {
     $.keyword_within,
     $.keyword_group,
     wrapped_in_parenthesis($.order_by),
+  ),
+
+  _over: $ => seq(
+    optional($.null_treatment),
+    $.keyword_over,
+  ),
+
+  null_treatment: $ => seq(
+    choice($.keyword_ignore, $.keyword_respect),
+    $.keyword_nulls,
   ),
 
   _alias: $ => seq(
