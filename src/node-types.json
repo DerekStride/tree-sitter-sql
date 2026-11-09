@@ -4335,11 +4335,43 @@
       "required": true,
       "types": [
         {
+          "type": "array",
+          "named": true
+        },
+        {
+          "type": "between_expression",
+          "named": true
+        },
+        {
           "type": "binary_expression",
           "named": true
         },
         {
+          "type": "case",
+          "named": true
+        },
+        {
+          "type": "cast",
+          "named": true
+        },
+        {
+          "type": "exists",
+          "named": true
+        },
+        {
+          "type": "field",
+          "named": true
+        },
+        {
           "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "interval",
+          "named": true
+        },
+        {
+          "type": "invocation",
           "named": true
         },
         {
@@ -4435,7 +4467,15 @@
           "named": true
         },
         {
+          "type": "list",
+          "named": true
+        },
+        {
           "type": "literal",
+          "named": true
+        },
+        {
+          "type": "object_id",
           "named": true
         },
         {
@@ -4444,6 +4484,34 @@
         },
         {
           "type": "ordered_columns",
+          "named": true
+        },
+        {
+          "type": "ordered_set_aggregate",
+          "named": true
+        },
+        {
+          "type": "parameter",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "subquery",
+          "named": true
+        },
+        {
+          "type": "subscript",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "window_function",
           "named": true
         }
       ]
@@ -9707,6 +9775,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "keyword_auto_increment",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "keyword_bigint",
@@ -15173,10 +15246,6 @@
   },
   {
     "type": "keyword_authorization",
-    "named": true
-  },
-  {
-    "type": "keyword_auto_increment",
     "named": true
   },
   {

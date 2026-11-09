@@ -458,8 +458,17 @@
       "value": "[eE][xX][iI][sS][tT][sS]"
     },
     "keyword_auto_increment": {
-      "type": "PATTERN",
-      "value": "[aA][uU][tT][oO][__][iI][nN][cC][rR][eE][mM][eE][nN][tT]"
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "[aA][uU][tT][oO][__][iI][nN][cC][rR][eE][mM][eE][nN][tT]"
+        },
+        {
+          "type": "PATTERN",
+          "value": "[aA][uU][tT][oO][iI][nN][cC][rR][eE][mM][eE][nN][tT]"
+        }
+      ]
     },
     "keyword_generated": {
       "type": "PATTERN",
@@ -5691,7 +5700,7 @@
             },
             {
               "type": "SYMBOL",
-              "name": "binary_expression"
+              "name": "_expression"
             },
             {
               "type": "STRING",
