@@ -2,6 +2,55 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.3.12](https://github.com/derekstride/tree-sitter-sql/compare/v0.3.11...v0.3.12) (2026-11-09)
+
+
+### Features
+
+* add `mariadb` create with `current_timestamp()` ([5967a92](https://github.com/derekstride/tree-sitter-sql/commit/5967a925c2f534aab2cd6078df8b1e00497d45d9))
+* add CREATE PROCEDURE grammar support ([c024cf7](https://github.com/derekstride/tree-sitter-sql/commit/c024cf71b7a0f2405e41b16e781f637c23cdd688)), closes [DerekStride/tree-sitter-sql#354](https://github.com/DerekStride/tree-sitter-sql/issues/354)
+* Add simple WHILE ([c9e6547](https://github.com/derekstride/tree-sitter-sql/commit/c9e654741ad2a8d5f9ba70f697727a0d79c75d25))
+* add support for rlike and regexp ([ba3ac95](https://github.com/derekstride/tree-sitter-sql/commit/ba3ac95ab727bab79827136feb19446b72e64055))
+* covering columns w/ INCLUDE ([8977ac3](https://github.com/derekstride/tree-sitter-sql/commit/8977ac32d8fa2b98cb7ebc476f51f8e7f11d3f1a))
+* **grammar:** add support for backtick-quoted identifiers ([edb7a67](https://github.com/derekstride/tree-sitter-sql/commit/edb7a67736bf3be135faa7fad0026536eb2e9f27))
+* **grammar:** postgres alter policy ([defa200](https://github.com/derekstride/tree-sitter-sql/commit/defa20022e44af8561a0c778c5ba8e38a593c942))
+* **grammar:** postgres create policy ([68dcc39](https://github.com/derekstride/tree-sitter-sql/commit/68dcc39746bf0ab649488a5bead49d79533941cb))
+* **grammar:** postgres row level security ([d73bd9c](https://github.com/derekstride/tree-sitter-sql/commit/d73bd9c37c3afbf378dbe4f9edfc4f8fa8f95d8b))
+* **grammar:** SET configuration_parameter in CREATE FUNCTION and PROCEDURE ([bf85471](https://github.com/derekstride/tree-sitter-sql/commit/bf85471380f01af93a5fe3d37cec838c3386e7d3)), closes [#364](https://github.com/derekstride/tree-sitter-sql/issues/364)
+* Hash & Clustering columns ([c353f5d](https://github.com/derekstride/tree-sitter-sql/commit/c353f5d25a84d2507a61631137abf503c22cb4ad))
+* improve `MATERIALIZED VIEW` support ([9343e08](https://github.com/derekstride/tree-sitter-sql/commit/9343e0869ad3479d1c1d9e69c50f7870d9d92b7d))
+* **parser:** support ALL and DISTINCT on UNION, EXCEPT, and INTERSECT ([5f50bd7](https://github.com/derekstride/tree-sitter-sql/commit/5f50bd73db30af1ed47a7daa4f123a2a41659652))
+* **parser:** support dollar-containing identifiers ([e401a59](https://github.com/derekstride/tree-sitter-sql/commit/e401a59c572c84aadb5c4a124798f7bb266b986d))
+* **parser:** support IGNORE NULLS and RESPECT NULLS before OVER ([7d39bfe](https://github.com/derekstride/tree-sitter-sql/commit/7d39bfe14884bd251d970fac4ba325f22de31eb0))
+* **parser:** support PostgreSQL table grants and revokes ([4dea117](https://github.com/derekstride/tree-sitter-sql/commit/4dea11704f958ad0a96ffa5ea860b05bbd73fe41))
+* **parser:** support QUALIFY ([d96f296](https://github.com/derekstride/tree-sitter-sql/commit/d96f29602b2ef1382c5c10e74e4331a94c2d4501))
+* **parser:** support WITHIN GROUP ([5d3b880](https://github.com/derekstride/tree-sitter-sql/commit/5d3b8804c854baa6cc4fe43fe0b68b0d7fdab729))
+* **select:** support GROUP BY ALL and ORDER BY ALL ([fc1c213](https://github.com/derekstride/tree-sitter-sql/commit/fc1c2131597dd6c451f0e8cdbdee9e19961f1f55))
+* tablespace & split into tablets ([fd0548f](https://github.com/derekstride/tree-sitter-sql/commit/fd0548f963dde017b74a5b87f711649a2ffc145b))
+* TSQL CREATE FUNCTION ([ec9e527](https://github.com/derekstride/tree-sitter-sql/commit/ec9e5272c85b8addeeb1aac27fbd582e34835e58))
+* TSQL WHILE with blocks ([4ef3dc9](https://github.com/derekstride/tree-sitter-sql/commit/4ef3dc94aeaee666b9cf9e99217361b5d0ce615d))
+
+
+### Bug Fixes
+
+* accept SQLite AUTOINCREMENT and any expression in CHECK ([c042cde](https://github.com/derekstride/tree-sitter-sql/commit/c042cde1e2a6d8d5375c9dff035de9bc83ba07ac))
+* add schema/name field labels to procedure test expectations ([9ccc211](https://github.com/derekstride/tree-sitter-sql/commit/9ccc21177c35634e14ebceda8ea28b24b338d9ca))
+* **build:** support Visual Studio 2026 on Windows ([31bd366](https://github.com/derekstride/tree-sitter-sql/commit/31bd36689bad2003c78073d74a3e44343c86ff1d))
+* column constraint tests ([4381bf2](https://github.com/derekstride/tree-sitter-sql/commit/4381bf26c523b3e718fd23aa995b72f21e4b30fd))
+* correct procedure test expectations to match actual parser output ([467e9a2](https://github.com/derekstride/tree-sitter-sql/commit/467e9a25d9e099bd283e69ceebae06a735f67fcb))
+* **highlights:** match numbers with regex digits, not Lua %d ([42289bc](https://github.com/derekstride/tree-sitter-sql/commit/42289bc49fd366473992dc45d46b27b2ad659cfa))
+* include tree-sitter.json in published package ([b0cfd64](https://github.com/derekstride/tree-sitter-sql/commit/b0cfd647015242e76520aad98d1854c120f6d107))
+* moving having clause outside the group by clause ([5cf6a74](https://github.com/derekstride/tree-sitter-sql/commit/5cf6a748fc5c6feb924ea7dddd080316c5549c10))
+* parse Hive array types and storage formats ([973122d](https://github.com/derekstride/tree-sitter-sql/commit/973122dcccea5777a3703abf7d0735c75bef01ff))
+* **parser:** handle parenthesized scalar subquery comparisons ([664ff2a](https://github.com/derekstride/tree-sitter-sql/commit/664ff2a429a81036b04a3d4634c47045bad56957))
+* **parser:** support schema-qualified DROP INDEX names ([22777de](https://github.com/derekstride/tree-sitter-sql/commit/22777dea326f3476a5fa35d306f422caec542bd1))
+* regenerate Python test with correct imports ([00fa0e8](https://github.com/derekstride/tree-sitter-sql/commit/00fa0e84a304707cf4dfec8bb2ed3b525cdc7b67))
+* remove unneeded conflict to fix warning ([938880d](https://github.com/derekstride/tree-sitter-sql/commit/938880deba1ca61c714ccc82a1665497953b19ce))
+* revert original identifier and add test cases ([7b3f66e](https://github.com/derekstride/tree-sitter-sql/commit/7b3f66e6f43a0ff11cf3942f25eedf0df849341e))
+* **scanner:** don't leak start_tag across serialize/deserialize ([ee2f84f](https://github.com/derekstride/tree-sitter-sql/commit/ee2f84f9b8574c29072603e3b0b24651bcb9e04a))
+* Support Semicolon in WHILE ([60ebaee](https://github.com/derekstride/tree-sitter-sql/commit/60ebaeeb3ab790b2c09b0cb6c5b65caa6913f9e5))
+* update javascript to account for the new module behaviour ([23faa30](https://github.com/derekstride/tree-sitter-sql/commit/23faa30153d4ca80c60b12a4857661d6fed4f03c))
+
 ## [0.3.11](https://github.com/derekstride/tree-sitter-sql/compare/v0.3.10...v0.3.11) (2025-09-30)
 
 ## [0.3.10](https://github.com/derekstride/tree-sitter-sql/compare/v0.3.9...v0.3.10) (2025-09-24)
