@@ -88,7 +88,7 @@ export default {
       )
     ),
     $.keyword_check,
-    wrapped_in_parenthesis($.binary_expression)
+    wrapped_in_parenthesis($._expression)
   ),
 
   _default_expression: $ => seq(
