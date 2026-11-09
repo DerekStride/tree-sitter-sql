@@ -3338,3 +3338,151 @@ SELECT * FROM `complex-database.schema_name.table_name`;
       (relation
         (object_reference
           name: (identifier))))))
+
+================================================================================
+Select from a pivot with an alias and column names
+================================================================================
+
+SELECT *
+FROM ranked
+PIVOT (MAX(category) FOR product_rank IN ('1', '2', '3'))
+  AS p (customer_id, product_1, product_2, product_3);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (all_fields))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier))
+        (pivot
+          (keyword_pivot)
+          (term
+            value: (invocation
+              (object_reference
+                name: (identifier))
+              parameter: (term
+                value: (field
+                  name: (identifier)))))
+          (keyword_for)
+          column: (field
+            name: (identifier))
+          (keyword_in)
+          (term
+            value: (literal))
+          (term
+            value: (literal))
+          (term
+            value: (literal))
+          (keyword_as)
+          alias: (identifier)
+          (list
+            (column
+              (identifier))
+            (column
+              (identifier))
+            (column
+              (identifier))
+            (column
+              (identifier))))))))
+
+================================================================================
+Select from a pivot on an aliased subquery
+================================================================================
+
+SELECT *
+FROM (SELECT country_tier, label FROM stores) AS s
+PIVOT (MIN(label) FOR country_tier IN (0, 1, 2));
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (all_fields))))
+    (from
+      (keyword_from)
+      (relation
+        (subquery
+          (select
+            (keyword_select)
+            (select_expression
+              (term
+                value: (field
+                  name: (identifier)))
+              (term
+                value: (field
+                  name: (identifier)))))
+          (from
+            (keyword_from)
+            (relation
+              (object_reference
+                name: (identifier)))))
+        (keyword_as)
+        alias: (identifier)
+        (pivot
+          (keyword_pivot)
+          (term
+            value: (invocation
+              (object_reference
+                name: (identifier))
+              parameter: (term
+                value: (field
+                  name: (identifier)))))
+          (keyword_for)
+          column: (field
+            name: (identifier))
+          (keyword_in)
+          (term
+            value: (literal))
+          (term
+            value: (literal))
+          (term
+            value: (literal)))))))
+
+================================================================================
+Select from an unpivot including nulls
+================================================================================
+
+SELECT *
+FROM monthly_sales
+UNPIVOT INCLUDE NULLS (sales FOR month IN (jan, feb)) AS u;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (all_fields))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier))
+        (unpivot
+          (keyword_unpivot)
+          (keyword_include)
+          (keyword_nulls)
+          value: (identifier)
+          (keyword_for)
+          name: (identifier)
+          (keyword_in)
+          (field
+            name: (identifier))
+          (field
+            name: (identifier))
+          (keyword_as)
+          alias: (identifier))))))

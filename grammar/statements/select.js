@@ -270,8 +270,54 @@ export default {
           optional(alias($._column_list, $.list)),
         ),
       ),
+      repeat(choice($.pivot, $.unpivot)),
     ),
   ),
+
+  // Snowflake, SQL Server, Oracle, BigQuery, Databricks, DuckDB
+  pivot: $ => prec.right(seq(
+    $.keyword_pivot,
+    wrapped_in_parenthesis(
+      seq(
+        comma_list($.term, true),
+        $.keyword_for,
+        field('column', alias($._qualified_field, $.field)),
+        $.keyword_in,
+        paren_list($.term, true),
+      ),
+    ),
+    optional(
+      seq(
+        $._alias,
+        optional(alias($._column_list, $.list)),
+      ),
+    ),
+  )),
+
+  unpivot: $ => prec.right(seq(
+    $.keyword_unpivot,
+    optional(
+      seq(
+        choice($.keyword_include, $.keyword_exclude),
+        $.keyword_nulls,
+      ),
+    ),
+    wrapped_in_parenthesis(
+      seq(
+        field('value', $.identifier),
+        $.keyword_for,
+        field('name', $.identifier),
+        $.keyword_in,
+        paren_list(alias($._qualified_field, $.field), true),
+      ),
+    ),
+    optional(
+      seq(
+        $._alias,
+        optional(alias($._column_list, $.list)),
+      ),
+    ),
+  )),
 
   values: $ => seq(
     $.keyword_values,
