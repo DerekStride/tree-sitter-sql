@@ -210,3 +210,98 @@ HAVING cnt = 2
               (field
                 (identifier))
               (literal))))))
+
+================================================================================
+Group by all
+================================================================================
+
+SELECT other_id, COUNT(name)
+FROM my_table
+GROUP BY ALL
+HAVING COUNT(name) > 1
+ORDER BY other_id;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (field
+            (identifier)))
+        (term
+          (invocation
+            (object_reference
+              (identifier))
+            (term
+              (field
+                (identifier)))))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          (identifier)))
+      (group_by
+        (keyword_group)
+        (keyword_by)
+        (keyword_all))
+      (having
+        (keyword_having)
+        (binary_expression
+          (invocation
+            (object_reference
+              (identifier))
+            (term
+              (field
+                (identifier))))
+          (literal)))
+      (order_by
+        (keyword_order)
+        (keyword_by)
+        (order_target
+          (field
+            (identifier)))))))
+
+================================================================================
+Group by all with grouping expressions
+================================================================================
+
+SELECT a, b, COUNT(*)
+FROM my_table
+GROUP BY ALL a, b;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (field
+            (identifier)))
+        (term
+          (field
+            (identifier)))
+        (term
+          (invocation
+            (object_reference
+              (identifier))
+            (term
+              (all_fields))))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          (identifier)))
+      (group_by
+        (keyword_group)
+        (keyword_by)
+        (unary_expression
+          (keyword_all)
+          (field
+            (identifier)))
+        (field
+          (identifier))))))
