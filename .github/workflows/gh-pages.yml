@@ -25,7 +25,7 @@ jobs:
 
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.2.0
+          ruby-version: 3.2
       - uses: limjh16/jekyll-action-ts@v2
         env:
           NODE_ENV: "production"
