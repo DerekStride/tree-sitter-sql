@@ -33,12 +33,8 @@ export default {
     alias($._literal_string, $.literal)
   ),
 
-  _column_constraint: $ => prec.left(choice(
-    choice(
-      $.keyword_null,
-      $._not_null,
-    ),
-    seq(
+  _column_constraint: $ => choice(
+    prec.right(1, seq(
       $.keyword_references,
       $.object_reference,
       paren_list($.identifier, true),
@@ -58,8 +54,14 @@ export default {
           ),
         ),
       ),
+    )),
+    prec.left(choice(
+    choice(
+      $.keyword_null,
+      $._not_null,
     ),
     $._default_expression,
+    seq($.keyword_on, $.keyword_update, $._current_timestamp),
     $._primary_key,
     $.keyword_auto_increment,
     $.direction,
@@ -75,7 +77,8 @@ export default {
       $.keyword_virtual,
     ),
     $.keyword_unique
-  )),
+    )),
+  ),
 
   _check_constraint: $ => seq(
     optional(
@@ -92,6 +95,10 @@ export default {
     $.keyword_default,
     optional_parenthesis($._inner_default_expression),
   ),
+  _current_timestamp: $ => prec.right(seq(
+    $.keyword_current_timestamp,
+    optional(wrapped_in_parenthesis(optional(alias($._natural_number, $.literal)))),
+  )),
   _inner_default_expression: $ => choice(
       $.literal,
       $.list,
@@ -100,7 +107,7 @@ export default {
       $.unary_expression,
       $.array,
       $.invocation,
-      $.keyword_current_timestamp,
+      $._current_timestamp,
       alias($.implicit_cast, $.cast),
   ),
 
