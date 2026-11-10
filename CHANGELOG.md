@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.3.13](https://github.com/DerekStride/tree-sitter-sql/compare/v0.3.12...v0.3.13) (2026-11-10)
+
+
+### Features
+
+* **highlights:** capture colon path keys as fields ([328740b](https://github.com/DerekStride/tree-sitter-sql/commit/328740bc5d981e6029bdc5f998cfaa2666a5622e))
+* **highlights:** capture named argument names as parameters ([48373d9](https://github.com/DerekStride/tree-sitter-sql/commit/48373d9b6a4b665585721d6dff927e52353331aa))
+* **parser:** support colon path access on semi-structured values ([83bc104](https://github.com/DerekStride/tree-sitter-sql/commit/83bc104b3805aa00aac4a70adbf02c6808ab0b6a))
+* **parser:** support ESCAPE after LIKE and SIMILAR TO ([08b0c49](https://github.com/DerekStride/tree-sitter-sql/commit/08b0c49293d40a213dae509ffdc58ae83d3cbbf3))
+* **parser:** support EXCLUDE and RENAME after SELECT * ([fcc2218](https://github.com/DerekStride/tree-sitter-sql/commit/fcc2218b021ddc1b93fbd7e2889d26c7fca27424))
+* **parser:** support LATERAL in the FROM list ([097e670](https://github.com/DerekStride/tree-sitter-sql/commit/097e670ca7a0a9bb1c20de50cfac13615c90e29a))
+* **parser:** support named arguments in function calls ([b65ddaf](https://github.com/DerekStride/tree-sitter-sql/commit/b65ddaf55a9bd19765f553e79ebb33b28e015db2))
+* **parser:** support NUMBER as a synonym for NUMERIC ([3002155](https://github.com/DerekStride/tree-sitter-sql/commit/300215513efca0b3f421db390d3b754c80ecc744))
+* **parser:** support PIVOT and UNPIVOT ([a5721d1](https://github.com/DerekStride/tree-sitter-sql/commit/a5721d1308c3f27ab94e3df3133e106f698a116e))
+* **parser:** support unary minus and plus on any expression ([4fdfe9c](https://github.com/DerekStride/tree-sitter-sql/commit/4fdfe9c2ec909fc9a33f3bb237934a453b91d1c8))
+* **parser:** support VALUES without parentheses in FROM ([aca17d5](https://github.com/DerekStride/tree-sitter-sql/commit/aca17d5350f42e5255d3e044a51225283362bbb3))
+
+
+### Bug Fixes
+
+* **parser:** parse NATURAL JOIN without ON or USING ([9204e29](https://github.com/DerekStride/tree-sitter-sql/commit/9204e2910d01e72114e0b4984947d12ca15f8bc6))
+
 ## [0.3.12](https://github.com/derekstride/tree-sitter-sql/compare/v0.3.11...v0.3.12) (2026-11-09)
 
 
