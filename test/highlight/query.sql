@@ -19,3 +19,7 @@ WHERE m.id > 4
 
 SELECT 1.5
 --     ^ float
+
+SELECT FLATTEN(INPUT => a)
+--             ^ parameter
+--                   ^ operator
