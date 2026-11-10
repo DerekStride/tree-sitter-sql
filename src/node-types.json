@@ -2893,6 +2893,10 @@
             "named": true
           },
           {
+            "type": "keyword_escape",
+            "named": true
+          },
+          {
             "type": "keyword_in",
             "named": true
           },
