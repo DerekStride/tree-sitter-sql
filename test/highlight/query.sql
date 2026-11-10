@@ -27,3 +27,6 @@ SELECT FLATTEN(INPUT => a)
 SELECT * RENAME d AS e
 --              ^ field
 --                   ^ variable
+
+SELECT v:a
+--       ^ field
