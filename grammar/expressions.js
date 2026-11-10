@@ -21,6 +21,7 @@ export default {
       $.invocation,
       $.binary_expression,
       $.subscript,
+      $.path_expression,
       $.unary_expression,
       $.array,
       $.interval,
@@ -202,6 +203,14 @@ export default {
         ),
       ),
       "]",
+    ),
+  ),
+
+  path_expression: $ => prec.left('subscript',
+    seq(
+      field('expression', $._expression),
+      ':',
+      field('key', $.identifier),
     ),
   ),
 
