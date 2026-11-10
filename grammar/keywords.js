@@ -379,7 +379,7 @@ export default {
   keyword_int: _ => choice(make_keyword("int"), make_keyword("integer"), make_keyword("int4")),
   keyword_bigint: _ => choice(make_keyword("bigint"),make_keyword("int8")),
   keyword_decimal: _ => make_keyword("decimal"),
-  keyword_numeric: _ => make_keyword("numeric"),
+  keyword_numeric: _ => token(choice(make_keyword("numeric"), make_keyword("number"))),
   keyword_real: _ => choice(make_keyword("real"),make_keyword("float4")),
   keyword_float: _ => make_keyword("float"),
   keyword_double: _ => make_keyword("double"),
