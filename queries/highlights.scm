@@ -31,6 +31,12 @@
 (term
   alias: (identifier) @variable)
 
+(rename_columns
+  name: (identifier) @field)
+
+(rename_columns
+  alias: (identifier) @variable)
+
 ((term
    value: (cast
     name: (keyword_cast) @function.call

@@ -179,3 +179,40 @@ END
               (identifier)
               (identifier)))))
       (keyword_end))))
+
+================================================================================
+While in TSQL with SELECT * before RENAME TABLE
+================================================================================
+
+WHILE @x < 1
+BEGIN
+  SELECT *
+  RENAME TABLE a TO b
+END;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (while_statement
+      (keyword_while)
+      (binary_expression
+        (field
+          (identifier))
+        (literal))
+      (keyword_begin)
+      (statement
+        (select
+          (keyword_select)
+          (select_expression
+            (term
+              (all_fields)))))
+      (statement
+        (keyword_rename)
+        (keyword_table)
+        (object_reference
+          (identifier))
+        (keyword_to)
+        (object_reference
+          (identifier)))
+      (keyword_end))))

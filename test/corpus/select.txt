@@ -136,6 +136,62 @@ SELECT t.* FROM my_table AS t;
         alias: (identifier)))))
 
 ================================================================================
+All fields with EXCLUDE and RENAME
+================================================================================
+
+SELECT * EXCLUDE a, t.* EXCLUDE (b, c) RENAME d AS e, t.* RENAME (f AS g, h AS i)
+FROM my_table AS t;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (all_fields
+            (exclude_columns
+              (keyword_exclude)
+              (column
+                (identifier)))))
+        (term
+          value: (all_fields
+            (object_reference
+              name: (identifier))
+            (exclude_columns
+              (keyword_exclude)
+              (list
+                (column
+                  (identifier))
+                (column
+                  (identifier))))
+            (rename_columns
+              (keyword_rename)
+              name: (identifier)
+              (keyword_as)
+              alias: (identifier))))
+        (term
+          value: (all_fields
+            (object_reference
+              name: (identifier))
+            (rename_columns
+              (keyword_rename)
+              name: (identifier)
+              (keyword_as)
+              alias: (identifier)
+              name: (identifier)
+              (keyword_as)
+              alias: (identifier))))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier))
+        (keyword_as)
+        alias: (identifier)))))
+
+================================================================================
 Simple select TSQL parameters
 ================================================================================
 
