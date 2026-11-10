@@ -19,6 +19,12 @@
 (relation
   alias: (identifier) @variable)
 
+(pivot
+  alias: (identifier) @variable)
+
+(unpivot
+  alias: (identifier) @variable)
+
 (field
   name: (identifier) @field)
 
@@ -144,6 +150,8 @@
   (keyword_as)
   (keyword_having)
   (keyword_qualify)
+  (keyword_pivot)
+  (keyword_unpivot)
   (keyword_limit)
   (keyword_offset)
   (keyword_table)
