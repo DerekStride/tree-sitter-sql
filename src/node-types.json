@@ -10928,6 +10928,62 @@
     }
   },
   {
+    "type": "pivot",
+    "named": true,
+    "fields": {
+      "alias": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "column": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "field",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword_as",
+          "named": true
+        },
+        {
+          "type": "keyword_for",
+          "named": true
+        },
+        {
+          "type": "keyword_in",
+          "named": true
+        },
+        {
+          "type": "keyword_pivot",
+          "named": true
+        },
+        {
+          "type": "list",
+          "named": true
+        },
+        {
+          "type": "term",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "procedure_body",
     "named": true,
     "fields": {},
@@ -11255,7 +11311,15 @@
           "named": true
         },
         {
+          "type": "pivot",
+          "named": true
+        },
+        {
           "type": "subquery",
+          "named": true
+        },
+        {
+          "type": "unpivot",
           "named": true
         },
         {
@@ -14012,6 +14076,84 @@
     }
   },
   {
+    "type": "unpivot",
+    "named": true,
+    "fields": {
+      "alias": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "field",
+          "named": true
+        },
+        {
+          "type": "keyword_as",
+          "named": true
+        },
+        {
+          "type": "keyword_exclude",
+          "named": true
+        },
+        {
+          "type": "keyword_for",
+          "named": true
+        },
+        {
+          "type": "keyword_in",
+          "named": true
+        },
+        {
+          "type": "keyword_include",
+          "named": true
+        },
+        {
+          "type": "keyword_nulls",
+          "named": true
+        },
+        {
+          "type": "keyword_unpivot",
+          "named": true
+        },
+        {
+          "type": "list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "update",
     "named": true,
     "fields": {},
@@ -16109,6 +16251,10 @@
     "named": true
   },
   {
+    "type": "keyword_pivot",
+    "named": true
+  },
+  {
     "type": "keyword_plain",
     "named": true
   },
@@ -16522,6 +16668,10 @@
   },
   {
     "type": "keyword_unlogged",
+    "named": true
+  },
+  {
+    "type": "keyword_unpivot",
     "named": true
   },
   {
