@@ -107,6 +107,30 @@ export default {
       ),
     ),
     '*',
+    optional($.exclude_columns),
+    optional($.rename_columns),
+  ),
+
+  exclude_columns: $ => seq(
+    $.keyword_exclude,
+    choice(
+      alias($._column, $.column),
+      alias($._column_list, $.list),
+    ),
+  ),
+
+  rename_columns: $ => seq(
+    $.keyword_rename,
+    choice(
+      $._renamed_column,
+      paren_list($._renamed_column, true),
+    ),
+  ),
+
+  _renamed_column: $ => seq(
+    field('name', $.identifier),
+    $.keyword_as,
+    field('alias', $.identifier),
   ),
 
   partition_by: $ => seq(
