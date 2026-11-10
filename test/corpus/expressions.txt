@@ -572,6 +572,49 @@ WHERE
             right: (literal)))))))
 
 ================================================================================
+Where with LIKE and ESCAPE
+================================================================================
+
+SELECT
+    *
+FROM
+    a
+WHERE
+        a LIKE '50!%' ESCAPE '!'
+    AND b = 1;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (all_fields))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier)))
+      (where
+        (keyword_where)
+        predicate: (binary_expression
+          left: (binary_expression
+            left: (binary_expression
+              left: (field
+                name: (identifier))
+              operator: (keyword_like)
+              right: (literal))
+            operator: (keyword_escape)
+            right: (literal))
+          operator: (keyword_and)
+          right: (binary_expression
+            left: (field
+              name: (identifier))
+            right: (literal)))))))
+
+================================================================================
 Where with RLIKE pattern matching
 ================================================================================
 
