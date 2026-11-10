@@ -23,3 +23,7 @@ SELECT 1.5
 SELECT FLATTEN(INPUT => a)
 --             ^ parameter
 --                   ^ operator
+
+SELECT * RENAME d AS e
+--              ^ field
+--                   ^ variable
