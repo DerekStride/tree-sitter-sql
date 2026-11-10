@@ -6848,7 +6848,7 @@
                                 "name": "parameter",
                                 "content": {
                                   "type": "SYMBOL",
-                                  "name": "term"
+                                  "name": "_argument"
                                 }
                               },
                               {
@@ -6894,7 +6894,7 @@
                                       "name": "parameter",
                                       "content": {
                                         "type": "SYMBOL",
-                                        "name": "term"
+                                        "name": "_argument"
                                       }
                                     },
                                     {
@@ -7034,7 +7034,7 @@
                         "name": "parameter",
                         "content": {
                           "type": "SYMBOL",
-                          "name": "term"
+                          "name": "_argument"
                         }
                       },
                       {
@@ -7120,6 +7120,44 @@
           }
         ]
       }
+    },
+    "_argument": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "term"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "named_argument"
+        }
+      ]
+    },
+    "named_argument": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "=>"
+        },
+        {
+          "type": "FIELD",
+          "name": "value",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_expression"
+          }
+        }
+      ]
     },
     "filter_expression": {
       "type": "SEQ",
