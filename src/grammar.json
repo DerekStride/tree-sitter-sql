@@ -7170,7 +7170,7 @@
     },
     "subscript": {
       "type": "PREC_LEFT",
-      "value": "binary_is",
+      "value": "subscript",
       "content": {
         "type": "SEQ",
         "members": [
@@ -8550,6 +8550,56 @@
               }
             ]
           }
+        },
+        {
+          "type": "PREC_LEFT",
+          "value": "unary_sign",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "FIELD",
+                "name": "operator",
+                "content": {
+                  "type": "STRING",
+                  "value": "-"
+                }
+              },
+              {
+                "type": "FIELD",
+                "name": "operand",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_expression"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "PREC_LEFT",
+          "value": "unary_sign",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "FIELD",
+                "name": "operator",
+                "content": {
+                  "type": "STRING",
+                  "value": "+"
+                }
+              },
+              {
+                "type": "FIELD",
+                "name": "operand",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_expression"
+                }
+              }
+            ]
+          }
         }
       ]
     },
@@ -8905,64 +8955,82 @@
       "value": "\\d+"
     },
     "_integer": {
-      "type": "SEQ",
+      "type": "CHOICE",
       "members": [
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "STRING",
-                  "value": "-"
-                },
-                {
-                  "type": "STRING",
-                  "value": "+"
-                }
-              ]
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
+          "type": "PREC",
+          "value": 1,
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": "-"
+                  },
+                  {
+                    "type": "STRING",
+                    "value": "+"
+                  }
+                ]
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_unsigned_integer"
+              }
+            ]
+          }
         },
         {
-          "type": "PATTERN",
-          "value": "(0[xX][0-9A-Fa-f]+(_[0-9A-Fa-f]+)*)|(0[oO][0-7]+(_[0-7]+)*)|(0[bB][01]+(_[01]+)*)|(\\d+(_\\d+)*(e[+-]?\\d+(_\\d+)*)?)"
+          "type": "SYMBOL",
+          "name": "_unsigned_integer"
         }
       ]
     },
+    "_unsigned_integer": {
+      "type": "PATTERN",
+      "value": "(0[xX][0-9A-Fa-f]+(_[0-9A-Fa-f]+)*)|(0[oO][0-7]+(_[0-7]+)*)|(0[bB][01]+(_[01]+)*)|(\\d+(_\\d+)*(e[+-]?\\d+(_\\d+)*)?)"
+    },
     "_decimal_number": {
-      "type": "SEQ",
+      "type": "CHOICE",
       "members": [
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "STRING",
-                  "value": "-"
-                },
-                {
-                  "type": "STRING",
-                  "value": "+"
-                }
-              ]
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
+          "type": "PREC",
+          "value": 1,
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": "-"
+                  },
+                  {
+                    "type": "STRING",
+                    "value": "+"
+                  }
+                ]
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_unsigned_decimal"
+              }
+            ]
+          }
         },
         {
-          "type": "PATTERN",
-          "value": "((\\d+(_\\d+)*)?[.]\\d+(_\\d+)*(e[+-]?\\d+(_\\d+)*)?)|(\\d+(_\\d+)*[.](e[+-]?\\d+(_\\d+)*)?)"
+          "type": "SYMBOL",
+          "name": "_unsigned_decimal"
         }
       ]
+    },
+    "_unsigned_decimal": {
+      "type": "PATTERN",
+      "value": "((\\d+(_\\d+)*)?[.]\\d+(_\\d+)*(e[+-]?\\d+(_\\d+)*)?)|(\\d+(_\\d+)*[.](e[+-]?\\d+(_\\d+)*)?)"
     },
     "_bit_string": {
       "type": "SEQ",
@@ -23847,6 +23915,14 @@
   ],
   "precedences": [
     [
+      {
+        "type": "STRING",
+        "value": "subscript"
+      },
+      {
+        "type": "STRING",
+        "value": "unary_sign"
+      },
       {
         "type": "STRING",
         "value": "binary_is"
