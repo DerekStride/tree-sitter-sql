@@ -295,7 +295,7 @@ export default {
         $.subquery,
         $.invocation,
         $.object_reference,
-        wrapped_in_parenthesis($.values),
+        optional_parenthesis($.values),
       ),
       optional(
         seq(
