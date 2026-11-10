@@ -304,33 +304,31 @@ export default {
     ),
   ),
 
-  join: $ => seq(
-    optional($.keyword_natural),
-    optional(
+  join: $ => choice(
+    seq(
+      $.keyword_natural,
+      optional(join_type($)),
+      $.keyword_join,
+      $.relation,
+      optional($.index_hint),
+    ),
+    seq(
+      optional(join_type($)),
+      $.keyword_join,
+      $.relation,
+      optional($.index_hint),
+      optional($.join),
       choice(
-        $.keyword_left,
-        seq($.keyword_full, $.keyword_outer),
-        seq($.keyword_left, $.keyword_outer),
-        $.keyword_right,
-        seq($.keyword_right, $.keyword_outer),
-        $.keyword_inner,
-        $.keyword_full,
+        seq(
+          $.keyword_on,
+          field("predicate", $._expression),
+        ),
+        seq(
+          $.keyword_using,
+          alias($._column_list, $.list),
+        ),
       ),
     ),
-    $.keyword_join,
-    $.relation,
-    optional($.index_hint),
-    optional($.join),
-    choice(
-      seq(
-        $.keyword_on,
-        field("predicate", $._expression),
-      ),
-      seq(
-        $.keyword_using,
-        alias($._column_list, $.list),
-      )
-    )
   ),
 
   cross_join: $ => prec.right(
@@ -486,3 +484,15 @@ export default {
   ),
 
 };
+
+function join_type($) {
+  return choice(
+    $.keyword_left,
+    seq($.keyword_full, $.keyword_outer),
+    seq($.keyword_left, $.keyword_outer),
+    $.keyword_right,
+    seq($.keyword_right, $.keyword_outer),
+    $.keyword_inner,
+    $.keyword_full,
+  );
+}

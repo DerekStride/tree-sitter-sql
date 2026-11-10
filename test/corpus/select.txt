@@ -1259,8 +1259,7 @@ FULL OUTER JOIN table_f f
 ON a.id = f.f_id
 FULL JOIN table_g g
 ON a.id = g.g_id
-NATURAL JOIN table_h h
-USING (id);
+NATURAL JOIN table_h h;
 
 --------------------------------------------------------------------------------
 
@@ -1408,11 +1407,53 @@ USING (id);
         (relation
           (object_reference
             name: (identifier))
-          alias: (identifier))
-        (keyword_using)
-        (list
-          (column
-            (identifier)))))))
+          alias: (identifier))))))
+
+================================================================================
+Natural joins without a condition
+================================================================================
+
+SELECT *
+FROM revenue_before
+NATURAL JOIN revenue_after
+NATURAL LEFT JOIN revenue_change;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (all_fields))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier)))
+      (join
+        (keyword_natural)
+        (keyword_join)
+        (relation
+          (object_reference
+            name: (identifier))))
+      (join
+        (keyword_natural)
+        (keyword_left)
+        (keyword_join)
+        (relation
+          (object_reference
+            name: (identifier)))))))
+
+================================================================================
+Natural join rejects a USING clause
+:error
+================================================================================
+
+SELECT * FROM a NATURAL JOIN b USING (id);
+
+--------------------------------------------------------------------------------
 
 ================================================================================
 Lateral join
