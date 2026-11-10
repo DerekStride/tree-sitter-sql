@@ -193,6 +193,42 @@ FROM table_a;
           name: (identifier))))))
 
 ================================================================================
+Named arguments
+================================================================================
+
+SELECT FLATTEN(INPUT => a, OUTER => TRUE), f(x, mode => 'ARRAY');
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (invocation
+            (object_reference
+              name: (identifier))
+            parameter: (named_argument
+              name: (identifier)
+              value: (field
+                name: (identifier)))
+            parameter: (named_argument
+              name: (identifier)
+              value: (literal
+                (keyword_true)))))
+        (term
+          value: (invocation
+            (object_reference
+              name: (identifier))
+            parameter: (term
+              value: (field
+                name: (identifier)))
+            parameter: (named_argument
+              name: (identifier)
+              value: (literal))))))))
+
+================================================================================
 MYSQL period_diff
 ================================================================================
 

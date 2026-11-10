@@ -136,7 +136,7 @@ export default {
             optional($.keyword_distinct),
             field(
               'parameter',
-              $.term,
+              $._argument,
             ),
             optional($.order_by)
           )
@@ -156,7 +156,7 @@ export default {
         wrapped_in_parenthesis(
           seq(
             optional($.keyword_distinct),
-            field('parameter', $.term),
+            field('parameter', $._argument),
             optional($.order_by),
             optional(seq(
               choice($.keyword_separator, ','),
@@ -170,6 +170,14 @@ export default {
         $.filter_expression
       )
     ),
+  ),
+
+  _argument: $ => choice($.term, $.named_argument),
+
+  named_argument: $ => seq(
+    field('name', $.identifier),
+    '=>',
+    field('value', $._expression),
   ),
 
   filter_expression : $ => seq(
