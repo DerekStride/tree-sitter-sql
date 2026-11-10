@@ -42,6 +42,9 @@
 
 (parameter) @parameter
 
+(named_argument
+  name: (identifier) @parameter)
+
 [
  (keyword_true)
  (keyword_false)
