@@ -237,7 +237,16 @@ export default {
     optional(
       $.keyword_only,
     ),
-    comma_list($.relation, true),
+    $.relation,
+    repeat(
+      seq(
+        ',',
+        choice(
+          $.relation,
+          alias($._lateral_relation, $.relation),
+        ),
+      ),
+    ),
     optional($.index_hint),
     repeat(
       choice(
@@ -271,6 +280,22 @@ export default {
         ),
       ),
       repeat(choice($.pivot, $.unpivot)),
+    ),
+  ),
+
+  _lateral_relation: $ => prec.right(
+    seq(
+      $.keyword_lateral,
+      choice(
+        $.subquery,
+        $.invocation,
+      ),
+      optional(
+        seq(
+          $._alias,
+          optional(alias($._column_list, $.list)),
+        ),
+      ),
     ),
   ),
 

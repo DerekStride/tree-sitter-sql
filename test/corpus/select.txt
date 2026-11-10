@@ -1546,6 +1546,45 @@ CROSS JOIN LATERAL (SELECT 1) AS b;
         alias: (identifier)))))
 
 ================================================================================
+Lateral in the FROM list
+================================================================================
+
+SELECT f.value
+FROM my_table a, LATERAL FLATTEN(INPUT => a.arr) AS f;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            (object_reference
+              name: (identifier))
+            name: (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier))
+        alias: (identifier))
+      (relation
+        (keyword_lateral)
+        (invocation
+          (object_reference
+            name: (identifier))
+          parameter: (named_argument
+            name: (identifier)
+            value: (field
+              (object_reference
+                name: (identifier))
+              name: (identifier))))
+        (keyword_as)
+        alias: (identifier)))))
+
+================================================================================
 Multiple joins
 ================================================================================
 
