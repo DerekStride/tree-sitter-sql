@@ -28,6 +28,9 @@
 (field
   name: (identifier) @field)
 
+(path_expression
+  key: (identifier) @field)
+
 (term
   alias: (identifier) @variable)
 

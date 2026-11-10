@@ -55,6 +55,7 @@ export default grammar({
       'clause_connective',
       'clause_disjunctive',
     ],
+    [$._qualified_field, 'subscript'],
   ],
 
   word: $ => $._identifier,
