@@ -38,7 +38,7 @@
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/derekstride/tree-sitter-sql.git"
+    "url": "git+https://github.com/DerekStride/tree-sitter-sql.git"
   },
   "bugs": {
     "url": "https://github.com/derekstride/tree-sitter-sql/issues"
