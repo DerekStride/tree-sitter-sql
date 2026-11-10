@@ -498,6 +498,10 @@
           "named": true
         },
         {
+          "type": "path_expression",
+          "named": true
+        },
+        {
           "type": "subquery",
           "named": true
         },
@@ -1953,6 +1957,10 @@
           "named": true
         },
         {
+          "type": "path_expression",
+          "named": true
+        },
+        {
           "type": "select",
           "named": true
         },
@@ -2340,6 +2348,10 @@
             "named": true
           },
           {
+            "type": "path_expression",
+            "named": true
+          },
+          {
             "type": "subquery",
             "named": true
           },
@@ -2443,6 +2455,10 @@
             "named": true
           },
           {
+            "type": "path_expression",
+            "named": true
+          },
+          {
             "type": "subquery",
             "named": true
           },
@@ -2525,6 +2541,10 @@
             "named": true
           },
           {
+            "type": "path_expression",
+            "named": true
+          },
+          {
             "type": "subquery",
             "named": true
           },
@@ -2604,6 +2624,10 @@
           },
           {
             "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "path_expression",
             "named": true
           },
           {
@@ -2776,6 +2800,10 @@
           },
           {
             "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "path_expression",
             "named": true
           },
           {
@@ -2979,6 +3007,10 @@
             "named": true
           },
           {
+            "type": "path_expression",
+            "named": true
+          },
+          {
             "type": "subquery",
             "named": true
           },
@@ -3140,6 +3172,10 @@
           "named": true
         },
         {
+          "type": "path_expression",
+          "named": true
+        },
+        {
           "type": "subquery",
           "named": true
         },
@@ -3244,6 +3280,10 @@
           },
           {
             "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "path_expression",
             "named": true
           },
           {
@@ -3519,6 +3559,10 @@
         },
         {
           "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "path_expression",
           "named": true
         },
         {
@@ -4125,6 +4169,10 @@
           "named": true
         },
         {
+          "type": "path_expression",
+          "named": true
+        },
+        {
           "type": "subquery",
           "named": true
         },
@@ -4504,6 +4552,10 @@
         },
         {
           "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "path_expression",
           "named": true
         },
         {
@@ -5523,6 +5575,10 @@
           "named": true
         },
         {
+          "type": "path_expression",
+          "named": true
+        },
+        {
           "type": "select",
           "named": true
         },
@@ -6424,6 +6480,10 @@
         },
         {
           "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "path_expression",
           "named": true
         },
         {
@@ -7654,6 +7714,10 @@
             "named": true
           },
           {
+            "type": "path_expression",
+            "named": true
+          },
+          {
             "type": "subquery",
             "named": true
           },
@@ -8349,6 +8413,10 @@
         },
         {
           "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "path_expression",
           "named": true
         },
         {
@@ -9050,6 +9118,10 @@
           "named": true
         },
         {
+          "type": "path_expression",
+          "named": true
+        },
+        {
           "type": "subquery",
           "named": true
         },
@@ -9138,6 +9210,10 @@
         },
         {
           "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "path_expression",
           "named": true
         },
         {
@@ -9483,6 +9559,10 @@
           "named": true
         },
         {
+          "type": "path_expression",
+          "named": true
+        },
+        {
           "type": "select",
           "named": true
         },
@@ -9731,6 +9811,10 @@
           },
           {
             "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "path_expression",
             "named": true
           },
           {
@@ -10058,6 +10142,10 @@
           "named": true
         },
         {
+          "type": "path_expression",
+          "named": true
+        },
+        {
           "type": "subquery",
           "named": true
         },
@@ -10169,6 +10257,10 @@
         },
         {
           "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "path_expression",
           "named": true
         },
         {
@@ -10362,6 +10454,10 @@
           },
           {
             "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "path_expression",
             "named": true
           },
           {
@@ -10818,6 +10914,10 @@
           "named": true
         },
         {
+          "type": "path_expression",
+          "named": true
+        },
+        {
           "type": "subquery",
           "named": true
         },
@@ -10947,6 +11047,10 @@
           "named": true
         },
         {
+          "type": "path_expression",
+          "named": true
+        },
+        {
           "type": "subquery",
           "named": true
         },
@@ -11042,6 +11146,10 @@
           "named": true
         },
         {
+          "type": "path_expression",
+          "named": true
+        },
+        {
           "type": "subquery",
           "named": true
         },
@@ -11058,6 +11166,108 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "path_expression",
+    "named": true,
+    "fields": {
+      "expression": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "array",
+            "named": true
+          },
+          {
+            "type": "between_expression",
+            "named": true
+          },
+          {
+            "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "case",
+            "named": true
+          },
+          {
+            "type": "cast",
+            "named": true
+          },
+          {
+            "type": "exists",
+            "named": true
+          },
+          {
+            "type": "field",
+            "named": true
+          },
+          {
+            "type": "interval",
+            "named": true
+          },
+          {
+            "type": "invocation",
+            "named": true
+          },
+          {
+            "type": "list",
+            "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "object_id",
+            "named": true
+          },
+          {
+            "type": "ordered_set_aggregate",
+            "named": true
+          },
+          {
+            "type": "parameter",
+            "named": true
+          },
+          {
+            "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "path_expression",
+            "named": true
+          },
+          {
+            "type": "subquery",
+            "named": true
+          },
+          {
+            "type": "subscript",
+            "named": true
+          },
+          {
+            "type": "unary_expression",
+            "named": true
+          },
+          {
+            "type": "window_function",
+            "named": true
+          }
+        ]
+      },
+      "key": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -11217,6 +11427,10 @@
           "named": true
         },
         {
+          "type": "path_expression",
+          "named": true
+        },
+        {
           "type": "statement",
           "named": true
         },
@@ -11333,6 +11547,10 @@
           },
           {
             "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "path_expression",
             "named": true
           },
           {
@@ -12293,6 +12511,10 @@
             "named": true
           },
           {
+            "type": "path_expression",
+            "named": true
+          },
+          {
             "type": "subquery",
             "named": true
           },
@@ -12862,6 +13084,10 @@
           "named": true
         },
         {
+          "type": "path_expression",
+          "named": true
+        },
+        {
           "type": "refresh_materialized_view",
           "named": true
         },
@@ -13277,6 +13503,10 @@
           "named": true
         },
         {
+          "type": "path_expression",
+          "named": true
+        },
+        {
           "type": "select",
           "named": true
         },
@@ -13380,6 +13610,10 @@
             "named": true
           },
           {
+            "type": "path_expression",
+            "named": true
+          },
+          {
             "type": "subquery",
             "named": true
           },
@@ -13459,6 +13693,10 @@
           },
           {
             "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "path_expression",
             "named": true
           },
           {
@@ -13544,6 +13782,10 @@
             "named": true
           },
           {
+            "type": "path_expression",
+            "named": true
+          },
+          {
             "type": "subquery",
             "named": true
           },
@@ -13623,6 +13865,10 @@
           },
           {
             "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "path_expression",
             "named": true
           },
           {
@@ -13960,6 +14206,10 @@
             "named": true
           },
           {
+            "type": "path_expression",
+            "named": true
+          },
+          {
             "type": "subquery",
             "named": true
           },
@@ -14200,6 +14450,10 @@
           },
           {
             "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "path_expression",
             "named": true
           },
           {
@@ -14796,6 +15050,10 @@
             "named": true
           },
           {
+            "type": "path_expression",
+            "named": true
+          },
+          {
             "type": "subquery",
             "named": true
           },
@@ -15011,6 +15269,10 @@
           "named": true
         },
         {
+          "type": "path_expression",
+          "named": true
+        },
+        {
           "type": "select",
           "named": true
         },
@@ -15115,6 +15377,10 @@
           },
           {
             "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "path_expression",
             "named": true
           },
           {
@@ -15225,6 +15491,10 @@
         },
         {
           "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "path_expression",
           "named": true
         },
         {
