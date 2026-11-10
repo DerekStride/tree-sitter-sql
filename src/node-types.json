@@ -11436,6 +11436,10 @@
           "named": true
         },
         {
+          "type": "keyword_lateral",
+          "named": true
+        },
+        {
           "type": "list",
           "named": true
         },
