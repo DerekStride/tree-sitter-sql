@@ -37,6 +37,8 @@ export default grammar({
 
   precedences: $ => [
     [
+      'subscript',
+      'unary_sign',
       'binary_is',
       'unary_not',
       'binary_exp',

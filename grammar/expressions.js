@@ -181,7 +181,7 @@ export default {
     wrapped_in_parenthesis($._expression)
   ),
 
-  subscript: $ => prec.left('binary_is',
+  subscript: $ => prec.left('subscript',
     seq(
       field('expression', $._expression),
       "[",
@@ -323,6 +323,8 @@ export default {
       [$.keyword_some, 'unary_not'],
       [$.keyword_all, 'unary_not'],
       [$.op_unary_other, 'unary_other'],
+      ['-', 'unary_sign'],
+      ['+', 'unary_sign'],
     ].map(([operator, precedence]) =>
       prec.left(precedence, seq(
         field('operator', operator),
@@ -403,15 +405,16 @@ export default {
     ),
   ),
   _natural_number: _ => /\d+/,
-  _integer: $ => seq(
-    optional(choice("-", "+")),
-    /(0[xX][0-9A-Fa-f]+(_[0-9A-Fa-f]+)*)|(0[oO][0-7]+(_[0-7]+)*)|(0[bB][01]+(_[01]+)*)|(\d+(_\d+)*(e[+-]?\d+(_\d+)*)?)/
+  _integer: $ => choice(
+    prec(1, seq(choice("-", "+"), $._unsigned_integer)),
+    $._unsigned_integer,
   ),
-  _decimal_number: $ => seq(
-    optional(
-      choice("-", "+")),
-    /((\d+(_\d+)*)?[.]\d+(_\d+)*(e[+-]?\d+(_\d+)*)?)|(\d+(_\d+)*[.](e[+-]?\d+(_\d+)*)?)/
+  _unsigned_integer: _ => /(0[xX][0-9A-Fa-f]+(_[0-9A-Fa-f]+)*)|(0[oO][0-7]+(_[0-7]+)*)|(0[bB][01]+(_[01]+)*)|(\d+(_\d+)*(e[+-]?\d+(_\d+)*)?)/,
+  _decimal_number: $ => choice(
+    prec(1, seq(choice("-", "+"), $._unsigned_decimal)),
+    $._unsigned_decimal,
   ),
+  _unsigned_decimal: _ => /((\d+(_\d+)*)?[.]\d+(_\d+)*(e[+-]?\d+(_\d+)*)?)|(\d+(_\d+)*[.](e[+-]?\d+(_\d+)*)?)/,
   _bit_string: $ => seq(/[bBxX]'([^']|'')*'/, repeat(/'([^']|'')*'/)),
   // The identifier should be followed by a string (no parenthesis allowed)
   _string_casting: $ => seq($.identifier, $._single_quote_string),

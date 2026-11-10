@@ -783,3 +783,43 @@ SELECT OBJECT_ID (N'dbo.LEVENSHTEIN_DISTANCE', N'FN')
             (keyword_object_id)
             (literal)
             (literal)))))))
+
+================================================================================
+Unary minus and plus on expressions
+================================================================================
+
+SELECT -a, -(a - b), +b, -1, -a IS NULL;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (unary_expression
+            operand: (field
+              name: (identifier))))
+        (term
+          value: (unary_expression
+            operand: (parenthesized_expression
+              (binary_expression
+                left: (field
+                  name: (identifier))
+                right: (field
+                  name: (identifier))))))
+        (term
+          value: (unary_expression
+            operand: (field
+              name: (identifier))))
+        (term
+          value: (literal))
+        (term
+          value: (binary_expression
+            left: (unary_expression
+              operand: (field
+                name: (identifier)))
+            operator: (keyword_is)
+            right: (literal
+              (keyword_null))))))))
