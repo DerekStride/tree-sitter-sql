@@ -1552797,7 +1552797,7 @@ TS_PUBLIC const TSLanguage *tree_sitter_sql(void) {
     .metadata = {
       .major_version = 0,
       .minor_version = 3,
-      .patch_version = 12,
+      .patch_version = 13,
     },
   };
   return &language;
