@@ -87,6 +87,7 @@ export default {
     $.comment_statement,
     $.set_statement,
     $.reset_statement,
+    $.pragma_statement,
   ),
 
   ...create_rules,

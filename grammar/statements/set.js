@@ -1,4 +1,4 @@
-import { comma_list } from "../helpers.js";
+import { comma_list, wrapped_in_parenthesis } from "../helpers.js";
 
 export default {
 
@@ -48,6 +48,26 @@ export default {
     ),
     optional($.keyword_not),
     $.keyword_deferrable,
+  ),
+
+  // SQLite. Right associative: a parenthesis after the name is the pragma's value, also
+  // inside a WHILE block, where statements follow each other without a separator.
+  pragma_statement: $ => prec.right(seq(
+    $.keyword_pragma,
+    $.object_reference,
+    optional(
+      choice(
+        seq('=', $._pragma_value),
+        wrapped_in_parenthesis($._pragma_value),
+      ),
+    ),
+  )),
+
+  _pragma_value: $ => choice(
+    $.literal,
+    $.identifier,
+    $.keyword_on,
+    $.keyword_off,
   ),
 
   reset_statement: $ => seq(

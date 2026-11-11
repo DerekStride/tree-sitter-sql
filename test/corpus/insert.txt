@@ -572,6 +572,7 @@ COPY FROM STDIN CSV
 COPY some_table (a, b, c) FROM STDIN (FORMAT CSV);
 
 --------------------------------------------------------------------------------
+
 (program
   (statement
     (keyword_copy)
@@ -717,3 +718,102 @@ COPY some_table (a, b, c) FROM STDIN WITH
     (keyword_match)
     (keyword_null)
     (identifier)))
+
+================================================================================
+Insert with a SQLite conflict clause
+================================================================================
+
+INSERT OR REPLACE INTO jobs (id, state) VALUES (1, 'new');
+INSERT OR IGNORE INTO jobs (id, state) VALUES (1, 'new');
+INSERT OR ABORT INTO jobs (id, state) VALUES (1, 'new');
+INSERT OR FAIL INTO jobs (id, state) VALUES (1, 'new');
+INSERT OR ROLLBACK INTO jobs (id, state) VALUES (1, 'new');
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (insert
+      (keyword_insert)
+      (keyword_or)
+      (keyword_replace)
+      (keyword_into)
+      (object_reference
+        (identifier))
+      (list
+        (column
+          (identifier))
+        (column
+          (identifier)))
+      (keyword_values)
+      (list
+        (literal)
+        (literal))))
+  (statement
+    (insert
+      (keyword_insert)
+      (keyword_or)
+      (keyword_ignore)
+      (keyword_into)
+      (object_reference
+        (identifier))
+      (list
+        (column
+          (identifier))
+        (column
+          (identifier)))
+      (keyword_values)
+      (list
+        (literal)
+        (literal))))
+  (statement
+    (insert
+      (keyword_insert)
+      (keyword_or)
+      (keyword_abort)
+      (keyword_into)
+      (object_reference
+        (identifier))
+      (list
+        (column
+          (identifier))
+        (column
+          (identifier)))
+      (keyword_values)
+      (list
+        (literal)
+        (literal))))
+  (statement
+    (insert
+      (keyword_insert)
+      (keyword_or)
+      (keyword_fail)
+      (keyword_into)
+      (object_reference
+        (identifier))
+      (list
+        (column
+          (identifier))
+        (column
+          (identifier)))
+      (keyword_values)
+      (list
+        (literal)
+        (literal))))
+  (statement
+    (insert
+      (keyword_insert)
+      (keyword_or)
+      (keyword_rollback)
+      (keyword_into)
+      (object_reference
+        (identifier))
+      (list
+        (column
+          (identifier))
+        (column
+          (identifier)))
+      (keyword_values)
+      (list
+        (literal)
+        (literal)))))
