@@ -448,7 +448,9 @@ export default {
   ),
   _tsql_parameter: $ => seq('@', $._identifier),
   // support nordic chars and umlaue
-  _identifier: _ => /[A-Za-z_\u00C0-\u017F][0-9A-Za-z_$\u00C0-\u017F]*/,
+  // a `$` belongs to the identifier only when more of the identifier follows it, so the
+  // closing tag of a dollar-quoted body (`end$$`) is not taken into the identifier
+  _identifier: _ => /[A-Za-z_\u00C0-\u017F][0-9A-Za-z_\u00C0-\u017F]*(\$[0-9A-Za-z_\u00C0-\u017F]+)*/,
 
   object_id: $ => seq(
     $.keyword_object_id,

@@ -97,6 +97,8 @@ $a$
         (dollar_quote))
       (field
         (identifier))
+      (ERROR
+        (UNEXPECTED ';'))
       (keyword_end))
     (dollar_quote)))
 
@@ -139,7 +141,8 @@ $c$;
         (literal)
         (keyword_end)
         (ERROR
-          (UNEXPECTED 'c'))
+          (UNEXPECTED 'c')
+          (UNEXPECTED ';'))
         (MISSING dollar_quote)))))
 
 ================================================================================
