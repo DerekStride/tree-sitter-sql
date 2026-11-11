@@ -19,3 +19,112 @@ SELECT column$name FROM table$name;
       (relation
         (object_reference
           (identifier))))))
+
+================================================================================
+Closing dollar quote right after a keyword
+================================================================================
+
+CREATE FUNCTION f() RETURNS int AS $$begin return 1; end$$ LANGUAGE plpgsql;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_function)
+      (object_reference
+        (identifier))
+      (function_arguments)
+      (keyword_returns)
+      (int
+        (keyword_int))
+      (function_body
+        (keyword_as)
+        (dollar_quote)
+        (keyword_begin)
+        (keyword_return)
+        (literal)
+        (keyword_end)
+        (dollar_quote))
+      (function_language
+        (keyword_language)
+        (identifier)))))
+
+================================================================================
+Closing dollar quote right after an identifier
+================================================================================
+
+CREATE FUNCTION f() RETURNS int AS $$select x from t$$ LANGUAGE sql;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_function)
+      (object_reference
+        (identifier))
+      (function_arguments)
+      (keyword_returns)
+      (int
+        (keyword_int))
+      (function_body
+        (keyword_as)
+        (dollar_quote)
+        (statement
+          (select
+            (keyword_select)
+            (select_expression
+              (term
+                (field
+                  (identifier)))))
+          (from
+            (keyword_from)
+            (relation
+              (object_reference
+                (identifier)))))
+        (dollar_quote))
+      (function_language
+        (keyword_language)
+        (identifier)))))
+
+================================================================================
+Dollar-containing identifier inside a dollar-quoted body
+================================================================================
+
+CREATE FUNCTION f() RETURNS int AS $$select a$b from t$$ LANGUAGE sql;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_function
+      (keyword_create)
+      (keyword_function)
+      (object_reference
+        (identifier))
+      (function_arguments)
+      (keyword_returns)
+      (int
+        (keyword_int))
+      (function_body
+        (keyword_as)
+        (dollar_quote)
+        (statement
+          (select
+            (keyword_select)
+            (select_expression
+              (term
+                (field
+                  (identifier)))))
+          (from
+            (keyword_from)
+            (relation
+              (object_reference
+                (identifier)))))
+        (dollar_quote))
+      (function_language
+        (keyword_language)
+        (identifier)))))
