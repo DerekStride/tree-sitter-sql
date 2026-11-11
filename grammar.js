@@ -13,6 +13,7 @@ export default grammar({
     /\s/,
     $.comment,
     $.marginalia,
+    $.meta_command,
   ],
 
 
@@ -83,6 +84,26 @@ export default grammar({
     comment: _ => /--.*/,
     // https://stackoverflow.com/questions/13014947/regex-to-match-a-c-style-multiline-comment
     marginalia: _ => /\/\*[^*]*\*+(?:[^/*][^*]*\*+)*\//,
+    // psql lexes an unquoted backslash by itself (psqlscanslash.l): the command name ends at
+    // whitespace or a backslash, its arguments at the end of the line or the next unquoted
+    // backslash, and `\\` returns to SQL. `\;` and `\:` belong to the SQL lexer instead.
+    // https://www.postgresql.org/docs/current/app-psql.html#APP-PSQL-META-COMMANDS
+    meta_command: _ => token(choice(
+      '\\\\',
+      seq(
+        /\\[^\s\\;:][^\s\\]*/,
+        repeat(choice(
+          /[^\\\n'"`]/,
+          /'([^'\\\n]|\\[^\n])*'/,
+          /"[^"\n]*"/,
+          /`[^`\n]*`/,
+        )),
+      ),
+      // these commands take the rest of the line as it is written
+      seq(/\\(!|\?|copy|ef|ev|h|help|sf\+?|sv\+?)/, /[ \t\f\r][^\n]*/),
+      // and so do these once their argument opens with a pipe
+      seq(/\\(g|gx|o|out|w|write)[ \t\f\r]+\|/, /[^\n]*/),
+    )),
 
     ...keyword_rules,
     ...type_rules,
