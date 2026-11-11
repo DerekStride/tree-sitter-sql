@@ -78,6 +78,8 @@ $(SRC_DIR)/grammar.json: grammar.js $(shell find grammar -name '*.js')
 $(PARSER): $(SRC_DIR)/grammar.json
 	$(TS) generate $^
 
+$(OBJS): | $(PARSER)
+
 install: all
 	install -d '$(DESTDIR)$(DATADIR)'/tree-sitter/queries/sql '$(DESTDIR)$(INCLUDEDIR)'/tree_sitter '$(DESTDIR)$(PCLIBDIR)' '$(DESTDIR)$(LIBDIR)'
 	install -m644 bindings/c/tree_sitter/$(LANGUAGE_NAME).h '$(DESTDIR)$(INCLUDEDIR)'/tree_sitter/$(LANGUAGE_NAME).h
