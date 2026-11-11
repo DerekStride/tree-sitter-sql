@@ -1,6 +1,6 @@
 LANGUAGE_NAME := tree-sitter-sql
 HOMEPAGE_URL := git+https://github.com/derekstride/tree-sitter-sql.git
-VERSION := 0.3.11
+VERSION := 0.3.13
 
 # repository
 SRC_DIR := src

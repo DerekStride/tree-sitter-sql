@@ -63,7 +63,7 @@ number and preparing for a release. Run the following to generate the release:
 $ npm run release
 ```
 
-Ensure you also bump the version in `tree-sitter.json`, `Cargo.toml`, `pyproject.toml`, & `CMakeLists.txt` before pushing the changes.
+Ensure you also bump the version in `tree-sitter.json`, `Cargo.toml`, `pyproject.toml`, `CMakeLists.txt`, & `Makefile` before pushing the changes.
 
 Verify that all the changes are correct and push the updates to a new branch.
 
