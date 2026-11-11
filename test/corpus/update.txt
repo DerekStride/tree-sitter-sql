@@ -303,3 +303,52 @@ WHERE b.a = a.uid;
               (object_reference
                 (identifier))
               (identifier))))))))
+
+================================================================================
+Update with a SQLite conflict clause
+================================================================================
+
+UPDATE OR REPLACE jobs SET state = 'done' WHERE id = 1;
+UPDATE OR IGNORE jobs SET state = 'done' WHERE id = 1;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (update
+      (keyword_update)
+      (keyword_or)
+      (keyword_replace)
+      (relation
+        (object_reference
+          (identifier)))
+      (keyword_set)
+      (assignment
+        (field
+          (identifier))
+        (literal))
+      (where
+        (keyword_where)
+        (binary_expression
+          (field
+            (identifier))
+          (literal)))))
+  (statement
+    (update
+      (keyword_update)
+      (keyword_or)
+      (keyword_ignore)
+      (relation
+        (object_reference
+          (identifier)))
+      (keyword_set)
+      (assignment
+        (field
+          (identifier))
+        (literal))
+      (where
+        (keyword_where)
+        (binary_expression
+          (field
+            (identifier))
+          (literal))))))

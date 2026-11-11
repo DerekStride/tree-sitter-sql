@@ -9,6 +9,7 @@ export default {
 
   update: $ => seq(
     $.keyword_update,
+    optional($._or_conflict),
     optional($.keyword_only),
     choice(
       $._mysql_update_statement,

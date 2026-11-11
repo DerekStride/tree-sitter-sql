@@ -91,3 +91,68 @@ RESET ALL;
     (reset_statement
       (keyword_reset)
       (keyword_all))))
+
+================================================================================
+SQLite pragma
+================================================================================
+
+PRAGMA journal_mode;
+PRAGMA journal_mode = WAL;
+PRAGMA journal_mode=DELETE;
+PRAGMA foreign_keys = ON;
+PRAGMA cache_size = -2000;
+PRAGMA main.synchronous = NORMAL;
+PRAGMA table_info(jobs);
+PRAGMA encoding = 'UTF-8';
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (pragma_statement
+      (keyword_pragma)
+      (object_reference
+        (identifier))))
+  (statement
+    (pragma_statement
+      (keyword_pragma)
+      (object_reference
+        (identifier))
+      (identifier)))
+  (statement
+    (pragma_statement
+      (keyword_pragma)
+      (object_reference
+        (identifier))
+      (identifier)))
+  (statement
+    (pragma_statement
+      (keyword_pragma)
+      (object_reference
+        (identifier))
+      (keyword_on)))
+  (statement
+    (pragma_statement
+      (keyword_pragma)
+      (object_reference
+        (identifier))
+      (literal)))
+  (statement
+    (pragma_statement
+      (keyword_pragma)
+      (object_reference
+        (identifier)
+        (identifier))
+      (identifier)))
+  (statement
+    (pragma_statement
+      (keyword_pragma)
+      (object_reference
+        (identifier))
+      (identifier)))
+  (statement
+    (pragma_statement
+      (keyword_pragma)
+      (object_reference
+        (identifier))
+      (literal))))

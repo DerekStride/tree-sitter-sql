@@ -9,7 +9,7 @@ export default {
 
   insert: $ => seq(
     choice(
-      $.keyword_insert,
+      seq($.keyword_insert, optional($._or_conflict)),
       $.keyword_replace
     ),
     optional(
@@ -44,6 +44,18 @@ export default {
         $._on_conflict,
         $._on_duplicate_key_update,
       ),
+    ),
+  ),
+
+  // SQLite: INSERT OR IGNORE, UPDATE OR REPLACE
+  _or_conflict: $ => seq(
+    $.keyword_or,
+    choice(
+      $.keyword_rollback,
+      $.keyword_abort,
+      $.keyword_fail,
+      $.keyword_ignore,
+      $.keyword_replace,
     ),
   ),
 
