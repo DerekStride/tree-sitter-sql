@@ -142,6 +142,14 @@ export default {
             optional($.order_by)
           )
         ),
+        // e.g. position('a' in b). f(a in (b)) stays a binary IN.
+        prec.dynamic(-1, wrapped_in_parenthesis(
+          seq(
+            field('parameter', $.term),
+            $.keyword_in,
+            field('parameter', $.term),
+          ),
+        )),
         // https://dev.mysql.com/doc/refman/8.4/en/date-and-time-functions.html#function_extract
         paren_list(
           seq(
