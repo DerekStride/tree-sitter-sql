@@ -124,6 +124,46 @@ CREATE TEMP TABLE my_table (id BIGINT NOT NULL PRIMARY KEY);
           (keyword_key))))))
 
 ================================================================================
+Create or replace table, schema and database
+================================================================================
+
+CREATE OR REPLACE TEMP TABLE my_table (id INT);
+CREATE OR REPLACE SCHEMA my_schema;
+CREATE OR REPLACE DATABASE my_database;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_or)
+      (keyword_replace)
+      (keyword_temp)
+      (keyword_table)
+      (object_reference
+        name: (identifier))
+      (column_definitions
+        (column_definition
+          name: (identifier)
+          type: (int
+            (keyword_int))))))
+  (statement
+    (create_schema
+      (keyword_create)
+      (keyword_or)
+      (keyword_replace)
+      (keyword_schema)
+      (identifier)))
+  (statement
+    (create_database
+      (keyword_create)
+      (keyword_or)
+      (keyword_replace)
+      (keyword_database)
+      (identifier))))
+
+================================================================================
 Create table with constraint
 ================================================================================
 
