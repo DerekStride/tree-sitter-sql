@@ -1,0 +1,391 @@
+================================================================================
+Meta-command between statements
+================================================================================
+
+CREATE DATABASE analytics;
+
+\c analytics
+
+CREATE TABLE events (id BIGINT NOT NULL PRIMARY KEY);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_database
+      (keyword_create)
+      (keyword_database)
+      (identifier)))
+  (meta_command)
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (object_reference
+        name: (identifier))
+      (column_definitions
+        (column_definition
+          name: (identifier)
+          type: (bigint
+            (keyword_bigint))
+          (keyword_not)
+          (keyword_null)
+          (keyword_primary)
+          (keyword_key))))))
+
+================================================================================
+Meta-command before the first statement
+================================================================================
+
+\set AUTOCOMMIT off
+SELECT 1;
+
+--------------------------------------------------------------------------------
+
+(program
+  (meta_command)
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (literal))))))
+
+================================================================================
+Meta-command after the last statement
+================================================================================
+
+SELECT 1;
+\q
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (literal)))))
+  (meta_command))
+
+================================================================================
+Meta-commands with quoted arguments
+================================================================================
+
+\connect "my db" 'app user'
+\i 'schema/tables.sql'
+SELECT 1;
+
+--------------------------------------------------------------------------------
+
+(program
+  (meta_command)
+  (meta_command)
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (literal))))))
+
+================================================================================
+Meta-command after a statement on the same line
+================================================================================
+
+SELECT 1; \echo done
+SELECT 2;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (literal)))))
+  (meta_command)
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (literal))))))
+
+================================================================================
+Meta-command inside a transaction
+================================================================================
+
+BEGIN;
+\i seed.sql
+SELECT 1;
+COMMIT;
+
+--------------------------------------------------------------------------------
+
+(program
+  (transaction
+    (keyword_begin)
+    (meta_command)
+    (statement
+      (select
+        (keyword_select)
+        (select_expression
+          (term
+            (literal)))))
+    (keyword_commit)))
+
+================================================================================
+Comment marker inside a meta-command
+================================================================================
+
+\echo -- not a comment
+SELECT 1;
+
+--------------------------------------------------------------------------------
+
+(program
+  (meta_command)
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (literal))))))
+
+================================================================================
+Two meta-commands on one line
+================================================================================
+
+\set AUTOCOMMIT off \echo done
+SELECT 1;
+
+--------------------------------------------------------------------------------
+
+(program
+  (meta_command)
+  (meta_command)
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (literal))))))
+
+================================================================================
+SQL after the meta-command separator
+================================================================================
+
+\set AUTOCOMMIT off \\ SELECT 1;
+SELECT 2;
+
+--------------------------------------------------------------------------------
+
+(program
+  (meta_command)
+  (meta_command)
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (literal)))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (literal))))))
+
+================================================================================
+Backslash inside a quoted meta-command argument
+================================================================================
+
+\echo 'one\ttwo' "three\four"
+SELECT 1;
+
+--------------------------------------------------------------------------------
+
+(program
+  (meta_command)
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (literal))))))
+
+================================================================================
+Shell escape takes the rest of the line
+================================================================================
+
+\! echo one\\two
+SELECT 1;
+
+--------------------------------------------------------------------------------
+
+(program
+  (meta_command)
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (literal))))))
+
+================================================================================
+Copy takes the rest of the line
+================================================================================
+
+\copy (select 1) to /tmp/out\b.csv
+SELECT 1;
+
+--------------------------------------------------------------------------------
+
+(program
+  (meta_command)
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (literal))))))
+
+================================================================================
+Copy in upper case takes the rest of the line
+================================================================================
+
+\COPY (select 1) to out\b.csv
+SELECT 1;
+
+--------------------------------------------------------------------------------
+
+(program
+  (meta_command)
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (literal))))))
+
+================================================================================
+Unrestrict takes the rest of the line
+================================================================================
+
+\unrestrict abc\echo HELLO
+SELECT 1;
+
+--------------------------------------------------------------------------------
+
+(program
+  (meta_command)
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (literal))))))
+
+================================================================================
+Restrict and unrestrict around a dump
+================================================================================
+
+\restrict ESUHFOxcBv2epp0eJ5WNyR6vpQzoGdUdOKyy7BJZasjGMJT8w1KivGJflyt6pzt
+
+SET statement_timeout = 0;
+
+\unrestrict ESUHFOxcBv2epp0eJ5WNyR6vpQzoGdUdOKyy7BJZasjGMJT8w1KivGJflyt6pzt
+
+--------------------------------------------------------------------------------
+
+(program
+  (meta_command)
+  (statement
+    (set_statement
+      (keyword_set)
+      (object_reference
+        name: (identifier))
+      (literal)))
+  (meta_command))
+
+================================================================================
+Output piped to a program takes the rest of the line
+================================================================================
+
+\o | tr 1 \\\\
+SELECT 1;
+\o
+
+--------------------------------------------------------------------------------
+
+(program
+  (meta_command)
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (literal)))))
+  (meta_command))
+
+================================================================================
+Meta-command inside a comment
+================================================================================
+
+-- \c analytics
+SELECT 1;
+
+--------------------------------------------------------------------------------
+
+(program
+  (comment)
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (literal))))))
+
+================================================================================
+Backslash inside a string literal
+================================================================================
+
+SELECT 'a \c b' FROM bar;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (literal))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          (identifier))))))
+
+================================================================================
+Backslash inside a dollar-quoted string
+================================================================================
+
+SELECT $$a \c b$$ FROM bar;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (literal))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          (identifier))))))

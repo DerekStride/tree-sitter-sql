@@ -23,9 +23,12 @@ export default {
     $.keyword_begin,
     optional(';'),
     repeat(
-      seq(
-        $.statement,
-        ';'
+      choice(
+        seq(
+          $.statement,
+          ';'
+        ),
+        $.meta_command,
       ),
     ),
     $.keyword_end,

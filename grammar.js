@@ -63,15 +63,19 @@ export default grammar({
 
   rules: {
     program: $ => seq(
-      // any number of transactions, statements, or blocks with a terminating ;
+      // any number of transactions, statements, or blocks with a terminating ;, and
+      // meta-commands between them
       repeat(
-        seq(
-          choice(
-            $.transaction,
-            $.statement,
-            $.block,
+        choice(
+          seq(
+            choice(
+              $.transaction,
+              $.statement,
+              $.block,
+            ),
+            ';',
           ),
-          ';',
+          $.meta_command,
         ),
       ),
       // optionally, a single statement without a terminating ;
@@ -83,6 +87,27 @@ export default grammar({
     comment: _ => /--.*/,
     // https://stackoverflow.com/questions/13014947/regex-to-match-a-c-style-multiline-comment
     marginalia: _ => /\/\*[^*]*\*+(?:[^/*][^*]*\*+)*\//,
+    // psql lexes an unquoted backslash by itself (psqlscanslash.l): the command name ends at
+    // whitespace or a backslash, its arguments at the end of the line or the next unquoted
+    // backslash, and `\\` returns to SQL. `\;` and `\:` belong to the SQL lexer instead.
+    // https://www.postgresql.org/docs/current/app-psql.html#APP-PSQL-META-COMMANDS
+    meta_command: _ => token(choice(
+      '\\\\',
+      seq(
+        /\\[^\s\\;:][^\s\\]*/,
+        repeat(choice(
+          /[^\\\n'"`]/,
+          /'([^'\\\n]|\\[^\n])*'/,
+          /"[^"\n]*"/,
+          /`[^`\n]*`/,
+        )),
+      ),
+      // these commands take the rest of the line as it is written; psql matches copy
+      // in any case
+      seq(/\\(!|\?|[cC][oO][pP][yY]|ef|ev|h|help|sf\+?|sv\+?|unrestrict)/, /[ \t\f\r\v][^\n]*/),
+      // and so do these once their argument opens with a pipe
+      seq(/\\(g|gx|o|out|w|write)[ \t\f\r\v]+\|/, /[^\n]*/),
+    )),
 
     ...keyword_rules,
     ...type_rules,
