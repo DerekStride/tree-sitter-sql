@@ -34,6 +34,7 @@ export default {
   create_table: $ => prec.left(
     seq(
       $.keyword_create,
+      optional($._or_replace),
       optional(
         choice(
           $._temporary,
@@ -367,6 +368,7 @@ export default {
 
   create_schema: $ => prec.left(seq(
     $.keyword_create,
+    optional($._or_replace),
     $.keyword_schema,
     choice(
       seq(
@@ -389,6 +391,7 @@ export default {
 
   create_database: $ => prec.left(seq(
     $.keyword_create,
+    optional($._or_replace),
     $.keyword_database,
     optional($._if_not_exists),
     $.identifier,
