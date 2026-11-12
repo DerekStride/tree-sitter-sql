@@ -207,10 +207,17 @@ export default {
   ),
 
   path_expression: $ => prec.left('subscript',
-    seq(
-      field('expression', $._expression),
-      ':',
-      field('key', $.identifier),
+    choice(
+      seq(
+        field('expression', $._expression),
+        ':',
+        field('key', $.identifier),
+      ),
+      seq(
+        field('expression', choice($.path_expression, $.subscript)),
+        '.',
+        field('key', $.identifier),
+      ),
     ),
   ),
 
