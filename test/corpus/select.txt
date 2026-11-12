@@ -1750,6 +1750,60 @@ ON c.id = d.c_id;
             name: (identifier)))))))
 
 ================================================================================
+Comma relations after a join
+================================================================================
+
+SELECT *
+FROM a
+JOIN b ON a.id = b.id, LATERAL FLATTEN(INPUT => b.arr) AS f, c;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (all_fields))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier)))
+      (join
+        (keyword_join)
+        (relation
+          (object_reference
+            name: (identifier)))
+        (keyword_on)
+        predicate: (binary_expression
+          left: (field
+            (object_reference
+              name: (identifier))
+            name: (identifier))
+          right: (field
+            (object_reference
+              name: (identifier))
+            name: (identifier))))
+      (relation
+        (keyword_lateral)
+        (invocation
+          (object_reference
+            name: (identifier))
+          parameter: (named_argument
+            name: (identifier)
+            value: (field
+              (object_reference
+                name: (identifier))
+              name: (identifier))))
+        (keyword_as)
+        alias: (identifier))
+      (relation
+        (object_reference
+          name: (identifier))))))
+
+================================================================================
 Complex Predicates with order by
 ================================================================================
 
