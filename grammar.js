@@ -35,6 +35,7 @@ export default grammar({
     [$.timestamp],
     [$.all_fields],
     [$.values],
+    [$._expression, $.window_function],
   ],
 
   precedences: $ => [

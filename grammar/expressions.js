@@ -153,6 +153,14 @@ export default {
             $.term
           )
         ),
+        // e.g. first_value(x ignore nulls). One argument only: allowing it after
+        // any argument of the default form costs about 700 more parser states.
+        wrapped_in_parenthesis(
+          seq(
+            field('parameter', $.term),
+            $.null_treatment,
+          ),
+        ),
         // _aggregate_function, e.g. group_concat
         wrapped_in_parenthesis(
           seq(

@@ -222,7 +222,7 @@ export default {
     ),
   ),
 
-  window_function: $ => seq(
+  window_function: $ => prec(1, seq(
       choice(
           $.invocation,
           $.ordered_set_aggregate,
@@ -232,7 +232,7 @@ export default {
           $.identifier,
           $.window_specification,
       ),
-  ),
+  )),
 
   ordered_set_aggregate: $ => seq(
     $.invocation,
