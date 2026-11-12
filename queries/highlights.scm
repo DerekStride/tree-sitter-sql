@@ -183,6 +183,8 @@
   (keyword_cross)
   (keyword_lateral)
   (keyword_natural)
+  (keyword_asof)
+  (keyword_match_condition)
   (keyword_alter)
   (keyword_drop)
   (keyword_add)
