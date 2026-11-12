@@ -2075,6 +2075,45 @@ CREATE DATABASE sales OWNER operations_dept;
       (identifier))))
 
 ================================================================================
+Create database, schema and table with clone
+================================================================================
+
+CREATE DATABASE dev CLONE prod;
+CREATE SCHEMA staging CLONE prod.staging;
+CREATE TABLE orders_backup CLONE prod.staging.orders;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (create_database
+      (keyword_create)
+      (keyword_database)
+      (identifier)
+      (keyword_clone)
+      (identifier)))
+  (statement
+    (create_schema
+      (keyword_create)
+      (keyword_schema)
+      (identifier)
+      (keyword_clone)
+      (object_reference
+        schema: (identifier)
+        name: (identifier))))
+  (statement
+    (create_table
+      (keyword_create)
+      (keyword_table)
+      (object_reference
+        name: (identifier))
+      (keyword_clone)
+      (object_reference
+        database: (identifier)
+        schema: (identifier)
+        name: (identifier)))))
+
+================================================================================
 Create user
 ================================================================================
 
