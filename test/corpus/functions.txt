@@ -281,6 +281,63 @@ FROM mytable;
           (identifier))))))
 
 ================================================================================
+POSITION with IN
+================================================================================
+
+SELECT POSITION('+' IN age_group), F(a IN (b)), COUNT(a IN (SELECT 1))
+FROM t;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (invocation
+            (object_reference
+              name: (identifier))
+            parameter: (term
+              value: (literal))
+            (keyword_in)
+            parameter: (term
+              value: (field
+                name: (identifier)))))
+        (term
+          value: (invocation
+            (object_reference
+              name: (identifier))
+            parameter: (term
+              value: (binary_expression
+                left: (field
+                  name: (identifier))
+                operator: (keyword_in)
+                right: (list
+                  (field
+                    name: (identifier)))))))
+        (term
+          value: (invocation
+            (object_reference
+              name: (identifier))
+            parameter: (term
+              value: (binary_expression
+                left: (field
+                  name: (identifier))
+                operator: (keyword_in)
+                right: (subquery
+                  (select
+                    (keyword_select)
+                    (select_expression
+                      (term
+                        value: (literal)))))))))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier))))))
+
+================================================================================
 GROUP CONCAT
 ================================================================================
 

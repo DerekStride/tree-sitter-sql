@@ -31,6 +31,7 @@ export default grammar({
     [$.between_expression, $.binary_expression],
     [$._subquery_body, $._select_statement],
     [$.subquery, $._subquery_body],
+    [$.binary_expression, $.term],
     [$.time],
     [$.timestamp],
     [$.all_fields],
