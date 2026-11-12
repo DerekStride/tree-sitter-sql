@@ -1641,6 +1641,181 @@ FROM my_table a, LATERAL FLATTEN(INPUT => a.arr) AS f;
         alias: (identifier)))))
 
 ================================================================================
+Lateral VALUES in the FROM list
+================================================================================
+
+SELECT v.x
+FROM my_table a, LATERAL (VALUES (a.x), (a.y)) AS v (x);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            (object_reference
+              name: (identifier))
+            name: (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier))
+        alias: (identifier))
+      (relation
+        (keyword_lateral)
+        (values
+          (keyword_values)
+          (list
+            (field
+              (object_reference
+                name: (identifier))
+              name: (identifier)))
+          (list
+            (field
+              (object_reference
+                name: (identifier))
+              name: (identifier))))
+        (keyword_as)
+        alias: (identifier)
+        (list
+          (column
+            (identifier)))))))
+
+================================================================================
+Lateral join with VALUES and a column list
+================================================================================
+
+SELECT v.x
+FROM my_table a
+LEFT JOIN LATERAL (VALUES (a.x)) v (x) ON true;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            (object_reference
+              name: (identifier))
+            name: (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier))
+        alias: (identifier))
+      (lateral_join
+        (keyword_left)
+        (keyword_join)
+        (keyword_lateral)
+        (values
+          (keyword_values)
+          (list
+            (field
+              (object_reference
+                name: (identifier))
+              name: (identifier))))
+        alias: (identifier)
+        (list
+          (column
+            (identifier)))
+        (keyword_on)
+        (literal
+          (keyword_true))))))
+
+================================================================================
+Cross join lateral VALUES
+================================================================================
+
+SELECT v.x
+FROM my_table a
+CROSS JOIN LATERAL (VALUES (a.x)) v;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            (object_reference
+              name: (identifier))
+            name: (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier))
+        alias: (identifier))
+      (lateral_cross_join
+        (keyword_cross)
+        (keyword_join)
+        (keyword_lateral)
+        (values
+          (keyword_values)
+          (list
+            (field
+              (object_reference
+                name: (identifier))
+              name: (identifier))))
+        alias: (identifier)))))
+
+================================================================================
+Cross join lateral with a column list
+================================================================================
+
+SELECT g.n
+FROM my_table a
+CROSS JOIN LATERAL generate_series(1, a.x) AS g (n);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (field
+            (object_reference
+              name: (identifier))
+            name: (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier))
+        alias: (identifier))
+      (lateral_cross_join
+        (keyword_cross)
+        (keyword_join)
+        (keyword_lateral)
+        (invocation
+          (object_reference
+            name: (identifier))
+          parameter: (term
+            value: (literal))
+          parameter: (term
+            value: (field
+              (object_reference
+                name: (identifier))
+              name: (identifier))))
+        (keyword_as)
+        alias: (identifier)
+        (list
+          (column
+            (identifier)))))))
+
+================================================================================
 Multiple joins
 ================================================================================
 
