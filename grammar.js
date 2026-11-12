@@ -13,7 +13,6 @@ export default grammar({
     /\s/,
     $.comment,
     $.marginalia,
-    $.meta_command,
   ],
 
 
@@ -64,15 +63,19 @@ export default grammar({
 
   rules: {
     program: $ => seq(
-      // any number of transactions, statements, or blocks with a terminating ;
+      // any number of transactions, statements, or blocks with a terminating ;, and
+      // meta-commands between them
       repeat(
-        seq(
-          choice(
-            $.transaction,
-            $.statement,
-            $.block,
+        choice(
+          seq(
+            choice(
+              $.transaction,
+              $.statement,
+              $.block,
+            ),
+            ';',
           ),
-          ';',
+          $.meta_command,
         ),
       ),
       // optionally, a single statement without a terminating ;
@@ -99,10 +102,11 @@ export default grammar({
           /`[^`\n]*`/,
         )),
       ),
-      // these commands take the rest of the line as it is written
-      seq(/\\(!|\?|copy|ef|ev|h|help|sf\+?|sv\+?)/, /[ \t\f\r][^\n]*/),
+      // these commands take the rest of the line as it is written; psql matches copy
+      // in any case
+      seq(/\\(!|\?|[cC][oO][pP][yY]|ef|ev|h|help|sf\+?|sv\+?|unrestrict)/, /[ \t\f\r\v][^\n]*/),
       // and so do these once their argument opens with a pipe
-      seq(/\\(g|gx|o|out|w|write)[ \t\f\r]+\|/, /[^\n]*/),
+      seq(/\\(g|gx|o|out|w|write)[ \t\f\r\v]+\|/, /[^\n]*/),
     )),
 
     ...keyword_rules,

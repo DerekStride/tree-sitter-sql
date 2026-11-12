@@ -253,6 +253,64 @@ SELECT 1;
           (literal))))))
 
 ================================================================================
+Copy in upper case takes the rest of the line
+================================================================================
+
+\COPY (select 1) to out\b.csv
+SELECT 1;
+
+--------------------------------------------------------------------------------
+
+(program
+  (meta_command)
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (literal))))))
+
+================================================================================
+Unrestrict takes the rest of the line
+================================================================================
+
+\unrestrict abc\echo HELLO
+SELECT 1;
+
+--------------------------------------------------------------------------------
+
+(program
+  (meta_command)
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (literal))))))
+
+================================================================================
+Restrict and unrestrict around a dump
+================================================================================
+
+\restrict ESUHFOxcBv2epp0eJ5WNyR6vpQzoGdUdOKyy7BJZasjGMJT8w1KivGJflyt6pzt
+
+SET statement_timeout = 0;
+
+\unrestrict ESUHFOxcBv2epp0eJ5WNyR6vpQzoGdUdOKyy7BJZasjGMJT8w1KivGJflyt6pzt
+
+--------------------------------------------------------------------------------
+
+(program
+  (meta_command)
+  (statement
+    (set_statement
+      (keyword_set)
+      (object_reference
+        name: (identifier))
+      (literal)))
+  (meta_command))
+
+================================================================================
 Output piped to a program takes the rest of the line
 ================================================================================
 

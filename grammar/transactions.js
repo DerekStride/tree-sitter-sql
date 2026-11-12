@@ -7,9 +7,12 @@ export default {
     ),
     optional(';'),
     repeat(
-      seq(
-        $.statement,
-        ';'
+      choice(
+        seq(
+          $.statement,
+          ';'
+        ),
+        $.meta_command,
       ),
     ),
     choice(
