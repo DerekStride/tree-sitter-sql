@@ -62,6 +62,10 @@ export default {
             $.create_query,
           ),
         ),
+        seq(
+          $.keyword_clone,
+          $.object_reference,
+        ),
       ),
     ),
   ),
@@ -372,7 +376,12 @@ export default {
       seq(
         optional($._if_not_exists),
         $.identifier,
-        optional(seq($.keyword_authorization, $.identifier)),
+        optional(
+          choice(
+            seq($.keyword_clone, $.object_reference),
+            seq($.keyword_authorization, $.identifier),
+          ),
+        ),
       ),
       seq(
         $.keyword_authorization,
@@ -392,6 +401,7 @@ export default {
     $.keyword_database,
     optional($._if_not_exists),
     $.identifier,
+    optional(seq($.keyword_clone, $.identifier)),
     optional($.keyword_with),
     repeat(
       $._with_settings

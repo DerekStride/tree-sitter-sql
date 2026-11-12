@@ -212,6 +212,7 @@ export default {
   keyword_action: _ => make_keyword("action"),
   keyword_extension: _ => make_keyword("extension"),
   keyword_copy: _ => make_keyword("copy"),
+  keyword_clone: _ => make_keyword("clone"),
   keyword_stdin: _ => make_keyword("stdin"),
   keyword_freeze: _ => make_keyword("freeze"),
   keyword_escape: _ => make_keyword("escape"),
