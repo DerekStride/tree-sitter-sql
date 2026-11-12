@@ -313,6 +313,7 @@ export default {
       choice(
         $.subquery,
         $.invocation,
+        wrapped_in_parenthesis($.values),
       ),
       optional(
         seq(
@@ -461,14 +462,18 @@ export default {
     choice(
       $.invocation,
       $.subquery,
+      wrapped_in_parenthesis($.values),
     ),
     optional(
-      choice(
-        seq(
-          $.keyword_as,
+      seq(
+        choice(
+          seq(
+            $.keyword_as,
+            field('alias', $.identifier),
+          ),
           field('alias', $.identifier),
         ),
-        field('alias', $.identifier),
+        optional(alias($._column_list, $.list)),
       ),
     ),
     $.keyword_on,
@@ -479,24 +484,28 @@ export default {
     ),
   ),
 
-  lateral_cross_join: $ => seq(
+  lateral_cross_join: $ => prec.right(seq(
     $.keyword_cross,
     $.keyword_join,
     $.keyword_lateral,
     choice(
       $.invocation,
       $.subquery,
+      wrapped_in_parenthesis($.values),
     ),
     optional(
-      choice(
-        seq(
-          $.keyword_as,
+      seq(
+        choice(
+          seq(
+            $.keyword_as,
+            field('alias', $.identifier),
+          ),
           field('alias', $.identifier),
         ),
-        field('alias', $.identifier),
+        optional(alias($._column_list, $.list)),
       ),
     ),
-  ),
+  )),
 
   where: $ => seq(
     $.keyword_where,
