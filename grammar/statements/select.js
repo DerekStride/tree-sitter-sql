@@ -262,18 +262,17 @@ export default {
       $.keyword_only,
     ),
     $.relation,
-    repeat(
-      seq(
-        ',',
-        choice(
-          $.relation,
-          alias($._lateral_relation, $.relation),
-        ),
-      ),
-    ),
     optional($.index_hint),
     repeat(
       choice(
+        seq(
+          ',',
+          choice(
+            $.relation,
+            alias($._lateral_relation, $.relation),
+          ),
+          optional($.index_hint),
+        ),
         $.join,
         $.cross_join,
         $.lateral_join,
