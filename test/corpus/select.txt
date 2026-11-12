@@ -1512,6 +1512,95 @@ SELECT * FROM a NATURAL JOIN b USING (id);
 --------------------------------------------------------------------------------
 
 ================================================================================
+ASOF join with a match condition
+================================================================================
+
+SELECT *
+FROM trades t
+ASOF JOIN quotes q
+  MATCH_CONDITION (t.trade_time >= q.quote_time)
+  ON t.symbol = q.symbol;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (all_fields))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier))
+        alias: (identifier))
+      (join
+        (keyword_asof)
+        (keyword_join)
+        (relation
+          (object_reference
+            name: (identifier))
+          alias: (identifier))
+        (keyword_match_condition)
+        match_condition: (binary_expression
+          left: (field
+            (object_reference
+              name: (identifier))
+            name: (identifier))
+          right: (field
+            (object_reference
+              name: (identifier))
+            name: (identifier)))
+        (keyword_on)
+        predicate: (binary_expression
+          left: (field
+            (object_reference
+              name: (identifier))
+            name: (identifier))
+          right: (field
+            (object_reference
+              name: (identifier))
+            name: (identifier)))))))
+
+================================================================================
+ASOF left join with USING
+================================================================================
+
+SELECT *
+FROM trades
+ASOF LEFT JOIN quotes USING (symbol, ts);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (all_fields))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier)))
+      (join
+        (keyword_asof)
+        (keyword_left)
+        (keyword_join)
+        (relation
+          (object_reference
+            name: (identifier)))
+        (keyword_using)
+        (list
+          (column
+            (identifier))
+          (column
+            (identifier)))))))
+
+================================================================================
 Lateral join
 ================================================================================
 

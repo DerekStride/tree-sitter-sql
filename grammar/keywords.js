@@ -32,6 +32,8 @@ export default {
   keyword_join: _ => make_keyword("join"),
   keyword_lateral: _ => make_keyword("lateral"),
   keyword_natural: _ => make_keyword("natural"),
+  keyword_asof: _ => make_keyword("asof"),
+  keyword_match_condition: _ => make_keyword("match_condition"),
   keyword_on: _ => make_keyword("on"),
   keyword_off: _ => make_keyword("off"),
   keyword_where: _ => make_keyword("where"),

@@ -407,22 +407,42 @@ export default {
       $.relation,
       optional($.index_hint),
     ),
+    // Snowflake, DuckDB
+    prec.right(seq(
+      $._asof_join,
+      $.relation,
+      optional(
+        seq(
+          $.keyword_match_condition,
+          wrapped_in_parenthesis(field("match_condition", $._expression)),
+        ),
+      ),
+      optional($._join_condition),
+    )),
     seq(
       optional(join_type($)),
       $.keyword_join,
       $.relation,
       optional($.index_hint),
       optional($.join),
-      choice(
-        seq(
-          $.keyword_on,
-          field("predicate", $._expression),
-        ),
-        seq(
-          $.keyword_using,
-          alias($._column_list, $.list),
-        ),
-      ),
+      $._join_condition,
+    ),
+  ),
+
+  _asof_join: $ => seq(
+    $.keyword_asof,
+    optional($.keyword_left),
+    $.keyword_join,
+  ),
+
+  _join_condition: $ => choice(
+    seq(
+      $.keyword_on,
+      field("predicate", $._expression),
+    ),
+    seq(
+      $.keyword_using,
+      alias($._column_list, $.list),
     ),
   ),
 
