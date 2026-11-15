@@ -2600,6 +2600,73 @@ WHERE id = $12;
           right: (parameter))))))
 
 ================================================================================
+Parameterized Queries w/ ?1 syntax
+================================================================================
+
+SELECT *
+FROM x
+WHERE id = ?1;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (all_fields))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier)))
+      (where
+        (keyword_where)
+        predicate: (binary_expression
+          left: (field
+            name: (identifier))
+          right: (parameter))))))
+
+================================================================================
+Parameterized Queries w/ :name syntax
+================================================================================
+
+SELECT id::text
+FROM x
+WHERE id = :id AND kind = :kind;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (cast
+            (field
+              name: (identifier))
+            (keyword_text)))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier)))
+      (where
+        (keyword_where)
+        predicate: (binary_expression
+          left: (binary_expression
+            left: (field
+              name: (identifier))
+            right: (parameter))
+          operator: (keyword_and)
+          right: (binary_expression
+            left: (field
+              name: (identifier))
+            right: (parameter)))))))
+
+================================================================================
 Select from aliased subquery
 ================================================================================
 
