@@ -64,6 +64,43 @@ SET standard_conforming_strings TO DEFAULT;
       (keyword_default))))
 
 ================================================================================
+Set statement with a list of values
+================================================================================
+
+SET search_path TO app, public;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (set_statement
+      (keyword_set)
+      (object_reference
+        (identifier))
+      (keyword_to)
+      (identifier)
+      (identifier))))
+
+================================================================================
+Set local statement with a list of values
+================================================================================
+
+SET LOCAL search_path = 'app', public, pg_temp;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (set_statement
+      (keyword_set)
+      (keyword_local)
+      (object_reference
+        (identifier))
+      (literal)
+      (identifier)
+      (identifier))))
+
+================================================================================
 Reset statement
 ================================================================================
 
