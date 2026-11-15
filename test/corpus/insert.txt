@@ -320,6 +320,182 @@ ON CONFLICT DO UPDATE SET dname = EXCLUDED.dname;
           name: (identifier))))))
 
 ================================================================================
+Insert with on conflict on a column
+================================================================================
+
+INSERT INTO my_table (id, name)
+VALUES (1, 'foo')
+ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (insert
+      (keyword_insert)
+      (keyword_into)
+      (object_reference
+        name: (identifier))
+      (list
+        (column
+          (identifier))
+        (column
+          (identifier)))
+      (keyword_values)
+      (list
+        (literal)
+        (literal))
+      (keyword_on)
+      (keyword_conflict)
+      (index_fields
+        (field
+          column: (identifier)))
+      (keyword_do)
+      (keyword_update)
+      (keyword_set)
+      (assignment
+        left: (field
+          name: (identifier))
+        right: (field
+          (object_reference
+            name: (identifier))
+          name: (identifier))))))
+
+================================================================================
+Insert with on conflict on a constraint
+================================================================================
+
+INSERT INTO my_table (id, name)
+VALUES (1, 'foo')
+ON CONFLICT ON CONSTRAINT my_table_pkey DO NOTHING;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (insert
+      (keyword_insert)
+      (keyword_into)
+      (object_reference
+        name: (identifier))
+      (list
+        (column
+          (identifier))
+        (column
+          (identifier)))
+      (keyword_values)
+      (list
+        (literal)
+        (literal))
+      (keyword_on)
+      (keyword_conflict)
+      (keyword_on)
+      (keyword_constraint)
+      (identifier)
+      (keyword_do)
+      (keyword_nothing))))
+
+================================================================================
+Insert with on conflict on an expression and a predicate
+================================================================================
+
+INSERT INTO my_table (id, name)
+VALUES (1, 'foo')
+ON CONFLICT (id, lower(name)) WHERE id > 0 DO NOTHING;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (insert
+      (keyword_insert)
+      (keyword_into)
+      (object_reference
+        name: (identifier))
+      (list
+        (column
+          (identifier))
+        (column
+          (identifier)))
+      (keyword_values)
+      (list
+        (literal)
+        (literal))
+      (keyword_on)
+      (keyword_conflict)
+      (index_fields
+        (field
+          column: (identifier))
+        (field
+          function: (invocation
+            (object_reference
+              name: (identifier))
+            parameter: (term
+              value: (field
+                name: (identifier))))))
+      (where
+        (keyword_where)
+        predicate: (binary_expression
+          left: (field
+            name: (identifier))
+          right: (literal)))
+      (keyword_do)
+      (keyword_nothing))))
+
+================================================================================
+Insert with on conflict and a column list in SET
+================================================================================
+
+INSERT INTO my_table (id, name, city)
+VALUES (1, 'foo', 'bar')
+ON CONFLICT (id) DO UPDATE SET (name, city) = (EXCLUDED.name, EXCLUDED.city);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (insert
+      (keyword_insert)
+      (keyword_into)
+      (object_reference
+        name: (identifier))
+      (list
+        (column
+          (identifier))
+        (column
+          (identifier))
+        (column
+          (identifier)))
+      (keyword_values)
+      (list
+        (literal)
+        (literal)
+        (literal))
+      (keyword_on)
+      (keyword_conflict)
+      (index_fields
+        (field
+          column: (identifier)))
+      (keyword_do)
+      (keyword_update)
+      (keyword_set)
+      (assignment
+        left: (list
+          (field
+            name: (identifier))
+          (field
+            name: (identifier)))
+        right: (list
+          (field
+            (object_reference
+              name: (identifier))
+            name: (identifier))
+          (field
+            (object_reference
+              name: (identifier))
+            name: (identifier)))))))
+
+================================================================================
 Simple insert with low priority
 ================================================================================
 
