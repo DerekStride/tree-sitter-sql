@@ -443,6 +443,59 @@ ON CONFLICT (id, lower(name)) WHERE id > 0 DO NOTHING;
       (keyword_nothing))))
 
 ================================================================================
+Insert with on conflict and a column list in SET
+================================================================================
+
+INSERT INTO my_table (id, name, city)
+VALUES (1, 'foo', 'bar')
+ON CONFLICT (id) DO UPDATE SET (name, city) = (EXCLUDED.name, EXCLUDED.city);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (insert
+      (keyword_insert)
+      (keyword_into)
+      (object_reference
+        name: (identifier))
+      (list
+        (column
+          (identifier))
+        (column
+          (identifier))
+        (column
+          (identifier)))
+      (keyword_values)
+      (list
+        (literal)
+        (literal)
+        (literal))
+      (keyword_on)
+      (keyword_conflict)
+      (index_fields
+        (field
+          column: (identifier)))
+      (keyword_do)
+      (keyword_update)
+      (keyword_set)
+      (assignment
+        left: (list
+          (field
+            name: (identifier))
+          (field
+            name: (identifier)))
+        right: (list
+          (field
+            (object_reference
+              name: (identifier))
+            name: (identifier))
+          (field
+            (object_reference
+              name: (identifier))
+            name: (identifier)))))))
+
+================================================================================
 Simple insert with low priority
 ================================================================================
 
