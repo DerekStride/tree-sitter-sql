@@ -50,6 +50,19 @@ export default {
   _on_conflict: $ => seq(
     $.keyword_on,
     $.keyword_conflict,
+    optional(
+      choice(
+        seq(
+          $.index_fields,
+          optional($.where),
+        ),
+        seq(
+          $.keyword_on,
+          $.keyword_constraint,
+          $.identifier,
+        ),
+      ),
+    ),
     seq(
       $.keyword_do,
       choice(
