@@ -12,11 +12,16 @@ export default {
             $.object_reference,
             choice($.keyword_to, '='),
             choice(
-              $.literal,
               $.keyword_default,
-              $.identifier,
-              $.keyword_on,
-              $.keyword_off,
+              comma_list(
+                choice(
+                  $.literal,
+                  $.identifier,
+                  $.keyword_on,
+                  $.keyword_off,
+                ),
+                true,
+              ),
             ),
           ),
           seq($.keyword_schema, $.literal),
