@@ -564,13 +564,13 @@ export default {
 
   limit: $ => seq(
     $.keyword_limit,
-    $.literal,
+    $._expression,
     optional($.offset),
   ),
 
   offset: $ => seq(
     $.keyword_offset,
-    $.literal,
+    $._expression,
   ),
 
   returning: $ => seq(
