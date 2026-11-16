@@ -784,6 +784,63 @@ OFFSET 40;
           (literal))))))
 
 ================================================================================
+Simple select with limit and offset as parameters
+================================================================================
+
+SELECT *
+FROM my_table
+LIMIT $1 OFFSET $2;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (all_fields))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier)))
+      (limit
+        (keyword_limit)
+        (parameter)
+        (offset
+          (keyword_offset)
+          (parameter))))))
+
+================================================================================
+Simple select with limit as an expression
+================================================================================
+
+SELECT *
+FROM my_table
+LIMIT 5 + 5;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (all_fields))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier)))
+      (limit
+        (keyword_limit)
+        (binary_expression
+          left: (literal)
+          right: (literal))))))
+
+================================================================================
 Simple select with schema
 ================================================================================
 
@@ -3655,3 +3712,142 @@ UNPIVOT INCLUDE NULLS (sales FOR month IN (jan, feb)) AS u;
             name: (identifier))
           (keyword_as)
           alias: (identifier))))))
+
+================================================================================
+Select with LIMIT ALL, and OFFSET alone or first
+================================================================================
+
+SELECT * FROM t LIMIT ALL;
+SELECT * FROM t OFFSET 5;
+SELECT * FROM t OFFSET 5 ROWS LIMIT 10;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (all_fields))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier)))
+      (limit
+        (keyword_limit)
+        (keyword_all))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (all_fields))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier)))
+      (offset
+        (keyword_offset)
+        (literal))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (all_fields))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier)))
+      (offset
+        (keyword_offset)
+        (literal)
+        (keyword_rows))
+      (limit
+        (keyword_limit)
+        (literal)))))
+
+================================================================================
+Select with FETCH FIRST
+================================================================================
+
+SELECT * FROM t ORDER BY a FETCH FIRST 5 ROWS WITH TIES;
+SELECT * FROM t OFFSET 5 ROWS FETCH NEXT 1 ROW ONLY;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (all_fields))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier)))
+      (order_by
+        (keyword_order)
+        (keyword_by)
+        (order_target
+          (field
+            name: (identifier))))
+      (limit
+        (keyword_fetch)
+        (keyword_first)
+        (literal)
+        (keyword_rows)
+        (keyword_with)
+        (keyword_ties))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (all_fields))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier)))
+      (offset
+        (keyword_offset)
+        (literal)
+        (keyword_rows))
+      (limit
+        (keyword_fetch)
+        (keyword_next)
+        (literal)
+        (keyword_row)
+        (keyword_only)))))
+
+================================================================================
+Select with LIMIT offset, count
+================================================================================
+
+SELECT * FROM t LIMIT 10, 5;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (all_fields))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier)))
+      (limit
+        (keyword_limit)
+        (literal)
+        (literal)))))

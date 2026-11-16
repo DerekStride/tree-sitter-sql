@@ -166,6 +166,8 @@
   (keyword_unpivot)
   (keyword_limit)
   (keyword_offset)
+  (keyword_fetch)
+  (keyword_next)
   (keyword_table)
   (keyword_tables)
   (keyword_key)

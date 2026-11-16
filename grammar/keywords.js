@@ -47,6 +47,8 @@ export default {
   keyword_asc: _ => make_keyword("asc"),
   keyword_limit: _ => make_keyword("limit"),
   keyword_offset: _ => make_keyword("offset"),
+  keyword_fetch: _ => make_keyword("fetch"),
+  keyword_next: _ => make_keyword("next"),
   keyword_primary: _ => make_keyword("primary"),
   keyword_create: _ => make_keyword("create"),
   keyword_alter: _ => make_keyword("alter"),
