@@ -91,3 +91,29 @@ RESET ALL;
     (reset_statement
       (keyword_reset)
       (keyword_all))))
+
+================================================================================
+Set transaction with some of the modes
+================================================================================
+
+SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
+SET TRANSACTION READ ONLY, NOT DEFERRABLE;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (set_statement
+      (keyword_set)
+      (keyword_transaction)
+      (keyword_isolation)
+      (keyword_level)
+      (keyword_serializable)))
+  (statement
+    (set_statement
+      (keyword_set)
+      (keyword_transaction)
+      (keyword_read)
+      (keyword_only)
+      (keyword_not)
+      (keyword_deferrable))))
