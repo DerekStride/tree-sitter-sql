@@ -33,21 +33,26 @@ export default {
     ),
   ),
 
+  // PostgreSQL: any of the modes, in any order, separated by commas or by nothing
   _transaction_mode: $ => seq(
-    $.keyword_isolation,
-    $.keyword_level,
-    choice(
-      $.keyword_serializable,
-      seq($.keyword_repeatable, $.keyword_read),
-      seq($.keyword_read, $.keyword_committed),
-      seq($.keyword_read, $.keyword_uncommitted),
+    $._transaction_mode_item,
+    repeat(seq(optional(','), $._transaction_mode_item)),
+  ),
+
+  _transaction_mode_item: $ => choice(
+    seq(
+      $.keyword_isolation,
+      $.keyword_level,
+      choice(
+        $.keyword_serializable,
+        seq($.keyword_repeatable, $.keyword_read),
+        seq($.keyword_read, $.keyword_committed),
+        seq($.keyword_read, $.keyword_uncommitted),
+      ),
     ),
-    choice(
-      seq($.keyword_read, $.keyword_write),
-      seq($.keyword_read, $.keyword_only),
-    ),
-    optional($.keyword_not),
-    $.keyword_deferrable,
+    seq($.keyword_read, $.keyword_write),
+    seq($.keyword_read, $.keyword_only),
+    seq(optional($.keyword_not), $.keyword_deferrable),
   ),
 
   reset_statement: $ => seq(

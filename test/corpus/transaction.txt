@@ -121,3 +121,74 @@ ROLLBACK TRANSACTION;
             (keyword_null)))))
     (keyword_rollback)
     (keyword_transaction)))
+
+================================================================================
+Transaction statements on their own
+================================================================================
+
+START TRANSACTION READ ONLY, ISOLATION LEVEL REPEATABLE READ;
+SAVEPOINT s1;
+RELEASE SAVEPOINT s1;
+ROLLBACK WORK TO SAVEPOINT s1;
+COMMIT WORK AND NO CHAIN;
+
+--------------------------------------------------------------------------------
+
+(program
+  (transaction
+    (keyword_start)
+    (keyword_transaction)
+    (keyword_read)
+    (keyword_only)
+    (keyword_isolation)
+    (keyword_level)
+    (keyword_repeatable)
+    (keyword_read))
+  (transaction
+    (keyword_savepoint)
+    (identifier))
+  (transaction
+    (keyword_release)
+    (keyword_savepoint)
+    (identifier))
+  (transaction
+    (keyword_rollback)
+    (keyword_work)
+    (keyword_to)
+    (keyword_savepoint)
+    (identifier))
+  (transaction
+    (keyword_commit)
+    (keyword_work)
+    (keyword_and)
+    (keyword_no)
+    (keyword_chain)))
+
+================================================================================
+SQLite transaction statements between statements
+================================================================================
+
+BEGIN IMMEDIATE;
+INSERT INTO t (a) VALUES (1);
+COMMIT
+
+--------------------------------------------------------------------------------
+
+(program
+  (transaction
+    (keyword_begin)
+    (keyword_immediate))
+  (statement
+    (insert
+      (keyword_insert)
+      (keyword_into)
+      (object_reference
+        name: (identifier))
+      (list
+        (column
+          (identifier)))
+      (keyword_values)
+      (list
+        (literal))))
+  (transaction
+    (keyword_commit)))

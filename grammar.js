@@ -35,6 +35,8 @@ export default grammar({
     [$.timestamp],
     [$.all_fields],
     [$.values],
+    [$.transaction, $._begin, $.block],
+    [$.transaction, $._begin],
   ],
 
   precedences: $ => [
@@ -76,7 +78,10 @@ export default grammar({
       ),
       // optionally, a single statement without a terminating ;
       optional(
-        $.statement,
+        choice(
+          $.statement,
+          $.transaction,
+        ),
       ),
     ),
 
