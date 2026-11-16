@@ -12,6 +12,7 @@ export default {
       $.keyword_only,
     ),
     $.object_reference,
+    optional($._alias),
     optional($._delete_using),
     optional($.where),
     optional($.order_by),
