@@ -323,3 +323,326 @@ SELECT grant, revoke, privileges, granted, maintain FROM items;
       (relation
         (object_reference
           (identifier))))))
+
+================================================================================
+Grant privileges on schemas
+================================================================================
+
+GRANT USAGE, CREATE ON SCHEMA app, audit TO reader;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (grant_statement
+      (keyword_grant)
+      (table_privilege
+        (keyword_usage))
+      (table_privilege
+        (keyword_create))
+      (keyword_on)
+      (keyword_schema)
+      (identifier)
+      (identifier)
+      (keyword_to)
+      (identifier))))
+
+================================================================================
+Grant execute on functions with argument types
+================================================================================
+
+GRANT EXECUTE ON FUNCTION app.calc(text, int), app.refresh_totals() TO reader;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (grant_statement
+      (keyword_grant)
+      (table_privilege
+        (keyword_execute))
+      (keyword_on)
+      (keyword_function)
+      (object_reference
+        (identifier)
+        (identifier))
+      (function_arguments
+        (function_argument
+          (keyword_text))
+        (function_argument
+          (int
+            (keyword_int))))
+      (object_reference
+        (identifier)
+        (identifier))
+      (function_arguments)
+      (keyword_to)
+      (identifier))))
+
+================================================================================
+Grant execute on a procedure
+================================================================================
+
+GRANT EXECUTE ON PROCEDURE app.archive(IN since date) TO writer WITH GRANT OPTION;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (grant_statement
+      (keyword_grant)
+      (table_privilege
+        (keyword_execute))
+      (keyword_on)
+      (keyword_procedure)
+      (object_reference
+        (identifier)
+        (identifier))
+      (function_arguments
+        (function_argument
+          (keyword_in)
+          (identifier)
+          (keyword_date)))
+      (keyword_to)
+      (identifier)
+      (keyword_with)
+      (keyword_grant)
+      (keyword_option))))
+
+================================================================================
+Revoke privileges on a routine
+================================================================================
+
+REVOKE ALL PRIVILEGES ON ROUTINE app.calc FROM PUBLIC CASCADE;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (revoke_statement
+      (keyword_revoke)
+      (keyword_all)
+      (keyword_privileges)
+      (keyword_on)
+      (keyword_routine)
+      (object_reference
+        (identifier)
+        (identifier))
+      (keyword_from)
+      (keyword_public)
+      (keyword_cascade))))
+
+================================================================================
+Grant privileges on sequences
+================================================================================
+
+GRANT USAGE, SELECT, UPDATE ON SEQUENCE app.items_id_seq, events_id_seq TO writer;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (grant_statement
+      (keyword_grant)
+      (table_privilege
+        (keyword_usage))
+      (table_privilege
+        (keyword_select))
+      (table_privilege
+        (keyword_update))
+      (keyword_on)
+      (keyword_sequence)
+      (object_reference
+        (identifier)
+        (identifier))
+      (object_reference
+        (identifier))
+      (keyword_to)
+      (identifier))))
+
+================================================================================
+Grant privileges on databases
+================================================================================
+
+GRANT CONNECT, TEMPORARY, CREATE ON DATABASE app_db, audit_db TO reader GRANTED BY CURRENT_USER;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (grant_statement
+      (keyword_grant)
+      (table_privilege
+        (keyword_connect))
+      (table_privilege
+        (keyword_temporary))
+      (table_privilege
+        (keyword_create))
+      (keyword_on)
+      (keyword_database)
+      (identifier)
+      (identifier)
+      (keyword_to)
+      (identifier)
+      (keyword_granted)
+      (keyword_by)
+      (keyword_current_user))))
+
+================================================================================
+Revoke privileges on a database
+================================================================================
+
+REVOKE TEMP ON DATABASE app_db FROM PUBLIC;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (revoke_statement
+      (keyword_revoke)
+      (table_privilege
+        (keyword_temp))
+      (keyword_on)
+      (keyword_database)
+      (identifier)
+      (keyword_from)
+      (keyword_public))))
+
+================================================================================
+Grant and revoke on all objects of a kind in schemas
+================================================================================
+
+GRANT USAGE ON ALL SEQUENCES IN SCHEMA app, audit TO writer;
+REVOKE EXECUTE ON ALL FUNCTIONS IN SCHEMA app FROM PUBLIC;
+GRANT EXECUTE ON ALL PROCEDURES IN SCHEMA app TO writer;
+GRANT EXECUTE ON ALL ROUTINES IN SCHEMA app TO writer;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (grant_statement
+      (keyword_grant)
+      (table_privilege
+        (keyword_usage))
+      (keyword_on)
+      (keyword_all)
+      (keyword_sequences)
+      (keyword_in)
+      (keyword_schema)
+      (identifier)
+      (identifier)
+      (keyword_to)
+      (identifier)))
+  (statement
+    (revoke_statement
+      (keyword_revoke)
+      (table_privilege
+        (keyword_execute))
+      (keyword_on)
+      (keyword_all)
+      (keyword_functions)
+      (keyword_in)
+      (keyword_schema)
+      (identifier)
+      (keyword_from)
+      (keyword_public)))
+  (statement
+    (grant_statement
+      (keyword_grant)
+      (table_privilege
+        (keyword_execute))
+      (keyword_on)
+      (keyword_all)
+      (keyword_procedures)
+      (keyword_in)
+      (keyword_schema)
+      (identifier)
+      (keyword_to)
+      (identifier)))
+  (statement
+    (grant_statement
+      (keyword_grant)
+      (table_privilege
+        (keyword_execute))
+      (keyword_on)
+      (keyword_all)
+      (keyword_routines)
+      (keyword_in)
+      (keyword_schema)
+      (identifier)
+      (keyword_to)
+      (identifier))))
+
+================================================================================
+Privilege target keywords as identifiers
+================================================================================
+
+SELECT usage, connect, sequences, functions, procedures, routine, routines FROM items;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          (field
+            (identifier)))
+        (term
+          (field
+            (identifier)))
+        (term
+          (field
+            (identifier)))
+        (term
+          (field
+            (identifier)))
+        (term
+          (field
+            (identifier)))
+        (term
+          (field
+            (identifier)))
+        (term
+          (field
+            (identifier)))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          (identifier))))))
+
+================================================================================
+Grant privileges on tables named like an object kind
+================================================================================
+
+GRANT SELECT ON schema, sequence TO reader;
+REVOKE ALL ON function.calls FROM reader;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (grant_statement
+      (keyword_grant)
+      (table_privilege
+        (keyword_select))
+      (keyword_on)
+      (object_reference
+        (identifier))
+      (object_reference
+        (identifier))
+      (keyword_to)
+      (identifier)))
+  (statement
+    (revoke_statement
+      (keyword_revoke)
+      (keyword_all)
+      (keyword_on)
+      (object_reference
+        (identifier)
+        (identifier))
+      (keyword_from)
+      (identifier))))
