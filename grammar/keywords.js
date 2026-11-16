@@ -75,6 +75,8 @@ export default {
   keyword_owned: _ => make_keyword("owned"),
   keyword_start: _ => make_keyword("start"),
   keyword_restart: _ => make_keyword("restart"),
+  keyword_continue: _ => make_keyword("continue"),
+  keyword_identity: _ => make_keyword("identity"),
   keyword_key: _ => make_keyword("key"),
   keyword_duplicate: _ => make_keyword("duplicate"),
   keyword_as: _ => make_keyword("as"),

@@ -142,3 +142,30 @@ TRUNCATE TABLE employees CASCADE;
     (object_reference
       (identifier))
     (keyword_cascade)))
+
+================================================================================
+Truncate with RESTART or CONTINUE IDENTITY
+================================================================================
+
+TRUNCATE TABLE t RESTART IDENTITY CASCADE;
+TRUNCATE t, u CONTINUE IDENTITY;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (keyword_truncate)
+    (keyword_table)
+    (object_reference
+      name: (identifier))
+    (keyword_restart)
+    (keyword_identity)
+    (keyword_cascade))
+  (statement
+    (keyword_truncate)
+    (object_reference
+      name: (identifier))
+    (object_reference
+      name: (identifier))
+    (keyword_continue)
+    (keyword_identity)))

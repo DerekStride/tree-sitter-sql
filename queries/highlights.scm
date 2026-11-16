@@ -291,6 +291,8 @@
   (keyword_sequence)
   (keyword_start)
   (keyword_restart)
+  (keyword_continue)
+  (keyword_identity)
   (keyword_tablespace)
   (keyword_split)
   (keyword_tablets)
