@@ -717,3 +717,36 @@ COPY some_table (a, b, c) FROM STDIN WITH
     (keyword_match)
     (keyword_null)
     (identifier)))
+
+================================================================================
+Insert default values
+================================================================================
+
+INSERT INTO t DEFAULT VALUES;
+INSERT INTO t DEFAULT VALUES RETURNING id;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (insert
+      (keyword_insert)
+      (keyword_into)
+      (object_reference
+        name: (identifier))
+      (keyword_default)
+      (keyword_values)))
+  (statement
+    (insert
+      (keyword_insert)
+      (keyword_into)
+      (object_reference
+        name: (identifier))
+      (keyword_default)
+      (keyword_values))
+    (returning
+      (keyword_returning)
+      (select_expression
+        (term
+          value: (field
+            name: (identifier)))))))
