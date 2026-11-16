@@ -286,7 +286,12 @@ export default {
     optional($.qualify),
     optional($.window_clause),
     optional($.order_by),
-    optional($.limit),
+    optional(
+      choice(
+        $.limit,
+        seq($.offset, optional(alias($._limit_after_offset, $.limit))),
+      ),
+    ),
   ),
 
   relation: $ => prec.right(
@@ -564,13 +569,20 @@ export default {
 
   limit: $ => seq(
     $.keyword_limit,
-    $._expression,
+    choice($._expression, $.keyword_all),
     optional($.offset),
+  ),
+
+  // the LIMIT that follows an OFFSET takes no second OFFSET
+  _limit_after_offset: $ => seq(
+    $.keyword_limit,
+    choice($._expression, $.keyword_all),
   ),
 
   offset: $ => seq(
     $.keyword_offset,
     $._expression,
+    optional(choice($.keyword_row, $.keyword_rows)),
   ),
 
   returning: $ => seq(

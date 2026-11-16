@@ -35,6 +35,9 @@ export default grammar({
     [$.timestamp],
     [$.all_fields],
     [$.values],
+    // LIMIT ALL, or the ALL operator of `= ALL (...)`: a T-SQL block lets `(` open the next statement
+    [$.unary_expression, $.limit],
+    [$.unary_expression, $._limit_after_offset],
   ],
 
   precedences: $ => [

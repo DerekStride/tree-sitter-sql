@@ -3712,3 +3712,61 @@ UNPIVOT INCLUDE NULLS (sales FOR month IN (jan, feb)) AS u;
             name: (identifier))
           (keyword_as)
           alias: (identifier))))))
+
+================================================================================
+Select with LIMIT ALL, and OFFSET alone or first
+================================================================================
+
+SELECT * FROM t LIMIT ALL;
+SELECT * FROM t OFFSET 5;
+SELECT * FROM t OFFSET 5 ROWS LIMIT 10;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (all_fields))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier)))
+      (limit
+        (keyword_limit)
+        (keyword_all))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (all_fields))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier)))
+      (offset
+        (keyword_offset)
+        (literal))))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (all_fields))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier)))
+      (offset
+        (keyword_offset)
+        (literal)
+        (keyword_rows))
+      (limit
+        (keyword_limit)
+        (literal)))))
