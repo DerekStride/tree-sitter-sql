@@ -48,18 +48,60 @@ export default {
     $.keyword_truncate,
     $.keyword_trigger,
     $.keyword_maintain,
+    $.keyword_usage,
+    $.keyword_execute,
+    $.keyword_create,
+    $.keyword_connect,
+    $.keyword_temporary,
+    $.keyword_temp,
   ),
 
   _privilege_tables: $ => choice(
     seq(optional($.keyword_table), comma_list($.object_reference, true)),
+    // a table named like an object kind, as in `GRANT SELECT ON schema TO r`
+    seq(
+      alias($._object_kind_as_name, $.object_reference),
+      repeat(seq(',', $.object_reference)),
+    ),
+    seq($.keyword_sequence, comma_list($.object_reference, true)),
+    seq(
+      choice($.keyword_function, $.keyword_procedure, $.keyword_routine),
+      comma_list(seq($.object_reference, optional($.function_arguments)), true),
+    ),
+    seq(choice($.keyword_database, $.keyword_schema), comma_list($.identifier, true)),
     seq(
       $.keyword_all,
-      $.keyword_tables,
+      choice(
+        $.keyword_tables,
+        $.keyword_sequences,
+        $.keyword_functions,
+        $.keyword_procedures,
+        $.keyword_routines,
+      ),
       $.keyword_in,
       $.keyword_schema,
       comma_list($.identifier, true),
     ),
   ),
+
+  _object_kind_as_name: $ => {
+    const kind = alias(
+      choice(
+        $.keyword_schema,
+        $.keyword_sequence,
+        $.keyword_database,
+        $.keyword_function,
+        $.keyword_procedure,
+        $.keyword_routine,
+      ),
+      $.identifier,
+    );
+    return choice(
+      seq(field('database', kind), '.', field('schema', $.identifier), '.', field('name', $.identifier)),
+      seq(field('schema', kind), '.', field('name', $.identifier)),
+      field('name', kind),
+    );
+  },
 
   _privilege_role: $ => choice(
     seq(optional($.keyword_group), $.identifier),
