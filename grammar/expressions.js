@@ -10,6 +10,8 @@ export default {
         $.field,
       ),
       $.parameter,
+      alias($._numbered_parameter, $.parameter),
+      alias($._named_parameter, $.parameter),
       $.list,
       $.case,
       $.window_function,
@@ -60,6 +62,9 @@ export default {
     ),
 
   parameter: $ => /\?|(\$[0-9]+)/,
+  // ?1 and :name are tokens of their own, so that `parameter` lexes `?` and `$1` as before
+  _numbered_parameter: _ => /\?[0-9]+/,
+  _named_parameter: _ => /:[0-9A-Za-z_]+/,
 
   case: $ => seq(
     $.keyword_case,
@@ -197,14 +202,17 @@ export default {
       choice(
         field('subscript', $._expression),
         seq(
-          field('lower', $._expression),
-          ':',
-          field('upper', $._expression),
+          optional(field('lower', $._expression)),
+          alias($._slice_colon, ':'),
+          optional(field('upper', $._expression)),
         ),
       ),
       "]",
     ),
   ),
+
+  // in a[:x] the colon wins over the :x parameter, so the slice keeps its upper bound
+  _slice_colon: _ => token(prec(1, ':')),
 
   path_expression: $ => prec.left('subscript',
     seq(
