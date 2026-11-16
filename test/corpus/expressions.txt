@@ -836,6 +836,90 @@ SELECT a FROM t WHERE a = 1 AND b::int = 2;
             right: (literal)))))))
 
 ================================================================================
+Brackets after the type of a cast belong to the type
+================================================================================
+
+SELECT a::int[], b::varchar(10)[], c::int[3] FROM t;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (cast
+            (field
+              name: (identifier))
+            (int
+              (keyword_int))
+            (array_size_definition)))
+        (term
+          value: (cast
+            (field
+              name: (identifier))
+            (varchar
+              (keyword_varchar)
+              size: (literal))
+            (array_size_definition)))
+        (term
+          value: (cast
+            (field
+              name: (identifier))
+            (int
+              (keyword_int))
+            (array_size_definition
+              size: (literal))))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier))))))
+
+================================================================================
+A cast to an array type as an argument and under a subscript
+================================================================================
+
+SELECT (a::int[])[1] FROM t WHERE id = ANY($1::int[]);
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (subscript
+            expression: (parenthesized_expression
+              (cast
+                (field
+                  name: (identifier))
+                (int
+                  (keyword_int))
+                (array_size_definition)))
+            subscript: (literal)))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier)))
+      (where
+        (keyword_where)
+        predicate: (binary_expression
+          left: (field
+            name: (identifier))
+          right: (unary_expression
+            operator: (keyword_any)
+            operand: (parenthesized_expression
+              (cast
+                (parameter)
+                (int
+                  (keyword_int))
+                (array_size_definition)))))))))
+
+================================================================================
 Array subscript
 ================================================================================
 

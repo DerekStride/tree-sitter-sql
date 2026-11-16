@@ -2,7 +2,8 @@ import { make_keyword, comma_list, paren_list, wrapped_in_parenthesis } from "./
 
 export default {
 
-  _type: $ => prec.left(
+  // right: brackets after a type belong to the type, a::int[] is no subscript of a::int
+  _type: $ => prec.right(
     seq(
       choice(
         $.array_type,
