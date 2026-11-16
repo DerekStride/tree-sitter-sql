@@ -3721,3 +3721,39 @@ SELECT * FROM t, u FOR NO KEY UPDATE OF t NOWAIT FOR KEY SHARE OF u;
       (keyword_of)
       (object_reference
         name: (identifier)))))
+
+================================================================================
+Order by with NULLS FIRST or LAST and no direction
+================================================================================
+
+SELECT * FROM t ORDER BY a NULLS LAST, b DESC NULLS FIRST;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (all_fields))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier)))
+      (order_by
+        (keyword_order)
+        (keyword_by)
+        (order_target
+          (field
+            name: (identifier))
+          (keyword_nulls)
+          (keyword_last))
+        (order_target
+          (field
+            name: (identifier))
+          (direction
+            (keyword_desc))
+          (keyword_nulls)
+          (keyword_first))))))

@@ -555,17 +555,16 @@ export default {
   order_target: $ => seq(
     $._expression,
     optional(
-      seq(
-        choice(
-          $.direction,
-          seq(
-            $.keyword_using,
-            choice('<', '>', '<=', '>='),
-          ),
+      choice(
+        $.direction,
+        seq(
+          $.keyword_using,
+          choice('<', '>', '<=', '>='),
         ),
-        optional($._nulls_order),
       ),
     ),
+    // NULLS FIRST and NULLS LAST do not need a direction before them
+    optional($._nulls_order),
   ),
 
   _nulls_order: $ => seq(
