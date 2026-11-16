@@ -568,15 +568,36 @@ export default {
   ),
 
   limit: $ => seq(
-    $.keyword_limit,
-    choice($._expression, $.keyword_all),
+    choice(
+      seq(
+        $.keyword_limit,
+        choice(
+          // SQLite and MySQL: LIMIT 10, 5 skips 10 rows and returns 5
+          seq($._expression, optional(seq(',', $._expression))),
+          $.keyword_all,
+        ),
+      ),
+      $._fetch_first,
+    ),
     optional($.offset),
   ),
 
   // the LIMIT that follows an OFFSET takes no second OFFSET
-  _limit_after_offset: $ => seq(
-    $.keyword_limit,
-    choice($._expression, $.keyword_all),
+  _limit_after_offset: $ => choice(
+    seq(
+      $.keyword_limit,
+      choice($._expression, $.keyword_all),
+    ),
+    $._fetch_first,
+  ),
+
+  // SQL standard: FETCH { FIRST | NEXT } [ count ] { ROW | ROWS } { ONLY | WITH TIES }
+  _fetch_first: $ => seq(
+    $.keyword_fetch,
+    choice($.keyword_first, $.keyword_next),
+    optional($._expression),
+    choice($.keyword_row, $.keyword_rows),
+    choice($.keyword_only, seq($.keyword_with, $.keyword_ties)),
   ),
 
   offset: $ => seq(
