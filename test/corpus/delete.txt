@@ -128,6 +128,115 @@ WHERE id = 9;
           right: (literal))))))
 
 ================================================================================
+Delete with using
+================================================================================
+
+DELETE FROM my_table
+USING other_table
+WHERE my_table.id = other_table.id;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (delete
+      (keyword_delete))
+    (from
+      (keyword_from)
+      (object_reference
+        name: (identifier))
+      (keyword_using)
+      (relation
+        (object_reference
+          name: (identifier)))
+      (where
+        (keyword_where)
+        predicate: (binary_expression
+          left: (field
+            (object_reference
+              name: (identifier))
+            name: (identifier))
+          right: (field
+            (object_reference
+              name: (identifier))
+            name: (identifier)))))))
+
+================================================================================
+Delete with using, a join and returning
+================================================================================
+
+DELETE FROM my_table
+USING other_table o, (SELECT id FROM t) AS s
+JOIN third_table ON third_table.id = s.id
+WHERE my_table.id = o.id
+RETURNING my_table.id;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (delete
+      (keyword_delete))
+    (from
+      (keyword_from)
+      (object_reference
+        name: (identifier))
+      (keyword_using)
+      (relation
+        (object_reference
+          name: (identifier))
+        alias: (identifier))
+      (relation
+        (subquery
+          (select
+            (keyword_select)
+            (select_expression
+              (term
+                value: (field
+                  name: (identifier)))))
+          (from
+            (keyword_from)
+            (relation
+              (object_reference
+                name: (identifier)))))
+        (keyword_as)
+        alias: (identifier))
+      (join
+        (keyword_join)
+        (relation
+          (object_reference
+            name: (identifier)))
+        (keyword_on)
+        predicate: (binary_expression
+          left: (field
+            (object_reference
+              name: (identifier))
+            name: (identifier))
+          right: (field
+            (object_reference
+              name: (identifier))
+            name: (identifier))))
+      (where
+        (keyword_where)
+        predicate: (binary_expression
+          left: (field
+            (object_reference
+              name: (identifier))
+            name: (identifier))
+          right: (field
+            (object_reference
+              name: (identifier))
+            name: (identifier)))))
+    (returning
+      (keyword_returning)
+      (select_expression
+        (term
+          value: (field
+            (object_reference
+              name: (identifier))
+            name: (identifier)))))))
+
+================================================================================
 Truncate table
 ================================================================================
 
@@ -142,3 +251,47 @@ TRUNCATE TABLE employees CASCADE;
     (object_reference
       (identifier))
     (keyword_cascade)))
+
+================================================================================
+Delete with an alias on the target
+================================================================================
+
+DELETE FROM t AS x WHERE x.id = 1;
+DELETE FROM t x RETURNING x.id;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (delete
+      (keyword_delete))
+    (from
+      (keyword_from)
+      (object_reference
+        name: (identifier))
+      (keyword_as)
+      alias: (identifier)
+      (where
+        (keyword_where)
+        predicate: (binary_expression
+          left: (field
+            (object_reference
+              name: (identifier))
+            name: (identifier))
+          right: (literal)))))
+  (statement
+    (delete
+      (keyword_delete))
+    (from
+      (keyword_from)
+      (object_reference
+        name: (identifier))
+      alias: (identifier))
+    (returning
+      (keyword_returning)
+      (select_expression
+        (term
+          value: (field
+            (object_reference
+              name: (identifier))
+            name: (identifier)))))))
