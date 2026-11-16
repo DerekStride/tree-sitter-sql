@@ -3655,3 +3655,105 @@ UNPIVOT INCLUDE NULLS (sales FOR month IN (jan, feb)) AS u;
             name: (identifier))
           (keyword_as)
           alias: (identifier))))))
+
+================================================================================
+Select with row locks
+================================================================================
+
+SELECT * FROM t ORDER BY id LIMIT 1 FOR UPDATE SKIP LOCKED;
+SELECT * FROM t, u FOR NO KEY UPDATE OF t NOWAIT FOR KEY SHARE OF u;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (all_fields))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier)))
+      (order_by
+        (keyword_order)
+        (keyword_by)
+        (order_target
+          (field
+            name: (identifier))))
+      (limit
+        (keyword_limit)
+        (literal)))
+    (row_lock
+      (keyword_for)
+      (keyword_update)
+      (keyword_skip)
+      (keyword_locked)))
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (all_fields))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier)))
+      (relation
+        (object_reference
+          name: (identifier))))
+    (row_lock
+      (keyword_for)
+      (keyword_no)
+      (keyword_key)
+      (keyword_update)
+      (keyword_of)
+      (object_reference
+        name: (identifier))
+      (keyword_nowait))
+    (row_lock
+      (keyword_for)
+      (keyword_key)
+      (keyword_share)
+      (keyword_of)
+      (object_reference
+        name: (identifier)))))
+
+================================================================================
+Order by with NULLS FIRST or LAST and no direction
+================================================================================
+
+SELECT * FROM t ORDER BY a NULLS LAST, b DESC NULLS FIRST;
+
+--------------------------------------------------------------------------------
+
+(program
+  (statement
+    (select
+      (keyword_select)
+      (select_expression
+        (term
+          value: (all_fields))))
+    (from
+      (keyword_from)
+      (relation
+        (object_reference
+          name: (identifier)))
+      (order_by
+        (keyword_order)
+        (keyword_by)
+        (order_target
+          (field
+            name: (identifier))
+          (keyword_nulls)
+          (keyword_last))
+        (order_target
+          (field
+            name: (identifier))
+          (direction
+            (keyword_desc))
+          (keyword_nulls)
+          (keyword_first))))))

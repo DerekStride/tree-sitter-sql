@@ -38,6 +38,7 @@ export default {
     choice(
       $._insert_values,
       $._set_values,
+      seq($.keyword_default, $.keyword_values),
     ),
     optional(
       choice(

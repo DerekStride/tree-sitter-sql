@@ -68,6 +68,20 @@ export default {
         ),
       ),
       optional($.from),
+      repeat($.row_lock),
+  ),
+
+  // FOR UPDATE, FOR NO KEY UPDATE, FOR SHARE, FOR KEY SHARE [OF table, ...] [NOWAIT | SKIP LOCKED]
+  row_lock: $ => seq(
+    $.keyword_for,
+    choice(
+      $.keyword_update,
+      seq($.keyword_no, $.keyword_key, $.keyword_update),
+      $.keyword_share,
+      seq($.keyword_key, $.keyword_share),
+    ),
+    optional(seq($.keyword_of, comma_list($.object_reference, true))),
+    optional(choice($.keyword_nowait, seq($.keyword_skip, $.keyword_locked))),
   ),
 
   select: $ => seq(
@@ -541,17 +555,16 @@ export default {
   order_target: $ => seq(
     $._expression,
     optional(
-      seq(
-        choice(
-          $.direction,
-          seq(
-            $.keyword_using,
-            choice('<', '>', '<=', '>='),
-          ),
+      choice(
+        $.direction,
+        seq(
+          $.keyword_using,
+          choice('<', '>', '<=', '>='),
         ),
-        optional($._nulls_order),
       ),
     ),
+    // NULLS FIRST and NULLS LAST do not need a direction before them
+    optional($._nulls_order),
   ),
 
   _nulls_order: $ => seq(
