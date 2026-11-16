@@ -64,7 +64,7 @@ export default {
   parameter: $ => /\?|(\$[0-9]+)/,
   // ?1 and :name are tokens of their own, so that `parameter` lexes `?` and `$1` as before
   _numbered_parameter: _ => /\?[0-9]+/,
-  _named_parameter: _ => /:[A-Za-z_][0-9A-Za-z_]*/,
+  _named_parameter: _ => /:[0-9A-Za-z_]+/,
 
   case: $ => seq(
     $.keyword_case,
