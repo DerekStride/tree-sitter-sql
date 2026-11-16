@@ -1779,27 +1779,27 @@ ALTER POLICY my_policy ON my_schema.my_table
         name: (identifier))
       (keyword_using)
       (parenthesized_expression
-        (cast
-          (binary_expression
-            left: (field
-              name: (identifier))
-            right: (invocation
+        (binary_expression
+          left: (field
+            name: (identifier))
+          right: (cast
+            (invocation
               (object_reference
-                name: (identifier))))
-          (int
-            (keyword_int))))
+                name: (identifier)))
+            (int
+              (keyword_int)))))
       (keyword_with)
       (keyword_check)
       (parenthesized_expression
-        (cast
-          (binary_expression
-            left: (field
-              name: (identifier))
-            right: (invocation
+        (binary_expression
+          left: (field
+            name: (identifier))
+          right: (cast
+            (invocation
               (object_reference
-                name: (identifier))))
-          (int
-            (keyword_int)))))))
+                name: (identifier)))
+            (int
+              (keyword_int))))))))
 
 ================================================================================
 Alter materialized view rename
