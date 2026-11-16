@@ -202,14 +202,17 @@ export default {
       choice(
         field('subscript', $._expression),
         seq(
-          field('lower', $._expression),
-          ':',
-          field('upper', $._expression),
+          optional(field('lower', $._expression)),
+          alias($._slice_colon, ':'),
+          optional(field('upper', $._expression)),
         ),
       ),
       "]",
     ),
   ),
+
+  // in a[:x] the colon wins over the :x parameter, so the slice keeps its upper bound
+  _slice_colon: _ => token(prec(1, ':')),
 
   path_expression: $ => prec.left('subscript',
     seq(
