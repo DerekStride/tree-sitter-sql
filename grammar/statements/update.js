@@ -22,6 +22,8 @@ export default {
       repeat($.join),
       $._set_values,
       optional($.where),
+      optional($.order_by),
+      optional($.limit),
     ),
   ),
 
