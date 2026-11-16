@@ -105,10 +105,13 @@ export default {
     $.keyword_end,
   ),
 
-  implicit_cast: $ => seq(
-    $._expression,
-    '::',
-    $._type,
+  // `::` binds tighter than every operator, like a subscript: a + b::int is a + (b::int)
+  implicit_cast: $ => prec.left('subscript',
+    seq(
+      $._expression,
+      '::',
+      $._type,
+    ),
   ),
 
   cast: $ => seq(
