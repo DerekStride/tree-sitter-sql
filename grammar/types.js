@@ -55,7 +55,7 @@ export default {
         $.keyword_smalldatetime,
         $.time,
         $.timestamp,
-        $.keyword_timestamptz,
+        $.timestamptz,
         $.keyword_interval,
 
         $.keyword_geometry,
