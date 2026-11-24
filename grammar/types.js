@@ -78,9 +78,11 @@ export default {
 
   array_type: $ => seq(
     $.keyword_array,
-    '<',
-    field('element_type', $._type),
-    '>',
+    optional(seq(
+      '<',
+      field('element_type', $._type),
+      '>',
+    )),
   ),
 
   array_size_definition: $ => prec.left(

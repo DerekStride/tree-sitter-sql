@@ -437,6 +437,6 @@ export default {
   keyword_regproc: _ => make_keyword("regproc"),
   keyword_regtype: _ => make_keyword("regtype"),
 
-  keyword_array: _ => make_keyword("array"), // not included in _type since it's a constructor literal
+  keyword_array: _ => make_keyword("array"),
 
 }
